@@ -3,11 +3,12 @@ name: Deploy to S3
 on:
   push:
     branches:
-      - main  # or your desired branch
+      - production  # or your desired branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - name: Checkout code
