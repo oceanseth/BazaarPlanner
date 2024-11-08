@@ -20,4 +20,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          aws s3 sync . s3://www.bazaarplanner.com --delete
+          aws s3 sync . s3://www.bazaarplanner.com --delete --exclude ".git/*" --exclude ".github/*"
