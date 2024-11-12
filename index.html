@@ -1,7 +1,42 @@
-This is a work in progress library/simulator for build theory crafting/testing
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.11.5/firebase-app.js"></script>
+        
+        <title>BazaarPlanner</title>
+        <script>
+            function search(searchString) {
+                console.log("search: " + searchString);
+            }
+            function showSection(sectionId) {
+                $(".section").hide();
+                $("#" + sectionId).show();
+            }
+        </script>
+        <script src="firebase-setup.js"></script>
+    </head>
+    <body>
+        BazaarPlanner
 
+        <div id="Menu">
+            <button onclick="showSection('library')">Library</button>
+            <button onclick="showSection('about')">About</button>
+            <button onclick="showSection('simulator')">Simulator</button>                
+        </div>
 
-
-
-
-test
+    <div id="about" class="section" style="display: none;">
+    <h1>About</h1>
+    BazaarPlanner is a library/simulator for build theory crafting/testing
+    It started as a way for "Strong" to teach "simply Noah" javascript (our discord names on the <a href="https://discord.gg/AD9G7FtQ">Bazaar discord</a>).
+    Any donations will support his ongoing education, and the continued development of this tool. 
+    If you've donated at least $1, (and have cookies enabled) you will not be served google ads.
+</div>
+<div id="simulator" class="section" style="display: none;">
+    Import a build: <input type="file" id="build-input">
+</div>
+<div id="library" class="section" style="display: none;">
+    Library
+    <input type="text" id="search-input" onkeyup="search(this.value)">
+</div>
+</body>
+</html>
