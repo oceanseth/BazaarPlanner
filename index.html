@@ -11,15 +11,23 @@
             function showSection(sectionId) {
                 $(".section").hide();
                 $("#" + sectionId).show();
+                $("#Menu button").removeClass("selected"); 
+                $(event.target).addClass("selected");
             }
         </script>
         <script src="firebase-setup.js"></script>
+        <style>
+            .selected {
+                background-color: blue;
+                color:white;
+            }
+        </style>
     </head>
     <body>
         BazaarPlanner
 
         <div id="Menu">
-            <button onclick="showSection('library')">Library</button>
+            <button onclick="showSection('library')" class="selected">Library</button>
             <button onclick="showSection('about')">About</button>
             <button onclick="showSection('simulator')">Simulator</button>                
         </div>
