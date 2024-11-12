@@ -45,17 +45,39 @@
 
     // Fetch data from Firebase and update content
     items.on('value', (snapshot) => {
-        const data = snapshot.val();
-        const itemsList = document.getElementById('itemsList');
-        itemsList.innerHTML = ''; // Clear existing content
+    const data = snapshot.val();
+    const itemsList = document.getElementById('itemsList');
+    itemsList.innerHTML = '';
+    
+    Object.entries(data).forEach(([key, item]) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'list-item';
+        itemDiv.textContent = item.name || key;
         
-        // Loop through each item in the data
-        Object.entries(data).forEach(([key, item]) => {
-            const itemDiv = document.createElement('div');
-            itemDiv.textContent = item.name || key; // Display item name or key if name doesn't exist
-            itemsList.appendChild(itemDiv);
-        });
+        // Create tooltip
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        
+        // Add icon if exists
+        if (item.icon) {
+            const icon = document.createElement('img');
+            icon.src = item.icon;
+            icon.className = 'item-icon';
+            tooltip.appendChild(icon);
+        }
+        
+        // Add text if exists
+        if (item.text) {
+            const desc = document.createElement('p');
+            desc.textContent = item.text;
+            tooltip.appendChild(desc);
+        }
+        
+        itemDiv.appendChild(tooltip);
+        itemsList.appendChild(itemDiv);
     });
+});
+
 
     // Do the same for monsters
     monsters.on('value', (snapshot) => {
@@ -89,6 +111,39 @@
                 background-color: blue;
                 color:white;
             }
+
+            .list-item {
+        position: relative;
+        cursor: pointer;
+        padding: 5px;
+        margin: 2px 0;
+        border: 1px solid red; /* Add this line to debug */
+    }
+
+    .tooltip {
+        display: none;
+        position: absolute;
+        background: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 100;
+        left: 0;
+        top: 0;
+        min-width: 200px; 
+        transform: translateX(5px);
+    }
+
+    .list-item:hover .tooltip {
+        display: block;
+    }
+
+    .item-icon {
+        max-width: 32px;
+        max-height: 32px;
+        margin-bottom: 5px;
+    }
         </style>
     </head>
     <body>
