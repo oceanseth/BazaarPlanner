@@ -72,6 +72,12 @@
             desc.textContent = item.text;
             tooltip.appendChild(desc);
         }
+        if (item.bottomtext) {
+            tooltip.appendChild(document.createElement('hr'));
+            const desc2 = document.createElement('p');
+            desc2.textContent = item.bottomtext;
+            tooltip.appendChild(desc2);
+        }
         
         itemDiv.appendChild(tooltip);
         itemsList.appendChild(itemDiv);
