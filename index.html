@@ -146,11 +146,13 @@
     }
 
     .item-icon {
-        max-width: 32px;
-        max-height: 32px;
+        max-width: 62px;
+        max-height: 62px;
         margin-bottom: 5px;
     }
         </style>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5415281723709994"
+        crossorigin="anonymous"></script>
     </head>
     <body>
         BazaarPlanner
@@ -158,15 +160,24 @@
         <div id="Menu">
             <button onclick="showSection('library')" class="selected">Library</button>
             <button onclick="showSection('about')">About</button>
-            <button onclick="showSection('simulator')">Simulator</button>                
+            <button onclick="showSection('simulator')">Simulator</button>
+
+                                
         </div>
 
     <div id="about" class="section" style="display: none;">
     <h1>About</h1>
+    <p style="width:400px;">
     BazaarPlanner is a library/simulator for build theory crafting/testing
     It started as a way for "Strong" to teach "simply Noah" javascript (our discord names on the <a href="https://discord.gg/AD9G7FtQ">Bazaar discord</a>).
     Any donations will support his ongoing education, and the continued development of this tool. 
     If you've donated at least $1, (and have cookies enabled) you will not be served google ads.
+</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_top">
+        <input type="hidden" name="hosted_button_id" value="69T35VQGLC76Q" />
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+        <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+        </form>
 </div>
 <div id="simulator" class="section" style="display: none;">
     Import a build: <input type="file" id="build-input">
