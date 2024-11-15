@@ -1,6 +1,191 @@
-Testing github deploy 
-<br>
-<br>
-<br>
-<br>
-test from Noah
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+      
+        <title>BazaarPlanner</title>
+        <script>
+            function search(searchString) {
+                console.log("search: " + searchString);
+            }
+            function showSection(sectionId) {
+                $(".section").hide();
+                $("#" + sectionId).show();
+                $("#Menu button").removeClass("selected"); 
+                $(event.target).addClass("selected");
+            }
+
+  // Import the functions you need from the SDKs you need
+         // TODO: Add SDKs for Firebase products that you want to use
+                // https://firebase.google.com/docs/web/setup#available-libraries
+
+                // Your web app's Firebase configuration
+                // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+                const firebaseConfig = {
+                    apiKey: "AIzaSyCrDTf9_S8PURED8DZBDbbEsJuMA1poduw",
+                    authDomain: "bazaarplanner.firebaseapp.com",
+                    databaseURL: "https://bazaarplanner-default-rtdb.firebaseio.com",
+                    projectId: "bazaarplanner",
+                    storageBucket: "bazaarplanner.firebasestorage.app",
+                    messagingSenderId: "785099543393",
+                    appId: "1:785099543393:web:64f446c9ff8b0a34086b20",
+                    measurementId: "G-PPXK7672LC"
+                };
+
+                const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    // Reference to data path in Firebase
+    const items = database.ref('items'); // Replace with your actual data path
+    const monsters = database.ref('monsters');
+    const skills = database.ref('skills');
+
+    // Fetch data from Firebase and update content
+    items.on('value', (snapshot) => {
+    const data = snapshot.val();
+    const itemsList = document.getElementById('itemsList');
+    itemsList.innerHTML = '';
+    
+    Object.entries(data).forEach(([key, item]) => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'list-item';
+        itemDiv.textContent = item.name || key;
+        
+        // Create tooltip
+        const tooltip = document.createElement('div');
+        tooltip.className = 'tooltip';
+        
+        // Add icon if exists
+        if (item.icon) {
+            const icon = document.createElement('img');
+            icon.src = item.icon;
+            icon.className = 'item-icon';
+            tooltip.appendChild(icon);
+        }
+        
+        // Add text if exists
+        if (item.text) {
+            const desc = document.createElement('p');
+            desc.textContent = item.text;
+            tooltip.appendChild(desc);
+        }
+        if (item.bottomtext) {
+            tooltip.appendChild(document.createElement('hr'));
+            const desc2 = document.createElement('p');
+            desc2.textContent = item.bottomtext;
+            tooltip.appendChild(desc2);
+        }
+        
+        itemDiv.appendChild(tooltip);
+        itemsList.appendChild(itemDiv);
+    });
+});
+
+
+    // Do the same for monsters
+    monsters.on('value', (snapshot) => {
+        const data = snapshot.val();
+        const monstersList = document.getElementById('monstersList');
+        monstersList.innerHTML = '';
+        
+        Object.entries(data).forEach(([key, monster]) => {
+            const monsterDiv = document.createElement('div');
+            monsterDiv.textContent = monster.name || key;
+            monstersList.appendChild(monsterDiv);
+        });
+    });
+
+    // And skills
+    skills.on('value', (snapshot) => {
+        const data = snapshot.val();
+        const skillsList = document.getElementById('skillsList');
+        skillsList.innerHTML = '';
+        
+        Object.entries(data).forEach(([key, skill]) => {
+            const skillDiv = document.createElement('div');
+            skillDiv.textContent = skill.name || key;
+            skillsList.appendChild(skillDiv);
+        });
+    });
+
+        </script>
+        <style>
+            .selected {
+                background-color: blue;
+                color:white;
+            }
+
+            .list-item {
+        position: relative;
+        cursor: pointer;
+        padding: 5px;
+        margin: 2px 0;
+        border: 1px solid red; /* Add this line to debug */
+    }
+
+    .tooltip {
+        display: none;
+        position: absolute;
+        background: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 100;
+        left: 0;
+        top: 0;
+        min-width: 200px; 
+        transform: translateX(5px);
+    }
+
+    .list-item:hover .tooltip {
+        display: block;
+    }
+
+    .item-icon {
+        max-width: 32px;
+        max-height: 32px;
+        margin-bottom: 5px;
+    }
+        </style>
+    </head>
+    <body>
+        BazaarPlanner
+
+        <div id="Menu">
+            <button onclick="showSection('library')" class="selected">Library</button>
+            <button onclick="showSection('about')">About</button>
+            <button onclick="showSection('simulator')">Simulator</button>                
+        </div>
+
+    <div id="about" class="section" style="display: none;">
+    <h1>About</h1>
+    BazaarPlanner is a library/simulator for build theory crafting/testing
+    It started as a way for "Strong" to teach "simply Noah" javascript (our discord names on the <a href="https://discord.gg/AD9G7FtQ">Bazaar discord</a>).
+    Any donations will support his ongoing education, and the continued development of this tool. 
+    If you've donated at least $1, (and have cookies enabled) you will not be served google ads.
+</div>
+<div id="simulator" class="section" style="display: none;">
+    Import a build: <input type="file" id="build-input">
+</div>
+<div id="library" class="section">
+    Library
+    <input type="text" id="search-input" onkeyup="search(this.value)">
+    <div>Monsters
+        <div id="monstersList"></div>
+    </div>
+    <div>Items
+        <div id="itemsList"></div>
+
+    </div>
+    <div>Skills
+        <div id="skillsList"></div>
+
+    </div>
+
+</div>
+</body>
+</html>
