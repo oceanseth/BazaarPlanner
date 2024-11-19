@@ -5,7 +5,6 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-        
 
         <link rel="stylesheet" href="styles.css">
         <script src="script.js" defer></script>
@@ -13,7 +12,6 @@
     </head>
     <body>
         BazaarPlanner
-
         <div id="Menu">
             <button onclick="showSection('library')" class="selected">Library</button>
             <button onclick="showSection('about')">About</button>
@@ -29,11 +27,22 @@
     Any donations will support his ongoing education, and the continued development of this tool. 
     If you've donated at least $1, (and have cookies enabled) you will not be served google ads.
 </p>
-    <form action="https://www.paypal.com/donate" method="post" target="_top">
-        <input type="hidden" name="hosted_button_id" value="69T35VQGLC76Q" />
-        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-        <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-        </form>
+<div id="donate-button-container">
+    <div id="donate-button"></div>
+    <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+    <script>
+    PayPal.Donation.Button({
+    env:'production',
+    hosted_button_id:'B4LEV6GZB6YP2',
+    image: {
+    src:'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif',
+    alt:'Donate with PayPal button',
+    title:'PayPal - The safer, easier way to pay online!',
+    }
+    }).render('#donate-button');
+    </script>
+    </div>
+    
 </div>
 <div id="simulator" class="section" style="display: none;">
             <div id="simulator-controls">
@@ -46,6 +55,7 @@
                     <div id="simulator-itemsList"></div>
                 </div>
                 <div style="flex-grow: 1;">
+                    <div id="topPlayerHealth" class="playerHealth">1000</div>
                     <div class="board-container">
                         <div id="inventory-board" class="board">
                             <!-- Slots will be generated here -->
@@ -65,7 +75,9 @@
                         </div>
                     </div>
                 </div>
+                <div id="bottomPlayerHealth" class="playerHealth">1000</div>
             </div>
+            <button onclick="startBattle()" class="battle-button">Start Battle</button>
 </div>
 <div id="library" class="section">
     Library

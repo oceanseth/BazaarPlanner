@@ -315,6 +315,7 @@ function placeItem(startIndex, size, itemData, boardId = 'inventory-board') {
     mergedSlot.dataset.startIndex = startIndex;
     mergedSlot.dataset.size = size;
     mergedSlot.setAttribute('data-item', JSON.stringify(itemData));
+    mergedSlot.itemData = itemData; 
     mergedSlot.setAttribute('data-tooltip', createTooltip(itemData));
     mergedSlot.draggable = true;
     
@@ -465,6 +466,91 @@ function saveBoard(boardId) {
         notification.style.opacity = '0';
         setTimeout(() => notification.remove(), 300);
     }, 1500);
+}
+
+
+var topPlayerHealth = 1000;
+var bottomPlayerHealth = 1000;
+function resetHealth() {
+    topPlayerHealth = 1000;
+    bottomPlayerHealth = 1000;
+}
+
+var battleInterval = undefined;
+var startBattleTime;
+
+function triggerItem(item) {
+    let itemData = item.itemData;
+    console.log('triggered item ',itemData.name);
+    if(itemData.tags.weapon==1) {
+        if(item.parentElement.id == 'bottom-board') {
+            topPlayerHealth -= itemData.damage;
+            console.log("Bottom player's "+itemData.name+" deals "+ itemData.damage+" damage.");
+        } else {
+            bottomPlayerHealth -= itemData.damage;
+            console.log("Top player's "+itemData.name+" deals "+ itemData.damage+" damage.");
+        }
+    }
+
+}
+
+function battleFunction() {
+    let currentTime = Date.now();
+    let scaleBy = 1;
+    let timeDiff = currentTime - startBattleTime;
+    if(timeDiff > 200) {
+        scaleBy = Math.floor((currentTime - startBattleTime)/100);
+    }
+
+    //advance all the cooldowns by appropriate amounts
+    const progressBars = document.querySelectorAll('.battleItemProgressBar');
+    progressBars.forEach(bar => {
+        const cooldown = parseInt(bar.dataset.cooldown) * 1000;        
+        let heightPercent = 100*((timeDiff) % cooldown ) / cooldown;
+        let bottomstyle = 'calc('+heightPercent+'% - 5px)';
+        bar.style.bottom = bottomstyle;
+        let numTriggers = Math.floor(timeDiff/cooldown);
+        let count = 0;
+        while(bar.dataset.numTriggers != numTriggers && count++<100) {
+            bar.dataset.numTriggers++;
+            triggerItem(bar.parentElement);
+        }
+
+    });
+
+    $("#topPlayerHealth").html(topPlayerHealth);
+    $("#bottomPlayerHealth").html(bottomPlayerHealth);
+
+  if(topPlayerHealth<=0) {
+    clearInterval(battleInterval);
+    alert("you win");
+    resetHealth();
+  }
+  if(bottomPlayerHealth <=0) {
+    clearInterval(battleInterval);
+    resetHealth();
+    alert("you lose");
+  }
+}
+
+function startBattle() {
+    startBattleTime = Date.now();
+    
+    // Get all items from all boards
+    const items = document.querySelectorAll('.merged-slot');
+    items.forEach(item => {
+        const itemData = JSON.parse(item.getAttribute('data-item'));
+        const cooldown = itemData.cooldown || 0; // Default to 0 if no cooldown specified
+        if(cooldown==0) return;
+        const progressBar = document.createElement('div');
+        progressBar.className = 'battleItemProgressBar';
+        progressBar.dataset.cooldown = cooldown;
+        progressBar.dataset.numTriggers = 0;
+        
+        item.appendChild(progressBar);
+    });
+    
+    battleInterval = setInterval(battleFunction, 100);
 }
 
 function loadBoard(boardId) {
