@@ -5,7 +5,6 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-        
 
         <link rel="stylesheet" href="styles.css">
         <script src="script.js" defer></script>
@@ -13,7 +12,6 @@
     </head>
     <body>
         BazaarPlanner
-
         <div id="Menu">
             <button onclick="showSection('library')" class="selected">Library</button>
             <button onclick="showSection('about')">About</button>
@@ -57,6 +55,7 @@
                     <div id="simulator-itemsList"></div>
                 </div>
                 <div style="flex-grow: 1;">
+                    <div id="topPlayerHealth" class="playerHealth">1000</div>
                     <div class="board-container">
                         <div id="inventory-board" class="board">
                             <!-- Slots will be generated here -->
@@ -76,7 +75,9 @@
                         </div>
                     </div>
                 </div>
+                <div id="bottomPlayerHealth" class="playerHealth">1000</div>
             </div>
+            <button onclick="startBattle()" class="battle-button">Start Battle</button>
 </div>
 <div id="library" class="section">
     Library
