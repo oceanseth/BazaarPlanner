@@ -3,156 +3,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-      
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+        
+
+        <link rel="stylesheet" href="styles.css">
+        <script src="script.js" defer></script>
         <title>BazaarPlanner</title>
-        <script>
-            function search(searchString) {
-                console.log("search: " + searchString);
-            }
-            function showSection(sectionId) {
-                $(".section").hide();
-                $("#" + sectionId).show();
-                $("#Menu button").removeClass("selected"); 
-                $(event.target).addClass("selected");
-            }
-
-  // Import the functions you need from the SDKs you need
-         // TODO: Add SDKs for Firebase products that you want to use
-                // https://firebase.google.com/docs/web/setup#available-libraries
-
-                // Your web app's Firebase configuration
-                // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-                const firebaseConfig = {
-                    apiKey: "AIzaSyCrDTf9_S8PURED8DZBDbbEsJuMA1poduw",
-                    authDomain: "bazaarplanner.firebaseapp.com",
-                    databaseURL: "https://bazaarplanner-default-rtdb.firebaseio.com",
-                    projectId: "bazaarplanner",
-                    storageBucket: "bazaarplanner.firebasestorage.app",
-                    messagingSenderId: "785099543393",
-                    appId: "1:785099543393:web:64f446c9ff8b0a34086b20",
-                    measurementId: "G-PPXK7672LC"
-                };
-
-                const app = firebase.initializeApp(firebaseConfig);
-    const database = firebase.database();
-
-    // Reference to data path in Firebase
-    const items = database.ref('items'); // Replace with your actual data path
-    const monsters = database.ref('monsters');
-    const skills = database.ref('skills');
-
-    // Fetch data from Firebase and update content
-    items.on('value', (snapshot) => {
-    const data = snapshot.val();
-    const itemsList = document.getElementById('itemsList');
-    itemsList.innerHTML = '';
-    
-    Object.entries(data).forEach(([key, item]) => {
-        const itemDiv = document.createElement('div');
-        itemDiv.className = 'list-item';
-        itemDiv.textContent = item.name || key;
-        
-        // Create tooltip
-        const tooltip = document.createElement('div');
-        tooltip.className = 'tooltip';
-        
-        // Add icon if exists
-        if (item.icon) {
-            const icon = document.createElement('img');
-            icon.src = item.icon;
-            icon.className = 'item-icon';
-            tooltip.appendChild(icon);
-        }
-        
-        // Add text if exists
-        if (item.text) {
-            const desc = document.createElement('p');
-            desc.textContent = item.text;
-            tooltip.appendChild(desc);
-        }
-        if (item.bottomtext) {
-            tooltip.appendChild(document.createElement('hr'));
-            const desc2 = document.createElement('p');
-            desc2.textContent = item.bottomtext;
-            tooltip.appendChild(desc2);
-        }
-        
-        itemDiv.appendChild(tooltip);
-        itemsList.appendChild(itemDiv);
-    });
-});
-
-
-    // Do the same for monsters
-    monsters.on('value', (snapshot) => {
-        const data = snapshot.val();
-        const monstersList = document.getElementById('monstersList');
-        monstersList.innerHTML = '';
-        
-        Object.entries(data).forEach(([key, monster]) => {
-            const monsterDiv = document.createElement('div');
-            monsterDiv.textContent = monster.name || key;
-            monstersList.appendChild(monsterDiv);
-        });
-    });
-
-    // And skills
-    skills.on('value', (snapshot) => {
-        const data = snapshot.val();
-        const skillsList = document.getElementById('skillsList');
-        skillsList.innerHTML = '';
-        
-        Object.entries(data).forEach(([key, skill]) => {
-            const skillDiv = document.createElement('div');
-            skillDiv.textContent = skill.name || key;
-            skillsList.appendChild(skillDiv);
-        });
-    });
-
-        </script>
-        <style>
-            .selected {
-                background-color: blue;
-                color:white;
-            }
-
-            .list-item {
-        position: relative;
-        cursor: pointer;
-        padding: 5px;
-        margin: 2px 0;
-        border: 1px solid red; /* Add this line to debug */
-    }
-
-    .tooltip {
-        display: none;
-        position: absolute;
-        background: white;
-        border: 1px solid #ccc;
-        padding: 10px;
-        border-radius: 4px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        z-index: 100;
-        left: 0;
-        top: 0;
-        min-width: 200px; 
-        transform: translateX(5px);
-    }
-
-    .list-item:hover .tooltip {
-        display: block;
-    }
-
-    .item-icon {
-        max-width: 62px;
-        max-height: 62px;
-        margin-bottom: 5px;
-    }
-        </style>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5415281723709994"
-        crossorigin="anonymous"></script>
     </head>
     <body>
         BazaarPlanner
@@ -164,7 +21,6 @@
 
                                 
         </div>
-
     <div id="about" class="section" style="display: none;">
     <h1>About</h1>
     <p style="width:400px;">
@@ -191,7 +47,36 @@
     
 </div>
 <div id="simulator" class="section" style="display: none;">
-    Import a build: <input type="file" id="build-input">
+            <div id="simulator-controls">
+                <input type="text" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" placeholder="Search items...">
+                <datalist id="simulator-suggestions"></datalist>
+            </div>
+            <div style="display: flex; gap: 20px;">
+                <div id="simulator-items">
+                    <h3>Available Items</h3>
+                    <div id="simulator-itemsList"></div>
+                </div>
+                <div style="flex-grow: 1;">
+                    <div class="board-container">
+                        <div id="inventory-board" class="board">
+                            <!-- Slots will be generated here -->
+                        </div>
+                        <div class="board-controls">
+                            <button onclick="saveBoard('inventory-board')">Save</button>
+                            <button onclick="loadBoard('inventory-board')">Load</button>
+                        </div>
+                    </div>
+                    <div class="board-container">
+                        <div id="bottom-board" class="board">
+                            <!-- Slots will be generated here -->
+                        </div>
+                        <div class="board-controls">
+                            <button onclick="saveBoard('bottom-board')">Save</button>
+                            <button onclick="loadBoard('bottom-board')">Load</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 </div>
 <div id="library" class="section">
     Library
@@ -205,9 +90,19 @@
     </div>
     <div>Skills
         <div id="skillsList"></div>
-
-    </div>
-
-</div>
-</body>
-</html>
+        <div id="library" class="section">
+            Library
+            <input type="text" class="search-input" list="search-suggestions" onkeyup="search(this.value)" placeholder="Search...">
+            <datalist id="search-suggestions"></datalist>
+            <div>Monsters
+                <div id="monstersList"></div>
+            </div>
+            <div>Items
+                <div id="itemsList"></div>
+            </div>
+            <div>Skills
+                <div id="skillsList"></div>
+            </div>
+        </div>
+    </body>
+</html> 
