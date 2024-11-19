@@ -36,21 +36,6 @@
         </form>
 </div>
 <div id="simulator" class="section" style="display: none;">
-    Import a build: <input type="file" id="build-input">
-</div>
-<div id="library" class="section">
-    Library
-    <input type="text" id="search-input" onkeyup="search(this.value)">
-    <div>Monsters
-        <div id="monstersList"></div>
-    </div>
-    <div>Items
-        <div id="itemsList"></div>
-
-    </div>
-    <div>Skills
-        <div id="skillsList"></div>
-        <div id="simulator" class="section" style="display: none;">
             <div id="simulator-controls">
                 <input type="text" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" placeholder="Search items...">
                 <datalist id="simulator-suggestions"></datalist>
@@ -81,8 +66,19 @@
                     </div>
                 </div>
             </div>
-        </div>
+</div>
+<div id="library" class="section">
+    Library
+    <input type="text" id="search-input" onkeyup="search(this.value)">
+    <div>Monsters
+        <div id="monstersList"></div>
+    </div>
+    <div>Items
+        <div id="itemsList"></div>
 
+    </div>
+    <div>Skills
+        <div id="skillsList"></div>
         <div id="library" class="section">
             Library
             <input type="text" class="search-input" list="search-suggestions" onkeyup="search(this.value)" placeholder="Search...">
