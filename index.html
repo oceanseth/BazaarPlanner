@@ -6,6 +6,7 @@
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
         
+
         <link rel="stylesheet" href="styles.css">
         <script src="script.js" defer></script>
         <title>BazaarPlanner</title>
@@ -16,17 +17,39 @@
         <div id="Menu">
             <button onclick="showSection('library')" class="selected">Library</button>
             <button onclick="showSection('about')">About</button>
-            <button onclick="showSection('simulator')">Simulator</button>                
-        </div>
+            <button onclick="showSection('simulator')">Simulator</button>
 
-        <div id="about" class="section" style="display: none;">
-            <h1>About</h1>
-            BazaarPlanner is a library/simulator for build theory crafting/testing
-            It started as a way for "Strong" to teach "simply Noah" javascript (our discord names on the <a href="https://discord.gg/AD9G7FtQ">Bazaar discord</a>).
-            Any donations will support his ongoing education, and the continued development of this tool. 
-            If you've donated at least $1, (and have cookies enabled) you will not be served google ads.
+                                
         </div>
+    <div id="about" class="section" style="display: none;">
+    <h1>About</h1>
+    <p style="width:400px;">
+    BazaarPlanner is a library/simulator for build theory crafting/testing
+    It started as a way for "Strong" to teach "simply Noah" javascript (our discord names on the <a href="https://discord.gg/AD9G7FtQ">Bazaar discord</a>).
+    Any donations will support his ongoing education, and the continued development of this tool. 
+    If you've donated at least $1, (and have cookies enabled) you will not be served google ads.
+</p>
+    <form action="https://www.paypal.com/donate" method="post" target="_top">
+        <input type="hidden" name="hosted_button_id" value="69T35VQGLC76Q" />
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+        <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+        </form>
+</div>
+<div id="simulator" class="section" style="display: none;">
+    Import a build: <input type="file" id="build-input">
+</div>
+<div id="library" class="section">
+    Library
+    <input type="text" id="search-input" onkeyup="search(this.value)">
+    <div>Monsters
+        <div id="monstersList"></div>
+    </div>
+    <div>Items
+        <div id="itemsList"></div>
 
+    </div>
+    <div>Skills
+        <div id="skillsList"></div>
         <div id="simulator" class="section" style="display: none;">
             <div id="simulator-controls">
                 <input type="text" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" placeholder="Search items...">
