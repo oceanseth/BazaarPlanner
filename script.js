@@ -315,6 +315,7 @@ function placeItem(startIndex, size, itemData, boardId = 'inventory-board') {
     mergedSlot.dataset.startIndex = startIndex;
     mergedSlot.dataset.size = size;
     mergedSlot.setAttribute('data-item', JSON.stringify(itemData));
+    mergedSlot.itemData = itemData; 
     mergedSlot.setAttribute('data-tooltip', createTooltip(itemData));
     mergedSlot.draggable = true;
     
@@ -466,6 +467,242 @@ function saveBoard(boardId) {
         setTimeout(() => notification.remove(), 300);
     }, 1500);
 }
+
+
+var topPlayerHealth = 1000;
+var bottomPlayerHealth = 1000;
+function resetHealth() {
+    topPlayerHealth = 1000;
+    bottomPlayerHealth = 1000;
+    $("#topPlayerHealth").html(topPlayerHealth);
+    $("#bottomPlayerHealth").html(bottomPlayerHealth);
+}
+
+var battleInterval = undefined;
+var startBattleTime;
+
+function triggerItem(item) {
+    let itemData = item.itemData;
+    console.log('triggered item ', itemData.name);
+    if(itemData.tags.weapon==1) {
+        let damage = itemData.damage;
+        
+        // Handle critical hits using itemData.crit (0-100) instead of critChance
+        if (itemData.crit && Math.random() < (itemData.crit / 100)) {
+            damage *= 2;
+            console.log("CRITICAL HIT!");
+        }
+        
+        if(item.parentElement.id == 'bottom-board') {
+            topPlayerHealth -= damage;
+            console.log("Bottom player's "+itemData.name+" deals "+ damage+" damage.");
+        } else {
+            bottomPlayerHealth -= damage;
+            console.log("Top player's "+itemData.name+" deals "+ damage+" damage.");
+        }
+    }
+}
+
+function battleFunction() {
+    let currentTime = Date.now();
+    let scaleBy = 1;
+    let timeDiff = currentTime - startBattleTime;
+    if(timeDiff > 200) {
+        scaleBy = Math.floor((currentTime - startBattleTime)/100);
+    }
+
+    //advance all the cooldowns by appropriate amounts
+    const progressBars = document.querySelectorAll('.battleItemProgressBar');
+    progressBars.forEach(bar => {
+        const cooldown = parseInt(bar.dataset.cooldown) * 1000;        
+        let heightPercent = 100*((timeDiff) % cooldown ) / cooldown;
+        let bottomstyle = 'calc('+heightPercent+'% - 5px)';
+        bar.style.bottom = bottomstyle;
+        let numTriggers = Math.floor(timeDiff/cooldown);
+        let count = 0;
+        while(bar.dataset.numTriggers != numTriggers && count++<100) {
+            bar.dataset.numTriggers++;
+            triggerItem(bar.parentElement);
+        }
+
+    });
+
+    $("#topPlayerHealth").html(topPlayerHealth);
+    $("#bottomPlayerHealth").html(bottomPlayerHealth);
+
+  if(topPlayerHealth<=0) {
+    clearInterval(battleInterval);
+    alert("you win");
+    resetHealth();
+  }
+  if(bottomPlayerHealth <=0) {
+    clearInterval(battleInterval);
+    resetHealth();
+    alert("you lose");
+  }
+}
+
+function resetBattle() {
+    clearInterval(battleInterval);
+    battleInterval = null; // Clear the interval reference
+    resetHealth();
+    
+    // Remove progress bars
+    document.querySelectorAll('.battleItemProgressBar').forEach(bar => {
+        bar.remove();
+    });
+    
+    // Reset button
+    const battleButton = document.querySelector('.battle-button');
+    battleButton.textContent = 'Start Battle';
+    battleButton.classList.remove('stop-battle');
+}
+
+function startBattle() {
+    const battleButton = document.querySelector('.battle-button');
+    
+    // If battle is ongoing, stop it
+    if (battleInterval) {
+        resetBattle();
+        return;
+    }
+    
+    // Start new battle
+    startBattleTime = Date.now();
+    
+    // Get all items from all boards
+    const items = document.querySelectorAll('.merged-slot');
+    items.forEach(item => {
+        const itemData = JSON.parse(item.getAttribute('data-item'));
+        const cooldown = itemData.cooldown || 0;
+        if(cooldown==0) return;
+        const progressBar = document.createElement('div');
+        progressBar.className = 'battleItemProgressBar';
+        progressBar.dataset.cooldown = cooldown;
+        progressBar.dataset.numTriggers = 0;
+        
+        item.appendChild(progressBar);
+    });
+    
+    battleInterval = setInterval(battleFunction, 100);
+    
+    // Update button
+    battleButton.textContent = 'Stop Battle';
+    battleButton.classList.add('stop-battle');
+}
+
+function editItem(item) {
+    const itemData = JSON.parse(item.getAttribute('data-item'));
+    
+    const popup = document.createElement('div');
+    popup.className = 'item-edit-popup';
+    popup.innerHTML = `
+        <h3>Edit ${itemData.name}</h3>
+        <div class="form-group">
+            <label>Damage:</label>
+            <input type="number" id="edit-damage" value="${itemData.damage || 0}">
+        </div>
+        <div class="form-group">
+            <label>Cooldown (seconds):</label>
+            <input type="number" id="edit-cooldown" value="${itemData.cooldown || 0}">
+        </div>
+        <div class="form-group">
+            <label>Crit Chance (0-100):</label>
+            <input type="number" min="0" max="100" id="edit-crit" value="${itemData.crit || 0}">
+        </div>
+        <div class="button-group">
+            <button class="save-edit">Save</button>
+            <button class="cancel-edit">Cancel</button>
+        </div>
+    `;
+    
+    document.body.appendChild(popup);
+    
+    popup.querySelector('.save-edit').addEventListener('click', () => {
+        itemData.damage = parseFloat(popup.querySelector('#edit-damage').value) || 0;
+        itemData.cooldown = parseFloat(popup.querySelector('#edit-cooldown').value) || 0;
+        itemData.crit = parseFloat(popup.querySelector('#edit-crit').value) || 0;
+        
+        item.setAttribute('data-item', JSON.stringify(itemData));
+        item.itemData = itemData;
+        popup.remove();
+    });
+    
+    popup.querySelector('.cancel-edit').addEventListener('click', () => {
+        popup.remove();
+    });
+}
+
+// Add click handler to merged slots
+document.addEventListener('click', (e) => {
+    const mergedSlot = e.target.closest('.merged-slot');
+    if (mergedSlot) {
+        editItem(mergedSlot);
+    }
+});
+
+function saveToFile(boardId) {
+    const board = document.getElementById(boardId);
+    const items = Array.from(board.querySelectorAll('.merged-slot')).map(slot => ({
+        item: JSON.parse(slot.getAttribute('data-item')),
+        startIndex: parseInt(slot.dataset.startIndex),
+        size: parseInt(slot.dataset.size)
+    }));
+    
+    const blob = new Blob([JSON.stringify(items, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${boardId}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function loadFromFile(boardId) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    
+    input.onchange = e => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = event => {
+            try {
+                const items = JSON.parse(event.target.result);
+                initializeBoard(boardId);
+                items.forEach(({item, startIndex, size}) => {
+                    placeItem(startIndex, size, item, boardId);
+                });
+            } catch (error) {
+                console.error('Error loading file:', error);
+                alert('Invalid file format');
+            }
+        };
+        
+        reader.readAsText(file);
+    };
+    
+    input.click();
+}
+
+// Update the board controls to use file-based save/load
+function updateBoardControls() {
+    document.querySelectorAll('.board-controls').forEach(controls => {
+        const boardId = controls.closest('.board-container').querySelector('.board').id;
+        controls.innerHTML = `
+            <button onclick="saveToFile('${boardId}')">Save</button>
+            <button onclick="loadFromFile('${boardId}')">Load</button>
+        `;
+    });
+}
+
+// Call this when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    initializeBoard('inventory-board');
+    initializeBoard('bottom-board');
+    updateBoardControls();
+});
 
 function loadBoard(boardId) {
     const savedItems = localStorage.getItem(`saved_${boardId}`);
