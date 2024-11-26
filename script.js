@@ -471,6 +471,8 @@ function saveBoard(boardId) {
 
 var topPlayerHealth = 1000;
 var bottomPlayerHealth = 1000;
+const battleButton = document.querySelector('.battle-button');
+
 function resetHealth() {
     topPlayerHealth = 1000;
     bottomPlayerHealth = 1000;
@@ -480,10 +482,14 @@ function resetHealth() {
 
 var battleInterval = undefined;
 var startBattleTime;
+function log(s) {
+    combatLog.val(combatLog.val() + "\n" + s);
+    combatLog[0].scrollTop = combatLog[0].scrollHeight;
+}
 
 function triggerItem(item) {
     let itemData = item.itemData;
-    console.log('triggered item ', itemData.name);
+    log('triggered item ', itemData.name);
     if(itemData.tags.weapon==1) {
         let damage = itemData.damage;
         let crit="";
@@ -495,12 +501,12 @@ function triggerItem(item) {
         
         if(item.parentElement.id == 'bottom-board') {
             topPlayerHealth -= damage;
-            console.log("Bottom player's "+itemData.name + 
+            log("Bottom player's "+itemData.name + 
                         crit +
                         " deals "+ damage+" damage.");
         } else {
             bottomPlayerHealth -= damage;
-            console.log("Top player's "+itemData.name + 
+            log("Top player's "+itemData.name + 
                         crit+
                         " deals "+ damage+" damage.");
         }
@@ -510,10 +516,7 @@ function triggerItem(item) {
 function battleFunction() {
     let currentTime = Date.now();
     let scaleBy = 1;
-    let timeDiff = currentTime - startBattleTime;
-    if(timeDiff > 200) {
-        scaleBy = Math.floor((currentTime - startBattleTime)/100);
-    }
+    let timeDiff = currentTime - startBattleTime - pauseTime;
 
     //advance all the cooldowns by appropriate amounts
     const progressBars = document.querySelectorAll('.battleItemProgressBar');
@@ -537,17 +540,18 @@ function battleFunction() {
   if(topPlayerHealth<=0) {
     clearInterval(battleInterval);
     alert("you win");
-    resetHealth();
+    resetBattle();
   }
   if(bottomPlayerHealth <=0) {
     clearInterval(battleInterval);
-    resetHealth();
+    resetBattle();
     alert("you lose");
   }
 }
 
 function resetBattle() {
     clearInterval(battleInterval);
+    isPaused=0;
     battleInterval = null; // Clear the interval reference
     resetHealth();
     
@@ -557,19 +561,38 @@ function resetBattle() {
     });
     
     // Reset button
-    const battleButton = document.querySelector('.battle-button');
     battleButton.textContent = 'Start Battle';
-    battleButton.classList.remove('stop-battle');
+    battleButton.classList.remove('pause-battle');
 }
 
+function pauseBattle() {    
+    clearInterval(battleInterval);
+    pauseStartTime = Date.now();
+    isPaused=1;
+    battleButton.textContent = 'Unpause Battle';
+    battleButton.classList.remove('pause-battle');
+}
+
+function unpauseBattle() {
+    isPaused = 0;
+    pauseTime += Date.now() - pauseStartTime;
+    battleInterval = setInterval(battleFunction, 100);
+    // Update button
+    battleButton.textContent = 'Pause Battle';
+    battleButton.classList.add('pause-battle');
+}
+var combatLog = $("#combat-log");
+var isPaused = 0;
+var pauseTime = 0;
 function startBattle() {
-    const battleButton = document.querySelector('.battle-button');
-    
-    // If battle is ongoing, stop it
-    if (battleInterval) {
-        resetBattle();
+    if(isPaused) {
+        unpauseBattle();
+    } else if (battleInterval && !isPaused) {
+        pauseBattle();
         return;
     }
+    
+    combatLog.val("Battle Started");
     
     // Start new battle
     startBattleTime = Date.now();
@@ -591,8 +614,8 @@ function startBattle() {
     battleInterval = setInterval(battleFunction, 100);
 
     // Update button
-    battleButton.textContent = 'Stop Battle';
-    battleButton.classList.add('stop-battle');
+    battleButton.textContent = 'Pause Battle';
+    battleButton.classList.add('pause-battle');
 }
 
 function editItem(item) {

@@ -362,11 +362,11 @@ button:active {
     z-index: 10000;
 }
 
-.stop-battle {
+.pause-battle {
     background-color: #f44336 !important;
 }
 
-.stop-battle:hover {
+.pause-battle:hover {
     background-color: #d32f2f !important;
     box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
 }
