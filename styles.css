@@ -66,24 +66,6 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.list-item:hover::after {
-    content: attr(data-tooltip) !important;
-    position: absolute;
-    left: 50%;
-    top: -10px;
-    transform: translateX(-50%) translateY(-100%);
-    background: white;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 14px;
-    z-index: 9999;
-    pointer-events: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    width: 200px;
-    animation: tooltip-slide-down 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    white-space: pre-wrap;
-}
 
 .board {
     position: relative;
@@ -94,7 +76,10 @@ body {
     border-radius: 4px;
     margin-bottom: 20px;
 }
-
+.playerHealth {
+    cursor: hand;
+    width: 100px;
+}
 .board-slot {
     position: absolute;
     width: 10%;
@@ -126,7 +111,6 @@ body {
     transform: translateZ(0);
     transition: opacity 0.2s;
     user-select: none;
-    overflow: hidden;
 }
 
 .merged-slot img {
@@ -138,24 +122,6 @@ body {
 .merged-slot:hover {
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-
-.merged-slot:hover::after {
-    content: attr(data-tooltip) !important;
-    position: absolute;
-    left: 50%;
-    top: -10px;
-    transform: translateX(-50%) translateY(-100%);
-    background: white;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 14px;
-    z-index: 9999;
-    pointer-events: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    width: 200px;
-    white-space: pre-wrap;
-    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .slot-guide {
@@ -270,20 +236,13 @@ button:active {
 }
 
 .tooltip-content {
-    padding: 8px;
+    font-size: 14px;
+    white-space: nowrap;
     color: #333;
 }
 
-.tooltip-text {
-    margin-bottom: 8px;
-    line-height: 1.4;
-}
-
-.tooltip-bottom-text {
-    color: #666;
-    font-size: 0.9em;
-    padding-top: 8px;
-    border-top: 1px solid #eee;
+.tooltip-content strong {
+    color: #000;
 }
 
 .merged-slot.removing {
@@ -366,6 +325,16 @@ button:active {
     background-color: #f44336 !important;
 }
 
+#combat-log {
+    width: 100%;
+    height: 200px;  /* Increase height */
+    resize: vertical;  /* Allow vertical resizing */
+    font-family: monospace;  /* Better for log readability */
+    white-space: pre-wrap;  /* Preserve line breaks and spacing */
+    margin: 10px 0;
+    padding: 8px;
+}
+
 .pause-battle:hover {
     background-color: #d32f2f !important;
     box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
@@ -403,4 +372,80 @@ button:active {
     display: flex;
     gap: 10px;
     justify-content: flex-end;
+}
+
+.tooltip {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%);
+    background-color: #1a1a1a;
+    border: 2px solid #4a4a4a;
+    border-radius: 8px;
+    padding: 12px;
+    min-width: 200px;
+    color: white;
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+}
+
+.tooltip-tags {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.tooltip-tags .tag {
+    background-color: #4a4a4a;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.tooltip-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.tooltip-divider {
+    height: 1px;
+    background-color: #4a4a4a;
+    margin: 8px 0;
+}
+
+.tooltip-main {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.cooldown-circle {
+    background-color: #333;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.cooldown-circle .unit {
+    font-size: 10px;
+    opacity: 0.7;
+}
+
+.main-text {
+    color: #00ffcc; /* Adjust color to match your game's theme */
+    flex-grow: 1;
+}
+
+.tooltip-bottom {
+    color: #888;
+    font-style: italic;
 }

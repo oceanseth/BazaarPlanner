@@ -55,9 +55,9 @@
                     <h3>Available Items</h3>
                     <div id="simulator-itemsList"></div>
                 </div>
-                <div style="flex-grow: 1;">
-                    <div id="topPlayerHealth" class="playerHealth">1000</div>
+                <div style="flex-grow: 1;">                    
                     <div class="board-container">
+                        <div id="topPlayerHealth" class="playerHealth">1000</div>
                         <div id="inventory-board" class="board">
                             <!-- Slots will be generated here -->
                         </div>
@@ -67,6 +67,7 @@
                         </div>
                     </div>
                     <div class="board-container">
+                        <div id="bottomPlayerHealth" class="playerHealth">1000</div>
                         <div id="bottom-board" class="board">
                             <!-- Slots will be generated here -->
                         </div>
@@ -76,10 +77,10 @@
                         </div>
                     </div>
                 </div>
-                <div id="bottomPlayerHealth" class="playerHealth">1000</div>
+                
             </div>
             <button onclick="startBattle()" class="battle-button">Start Battle</button>
-            <button onclick="resetBattle()" class="battle-reset-button">Reset Battle</button>
+            <button onclick="resetBattle()" class="battle-button">Reset Battle</button>
             <div id="combat-log-div"><textarea id="combat-log"></textarea></div>
         </div>
         <!-- Library Section -->

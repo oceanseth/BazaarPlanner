@@ -99,20 +99,61 @@ function showSection(sectionId) {
     document.querySelector(`button[onclick="showSection('${sectionId}')"]`).classList.add('selected');
 }
 
-function createTooltip(data) {
-    let tooltipContent = '';
+function createTooltipElement(itemData) {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip';
     
-    // Add text if it exists
-    if (data.text) {
-        tooltipContent += data.text;
+    // Handle tags - convert to array if it's an object
+    let tagsArray = [];
+    if (itemData.tags) {
+        if (Array.isArray(itemData.tags)) {
+            tagsArray = itemData.tags;
+        } else if (typeof itemData.tags === 'object') {
+            // Convert object to array of keys where value is truthy
+            tagsArray = Object.entries(itemData.tags)
+                .filter(([_, value]) => value)
+                .map(([key, _]) => key);
+        }
     }
     
-    // Add bottomText if it exists
-    if (data.bottomText) {
-        tooltipContent += '\n' + data.bottomText;
-    }
+    // Create HTML content with structured layout
+    let tooltipContent = `
+        <div class="tooltip-content">
+            <div class="tooltip-tags">
+                ${tagsArray.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+            <div class="tooltip-name">${itemData.name}</div>
+            <div class="tooltip-divider"></div>
+            <div class="tooltip-main">
+                <div class="cooldown-circle">${itemData.cooldown || 0}<span class="unit">SEC</span></div>
+                <div class="main-text">${itemData.text || ''}</div>
+            </div>
+            ${itemData.bottomText ? `
+                <div class="tooltip-divider"></div>
+                <div class="tooltip-bottom">${itemData.bottomText}</div>
+            ` : ''}
+        </div>
+    `;
     
-    return tooltipContent;
+    tooltip.innerHTML = tooltipContent;
+    tooltip.style.display = 'none'; // Hidden by default
+    
+    return tooltip;
+}
+
+function attachTooltipListeners(mergedSlot) {
+    // Create tooltip element
+    const tooltip = createTooltipElement(JSON.parse(mergedSlot.getAttribute('data-item')));
+    mergedSlot.appendChild(tooltip);
+    
+    // Add event listeners
+    mergedSlot.addEventListener('mouseenter', () => {
+        tooltip.style.display = 'block';
+    });
+    
+    mergedSlot.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+    });
 }
 
 function createListItem(data) {
@@ -121,7 +162,6 @@ function createListItem(data) {
     item.draggable = true;
     item.setAttribute('data-name', data.name);
     item.setAttribute('data-item', JSON.stringify(data));
-    item.setAttribute('data-tooltip', createTooltip(data));
     
     if (data.icon) {
         const icon = document.createElement('img');
@@ -136,6 +176,8 @@ function createListItem(data) {
     
     item.addEventListener('dragstart', handleDragStart);
     item.addEventListener('dragend', handleDragEnd);
+    
+    attachTooltipListeners(item);
     
     return item;
 }
@@ -317,7 +359,6 @@ function placeItem(startIndex, size, itemData, boardId = 'inventory-board') {
     mergedSlot.dataset.size = size;
     mergedSlot.setAttribute('data-item', JSON.stringify(itemData));
     mergedSlot.itemData = itemData; 
-    mergedSlot.setAttribute('data-tooltip', createTooltip(itemData));
     mergedSlot.draggable = true;
     
     if (itemData.icon) {
@@ -330,13 +371,14 @@ function placeItem(startIndex, size, itemData, boardId = 'inventory-board') {
     mergedSlot.addEventListener('dragstart', handleDragStart);
     mergedSlot.addEventListener('dragend', handleDragEnd);
 
+    attachTooltipListeners(mergedSlot);
+    
     board.appendChild(mergedSlot);
 }
 
 function createGhostElement(itemData, size = 1) {
     const ghost = document.createElement('div');
     ghost.className = 'drag-ghost';
-    ghost.setAttribute('data-tooltip', createTooltip(itemData));
     ghost.style.width = `${size * 100}px`; // Adjust width based on item size
     
     if (itemData.icon) {
@@ -813,7 +855,6 @@ function handleDragStart(e) {
     const ghost = document.createElement('div');
     ghost.className = 'drag-ghost';
     const itemData = JSON.parse(e.target.getAttribute('data-item'));
-    ghost.setAttribute('data-tooltip', createTooltip(itemData));
     
     if (itemData.icon) {
         const ghostIcon = document.createElement('img');
