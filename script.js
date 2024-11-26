@@ -4,7 +4,8 @@ emptyDragImage.style.position = 'absolute';
 emptyDragImage.style.top = '-9999px';
 emptyDragImage.style.opacity = '0';
 document.body.appendChild(emptyDragImage);
-
+var sandstormValue = 1;
+var sandstormIncrement= .25;
 const deleteZone = document.createElement('div');
 deleteZone.className = 'delete-zone';
 deleteZone.textContent = 'Drop here to delete';
@@ -489,7 +490,7 @@ function log(s) {
 
 function triggerItem(item) {
     let itemData = item.itemData;
-    log('triggered item ', itemData.name);
+    //log('triggered item ', itemData.name);
     if(itemData.tags.weapon==1) {
         let damage = itemData.damage;
         let crit="";
@@ -537,6 +538,14 @@ function battleFunction() {
     $("#topPlayerHealth").html(topPlayerHealth);
     $("#bottomPlayerHealth").html(bottomPlayerHealth);
 
+  if(timeDiff>30000) {
+    let sandstormDmg = Math.floor(sandstormValue);
+    log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
+    topPlayerHealth-=sandstormDmg;
+    bottomPlayerHealth-=sandstormDmg;
+    sandstormValue+=sandstormIncrement;
+  }
+
   if(topPlayerHealth<=0) {
     clearInterval(battleInterval);
     alert("you win");
@@ -550,9 +559,11 @@ function battleFunction() {
 }
 
 function resetBattle() {
+    if(battleInterval)
     clearInterval(battleInterval);
     isPaused=0;
     pauseTime=0;
+    sandstormValue=1;
     battleInterval = null; // Clear the interval reference
     resetHealth();
     
