@@ -486,19 +486,23 @@ function triggerItem(item) {
     console.log('triggered item ', itemData.name);
     if(itemData.tags.weapon==1) {
         let damage = itemData.damage;
-        
+        let crit="";
         // Handle critical hits using itemData.crit (0-100) instead of critChance
         if (itemData.crit && Math.random() < (itemData.crit / 100)) {
             damage *= 2;
-            console.log("CRITICAL HIT!");
+            crit =" critically strikes and";
         }
         
         if(item.parentElement.id == 'bottom-board') {
             topPlayerHealth -= damage;
-            console.log("Bottom player's "+itemData.name+" deals "+ damage+" damage.");
+            console.log("Bottom player's "+itemData.name + 
+                        crit +
+                        " deals "+ damage+" damage.");
         } else {
             bottomPlayerHealth -= damage;
-            console.log("Top player's "+itemData.name+" deals "+ damage+" damage.");
+            console.log("Top player's "+itemData.name + 
+                        crit+
+                        " deals "+ damage+" damage.");
         }
     }
 }
@@ -574,7 +578,7 @@ function startBattle() {
     const items = document.querySelectorAll('.merged-slot');
     items.forEach(item => {
         const itemData = JSON.parse(item.getAttribute('data-item'));
-        const cooldown = itemData.cooldown || 0;
+        const cooldown = itemData.cooldown || 0; // Default to 0 if no cooldown specified
         if(cooldown==0) return;
         const progressBar = document.createElement('div');
         progressBar.className = 'battleItemProgressBar';
@@ -585,7 +589,7 @@ function startBattle() {
     });
     
     battleInterval = setInterval(battleFunction, 100);
-    
+
     // Update button
     battleButton.textContent = 'Stop Battle';
     battleButton.classList.add('stop-battle');
