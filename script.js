@@ -552,6 +552,7 @@ function battleFunction() {
 function resetBattle() {
     clearInterval(battleInterval);
     isPaused=0;
+    pauseTime=0;
     battleInterval = null; // Clear the interval reference
     resetHealth();
     
@@ -587,6 +588,7 @@ var pauseTime = 0;
 function startBattle() {
     if(isPaused) {
         unpauseBattle();
+        return;
     } else if (battleInterval && !isPaused) {
         pauseBattle();
         return;

@@ -5,6 +5,7 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+        <script src="npcs.js"></script>
         <link rel="stylesheet" href="styles.css">
         <script src="script.js" defer></script>
         <title>BazaarPlanner</title>
@@ -46,6 +47,7 @@
         <div id="simulator" class="section" style="display: none;">
             <div id="simulator-controls">
                 <input type="text" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" placeholder="Search items...">
+                <select id="npc-selector"><option>-- Load an Npc --</option></select>
                 <datalist id="simulator-suggestions"></datalist>
             </div>
             <div style="display: flex; gap: 20px;">
