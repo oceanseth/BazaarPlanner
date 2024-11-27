@@ -75,6 +75,16 @@ def parse_monsters():
                         if name not in monsters:
                             print(f"Processing monster: {name} ({processed_count + 1}/{total_monsters})")
                             
+                            # Get monster icon
+                            try:
+                                icon = button.find_element(By.CSS_SELECTOR, "img").get_attribute("src")
+                                # Remove the domain part and leading slash
+                                icon = icon.replace("https://www.howbazaar.gg/", "").lstrip('/')
+                                print(f"Found icon: {icon}")
+                            except Exception as e:
+                                print(f"Error getting icon: {str(e)}")
+                                icon = ""
+                            
                             # Click the button
                             WebDriverWait(driver, 10).until(
                                 EC.element_to_be_clickable(button)
@@ -122,6 +132,7 @@ def parse_monsters():
                             # Store monster data and save backup immediately
                             monsters[name] = {
                                 "name": name,
+                                "icon": icon,
                                 "skills": skills,
                                 "items": items
                             }
