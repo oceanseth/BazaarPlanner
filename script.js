@@ -125,7 +125,9 @@ function createTooltipElement(itemData) {
             <div class="tooltip-name">${itemData.name}</div>
             <div class="tooltip-divider"></div>
             <div class="tooltip-main">
-                <div class="cooldown-circle">${itemData.cooldown || 0}<span class="unit">SEC</span></div>
+                ${itemData.cooldown ? `
+                    <div class="cooldown-circle">${itemData.cooldown}<span class="unit">SEC</span></div>
+                ` : ''}
                 <div class="tooltip-main-text">${itemData.text || ''}</div>
             </div>
             ${itemData.bottomText ? `
