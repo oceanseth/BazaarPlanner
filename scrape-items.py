@@ -71,6 +71,84 @@ def get_tags(driver):
         pass
     return tags
 
+def parse_description(description_list):
+    result = {}
+    
+    if not description_list:
+        return result
+        
+    for line in description_list:
+        # Check for cooldown
+        if line.startswith("Cooldown"):
+            try:
+                cooldown = int(line.split()[1])
+                result["cooldown"] = cooldown
+            except (IndexError, ValueError):
+                result["cooldown"] = None
+            continue
+            
+        # Check for ammo
+        if line.startswith("Ammo Max"):
+            continue  # Skip ammo line for now, could add later if needed
+            
+        # If we get here, it's descriptive text
+        if "text" not in result:
+            result["text"] = line
+        else:
+            result["bottomtext"] = line
+            
+    return result
+
+def process_item(item_div):
+    name = item_div.find('div', class_='name').text.strip()
+    
+    icon_div = item_div.find('div', class_='icon')
+    icon_path = icon_div.find('img')['src'] if icon_div and icon_div.find('img') else None
+    
+    tier = item_div.find('div', class_='tier').text.strip()
+    
+    tags_div = item_div.find('div', class_='tags')
+    tags = [tag.strip() for tag in tags_div.text.split(',')] if tags_div else []
+    
+    description_div = item_div.find('div', class_='description')
+    description_texts = description_div.stripped_strings if description_div else []
+    description_list = [text.strip() for text in description_texts if text.strip()]
+    
+    enchants = {}
+    enchants_div = item_div.find('div', class_='enchants')
+    if enchants_div:
+        enchant_items = enchants_div.find_all('div', class_='enchant')
+        for enchant in enchant_items:
+            name_div = enchant.find('div', class_='name')
+            desc_div = enchant.find('div', class_='description')
+            if name_div and desc_div:
+                enchants[name_div.text.strip()] = desc_div.text.strip()
+    
+    item_data = {
+        "name": name,
+        "icon": icon_path,
+        "tier": tier,
+        "tags": tags,
+        "cooldown": None,  # Default value
+        "enchants": enchants
+    }
+    
+    # Process description texts
+    for line in description_list:
+        if line.startswith("Cooldown"):
+            try:
+                cooldown_value = line.split()[1]
+                item_data["cooldown"] = int(cooldown_value)
+            except (IndexError, ValueError):
+                pass
+        elif not line.startswith("Ammo Max"):  # Skip ammo lines
+            if "text" not in item_data:
+                item_data["text"] = line
+            elif "bottomtext" not in item_data:
+                item_data["bottomtext"] = line
+    
+    return name, item_data
+
 def parse_items():
     driver = setup_driver()
     driver.get("https://www.howbazaar.gg/items")
@@ -102,7 +180,6 @@ def parse_items():
                 # Get item icon URL and convert to relative path
                 icon_element = item.find_element(By.CSS_SELECTOR, "img.relative.h-\\[200px\\]")
                 full_icon_url = icon_element.get_attribute("src")
-                # Strip domain and leading slash
                 icon_url = full_icon_url.replace("https://www.howbazaar.gg/", "").lstrip("/")
                 
                 # Get item tiers
@@ -118,17 +195,23 @@ def parse_items():
                         tags.append(tag_text)
 
                 # Get item description and stats
-                description = []
                 stat_elements = item.find_elements(By.CSS_SELECTOR, "ul.list-inside.leading-loose > li")
-                for stat in stat_elements:
-                    description.append(stat.text)
-
-                # Get cooldown
                 cooldown = None
-                for desc in description:
-                    if "Cooldown" in desc:
-                        cooldown = int(desc.split()[1])
-                        break
+                text = None
+                bottomtext = None
+                
+                for stat in stat_elements:
+                    line = stat.text
+                    if line.startswith("Cooldown"):
+                        try:
+                            cooldown = int(line.split()[1])
+                        except (IndexError, ValueError):
+                            pass
+                    elif not line.startswith("Ammo Max"):
+                        if text is None:
+                            text = line
+                        else:
+                            bottomtext = line
 
                 # Get enchantments
                 enchants = {}
@@ -142,15 +225,21 @@ def parse_items():
                         continue
 
                 print(f"Processing item: {name}")
-                items[name] = {
+                item_data = {
                     "name": name,
                     "icon": icon_url,
                     "tier": tier,
                     "tags": tags,
-                    "description": description,
                     "cooldown": cooldown,
                     "enchants": enchants
                 }
+                
+                if text:
+                    item_data["text"] = text
+                if bottomtext:
+                    item_data["bottomtext"] = bottomtext
+
+                items[name] = item_data
 
             except Exception as e:
                 print(f"Error processing item: {str(e)}")

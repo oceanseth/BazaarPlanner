@@ -10,10 +10,6 @@ const items = {
       "Shield",
       "Tool"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Shield equal to ( 1x » 2x ) the value of the adjacent items."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -26,7 +22,8 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield equal to ( 1x » 2x ) the value of the adjacent items."
   },
   "Agility Boots": {
     "name": "Agility Boots",
@@ -37,14 +34,12 @@ const items = {
       "Small",
       "Crit"
     ],
-    "description": [
-      "Adjacent items have ( +3% » +6% » +9% » +12% ) Crit chance.",
-      "When you sell this, give your items ( +1% » +2% » +3% » +4% ) Crit Chance."
-    ],
     "cooldown": null,
     "enchants": {
       "Shiny": "Double Crit Chance"
-    }
+    },
+    "text": "Adjacent items have ( +3% » +6% » +9% » +12% ) Crit chance.",
+    "bottomtext": "When you sell this, give your items ( +1% » +2% » +3% » +4% ) Crit Chance."
   },
   "Alpha Ray": {
     "name": "Alpha Ray",
@@ -55,11 +50,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal ( 5 » 10 » 15 ) damage.",
-      "When you use the Core or another Ray, your Weapons gain ( +3 » +4 » +5 ) Damage for the fight."
     ],
     "cooldown": 5,
     "enchants": {
@@ -73,7 +63,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 10 » 15 ) damage.",
+    "bottomtext": "When you use the Core or another Ray, your Weapons gain ( +3 » +4 » +5 ) Damage for the fight."
   },
   "Amber": {
     "name": "Amber",
@@ -83,11 +75,6 @@ const items = {
       "Mak",
       "Small",
       "Slow"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Slow ( 1 » 2 » 3 ) items for 3 second(s).",
-      "Your other Slow items have +1 Slow."
     ],
     "cooldown": 5,
     "enchants": {
@@ -99,7 +86,9 @@ const items = {
       "Toxic": "Poison 2.",
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Slow ( 1 » 2 » 3 ) items for 3 second(s).",
+    "bottomtext": "Your other Slow items have +1 Slow."
   },
   "Ambergris": {
     "name": "Ambergris",
@@ -113,11 +102,6 @@ const items = {
       "Heal",
       "Value"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Heal equal to ( 1x » 2x » 3x » 4x ) this item's value.",
-      "When you buy another Aquatic item, this gains ( 1 » 2 » 3 » 4 ) Value."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -130,7 +114,9 @@ const items = {
       "Fiery": "Burn 1.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal equal to ( 1x » 2x » 3x » 4x ) this item's value.",
+    "bottomtext": "When you buy another Aquatic item, this gains ( 1 » 2 » 3 » 4 ) Value."
   },
   "Anchor": {
     "name": "Anchor",
@@ -144,11 +130,6 @@ const items = {
       "Haste",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 12 seconds",
-      "Deal damage equal to ( 20% » 30% ) of your enemy's Max Health.",
-      "When you use an adjacent item, this gains Haste for ( 2 » 4 ) second(s)."
-    ],
     "cooldown": 12,
     "enchants": {
       "Heavy": "Slow 2 items for 4 second(s).",
@@ -161,7 +142,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal damage equal to ( 20% » 30% ) of your enemy's Max Health.",
+    "bottomtext": "When you use an adjacent item, this gains Haste for ( 2 » 4 ) second(s)."
   },
   "Angry Balloon Bot": {
     "name": "Angry Balloon Bot",
@@ -175,11 +158,6 @@ const items = {
       "Shield",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Deal 10 damage.",
-      "When you lose Shield, this gains damage equal to ( 10% » 20% » 40% ) of the Shield lost."
-    ],
     "cooldown": 3,
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
@@ -192,7 +170,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 10 damage.",
+    "bottomtext": "When you lose Shield, this gains damage equal to ( 10% » 20% » 40% ) of the Shield lost."
   },
   "Antimatter Chamber": {
     "name": "Antimatter Chamber",
@@ -201,10 +181,6 @@ const items = {
     "tags": [
       "Dooley",
       "Large"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Destroy this and 3 small enemy items for the fight."
     ],
     "cooldown": 10,
     "enchants": {
@@ -216,7 +192,8 @@ const items = {
       "Toxic": "Poison 15.",
       "Fiery": "Burn 22.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Destroy this and 3 small enemy items for the fight."
   },
   "Apropos Chapeau": {
     "name": "Apropos Chapeau",
@@ -227,11 +204,6 @@ const items = {
       "Medium",
       "Damage",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Shield ( 30 » 60 ).",
-      "When you Shield, adjacent weapons gain ( 10 » 20 ) damage for the fight."
     ],
     "cooldown": 5,
     "enchants": {
@@ -244,7 +216,9 @@ const items = {
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 30 » 60 ).",
+    "bottomtext": "When you Shield, adjacent weapons gain ( 10 » 20 ) damage for the fight."
   },
   "Arbalest": {
     "name": "Arbalest",
@@ -256,12 +230,6 @@ const items = {
       "Damage",
       "Haste",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Ammo Max 1",
-      "Deal 100 damage.",
-      "When you Haste, this gains ( 25 » 50 » 100 ) damage for the fight."
     ],
     "cooldown": 8,
     "enchants": {
@@ -275,7 +243,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 100 damage.",
+    "bottomtext": "When you Haste, this gains ( 25 » 50 » 100 ) damage for the fight."
   },
   "Arken's Ring": {
     "name": "Arken's Ring",
@@ -285,11 +255,9 @@ const items = {
       "Common",
       "Small"
     ],
-    "description": [
-      "When you sell this, recover 5 Prestige."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, recover 5 Prestige."
   },
   "Armored Core": {
     "name": "Armored Core",
@@ -303,12 +271,6 @@ const items = {
       "Shield",
       "Unsellable"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Shield ( 15 » 45 » 90 » 150 ).",
-      "Give Shield items to the right of this ( +5 » +10 » +20 » +40 ) Shield for the fight.",
-      "When you use any item to the left of this, Charge this 1 second(s)."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -320,7 +282,9 @@ const items = {
       "Fiery": "Burn 12.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 15 » 45 » 90 » 150 ).",
+    "bottomtext": "When you use any item to the left of this, Charge this 1 second(s)."
   },
   "Astrolabe": {
     "name": "Astrolabe",
@@ -333,11 +297,6 @@ const items = {
       "Shield",
       "Tool"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Shield ( 15 » 30 » 50 ).",
-      "When you use a non-weapon item, it and this gains Haste ( 1 » 2 » 3 ) second(s)."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -349,7 +308,9 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 15 » 30 » 50 ).",
+    "bottomtext": "When you use a non-weapon item, it and this gains Haste ( 1 » 2 » 3 ) second(s)."
   },
   "Athanor": {
     "name": "Athanor",
@@ -362,12 +323,6 @@ const items = {
       "Poison",
       "Property"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Burn ( 2 » 4 » 6 » 8 ).",
-      "Poison ( 1 » 2 » 3 » 4 ).",
-      "Reload your Potions."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 3 items for 2 second(s).",
@@ -379,7 +334,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 2 » 4 » 6 » 8 ).",
+    "bottomtext": "Reload your Potions."
   },
   "Atlas Stone": {
     "name": "Atlas Stone",
@@ -390,11 +347,6 @@ const items = {
       "Medium",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal 1 damage.",
-      "Double this item's damage for the fight."
     ],
     "cooldown": 8,
     "enchants": {
@@ -408,7 +360,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 1 damage.",
+    "bottomtext": "Double this item's damage for the fight."
   },
   "Atlatl": {
     "name": "Atlatl",
@@ -420,11 +374,6 @@ const items = {
       "Cooldown",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal ( 20 » 40 » 60 » 80 ) damage.",
-      "This item's cooldown is reduced by 1% for every 2 damage it has."
     ],
     "cooldown": 10,
     "enchants": {
@@ -438,7 +387,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 20 » 40 » 60 » 80 ) damage.",
+    "bottomtext": "This item's cooldown is reduced by 1% for every 2 damage it has."
   },
   "ATM": {
     "name": "ATM",
@@ -452,11 +403,6 @@ const items = {
       "Property",
       "Shield"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Gain Shield equal to ( 1x » 2x » 3x » 4x ) your Income.",
-      "When you buy this, you gain ( 1 » 2 » 3 » 5 ) Income."
-    ],
     "cooldown": 3,
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
@@ -469,7 +415,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Gain Shield equal to ( 1x » 2x » 3x » 4x ) your Income.",
+    "bottomtext": "When you buy this, you gain ( 1 » 2 » 3 » 5 ) Income."
   },
   "Atomic Clock": {
     "name": "Atomic Clock",
@@ -479,11 +427,6 @@ const items = {
       "Dooley",
       "Medium",
       "Tool"
-    ],
-    "description": [
-      "Cooldown 1 seconds",
-      "Ammo Max 3",
-      "Increase a random enemy item's cooldown by ( 1 » 2 » 3 ) seconds for the fight."
     ],
     "cooldown": 1,
     "enchants": {
@@ -495,7 +438,8 @@ const items = {
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Increase a random enemy item's cooldown by ( 1 » 2 » 3 ) seconds for the fight."
   },
   "Bag of Jewels": {
     "name": "Bag of Jewels",
@@ -507,11 +451,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "Sells for gold"
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "Sells for gold"
   },
   "Balcony": {
     "name": "Balcony",
@@ -523,9 +465,6 @@ const items = {
       "Cooldown",
       "Property",
       "Value"
-    ],
-    "description": [
-      "The Property to the left of this has double value in combat and has its cooldown reduced by ( 10% » 20% » 30% )."
     ],
     "cooldown": null,
     "enchants": {
@@ -539,7 +478,8 @@ const items = {
       "Fiery": "When you use the property to the left of this, burn 3.",
       "Shiny": "The Property to the left has +1 Multicast.",
       "Deadly": "The Property to the left has +50% Crit Chance."
-    }
+    },
+    "text": "The Property to the left of this has double value in combat and has its cooldown reduced by ( 10% » 20% » 30% )."
   },
   "Ballista": {
     "name": "Ballista",
@@ -551,12 +491,6 @@ const items = {
       "Ammo",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Ammo Max 2",
-      "Deal ( 75 » 150 ) damage.",
-      "When you use an ammo item, this gains ( 1 » 2 ) Multicast for the fight."
     ],
     "cooldown": 10,
     "enchants": {
@@ -570,7 +504,9 @@ const items = {
       "Shiny": "",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 75 » 150 ) damage.",
+    "bottomtext": "When you use an ammo item, this gains ( 1 » 2 ) Multicast for the fight."
   },
   "Balloon Bot": {
     "name": "Balloon Bot",
@@ -581,11 +517,6 @@ const items = {
       "Medium",
       "Friend",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 3 seconds",
-      "When you use the weapon to the right of this, this gains ( 10 » 20 » 40 ) Shield for the fight.",
-      "Shield 10."
     ],
     "cooldown": 3,
     "enchants": {
@@ -598,7 +529,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "When you use the weapon to the right of this, this gains ( 10 » 20 » 40 ) Shield for the fight.",
+    "bottomtext": "Shield 10."
   },
   "Bandages": {
     "name": "Bandages",
@@ -609,11 +542,6 @@ const items = {
       "Small",
       "Heal",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Heal ( 5 » 10 » 15 » 20 ).",
-      "Shield ( 5 » 10 » 15 » 20 )."
     ],
     "cooldown": 4,
     "enchants": {
@@ -626,7 +554,9 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal ( 5 » 10 » 15 » 20 ).",
+    "bottomtext": "Shield ( 5 » 10 » 15 » 20 )."
   },
   "Bar of Gold": {
     "name": "Bar of Gold",
@@ -638,11 +568,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "Sells for gold"
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "Sells for gold"
   },
   "Barbed Wire": {
     "name": "Barbed Wire",
@@ -654,11 +582,6 @@ const items = {
       "Damage",
       "Shield",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Deal 10 damage.",
-      "When you Shield, this gains ( 5 » 10 » 20 ) Damage for the fight."
     ],
     "cooldown": 4,
     "enchants": {
@@ -672,7 +595,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 10 damage.",
+    "bottomtext": "When you Shield, this gains ( 5 » 10 » 20 ) Damage for the fight."
   },
   "Barrel": {
     "name": "Barrel",
@@ -682,11 +607,6 @@ const items = {
       "Vanessa",
       "Medium",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Shield 10.",
-      "When you use a non-weapon item, this gains ( 10 » 20 » 30 ) Shield for the fight."
     ],
     "cooldown": 4,
     "enchants": {
@@ -699,7 +619,9 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield 10.",
+    "bottomtext": "When you use a non-weapon item, this gains ( 10 » 20 » 30 ) Shield for the fight."
   },
   "Basilisk Fang": {
     "name": "Basilisk Fang",
@@ -713,12 +635,6 @@ const items = {
       "Poison",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Lifesteal 100",
-      "Deal ( 10 » 20 ) damage.",
-      "When you Poison, this gains ( 10% » 20% ) Crit Chance for the fight."
-    ],
     "cooldown": 3,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -730,7 +646,9 @@ const items = {
       "Fiery": "Burn 2.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Lifesteal 100",
+    "bottomtext": "When you Poison, this gains ( 10% » 20% ) Crit Chance for the fight."
   },
   "Battery": {
     "name": "Battery",
@@ -743,11 +661,6 @@ const items = {
       "Charge",
       "Tool"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Ammo Max 4",
-      "Charge the item to the left of this ( 1 » 2 » 3 » 4 ) second(s)."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -759,7 +672,8 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "Give the item to the left +25% Crit Chance for the fight."
-    }
+    },
+    "text": "Charge the item to the left of this ( 1 » 2 » 3 » 4 ) second(s)."
   },
   "Bayonet": {
     "name": "Bayonet",
@@ -770,9 +684,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "When you use the Weapon to the left of this, deal ( 5 » 15 » 30 » 50 ) damage."
     ],
     "cooldown": null,
     "enchants": {
@@ -786,7 +697,8 @@ const items = {
       "Shiny": "Double Damage",
       "Obsidian": "Lifesteal",
       "Deadly": "The weapon to the left has +50% Crit Chance."
-    }
+    },
+    "text": "When you use the Weapon to the left of this, deal ( 5 » 15 » 30 » 50 ) damage."
   },
   "Beach Ball": {
     "name": "Beach Ball",
@@ -797,10 +709,6 @@ const items = {
       "Medium",
       "Aquatic",
       "Haste"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Haste ( 1 » 2 » 3 » 4 ) Aquatic item(s) for 2 second(s)."
     ],
     "cooldown": 4,
     "enchants": {
@@ -813,7 +721,8 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your Aquatic items gain +10% Crit Chance for the fight."
-    }
+    },
+    "text": "Haste ( 1 » 2 » 3 » 4 ) Aquatic item(s) for 2 second(s)."
   },
   "Beast of Burden": {
     "name": "Beast of Burden",
@@ -825,11 +734,6 @@ const items = {
       "Damage",
       "Friend",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal 10 damage.",
-      "When you buy another item, this gains ( 10 » 20 » 40 » 80 ) damage."
     ],
     "cooldown": 10,
     "enchants": {
@@ -844,7 +748,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 10 damage.",
+    "bottomtext": "When you buy another item, this gains ( 10 » 20 » 40 » 80 ) damage."
   },
   "Beehive": {
     "name": "Beehive",
@@ -856,14 +762,12 @@ const items = {
       "Damage",
       "Property"
     ],
-    "description": [
-      "When your enemy uses an item, use a Busy Bees.",
-      "When you buy a Property, get a Busy Bee and give your Busy Bees ( +5 » +10 » +15 ) damage."
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "When you buy a property, gain 1 Gold."
-    }
+    },
+    "text": "When your enemy uses an item, use a Busy Bees.",
+    "bottomtext": "When you buy a Property, get a Busy Bee and give your Busy Bees ( +5 » +10 » +15 ) damage."
   },
   "Bellelista": {
     "name": "Bellelista",
@@ -877,11 +781,6 @@ const items = {
       "Haste",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal 20 damage.",
-      "When this gains Haste, this gains ( 10 » 20 » 40 ) damage for the fight."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -894,7 +793,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 20 damage.",
+    "bottomtext": "When this gains Haste, this gains ( 10 » 20 » 40 ) damage for the fight."
   },
   "Belt": {
     "name": "Belt",
@@ -905,11 +806,9 @@ const items = {
       "Medium",
       "Health"
     ],
-    "description": [
-      "You have ( +50% » +75% » +100% ) Max Health."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "You have ( +50% » +75% » +100% ) Max Health."
   },
   "Beta Ray": {
     "name": "Beta Ray",
@@ -921,11 +820,6 @@ const items = {
       "Freeze",
       "Haste"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Freeze 1 small item for ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you use the Core or another Ray, give this Haste for ( 1 » 2 » 3 » 4 ) second(s)."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -936,7 +830,9 @@ const items = {
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Freeze 1 small item for ( 1 » 2 » 3 » 4 ) second(s).",
+    "bottomtext": "When you use the Core or another Ray, give this Haste for ( 1 » 2 » 3 » 4 ) second(s)."
   },
   "Bill Dozer": {
     "name": "Bill Dozer",
@@ -951,12 +847,6 @@ const items = {
       "Vehicle",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal 20 damage.",
-      "When you use another Friend, this gains ( 10 » 20 » 30 ) damage for the fight.",
-      "Your other Friends' cooldowns are reduced by ( 10% » 20% » 30% )."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 3 items for 2 second(s).",
@@ -969,7 +859,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 20 damage.",
+    "bottomtext": "Your other Friends' cooldowns are reduced by ( 10% » 20% » 30% )."
   },
   "Billboard": {
     "name": "Billboard",
@@ -983,15 +875,13 @@ const items = {
       "Property",
       "Value"
     ],
-    "description": [
-      "Your Properties have ( +25% » +50% ) Crit Chance.",
-      "Your other items have ( +1 » +2 ) value."
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "Double Value",
       "Deadly": "Double Crit Chance"
-    }
+    },
+    "text": "Your Properties have ( +25% » +50% ) Crit Chance.",
+    "bottomtext": "Your other items have ( +1 » +2 ) value."
   },
   "Black Pepper": {
     "name": "Black Pepper",
@@ -1005,12 +895,6 @@ const items = {
       "Food",
       "Multicast"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Multicast 2",
-      "Burn ( 1 » 2 » 3 » 4 ).",
-      "Charge adjacent items ( 1 » 1 » 2 » 3 ) second(s)."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -1022,7 +906,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Multicast 2",
+    "bottomtext": "Charge adjacent items ( 1 » 1 » 2 » 3 ) second(s)."
   },
   "Black Rose": {
     "name": "Black Rose",
@@ -1033,11 +919,6 @@ const items = {
       "Small",
       "Heal",
       "Poison"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Heal ( 15 » 30 » 50 ).",
-      "When you Poison, charge this ( 1 » 1 » 2 ) second(s)."
     ],
     "cooldown": 6,
     "enchants": {
@@ -1050,7 +931,33 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal ( 15 » 30 » 50 ).",
+    "bottomtext": "When you Poison, charge this ( 1 » 1 » 2 ) second(s)."
+  },
+  "Blast Doors": {
+    "name": "Blast Doors",
+    "icon": "images/items/BlastDoors.avif",
+    "tier": "Bronze",
+    "tags": [
+      "Dooley",
+      "Medium",
+      "Shield"
+    ],
+    "cooldown": null,
+    "enchants": {
+      "Heavy": "Slow 2 items for 4 second(s).",
+      "Icy": "Freeze 1 item for 4 second(s).",
+      "Turbo": "Haste 2 items for 4 second(s).",
+      "Shielded": "Double Shield",
+      "Restorative": "Heal 165.",
+      "Toxic": "Poison 11.",
+      "Fiery": "Burn 16.",
+      "Shiny": "+1 Multicast",
+      "Deadly": "+50% Crit Chance"
+    },
+    "text": "Shield ( 20 » 60 » 120 » 200 ).",
+    "bottomtext": "This has + Shield equal to your Shield."
   },
   "Blow Torch": {
     "name": "Blow Torch",
@@ -1061,10 +968,6 @@ const items = {
       "Small",
       "Burn",
       "Tool"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Burn ( 2 » 4 » 6 » 8 )."
     ],
     "cooldown": 6,
     "enchants": {
@@ -1077,7 +980,8 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 2 » 4 » 6 » 8 )."
   },
   "Blowgun": {
     "name": "Blowgun",
@@ -1089,11 +993,6 @@ const items = {
       "Damage",
       "Poison",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal 2 damage.",
-      "Poison equal to this item's damage."
     ],
     "cooldown": 6,
     "enchants": {
@@ -1107,7 +1006,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 2 damage.",
+    "bottomtext": "Poison equal to this item's damage."
   },
   "Blue Gumball": {
     "name": "Blue Gumball",
@@ -1120,11 +1021,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, give your items ( +1% » +2% » +3% » +4% ) Crit Chance."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, give your items ( +1% » +2% » +3% » +4% ) Crit Chance."
   },
   "Blue Piggles L": {
     "name": "Blue Piggles L",
@@ -1135,12 +1034,9 @@ const items = {
       "Small",
       "Crit"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "The item to the left of this gains ( 4% » 8% » 12% » 16% ) Crit Chance for the fight."
-    ],
     "cooldown": 3,
-    "enchants": {}
+    "enchants": {},
+    "text": "The item to the left of this gains ( 4% » 8% » 12% » 16% ) Crit Chance for the fight."
   },
   "Blue Piggles R": {
     "name": "Blue Piggles R",
@@ -1151,12 +1047,9 @@ const items = {
       "Small",
       "Crit"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Adjacent items gain ( 2% » 4% » 6% » 8% ) Crit Chance for the fight."
-    ],
     "cooldown": 3,
-    "enchants": {}
+    "enchants": {},
+    "text": "Adjacent items gain ( 2% » 4% » 6% » 8% ) Crit Chance for the fight."
   },
   "Blue Piggles X": {
     "name": "Blue Piggles X",
@@ -1167,12 +1060,9 @@ const items = {
       "Small",
       "Crit"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Give your items ( +1% » +2% » +3% » +4% ) Crit Chance for the fight."
-    ],
     "cooldown": 3,
-    "enchants": {}
+    "enchants": {},
+    "text": "Give your items ( +1% » +2% » +3% » +4% ) Crit Chance for the fight."
   },
   "Bluenanas": {
     "name": "Bluenanas",
@@ -1185,11 +1075,6 @@ const items = {
       "Heal",
       "Health"
     ],
-    "description": [
-      "Cooldown 9 seconds",
-      "Heal ( 10 » 30 » 60 » 100 ).",
-      "When you sell this, gain ( 20 » 60 » 120 » 200 ) Max Health."
-    ],
     "cooldown": 9,
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
@@ -1201,7 +1086,9 @@ const items = {
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal ( 10 » 30 » 60 » 100 ).",
+    "bottomtext": "When you sell this, gain ( 20 » 60 » 120 » 200 ) Max Health."
   },
   "Blunderbuss": {
     "name": "Blunderbuss",
@@ -1216,12 +1103,6 @@ const items = {
       "Damage",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Ammo Max 6",
-      "Deal ( 50 » 100 ) damage.",
-      "When you Burn, charge this ( 1 » 2 ) second(s)."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
@@ -1234,7 +1115,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 50 » 100 ) damage.",
+    "bottomtext": "When you Burn, charge this ( 1 » 2 ) second(s)."
   },
   "Bolas": {
     "name": "Bolas",
@@ -1248,12 +1131,6 @@ const items = {
       "Slow",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Ammo Max 2",
-      "Deal ( 20 » 60 » 120 » 200 ) damage.",
-      "Slow 1 item for ( 2 » 3 » 4 » 5 ) second(s)."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "+1 Slow Targets",
@@ -1266,7 +1143,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 20 » 60 » 120 » 200 ) damage.",
+    "bottomtext": "Slow 1 item for ( 2 » 3 » 4 » 5 ) second(s)."
   },
   "Bomb Squad": {
     "name": "Bomb Squad",
@@ -1279,11 +1158,6 @@ const items = {
       "Friend",
       "Haste"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Burn ( 2 » 4 » 6 » 8 ).",
-      "When you use an adjacent friend, this gains Haste for ( 2 » 3 » 4 » 5 ) second(s)."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -1295,7 +1169,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 2 » 4 » 6 » 8 ).",
+    "bottomtext": "When you use an adjacent friend, this gains Haste for ( 2 » 3 » 4 » 5 ) second(s)."
   },
   "Booby Trap": {
     "name": "Booby Trap",
@@ -1305,9 +1181,6 @@ const items = {
       "Pygmalien",
       "Medium",
       "Freeze"
-    ],
-    "description": [
-      "When you use a Property, Freeze an item ( 1 » 2 » 3 ) second(s)."
     ],
     "cooldown": null,
     "enchants": {
@@ -1319,7 +1192,8 @@ const items = {
       "Toxic": "When you use a Property, Poison 3.",
       "Fiery": "When you use a Property, Burn 4.",
       "Deadly": "When you use a Property, your items gain 20% Crit Chance for the fight."
-    }
+    },
+    "text": "When you use a Property, Freeze an item ( 1 » 2 » 3 ) second(s)."
   },
   "Bootstraps": {
     "name": "Bootstraps",
@@ -1328,9 +1202,6 @@ const items = {
     "tags": [
       "Pygmalien",
       "Medium"
-    ],
-    "description": [
-      "Every 50 you spend, upgrade a random item of a lower tier. [Gold Spent: 0]"
     ],
     "cooldown": null,
     "enchants": {
@@ -1345,7 +1216,8 @@ const items = {
       "Deadly": "And make the item Deadly if able.",
       "Radiant": "And make the item Radiant if able.",
       "Obsidian": "And make the item Obsidian if able."
-    }
+    },
+    "text": "Every 50 you spend, upgrade a random item of a lower tier. [Gold Spent: 0]"
   },
   "Bottled Lightning": {
     "name": "Bottled Lightning",
@@ -1360,12 +1232,6 @@ const items = {
       "Potion",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Ammo Max 1",
-      "Deal ( 25 » 75 » 150 » 250 ) damage.",
-      "Burn ( 4 » 6 » 8 » 10 )."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -1378,7 +1244,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 25 » 75 » 150 » 250 ) damage.",
+    "bottomtext": "Burn ( 4 » 6 » 8 » 10 )."
   },
   "Brass Knuckles": {
     "name": "Brass Knuckles",
@@ -1389,11 +1257,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "This has double damage."
     ],
     "cooldown": 8,
     "enchants": {
@@ -1407,7 +1270,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 15 » 30 » 50 ) damage.",
+    "bottomtext": "This has double damage."
   },
   "Brick Buddy": {
     "name": "Brick Buddy",
@@ -1420,11 +1285,6 @@ const items = {
       "Shield",
       "Vehicle"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Shield ( 10 » 30 » 60 » 100 ).",
-      "When you use an adjacent Friend, this gains ( 5 » 15 » 30 » 50 ) Shield for the fight."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -1436,7 +1296,9 @@ const items = {
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 10 » 30 » 60 » 100 ).",
+    "bottomtext": "When you use an adjacent Friend, this gains ( 5 » 15 » 30 » 50 ) Shield for the fight."
   },
   "Briefcase": {
     "name": "Briefcase",
@@ -1448,11 +1310,6 @@ const items = {
       "Damage",
       "Economy",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Deal ( 10 » 30 » 60 » 100 ) damage.",
-      "When you sell this, get 2 Spare Change."
     ],
     "cooldown": 4,
     "enchants": {
@@ -1467,7 +1324,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 30 » 60 » 100 ) damage.",
+    "bottomtext": "When you sell this, get 2 Spare Change."
   },
   "Broken Shackles": {
     "name": "Broken Shackles",
@@ -1478,11 +1337,6 @@ const items = {
       "Small",
       "Cooldown",
       "Damage"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Your weapons gain ( 2 » 4 » 8 ) damage for the fight.",
-      "When you use a Weapon, charge this 1 second(s)."
     ],
     "cooldown": 6,
     "enchants": {
@@ -1495,7 +1349,9 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your weapons gain 10% Crit Chance for the fight."
-    }
+    },
+    "text": "Your weapons gain ( 2 » 4 » 8 ) damage for the fight.",
+    "bottomtext": "When you use a Weapon, charge this 1 second(s)."
   },
   "Bulky Package": {
     "name": "Bulky Package",
@@ -1508,11 +1364,9 @@ const items = {
       "NonWeapon",
       "Unsellable"
     ],
-    "description": [
-      "Farai will return for this"
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "Farai will return for this"
   },
   "Bunker": {
     "name": "Bunker",
@@ -1525,9 +1379,6 @@ const items = {
       "Property",
       "Shield"
     ],
-    "description": [
-      "When you take damage, Shield equal to ( 30% » 40% » 50% ) of the damage dealt."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "At the start of each fight, Slow 4 enemy items for 4 second(s).",
@@ -1537,7 +1388,8 @@ const items = {
       "Restorative": "You have +18 Regeneration.",
       "Toxic": "At the start of each fight, poison 18.",
       "Fiery": "At the start of each fight, burn 24."
-    }
+    },
+    "text": "When you take damage, Shield equal to ( 30% » 40% » 50% ) of the damage dealt."
   },
   "Bushel": {
     "name": "Bushel",
@@ -1548,11 +1400,6 @@ const items = {
       "Medium",
       "Heal",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Heal 10.",
-      "When you Heal, Shield ( 10 » 20 » 30 » 40 )."
     ],
     "cooldown": 5,
     "enchants": {
@@ -1565,7 +1412,9 @@ const items = {
       "Fiery": "When you Heal, Burn 2.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal 10.",
+    "bottomtext": "When you Heal, Shield ( 10 » 20 » 30 » 40 )."
   },
   "Business Card": {
     "name": "Business Card",
@@ -1576,15 +1425,13 @@ const items = {
       "Small",
       "Value"
     ],
-    "description": [
-      "When you visit a Merchant, this gains ( 1 » 2 » 3 ) value.",
-      "For every 5 Merchants you visit, upgrade this. [Merchants Visited: 0]"
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "Double Value",
       "Shiny": "This has +2 value gain."
-    }
+    },
+    "text": "When you visit a Merchant, this gains ( 1 » 2 » 3 ) value.",
+    "bottomtext": "For every 5 Merchants you visit, upgrade this. [Merchants Visited: 0]"
   },
   "Busy Bee": {
     "name": "Busy Bee",
@@ -1598,12 +1445,9 @@ const items = {
       "Friend",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal ( 5 » 10 » 15 ) damage."
-    ],
     "cooldown": 8,
-    "enchants": {}
+    "enchants": {},
+    "text": "Deal ( 5 » 10 » 15 ) damage."
   },
   "Butter": {
     "name": "Butter",
@@ -1614,10 +1458,6 @@ const items = {
       "Small",
       "Food",
       "Haste"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Adjacent Food and Tools gain Haste for 3 second(s)."
     ],
     "cooldown": 6,
     "enchants": {
@@ -1630,7 +1470,8 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your Food and Tools gain 20% Crit Chance for the fight."
-    }
+    },
+    "text": "Adjacent Food and Tools gain Haste for 3 second(s)."
   },
   "Butterfly Swords": {
     "name": "Butterfly Swords",
@@ -1641,11 +1482,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Multicast ( 2 » 3 » 4 )",
-      "Deal 5 damage."
     ],
     "cooldown": 7,
     "enchants": {
@@ -1659,7 +1495,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Multicast ( 2 » 3 » 4 )",
+    "bottomtext": "Deal 5 damage."
   },
   "Caltrops": {
     "name": "Caltrops",
@@ -1670,9 +1508,6 @@ const items = {
       "Medium",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "When your enemy uses an item, deal 1 damage."
     ],
     "cooldown": null,
     "enchants": {
@@ -1685,7 +1520,8 @@ const items = {
       "Fiery": "When your enemy uses an item, Burn 2.",
       "Deadly": "When your enemy uses an item, your items gain 5% Crit Chance for the fight.",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "When your enemy uses an item, deal 1 damage."
   },
   "Candy Mail": {
     "name": "Candy Mail",
@@ -1698,14 +1534,10 @@ const items = {
       "Food",
       "Shield"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Ammo Max 10",
-      "Adjacent Shield items permanently gain ( +1 » +2 » +3 » +4 ) Shield.",
-      "This permanently loses 1 Max Ammo."
-    ],
     "cooldown": 4,
-    "enchants": {}
+    "enchants": {},
+    "text": "Adjacent Shield items permanently gain ( +1 » +2 » +3 » +4 ) Shield.",
+    "bottomtext": "This permanently loses 1 Max Ammo."
   },
   "Cannon": {
     "name": "Cannon",
@@ -1719,12 +1551,6 @@ const items = {
       "Damage",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Ammo Max 2",
-      "Deal ( 25 » 75 » 150 » 250 ) damage.",
-      "Burn ( 3 » 6 » 9 » 12 )."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 2 items for 6 second(s).",
@@ -1737,7 +1563,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 25 » 75 » 150 » 250 ) damage.",
+    "bottomtext": "Burn ( 3 » 6 » 9 » 12 )."
   },
   "Cannonade": {
     "name": "Cannonade",
@@ -1748,9 +1576,6 @@ const items = {
       "Large",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "When you use a weapon, deal ( 50 » 100 ) damage."
     ],
     "cooldown": null,
     "enchants": {
@@ -1764,7 +1589,8 @@ const items = {
       "Shiny": "Double Damage",
       "Obsidian": "Lifesteal",
       "Deadly": "When you use a weapon, it gains 10% Crit Chance for the fight."
-    }
+    },
+    "text": "When you use a weapon, deal ( 50 » 100 ) damage."
   },
   "Cannonball": {
     "name": "Cannonball",
@@ -1774,9 +1600,6 @@ const items = {
       "Vanessa",
       "Small",
       "Ammo"
-    ],
-    "description": [
-      "Adjacent items have ( +1 » +2 » +3 » +4 ) Ammo."
     ],
     "cooldown": null,
     "enchants": {
@@ -1789,7 +1612,31 @@ const items = {
       "Fiery": "Adjacent Burn items have +2 Burn.",
       "Shiny": "This has double Ammo bonus.",
       "Deadly": "Adjacent ammo items have +25% Crit Chance."
-    }
+    },
+    "text": "Adjacent items have ( +1 » +2 » +3 » +4 ) Ammo."
+  },
+  "Capacitor": {
+    "name": "Capacitor",
+    "icon": "images/items/Capacitor.avif",
+    "tier": "Bronze",
+    "tags": [
+      "Dooley",
+      "Small",
+      "Cooldown"
+    ],
+    "cooldown": null,
+    "enchants": {
+      "Heavy": "Slow 1 item for 3 second(s).",
+      "Icy": "Freeze 1 item for 1 second(s).",
+      "Turbo": "Haste 1 item for 3 second(s).",
+      "Shielded": "Shield 45.",
+      "Restorative": "Heal 70.",
+      "Toxic": "Poison 4.",
+      "Fiery": "Burn 7.",
+      "Shiny": "+1 Multicast",
+      "Deadly": "Adjacent items have +25% Crit Chance."
+    },
+    "text": "Charge adjacent items 1 second(s)."
   },
   "Captain's Wheel": {
     "name": "Captain's Wheel",
@@ -1802,11 +1649,6 @@ const items = {
       "Haste",
       "Tool"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Haste adjacent items for ( 1 » 2 » 3 ) second(s).",
-      "When you use a large item, use this."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
@@ -1817,7 +1659,9 @@ const items = {
       "Toxic": "Poison 4.",
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Haste adjacent items for ( 1 » 2 » 3 ) second(s).",
+    "bottomtext": "When you use a large item, use this."
   },
   "Cargo Shorts": {
     "name": "Cargo Shorts",
@@ -1828,14 +1672,12 @@ const items = {
       "Medium",
       "Economy"
     ],
-    "description": [
-      "When you buy, sell or upgrade this, get 1 Candy and 1 Spare Change."
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "Get 2 Gumballs and Spare Change instead.",
       "Shiny": "Get 2 Gumballs and Spare Change instead."
-    }
+    },
+    "text": "When you buy, sell or upgrade this, get 1 Candy and 1 Spare Change."
   },
   "Cash Cannon": {
     "name": "Cash Cannon",
@@ -1847,11 +1689,6 @@ const items = {
       "Damage",
       "Economy",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal 20 damage.",
-      "When you gain gold, permanently give this + damage equal to ( 1x » 2x » 3x ) the amount of gold gained."
     ],
     "cooldown": 6,
     "enchants": {
@@ -1866,7 +1703,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 20 damage.",
+    "bottomtext": "When you gain gold, permanently give this + damage equal to ( 1x » 2x » 3x ) the amount of gold gained."
   },
   "Cash Register": {
     "name": "Cash Register",
@@ -1878,14 +1717,12 @@ const items = {
       "Economy",
       "Tool"
     ],
-    "description": [
-      "At the start of each day, get 3 Spare Change."
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "You have +3 Income.",
       "Shiny": "At the start of each hour, get an additional 2 Spare Change."
-    }
+    },
+    "text": "At the start of each day, get 3 Spare Change."
   },
   "Catalyst": {
     "name": "Catalyst",
@@ -1895,9 +1732,6 @@ const items = {
       "Mak",
       "Small",
       "Haste"
-    ],
-    "description": [
-      "When you use the item to the left of this, haste the item to the right of this for ( 1 » 2 » 3 ) second(s)."
     ],
     "cooldown": null,
     "enchants": {
@@ -1909,7 +1743,8 @@ const items = {
       "Toxic": "When you use the item to the left of this, Poison 1.",
       "Fiery": "When you use the item to the left of this, Burn 2.",
       "Deadly": "When you use the item to the left of this, the item to the right of this gains 20% Crit Chance for the fight."
-    }
+    },
+    "text": "When you use the item to the left of this, haste the item to the right of this for ( 1 » 2 » 3 ) second(s)."
   },
   "Catfish": {
     "name": "Catfish",
@@ -1923,11 +1758,6 @@ const items = {
       "Haste",
       "Poison"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Poison ( 1 » 2 » 3 » 4 ).",
-      "When this gains Haste, give it ( +1 » +2 » +3 » +4 ) Poison for the fight."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -1939,7 +1769,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison ( 1 » 2 » 3 » 4 ).",
+    "bottomtext": "When this gains Haste, give it ( +1 » +2 » +3 » +4 ) Poison for the fight."
   },
   "Cauldron": {
     "name": "Cauldron",
@@ -1952,11 +1784,6 @@ const items = {
       "Poison",
       "Tool"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Burn ( 2 » 4 » 6 ).",
-      "Poison ( 1 » 2 » 3 )."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
@@ -1968,7 +1795,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 2 » 4 » 6 ).",
+    "bottomtext": "Poison ( 1 » 2 » 3 )."
   },
   "Char Cole": {
     "name": "Char Cole",
@@ -1979,11 +1808,6 @@ const items = {
       "Small",
       "Burn",
       "Friend"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Burn ( 1 » 2 » 3 ).",
-      "When you use another friend, this gains ( 1 » 2 » 3 ) Burn for the fight."
     ],
     "cooldown": 8,
     "enchants": {
@@ -1996,7 +1820,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 1 » 2 » 3 ).",
+    "bottomtext": "When you use another friend, this gains ( 1 » 2 » 3 ) Burn for the fight."
   },
   "Charging Station": {
     "name": "Charging Station",
@@ -2009,10 +1835,6 @@ const items = {
       "Damage",
       "Tool"
     ],
-    "description": [
-      "When you use the item to the left of this, charge the item to the right for ( 1 » 2 ) second(s).",
-      "When you use the Core, give it ( +20 » +40 ) damage for the fight."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When you use the Core, slow 1 item for 4 second(s).",
@@ -2023,7 +1845,9 @@ const items = {
       "Toxic": "When you use the core, poison 4.",
       "Fiery": "When you use the core, burn 6.",
       "Shiny": "Double Charge"
-    }
+    },
+    "text": "When you use the item to the left of this, charge the item to the right for ( 1 » 2 ) second(s).",
+    "bottomtext": "When you use the Core, give it ( +20 » +40 ) damage for the fight."
   },
   "Chemsnail": {
     "name": "Chemsnail",
@@ -2036,11 +1860,6 @@ const items = {
       "Poison",
       "Slow"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you slow, Poison ( 1 » 2 » 3 » 5 )."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "This has +1 Slow targets.",
@@ -2051,7 +1870,9 @@ const items = {
       "Toxic": "Double Poison",
       "Fiery": "When you Slow, Burn 2.",
       "Deadly": "When you Slow, your items gain +6% Crit Chance for the fight."
-    }
+    },
+    "text": "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
+    "bottomtext": "When you slow, Poison ( 1 » 2 » 3 » 5 )."
   },
   "Chocolate Bar": {
     "name": "Chocolate Bar",
@@ -2065,11 +1886,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, gain ( 10 » 20 » 30 » 40 ) Max Health."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, gain ( 10 » 20 » 30 » 40 ) Max Health."
   },
   "Chris Army Knife": {
     "name": "Chris Army Knife",
@@ -2084,11 +1903,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal ( 5 » 10 » 20 » 40 ) damage.",
-      "Shield ( 5 » 10 » 20 » 40 )."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -2101,7 +1915,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 10 » 20 » 40 ) damage.",
+    "bottomtext": "Shield ( 5 » 10 » 20 » 40 )."
   },
   "Chronobarrier": {
     "name": "Chronobarrier",
@@ -2112,11 +1928,6 @@ const items = {
       "Medium",
       "Cooldown",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Shield ( 50 » 100 ).",
-      "Enemy cooldowns are increased by ( 1 » 2 ) second(s)."
     ],
     "cooldown": 6,
     "enchants": {
@@ -2129,7 +1940,9 @@ const items = {
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 50 » 100 ).",
+    "bottomtext": "Enemy cooldowns are increased by ( 1 » 2 ) second(s)."
   },
   "Chum": {
     "name": "Chum",
@@ -2140,11 +1953,6 @@ const items = {
       "Small",
       "Aquatic",
       "Crit"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Your Aquatic items gain ( 2% » 3% » 4% » 5% ) Crit Chance for the fight.",
-      "When you buy this, get a Piranha."
     ],
     "cooldown": 4,
     "enchants": {
@@ -2157,7 +1965,9 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "Double Crit Chance"
-    }
+    },
+    "text": "Your Aquatic items gain ( 2% » 3% » 4% » 5% ) Crit Chance for the fight.",
+    "bottomtext": "When you buy this, get a Piranha."
   },
   "Cinders": {
     "name": "Cinders",
@@ -2169,11 +1979,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, your leftmost Burn item gains ( +1 » +2 » +3 » +4 ) Burn."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, your leftmost Burn item gains ( +1 » +2 » +3 » +4 ) Burn."
   },
   "Citrus": {
     "name": "Citrus",
@@ -2186,11 +1994,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, gain ( 1 » 2 » 3 » 4 ) Regeneration."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, gain ( 1 » 2 » 3 » 4 ) Regeneration."
   },
   "Clamera": {
     "name": "Clamera",
@@ -2203,11 +2009,6 @@ const items = {
       "Slow",
       "Tool"
     ],
-    "description": [
-      "Cooldown 9 seconds",
-      "Slow ( 1 » 2 » 3 » 4 ) item(s) for ( 1 » 1 » 1 » 2 ) second(s).",
-      "At the start of each fight, use this."
-    ],
     "cooldown": 9,
     "enchants": {
       "Heavy": "This has +1 Slow targets.",
@@ -2218,7 +2019,9 @@ const items = {
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Slow ( 1 » 2 » 3 » 4 ) item(s) for ( 1 » 1 » 1 » 2 ) second(s).",
+    "bottomtext": "At the start of each fight, use this."
   },
   "Claw Arm": {
     "name": "Claw Arm",
@@ -2230,11 +2033,6 @@ const items = {
       "Damage",
       "Haste",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Deal 10 damage.",
-      "When this gains Haste, this and the weapon to the left gains ( 5 » 10 ) damage for the fight."
     ],
     "cooldown": 4,
     "enchants": {
@@ -2248,7 +2046,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 10 damage.",
+    "bottomtext": "When this gains Haste, this and the weapon to the left gains ( 5 » 10 ) damage for the fight."
   },
   "Clawrence": {
     "name": "Clawrence",
@@ -2260,11 +2060,6 @@ const items = {
       "Damage",
       "Friend",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal 10 damage.",
-      "When you use a Friend, this gains ( 10 » 20 » 40 ) damage for the fight."
     ],
     "cooldown": 5,
     "enchants": {
@@ -2278,7 +2073,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 10 damage.",
+    "bottomtext": "When you use a Friend, this gains ( 10 » 20 » 40 ) damage for the fight."
   },
   "Claws": {
     "name": "Claws",
@@ -2290,11 +2087,6 @@ const items = {
       "Crit",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Deal ( 8 » 24 » 48 » 100 ) Damage.",
-      "This deals double Crit damage."
     ],
     "cooldown": 4,
     "enchants": {
@@ -2308,7 +2100,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 8 » 24 » 48 » 100 ) Damage.",
+    "bottomtext": "This deals double Crit damage."
   },
   "Clockwork Blades": {
     "name": "Clockwork Blades",
@@ -2320,11 +2114,6 @@ const items = {
       "Cooldown",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal ( 10 » 30 » 60 » 100 ) damage.",
-      "When you sell this, reduce your items' cooldown by ( 1% » 2% » 3% » 4% )."
     ],
     "cooldown": 6,
     "enchants": {
@@ -2338,7 +2127,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 30 » 60 » 100 ) damage.",
+    "bottomtext": "When you sell this, reduce your items' cooldown by ( 1% » 2% » 3% » 4% )."
   },
   "Closed Sign": {
     "name": "Closed Sign",
@@ -2350,15 +2141,13 @@ const items = {
       "Economy",
       "Regen"
     ],
-    "description": [
-      "You have Regeneration equal to ( 1x » 2x ) adjacent properties' values. [0]"
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "You have +3 Income.",
       "Shiny": "You have additional Regeneration equal to the value of adjacent properties.",
       "Deadly": "Adjacent properties have +50% Crit Chance."
-    }
+    },
+    "text": "You have Regeneration equal to ( 1x » 2x ) adjacent properties' values. [0]"
   },
   "Coconut": {
     "name": "Coconut",
@@ -2371,11 +2160,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, gain ( 10 » 20 » 30 » 40 ) Max Health."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, gain ( 10 » 20 » 30 » 40 ) Max Health."
   },
   "Cog": {
     "name": "Cog",
@@ -2386,10 +2173,6 @@ const items = {
       "Small",
       "Haste",
       "Tool"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Haste an adjacent item for ( 1 » 2 » 3 ) second(s)."
     ],
     "cooldown": 4,
     "enchants": {
@@ -2402,7 +2185,8 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "An adjacent item gains 20% Crit Chance for the fight."
-    }
+    },
+    "text": "Haste an adjacent item for ( 1 » 2 » 3 ) second(s)."
   },
   "Colossal Popsicle": {
     "name": "Colossal Popsicle",
@@ -2416,12 +2200,6 @@ const items = {
       "Freeze",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal ( 50 » 100 » 150 ) damage.",
-      "Freeze 2 items for ( 1 » 2 » 3 ) second(s).",
-      "When you sell this, gain 2 Icicles."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
@@ -2434,7 +2212,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 50 » 100 » 150 ) damage.",
+    "bottomtext": "When you sell this, gain 2 Icicles."
   },
   "Combat Core": {
     "name": "Combat Core",
@@ -2449,13 +2229,6 @@ const items = {
       "Vehicle",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Deal 25 damage.",
-      "Shield 25.",
-      "When you use any item to the left of this, this gains ( 10 » 25 » 50 ) Damage for the fight.",
-      "When you use any item to the right of this, this gains ( 10 » 25 » 50 ) Shield for the fight."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 3 items for 1 second(s).",
@@ -2468,7 +2241,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 25 damage.",
+    "bottomtext": "When you use any item to the right of this, this gains ( 10 » 25 » 50 ) Shield for the fight."
   },
   "Companion Core": {
     "name": "Companion Core",
@@ -2483,11 +2258,6 @@ const items = {
       "Haste",
       "Unsellable"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Haste your other friends ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you use another Friend, Charge this 1 second(s)."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -2499,7 +2269,9 @@ const items = {
       "Fiery": "Burn 12.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your friends gain +10% Crit Chance for the fight."
-    }
+    },
+    "text": "Haste your other friends ( 1 » 2 » 3 » 4 ) second(s).",
+    "bottomtext": "When you use another Friend, Charge this 1 second(s)."
   },
   "Concealed Dagger": {
     "name": "Concealed Dagger",
@@ -2511,11 +2283,6 @@ const items = {
       "Damage",
       "Gold",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal ( 12 » 24 » 40 ) damage.",
-      "Gain ( 1 » 2 » 3 ) gold."
     ],
     "cooldown": 8,
     "enchants": {
@@ -2530,7 +2297,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 12 » 24 » 40 ) damage.",
+    "bottomtext": "Gain ( 1 » 2 » 3 ) gold."
   },
   "Cookies": {
     "name": "Cookies",
@@ -2543,13 +2312,10 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "When you sell this, you lose ( 10 » 20 » 30 » 40 ) Max Health.",
-      "When you sell this, gain ( 1 » 2 » 3 » 4 ) Regeneration."
-    ],
     "cooldown": 5,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, you lose ( 10 » 20 » 30 » 40 ) Max Health.",
+    "bottomtext": "When you sell this, gain ( 1 » 2 » 3 » 4 ) Regeneration."
   },
   "Cool LEDs": {
     "name": "Cool LEDs",
@@ -2559,11 +2325,6 @@ const items = {
       "Dooley",
       "Small",
       "Slow"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you use the Core, slow an item for ( 1 » 2 » 3 » 4 ) second(s)."
     ],
     "cooldown": 4,
     "enchants": {
@@ -2575,7 +2336,9 @@ const items = {
       "Toxic": "Poison 2.",
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
+    "bottomtext": "When you use the Core, slow an item for ( 1 » 2 » 3 » 4 ) second(s)."
   },
   "Coolant": {
     "name": "Coolant",
@@ -2587,11 +2350,6 @@ const items = {
       "Burn",
       "Freeze"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Freeze 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
-      "Cleanse half your Burn."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -2602,7 +2360,9 @@ const items = {
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Freeze 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
+    "bottomtext": "Cleanse half your Burn."
   },
   "Cooling Fan": {
     "name": "Cooling Fan",
@@ -2612,11 +2372,6 @@ const items = {
       "Dooley",
       "Small",
       "Haste"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Give the Core ( +5% » +10% » +15% ) Crit Chance for the fight.",
-      "While you have Burn, reduce this item's cooldown by 50%."
     ],
     "cooldown": 5,
     "enchants": {
@@ -2629,7 +2384,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "Give an item gain 20% Crit Chance for the fight."
-    }
+    },
+    "text": "Give the Core ( +5% » +10% » +15% ) Crit Chance for the fight.",
+    "bottomtext": "While you have Burn, reduce this item's cooldown by 50%."
   },
   "Copper Ed": {
     "name": "Copper Ed",
@@ -2642,11 +2399,6 @@ const items = {
       "Poison",
       "Shield"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Poison ( 1 » 2 » 3 » 4 ).",
-      "Gain ( 5 » 10 » 15 » 20 ) shield."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -2658,7 +2410,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison ( 1 » 2 » 3 » 4 ).",
+    "bottomtext": "Gain ( 5 » 10 » 15 » 20 ) shield."
   },
   "Coral": {
     "name": "Coral",
@@ -2669,11 +2423,6 @@ const items = {
       "Small",
       "Aquatic",
       "Heal"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Heal 10.",
-      "When you buy an Aquatic item, this gains Heal ( 5 » 10 » 15 » 20 )."
     ],
     "cooldown": 4,
     "enchants": {
@@ -2686,7 +2435,9 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal 10.",
+    "bottomtext": "When you buy an Aquatic item, this gains Heal ( 5 » 10 » 15 » 20 )."
   },
   "Coral Armor": {
     "name": "Coral Armor",
@@ -2697,11 +2448,6 @@ const items = {
       "Medium",
       "Aquatic",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Shield 10.",
-      "When you buy an Aquatic item, this gains ( 10 » 20 » 30 » 50 ) Shield."
     ],
     "cooldown": 6,
     "enchants": {
@@ -2714,7 +2460,9 @@ const items = {
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield 10.",
+    "bottomtext": "When you buy an Aquatic item, this gains ( 10 » 20 » 30 » 50 ) Shield."
   },
   "Cosmic Amulet": {
     "name": "Cosmic Amulet",
@@ -2727,11 +2475,6 @@ const items = {
       "Haste",
       "Shield"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Shield ( 50 » 100 ).",
-      "When this gains haste, give your items ( +3% » +5% ) crit chance for the fight."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -2743,7 +2486,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 50 » 100 ).",
+    "bottomtext": "When this gains haste, give your items ( +3% » +5% ) crit chance for the fight."
   },
   "Cosmic Plumage": {
     "name": "Cosmic Plumage",
@@ -2757,11 +2502,6 @@ const items = {
       "Damage",
       "Shield"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Your Shield items gain ( 4 » 8 » 12 ) shield and your Weapons ( +4 » +8 » +12 ) damage for the fight.",
-      "When you crit, charge this 1 second(s)."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -2773,7 +2513,9 @@ const items = {
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Your Shield items gain ( 4 » 8 » 12 ) shield and your Weapons ( +4 » +8 » +12 ) damage for the fight.",
+    "bottomtext": "When you crit, charge this 1 second(s)."
   },
   "Cove": {
     "name": "Cove",
@@ -2788,11 +2530,6 @@ const items = {
       "Shield",
       "Value"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Shield equal to ( 1x » 2x » 3x » 4x ) this item's value.",
-      "When you sell an item, this gains ( 1 » 1 » 1 » 2 ) value."
-    ],
     "cooldown": 3,
     "enchants": {
       "Golden": "Double Value",
@@ -2805,7 +2542,9 @@ const items = {
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield equal to ( 1x » 2x » 3x » 4x ) this item's value.",
+    "bottomtext": "When you sell an item, this gains ( 1 » 1 » 1 » 2 ) value."
   },
   "Crane": {
     "name": "Crane",
@@ -2819,12 +2558,6 @@ const items = {
       "Vehicle",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal ( 100 » 200 ) damage.",
-      "When you use an adjacent Large item, this gains ( 30% » 60% ) damage for the fight.",
-      "When you use an adjacent Medium item, this gains ( 20% » 40% ) damage for the fight."
-    ],
     "cooldown": 10,
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
@@ -2837,7 +2570,40 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 100 » 200 ) damage.",
+    "bottomtext": "When you use an adjacent Medium item, this gains ( 20% » 40% ) damage for the fight."
+  },
+  "Critical Core": {
+    "name": "Critical Core",
+    "icon": "images/items/CriticalCore.avif",
+    "tier": "Bronze",
+    "tags": [
+      "Dooley",
+      "Medium",
+      "Active",
+      "Charge",
+      "Core",
+      "Crit",
+      "Damage",
+      "Unsellable",
+      "Weapon"
+    ],
+    "cooldown": null,
+    "enchants": {
+      "Heavy": "Slow 2 items for 3 second(s).",
+      "Icy": "Freeze 1 item for 3 second(s).",
+      "Turbo": "Haste 2 items for 3 second(s).",
+      "Shielded": "Shield 80.",
+      "Restorative": "Heal 120.",
+      "Toxic": "Poison 8.",
+      "Fiery": "Burn 12.",
+      "Shiny": "+1 Multicast",
+      "Deadly": "This has +50% Crit Chance.",
+      "Obsidian": "Lifesteal"
+    },
+    "text": "Deal ( 10 » 30 » 60 » 100 ) damage.",
+    "bottomtext": "When you Crit with any item, Charge this 1 second(s)."
   },
   "Crook": {
     "name": "Crook",
@@ -2850,11 +2616,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal ( 10 » 20 » 40 ) damage.",
-      "Your Weapons have ( +10 » +20 » +40 ) Damage for each Medium item you have."
-    ],
     "cooldown": 5,
     "enchants": {
       "Shielded": "Your Shield items have +10 Shield for each Medium item you have.",
@@ -2863,7 +2624,9 @@ const items = {
       "Fiery": "Your Burn items have +3 Burn for each Medium item you have.",
       "Deadly": "Your items have +10% Crit Chance for each Medium item you have.",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 20 » 40 ) damage.",
+    "bottomtext": "Your Weapons have ( +10 » +20 » +40 ) Damage for each Medium item you have."
   },
   "Crow's Nest": {
     "name": "Crow's Nest",
@@ -2876,10 +2639,6 @@ const items = {
       "Crit",
       "Property"
     ],
-    "description": [
-      "Your weapons have ( +25% » +50% » +75% » +100% ) Crit Chance.",
-      "If you have exactly one weapon, that Weapon has lifesteal."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When you crit with a Weapon, slow 1 item for 4 second(s).",
@@ -2891,7 +2650,9 @@ const items = {
       "Fiery": "When you crit with a weapon, burn 6",
       "Deadly": "Your Weapons have double Crit damage.",
       "Shiny": "If you have two or fewer weapons, they have Lifesteal."
-    }
+    },
+    "text": "Your weapons have ( +25% » +50% » +75% » +100% ) Crit Chance.",
+    "bottomtext": "If you have exactly one weapon, that Weapon has lifesteal."
   },
   "Crusher Claw": {
     "name": "Crusher Claw",
@@ -2906,11 +2667,6 @@ const items = {
       "Shield",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Your Shield items gain ( 2 » 4 » 6 » 8 ) Shield for the fight.",
-      "Deal damage equal to the highest shield value of items you have."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -2923,7 +2679,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Your Shield items gain ( 2 » 4 » 6 » 8 ) Shield for the fight.",
+    "bottomtext": "Deal damage equal to the highest shield value of items you have."
   },
   "Cryosleeve": {
     "name": "Cryosleeve",
@@ -2935,11 +2693,6 @@ const items = {
       "Freeze",
       "Shield"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Freeze this for 2 second(s).",
-      "When ANY item gains Freeze, Shield ( 15 » 30 » 45 » 60 )."
-    ],
     "cooldown": 3,
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
@@ -2950,7 +2703,9 @@ const items = {
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Freeze this for 2 second(s).",
+    "bottomtext": "When ANY item gains Freeze, Shield ( 15 » 30 » 45 » 60 )."
   },
   "Cryosphere": {
     "name": "Cryosphere",
@@ -2962,10 +2717,6 @@ const items = {
       "Freeze",
       "Tool"
     ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Freeze all items other than The Core for ( 2 » 3 ) second(s)."
-    ],
     "cooldown": 10,
     "enchants": {
       "Heavy": "Slow 10 items for 4 second(s).",
@@ -2976,7 +2727,8 @@ const items = {
       "Toxic": "Poison 10.",
       "Fiery": "Burn 15.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Freeze all items other than The Core for ( 2 » 3 ) second(s)."
   },
   "Crypto": {
     "name": "Crypto",
@@ -2987,14 +2739,12 @@ const items = {
       "Small",
       "Value"
     ],
-    "description": [
-      "At the start of each hour, set this item's value to a number between 0 and ( 5 » 10 » 20 » 40 )."
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "Double Value",
       "Shiny": "Double Value"
-    }
+    },
+    "text": "At the start of each hour, set this item's value to a number between 0 and ( 5 » 10 » 20 » 40 )."
   },
   "Crystal Bonsai": {
     "name": "Crystal Bonsai",
@@ -3006,12 +2756,6 @@ const items = {
       "Economy",
       "Heal",
       "Value"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Heal equal to ( 1x » 2x » 3x » 4x ) this item's value.",
-      "At the start of each fight with Crystal Bonsai, this gains ( 2 » 4 » 6 » 8 ) value.",
-      "When you lose a fight with Crystal Bonsai, this item loses all of its value."
     ],
     "cooldown": 4,
     "enchants": {
@@ -3025,7 +2769,9 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal equal to ( 1x » 2x » 3x » 4x ) this item's value.",
+    "bottomtext": "When you lose a fight with Crystal Bonsai, this item loses all of its value."
   },
   "Curry": {
     "name": "Curry",
@@ -3038,11 +2784,6 @@ const items = {
       "Charge",
       "Food"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Burn ( 4 » 6 » 8 ).",
-      "Charge another small item ( 3 » 4 » 5 ) second(s)."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -3054,7 +2795,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 4 » 6 » 8 ).",
+    "bottomtext": "Charge another small item ( 3 » 4 » 5 ) second(s)."
   },
   "Cutlass": {
     "name": "Cutlass",
@@ -3066,11 +2809,6 @@ const items = {
       "Crit",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal ( 6 » 18 » 36 » 60 ) damage.",
-      "This deals double Crit damage."
     ],
     "cooldown": 5,
     "enchants": {
@@ -3084,7 +2822,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 6 » 18 » 36 » 60 ) damage.",
+    "bottomtext": "This deals double Crit damage."
   },
   "Cybersecurity": {
     "name": "Cybersecurity",
@@ -3096,11 +2836,6 @@ const items = {
       "Damage",
       "Friend",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 12 seconds",
-      "Deal 20 damage for each Weapon you have.",
-      "This deals ( double » triple » quadruple ) damage if it is your only friend."
     ],
     "cooldown": 12,
     "enchants": {
@@ -3114,7 +2849,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 20 damage for each Weapon you have.",
+    "bottomtext": "This deals ( double » triple » quadruple ) damage if it is your only friend."
   },
   "Dam": {
     "name": "Dam",
@@ -3127,11 +2864,6 @@ const items = {
       "Charge",
       "Property"
     ],
-    "description": [
-      "Cooldown 20 seconds",
-      "Destroy this, all enemy small items for the fight and slow all enemy medium items for 10 second(s).",
-      "When you use another Aquatic item, charge this 1 second(s)."
-    ],
     "cooldown": 20,
     "enchants": {
       "Heavy": "Slow 99 items for 10 second(s).",
@@ -3142,7 +2874,9 @@ const items = {
       "Toxic": "Poison 30.",
       "Fiery": "Burn 45.",
       "Shiny": "Double Charge"
-    }
+    },
+    "text": "Destroy this, all enemy small items for the fight and slow all enemy medium items for 10 second(s).",
+    "bottomtext": "When you use another Aquatic item, charge this 1 second(s)."
   },
   "Death Caps": {
     "name": "Death Caps",
@@ -3152,11 +2886,6 @@ const items = {
       "Mak",
       "Medium",
       "Poison"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Poison ( 1 » 2 ).",
-      "Increase the poison of your items by ( 1 » 2 ) for the fight."
     ],
     "cooldown": 5,
     "enchants": {
@@ -3169,7 +2898,9 @@ const items = {
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison ( 1 » 2 ).",
+    "bottomtext": "Increase the poison of your items by ( 1 » 2 ) for the fight."
   },
   "Deed": {
     "name": "Deed",
@@ -3180,15 +2911,13 @@ const items = {
       "Medium",
       "Value"
     ],
-    "description": [
-      "When you sell a Large item, this gains ( 2 » 4 » 6 ) Sell Value.",
-      "Your items have double value in combat."
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "This has double value.",
       "Shiny": "Double Value"
-    }
+    },
+    "text": "When you sell a Large item, this gains ( 2 » 4 » 6 ) Sell Value.",
+    "bottomtext": "Your items have double value in combat."
   },
   "Diana-Saur": {
     "name": "Diana-Saur",
@@ -3200,12 +2929,6 @@ const items = {
       "Damage",
       "Friend",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal 40 damage.",
-      "If your enemy has at least ( 6 » 5 » 4 ) items, destroy a small enemy item for the fight.",
-      "When you destroy an item during combat, your Dinosaurs permanently gain ( 10 » 20 » 40 ) damage."
     ],
     "cooldown": 8,
     "enchants": {
@@ -3219,7 +2942,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 40 damage.",
+    "bottomtext": "When you destroy an item during combat, your Dinosaurs permanently gain ( 10 » 20 » 40 ) damage."
   },
   "Disguise": {
     "name": "Disguise",
@@ -3229,10 +2954,6 @@ const items = {
       "Vanessa",
       "Medium",
       "Crit"
-    ],
-    "description": [
-      "When you buy this, get a non-Vanessa item.",
-      "Your items from other Heroes have ( +15% » +30% » +50% ) Crit Chance."
     ],
     "cooldown": null,
     "enchants": {
@@ -3244,7 +2965,9 @@ const items = {
       "Toxic": "When you use an item from another hero, poison 2.",
       "Fiery": "When you use an item from another hero, burn 3.",
       "Deadly": "Double Crit Chance"
-    }
+    },
+    "text": "When you buy this, get a non-Vanessa item.",
+    "bottomtext": "Your items from other Heroes have ( +15% » +30% » +50% ) Crit Chance."
   },
   "Dishwasher": {
     "name": "Dishwasher",
@@ -3257,11 +2980,6 @@ const items = {
       "Haste",
       "Tool"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Haste your tools for ( 1 » 2 » 3 » 4 ) second(s).",
-      "Your weapons gain ( 10 » 20 » 40 » 80 ) damage for the fight."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
@@ -3273,7 +2991,9 @@ const items = {
       "Fiery": "Burn 18.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your weapons and tools gain 25% Crit Chance for the fight."
-    }
+    },
+    "text": "Haste your tools for ( 1 » 2 » 3 » 4 ) second(s).",
+    "bottomtext": "Your weapons gain ( 10 » 20 » 40 » 80 ) damage for the fight."
   },
   "DJ Rob0t": {
     "name": "DJ Rob0t",
@@ -3285,11 +3005,6 @@ const items = {
       "Friend",
       "Haste"
     ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Haste your Friends for ( 1 » 2 » 3 ) second(s).",
-      "When you buy this, get 3 Nanobots."
-    ],
     "cooldown": 10,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -3300,7 +3015,9 @@ const items = {
       "Toxic": "Poison 10.",
       "Fiery": "Burn 15.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Haste your Friends for ( 1 » 2 » 3 ) second(s).",
+    "bottomtext": "When you buy this, get 3 Nanobots."
   },
   "Dock Lines": {
     "name": "Dock Lines",
@@ -3313,10 +3030,6 @@ const items = {
       "Slow",
       "Tool"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Slow ( 1 » 2 » 3 » 4 ) item(s) for ( 4 » 4 » 4 » 3 ) second(s)."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Double Slow",
@@ -3327,7 +3040,8 @@ const items = {
       "Toxic": "Poison 4.",
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Slow ( 1 » 2 » 3 » 4 ) item(s) for ( 4 » 4 » 4 » 3 ) second(s)."
   },
   "Dog": {
     "name": "Dog",
@@ -3339,11 +3053,6 @@ const items = {
       "Damage",
       "Friend",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal 10 Damage",
-      "When you sell a small item, this gains ( 3 » 6 » 9 » 12 ) damage."
     ],
     "cooldown": 6,
     "enchants": {
@@ -3358,7 +3067,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 10 Damage",
+    "bottomtext": "When you sell a small item, this gains ( 3 » 6 » 9 » 12 ) damage."
   },
   "Dooley's Scarf": {
     "name": "Dooley's Scarf",
@@ -3369,11 +3080,6 @@ const items = {
       "Medium",
       "Freeze",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Shield ( 20 » 40 » 60 ).",
-      "When this or an adjacent item gains Freeze, Shield ( 20 » 40 » 60 ) and remove Freeze from it."
     ],
     "cooldown": 4,
     "enchants": {
@@ -3386,7 +3092,9 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 20 » 40 » 60 ).",
+    "bottomtext": "When this or an adjacent item gains Freeze, Shield ( 20 » 40 » 60 ) and remove Freeze from it."
   },
   "Double Barrel": {
     "name": "Double Barrel",
@@ -3398,12 +3106,6 @@ const items = {
       "Ammo",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Ammo Max 2",
-      "Multicast 2",
-      "Deal ( 15 » 45 » 90 » 180 ) damage."
     ],
     "cooldown": 3,
     "enchants": {
@@ -3417,7 +3119,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Multicast 2",
+    "bottomtext": "Deal ( 15 » 45 » 90 » 180 ) damage."
   },
   "Double Whammy": {
     "name": "Double Whammy",
@@ -3429,11 +3133,6 @@ const items = {
       "Damage",
       "Health",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 12 seconds",
-      "Multicast 2",
-      "Deal damage equal to ( 10% » 15% » 20% ) of your Max Health."
     ],
     "cooldown": 12,
     "enchants": {
@@ -3447,7 +3146,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Multicast 2",
+    "bottomtext": "Deal damage equal to ( 10% » 15% » 20% ) of your Max Health."
   },
   "Dragon Tooth": {
     "name": "Dragon Tooth",
@@ -3459,11 +3160,6 @@ const items = {
       "Damage",
       "Gold",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 9 seconds",
-      "Deal ( 10 » 20 ) damage.",
-      "At the start of each fight with Dragon Tooth, spend 3 gold and your weapons permanently gain ( 5 » 10 ) damage."
     ],
     "cooldown": 9,
     "enchants": {
@@ -3478,7 +3174,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 20 ) damage.",
+    "bottomtext": "At the start of each fight with Dragon Tooth, spend 3 gold and your weapons permanently gain ( 5 » 10 ) damage."
   },
   "Dragon Whelp": {
     "name": "Dragon Whelp",
@@ -3492,11 +3190,6 @@ const items = {
       "Friend",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 9 seconds",
-      "Deal ( 1 » 2 » 3 ) damage.",
-      "Burn equal to this item's damage."
-    ],
     "cooldown": 9,
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
@@ -3509,7 +3202,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 1 » 2 » 3 ) damage.",
+    "bottomtext": "Burn equal to this item's damage."
   },
   "Duct Tape": {
     "name": "Duct Tape",
@@ -3522,11 +3217,6 @@ const items = {
       "Slow",
       "Tool"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you use an adjacent item, Shield ( 5 » 10 » 15 » 20 )."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "+1 Slow Targets",
@@ -3537,7 +3227,9 @@ const items = {
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
+    "bottomtext": "When you use an adjacent item, Shield ( 5 » 10 » 15 » 20 )."
   },
   "Eagle Talisman": {
     "name": "Eagle Talisman",
@@ -3548,11 +3240,9 @@ const items = {
       "Small",
       "Damage"
     ],
-    "description": [
-      "When you sell this, your leftmost item gains ( 5% » 10% » 15% » 20% ) Crit Chance."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, your leftmost item gains ( 5% » 10% » 15% » 20% ) Crit Chance."
   },
   "Earrings": {
     "name": "Earrings",
@@ -3563,11 +3253,6 @@ const items = {
       "Small",
       "Health",
       "Slow"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Slow 1 item for ( 1 » 2 » 3 ) second(s).",
-      "When you slow, permanently gain ( 1 » 2 » 3 ) Max Health."
     ],
     "cooldown": 5,
     "enchants": {
@@ -3580,7 +3265,9 @@ const items = {
       "Fiery": "When you Slow, Burn 1.",
       "Shiny": "+1 Multicast",
       "Deadly": "When you Slow, your items gain 3% Crit Chance."
-    }
+    },
+    "text": "Slow 1 item for ( 1 » 2 » 3 ) second(s).",
+    "bottomtext": "When you slow, permanently gain ( 1 » 2 » 3 ) Max Health."
   },
   "Ectoplasm": {
     "name": "Ectoplasm",
@@ -3591,11 +3278,6 @@ const items = {
       "Small",
       "Heal",
       "Poison"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Poison ( 1 » 2 » 3 ).",
-      "Heal equal to your opponent's Poison."
     ],
     "cooldown": 6,
     "enchants": {
@@ -3608,7 +3290,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison ( 1 » 2 » 3 ).",
+    "bottomtext": "Heal equal to your opponent's Poison."
   },
   "Electric Eels": {
     "name": "Electric Eels",
@@ -3623,10 +3307,6 @@ const items = {
       "Slow",
       "Weapon"
     ],
-    "description": [
-      "When your enemy uses a Weapon, deal ( 5 » 10 » 20 ) damage.",
-      "When your enemy uses a non-Weapon item, Slow it for ( 1 » 2 » 3 ) second(s)."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "Double Slow",
@@ -3638,7 +3318,9 @@ const items = {
       "Fiery": "When your enemy uses a Weapon, burn 4.",
       "Shiny": "Double Damage",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "When your enemy uses a Weapon, deal ( 5 » 10 » 20 ) damage.",
+    "bottomtext": "When your enemy uses a non-Weapon item, Slow it for ( 1 » 2 » 3 ) second(s)."
   },
   "Emerald": {
     "name": "Emerald",
@@ -3648,11 +3330,6 @@ const items = {
       "Mak",
       "Small",
       "Poison"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Poison ( 1 » 2 » 3 ).",
-      "Increase your other items' Poison by 1."
     ],
     "cooldown": 6,
     "enchants": {
@@ -3665,7 +3342,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison ( 1 » 2 » 3 ).",
+    "bottomtext": "Increase your other items' Poison by 1."
   },
   "Energy Potion": {
     "name": "Energy Potion",
@@ -3678,11 +3357,6 @@ const items = {
       "Haste",
       "Potion"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Ammo Max 1",
-      "Haste your items for ( 2 » 4 » 6 » 8 ) second(s)."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -3693,7 +3367,8 @@ const items = {
       "Toxic": "Poison 4.",
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Haste your items for ( 2 » 4 » 6 » 8 ) second(s)."
   },
   "Epicurean Chocolate": {
     "name": "Epicurean Chocolate",
@@ -3706,14 +3381,10 @@ const items = {
       "Damage",
       "Food"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Ammo Max 10",
-      "Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage.",
-      "This permanently loses 1 Max Ammo."
-    ],
     "cooldown": 4,
-    "enchants": {}
+    "enchants": {},
+    "text": "Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage.",
+    "bottomtext": "This permanently loses 1 Max Ammo."
   },
   "Exoskeleton": {
     "name": "Exoskeleton",
@@ -3724,15 +3395,13 @@ const items = {
       "Medium",
       "Damage"
     ],
-    "description": [
-      "Adjacent Weapons have ( +5 » +15 » +30 » +50 ) damage.",
-      "When you sell this, your weapons gain ( 2 » 4 » 6 » 8 ) damage."
-    ],
     "cooldown": null,
     "enchants": {
       "Shiny": "DamageAmount0",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Adjacent Weapons have ( +5 » +15 » +30 » +50 ) damage.",
+    "bottomtext": "When you sell this, your weapons gain ( 2 » 4 » 6 » 8 ) damage."
   },
   "Extract": {
     "name": "Extract",
@@ -3744,11 +3413,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, your leftmost Poison item gains ( +1 » +2 » +3 » +4 ) Poison."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, your leftmost Poison item gains ( +1 » +2 » +3 » +4 ) Poison."
   },
   "Eye of the Colossus": {
     "name": "Eye of the Colossus",
@@ -3760,11 +3427,6 @@ const items = {
       "Charge",
       "Tool"
     ],
-    "description": [
-      "Cooldown 30 seconds",
-      "Destroy an enemy item for the fight.",
-      "When you use an adjacent item, charge this 1 second(s)."
-    ],
     "cooldown": 30,
     "enchants": {
       "Heavy": "When you use an adjacent item, Slow 1 item for 3 second(s).",
@@ -3775,7 +3437,9 @@ const items = {
       "Toxic": "When you use an adjacent item, Poison 3.",
       "Fiery": "When you use an adjacent item, Burn 4.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Destroy an enemy item for the fight.",
+    "bottomtext": "When you use an adjacent item, charge this 1 second(s)."
   },
   "Fang": {
     "name": "Fang",
@@ -3786,10 +3450,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Deal ( 3 » 9 » 18 » 30 ) damage."
     ],
     "cooldown": 4,
     "enchants": {
@@ -3803,7 +3463,8 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 3 » 9 » 18 » 30 ) damage."
   },
   "Feather": {
     "name": "Feather",
@@ -3814,11 +3475,9 @@ const items = {
       "Small",
       "Cooldown"
     ],
-    "description": [
-      "When you sell this, reduce your leftmost item's cooldown by ( 4% » 8% » 12% » 16% )."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, reduce your leftmost item's cooldown by ( 4% » 8% » 12% » 16% )."
   },
   "Fiber Optics": {
     "name": "Fiber Optics",
@@ -3828,9 +3487,6 @@ const items = {
       "Dooley",
       "Small",
       "Charge"
-    ],
-    "description": [
-      "When you use your leftmost item, charge your rightmost item ( 1 » 2 ) second(s)."
     ],
     "cooldown": null,
     "enchants": {
@@ -3843,7 +3499,8 @@ const items = {
       "Fiery": "When you use your leftmost item, Burn 2.",
       "Shiny": "Double Charge",
       "Deadly": "When you use the leftmost item, the rightmost item gains +25% Crit Chance for the fight."
-    }
+    },
+    "text": "When you use your leftmost item, charge your rightmost item ( 1 » 2 ) second(s)."
   },
   "Figurehead": {
     "name": "Figurehead",
@@ -3856,10 +3513,6 @@ const items = {
       "Cooldown",
       "Damage"
     ],
-    "description": [
-      "Aquatic items to the left of this have their cooldowns reduced by ( 10% » 20% » 30% ).",
-      "Weapons to the right of this have ( +25 » +50 » +100 ) damage."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When you use an adjacent item, slow 1 item for 3 second(s).",
@@ -3871,7 +3524,9 @@ const items = {
       "Fiery": "When you use an adjacent item, burn 3.",
       "Shiny": "Double Cooldown Reduction",
       "Deadly": "Your items have +25% Crit Chance."
-    }
+    },
+    "text": "Aquatic items to the left of this have their cooldowns reduced by ( 10% » 20% » 30% ).",
+    "bottomtext": "Weapons to the right of this have ( +25 » +50 » +100 ) damage."
   },
   "Fire Claw": {
     "name": "Fire Claw",
@@ -3881,11 +3536,6 @@ const items = {
       "Mak",
       "Medium",
       "Burn"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Burn ( 3 » 6 » 9 » 12 ).",
-      "This has + Burn equal to the Burn of your other items. [0]"
     ],
     "cooldown": 6,
     "enchants": {
@@ -3898,7 +3548,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 3 » 6 » 9 » 12 ).",
+    "bottomtext": "This has + Burn equal to the Burn of your other items. [0]"
   },
   "Fire Potion": {
     "name": "Fire Potion",
@@ -3911,11 +3563,6 @@ const items = {
       "Burn",
       "Potion"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Ammo Max 1",
-      "Burn ( 6 » 9 » 12 » 15 )."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
@@ -3927,7 +3574,8 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 6 » 9 » 12 » 15 )."
   },
   "First Aiden": {
     "name": "First Aiden",
@@ -3940,11 +3588,6 @@ const items = {
       "Haste",
       "Heal"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Haste 1 item for ( 1 » 2 » 3 ) second(s).",
-      "When you Haste, Heal ( 5 » 10 » 15 )."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "When you Haste, Slow 1 item for 1 second(s).",
@@ -3956,7 +3599,9 @@ const items = {
       "Fiery": "When you Haste, Burn 1.",
       "Shiny": "+1 Multicast",
       "Deadly": "When you Haste, your items gain +3% Crit Chance for the fight."
-    }
+    },
+    "text": "Haste 1 item for ( 1 » 2 » 3 ) second(s).",
+    "bottomtext": "When you Haste, Heal ( 5 » 10 » 15 )."
   },
   "Fishing Net": {
     "name": "Fishing Net",
@@ -3969,11 +3614,6 @@ const items = {
       "Slow",
       "Tool"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Slow ( 1 » 2 » 3 » 4 ) item for 3 second(s).",
-      "At the start of each day, get a Piranha."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Double Slow",
@@ -3985,7 +3625,9 @@ const items = {
       "Fiery": "Burn 12.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your Piranhas have +50% Crit Chance."
-    }
+    },
+    "text": "Slow ( 1 » 2 » 3 » 4 ) item for 3 second(s).",
+    "bottomtext": "At the start of each day, get a Piranha."
   },
   "Fishing Rod": {
     "name": "Fishing Rod",
@@ -3998,11 +3640,6 @@ const items = {
       "Haste",
       "Tool"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Give another Aquatic item Haste for ( 2 » 3 » 4 » 5 ) second(s).",
-      "At the start of each day, get a Small aquatic item."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -4014,7 +3651,9 @@ const items = {
       "Fiery": "Burn 12.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your Aquatic items have +25% Crit Chance."
-    }
+    },
+    "text": "Give another Aquatic item Haste for ( 2 » 3 » 4 » 5 ) second(s).",
+    "bottomtext": "At the start of each day, get a Small aquatic item."
   },
   "Fixer Upper": {
     "name": "Fixer Upper",
@@ -4028,11 +3667,6 @@ const items = {
       "Property",
       "Shield"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Shield equal to ( 1x » 2x » 3x » 4x ) this item's value.",
-      "At the start of each day, upgrade this."
-    ],
     "cooldown": 3,
     "enchants": {
       "Heavy": "Slow 3 items for 1 second(s).",
@@ -4045,7 +3679,9 @@ const items = {
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield equal to ( 1x » 2x » 3x » 4x ) this item's value.",
+    "bottomtext": "At the start of each day, upgrade this."
   },
   "Flagship": {
     "name": "Flagship",
@@ -4060,11 +3696,6 @@ const items = {
       "Vehicle",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal ( 25 » 50 » 75 ) damage.",
-      "If you have another Tool, Ammo, Property or Friend this has +1 Multicast for each."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -4077,7 +3708,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 25 » 50 » 75 ) damage.",
+    "bottomtext": "If you have another Tool, Ammo, Property or Friend this has +1 Multicast for each."
   },
   "Flail": {
     "name": "Flail",
@@ -4088,11 +3721,6 @@ const items = {
       "Medium",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Multicast 3",
-      "Deal ( 5 » 15 » 30 » 50 ) damage."
     ],
     "cooldown": 6,
     "enchants": {
@@ -4106,7 +3734,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Multicast 3",
+    "bottomtext": "Deal ( 5 » 15 » 30 » 50 ) damage."
   },
   "Flamberge": {
     "name": "Flamberge",
@@ -4118,11 +3748,6 @@ const items = {
       "Crit",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal 200 damage.",
-      "This deals quadruple crit damage."
     ],
     "cooldown": 8,
     "enchants": {
@@ -4136,7 +3761,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 200 damage.",
+    "bottomtext": "This deals quadruple crit damage."
   },
   "Flamethrower": {
     "name": "Flamethrower",
@@ -4150,11 +3777,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal ( 2 » 4 ) damage.",
-      "Burn equal to ( 2x » 3x ) this item's damage."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -4167,7 +3789,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 2 » 4 ) damage.",
+    "bottomtext": "Burn equal to ( 2x » 3x ) this item's damage."
   },
   "Flashbang": {
     "name": "Flashbang",
@@ -4179,11 +3803,6 @@ const items = {
       "Ammo",
       "Slow"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Ammo Max 1",
-      "Slow all enemy items for ( 3 » 4 » 5 ) second(s)."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Double Slow",
@@ -4194,7 +3813,8 @@ const items = {
       "Toxic": "Poison 4.",
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Slow all enemy items for ( 3 » 4 » 5 ) second(s)."
   },
   "Force Field": {
     "name": "Force Field",
@@ -4206,11 +3826,6 @@ const items = {
       "Damage",
       "Shield",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Shield ( 10 » 30 » 60 » 100 ).",
-      "Deal damage equal to your shield."
     ],
     "cooldown": 4,
     "enchants": {
@@ -4224,7 +3839,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Shield ( 10 » 30 » 60 » 100 ).",
+    "bottomtext": "Deal damage equal to your shield."
   },
   "Fork Lift": {
     "name": "Fork Lift",
@@ -4239,11 +3856,6 @@ const items = {
       "Vehicle",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal ( 50 » 100 ) damage for each item to the left of this.",
-      "Haste this and the items on the right of this for ( 2 » 4 ) second(s)."
-    ],
     "cooldown": 10,
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
@@ -4256,7 +3868,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 50 » 100 ) damage for each item to the left of this.",
+    "bottomtext": "Haste this and the items on the right of this for ( 2 » 4 ) second(s)."
   },
   "Fort": {
     "name": "Fort",
@@ -4269,10 +3883,6 @@ const items = {
       "Property",
       "Shield"
     ],
-    "description": [
-      "When you use an item, Shield ( 10 » 20 ).",
-      "Enemy item cooldowns are increased by ( 1 » 2 )."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When you use an item, slow 1 item for 2 second(s).",
@@ -4284,7 +3894,9 @@ const items = {
       "Fiery": "When you use an item burn 2",
       "Shiny": "+1 Multicast",
       "Deadly": "Enemy items have -100% Crit Chance."
-    }
+    },
+    "text": "When you use an item, Shield ( 10 » 20 ).",
+    "bottomtext": "Enemy item cooldowns are increased by ( 1 » 2 )."
   },
   "Fossilized Femur": {
     "name": "Fossilized Femur",
@@ -4298,11 +3910,6 @@ const items = {
       "Slow",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 12 seconds",
-      "Deal ( 200 » 400 ) damage.",
-      "When you Slow, charge this ( 1 » 2 ) second(s)."
-    ],
     "cooldown": 12,
     "enchants": {
       "Heavy": "Slow 3 items for 4 second(s).",
@@ -4315,7 +3922,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 200 » 400 ) damage.",
+    "bottomtext": "When you Slow, charge this ( 1 » 2 ) second(s)."
   },
   "Frost Potion": {
     "name": "Frost Potion",
@@ -4328,11 +3937,6 @@ const items = {
       "Freeze",
       "Potion"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Ammo Max 1",
-      "Freeze ( 1 » 2 » 3 » 4 ) item(s) for 2 second(s)."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
@@ -4343,7 +3947,8 @@ const items = {
       "Toxic": "Poison 5.",
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Freeze ( 1 » 2 » 3 » 4 ) item(s) for 2 second(s)."
   },
   "Frozen Bludgeon": {
     "name": "Frozen Bludgeon",
@@ -4355,12 +3960,6 @@ const items = {
       "Damage",
       "Freeze",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 12 seconds",
-      "Deal ( 10 » 30 » 60 » 100 ) damage.",
-      "Freeze 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you freeze an item, your weapons gain ( 4 » 6 » 8 » 10 ) damage for the fight."
     ],
     "cooldown": 12,
     "enchants": {
@@ -4374,7 +3973,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 30 » 60 » 100 ) damage.",
+    "bottomtext": "When you freeze an item, your weapons gain ( 4 » 6 » 8 » 10 ) damage for the fight."
   },
   "Gamma Ray": {
     "name": "Gamma Ray",
@@ -4384,11 +3985,6 @@ const items = {
       "Dooley",
       "Small",
       "Poison"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Poison ( 3 » 4 ).",
-      "When you use the Core or another Ray, this gains ( 3 » 4 ) Poison for the fight."
     ],
     "cooldown": 4,
     "enchants": {
@@ -4401,7 +3997,9 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison ( 3 » 4 ).",
+    "bottomtext": "When you use the Core or another Ray, this gains ( 3 » 4 ) Poison for the fight."
   },
   "Ganjo": {
     "name": "Ganjo",
@@ -4414,12 +4012,6 @@ const items = {
       "Heal",
       "Shield"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Adjacent weapons gain ( 5 » 10 » 15 » 20 ) Damage for the fight.",
-      "Adjacent Heal items gain ( 5 » 10 » 15 » 20 ) Heal for the fight.",
-      "Adjacent Shield items gain ( 5 » 10 » 15 » 20 ) Shield for the fight."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -4430,7 +4022,9 @@ const items = {
       "Fiery": "Adjacent Burn items gain 1 burn for the fight.",
       "Shiny": "+1 Multicast",
       "Deadly": "Adjacent items gain 10% Crit Chance for the fight."
-    }
+    },
+    "text": "Adjacent weapons gain ( 5 » 10 » 15 » 20 ) Damage for the fight.",
+    "bottomtext": "Adjacent Shield items gain ( 5 » 10 » 15 » 20 ) Shield for the fight."
   },
   "Gatling Gun": {
     "name": "Gatling Gun",
@@ -4442,11 +4036,6 @@ const items = {
       "Cooldown",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Deal ( 10 » 20 ) damage.",
-      "Reduce this item's cooldown by ( 10% » 20% ) for the fight."
     ],
     "cooldown": 4,
     "enchants": {
@@ -4460,7 +4049,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 20 ) damage.",
+    "bottomtext": "Reduce this item's cooldown by ( 10% » 20% ) for the fight."
   },
   "Gavel": {
     "name": "Gavel",
@@ -4474,10 +4065,6 @@ const items = {
       "Health",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal ( 500 » 1000 ) damage to the player with less health."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -4490,7 +4077,8 @@ const items = {
       "Deadly": "+50% Crit Chance",
       "Shiny": "+1 Multicast",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 500 » 1000 ) damage to the player with less health."
   },
   "Gearnola Bar": {
     "name": "Gearnola Bar",
@@ -4501,12 +4089,6 @@ const items = {
       "Small",
       "Ammo",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Ammo Max 2",
-      "Shield ( 20 » 40 » 60 » 80 ).",
-      "When you sell a Tool, this gains 1 Max Ammo."
     ],
     "cooldown": 4,
     "enchants": {
@@ -4519,7 +4101,9 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 20 » 40 » 60 » 80 ).",
+    "bottomtext": "When you sell a Tool, this gains 1 Max Ammo."
   },
   "Genie Lamp": {
     "name": "Genie Lamp",
@@ -4531,11 +4115,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, gain access to the genie Rit."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, gain access to the genie Rit."
   },
   "Giant Ice Club": {
     "name": "Giant Ice Club",
@@ -4547,12 +4129,6 @@ const items = {
       "Damage",
       "Freeze",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 9 seconds",
-      "Deal ( 500 » 1000 ) damage.",
-      "The first time you fall below half health each fight, Freeze 1 item for 100 second(s).",
-      "When any item gains Freeze, charge this ( 1 » 2 ) second(s)."
     ],
     "cooldown": 9,
     "enchants": {
@@ -4566,7 +4142,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 500 » 1000 ) damage.",
+    "bottomtext": "When any item gains Freeze, charge this ( 1 » 2 ) second(s)."
   },
   "Gland": {
     "name": "Gland",
@@ -4578,11 +4156,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, gain ( 2 » 4 » 6 » 8 ) Regeneration."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, gain ( 2 » 4 » 6 » 8 ) Regeneration."
   },
   "Globe": {
     "name": "Globe",
@@ -4593,9 +4169,6 @@ const items = {
       "Medium",
       "Health",
       "Tool"
-    ],
-    "description": [
-      "At the start of each day, gain ( 100 » 200 » 300 ) Max Health."
     ],
     "cooldown": null,
     "enchants": {
@@ -4608,7 +4181,8 @@ const items = {
       "Fiery": "At the start of the fight, burn 16.",
       "Shiny": "Double Health Max",
       "Deadly": "At the start of each day, your items gain 10% Crit Chance."
-    }
+    },
+    "text": "At the start of each day, gain ( 100 » 200 » 300 ) Max Health."
   },
   "Goggles": {
     "name": "Goggles",
@@ -4622,11 +4196,6 @@ const items = {
       "Shield",
       "Tool"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Shield ( 10 » 30 » 60 » 100 ).",
-      "When this gains Haste, give your items ( +2% » +4% » +6% » +8% ) Crit chance for the fight."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -4638,7 +4207,9 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 10 » 30 » 60 » 100 ).",
+    "bottomtext": "When this gains Haste, give your items ( +2% » +4% » +6% » +8% ) Crit chance for the fight."
   },
   "Golf Clubs": {
     "name": "Golf Clubs",
@@ -4650,11 +4221,6 @@ const items = {
       "Damage",
       "Heal",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Deal 20 damage.",
-      "When you Heal, this gains ( 10 » 20 » 30 » 40 ) damage for the fight."
     ],
     "cooldown": 7,
     "enchants": {
@@ -4668,7 +4234,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 20 damage.",
+    "bottomtext": "When you Heal, this gains ( 10 » 20 » 30 » 40 ) damage for the fight."
   },
   "GPU": {
     "name": "GPU",
@@ -4678,10 +4246,6 @@ const items = {
       "Dooley",
       "Small",
       "Haste"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Haste the Core for ( 1 » 2 » 3 » 4 ) second(s)."
     ],
     "cooldown": 4,
     "enchants": {
@@ -4693,7 +4257,8 @@ const items = {
       "Toxic": "Poison 2.",
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Haste the Core for ( 1 » 2 » 3 » 4 ) second(s)."
   },
   "Grapeshot": {
     "name": "Grapeshot",
@@ -4705,12 +4270,6 @@ const items = {
       "Ammo",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Ammo Max 2",
-      "Deal ( 15 » 30 » 50 ) damage.",
-      "When you use another ammo item, this reloads 1 ammo."
     ],
     "cooldown": 3,
     "enchants": {
@@ -4724,7 +4283,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 15 » 30 » 50 ) damage.",
+    "bottomtext": "When you use another ammo item, this reloads 1 ammo."
   },
   "Grappling Hook": {
     "name": "Grappling Hook",
@@ -4738,11 +4299,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Deal ( 10 » 20 » 30 ) damage.",
-      "Slow 1 item for ( 3 » 4 » 5 ) second(s)."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "+2 Slow Targets",
@@ -4755,7 +4311,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 20 » 30 ) damage.",
+    "bottomtext": "Slow 1 item for ( 3 » 4 » 5 ) second(s)."
   },
   "Green Gumball": {
     "name": "Green Gumball",
@@ -4768,11 +4326,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, gain ( 10 » 20 » 30 » 40 ) Max Health."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, gain ( 10 » 20 » 30 » 40 ) Max Health."
   },
   "Grenade": {
     "name": "Grenade",
@@ -4784,12 +4340,6 @@ const items = {
       "Ammo",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Ammo Max 1",
-      "Crit Chance 25%",
-      "Deal ( 40 » 80 » 150 » 300 ) damage."
     ],
     "cooldown": 4,
     "enchants": {
@@ -4803,7 +4353,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "This has double Crit Damage.",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Crit Chance 25%",
+    "bottomtext": "Deal ( 40 » 80 » 150 » 300 ) damage."
   },
   "Grindstone": {
     "name": "Grindstone",
@@ -4814,10 +4366,6 @@ const items = {
       "Medium",
       "Damage",
       "Tool"
-    ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Give the weapon to the left of this ( +10 » +20 » +30 ) damage for the fight."
     ],
     "cooldown": 3,
     "enchants": {
@@ -4830,7 +4378,8 @@ const items = {
       "Fiery": "The Burn item to the left of this gains 3 burn for the fight.",
       "Shiny": "+1 Multicast",
       "Deadly": "The item to the left of this gains +20% Crit Chance for the fight."
-    }
+    },
+    "text": "Give the weapon to the left of this ( +10 » +20 » +30 ) damage for the fight."
   },
   "Gumball Machine": {
     "name": "Gumball Machine",
@@ -4841,11 +4390,6 @@ const items = {
       "Medium",
       "Gold",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Shield ( 10 » 20 » 30 ).",
-      "At the start of each hour, spend 2 gold to get a Gumball."
     ],
     "cooldown": 5,
     "enchants": {
@@ -4859,7 +4403,9 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 10 » 20 » 30 ).",
+    "bottomtext": "At the start of each hour, spend 2 gold to get a Gumball."
   },
   "Gunpowder": {
     "name": "Gunpowder",
@@ -4871,11 +4417,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, your leftmost Ammo item gains ( 1 » 2 » 3 ) Max Ammo."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, your leftmost Ammo item gains ( 1 » 2 » 3 ) Max Ammo."
   },
   "Hacksaw": {
     "name": "Hacksaw",
@@ -4888,11 +4432,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal ( 25 » 50 ) damage.",
-      "The first time you use this each fight, destroy a small enemy item for the fight."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -4904,7 +4443,9 @@ const items = {
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Deal ( 25 » 50 ) damage.",
+    "bottomtext": "The first time you use this each fight, destroy a small enemy item for the fight."
   },
   "Hakurvian Launcher": {
     "name": "Hakurvian Launcher",
@@ -4914,12 +4455,6 @@ const items = {
       "Common",
       "Large",
       "Haste"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Ammo Max 2",
-      "Deal ( 50 » 150 » 300 » 500 ) damage.",
-      "When this gains Haste, it also gains ( 5% » 10% » 15% » 20% ) Crit Chance for the fight."
     ],
     "cooldown": 8,
     "enchants": {
@@ -4933,7 +4468,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 50 » 150 » 300 » 500 ) damage.",
+    "bottomtext": "When this gains Haste, it also gains ( 5% » 10% » 15% » 20% ) Crit Chance for the fight."
   },
   "Haladie": {
     "name": "Haladie",
@@ -4944,11 +4481,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Multicast 2",
-      "Deal ( 3 » 9 » 18 » 30 ) damage."
     ],
     "cooldown": 6,
     "enchants": {
@@ -4962,7 +4494,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Multicast 2",
+    "bottomtext": "Deal ( 3 » 9 » 18 » 30 ) damage."
   },
   "Hammer": {
     "name": "Hammer",
@@ -4974,11 +4508,6 @@ const items = {
       "Damage",
       "Tool",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 9 seconds",
-      "Deal ( 20 » 40 » 80 ) damage.",
-      "When you Level Up, if you have at least 3 tools, upgrade the item to the left of this."
     ],
     "cooldown": 9,
     "enchants": {
@@ -4993,7 +4522,9 @@ const items = {
       "Deadly": "And make the item Deadly if able.",
       "Radiant": "And make the item Radiant if able.",
       "Obsidian": "And make the item Obsidian if able."
-    }
+    },
+    "text": "Deal ( 20 » 40 » 80 ) damage.",
+    "bottomtext": "When you Level Up, if you have at least 3 tools, upgrade the item to the left of this."
   },
   "Hammlet": {
     "name": "Hammlet",
@@ -5009,11 +4540,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 9 seconds",
-      "Deal ( 15 » 30 » 45 ) damage.",
-      "When you Slow, charge this ( 1 » 1 » 2 ) second(s)."
-    ],
     "cooldown": 9,
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
@@ -5026,7 +4552,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 15 » 30 » 45 ) damage.",
+    "bottomtext": "When you Slow, charge this ( 1 » 1 » 2 ) second(s)."
   },
   "Hammock": {
     "name": "Hammock",
@@ -5037,11 +4565,6 @@ const items = {
       "Medium",
       "Cooldown",
       "Heal"
-    ],
-    "description": [
-      "Cooldown 12 seconds",
-      "Heal ( 100 » 200 ).",
-      "This item's cooldown is reduced by 5 seconds for each adjacent large item."
     ],
     "cooldown": 12,
     "enchants": {
@@ -5054,7 +4577,9 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal ( 100 » 200 ).",
+    "bottomtext": "This item's cooldown is reduced by 5 seconds for each adjacent large item."
   },
   "Handaxe": {
     "name": "Handaxe",
@@ -5065,11 +4590,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "Your weapons have ( +3 » +6 » +9 » +15 ) damage."
     ],
     "cooldown": 7,
     "enchants": {
@@ -5083,7 +4603,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 15 » 30 » 50 ) damage.",
+    "bottomtext": "Your weapons have ( +3 » +6 » +9 » +15 ) damage."
   },
   "Harmadillo": {
     "name": "Harmadillo",
@@ -5097,11 +4619,6 @@ const items = {
       "Shield",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Shield ( 10 » 30 » 60 » 100 ).",
-      "When you Shield, deal damage equal to this item's Shield."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "When you Shield, Slow 1 items for 2 second(s).",
@@ -5114,7 +4631,32 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "When you Shield, your items gain 6% Crit Chance for the fight.",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Shield ( 10 » 30 » 60 » 100 ).",
+    "bottomtext": "When you Shield, deal damage equal to this item's Shield."
+  },
+  "Harpoon": {
+    "name": "Harpoon",
+    "icon": "images/items/Harpoon.avif",
+    "tier": "Bronze",
+    "tags": [
+      "Vanessa",
+      "Medium",
+      "Ammo",
+      "Aquatic"
+    ],
+    "cooldown": null,
+    "enchants": {
+      "Heavy": "Slow 2 items for 4 second(s).",
+      "Icy": "Freeze 1 item for 4 second(s).",
+      "Turbo": "Haste 2 items for 4 second(s).",
+      "Shielded": "Shield 60.",
+      "Restorative": "Heal 90.",
+      "Toxic": "Poison 6.",
+      "Fiery": "Burn 9.",
+      "Shiny": "+1 Multicast"
+    },
+    "text": "Destroy a small item."
   },
   "Hatchet": {
     "name": "Hatchet",
@@ -5128,11 +4670,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "When you buy this, get a Spare Change."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -5145,7 +4682,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 15 » 30 » 50 ) damage.",
+    "bottomtext": "When you buy this, get a Spare Change."
   },
   "Hemlock": {
     "name": "Hemlock",
@@ -5155,10 +4694,6 @@ const items = {
       "Mak",
       "Small",
       "Poison"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Poison ( 2 » 3 » 4 » 5 )."
     ],
     "cooldown": 6,
     "enchants": {
@@ -5171,7 +4706,8 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison ( 2 » 3 » 4 » 5 )."
   },
   "Hogwash": {
     "name": "Hogwash",
@@ -5184,11 +4720,6 @@ const items = {
       "Heal",
       "Property"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Heal equal to ( 4% » 8% » 12% ) of your Max Health.",
-      "When you Heal, gain ( 5 » 15 » 30 ) Max Health for the fight."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "When you Heal, Slow 1 items for 3 second(s).",
@@ -5200,7 +4731,9 @@ const items = {
       "Fiery": "When you Heal, Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "When you Heal, your items gain +10% Crit Chance for the fight."
-    }
+    },
+    "text": "Heal equal to ( 4% » 8% » 12% ) of your Max Health.",
+    "bottomtext": "When you Heal, gain ( 5 » 15 » 30 ) Max Health for the fight."
   },
   "Holsters": {
     "name": "Holsters",
@@ -5211,9 +4744,6 @@ const items = {
       "Small",
       "Haste"
     ],
-    "description": [
-      "At the start of each fight, your Small items gain Haste for ( 1 » 2 » 3 ) second(s)."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "At the start of each fight, Slow small enemy items for 2 second(s).",
@@ -5223,7 +4753,8 @@ const items = {
       "Toxic": "At the start of each fight, poison 3.",
       "Fiery": "At the start of each fight, burn 3.",
       "Deadly": "Your Small items have +20% Crit Chance."
-    }
+    },
+    "text": "At the start of each fight, your Small items gain Haste for ( 1 » 2 » 3 ) second(s)."
   },
   "Honing Steel": {
     "name": "Honing Steel",
@@ -5234,10 +4765,6 @@ const items = {
       "Small",
       "Damage",
       "Tool"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Give the weapon to the right of this ( +5 » +10 » +15 » +20 ) damage for the fight."
     ],
     "cooldown": 4,
     "enchants": {
@@ -5250,7 +4777,8 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "Give the Weapon to the right of this +20% Crit Chance for the fight."
-    }
+    },
+    "text": "Give the weapon to the right of this ( +5 » +10 » +15 » +20 ) damage for the fight."
   },
   "Hot Springs": {
     "name": "Hot Springs",
@@ -5260,11 +4788,6 @@ const items = {
       "Common",
       "Large",
       "Heal"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Heal ( 20 » 60 » 120 » 200 ).",
-      "When you sell this, your Heal items gain ( 10 » 20 » 30 » 40 ) Heal."
     ],
     "cooldown": 5,
     "enchants": {
@@ -5277,7 +4800,9 @@ const items = {
       "Fiery": "Burn 11.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal ( 20 » 60 » 120 » 200 ).",
+    "bottomtext": "When you sell this, your Heal items gain ( 10 » 20 » 30 » 40 ) Heal."
   },
   "Hydraulic Squeezer": {
     "name": "Hydraulic Squeezer",
@@ -5289,11 +4814,6 @@ const items = {
       "Damage",
       "Tool",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 9 seconds",
-      "Deal ( 26 » 39 » 59 ) damage.",
-      "When you use a Tool, your weapons gain ( 2 » 4 ) damage for the fight."
     ],
     "cooldown": 9,
     "enchants": {
@@ -5307,7 +4827,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 26 » 39 » 59 ) damage.",
+    "bottomtext": "When you use a Tool, your weapons gain ( 2 » 4 ) damage for the fight."
   },
   "Ice 9000": {
     "name": "Ice 9000",
@@ -5320,11 +4842,6 @@ const items = {
       "Friend",
       "Poison"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Freeze 1 item for ( 1 » 2 » 3 ) second(s).",
-      "When you Freeze, Poison ( 1 » 2 » 3 )."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "When you Freeze, Slow 1 item for 3 second(s).",
@@ -5336,7 +4853,9 @@ const items = {
       "Fiery": "When you Freeze, Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "When you Freeze, an item gains +25% Crit Chance for the fight."
-    }
+    },
+    "text": "Freeze 1 item for ( 1 » 2 » 3 ) second(s).",
+    "bottomtext": "When you Freeze, Poison ( 1 » 2 » 3 )."
   },
   "Ice Cream Truck": {
     "name": "Ice Cream Truck",
@@ -5349,11 +4868,6 @@ const items = {
       "Freeze",
       "Vehicle"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Freeze 1 item for ( 1 » 2 » 4 ) second(s).",
-      "When you use another non-weapon item, charge this 1 second(s)."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 3 items for 2 second(s).",
@@ -5364,7 +4878,9 @@ const items = {
       "Toxic": "Poison 9.",
       "Fiery": "Burn 13.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Freeze 1 item for ( 1 » 2 » 4 ) second(s).",
+    "bottomtext": "When you use another non-weapon item, charge this 1 second(s)."
   },
   "Ice Cubes": {
     "name": "Ice Cubes",
@@ -5376,10 +4892,6 @@ const items = {
       "Food",
       "Freeze"
     ],
-    "description": [
-      "Cooldown 9 seconds",
-      "Freeze 3 small items for ( 1 » 2 ) second(s)."
-    ],
     "cooldown": 9,
     "enchants": {
       "Heavy": "Slow 1 item for 4 second(s).",
@@ -5390,7 +4902,8 @@ const items = {
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Freeze 3 small items for ( 1 » 2 ) second(s)."
   },
   "Ice Pick": {
     "name": "Ice Pick",
@@ -5402,12 +4915,6 @@ const items = {
       "Damage",
       "Freeze",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Deal 20 damage.",
-      "Freeze 1 item for ( 1 » 2 » 3 ) second(s).",
-      "When you Freeze, this gains ( 5 » 10 » 20 ) damage for the fight."
     ],
     "cooldown": 7,
     "enchants": {
@@ -5421,7 +4928,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 20 damage.",
+    "bottomtext": "When you Freeze, this gains ( 5 » 10 » 20 ) damage for the fight."
   },
   "Iceberg": {
     "name": "Iceberg",
@@ -5434,9 +4943,6 @@ const items = {
       "Freeze",
       "Property"
     ],
-    "description": [
-      "When your enemy uses an item, Freeze it for 1 second(s)."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When your enemy uses an item, slow 1 item for 3 second(s).",
@@ -5446,7 +4952,8 @@ const items = {
       "Restorative": "When your enemy uses an item, heal 45.",
       "Toxic": "When your enemy uses an item, poison 3.",
       "Fiery": "When your enemy uses an item, burn 4."
-    }
+    },
+    "text": "When your enemy uses an item, Freeze it for 1 second(s)."
   },
   "Icebreaker": {
     "name": "Icebreaker",
@@ -5460,13 +4967,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal ( 40 » 80 » 120 ) damage.",
-      "Remove Freeze from your items.",
-      "When any item gains freeze, charge this ( +1 » +2 » +3 ) second(s).",
-      "When this item gains Freeze, remove Freeze from it."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -5479,7 +4979,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 40 » 80 » 120 ) damage.",
+    "bottomtext": "When this item gains Freeze, remove Freeze from it."
   },
   "Icicle": {
     "name": "Icicle",
@@ -5492,9 +4994,6 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "At the start of each fight, freeze 1 item for ( 3 » 4 » 5 » 6 ) second(s)."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "At the start of each fight, slow 2 item for 4 second(s).",
@@ -5505,7 +5004,8 @@ const items = {
       "Toxic": "At the start of each fight, poison 6",
       "Fiery": "At the start of each fight, Burn 8.",
       "Shiny": "+1 Freeze Targets"
-    }
+    },
+    "text": "At the start of each fight, freeze 1 item for ( 3 » 4 » 5 » 6 ) second(s)."
   },
   "Igloo": {
     "name": "Igloo",
@@ -5518,11 +5018,6 @@ const items = {
       "Property",
       "Shield"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Freeze 1 item for ( 2 » 3 » 4 ) second(s).",
-      "When you Freeze, Shield ( 20 » 30 » 40 )."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 1 items for 4 second(s).",
@@ -5533,7 +5028,9 @@ const items = {
       "Toxic": "When you freeze, poison 4.",
       "Fiery": "When you freeze, burn 6.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Freeze 1 item for ( 2 » 3 » 4 ) second(s).",
+    "bottomtext": "When you Freeze, Shield ( 20 » 30 » 40 )."
   },
   "Ignition Core": {
     "name": "Ignition Core",
@@ -5547,12 +5044,6 @@ const items = {
       "Core",
       "Unsellable"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Burn ( 4 » 8 » 12 » 16 ).",
-      "Burn items to the right of this gain ( 1 » 2 » 3 » 4 ) Burn for the fight.",
-      "When you use any item to the left of this, Charge this 1 second(s)."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -5564,7 +5055,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 4 » 8 » 12 » 16 ).",
+    "bottomtext": "When you use any item to the left of this, Charge this 1 second(s)."
   },
   "IllusoRay": {
     "name": "IllusoRay",
@@ -5577,11 +5070,6 @@ const items = {
       "Friend",
       "Slow"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
-      "For each adjacent Friend, this gains 1 Multicast."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "+2 Slow Targets",
@@ -5592,7 +5080,9 @@ const items = {
       "Toxic": "Poison 3.",
       "Fiery": "Burn 5.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
+    "bottomtext": "For each adjacent Friend, this gains 1 Multicast."
   },
   "Improvised Bludgeon": {
     "name": "Improvised Bludgeon",
@@ -5604,12 +5094,6 @@ const items = {
       "Damage",
       "Slow",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Deal ( 20 » 60 » 120 » 200 ) damage.",
-      "Slow 2 items for ( 3 » 4 » 5 » 6 ) second(s).",
-      "When you sell this, your leftmost Slow item gains ( +1 » +2 » +3 » +4 ) Slow."
     ],
     "cooldown": 7,
     "enchants": {
@@ -5623,7 +5107,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 20 » 60 » 120 » 200 ) damage.",
+    "bottomtext": "When you sell this, your leftmost Slow item gains ( +1 » +2 » +3 » +4 ) Slow."
   },
   "Incendiary Rounds": {
     "name": "Incendiary Rounds",
@@ -5634,10 +5120,6 @@ const items = {
       "Small",
       "Ammo",
       "Burn"
-    ],
-    "description": [
-      "When you use an adjacent item, Burn 2.",
-      "Adjacent items have +1 ammo."
     ],
     "cooldown": null,
     "enchants": {
@@ -5650,7 +5132,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "Double Ammo Max",
       "Deadly": "Adjacent items have +25% Crit Chance."
-    }
+    },
+    "text": "When you use an adjacent item, Burn 2.",
+    "bottomtext": "Adjacent items have +1 ammo."
   },
   "Incense": {
     "name": "Incense",
@@ -5661,11 +5145,6 @@ const items = {
       "Small",
       "Heal",
       "Slow"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Slow 1 item for ( 4 » 5 » 6 ) second(s).",
-      "When you Slow, Heal ( 16 » 24 » 32 )."
     ],
     "cooldown": 10,
     "enchants": {
@@ -5678,7 +5157,9 @@ const items = {
       "Fiery": "When you Slow, Burn 1.",
       "Shiny": "+1 Multicast",
       "Deadly": "When you Slow, your items gain 5% Crit Chance for the fight."
-    }
+    },
+    "text": "Slow 1 item for ( 4 » 5 » 6 ) second(s).",
+    "bottomtext": "When you Slow, Heal ( 16 » 24 » 32 )."
   },
   "Induction Aegis": {
     "name": "Induction Aegis",
@@ -5691,12 +5172,6 @@ const items = {
       "Shield",
       "Slow"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Shield ( 40 » 80 ).",
-      "Burn ( 4 » 6 ).",
-      "Slow your adjacent items for 1 second(s)."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -5708,7 +5183,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 40 » 80 ).",
+    "bottomtext": "Slow your adjacent items for 1 second(s)."
   },
   "Infernal Greatsword": {
     "name": "Infernal Greatsword",
@@ -5720,12 +5197,6 @@ const items = {
       "Burn",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal 2 damage.",
-      "Burn equal to this item's damage.",
-      "This item gains + Damage for the fight equal to your enemy's Burn."
     ],
     "cooldown": 8,
     "enchants": {
@@ -5739,7 +5210,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 2 damage.",
+    "bottomtext": "This item gains + Damage for the fight equal to your enemy's Burn."
   },
   "Insect Wing": {
     "name": "Insect Wing",
@@ -5751,11 +5224,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, reduce your items' cooldowns by ( 3% » 6% » 9% » 12% )."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, reduce your items' cooldowns by ( 3% » 6% » 9% » 12% )."
   },
   "Isochoric Freezer": {
     "name": "Isochoric Freezer",
@@ -5765,10 +5236,6 @@ const items = {
       "Dooley",
       "Small",
       "Freeze"
-    ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Freeze 1 item for ( 1 » 2 » 3 ) second(s)."
     ],
     "cooldown": 7,
     "enchants": {
@@ -5780,7 +5247,8 @@ const items = {
       "Toxic": "Poison 3.",
       "Fiery": "Burn 5.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Freeze 1 item for ( 1 » 2 » 3 ) second(s)."
   },
   "Jaballian Drum": {
     "name": "Jaballian Drum",
@@ -5791,10 +5259,6 @@ const items = {
       "Large",
       "Damage",
       "Haste"
-    ],
-    "description": [
-      "When you use a weapon, your weapons gain ( 1 » 2 » 3 ) Damage for the fight.",
-      "When you use a Weapon, Haste it for ( 1 » 2 » 3 ) second(s)."
     ],
     "cooldown": null,
     "enchants": {
@@ -5807,7 +5271,9 @@ const items = {
       "Fiery": "When you use a weapon, burn 4.",
       "Shiny": "Double Damage",
       "Deadly": "When your enemy uses an item, your items gain +10% Crit Chance for the fight."
-    }
+    },
+    "text": "When you use a weapon, your weapons gain ( 1 » 2 » 3 ) Damage for the fight.",
+    "bottomtext": "When you use a Weapon, Haste it for ( 1 » 2 » 3 ) second(s)."
   },
   "Jaballian Longbow": {
     "name": "Jaballian Longbow",
@@ -5819,12 +5285,6 @@ const items = {
       "Damage",
       "Health",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Multicast 2",
-      "Deal ( 20 » 60 » 120 » 200 ) damage.",
-      "This has +1 Multicast if you have more health than your enemy."
     ],
     "cooldown": 8,
     "enchants": {
@@ -5838,7 +5298,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Multicast 2",
+    "bottomtext": "This has +1 Multicast if you have more health than your enemy."
   },
   "Javelin": {
     "name": "Javelin",
@@ -5852,12 +5314,6 @@ const items = {
       "Haste",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Ammo Max 2",
-      "Deal ( 75 » 150 » 300 ) damage.",
-      "When you Haste, Reload this 1 Ammo."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -5870,7 +5326,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 75 » 150 » 300 ) damage.",
+    "bottomtext": "When you Haste, Reload this 1 Ammo."
   },
   "Jellyfish": {
     "name": "Jellyfish",
@@ -5884,11 +5342,6 @@ const items = {
       "Haste",
       "Poison"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Poison ( 1 » 2 » 3 » 4 ).",
-      "When you use another Aquatic item, this gains Haste for ( 1 » 2 » 3 » 4 ) second(s)."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -5900,7 +5353,9 @@ const items = {
       "Fiery": "Burn 5.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison ( 1 » 2 » 3 » 4 ).",
+    "bottomtext": "When you use another Aquatic item, this gains Haste for ( 1 » 2 » 3 » 4 ) second(s)."
   },
   "Jewelry": {
     "name": "Jewelry",
@@ -5911,10 +5366,6 @@ const items = {
       "Small",
       "Economy",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Shield equal to ( 1x » 2x » 3x » 4x ) this item's value."
     ],
     "cooldown": 3,
     "enchants": {
@@ -5928,7 +5379,8 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield equal to ( 1x » 2x » 3x » 4x ) this item's value."
   },
   "Jitte": {
     "name": "Jitte",
@@ -5940,12 +5392,6 @@ const items = {
       "Damage",
       "Slow",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal 10 damage.",
-      "Slow 1 item for ( 1 » 2 » 3 ) second(s).",
-      "When you slow, this gains ( 5 » 10 » 20 ) damage for the fight."
     ],
     "cooldown": 5,
     "enchants": {
@@ -5959,7 +5405,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 10 damage.",
+    "bottomtext": "When you slow, this gains ( 5 » 10 » 20 ) damage for the fight."
   },
   "Junkyard Catapult": {
     "name": "Junkyard Catapult",
@@ -5973,13 +5421,6 @@ const items = {
       "Poison",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Ammo Max 1",
-      "Deal ( 25 » 50 » 75 ) damage.",
-      "Burn ( 6 » 8 » 10 ).",
-      "Poison ( 4 » 6 » 8 )"
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 3 items for 2 second(s).",
@@ -5992,7 +5433,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 25 » 50 » 75 ) damage.",
+    "bottomtext": "Poison ( 4 » 6 » 8 )"
   },
   "Junkyard Club": {
     "name": "Junkyard Club",
@@ -6004,11 +5447,6 @@ const items = {
       "Active",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal ( 20 » 60 » 120 » 200 ) damage.",
-      "When you sell this, your weapons gain ( 4 » 6 » 8 » 10 ) damage."
     ],
     "cooldown": 10,
     "enchants": {
@@ -6022,7 +5460,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 20 » 60 » 120 » 200 ) damage.",
+    "bottomtext": "When you sell this, your weapons gain ( 4 » 6 » 8 » 10 ) damage."
   },
   "Junkyard Lance": {
     "name": "Junkyard Lance",
@@ -6033,10 +5473,6 @@ const items = {
       "Large",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal ( 15 » 30 » 50 » 100 ) damage for each Small item you have (including Stash)."
     ],
     "cooldown": 10,
     "enchants": {
@@ -6050,7 +5486,8 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 15 » 30 » 50 » 100 ) damage for each Small item you have (including Stash)."
   },
   "Junkyard Repairbot": {
     "name": "Junkyard Repairbot",
@@ -6063,11 +5500,6 @@ const items = {
       "Friend",
       "Heal"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Heal ( 20 » 60 » 120 » 200 ).",
-      "When you sell this, give your leftmost Heal item ( +5 » +15 » +30 » +50 ) Heal."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -6079,7 +5511,9 @@ const items = {
       "Fiery": "Burn 11.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal ( 20 » 60 » 120 » 200 ).",
+    "bottomtext": "When you sell this, give your leftmost Heal item ( +5 » +15 » +30 » +50 ) Heal."
   },
   "Katana": {
     "name": "Katana",
@@ -6090,10 +5524,6 @@ const items = {
       "Medium",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 2 seconds",
-      "Deal ( 4 » 12 » 24 » 40 ) damage."
     ],
     "cooldown": 2,
     "enchants": {
@@ -6107,7 +5537,29 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 4 » 12 » 24 » 40 ) damage."
+  },
+  "Keychain": {
+    "name": "Keychain",
+    "icon": "images/items/Keychain.avif",
+    "tier": "Gold",
+    "tags": [
+      "Pygmalien",
+      "Small"
+    ],
+    "cooldown": null,
+    "enchants": {
+      "Heavy": "Use a slow item.",
+      "Icy": "Use a Freeze item.",
+      "Turbo": "Use a Haste item.",
+      "Shielded": "Use a Shield item.",
+      "Restorative": "Use a Heal item.",
+      "Toxic": "Use a Poison item.",
+      "Fiery": "Use a Burn item.",
+      "Shiny": "+1 Multicast"
+    },
+    "text": "Use a property."
   },
   "Kinetic Cannon": {
     "name": "Kinetic Cannon",
@@ -6118,11 +5570,6 @@ const items = {
       "Large",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal 100 damage.",
-      "When you use a Small item, give this ( 10 » 20 » 40 ) damage for the fight."
     ],
     "cooldown": 10,
     "enchants": {
@@ -6136,7 +5583,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 100 damage.",
+    "bottomtext": "When you use a Small item, give this ( 10 » 20 » 40 ) damage for the fight."
   },
   "Knee Brace": {
     "name": "Knee Brace",
@@ -6147,12 +5596,10 @@ const items = {
       "Small",
       "Health"
     ],
-    "description": [
-      "If this is on your board at the start of each day, gain ( 100 » 200 » 300 » 400 ) Max Health.",
-      "The cooldown of your items are increased by 1 second(s)."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "If this is on your board at the start of each day, gain ( 100 » 200 » 300 » 400 ) Max Health.",
+    "bottomtext": "The cooldown of your items are increased by 1 second(s)."
   },
   "Knife Set": {
     "name": "Knife Set",
@@ -6164,11 +5611,6 @@ const items = {
       "Damage",
       "Tool",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "When you use a weapon, deal ( 5 » 15 » 30 » 50 ) damage."
     ],
     "cooldown": 6,
     "enchants": {
@@ -6182,7 +5624,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 15 » 30 » 50 ) damage.",
+    "bottomtext": "When you use a weapon, deal ( 5 » 15 » 30 » 50 ) damage."
   },
   "Kukri": {
     "name": "Kukri",
@@ -6194,11 +5638,6 @@ const items = {
       "Damage",
       "Heal",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal 10 damage.",
-      "When you heal, this gains ( 10 » 20 » 30 ) damage for the fight."
     ],
     "cooldown": 8,
     "enchants": {
@@ -6212,7 +5651,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 10 damage.",
+    "bottomtext": "When you heal, this gains ( 10 » 20 » 30 ) damage for the fight."
   },
   "Landscraper": {
     "name": "Landscraper",
@@ -6223,10 +5664,6 @@ const items = {
       "Large",
       "Property",
       "Shield"
-    ],
-    "description": [
-      "When you use an item, Shield equal to ( 1x » 2x » 3x ) this item's value.",
-      "At the start of each hour, this gains ( 1 » 1 » 2 ) value."
     ],
     "cooldown": null,
     "enchants": {
@@ -6239,7 +5676,9 @@ const items = {
       "Fiery": "When you use an item, Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "When you use an item, Shield equal to ( 1x » 2x » 3x ) this item's value.",
+    "bottomtext": "At the start of each hour, this gains ( 1 » 1 » 2 ) value."
   },
   "Langxian": {
     "name": "Langxian",
@@ -6250,11 +5689,6 @@ const items = {
       "Medium",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal 25 damage.",
-      "When you win a fight with Langxian, this gains ( 25 » 50 » 75 » 100 ) damage."
     ],
     "cooldown": 10,
     "enchants": {
@@ -6268,7 +5702,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 25 damage.",
+    "bottomtext": "When you win a fight with Langxian, this gains ( 25 » 50 » 75 » 100 ) damage."
   },
   "Laser Pistol": {
     "name": "Laser Pistol",
@@ -6279,10 +5715,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal ( 10 » 30 » 60 » 100 ) damage."
     ],
     "cooldown": 5,
     "enchants": {
@@ -6296,7 +5728,8 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 30 » 60 » 100 ) damage."
   },
   "Laser Security System": {
     "name": "Laser Security System",
@@ -6307,11 +5740,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal 10 damage.",
-      "When any Property is used, this gains ( 10 » 20 » 30 » 50 ) damage for the fight."
     ],
     "cooldown": 8,
     "enchants": {
@@ -6325,7 +5753,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 10 damage.",
+    "bottomtext": "When any Property is used, this gains ( 10 » 20 » 30 » 50 ) damage for the fight."
   },
   "Leeches": {
     "name": "Leeches",
@@ -6339,12 +5769,6 @@ const items = {
       "Poison",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Lifesteal 100",
-      "Deal 10 Damage.",
-      "When you poison, this gains ( 5 » 10 » 15 ) damage for the fight."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -6356,7 +5780,9 @@ const items = {
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Lifesteal 100",
+    "bottomtext": "When you poison, this gains ( 5 » 10 » 15 ) damage for the fight."
   },
   "Lemonade Stand": {
     "name": "Lemonade Stand",
@@ -6368,11 +5794,6 @@ const items = {
       "Heal",
       "Health",
       "Property"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Heal equal to ( 5% » 10% » 15% ) of your Max Health.",
-      "When you sell a Small item, gain ( 10 » 20 » 40 ) Max Health."
     ],
     "cooldown": 5,
     "enchants": {
@@ -6386,7 +5807,9 @@ const items = {
       "Fiery": "Burn 13.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal equal to ( 5% » 10% » 15% ) of your Max Health.",
+    "bottomtext": "When you sell a Small item, gain ( 10 » 20 » 40 ) Max Health."
   },
   "Lens": {
     "name": "Lens",
@@ -6399,11 +5822,6 @@ const items = {
       "Damage",
       "Haste"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Give the core ( +5 » +10 ) damage for the fight.",
-      "When this gains haste, charge it ( 1 » 2 ) second(s)."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -6414,7 +5832,9 @@ const items = {
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Give the core ( +5 » +10 ) damage for the fight.",
+    "bottomtext": "When this gains haste, charge it ( 1 » 2 ) second(s)."
   },
   "Life Preserver": {
     "name": "Life Preserver",
@@ -6427,11 +5847,6 @@ const items = {
       "Heal",
       "Shield"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Shield ( 10 » 30 » 60 » 100 ).",
-      "The first time you would die each fight, Heal ( 200 » 600 » 1200 » 2000 )."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -6443,7 +5858,9 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 10 » 30 » 60 » 100 ).",
+    "bottomtext": "The first time you would die each fight, Heal ( 200 » 600 » 1200 » 2000 )."
   },
   "Lifting Gloves": {
     "name": "Lifting Gloves",
@@ -6455,11 +5872,6 @@ const items = {
       "Damage",
       "Tool"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Your weapons gain ( 1 » 2 » 3 » 4 ) damage for the fight.",
-      "When you sell this, your weapons gain ( 3 » 6 » 9 » 12 ) damage."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -6470,7 +5882,9 @@ const items = {
       "Toxic": "Poison 2.",
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Your weapons gain ( 1 » 2 » 3 » 4 ) damage for the fight.",
+    "bottomtext": "When you sell this, your weapons gain ( 3 » 6 » 9 » 12 ) damage."
   },
   "Lightbulb": {
     "name": "Lightbulb",
@@ -6480,10 +5894,6 @@ const items = {
       "Dooley",
       "Small",
       "Crit"
-    ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Adjacent items gain ( 2% » 4% » 6% » 8% ) Crit chance for the fight."
     ],
     "cooldown": 3,
     "enchants": {
@@ -6496,7 +5906,8 @@ const items = {
       "Fiery": "Burn 2.",
       "Shiny": "+1 Multicast",
       "Deadly": "Double Crit Chance"
-    }
+    },
+    "text": "Adjacent items gain ( 2% » 4% » 6% » 8% ) Crit chance for the fight."
   },
   "Lighter": {
     "name": "Lighter",
@@ -6507,10 +5918,6 @@ const items = {
       "Small",
       "Burn",
       "Tool"
-    ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Burn ( 1 » 2 » 3 » 5 )."
     ],
     "cooldown": 3,
     "enchants": {
@@ -6523,7 +5930,8 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 1 » 2 » 3 » 5 )."
   },
   "Lighthouse": {
     "name": "Lighthouse",
@@ -6537,9 +5945,6 @@ const items = {
       "Property",
       "Slow"
     ],
-    "description": [
-      "When you Slow, Burn ( 3 » 5 )."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "At the start of each fight, Slow 2 enemy items for 4 second(s).",
@@ -6551,7 +5956,8 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "When you Slow, your items gain 10% Crit Chance for the fight."
-    }
+    },
+    "text": "When you Slow, Burn ( 3 » 5 )."
   },
   "Lightning Rod": {
     "name": "Lightning Rod",
@@ -6563,12 +5969,6 @@ const items = {
       "Damage",
       "Shield",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal ( 10 » 20 ) damage.",
-      "Shield ( 10 » 20 ).",
-      "When any player uses an item, this gains ( 10 » 20 ) damage and ( 10 » 20 ) shield for the fight."
     ],
     "cooldown": 10,
     "enchants": {
@@ -6582,7 +5982,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 20 ) damage.",
+    "bottomtext": "When any player uses an item, this gains ( 10 » 20 ) damage and ( 10 » 20 ) shield for the fight."
   },
   "Lion Cane": {
     "name": "Lion Cane",
@@ -6594,11 +5996,6 @@ const items = {
       "Damage",
       "Health",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal damage equal to ( 10% » 20% ) of your Max Health.",
-      "When you Level Up, gain ( 100 » 200 ) Max Health."
     ],
     "cooldown": 6,
     "enchants": {
@@ -6612,7 +6009,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal damage equal to ( 10% » 20% ) of your Max Health.",
+    "bottomtext": "When you Level Up, gain ( 100 » 200 ) Max Health."
   },
   "Lockbox": {
     "name": "Lockbox",
@@ -6624,10 +6023,6 @@ const items = {
       "Damage",
       "Economy",
       "Value"
-    ],
-    "description": [
-      "When you win a fight, this gains ( 1 » 2 » 3 ) value.",
-      "Your weapons have + damage equal to this item's value. ( [4] » [8] » [16] )"
     ],
     "cooldown": null,
     "enchants": {
@@ -6641,7 +6036,9 @@ const items = {
       "Fiery": "At the start of each fight, burn 16.",
       "Shiny": "Double Value",
       "Deadly": "Your weapons have + Crit Chance % equal to this item's value."
-    }
+    },
+    "text": "When you win a fight, this gains ( 1 » 2 » 3 ) value.",
+    "bottomtext": "Your weapons have + damage equal to this item's value. ( [4] » [8] » [16] )"
   },
   "Loupe": {
     "name": "Loupe",
@@ -6653,13 +6050,11 @@ const items = {
       "Tool",
       "Value"
     ],
-    "description": [
-      "Your Small items have ( +1 » +2 ) sell value."
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "Your small items have +1 value"
-    }
+    },
+    "text": "Your Small items have ( +1 » +2 ) sell value."
   },
   "Lumboars": {
     "name": "Lumboars",
@@ -6670,12 +6065,6 @@ const items = {
       "Medium",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Multicast 2",
-      "Deal ( 10 » 20 » 30 ) damage.",
-      "Your weapons gain ( 3 » 6 » 10 ) damage for the fight."
     ],
     "cooldown": 8,
     "enchants": {
@@ -6689,7 +6078,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Multicast 2",
+    "bottomtext": "Your weapons gain ( 3 » 6 » 10 ) damage for the fight."
   },
   "Luxury Tents": {
     "name": "Luxury Tents",
@@ -6702,10 +6093,6 @@ const items = {
       "Health",
       "Property"
     ],
-    "description": [
-      "The first time you would die each fight, Heal for ( 25% » 50% ) of your Max Health.",
-      "Your Heal items have +1 Multicast."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "The first time you would die each fight, slow all your opponent's items for 6 second(s).",
@@ -6717,7 +6104,9 @@ const items = {
       "Fiery": "The first time you would die each fight, burn equal to 2% of your max health.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "The first time you would die each fight, Heal for ( 25% » 50% ) of your Max Health.",
+    "bottomtext": "Your Heal items have +1 Multicast."
   },
   "Magic Carpet": {
     "name": "Magic Carpet",
@@ -6729,12 +6118,6 @@ const items = {
       "Crit",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Crit Chance ( 10% » 20% » 35% » 50% )",
-      "Deal ( 4 » 12 » 24 » 40 ).",
-      "When you Crit, this gains ( 4 » 12 » 24 » 40 ) damage for the fight."
     ],
     "cooldown": 4,
     "enchants": {
@@ -6748,7 +6131,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Crit Chance ( 10% » 20% » 35% » 50% )",
+    "bottomtext": "When you Crit, this gains ( 4 » 12 » 24 » 40 ) damage for the fight."
   },
   "Magician's Top Hat": {
     "name": "Magician's Top Hat",
@@ -6760,13 +6145,11 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, upgrade your leftmost item."
-    ],
     "cooldown": null,
     "enchants": {
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "When you sell this, upgrade your leftmost item."
   },
   "Magma Core": {
     "name": "Magma Core",
@@ -6777,9 +6160,6 @@ const items = {
       "Small",
       "Burn"
     ],
-    "description": [
-      "At the start of each fight, Burn ( 6 » 9 » 12 » 15 )."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "At the start of each fight, slow 2 item for 4 second(s).",
@@ -6789,7 +6169,8 @@ const items = {
       "Restorative": "At the start of each fight, gain 6 Regeneration for the fight.",
       "Toxic": "At the start of each fight, poison 6",
       "Fiery": "Double Burn"
-    }
+    },
+    "text": "At the start of each fight, Burn ( 6 » 9 » 12 » 15 )."
   },
   "Magnifying Glass": {
     "name": "Magnifying Glass",
@@ -6803,11 +6184,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "When you sell this, give your leftmost weapon ( +5 » +15 » +30 » +50 ) damage."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -6820,7 +6196,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 15 » 30 » 50 ) damage.",
+    "bottomtext": "When you sell this, give your leftmost weapon ( +5 » +15 » +30 » +50 ) damage."
   },
   "Makeshift Barricade": {
     "name": "Makeshift Barricade",
@@ -6830,11 +6208,6 @@ const items = {
       "Common",
       "Medium",
       "Slow"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Slow 1 items for ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you sell this, your leftmost Slow item gains ( 1 » 2 » 3 » 4 ) second to Slow."
     ],
     "cooldown": 6,
     "enchants": {
@@ -6846,7 +6219,9 @@ const items = {
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Slow 1 items for ( 1 » 2 » 3 » 4 ) second(s).",
+    "bottomtext": "When you sell this, your leftmost Slow item gains ( 1 » 2 » 3 » 4 ) second to Slow."
   },
   "Marble Scalemail": {
     "name": "Marble Scalemail",
@@ -6856,11 +6231,6 @@ const items = {
       "Common",
       "Medium",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Shield ( 20 » 60 » 120 » 200 ).",
-      "When you sell this, your Shield items gain ( 3 » 6 » 9 » 12 ) Shield."
     ],
     "cooldown": 8,
     "enchants": {
@@ -6873,7 +6243,9 @@ const items = {
       "Fiery": "Burn 12.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 20 » 60 » 120 » 200 ).",
+    "bottomtext": "When you sell this, your Shield items gain ( 3 » 6 » 9 » 12 ) Shield."
   },
   "Marbles": {
     "name": "Marbles",
@@ -6883,9 +6255,6 @@ const items = {
       "Pygmalien",
       "Small",
       "Slow"
-    ],
-    "description": [
-      "When you use an adjacent Small item, slow ( 1 » 2 » 3 » 4 ) item for ( 1 » 2 » 3 » 4 ) second(s)."
     ],
     "cooldown": null,
     "enchants": {
@@ -6898,7 +6267,8 @@ const items = {
       "Fiery": "When you use an adjacent small item, burn 2.",
       "Shiny": "+1 Slow Targets",
       "Deadly": "When you use an adjacent Small item, your Small items gain +6% Crit Chance for the fight."
-    }
+    },
+    "text": "When you use an adjacent Small item, slow ( 1 » 2 » 3 » 4 ) item for ( 1 » 2 » 3 » 4 ) second(s)."
   },
   "Masterpiece": {
     "name": "Masterpiece",
@@ -6909,14 +6279,12 @@ const items = {
       "Medium",
       "Value"
     ],
-    "description": [
-      "At the start of each hour, this gains ( 1 » 2 » 3 ) value."
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "This has double value.",
       "Shiny": "This has +2 value gain."
-    }
+    },
+    "text": "At the start of each hour, this gains ( 1 » 2 » 3 ) value."
   },
   "Matchbox": {
     "name": "Matchbox",
@@ -6926,9 +6294,6 @@ const items = {
       "Pygmalien",
       "Small",
       "Burn"
-    ],
-    "description": [
-      "When you use a non-weapon item, Burn ( 1 » 2 » 4 )."
     ],
     "cooldown": null,
     "enchants": {
@@ -6941,7 +6306,8 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "Double Burn",
       "Deadly": "When you use a non-weapon item, your items gain +3% Crit Chance for the fight."
-    }
+    },
+    "text": "When you use a non-weapon item, Burn ( 1 » 2 » 4 )."
   },
   "Mech-Moles": {
     "name": "Mech-Moles",
@@ -6955,12 +6321,6 @@ const items = {
       "Haste",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal ( 25 » 50 » 100 ) damage.",
-      "When this gains Haste, your weapons gain ( 2 » 3 » 4 ) damage the fight.",
-      "When this gains Haste, your Shield items gain ( 2 » 3 » 4 ) shield the fight."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -6973,7 +6333,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 25 » 50 » 100 ) damage.",
+    "bottomtext": "When this gains Haste, your Shield items gain ( 2 » 3 » 4 ) shield the fight."
   },
   "Medkit": {
     "name": "Medkit",
@@ -6984,11 +6346,9 @@ const items = {
       "Small",
       "Damage"
     ],
-    "description": [
-      "When you sell this, your leftmost Heal item gains ( 5 » 10 » 15 » 20 ) Heal."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, your leftmost Heal item gains ( 5 » 10 » 15 » 20 ) Heal."
   },
   "Memory Card": {
     "name": "Memory Card",
@@ -6999,11 +6359,6 @@ const items = {
       "Small",
       "Damage",
       "Value"
-    ],
-    "description": [
-      "Cooldown 12 seconds",
-      "This gains 1 Value.",
-      "When you sell this, give The Core + Damage equal to ( 1x » 2x » 3x » 4x ) this item's value. ( 1 » 4 » 12 » 32 )"
     ],
     "cooldown": 12,
     "enchants": {
@@ -7017,7 +6372,9 @@ const items = {
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast",
       "Deadly": "When you sell this, the Core gains Crit Chance equal to this item's value. 1"
-    }
+    },
+    "text": "This gains 1 Value.",
+    "bottomtext": "When you sell this, give The Core + Damage equal to ( 1x » 2x » 3x » 4x ) this item's value. ( 1 » 4 » 12 » 32 )"
   },
   "Metronome": {
     "name": "Metronome",
@@ -7027,9 +6384,6 @@ const items = {
       "Dooley",
       "Small",
       "Haste"
-    ],
-    "description": [
-      "When you use an adjacent item, give the other adjacent item haste for ( 1 » 2 » 3 ) second(s)."
     ],
     "cooldown": null,
     "enchants": {
@@ -7042,7 +6396,8 @@ const items = {
       "Fiery": "When you use an adjacent item, Poison 1.",
       "Shiny": "Double Haste",
       "Deadly": "When you use an adjacent item, the other adjacent item gains 25% Crit Chance."
-    }
+    },
+    "text": "When you use an adjacent item, give the other adjacent item haste for ( 1 » 2 » 3 ) second(s)."
   },
   "Micro Dave": {
     "name": "Micro Dave",
@@ -7055,11 +6410,6 @@ const items = {
       "Charge",
       "Friend"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Burn ( 3 » 6 » 9 » 12 ).",
-      "When you use a small item, charge this 1 second(s)."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -7071,7 +6421,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 3 » 6 » 9 » 12 ).",
+    "bottomtext": "When you use a small item, charge this 1 second(s)."
   },
   "Miss Isles": {
     "name": "Miss Isles",
@@ -7085,13 +6437,6 @@ const items = {
       "Friend",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Ammo Max 3",
-      "Multicast 2",
-      "Deal ( 10 » 20 » 40 ) damage.",
-      "When you use the Core, reload this."
-    ],
     "cooldown": 3,
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
@@ -7104,7 +6449,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "When you Haste, your items gain +6% Crit Chance for the fight.",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Multicast 2",
+    "bottomtext": "When you use the Core, reload this."
   },
   "Model Ship": {
     "name": "Model Ship",
@@ -7114,9 +6461,6 @@ const items = {
       "Pygmalien",
       "Medium",
       "Shield"
-    ],
-    "description": [
-      "When you use an adjacent item, Shield ( 10 » 20 » 40 » 80 )."
     ],
     "cooldown": null,
     "enchants": {
@@ -7129,7 +6473,8 @@ const items = {
       "Fiery": "When you use an adjacent item, burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "When you use an adjacent item, it gains 20% Crit Chance for the fight."
-    }
+    },
+    "text": "When you use an adjacent item, Shield ( 10 » 20 » 40 » 80 )."
   },
   "Momma-Saur": {
     "name": "Momma-Saur",
@@ -7141,12 +6486,6 @@ const items = {
       "Damage",
       "Friend",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal 120 damage.",
-      "If your enemy has at least ( 5 » 4 ) items, destroy a small or medium enemy item for the fight.",
-      "When you destroy an item during combat, your Dinosaurs permanently gain ( 40 » 80 ) damage."
     ],
     "cooldown": 8,
     "enchants": {
@@ -7160,7 +6499,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 120 damage.",
+    "bottomtext": "When you destroy an item during combat, your Dinosaurs permanently gain ( 40 » 80 ) damage."
   },
   "Money Tree": {
     "name": "Money Tree",
@@ -7172,12 +6513,6 @@ const items = {
       "Economy",
       "Heal",
       "Property"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Heal 10.",
-      "When you Level Up, get a Spare Change.",
-      "When you sell a Spare Change, this gains ( 10 » 20 » 30 » 40 ) Heal."
     ],
     "cooldown": 5,
     "enchants": {
@@ -7191,7 +6526,9 @@ const items = {
       "Fiery": "Burn 11.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal 10.",
+    "bottomtext": "When you sell a Spare Change, this gains ( 10 » 20 » 30 » 40 ) Heal."
   },
   "Monitor Lizard": {
     "name": "Monitor Lizard",
@@ -7204,11 +6541,6 @@ const items = {
       "Haste",
       "Poison"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Haste 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you Haste, Poison ( 1 » 2 » 3 » 5 )."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "When you Haste, Slow 1 items for 2 second(s).",
@@ -7219,7 +6551,9 @@ const items = {
       "Toxic": "Double Poison",
       "Fiery": "When you Haste, Burn 2.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Haste 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
+    "bottomtext": "When you Haste, Poison ( 1 » 2 » 3 » 5 )."
   },
   "Monocle": {
     "name": "Monocle",
@@ -7231,10 +6565,6 @@ const items = {
       "Economy",
       "Shield",
       "Tool"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Shield equal to ( 1x » 2x » 3x ) your gold."
     ],
     "cooldown": 6,
     "enchants": {
@@ -7248,7 +6578,8 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield equal to ( 1x » 2x » 3x ) your gold."
   },
   "Mortal Coil": {
     "name": "Mortal Coil",
@@ -7261,11 +6592,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal ( 120 » 200 ) damage.",
-      "The weapon to the left of this has lifesteal."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -7277,7 +6603,9 @@ const items = {
       "Fiery": "Burn 12.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Deal ( 120 » 200 ) damage.",
+    "bottomtext": "The weapon to the left of this has lifesteal."
   },
   "Mortar & Pestle": {
     "name": "Mortar & Pestle",
@@ -7290,11 +6618,6 @@ const items = {
       "Lifesteal",
       "Tool"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Give your Lifesteal Weapons ( +5 » +10 » +15 » +20 ) damage for the fight.",
-      "The weapon on the right has Lifesteal."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -7306,7 +6629,9 @@ const items = {
       "Fiery": "Burn 12.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your Lifesteal Weapons have +50% Crit Chance."
-    }
+    },
+    "text": "Give your Lifesteal Weapons ( +5 » +10 » +15 » +20 ) damage for the fight.",
+    "bottomtext": "The weapon on the right has Lifesteal."
   },
   "Motherboard": {
     "name": "Motherboard",
@@ -7317,11 +6642,6 @@ const items = {
       "Medium",
       "Damage",
       "Haste"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Haste the Core for ( 2 » 3 » 4 ) second(s).",
-      "When the Core gains Haste, give it ( +10 » +20 » +30 ) damage the fight."
     ],
     "cooldown": 5,
     "enchants": {
@@ -7334,7 +6654,9 @@ const items = {
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Haste the Core for ( 2 » 3 » 4 ) second(s).",
+    "bottomtext": "When the Core gains Haste, give it ( +10 » +20 » +30 ) damage the fight."
   },
   "Multitool": {
     "name": "Multitool",
@@ -7347,11 +6669,6 @@ const items = {
       "Slow",
       "Tool"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Haste another item for ( 1 » 2 » 3 » 4 ) second(s).",
-      "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s)."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "+2 Slow",
@@ -7363,7 +6680,9 @@ const items = {
       "Fiery": "Burn 2.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Haste another item for ( 1 » 2 » 3 » 4 ) second(s).",
+    "bottomtext": "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s)."
   },
   "Musket": {
     "name": "Musket",
@@ -7377,13 +6696,6 @@ const items = {
       "Damage",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Ammo Max 1",
-      "Crit Chance 100%",
-      "Deal ( 60 » 120 » 240 ) damage.",
-      "When you Burn, reload this 1 ammo."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 2 items for 6 second(s).",
@@ -7396,7 +6708,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "This has double Crit Damage.",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Crit Chance 100%",
+    "bottomtext": "When you Burn, reload this 1 ammo."
   },
   "Myrrh": {
     "name": "Myrrh",
@@ -7406,11 +6720,6 @@ const items = {
       "Mak",
       "Small",
       "Heal"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Crit Chance ( 5% » 10% » 15% » 20% )",
-      "Heal ( 10 » 30 » 60 » 100 )."
     ],
     "cooldown": 5,
     "enchants": {
@@ -7423,7 +6732,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Crit Chance ( 5% » 10% » 15% » 20% )",
+    "bottomtext": "Heal ( 10 » 30 » 60 » 100 )."
   },
   "Nanobots": {
     "name": "Nanobots",
@@ -7437,12 +6748,9 @@ const items = {
       "Friend",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal ( 5 » 15 » 30 » 50 ) damage for each Small Friend you have."
-    ],
     "cooldown": 6,
-    "enchants": {}
+    "enchants": {},
+    "text": "Deal ( 5 » 15 » 30 » 50 ) damage for each Small Friend you have."
   },
   "Narwhal": {
     "name": "Narwhal",
@@ -7456,10 +6764,6 @@ const items = {
       "Friend",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Deal ( 4 » 12 » 24 » 40 ) damage."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -7472,7 +6776,8 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "This has +50% Crit Chance.",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 4 » 12 » 24 » 40 ) damage."
   },
   "Necronomicon": {
     "name": "Necronomicon",
@@ -7484,10 +6789,6 @@ const items = {
       "Poison",
       "Regen"
     ],
-    "description": [
-      "When ANY non-weapon item is used, Poison 3 and gain 1 Regen for the fight.",
-      "Your items have their cooldowns increased by 1 second(s)."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When a non-weapon item is used, Slow 1 item for 2 second(s).",
@@ -7497,7 +6798,9 @@ const items = {
       "Restorative": "When a non-weapon item is used, heal 20.",
       "Toxic": "Double Poison",
       "Fiery": "When a non-weapon item is used, burn 2."
-    }
+    },
+    "text": "When ANY non-weapon item is used, Poison 3 and gain 1 Regen for the fight.",
+    "bottomtext": "Your items have their cooldowns increased by 1 second(s)."
   },
   "Nesting Doll": {
     "name": "Nesting Doll",
@@ -7508,12 +6811,6 @@ const items = {
       "Small",
       "Ammo",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 2 seconds",
-      "Ammo Max 8",
-      "Shield equal to this item's Ammo.",
-      "At the start of each day, this gains ( 1 » 2 » 3 ) Max Ammo."
     ],
     "cooldown": 2,
     "enchants": {
@@ -7526,7 +6823,9 @@ const items = {
       "Fiery": "Burn 1.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield equal to this item's Ammo.",
+    "bottomtext": "At the start of each day, this gains ( 1 » 2 » 3 ) Max Ammo."
   },
   "Neural Toxin": {
     "name": "Neural Toxin",
@@ -7536,9 +6835,6 @@ const items = {
       "Common",
       "Small",
       "Slow"
-    ],
-    "description": [
-      "When you use an adjacent weapon, slow 1 item for ( 1 » 2 » 3 ) second(s)."
     ],
     "cooldown": null,
     "enchants": {
@@ -7550,7 +6846,8 @@ const items = {
       "Toxic": "When you use an adjacent weapon, poison 1",
       "Fiery": "When you use an adjacent weapon, burn 1",
       "Shiny": "+1 Slow Targets"
-    }
+    },
+    "text": "When you use an adjacent weapon, slow 1 item for ( 1 » 2 » 3 ) second(s)."
   },
   "Nightshade": {
     "name": "Nightshade",
@@ -7561,11 +6858,6 @@ const items = {
       "Medium",
       "Heal",
       "Poison"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Poison ( 1 » 2 » 3 » 4 ).",
-      "Heal ( 10 » 20 » 30 » 40 )."
     ],
     "cooldown": 4,
     "enchants": {
@@ -7578,7 +6870,9 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison ( 1 » 2 » 3 » 4 ).",
+    "bottomtext": "Heal ( 10 » 20 » 30 » 40 )."
   },
   "Nitro": {
     "name": "Nitro",
@@ -7589,11 +6883,6 @@ const items = {
       "Small",
       "Burn",
       "Charge"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Burn both players ( 4 » 6 » 8 ).",
-      "Charge an item ( 1 » 2 » 3 ) second(s)."
     ],
     "cooldown": 4,
     "enchants": {
@@ -7606,7 +6895,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn both players ( 4 » 6 » 8 ).",
+    "bottomtext": "Charge an item ( 1 » 2 » 3 ) second(s)."
   },
   "Nitrogen Hammer": {
     "name": "Nitrogen Hammer",
@@ -7618,12 +6909,6 @@ const items = {
       "Damage",
       "Freeze",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal 25 damage.",
-      "Freeze 1 item for ( 1 » 2 ) second(s).",
-      "When you freeze an item, this gains ( 25 » 50 ) damage for the fight."
     ],
     "cooldown": 8,
     "enchants": {
@@ -7637,7 +6922,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 25 damage.",
+    "bottomtext": "When you freeze an item, this gains ( 25 » 50 ) damage for the fight."
   },
   "Noxious Potion": {
     "name": "Noxious Potion",
@@ -7650,11 +6937,6 @@ const items = {
       "Poison",
       "Potion"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Ammo Max 1",
-      "Poison both players ( 4 » 6 » 8 » 10 )."
-    ],
     "cooldown": 3,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -7666,7 +6948,8 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison both players ( 4 » 6 » 8 » 10 )."
   },
   "Octopus": {
     "name": "Octopus",
@@ -7680,11 +6963,6 @@ const items = {
       "Friend",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Multicast 8",
-      "Deal 8 damage."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -7697,7 +6975,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Multicast 8",
+    "bottomtext": "Deal 8 damage."
   },
   "Oinkment": {
     "name": "Oinkment",
@@ -7708,10 +6988,6 @@ const items = {
       "Small",
       "Economy",
       "Heal"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Heal equal to ( 1x » 2x » 3x ) your gold."
     ],
     "cooldown": 5,
     "enchants": {
@@ -7724,7 +7000,8 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal equal to ( 1x » 2x » 3x ) your gold."
   },
   "Old Sword": {
     "name": "Old Sword",
@@ -7735,11 +7012,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "When you sell this, give your leftmost weapon ( +4 » +6 » +8 » +10 ) Damage."
     ],
     "cooldown": 4,
     "enchants": {
@@ -7753,7 +7025,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 15 » 30 » 50 ) damage.",
+    "bottomtext": "When you sell this, give your leftmost weapon ( +4 » +6 » +8 » +10 ) Damage."
   },
   "Omega Ray": {
     "name": "Omega Ray",
@@ -7763,11 +7037,6 @@ const items = {
       "Dooley",
       "Small",
       "Burn"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Burn ( 2 » 4 » 6 ).",
-      "When you use the Core or another Ray, your Burn items gain ( 1 » 2 » 4 ) Burn for the fight."
     ],
     "cooldown": 6,
     "enchants": {
@@ -7780,7 +7049,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 2 » 4 » 6 ).",
+    "bottomtext": "When you use the Core or another Ray, your Burn items gain ( 1 » 2 » 4 ) Burn for the fight."
   },
   "Open Sign": {
     "name": "Open Sign",
@@ -7793,16 +7064,14 @@ const items = {
       "Economy",
       "Shield"
     ],
-    "description": [
-      "Weapon Properties adjacent to this have + Damage equal to ( 1x » 2x ) the value of your highest value item. [0]",
-      "Shield Properties adjacent to this have + Shield equal to ( 1x » 2x ) the value of your highest value item. [0]"
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "Adjacent properties have double value.",
       "Shiny": "This has double Damage and Shield bonus.",
       "Deadly": "Shield Properties adjacent to this have + Crit Chance equal to the value of your highest value item. [0]"
-    }
+    },
+    "text": "Weapon Properties adjacent to this have + Damage equal to ( 1x » 2x ) the value of your highest value item. [0]",
+    "bottomtext": "Shield Properties adjacent to this have + Shield equal to ( 1x » 2x ) the value of your highest value item. [0]"
   },
   "Orbital Polisher": {
     "name": "Orbital Polisher",
@@ -7815,11 +7084,6 @@ const items = {
       "Shield",
       "Tool"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Adjacent items gain ( 5 » 10 ) Damage for the fight.",
-      "Adjacent items gain ( 5 » 10 ) Shield for the fight."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -7830,7 +7094,9 @@ const items = {
       "Toxic": "Poison 3.",
       "Fiery": "Burn 5.",
       "Deadly": "Adjacent items gain 10% Crit Chance for the fight."
-    }
+    },
+    "text": "Adjacent items gain ( 5 » 10 ) Damage for the fight.",
+    "bottomtext": "Adjacent items gain ( 5 » 10 ) Shield for the fight."
   },
   "Ouroboros Statue": {
     "name": "Ouroboros Statue",
@@ -7841,11 +7107,6 @@ const items = {
       "Medium",
       "Poison",
       "Regen"
-    ],
-    "description": [
-      "Cooldown 9 seconds",
-      "Poison ( 4 » 6 ).",
-      "When you Poison, gain ( +1 » +2 ) Regeneration for the fight."
     ],
     "cooldown": 9,
     "enchants": {
@@ -7858,7 +7119,9 @@ const items = {
       "Fiery": "When you Poison, Burn 2.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison ( 4 » 6 ).",
+    "bottomtext": "When you Poison, gain ( +1 » +2 ) Regeneration for the fight."
   },
   "Oven Mitts": {
     "name": "Oven Mitts",
@@ -7871,10 +7134,6 @@ const items = {
       "Haste",
       "Shield"
     ],
-    "description": [
-      "When you burn, Shield ( 5 » 10 » 15 ).",
-      "When you Burn, Haste an item for ( 1 » 2 » 3 ) second(s)."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When you Burn, Slow 1 items for 2 second(s).",
@@ -7886,7 +7145,9 @@ const items = {
       "Fiery": "At the start of each fight, Burn 12.",
       "Shiny": "+1 Multicast",
       "Deadly": "When you Burn, your items gain 6% Crit Chance."
-    }
+    },
+    "text": "When you burn, Shield ( 5 » 10 » 15 ).",
+    "bottomtext": "When you Burn, Haste an item for ( 1 » 2 » 3 ) second(s)."
   },
   "Palanquin": {
     "name": "Palanquin",
@@ -7899,10 +7160,6 @@ const items = {
       "Crit",
       "Vehicle"
     ],
-    "description": [
-      "Your items have ( +20% » +40% ) Crit Chance.",
-      "When you Crit with an item, reduce their cooldown by 10% for the fight."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When you Crit, Slow 1 items for 3 second(s).",
@@ -7914,7 +7171,9 @@ const items = {
       "Fiery": "When you Crit, Burn 4.",
       "Obsidian": "Lifesteal",
       "Deadly": "Double Crit Chance"
-    }
+    },
+    "text": "Your items have ( +20% » +40% ) Crit Chance.",
+    "bottomtext": "When you Crit with an item, reduce their cooldown by 10% for the fight."
   },
   "Pawn Shop": {
     "name": "Pawn Shop",
@@ -7928,10 +7187,6 @@ const items = {
       "Property",
       "Value"
     ],
-    "description": [
-      "When you sell an item, this gains ( 1 » 2 » 3 ) value.",
-      "You have increased max health equal to ( 10 » 15 » 20 ) times this item's value. ( [60] » [180] » [480] )"
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "Double Value",
@@ -7941,7 +7196,9 @@ const items = {
       "Fiery": "Your Burn items have + Burn equal to 15% of this item's value.",
       "Shiny": "Double Health Max",
       "Deadly": "Your items have Crit Chance equal to this item's value."
-    }
+    },
+    "text": "When you sell an item, this gains ( 1 » 2 » 3 ) value.",
+    "bottomtext": "You have increased max health equal to ( 10 » 15 » 20 ) times this item's value. ( [60] » [180] » [480] )"
   },
   "Pearl": {
     "name": "Pearl",
@@ -7952,9 +7209,6 @@ const items = {
       "Small",
       "Aquatic",
       "Shield"
-    ],
-    "description": [
-      "When you use an Aquatic item, Shield ( 10 » 20 )."
     ],
     "cooldown": null,
     "enchants": {
@@ -7967,7 +7221,8 @@ const items = {
       "Fiery": "When you use an Aquatic item, Burn 2.",
       "Shiny": "+1 Multicast",
       "Deadly": "When you use an Aquatic item, give your items +3% Crit for this fight."
-    }
+    },
+    "text": "When you use an Aquatic item, Shield ( 10 » 20 )."
   },
   "Pelt": {
     "name": "Pelt",
@@ -7979,11 +7234,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "Sells for gold"
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "Sells for gold"
   },
   "Pendulum": {
     "name": "Pendulum",
@@ -7996,11 +7249,6 @@ const items = {
       "Haste",
       "Tool"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Adjacent items have ( +15% » +20% » +25% » +30% ) Crit Chance.",
-      "When you Crit, Haste an item for ( 1 » 2 » 3 » 4 ) second(s)."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "When you Crit, Slow 1 item for 2 second(s).",
@@ -8011,7 +7259,9 @@ const items = {
       "Toxic": "When you Crit, Poison 1.",
       "Fiery": "When you Crit, Burn 2.",
       "Deadly": "Double Crit Chance"
-    }
+    },
+    "text": "Adjacent items have ( +15% » +20% » +25% » +30% ) Crit Chance.",
+    "bottomtext": "When you Crit, Haste an item for ( 1 » 2 » 3 » 4 ) second(s)."
   },
   "Pepper Spray": {
     "name": "Pepper Spray",
@@ -8023,11 +7273,6 @@ const items = {
       "Damage",
       "Slow",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "The first time you fall below half health each fight, slow all enemy items for ( 1 » 2 » 3 » 4 ) second(s)."
     ],
     "cooldown": 5,
     "enchants": {
@@ -8041,7 +7286,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "The first time you fall below half health each fight, your items gain 25% Crit Chance.",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 15 » 30 » 50 ) damage.",
+    "bottomtext": "The first time you fall below half health each fight, slow all enemy items for ( 1 » 2 » 3 » 4 ) second(s)."
   },
   "Pesky Pete": {
     "name": "Pesky Pete",
@@ -8052,11 +7299,6 @@ const items = {
       "Small",
       "Burn",
       "Friend"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Burn ( 4 » 6 ).",
-      "For each adjacent Friend or Property, this gains ( +4 » +8 ) Burn."
     ],
     "cooldown": 6,
     "enchants": {
@@ -8069,7 +7311,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 4 » 6 ).",
+    "bottomtext": "For each adjacent Friend or Property, this gains ( +4 » +8 ) Burn."
   },
   "Pet Rock": {
     "name": "Pet Rock",
@@ -8083,11 +7327,6 @@ const items = {
       "Friend",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "If this is your only friend, your items have ( +5% » +10% » +15% » +20% ) Crit Chance."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -8100,7 +7339,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "Double Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 15 » 30 » 50 ) damage.",
+    "bottomtext": "If this is your only friend, your items have ( +5% » +10% » +15% » +20% ) Crit Chance."
   },
   "Phonograph": {
     "name": "Phonograph",
@@ -8110,9 +7351,6 @@ const items = {
       "Pygmalien",
       "Medium",
       "Cooldown"
-    ],
-    "description": [
-      "The item to the left of this has its cooldown reduced by ( 25% » 50% )."
     ],
     "cooldown": null,
     "enchants": {
@@ -8125,7 +7363,8 @@ const items = {
       "Fiery": "When you use the item to the left of this, burn 3",
       "Shiny": "The item to the Right of this has its cooldown reduced by 25%.",
       "Deadly": "The item to the left of this has +50% Crit Chance."
-    }
+    },
+    "text": "The item to the left of this has its cooldown reduced by ( 25% » 50% )."
   },
   "Pickled Peppers": {
     "name": "Pickled Peppers",
@@ -8136,11 +7375,6 @@ const items = {
       "Medium",
       "Burn",
       "Food"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Burn ( 5 » 10 ).",
-      "When you Burn, this gains ( 5 » 10 ) Burn for the fight."
     ],
     "cooldown": 10,
     "enchants": {
@@ -8153,7 +7387,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 5 » 10 ).",
+    "bottomtext": "When you Burn, this gains ( 5 » 10 ) Burn for the fight."
   },
   "Pierre Conditioner": {
     "name": "Pierre Conditioner",
@@ -8165,11 +7401,6 @@ const items = {
       "Freeze",
       "Friend"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Freeze 1 item for 1 second(s).",
-      "When you use the Core, Freeze an item for 1 second(s)."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "When you use the Core, Slow 1 items for 3 second(s).",
@@ -8180,7 +7411,9 @@ const items = {
       "Toxic": "When you use the Core, Poison 2.",
       "Fiery": "When you use the Core, Burn 3.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Freeze 1 item for 1 second(s).",
+    "bottomtext": "When you use the Core, Freeze an item for 1 second(s)."
   },
   "Piggles": {
     "name": "Piggles",
@@ -8190,11 +7423,6 @@ const items = {
       "Pygmalien",
       "Small",
       "Charge"
-    ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Charge adjacent Small items ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you win a fight, get a Piggle."
     ],
     "cooldown": 7,
     "enchants": {
@@ -8207,7 +7435,9 @@ const items = {
       "Fiery": "Burn 5.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your Piggles have -1 cooldown."
-    }
+    },
+    "text": "Charge adjacent Small items ( 1 » 2 » 3 » 4 ) second(s).",
+    "bottomtext": "When you win a fight, get a Piggle."
   },
   "Pinata": {
     "name": "Pinata",
@@ -8217,11 +7447,9 @@ const items = {
       "Pygmalien",
       "Medium"
     ],
-    "description": [
-      "When you sell this, get 3 Chocolate Bars."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, get 3 Chocolate Bars."
   },
   "Piranha": {
     "name": "Piranha",
@@ -8235,11 +7463,6 @@ const items = {
       "Damage",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "This deals double Crit damage."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -8252,7 +7475,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 15 » 30 » 50 ) damage.",
+    "bottomtext": "This deals double Crit damage."
   },
   "Pistol Sword": {
     "name": "Pistol Sword",
@@ -8264,12 +7489,6 @@ const items = {
       "Ammo",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Ammo Max 3",
-      "Deal ( 15 » 30 ) damage.",
-      "When you use an ammo item, deal ( 15 » 30 ) damage."
     ],
     "cooldown": 3,
     "enchants": {
@@ -8283,7 +7502,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "When you use an Ammo item, give your items +50% Crit Chance for this fight.",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 15 » 30 ) damage.",
+    "bottomtext": "When you use an ammo item, deal ( 15 » 30 ) damage."
   },
   "Plasma Grenade": {
     "name": "Plasma Grenade",
@@ -8296,12 +7517,6 @@ const items = {
       "Burn",
       "Slow"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Ammo Max 1",
-      "Burn both players ( 5 » 10 » 15 ).",
-      "Slow enemy items for ( 1 » 2 » 3 ) second(s)."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Double Slow",
@@ -8313,7 +7528,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "Your items gain +25% Crit Chance for the fight."
-    }
+    },
+    "text": "Burn both players ( 5 » 10 » 15 ).",
+    "bottomtext": "Slow enemy items for ( 1 » 2 » 3 ) second(s)."
   },
   "Plasma Rifle": {
     "name": "Plasma Rifle",
@@ -8325,11 +7542,6 @@ const items = {
       "Burn",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal ( 50 » 100 » 150 ) damage.",
-      "When you Burn, this gains ( 25 » 50 » 75 ) damage for the fight."
     ],
     "cooldown": 8,
     "enchants": {
@@ -8343,7 +7555,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 50 » 100 » 150 ) damage.",
+    "bottomtext": "When you Burn, this gains ( 25 » 50 » 75 ) damage for the fight."
   },
   "Pop Snappers": {
     "name": "Pop Snappers",
@@ -8354,11 +7568,6 @@ const items = {
       "Small",
       "Ammo",
       "Burn"
-    ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Ammo Max 3",
-      "Burn ( 4 » 6 » 8 » 10 )."
     ],
     "cooldown": 3,
     "enchants": {
@@ -8371,7 +7580,8 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 4 » 6 » 8 » 10 )."
   },
   "Poppy Field": {
     "name": "Poppy Field",
@@ -8384,11 +7594,6 @@ const items = {
       "Poison",
       "Property"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Poison ( 3 » 6 » 9 » 12 ).",
-      "If you have no weapons, your items have their cooldowns reduced by ( 5% » 10% » 15% » 20% )."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
@@ -8400,7 +7605,9 @@ const items = {
       "Fiery": "Burn 20.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison ( 3 » 6 » 9 » 12 ).",
+    "bottomtext": "If you have no weapons, your items have their cooldowns reduced by ( 5% » 10% » 15% » 20% )."
   },
   "Port": {
     "name": "Port",
@@ -8413,12 +7620,6 @@ const items = {
       "Aquatic",
       "Property"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Reload all your items ( 1 » 2 » 3 ) Ammo and charge them 1 second(s).",
-      "Your items have ( +1 » +2 » +3 ) Max Ammo.",
-      "At the start of each day, get a small Ammo item from any Hero."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 3 items for 2 second(s).",
@@ -8430,7 +7631,9 @@ const items = {
       "Fiery": "Burn 13.",
       "Shiny": "+2 Reload",
       "Deadly": "Your Ammo items have +20% Crit Chance."
-    }
+    },
+    "text": "Reload all your items ( 1 » 2 » 3 ) Ammo and charge them 1 second(s).",
+    "bottomtext": "At the start of each day, get a small Ammo item from any Hero."
   },
   "Powder Flask": {
     "name": "Powder Flask",
@@ -8441,10 +7644,6 @@ const items = {
       "Small",
       "Ammo",
       "Tool"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Reload the item to the right of this ( 1 » 2 » 3 » 4 ) Ammo."
     ],
     "cooldown": 4,
     "enchants": {
@@ -8457,7 +7656,8 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "Give the Ammo item to the right of this +20% Crit Chance for the fight."
-    }
+    },
+    "text": "Reload the item to the right of this ( 1 » 2 » 3 » 4 ) Ammo."
   },
   "Powder Keg": {
     "name": "Powder Keg",
@@ -8471,11 +7671,6 @@ const items = {
       "Health",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 20 seconds",
-      "Deal damage equal to ( 30% » 40% » 50% ) of your enemy's Max Health and destroy this.",
-      "When you Burn, charge this 1 second(s)."
-    ],
     "cooldown": 20,
     "enchants": {
       "Heavy": "Slow 2 items for 10 second(s).",
@@ -8488,7 +7683,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal damage equal to ( 30% » 40% » 50% ) of your enemy's Max Health and destroy this.",
+    "bottomtext": "When you Burn, charge this 1 second(s)."
   },
   "Power Drill": {
     "name": "Power Drill",
@@ -8504,11 +7701,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal ( 20 » 40 » 80 » 160 ) damage.",
-      "When you Haste, Slow, Freeze, Burn or Poison, charge this ( 1 » 1 » 1 » 2 ) second(s)."
-    ],
     "cooldown": 10,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -8521,7 +7713,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 20 » 40 » 80 » 160 ) damage.",
+    "bottomtext": "When you Haste, Slow, Freeze, Burn or Poison, charge this ( 1 » 1 » 1 » 2 ) second(s)."
   },
   "Power Sander": {
     "name": "Power Sander",
@@ -8534,11 +7728,6 @@ const items = {
       "Shield",
       "Tool"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "adjacent weapons gain ( 3 » 6 » 9 » 12 ) damage for the fight.",
-      "adjacent Shield items gain ( 3 » 6 » 9 » 12 ) Shield for the fight."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -8550,7 +7739,9 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "Adjacent items gain 10% Crit chance for the fight."
-    }
+    },
+    "text": "adjacent weapons gain ( 3 » 6 » 9 » 12 ) damage for the fight.",
+    "bottomtext": "adjacent Shield items gain ( 3 » 6 » 9 » 12 ) Shield for the fight."
   },
   "Proboscis": {
     "name": "Proboscis",
@@ -8563,9 +7754,6 @@ const items = {
       "Slow",
       "Weapon"
     ],
-    "description": [
-      "When you slow, deal ( 3 » 6 » 9 » 12 ) damage."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "SlowAmount0",
@@ -8577,7 +7765,8 @@ const items = {
       "Fiery": "When you slow, burn 1.",
       "Shiny": "Double Damage",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "When you slow, deal ( 3 » 6 » 9 » 12 ) damage."
   },
   "Propane Tank": {
     "name": "Propane Tank",
@@ -8590,11 +7779,6 @@ const items = {
       "Haste",
       "Tool"
     ],
-    "description": [
-      "Cooldown 9 seconds",
-      "Haste your Vehicles for ( 2 » 3 » 5 ) second(s).",
-      "When you use a Vehicle, Burn ( 2 » 3 » 5 )."
-    ],
     "cooldown": 9,
     "enchants": {
       "Heavy": "When you use a Vehicle, Slow 2 items for 3 second(s).",
@@ -8606,7 +7790,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "Your Vehicles have +50% Crit Chance."
-    }
+    },
+    "text": "Haste your Vehicles for ( 2 » 3 » 5 ) second(s).",
+    "bottomtext": "When you use a Vehicle, Burn ( 2 » 3 » 5 )."
   },
   "Pufferfish": {
     "name": "Pufferfish",
@@ -8620,9 +7806,6 @@ const items = {
       "Haste",
       "Poison"
     ],
-    "description": [
-      "When you Haste, Poison ( 1 » 2 » 4 » 8 )."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When you Haste, Slow 1 item for 2 second(s).",
@@ -8634,7 +7817,34 @@ const items = {
       "Fiery": "When you Haste, Burn 2.",
       "Shiny": "Double Poison",
       "Deadly": "When you Haste, your items gain +5% Crit Chance for the fight."
-    }
+    },
+    "text": "When you Haste, Poison ( 1 » 2 » 4 » 8 )."
+  },
+  "Pulse Rifle": {
+    "name": "Pulse Rifle",
+    "icon": "images/items/PulseRifle.avif",
+    "tier": "Bronze",
+    "tags": [
+      "Dooley",
+      "Medium",
+      "Damage",
+      "Weapon"
+    ],
+    "cooldown": null,
+    "enchants": {
+      "Heavy": "Slow 2 items for 1 second(s).",
+      "Icy": "Freeze 1 item for 1 second(s).",
+      "Turbo": "Haste 2 items for 1 second(s).",
+      "Shielded": "Shield 30.",
+      "Restorative": "Heal 45.",
+      "Toxic": "Poison 3.",
+      "Fiery": "Burn 4.",
+      "Shiny": "+1 Multicast",
+      "Deadly": "+50% Crit Chance",
+      "Obsidian": "Lifesteal"
+    },
+    "text": "Deal ( 10 » 30 » 60 » 100 ) damage.",
+    "bottomtext": "This has +1 Multicast if it is adjacent to a Friend. Double this if it is your only Friend."
   },
   "Pyg's Gym": {
     "name": "Pyg's Gym",
@@ -8649,11 +7859,6 @@ const items = {
       "Property",
       "Value"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Your weapons gain Damage equal to this item's value for the fight.",
-      "When you buy a weapon, this gains ( 1 » 2 » 3 ) value and you gain ( 20 » 50 » 100 ) max health."
-    ],
     "cooldown": 5,
     "enchants": {
       "Golden": "This has double value.",
@@ -8666,7 +7871,9 @@ const items = {
       "Fiery": "Your Burn items gain Burn equal to 15% of this item's value for the fight.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your items gain Crit Chance equal to this item's value for the fight."
-    }
+    },
+    "text": "Your weapons gain Damage equal to this item's value for the fight.",
+    "bottomtext": "When you buy a weapon, this gains ( 1 » 2 » 3 ) value and you gain ( 20 » 50 » 100 ) max health."
   },
   "Pygmalien's Dagger": {
     "name": "Pygmalien's Dagger",
@@ -8679,11 +7886,6 @@ const items = {
       "Economy",
       "Value",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Deal damage equal to ( 1x » 2x ) this item's value.",
-      "When you sell an item, give this ( 1 » 2 ) value."
     ],
     "cooldown": 4,
     "enchants": {
@@ -8698,7 +7900,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal damage equal to ( 1x » 2x ) this item's value.",
+    "bottomtext": "When you sell an item, give this ( 1 » 2 ) value."
   },
   "Pylon": {
     "name": "Pylon",
@@ -8711,11 +7915,6 @@ const items = {
       "Property",
       "Slow"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Slow 1 item for ( 1 » 2 » 3 ) second(s).",
-      "When you Slow, Haste an item for ( 1 » 2 » 3 ) second(s)."
-    ],
     "cooldown": 3,
     "enchants": {
       "Heavy": "+1 Slow Targets",
@@ -8727,7 +7926,9 @@ const items = {
       "Fiery": "When you Slow, Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "When you Slow, your items gain +10% Crit Chance for the fight."
-    }
+    },
+    "text": "Slow 1 item for ( 1 » 2 » 3 ) second(s).",
+    "bottomtext": "When you Slow, Haste an item for ( 1 » 2 » 3 ) second(s)."
   },
   "Pyrocarbon": {
     "name": "Pyrocarbon",
@@ -8738,11 +7939,6 @@ const items = {
       "Medium",
       "Burn",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Shield ( 75 » 150 ).",
-      "When you gain Burn, this gains Haste for ( 2 » 4 ) second(s)."
     ],
     "cooldown": 6,
     "enchants": {
@@ -8755,7 +7951,9 @@ const items = {
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 75 » 150 ).",
+    "bottomtext": "When you gain Burn, this gains Haste for ( 2 » 4 ) second(s)."
   },
   "Race Carl": {
     "name": "Race Carl",
@@ -8770,11 +7968,6 @@ const items = {
       "Vehicle",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Haste 1 item for ( 1 » 2 » 3 ) second(s).",
-      "When you Haste, deal ( 10 » 20 » 30 ) damage."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "When you Haste, Slow 1 items for 1 second(s).",
@@ -8787,7 +7980,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "When you Haste, your items gain 6% Crit Chance for the fight.",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Haste 1 item for ( 1 » 2 » 3 ) second(s).",
+    "bottomtext": "When you Haste, deal ( 10 » 20 » 30 ) damage."
   },
   "Railgun": {
     "name": "Railgun",
@@ -8799,12 +7994,6 @@ const items = {
       "Charge",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Multicast 2",
-      "Deal ( 100 » 200 ) damage.",
-      "When you use the Core, charge this ( 1 » 2 ) second(s)."
     ],
     "cooldown": 10,
     "enchants": {
@@ -8818,7 +8007,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Multicast 2",
+    "bottomtext": "When you use the Core, charge this ( 1 » 2 ) second(s)."
   },
   "Rainbow Potion": {
     "name": "Rainbow Potion",
@@ -8834,14 +8025,6 @@ const items = {
       "Potion",
       "Slow"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Ammo Max 1",
-      "Burn ( 4 » 6 ).",
-      "Poison ( 2 » 3 ).",
-      "Freeze 1 item for ( 2 » 3 ) second(s).",
-      "Slow 1 item for ( 4 » 6 ) second(s)."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "+1 Slow Targets",
@@ -8852,7 +8035,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 4 » 6 ).",
+    "bottomtext": "Slow 1 item for ( 4 » 6 ) second(s)."
   },
   "Ramrod": {
     "name": "Ramrod",
@@ -8863,10 +8048,6 @@ const items = {
       "Medium",
       "Ammo",
       "Tool"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Reload adjacent Ammo items ( 1 » 2 » 3 ) Ammo and Haste them ( 1 » 2 » 3 ) second(s)."
     ],
     "cooldown": 8,
     "enchants": {
@@ -8879,7 +8060,8 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast",
       "Deadly": "Adjacent Ammo items have +25% Crit Chance."
-    }
+    },
+    "text": "Reload adjacent Ammo items ( 1 » 2 » 3 ) Ammo and Haste them ( 1 » 2 » 3 ) second(s)."
   },
   "Red Gumball": {
     "name": "Red Gumball",
@@ -8892,11 +8074,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, your weapons gain ( 1 » 2 » 3 » 4 ) damage."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, your weapons gain ( 1 » 2 » 3 » 4 ) damage."
   },
   "Red Piggles A": {
     "name": "Red Piggles A",
@@ -8907,12 +8087,9 @@ const items = {
       "Small",
       "Damage"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Give your adjacent weapons ( +3 » +6 » +9 » +12 ) damage for the fight."
-    ],
     "cooldown": 3,
-    "enchants": {}
+    "enchants": {},
+    "text": "Give your adjacent weapons ( +3 » +6 » +9 » +12 ) damage for the fight."
   },
   "Red Piggles L": {
     "name": "Red Piggles L",
@@ -8923,12 +8100,9 @@ const items = {
       "Small",
       "Damage"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Give your weapon to the left of this ( +4 » +8 » +12 » +16 ) damage for the fight."
-    ],
     "cooldown": 3,
-    "enchants": {}
+    "enchants": {},
+    "text": "Give your weapon to the left of this ( +4 » +8 » +12 » +16 ) damage for the fight."
   },
   "Red Piggles R": {
     "name": "Red Piggles R",
@@ -8939,12 +8113,9 @@ const items = {
       "Small",
       "Damage"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Give your weapon to the right of this ( +4 » +8 » +12 » +16 ) damage for the fight."
-    ],
     "cooldown": 3,
-    "enchants": {}
+    "enchants": {},
+    "text": "Give your weapon to the right of this ( +4 » +8 » +12 » +16 ) damage for the fight."
   },
   "Red Piggles X": {
     "name": "Red Piggles X",
@@ -8955,12 +8126,9 @@ const items = {
       "Small",
       "Damage"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Your weapons gain ( 1 » 2 » 3 » 4 ) damage for the fight."
-    ],
     "cooldown": 3,
-    "enchants": {}
+    "enchants": {},
+    "text": "Your weapons gain ( 1 » 2 » 3 » 4 ) damage for the fight."
   },
   "Refractor": {
     "name": "Refractor",
@@ -8976,11 +8144,6 @@ const items = {
       "Slow",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Deal 20 damage.",
-      "When you Slow, Freeze, Burn or Poison, this gains ( 10 » 20 » 30 ) damage for the fight."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -8993,7 +8156,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 20 damage.",
+    "bottomtext": "When you Slow, Freeze, Burn or Poison, this gains ( 10 » 20 » 30 ) damage for the fight."
   },
   "Regal Blade": {
     "name": "Regal Blade",
@@ -9004,11 +8169,6 @@ const items = {
       "Medium",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal 10 damage.",
-      "When you sell a Weapon, this gains ( 10 » 20 » 40 » 80 ) damage."
     ],
     "cooldown": 6,
     "enchants": {
@@ -9023,7 +8183,32 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 10 damage.",
+    "bottomtext": "When you sell a Weapon, this gains ( 10 » 20 » 40 » 80 ) damage."
+  },
+  "Remote Control": {
+    "name": "Remote Control",
+    "icon": "images/items/RemoteControl.avif",
+    "tier": "Silver",
+    "tags": [
+      "Dooley",
+      "Small",
+      "Tool"
+    ],
+    "cooldown": null,
+    "enchants": {
+      "Heavy": "Slow 1 item for 2 second(s).",
+      "Icy": "Freeze 1 item for 1 second(s).",
+      "Turbo": "Haste 1 item for 2 second(s).",
+      "Shielded": "Shield 40.",
+      "Restorative": "Heal 60.",
+      "Toxic": "Poison 4.",
+      "Fiery": "Burn 6.",
+      "Shiny": "+1 Multicast",
+      "Deadly": "The Core has +50% Crit Chance."
+    },
+    "text": "Use the Core."
   },
   "Repeater": {
     "name": "Repeater",
@@ -9035,12 +8220,6 @@ const items = {
       "Ammo",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Ammo Max 6",
-      "Deal ( 25 » 50 » 100 ) damage.",
-      "When you use another Ammo item, use this."
     ],
     "cooldown": 6,
     "enchants": {
@@ -9054,7 +8233,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 25 » 50 » 100 ) damage.",
+    "bottomtext": "When you use another Ammo item, use this."
   },
   "Revolver": {
     "name": "Revolver",
@@ -9068,13 +8249,6 @@ const items = {
       "Damage",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Ammo Max 6",
-      "Crit Chance 20%",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "When you Crit, fully reload this."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -9087,7 +8261,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Crit Chance 20%",
+    "bottomtext": "When you Crit, fully reload this."
   },
   "Rewards Card": {
     "name": "Rewards Card",
@@ -9098,14 +8274,12 @@ const items = {
       "Small",
       "Value"
     ],
-    "description": [
-      "When you visit a Merchant, this and the item to the left of this gains ( 1 » 2 » 3 » 4 ) value."
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "Double Value",
       "Shiny": "Double Value"
-    }
+    },
+    "text": "When you visit a Merchant, this and the item to the left of this gains ( 1 » 2 » 3 » 4 ) value."
   },
   "Rifle": {
     "name": "Rifle",
@@ -9117,12 +8291,6 @@ const items = {
       "Ammo",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 2 seconds",
-      "Ammo Max 1",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "When you use this, reload this 1 Ammo if it is your only weapon."
     ],
     "cooldown": 2,
     "enchants": {
@@ -9136,7 +8304,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 15 » 30 » 50 ) damage.",
+    "bottomtext": "When you use this, reload this 1 Ammo if it is your only weapon."
   },
   "Ritual Dagger": {
     "name": "Ritual Dagger",
@@ -9149,11 +8319,6 @@ const items = {
       "Damage",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Lifesteal 100",
-      "Deal ( 14 » 20 » 28 » 40 ) damage."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -9165,7 +8330,9 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Lifesteal 100",
+    "bottomtext": "Deal ( 14 » 20 » 28 » 40 ) damage."
   },
   "Rivet Gun": {
     "name": "Rivet Gun",
@@ -9179,11 +8346,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 9 seconds",
-      "Deal ( 10 » 20 » 30 ) Damage.",
-      "When you use the item to the right of this, Charge the item to the left of this ( 1 » 1 » 2 ) second(s)."
-    ],
     "cooldown": 9,
     "enchants": {
       "Heavy": "When you use the item to the right of this, Slow 1 item for 2 second(s).",
@@ -9194,7 +8356,9 @@ const items = {
       "Toxic": "When you use the item to the right of this, Poison 1.",
       "Fiery": "When you use the item to the right of this, Burn 2.",
       "Deadly": "When you use the item to the right of this, the item to the left of this gains 20% Crit Chance for the fight."
-    }
+    },
+    "text": "Deal ( 10 » 20 » 30 ) Damage.",
+    "bottomtext": "When you use the item to the right of this, Charge the item to the left of this ( 1 » 1 » 2 ) second(s)."
   },
   "Robe": {
     "name": "Robe",
@@ -9204,11 +8368,6 @@ const items = {
       "Pygmalien",
       "Medium",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Shield ( 5 » 10 » 15 ).",
-      "When you Shield, your Shield items gain ( 1 » 2 » 3 ) Shield for the fight."
     ],
     "cooldown": 6,
     "enchants": {
@@ -9221,7 +8380,9 @@ const items = {
       "Fiery": "When you Shield, your Burn items gain 1 Burn for the fight.",
       "Shiny": "+1 Multicast",
       "Deadly": "When you Shield, your items gain +6% Crit Chance for the fight."
-    }
+    },
+    "text": "Shield ( 5 » 10 » 15 ).",
+    "bottomtext": "When you Shield, your Shield items gain ( 1 » 2 » 3 ) Shield for the fight."
   },
   "Robotic Factory": {
     "name": "Robotic Factory",
@@ -9232,13 +8393,11 @@ const items = {
       "Large",
       "Property"
     ],
-    "description": [
-      "Your Friends have +1 Multicast."
-    ],
     "cooldown": null,
     "enchants": {
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Your Friends have +1 Multicast."
   },
   "Rocket Boots": {
     "name": "Rocket Boots",
@@ -9249,11 +8408,6 @@ const items = {
       "Medium",
       "Haste",
       "Tool"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Haste adjacent items for ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you sell this, give your leftmost Haste item ( +1 » +2 » +3 » +4 ) Haste."
     ],
     "cooldown": 4,
     "enchants": {
@@ -9266,7 +8420,9 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Haste adjacent items for ( 1 » 2 » 3 » 4 ) second(s).",
+    "bottomtext": "When you sell this, give your leftmost Haste item ( +1 » +2 » +3 » +4 ) Haste."
   },
   "Rocket Launcher": {
     "name": "Rocket Launcher",
@@ -9278,13 +8434,6 @@ const items = {
       "Burn",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Multicast 3",
-      "Deal ( 10 » 20 » 30 ) damage.",
-      "Burn ( 2 » 4 » 6 ).",
-      "While your enemy has Burn, this has double damage."
     ],
     "cooldown": 6,
     "enchants": {
@@ -9298,7 +8447,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Multicast 3",
+    "bottomtext": "While your enemy has Burn, this has double damage."
   },
   "Rolling Pin": {
     "name": "Rolling Pin",
@@ -9312,11 +8463,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal ( 15 » 45 » 90 » 150 ) Damage",
-      "When this gains haste, give it ( +5 » +10 » +20 » +30 ) damage for the fight."
-    ],
     "cooldown": 10,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -9329,7 +8475,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 15 » 45 » 90 » 150 ) Damage",
+    "bottomtext": "When this gains haste, give it ( +5 » +10 » +20 » +30 ) damage for the fight."
   },
   "Rowboat": {
     "name": "Rowboat",
@@ -9342,11 +8490,6 @@ const items = {
       "Haste",
       "Vehicle"
     ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Haste your Small items for ( 1 » 2 ) second(s).",
-      "When you use an adjacent Aquatic item, Haste this ( 1 » 2 ) second(s)."
-    ],
     "cooldown": 10,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -9358,7 +8501,9 @@ const items = {
       "Fiery": "Burn 15.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your small items have +20% Crit Chance."
-    }
+    },
+    "text": "Haste your Small items for ( 1 » 2 ) second(s).",
+    "bottomtext": "When you use an adjacent Aquatic item, Haste this ( 1 » 2 ) second(s)."
   },
   "Ruby": {
     "name": "Ruby",
@@ -9368,11 +8513,6 @@ const items = {
       "Mak",
       "Small",
       "Burn"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Burn ( 4 » 6 » 8 ).",
-      "Increase your other items' Burn by 2."
     ],
     "cooldown": 10,
     "enchants": {
@@ -9385,7 +8525,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 4 » 6 » 8 ).",
+    "bottomtext": "Increase your other items' Burn by 2."
   },
   "Rune Axe": {
     "name": "Rune Axe",
@@ -9396,11 +8538,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Deal ( 10 » 30 » 60 » 100 ) damage.",
-      "When you sell this, your weapons gain ( 1 » 2 » 3 » 4 ) Damage."
     ],
     "cooldown": 7,
     "enchants": {
@@ -9414,7 +8551,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 30 » 60 » 100 ) damage.",
+    "bottomtext": "When you sell this, your weapons gain ( 1 » 2 » 3 » 4 ) Damage."
   },
   "Runic Double Bow": {
     "name": "Runic Double Bow",
@@ -9427,13 +8566,6 @@ const items = {
       "Lifesteal",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Multicast 2",
-      "Lifesteal 100",
-      "Deal ( 10 » 30 » 60 » 100 ) Damage.",
-      "This deals double Crit damage."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
@@ -9445,7 +8577,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Multicast 2",
+    "bottomtext": "This deals double Crit damage."
   },
   "Runic Great Axe": {
     "name": "Runic Great Axe",
@@ -9458,12 +8592,6 @@ const items = {
       "Lifesteal",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Lifesteal 100",
-      "Deal ( 10 » 30 » 60 » 100 ) damage.",
-      "Your Weapons with lifesteal gain ( +10 » +30 » +60 » +100 ) damage for the fight."
-    ],
     "cooldown": 10,
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
@@ -9475,7 +8603,9 @@ const items = {
       "Fiery": "Burn 22.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Lifesteal 100",
+    "bottomtext": "Your Weapons with lifesteal gain ( +10 » +30 » +60 » +100 ) damage for the fight."
   },
   "Safe": {
     "name": "Safe",
@@ -9486,11 +8616,9 @@ const items = {
       "Medium",
       "Economy"
     ],
-    "description": [
-      "When you sell this, get 3 Spare Change."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, get 3 Spare Change."
   },
   "Salamander Pup": {
     "name": "Salamander Pup",
@@ -9501,11 +8629,6 @@ const items = {
       "Medium",
       "Burn",
       "Friend"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Burn ( 4 » 6 » 8 » 10 ).",
-      "When you sell this, your leftmost Burn item gains ( +3 » +4 » +5 » +6 ) Burn."
     ],
     "cooldown": 8,
     "enchants": {
@@ -9518,7 +8641,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 4 » 6 » 8 » 10 ).",
+    "bottomtext": "When you sell this, your leftmost Burn item gains ( +3 » +4 » +5 » +6 ) Burn."
   },
   "Sapphire": {
     "name": "Sapphire",
@@ -9528,11 +8653,6 @@ const items = {
       "Mak",
       "Small",
       "Freeze"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Freeze 1 item for ( 3 » 4 » 5 ) second(s).",
-      "Increase your other items' Freeze by 1 second(s)."
     ],
     "cooldown": 8,
     "enchants": {
@@ -9544,7 +8664,9 @@ const items = {
       "Toxic": "Poison 4.",
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Freeze 1 item for ( 3 » 4 » 5 ) second(s).",
+    "bottomtext": "Increase your other items' Freeze by 1 second(s)."
   },
   "Satchel": {
     "name": "Satchel",
@@ -9557,12 +8679,6 @@ const items = {
       "Regen",
       "Tool"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Reload a potion.",
-      "You have ( 4 » 8 » 12 » 12 ) Regeneration.",
-      "When you buy a Potion, increase the Regeneration this item gives by ( 1 » 2 » 3 » 3 )."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -9574,7 +8690,9 @@ const items = {
       "Fiery": "Burn 10.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Reload a potion.",
+    "bottomtext": "When you buy a Potion, increase the Regeneration this item gives by ( 1 » 2 » 3 » 3 )."
   },
   "Schematics": {
     "name": "Schematics",
@@ -9587,17 +8705,14 @@ const items = {
       "Economy",
       "Value"
     ],
-    "description": [
-      "When you upgrade an item, this gains ( 1 » 2 » 3 » 4 ) value.",
-      "When you sell this, give the Core + Crit Chance equal to this item's value.",
-      "Your items have + Crit Chance equal to this item's value."
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "Double Value",
       "Shiny": "This gains double value when an item is upgraded.",
       "Deadly": "Double Crit Chance"
-    }
+    },
+    "text": "When you upgrade an item, this gains ( 1 » 2 » 3 » 4 ) value.",
+    "bottomtext": "Your items have + Crit Chance equal to this item's value."
   },
   "Scrap": {
     "name": "Scrap",
@@ -9608,11 +8723,9 @@ const items = {
       "Small",
       "Toughness"
     ],
-    "description": [
-      "When you sell this, give your leftmost Shield item ( +4 » +8 » +12 » +16 ) Shield."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, give your leftmost Shield item ( +4 » +8 » +12 » +16 ) Shield."
   },
   "Scrap Metal": {
     "name": "Scrap Metal",
@@ -9622,9 +8735,6 @@ const items = {
       "Dooley",
       "Medium",
       "Cooldown"
-    ],
-    "description": [
-      "When you sell this, upgrade The Core. ( » and reduce its cooldown by 1 second(s ).)"
     ],
     "cooldown": null,
     "enchants": {
@@ -9639,7 +8749,8 @@ const items = {
       "Deadly": "And make the item Deadly if able.",
       "Radiant": "And make the item Radiant if able.",
       "Obsidian": "And make the item Obsidian if able."
-    }
+    },
+    "text": "When you sell this, upgrade The Core. ( » and reduce its cooldown by 1 second(s ).)"
   },
   "Scythe": {
     "name": "Scythe",
@@ -9650,10 +8761,6 @@ const items = {
       "Medium",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal damage equal to a third of your enemy's max health."
     ],
     "cooldown": 10,
     "enchants": {
@@ -9667,7 +8774,8 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal damage equal to a third of your enemy's max health."
   },
   "Sea Shell": {
     "name": "Sea Shell",
@@ -9678,10 +8786,6 @@ const items = {
       "Small",
       "Aquatic",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Shield ( 5 » 15 » 30 » 50 ) for each aquatic item you have."
     ],
     "cooldown": 5,
     "enchants": {
@@ -9694,7 +8798,8 @@ const items = {
       "Fiery": "Burn 2 for each Aquatic item you have.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 5 » 15 » 30 » 50 ) for each aquatic item you have."
   },
   "Seaweed": {
     "name": "Seaweed",
@@ -9705,11 +8810,6 @@ const items = {
       "Small",
       "Aquatic",
       "Heal"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Heal 10.",
-      "When you use an Aquatic item, this gains ( 10 » 15 » 20 ) Heal for the fight."
     ],
     "cooldown": 6,
     "enchants": {
@@ -9722,7 +8822,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal 10.",
+    "bottomtext": "When you use an Aquatic item, this gains ( 10 » 15 » 20 ) Heal for the fight."
   },
   "Security Camera": {
     "name": "Security Camera",
@@ -9733,11 +8835,6 @@ const items = {
       "Medium",
       "Crit",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Shield ( 20 » 40 » 80 » 120 ).",
-      "Your Shield items have ( +20% » +30% » +40% » +50% ) Crit Chance."
     ],
     "cooldown": 8,
     "enchants": {
@@ -9750,7 +8847,9 @@ const items = {
       "Fiery": "Burn 12.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 20 » 40 » 80 » 120 ).",
+    "bottomtext": "Your Shield items have ( +20% » +30% » +40% » +50% ) Crit Chance."
   },
   "Sextant": {
     "name": "Sextant",
@@ -9764,10 +8863,6 @@ const items = {
       "Haste",
       "Tool"
     ],
-    "description": [
-      "When you Crit, Haste an item for ( 1 » 2 » 3 ) second(s).",
-      "Adjacent items have ( +15% » +30% » +50% ) Crit Chance."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When you Crit, Slow 1 items for 2 second(s).",
@@ -9779,7 +8874,9 @@ const items = {
       "Fiery": "When you Crit, Burn 2.",
       "Shiny": "This has double Crit Chance bonus and Haste duration.",
       "Deadly": "Adjacent items have an additional +25% Crit Chance"
-    }
+    },
+    "text": "When you Crit, Haste an item for ( 1 » 2 » 3 ) second(s).",
+    "bottomtext": "Adjacent items have ( +15% » +30% » +50% ) Crit Chance."
   },
   "Shadowed Cloak": {
     "name": "Shadowed Cloak",
@@ -9791,9 +8888,6 @@ const items = {
       "Damage",
       "Haste"
     ],
-    "description": [
-      "When you use the item to the right of this, Haste it for ( 1 » 2 » 3 » 4 ) second(s). If it is a weapon, it also gains ( +3 » +5 » +7 » +9 ) damage for the fight."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When you use the item to the right of this, Slow 1 item for 3 second(s).",
@@ -9803,7 +8897,8 @@ const items = {
       "Restorative": "When you use the item to the right of this, heal 30.",
       "Toxic": "When you use the item to the right of this, poison 2.",
       "Fiery": "When you use the item to the right of this, burn 3."
-    }
+    },
+    "text": "When you use the item to the right of this, Haste it for ( 1 » 2 » 3 » 4 ) second(s). If it is a weapon, it also gains ( +3 » +5 » +7 » +9 ) damage for the fight."
   },
   "Sharkclaws": {
     "name": "Sharkclaws",
@@ -9815,11 +8910,6 @@ const items = {
       "Aquatic",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Deal ( 5 » 15 » 10 » 15 ) damage.",
-      "Your weapons gain ( 3 » 6 » 10 » 20 ) damage for the fight."
     ],
     "cooldown": 4,
     "enchants": {
@@ -9833,7 +8923,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 15 » 10 » 15 ) damage.",
+    "bottomtext": "Your weapons gain ( 3 » 6 » 10 » 20 ) damage for the fight."
   },
   "Sharkray": {
     "name": "Sharkray",
@@ -9848,11 +8940,6 @@ const items = {
       "Haste",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Deal 25 damage.",
-      "When you Haste, this gains ( 25 » 50 ) damage for the fight."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -9865,7 +8952,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 25 damage.",
+    "bottomtext": "When you Haste, this gains ( 25 » 50 ) damage for the fight."
   },
   "Sharpening Stone": {
     "name": "Sharpening Stone",
@@ -9876,11 +8965,9 @@ const items = {
       "Small",
       "Damage"
     ],
-    "description": [
-      "When you sell this, your leftmost Weapon gains ( 3 » 6 » 9 » 12 ) Damage."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, your leftmost Weapon gains ( 3 » 6 » 9 » 12 ) Damage."
   },
   "Shield Potion": {
     "name": "Shield Potion",
@@ -9893,11 +8980,6 @@ const items = {
       "Potion",
       "Shield"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Ammo Max 1",
-      "Shield ( 40 » 80 » 150 » 300 )."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -9909,7 +8991,8 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 40 » 80 » 150 » 300 )."
   },
   "Shipment": {
     "name": "Shipment",
@@ -9920,12 +9003,10 @@ const items = {
       "Large",
       "Economy"
     ],
-    "description": [
-      "When you sell this, get 3 Small items from any hero.",
-      "This item has no base Value."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, get 3 Small items from any hero.",
+    "bottomtext": "This item has no base Value."
   },
   "Shipwreck": {
     "name": "Shipwreck",
@@ -9936,9 +9017,6 @@ const items = {
       "Large",
       "Aquatic",
       "Vehicle"
-    ],
-    "description": [
-      "Your Aquatic items have +1 Multicast."
     ],
     "cooldown": null,
     "enchants": {
@@ -9952,7 +9030,8 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "Your Aquatic items have +10% Crit Chance.",
       "Radiant": "-1000 Freeze"
-    }
+    },
+    "text": "Your Aquatic items have +1 Multicast."
   },
   "Shoe Blade": {
     "name": "Shoe Blade",
@@ -9963,11 +9042,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Crit Chance ( 15% » 30% » 50% » 100% )",
-      "Deal ( 10 » 30 » 60 » 100 ) damage."
     ],
     "cooldown": 6,
     "enchants": {
@@ -9981,7 +9055,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+100 Damage Crit",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Crit Chance ( 15% » 30% » 50% » 100% )",
+    "bottomtext": "Deal ( 10 » 30 » 60 » 100 ) damage."
   },
   "Shovel": {
     "name": "Shovel",
@@ -9993,11 +9069,6 @@ const items = {
       "Damage",
       "Tool",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal ( 10 » 30 » 60 » 100 ) damage.",
-      "At the start of each day, get a small item from any hero."
     ],
     "cooldown": 10,
     "enchants": {
@@ -10011,7 +9082,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 30 » 60 » 100 ) damage.",
+    "bottomtext": "At the start of each day, get a small item from any hero."
   },
   "Signet Ring": {
     "name": "Signet Ring",
@@ -10023,15 +9096,13 @@ const items = {
       "Health",
       "Income"
     ],
-    "description": [
-      "At the start of each hour, gain ( 10 » 20 » 30 ) Max Health.",
-      "You have ( +1 » +2 » +3 ) Income."
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "Double Income",
       "Shiny": "Double Health Max"
-    }
+    },
+    "text": "At the start of each hour, gain ( 10 » 20 » 30 ) Max Health.",
+    "bottomtext": "You have ( +1 » +2 » +3 ) Income."
   },
   "Silencer": {
     "name": "Silencer",
@@ -10042,10 +9113,6 @@ const items = {
       "Small",
       "Cooldown",
       "Damage"
-    ],
-    "description": [
-      "The weapon to the left of this has ( +10 » +20 » +30 » +50 ) damage.",
-      "If you have exactly one weapon, reduce its cooldown by ( 10% » 20% » 30% » 40% )."
     ],
     "cooldown": null,
     "enchants": {
@@ -10058,7 +9125,9 @@ const items = {
       "Fiery": "When you use the weapon to the left, burn 2.",
       "Shiny": "Double Damage",
       "Deadly": "The Weapon to the left of this has +50% Crit Chance."
-    }
+    },
+    "text": "The weapon to the left of this has ( +10 » +20 » +30 » +50 ) damage.",
+    "bottomtext": "If you have exactly one weapon, reduce its cooldown by ( 10% » 20% » 30% » 40% )."
   },
   "Silk": {
     "name": "Silk",
@@ -10068,11 +9137,6 @@ const items = {
       "Pygmalien",
       "Medium",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Shield 10.",
-      "When you sell another non-weapon item, this gains Shield ( 5 » 10 » 15 » 20 )."
     ],
     "cooldown": 7,
     "enchants": {
@@ -10086,7 +9150,9 @@ const items = {
       "Fiery": "Burn 10.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield 10.",
+    "bottomtext": "When you sell another non-weapon item, this gains Shield ( 5 » 10 » 15 » 20 )."
   },
   "Singularity": {
     "name": "Singularity",
@@ -10095,10 +9161,6 @@ const items = {
     "tags": [
       "Common",
       "Small"
-    ],
-    "description": [
-      "Cooldown 15 seconds",
-      "Destroy a small enemy item for the fight."
     ],
     "cooldown": 15,
     "enchants": {
@@ -10110,7 +9172,8 @@ const items = {
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Destroy a small enemy item for the fight."
   },
   "Sirens": {
     "name": "Sirens",
@@ -10121,11 +9184,6 @@ const items = {
       "Medium",
       "Haste",
       "Slow"
-    ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Slow 1 item for ( 2 » 4 » 6 ) second(s).",
-      "When you slow, Haste a Vehicle for ( 2 » 4 » 6 ) second(s)."
     ],
     "cooldown": 7,
     "enchants": {
@@ -10138,7 +9196,9 @@ const items = {
       "Fiery": "Burn 10.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your Vehicles have +50% Crit Chance."
-    }
+    },
+    "text": "Slow 1 item for ( 2 » 4 » 6 ) second(s).",
+    "bottomtext": "When you slow, Haste a Vehicle for ( 2 » 4 » 6 ) second(s)."
   },
   "Skyscraper": {
     "name": "Skyscraper",
@@ -10153,12 +9213,6 @@ const items = {
       "Value",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Deal damage equal to 3 times the value of your items.",
-      "This has double value in combat.",
-      "If you have 4 or fewer items in-play, this has +1 Multicast."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 3 items for 2 second(s).",
@@ -10171,7 +9225,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal damage equal to 3 times the value of your items.",
+    "bottomtext": "If you have 4 or fewer items in-play, this has +1 Multicast."
   },
   "Sleeping Potion": {
     "name": "Sleeping Potion",
@@ -10184,11 +9240,6 @@ const items = {
       "Potion",
       "Slow"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Ammo Max 1",
-      "Slow 2 items for ( 4 » 6 » 8 » 10 ) second(s)."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "+1 Slow Targets",
@@ -10199,7 +9250,8 @@ const items = {
       "Toxic": "Poison 5.",
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Slow 2 items for ( 4 » 6 » 8 » 10 ) second(s)."
   },
   "Slingshot": {
     "name": "Slingshot",
@@ -10211,11 +9263,6 @@ const items = {
       "Ammo",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Deal ( 10 » 30 » 60 » 100 ) damage.",
-      "This has ( +1 » +2 » +3 » +4 ) Max Ammo for each small item you have. [0]"
     ],
     "cooldown": 3,
     "enchants": {
@@ -10230,7 +9277,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 30 » 60 » 100 ) damage.",
+    "bottomtext": "This has ( +1 » +2 » +3 » +4 ) Max Ammo for each small item you have. [0]"
   },
   "Sniper Rifle": {
     "name": "Sniper Rifle",
@@ -10241,11 +9290,6 @@ const items = {
       "Medium",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Deal 100 damage.",
-      "This deals ( 3 » 5 » 10 ) times more damage if it is your only weapon."
     ],
     "cooldown": 10,
     "enchants": {
@@ -10259,7 +9303,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 100 damage.",
+    "bottomtext": "This deals ( 3 » 5 » 10 ) times more damage if it is your only weapon."
   },
   "Snow Globe": {
     "name": "Snow Globe",
@@ -10270,11 +9316,6 @@ const items = {
       "Medium",
       "Freeze",
       "Property"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Freeze 1 item for ( 1 » 2 » 3 ) second(s).",
-      "This has +1 Multicast for each adjacent to a Property."
     ],
     "cooldown": 6,
     "enchants": {
@@ -10287,7 +9328,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "Adjacent properties have +25% Crit Chance."
-    }
+    },
+    "text": "Freeze 1 item for ( 1 » 2 » 3 ) second(s).",
+    "bottomtext": "This has +1 Multicast for each adjacent to a Property."
   },
   "Snowflake": {
     "name": "Snowflake",
@@ -10300,11 +9343,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, your leftmost Freeze item gains 1 second to Freeze."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, your leftmost Freeze item gains 1 second to Freeze."
   },
   "Solar Farm": {
     "name": "Solar Farm",
@@ -10318,11 +9359,6 @@ const items = {
       "Haste",
       "Property"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Give your other items Haste for ( 2 » 3 » 4 ) second(s).",
-      "While you or your enemy have Burn, reduce this item's cooldown by 50%."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
@@ -10334,7 +9370,9 @@ const items = {
       "Fiery": "Burn 18.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your items gain +10% Crit Chance for the fight."
-    }
+    },
+    "text": "Give your other items Haste for ( 2 » 3 » 4 ) second(s).",
+    "bottomtext": "While you or your enemy have Burn, reduce this item's cooldown by 50%."
   },
   "Soldering Gun": {
     "name": "Soldering Gun",
@@ -10345,12 +9383,6 @@ const items = {
       "Small",
       "Burn",
       "Tool"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Burn ( 1 » 2 » 3 ).",
-      "This has +1 Multicast if it is adjacent to a Friend.",
-      "This has +1 Multicast if it is adjacent to a Tool."
     ],
     "cooldown": 5,
     "enchants": {
@@ -10363,7 +9395,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 1 » 2 » 3 ).",
+    "bottomtext": "This has +1 Multicast if it is adjacent to a Tool."
   },
   "Soul of the District": {
     "name": "Soul of the District",
@@ -10377,11 +9411,6 @@ const items = {
       "Shield",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 12 seconds",
-      "Shield equal to your current Health.",
-      "Deal damage equal to your shield."
-    ],
     "cooldown": 12,
     "enchants": {
       "Heavy": "Slow 2 items for 4 second(s).",
@@ -10394,7 +9423,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Shield equal to your current Health.",
+    "bottomtext": "Deal damage equal to your shield."
   },
   "Soul Ring": {
     "name": "Soul Ring",
@@ -10405,11 +9436,6 @@ const items = {
       "Small",
       "Poison",
       "Regen"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Poison equal to your Regeneration.",
-      "You have ( +1 » +2 » +3 ) Regeneration."
     ],
     "cooldown": 8,
     "enchants": {
@@ -10422,7 +9448,9 @@ const items = {
       "Fiery": "Burn equal to your Regeneration.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison equal to your Regeneration.",
+    "bottomtext": "You have ( +1 » +2 » +3 ) Regeneration."
   },
   "Spacescraper": {
     "name": "Spacescraper",
@@ -10436,11 +9464,6 @@ const items = {
       "Shield",
       "Value"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Shield equal to ( 2 » 3 ) times the value of your items.",
-      "This has triple value in combat."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 3 items for 2 second(s).",
@@ -10452,7 +9475,9 @@ const items = {
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield equal to ( 2 » 3 ) times the value of your items.",
+    "bottomtext": "This has triple value in combat."
   },
   "Spare Change": {
     "name": "Spare Change",
@@ -10464,11 +9489,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "Sells for gold"
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "Sells for gold"
   },
   "Spices": {
     "name": "Spices",
@@ -10479,11 +9502,6 @@ const items = {
       "Small",
       "Ammo",
       "Damage"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Ammo Max 1",
-      "Your weapons gain damage equal to your weakest weapon's damage for the fight. [0]"
     ],
     "cooldown": 8,
     "enchants": {
@@ -10496,7 +9514,8 @@ const items = {
       "Fiery": "Your Burn items gain damage equal to your weakest Burn item's Burn for the fight.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your items gain +25% Crit Chance for the fight."
-    }
+    },
+    "text": "Your weapons gain damage equal to your weakest weapon's damage for the fight. [0]"
   },
   "Spiked Buckler": {
     "name": "Spiked Buckler",
@@ -10510,12 +9529,6 @@ const items = {
       "Tool",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal ( 10 » 30 » 60 » 100 ) damage.",
-      "Shield ( 10 » 30 » 60 » 100 ).",
-      "When you sell this, your leftmost item gains ( +4 » +5 » +6 » +7 ) Damage if it is a Weapon and ( +4 » +5 » +6 » +7 ) Shield if it is a Shield item."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -10528,7 +9541,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 30 » 60 » 100 ) damage.",
+    "bottomtext": "When you sell this, your leftmost item gains ( +4 » +5 » +6 » +7 ) Damage if it is a Weapon and ( +4 » +5 » +6 » +7 ) Shield if it is a Shield item."
   },
   "Spiky Shield": {
     "name": "Spiky Shield",
@@ -10540,11 +9555,6 @@ const items = {
       "Damage",
       "Shield",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Shield ( 5 » 15 » 30 » 50 ).",
-      "Deal damage equal to your shield."
     ],
     "cooldown": 8,
     "enchants": {
@@ -10558,7 +9568,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Shield ( 5 » 15 » 30 » 50 ).",
+    "bottomtext": "Deal damage equal to your shield."
   },
   "Spyglass": {
     "name": "Spyglass",
@@ -10571,10 +9583,6 @@ const items = {
       "Crit",
       "Tool"
     ],
-    "description": [
-      "Adjacent items have ( +25% » +50% ) Crit Chance.",
-      "At the start of each fight, a random enemy item has its cooldown increased by ( 3 » 6 ) second(s)."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When you crit with an adjacent item, Slow 1 item for 3 second(s).",
@@ -10586,7 +9594,9 @@ const items = {
       "Fiery": "When you crit with an adjacent item, burn 3.",
       "Shiny": "Double Crit Chance",
       "Deadly": "Double Crit Chance"
-    }
+    },
+    "text": "Adjacent items have ( +25% » +50% ) Crit Chance.",
+    "bottomtext": "At the start of each fight, a random enemy item has its cooldown increased by ( 3 » 6 ) second(s)."
   },
   "Stained Glass Window": {
     "name": "Stained Glass Window",
@@ -10598,17 +9608,13 @@ const items = {
       "Property",
       "Value"
     ],
-    "description": [
-      "When you win a fight with Stained Glass Window, your Properties gain ( 4 » 6 ) value.",
-      "When you lose a fight with Stained Glass Window, your Properties lose 2 value.",
-      "The Property to the right of this has double value in combat.",
-      "If you have 4 or fewer items in-play, their cooldowns are reduced ( 10% » 20% )."
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "Double Value",
       "Shiny": "Double Value"
-    }
+    },
+    "text": "When you win a fight with Stained Glass Window, your Properties gain ( 4 » 6 ) value.",
+    "bottomtext": "If you have 4 or fewer items in-play, their cooldowns are reduced ( 10% » 20% )."
   },
   "Star Chart": {
     "name": "Star Chart",
@@ -10621,10 +9627,6 @@ const items = {
       "Crit",
       "Tool"
     ],
-    "description": [
-      "Adjacent items have ( +10% » +15% » +20% » +25% ) Crit Chance.",
-      "Adjacent items have their cooldown reduced by ( 10% » 15% » 20% » 25% )."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "At the start of each fight, Slow 3 items for 4 second(s).",
@@ -10636,7 +9638,9 @@ const items = {
       "Fiery": "At the start of each fight, burn 16.",
       "Shiny": "Double Crit Chance",
       "Deadly": "Double Crit Chance"
-    }
+    },
+    "text": "Adjacent items have ( +10% » +15% » +20% » +25% ) Crit Chance.",
+    "bottomtext": "Adjacent items have their cooldown reduced by ( 10% » 15% » 20% » 25% )."
   },
   "Stinger": {
     "name": "Stinger",
@@ -10649,12 +9653,6 @@ const items = {
       "Slow",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 9 seconds",
-      "Lifesteal 100",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s)."
-    ],
     "cooldown": 9,
     "enchants": {
       "Heavy": "+1 Slow Targets",
@@ -10666,7 +9664,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Lifesteal 100",
+    "bottomtext": "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s)."
   },
   "Stopwatch": {
     "name": "Stopwatch",
@@ -10678,10 +9678,6 @@ const items = {
       "Freeze",
       "Tool"
     ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Freeze both players' items for ( 1 » 2 ) second(s)."
-    ],
     "cooldown": 10,
     "enchants": {
       "Heavy": "Slow both players' items for 3 second(s).",
@@ -10692,7 +9688,8 @@ const items = {
       "Toxic": "Poison 5.",
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Freeze both players' items for ( 1 » 2 ) second(s)."
   },
   "Submarine": {
     "name": "Submarine",
@@ -10707,11 +9704,6 @@ const items = {
       "Vehicle",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Deal ( 30 » 60 » 100 ) damage.",
-      "Gain Shield equal to this item's damage."
-    ],
     "cooldown": 3,
     "enchants": {
       "Heavy": "Slow 3 items for 1 second(s).",
@@ -10724,7 +9716,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 30 » 60 » 100 ) damage.",
+    "bottomtext": "Gain Shield equal to this item's damage."
   },
   "Subscraper": {
     "name": "Subscraper",
@@ -10738,11 +9732,6 @@ const items = {
       "Property",
       "Value"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Heal equal to ( 4 » 6 ) times the value of your items.",
-      "Your other items gain +value equal to this item's value in combat."
-    ],
     "cooldown": 4,
     "enchants": {
       "Golden": "Double Value",
@@ -10755,7 +9744,9 @@ const items = {
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal equal to ( 4 » 6 ) times the value of your items.",
+    "bottomtext": "Your other items gain +value equal to this item's value in combat."
   },
   "Succulents": {
     "name": "Succulents",
@@ -10765,11 +9756,6 @@ const items = {
       "Pygmalien",
       "Small",
       "Heal"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Heal ( 1 » 2 » 3 » 4 ).",
-      "This permanently gains ( 1 » 2 » 3 » 4 ) Heal."
     ],
     "cooldown": 4,
     "enchants": {
@@ -10782,7 +9768,9 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal ( 1 » 2 » 3 » 4 ).",
+    "bottomtext": "This permanently gains ( 1 » 2 » 3 » 4 ) Heal."
   },
   "Sunderer": {
     "name": "Sunderer",
@@ -10793,11 +9781,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "Your enemy's Shield items lose ( 2 » 4 » 6 » 8 ) Shield for the fight."
     ],
     "cooldown": 4,
     "enchants": {
@@ -10811,7 +9794,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 15 » 30 » 50 ) damage.",
+    "bottomtext": "Your enemy's Shield items lose ( 2 » 4 » 6 » 8 ) Shield for the fight."
   },
   "Sunlight Spear": {
     "name": "Sunlight Spear",
@@ -10822,12 +9807,6 @@ const items = {
       "Medium",
       "Burn",
       "Heal"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Heal ( 30 » 60 » 120 ).",
-      "Burn 1.",
-      "When you Heal, this gains ( 2 » 4 » 6 ) Burn for the fight."
     ],
     "cooldown": 6,
     "enchants": {
@@ -10840,7 +9819,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal ( 30 » 60 » 120 ).",
+    "bottomtext": "When you Heal, this gains ( 2 » 4 » 6 ) Burn for the fight."
   },
   "Super Syrup": {
     "name": "Super Syrup",
@@ -10853,14 +9834,10 @@ const items = {
       "Crit",
       "Food"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Ammo Max 10",
-      "Adjacent items permanently gain ( 1% » 2% » 3% » 4% ) Crit chance.",
-      "This permanently loses 1 Max Ammo."
-    ],
     "cooldown": 4,
-    "enchants": {}
+    "enchants": {},
+    "text": "Adjacent items permanently gain ( 1% » 2% » 3% » 4% ) Crit chance.",
+    "bottomtext": "This permanently loses 1 Max Ammo."
   },
   "Swash Buckle": {
     "name": "Swash Buckle",
@@ -10874,15 +9851,13 @@ const items = {
       "Heal",
       "Shield"
     ],
-    "description": [
-      "Adjacent items have ( +25% » +50% ) Crit Chance.",
-      "Adjacent items have bonus damage, heal, or shield equal to their Crit Chance."
-    ],
     "cooldown": null,
     "enchants": {
       "Shiny": "This has double damage, shield and heal bonus.",
       "Deadly": "This has double Crit Chance bonus."
-    }
+    },
+    "text": "Adjacent items have ( +25% » +50% ) Crit Chance.",
+    "bottomtext": "Adjacent items have bonus damage, heal, or shield equal to their Crit Chance."
   },
   "Switchblade": {
     "name": "Switchblade",
@@ -10893,11 +9868,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal ( 10 » 30 » 60 » 100 ) damage.",
-      "When you use an adjacent Weapon, give it ( +2 » +4 » +6 » +10 ) damage for the fight."
     ],
     "cooldown": 8,
     "enchants": {
@@ -10911,7 +9881,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 30 » 60 » 100 ) damage.",
+    "bottomtext": "When you use an adjacent Weapon, give it ( +2 » +4 » +6 » +10 ) damage for the fight."
   },
   "Tazidian Dagger": {
     "name": "Tazidian Dagger",
@@ -10923,11 +9895,6 @@ const items = {
       "Ammo",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Deal ( 5 » 10 » 15 » 20 ) damage.",
-      "Adjacent Potions have +1 Ammo."
     ],
     "cooldown": 4,
     "enchants": {
@@ -10941,7 +9908,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 10 » 15 » 20 ) damage.",
+    "bottomtext": "Adjacent Potions have +1 Ammo."
   },
   "Tea Set": {
     "name": "Tea Set",
@@ -10952,11 +9921,6 @@ const items = {
       "Medium",
       "Heal",
       "Health"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Heal equal to ( 4% » 8% ) of your Max Health.",
-      "When you use a non-weapon item, permanently gain ( +2 » +4 ) Max Health."
     ],
     "cooldown": 6,
     "enchants": {
@@ -10969,7 +9933,9 @@ const items = {
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal equal to ( 4% » 8% ) of your Max Health.",
+    "bottomtext": "When you use a non-weapon item, permanently gain ( +2 » +4 ) Max Health."
   },
   "Teddy": {
     "name": "Teddy",
@@ -10981,13 +9947,6 @@ const items = {
       "Damage",
       "Friend",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Multicast 2",
-      "Deal 100 damage.",
-      "When you use an adjacent Friend or Ammo item, charge this 1 second(s).",
-      "When you take damage, this gains 5% Crit Chance for the fight."
     ],
     "cooldown": 10,
     "enchants": {
@@ -11001,7 +9960,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Multicast 2",
+    "bottomtext": "When you take damage, this gains 5% Crit Chance for the fight."
   },
   "Temporary Shelter": {
     "name": "Temporary Shelter",
@@ -11012,11 +9973,6 @@ const items = {
       "Large",
       "Property",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Shield 30.",
-      "When you sell a Small item, this gains ( 5 » 10 » 15 » 20 ) Shield."
     ],
     "cooldown": 6,
     "enchants": {
@@ -11029,7 +9985,9 @@ const items = {
       "Fiery": "Burn 13.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield 30.",
+    "bottomtext": "When you sell a Small item, this gains ( 5 » 10 » 15 » 20 ) Shield."
   },
   "Tesla Coil": {
     "name": "Tesla Coil",
@@ -11040,11 +9998,6 @@ const items = {
       "Medium",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal ( 10 » 20 » 30 ) damage.",
-      "When you use an adjacent item, deal ( 10 » 20 » 30 ) damage."
     ],
     "cooldown": 5,
     "enchants": {
@@ -11058,7 +10011,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 20 » 30 ) damage.",
+    "bottomtext": "When you use an adjacent item, deal ( 10 » 20 » 30 ) damage."
   },
   "Textiles": {
     "name": "Textiles",
@@ -11069,11 +10024,6 @@ const items = {
       "Medium",
       "Heal",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Shield ( 10 » 30 » 60 » 100 ).",
-      "Heal equal to your Shield."
     ],
     "cooldown": 5,
     "enchants": {
@@ -11086,7 +10036,9 @@ const items = {
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 10 » 30 » 60 » 100 ).",
+    "bottomtext": "Heal equal to your Shield."
   },
   "The Boulder": {
     "name": "The Boulder",
@@ -11098,11 +10050,6 @@ const items = {
       "Ammo",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 24 seconds",
-      "Ammo Max 1",
-      "Deal damage equal to your enemy's max health."
     ],
     "cooldown": 24,
     "enchants": {
@@ -11116,7 +10063,8 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal damage equal to your enemy's max health."
   },
   "The Core": {
     "name": "The Core",
@@ -11131,12 +10079,6 @@ const items = {
       "Unsellable",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Deal ( 10 » 30 » 60 » 100 ) damage.",
-      "Charge all items to the right of this 1 second(s).",
-      "When you use any item to the left of this, Charge this 1 second(s)."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -11149,7 +10091,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 30 » 60 » 100 ) damage.",
+    "bottomtext": "When you use any item to the left of this, Charge this 1 second(s)."
   },
   "The Eclipse": {
     "name": "The Eclipse",
@@ -11162,11 +10106,6 @@ const items = {
       "Vehicle",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 15 seconds",
-      "Use all your other items.",
-      "When you use an item, deal 40 damage."
-    ],
     "cooldown": 15,
     "enchants": {
       "Heavy": "Slow 3 items for 5 second(s).",
@@ -11178,7 +10117,9 @@ const items = {
       "Fiery": "Burn 36.",
       "Shiny": "+1 Multicast",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Use all your other items.",
+    "bottomtext": "When you use an item, deal 40 damage."
   },
   "Thermal Lance": {
     "name": "Thermal Lance",
@@ -11189,11 +10130,6 @@ const items = {
       "Medium",
       "Burn",
       "Haste"
-    ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Burn 7.",
-      "When this gains Haste, this gains ( 1 » 2 ) Burn for the fight."
     ],
     "cooldown": 7,
     "enchants": {
@@ -11206,7 +10142,9 @@ const items = {
       "Fiery": "This has double Burn.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn 7.",
+    "bottomtext": "When this gains Haste, this gains ( 1 » 2 ) Burn for the fight."
   },
   "Thieves Guild Medallion": {
     "name": "Thieves Guild Medallion",
@@ -11218,11 +10156,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, gain access to the Thieves Guild."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, gain access to the Thieves Guild."
   },
   "Throwing Knives": {
     "name": "Throwing Knives",
@@ -11236,12 +10172,6 @@ const items = {
       "Damage",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Ammo Max 3",
-      "Deal ( 15 » 45 » 90 » 150 ) damage.",
-      "When you Crit with another item, use this."
-    ],
     "cooldown": 3,
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -11254,7 +10184,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 15 » 45 » 90 » 150 ) damage.",
+    "bottomtext": "When you Crit with another item, use this."
   },
   "Thrown Net": {
     "name": "Thrown Net",
@@ -11265,11 +10197,6 @@ const items = {
       "Medium",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal ( 5 » 10 » 15 ) damage.",
-      "Your Weapons gain ( 2 » 3 » 4 ) damage for the fight and your opponent's Weapons lose ( 2 » 3 » 4 ) damage for the fight."
     ],
     "cooldown": 5,
     "enchants": {
@@ -11283,7 +10210,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 5 » 10 » 15 ) damage.",
+    "bottomtext": "Your Weapons gain ( 2 » 3 » 4 ) damage for the fight and your opponent's Weapons lose ( 2 » 3 » 4 ) damage for the fight."
   },
   "Thrusters": {
     "name": "Thrusters",
@@ -11294,11 +10223,6 @@ const items = {
       "Small",
       "Burn",
       "Cooldown"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Burn both players ( 2 » 3 » 4 » 5 ).",
-      "Adjacent items have their cooldowns reduced by ( 6% » 9% » 12% » 15% )."
     ],
     "cooldown": 6,
     "enchants": {
@@ -11311,7 +10235,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn both players ( 2 » 3 » 4 » 5 ).",
+    "bottomtext": "Adjacent items have their cooldowns reduced by ( 6% » 9% » 12% » 15% )."
   },
   "Thurible": {
     "name": "Thurible",
@@ -11324,11 +10250,6 @@ const items = {
       "Regen",
       "Tool"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Gain ( 2 » 4 » 6 ) Regeneration for the fight.",
-      "When you gain Regeneration, Burn ( 2 » 3 » 4 )."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "When you gain Regeneration, Slow 1 item for 2 second(s).",
@@ -11340,7 +10261,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Gain ( 2 » 4 » 6 ) Regeneration for the fight.",
+    "bottomtext": "When you gain Regeneration, Burn ( 2 » 3 » 4 )."
   },
   "Tiny Cutlass": {
     "name": "Tiny Cutlass",
@@ -11353,13 +10276,10 @@ const items = {
       "Damage",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Deal ( 10 » 20 » 30 » 40 ) damage.",
-      "This deals double Crit damage."
-    ],
     "cooldown": 5,
-    "enchants": {}
+    "enchants": {},
+    "text": "Deal ( 10 » 20 » 30 » 40 ) damage.",
+    "bottomtext": "This deals double Crit damage."
   },
   "Tommoo Gun": {
     "name": "Tommoo Gun",
@@ -11371,11 +10291,6 @@ const items = {
       "Ammo",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 2 seconds",
-      "Ammo Max 50",
-      "Deal damage equal to this item's ammo."
     ],
     "cooldown": 2,
     "enchants": {
@@ -11389,7 +10304,8 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal damage equal to this item's ammo."
   },
   "Toolbox": {
     "name": "Toolbox",
@@ -11402,11 +10318,6 @@ const items = {
       "Shield",
       "Tool"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Shield ( 10 » 30 » 50 » 100 ).",
-      "Your other tools have their cooldowns reduced by ( 5% » 10% » 15% » 20% )."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -11418,7 +10329,9 @@ const items = {
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your Tools have +20% Crit Chance."
-    }
+    },
+    "text": "Shield ( 10 » 30 » 50 » 100 ).",
+    "bottomtext": "Your other tools have their cooldowns reduced by ( 5% » 10% » 15% » 20% )."
   },
   "Torpedo": {
     "name": "Torpedo",
@@ -11432,13 +10345,6 @@ const items = {
       "Damage",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Ammo Max 1",
-      "Deal 60 damage.",
-      "When you use another Aquatic or Ammo item, this gains ( 30 » 60 » 90 ) damage for the fight.",
-      "If the item is Large, Reload 1 Ammo."
-    ],
     "cooldown": 10,
     "enchants": {
       "Heavy": "Slow 2 items for 6 second(s).",
@@ -11451,7 +10357,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal 60 damage.",
+    "bottomtext": "If the item is Large, Reload 1 Ammo."
   },
   "Tourist Chariot": {
     "name": "Tourist Chariot",
@@ -11464,11 +10372,6 @@ const items = {
       "Value",
       "Vehicle"
     ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Shield ( 20 » 60 » 120 » 200 ).",
-      "When you sell this, give your items ( +1 » +2 » +3 » +4 ) value."
-    ],
     "cooldown": 4,
     "enchants": {
       "Heavy": "Slow 3 items for 1 second(s).",
@@ -11480,7 +10383,9 @@ const items = {
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 20 » 60 » 120 » 200 ).",
+    "bottomtext": "When you sell this, give your items ( +1 » +2 » +3 » +4 ) value."
   },
   "Trained Spider": {
     "name": "Trained Spider",
@@ -11491,11 +10396,6 @@ const items = {
       "Small",
       "Friend",
       "Poison"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Poison ( 1 » 2 » 3 » 4 ).",
-      "When you sell this, your leftmost Poison item gains ( +1 » +2 » +3 » +4 ) Poison."
     ],
     "cooldown": 5,
     "enchants": {
@@ -11508,7 +10408,9 @@ const items = {
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison ( 1 » 2 » 3 » 4 ).",
+    "bottomtext": "When you sell this, your leftmost Poison item gains ( +1 » +2 » +3 » +4 ) Poison."
   },
   "Trebuchet": {
     "name": "Trebuchet",
@@ -11522,12 +10424,6 @@ const items = {
       "Haste",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Burn ( 8 » 10 » 12 » 20 ).",
-      "Deal ( 10 » 30 » 50 » 100 ) damage.",
-      "When you Burn, haste an item for ( 1 » 2 » 3 » 4 ) second(s)."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
@@ -11540,7 +10436,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Burn ( 8 » 10 » 12 » 20 ).",
+    "bottomtext": "When you Burn, haste an item for ( 1 » 2 » 3 » 4 ) second(s)."
   },
   "Tripwire": {
     "name": "Tripwire",
@@ -11550,9 +10448,6 @@ const items = {
       "Vanessa",
       "Medium",
       "Slow"
-    ],
-    "description": [
-      "When your enemy uses an item, Slow it for 1 second(s)."
     ],
     "cooldown": null,
     "enchants": {
@@ -11564,7 +10459,8 @@ const items = {
       "Toxic": "When your enemy uses an item, poison 1.",
       "Fiery": "When your enemy uses an item, burn 2.",
       "Shiny": "Double Slow"
-    }
+    },
+    "text": "When your enemy uses an item, Slow it for 1 second(s)."
   },
   "Tropical Island": {
     "name": "Tropical Island",
@@ -11578,10 +10474,6 @@ const items = {
       "Regen",
       "Slow"
     ],
-    "description": [
-      "When you Slow, gain ( 2 » 4 ) Regeneration for the fight.",
-      "At the start of each hour, get a Coconut or Citrus."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "At the start of each fight, Slow 2 items for 4 second(s).",
@@ -11592,7 +10484,9 @@ const items = {
       "Toxic": "When you slow, poison 3.",
       "Fiery": "When you slow, burn 5.",
       "Shiny": "This has double Regeneration gain."
-    }
+    },
+    "text": "When you Slow, gain ( 2 » 4 ) Regeneration for the fight.",
+    "bottomtext": "At the start of each hour, get a Coconut or Citrus."
   },
   "Turtle Shell": {
     "name": "Turtle Shell",
@@ -11603,11 +10497,6 @@ const items = {
       "Medium",
       "Aquatic",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Give your items ( +3 » +5 » +10 ) Shield for the fight.",
-      "When you use another non-weapon, Shield ( 10 » 20 » 30 )."
     ],
     "cooldown": 5,
     "enchants": {
@@ -11620,7 +10509,9 @@ const items = {
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Give your items ( +3 » +5 » +10 ) Shield for the fight.",
+    "bottomtext": "When you use another non-weapon, Shield ( 10 » 20 » 30 )."
   },
   "Tusked Helm": {
     "name": "Tusked Helm",
@@ -11632,12 +10523,6 @@ const items = {
       "Damage",
       "Shield",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Multicast 2",
-      "Deal ( 5 » 15 » 30 » 50 ) damage.",
-      "Shield ( 5 » 15 » 30 » 50 )."
     ],
     "cooldown": 10,
     "enchants": {
@@ -11651,7 +10536,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Multicast 2",
+    "bottomtext": "Shield ( 5 » 15 » 30 » 50 )."
   },
   "Upgrade Hammer": {
     "name": "Upgrade Hammer",
@@ -11662,11 +10549,9 @@ const items = {
       "Small",
       "Damage"
     ],
-    "description": [
-      "When you sell this, upgrade your leftmost item."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, upgrade your leftmost item."
   },
   "Uwashiwali Bird": {
     "name": "Uwashiwali Bird",
@@ -11677,11 +10562,6 @@ const items = {
       "Small",
       "Friend",
       "Heal"
-    ],
-    "description": [
-      "Cooldown 4 seconds",
-      "Heal ( 10 » 30 » 60 » 100 ).",
-      "This has +1 Multicast for each Property you have. [0]"
     ],
     "cooldown": 4,
     "enchants": {
@@ -11694,7 +10574,9 @@ const items = {
       "Fiery": "Burn 1.",
       "Shiny": "+0 MISSING",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Heal ( 10 » 30 » 60 » 100 ).",
+    "bottomtext": "This has +1 Multicast for each Property you have. [0]"
   },
   "Uzi": {
     "name": "Uzi",
@@ -11706,11 +10588,6 @@ const items = {
       "Ammo",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 2 seconds",
-      "Ammo Max 12",
-      "Deal ( 2 » 6 » 12 » 20 ) damage."
     ],
     "cooldown": 2,
     "enchants": {
@@ -11724,7 +10601,8 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 2 » 6 » 12 » 20 ) damage."
   },
   "Vanessa's Amulet": {
     "name": "Vanessa's Amulet",
@@ -11734,9 +10612,6 @@ const items = {
       "Vanessa",
       "Small",
       "Crit"
-    ],
-    "description": [
-      "Your items have ( +10% » +20% » +30% » +40% ) Crit Chance."
     ],
     "cooldown": null,
     "enchants": {
@@ -11749,7 +10624,8 @@ const items = {
       "Fiery": "At the start of the fight, burn 8.",
       "Shiny": "Double Crit Chance",
       "Deadly": "Double Crit Chance"
-    }
+    },
+    "text": "Your items have ( +10% » +20% » +30% » +40% ) Crit Chance."
   },
   "Vending Machine": {
     "name": "Vending Machine",
@@ -11760,13 +10636,11 @@ const items = {
       "Medium",
       "Property"
     ],
-    "description": [
-      "At the start of each day, get 3 Chocolate Bars or Spare Changes."
-    ],
     "cooldown": null,
     "enchants": {
       "Golden": "Your Chocolate Bars and Spare Change have +1 value."
-    }
+    },
+    "text": "At the start of each day, get 3 Chocolate Bars or Spare Changes."
   },
   "Venom": {
     "name": "Venom",
@@ -11777,9 +10651,6 @@ const items = {
       "Small",
       "Poison"
     ],
-    "description": [
-      "When you use an adjacent weapon, poison ( 1 » 2 » 3 )."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When you use an adjacent weapon, Slow 1 item for 1 second(s).",
@@ -11789,7 +10660,8 @@ const items = {
       "Restorative": "When you use an adjacent weapon, Heal 15.",
       "Toxic": "Double Poison",
       "Fiery": "When you use an adjacent weapon, Burn 1."
-    }
+    },
+    "text": "When you use an adjacent weapon, poison ( 1 » 2 » 3 )."
   },
   "Venomander": {
     "name": "Venomander",
@@ -11802,11 +10674,6 @@ const items = {
       "Poison",
       "Regen"
     ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Poison ( 1 » 2 ).",
-      "When you use the item to the left of this, gain ( 1 » 2 ) Regeneration for the fight."
-    ],
     "cooldown": 8,
     "enchants": {
       "Heavy": "When you use the left to the left of this, Slow 1 item for 2 second(s).",
@@ -11818,7 +10685,9 @@ const items = {
       "Fiery": "When you use the left to the left of this, Burn 1.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Poison ( 1 » 2 ).",
+    "bottomtext": "When you use the item to the left of this, gain ( 1 » 2 ) Regeneration for the fight."
   },
   "Vial of Blood": {
     "name": "Vial of Blood",
@@ -11830,11 +10699,9 @@ const items = {
       "NonWeapon",
       "Passive"
     ],
-    "description": [
-      "When you sell this, gain ( 1 » 2 » 3 » 4 ) XP."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, gain ( 1 » 2 » 3 » 4 ) XP."
   },
   "Vineyard": {
     "name": "Vineyard",
@@ -11847,10 +10714,6 @@ const items = {
       "Heal",
       "Property"
     ],
-    "description": [
-      "When you use an item, Heal equal to ( 1x » 2x » 3x ) this item's value.",
-      "At the start of each hour, this gains ( 1 » 1 » 2 ) value."
-    ],
     "cooldown": null,
     "enchants": {
       "Heavy": "When you use an item, Slow 1 item for 2 second(s).",
@@ -11860,7 +10723,33 @@ const items = {
       "Restorative": "Double Heal",
       "Toxic": "When you use an item, Poison 1.",
       "Fiery": "When you use an item, Burn 2."
-    }
+    },
+    "text": "When you use an item, Heal equal to ( 1x » 2x » 3x ) this item's value.",
+    "bottomtext": "At the start of each hour, this gains ( 1 » 1 » 2 ) value."
+  },
+  "Virus": {
+    "name": "Virus",
+    "icon": "images/items/Virus.avif",
+    "tier": "Silver",
+    "tags": [
+      "Dooley",
+      "Small",
+      "Poison"
+    ],
+    "cooldown": null,
+    "enchants": {
+      "Heavy": "Slow 1 item for 4 second(s).",
+      "Icy": "Freeze 1 item for 2 second(s).",
+      "Turbo": "Haste 1 item for 4 second(s).",
+      "Shielded": "Shield 60.",
+      "Restorative": "Heal 90.",
+      "Toxic": "Double Poison",
+      "Fiery": "Burn 9.",
+      "Shiny": "+1 Multicast",
+      "Deadly": "+50% Crit Chance"
+    },
+    "text": "Poison ( 1 » 2 » 3 ).",
+    "bottomtext": "When you destroy an item, this gains ( 5 » 10 » 15 ) Poison for the fight."
   },
   "Void Ray": {
     "name": "Void Ray",
@@ -11871,12 +10760,6 @@ const items = {
       "Medium",
       "Burn",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Multicast 2",
-      "Burn ( 4 » 6 ).",
-      "When you Shield, this gains ( 1 » 2 ) Burn for the fight."
     ],
     "cooldown": 6,
     "enchants": {
@@ -11889,7 +10772,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Multicast 2",
+    "bottomtext": "When you Shield, this gains ( 1 » 2 ) Burn for the fight."
   },
   "Void Shield": {
     "name": "Void Shield",
@@ -11900,11 +10785,6 @@ const items = {
       "Medium",
       "Burn",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Gain Shield equal to your enemy's burn.",
-      "When your enemy uses an item, Burn 1."
     ],
     "cooldown": 7,
     "enchants": {
@@ -11917,7 +10797,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Gain Shield equal to your enemy's burn.",
+    "bottomtext": "When your enemy uses an item, Burn 1."
   },
   "Wallace": {
     "name": "Wallace",
@@ -11928,11 +10810,6 @@ const items = {
       "Small",
       "Friend",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Shield ( 5 » 10 » 15 » 20 ).",
-      "This gains ( 5 » 10 » 15 » 20 ) Shield for the fight."
     ],
     "cooldown": 6,
     "enchants": {
@@ -11945,7 +10822,9 @@ const items = {
       "Fiery": "Burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 5 » 10 » 15 » 20 ).",
+    "bottomtext": "This gains ( 5 » 10 » 15 » 20 ) Shield for the fight."
   },
   "Walter Cooler": {
     "name": "Walter Cooler",
@@ -11958,11 +10837,6 @@ const items = {
       "Friend",
       "Health"
     ],
-    "description": [
-      "Cooldown 10 seconds",
-      "Permanently gain ( 5 » 10 » 15 » 20 ) Max Health.",
-      "When you use an adjacent friend, charge this ( 1 » 1 » 1 » 2 ) second(s)."
-    ],
     "cooldown": 10,
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
@@ -11973,7 +10847,9 @@ const items = {
       "Toxic": "Poison 5.",
       "Fiery": "Burn 7.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Permanently gain ( 5 » 10 » 15 » 20 ) Max Health.",
+    "bottomtext": "When you use an adjacent friend, charge this ( 1 » 1 » 1 » 2 ) second(s)."
   },
   "Wand": {
     "name": "Wand",
@@ -11983,10 +10859,6 @@ const items = {
       "Common",
       "Small",
       "Charge"
-    ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Charge your other non-weapon items ( 1 » 2 ) second(s)."
     ],
     "cooldown": 5,
     "enchants": {
@@ -11998,7 +10870,8 @@ const items = {
       "Toxic": "Poison 2.",
       "Fiery": "Burn 4.",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Charge your other non-weapon items ( 1 » 2 ) second(s)."
   },
   "Wanted Poster": {
     "name": "Wanted Poster",
@@ -12009,10 +10882,6 @@ const items = {
       "Medium",
       "Crit",
       "Experience"
-    ],
-    "description": [
-      "When you win a fight against a player, gain ( 1 » 2 » 3 ) XP. If you had Wanted Poster on your board, gain 1 additional XP.",
-      "Your items have ( 10% » 20% » 30% ) Crit Chance."
     ],
     "cooldown": null,
     "enchants": {
@@ -12025,7 +10894,9 @@ const items = {
       "Fiery": "At the start of the fight, burn 16.",
       "Shiny": "Double Experience",
       "Deadly": "Double Experience"
-    }
+    },
+    "text": "When you win a fight against a player, gain ( 1 » 2 » 3 ) XP. If you had Wanted Poster on your board, gain 1 additional XP.",
+    "bottomtext": "Your items have ( 10% » 20% » 30% ) Crit Chance."
   },
   "Waterwheel": {
     "name": "Waterwheel",
@@ -12038,11 +10909,6 @@ const items = {
       "Haste",
       "Property"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Haste your other items ( 1 » 2 » 3 ) second(s).",
-      "When you use another Aquatic item, Haste this ( 1 » 2 » 3 ) second(s)."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 3 items for 2 second(s).",
@@ -12054,7 +10920,9 @@ const items = {
       "Fiery": "Burn 13.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your items have +10% Crit Chance."
-    }
+    },
+    "text": "Haste your other items ( 1 » 2 » 3 ) second(s).",
+    "bottomtext": "When you use another Aquatic item, Haste this ( 1 » 2 » 3 ) second(s)."
   },
   "Weakpoint Detector": {
     "name": "Weakpoint Detector",
@@ -12068,11 +10936,6 @@ const items = {
       "Slow",
       "Tool"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Your weapons gain ( 3 » 6 » 9 » 12 ) damage for the fight.",
-      "When you slow, charge this ( 1 » 2 » 3 » 4 ) second(s)."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
@@ -12084,7 +10947,9 @@ const items = {
       "Fiery": "Burn 9.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your items gain 10% Crit Chance for the fight."
-    }
+    },
+    "text": "Your weapons gain ( 3 » 6 » 9 » 12 ) damage for the fight.",
+    "bottomtext": "When you slow, charge this ( 1 » 2 » 3 » 4 ) second(s)."
   },
   "Weaponized Core": {
     "name": "Weaponized Core",
@@ -12099,12 +10964,6 @@ const items = {
       "Unsellable",
       "Weapon"
     ],
-    "description": [
-      "Cooldown 7 seconds",
-      "Deal ( 10 » 30 » 60 » 100 ) damage.",
-      "Give Weapons to the right of this ( +5 » +10 » +15 » +20 ) damage for the fight.",
-      "When you use any item to the left of this, Charge this 1 second(s)."
-    ],
     "cooldown": 7,
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -12117,7 +10976,9 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "this weapon deals double damage on critical hits.",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 10 » 30 » 60 » 100 ) damage.",
+    "bottomtext": "When you use any item to the left of this, Charge this 1 second(s)."
   },
   "Weather Glass": {
     "name": "Weather Glass",
@@ -12132,12 +10993,6 @@ const items = {
       "Slow",
       "Tool"
     ],
-    "description": [
-      "Cooldown 6 seconds",
-      "Burn ( 4 » 6 » 8 ).",
-      "Poison ( 2 » 3 » 4 ).",
-      "If you have another item with Burn, Poison, Slow, or Freeze, this has +1 Multicast for each."
-    ],
     "cooldown": 6,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -12149,7 +11004,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 4 » 6 » 8 ).",
+    "bottomtext": "If you have another item with Burn, Poison, Slow, or Freeze, this has +1 Multicast for each."
   },
   "Weather Machine": {
     "name": "Weather Machine",
@@ -12165,12 +11022,6 @@ const items = {
       "Tool",
       "Vehicle"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Burn ( 2 » 3 ).",
-      "Freeze 1 item for 2 second(s).",
-      "Slow 1 item for ( 1 » 3 ) second(s)."
-    ],
     "cooldown": 3,
     "enchants": {
       "Heavy": "+1 Slow Targets",
@@ -12181,7 +11032,9 @@ const items = {
       "Toxic": "Poison 4.",
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast"
-    }
+    },
+    "text": "Burn ( 2 » 3 ).",
+    "bottomtext": "Slow 1 item for ( 1 » 3 ) second(s)."
   },
   "Weights": {
     "name": "Weights",
@@ -12194,11 +11047,6 @@ const items = {
       "Heal",
       "Tool"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Your weapons gain ( 5 » 10 » 15 » 20 ) Damage and your Heal gain ( 5 » 10 » 15 » 20 ) Heal for the fight.",
-      "When you heal while at max health, charge this ( 1 » 1 » 1 » 2 ) second(s)."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -12210,7 +11058,9 @@ const items = {
       "Fiery": "Your Burn items gain +3 burn for the fight.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your items gain +20% Crit Chance for the fight."
-    }
+    },
+    "text": "Your weapons gain ( 5 » 10 » 15 » 20 ) Damage and your Heal gain ( 5 » 10 » 15 » 20 ) Heal for the fight.",
+    "bottomtext": "When you heal while at max health, charge this ( 1 » 1 » 1 » 2 ) second(s)."
   },
   "Welding Helmet": {
     "name": "Welding Helmet",
@@ -12221,11 +11071,6 @@ const items = {
       "Medium",
       "Burn",
       "Shield"
-    ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Shield ( 5 » 15 » 30 » 50 ).",
-      "Burn ( 1 » 2 » 3 » 4 )."
     ],
     "cooldown": 3,
     "enchants": {
@@ -12238,7 +11083,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Shield ( 5 » 15 » 30 » 50 ).",
+    "bottomtext": "Burn ( 1 » 2 » 3 » 4 )."
   },
   "Welding Torch": {
     "name": "Welding Torch",
@@ -12252,11 +11099,6 @@ const items = {
       "Shield",
       "Tool"
     ],
-    "description": [
-      "Cooldown 5 seconds",
-      "Burn ( 4 » 6 » 8 ).",
-      "When you Shield, this gains Haste for ( 1 » 2 » 3 ) second(s)."
-    ],
     "cooldown": 5,
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -12268,7 +11110,9 @@ const items = {
       "Fiery": "Double Burn",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance"
-    }
+    },
+    "text": "Burn ( 4 » 6 » 8 ).",
+    "bottomtext": "When you Shield, this gains Haste for ( 1 » 2 » 3 ) second(s)."
   },
   "Windmill": {
     "name": "Windmill",
@@ -12279,9 +11123,6 @@ const items = {
       "Large",
       "Charge",
       "Property"
-    ],
-    "description": [
-      "When you use an item, charge another item +1 second(s)."
     ],
     "cooldown": null,
     "enchants": {
@@ -12294,7 +11135,8 @@ const items = {
       "Fiery": "When you use an item, Burn 2.",
       "Shiny": "Double Charge",
       "Deadly": "+10% Crit Chance"
-    }
+    },
+    "text": "When you use an item, charge another item +1 second(s)."
   },
   "Wrench": {
     "name": "Wrench",
@@ -12306,11 +11148,6 @@ const items = {
       "Damage",
       "Tool",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Deal ( 5 » 10 » 15 ) damage.",
-      "At the start of each day, upgrade a tool."
     ],
     "cooldown": 3,
     "enchants": {
@@ -12325,7 +11162,9 @@ const items = {
       "Deadly": "And make the item Deadly if able.",
       "Radiant": "And make the item Radiant if able.",
       "Obsidian": "And make the item Obsidian if able."
-    }
+    },
+    "text": "Deal ( 5 » 10 » 15 ) damage.",
+    "bottomtext": "At the start of each day, upgrade a tool."
   },
   "Yellow Gumball": {
     "name": "Yellow Gumball",
@@ -12338,11 +11177,9 @@ const items = {
       "Passive",
       "Toughness"
     ],
-    "description": [
-      "When you sell this, your Shield items gain ( 1 » 2 » 3 » 4 ) Shield."
-    ],
     "cooldown": null,
-    "enchants": {}
+    "enchants": {},
+    "text": "When you sell this, your Shield items gain ( 1 » 2 » 3 » 4 ) Shield."
   },
   "Yellow Piggles A": {
     "name": "Yellow Piggles A",
@@ -12353,12 +11190,9 @@ const items = {
       "Small",
       "Shield"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Give your adjacent Shield items ( +2 » +4 » +6 » +8 ) Shield for the fight."
-    ],
     "cooldown": 3,
-    "enchants": {}
+    "enchants": {},
+    "text": "Give your adjacent Shield items ( +2 » +4 » +6 » +8 ) Shield for the fight."
   },
   "Yellow Piggles L": {
     "name": "Yellow Piggles L",
@@ -12369,12 +11203,9 @@ const items = {
       "Small",
       "Shield"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Give your Shield item to the left of this ( +4 » +8 » +12 » +16 ) Shield for the fight."
-    ],
     "cooldown": 3,
-    "enchants": {}
+    "enchants": {},
+    "text": "Give your Shield item to the left of this ( +4 » +8 » +12 » +16 ) Shield for the fight."
   },
   "Yellow Piggles R": {
     "name": "Yellow Piggles R",
@@ -12385,12 +11216,9 @@ const items = {
       "Small",
       "Shield"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Give your Shield item to the right of this ( +4 » +8 » +12 » +16 ) Shield for the fight."
-    ],
     "cooldown": 3,
-    "enchants": {}
+    "enchants": {},
+    "text": "Give your Shield item to the right of this ( +4 » +8 » +12 » +16 ) Shield for the fight."
   },
   "Yellow Piggles X": {
     "name": "Yellow Piggles X",
@@ -12401,12 +11229,9 @@ const items = {
       "Small",
       "Shield"
     ],
-    "description": [
-      "Cooldown 3 seconds",
-      "Your Shield items gain ( 1 » 2 » 3 » 4 ) Shield for the fight."
-    ],
     "cooldown": 3,
-    "enchants": {}
+    "enchants": {},
+    "text": "Your Shield items gain ( 1 » 2 » 3 » 4 ) Shield for the fight."
   },
   "Yo-Yo": {
     "name": "Yo-Yo",
@@ -12417,11 +11242,6 @@ const items = {
       "Small",
       "Damage",
       "Weapon"
-    ],
-    "description": [
-      "Cooldown 8 seconds",
-      "Deal ( 1 » 5 » 10 » 15 ) damage.",
-      "When you use an adjacent item, use this."
     ],
     "cooldown": 8,
     "enchants": {
@@ -12435,6 +11255,8 @@ const items = {
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Lifesteal"
-    }
+    },
+    "text": "Deal ( 1 » 5 » 10 » 15 ) damage.",
+    "bottomtext": "When you use an adjacent item, use this."
   }
 };

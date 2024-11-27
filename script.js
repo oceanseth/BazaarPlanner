@@ -177,9 +177,7 @@ function createListItem(data) {
     item.appendChild(text);
     
     item.addEventListener('dragstart', handleDragStart);
-    item.addEventListener('dragend', handleDragEnd);
-    
-    attachTooltipListeners(item);
+    item.addEventListener('dragend', handleDragEnd);    
     
     return item;
 }
@@ -391,54 +389,84 @@ function createGhostElement(itemData, size = 1) {
     
     return ghost;
 }
+$(document).ready(function() {
+    const monstersList = document.getElementById('monstersList');
+    monstersList.innerHTML = '';
+    Object.entries(monsters).forEach(([id, monster]) => {
+        const item = createListItem(monster);
+        monstersList.appendChild(item);
+    });
 
-// Initialize database listener
-database.ref().on('value', (snapshot) => {
-    window.data = snapshot.val();
+    const skillsList = document.getElementById('skillsList');
+    skillsList.innerHTML = '';
+    Object.entries(skills).forEach(([id, skill]) => {
+        const item = createListItem(skill);
+        skillsList.appendChild(item);
+    });
+    const itemsList = document.getElementById('itemsList');
+    const simulatorItemsList = document.getElementById('simulator-itemsList');
     
-    try {
-        // Populate monsters
-        if (data?.monsters) {
-            const monstersList = document.getElementById('monstersList');
-            monstersList.innerHTML = '';
-            Object.entries(data.monsters).forEach(([id, monster]) => {
-                const item = createListItem(monster);
-                monstersList.appendChild(item);
-            });
-        }
-        
-        // Populate items
-        if (data?.items) {
-            const itemsList = document.getElementById('itemsList');
-            const simulatorItemsList = document.getElementById('simulator-itemsList');
-            
-            itemsList.innerHTML = '';
-            simulatorItemsList.innerHTML = '';
-            
-            Object.entries(data.items).forEach(([id, item]) => {
-                const listItem = createListItem(item);
-                itemsList.appendChild(listItem.cloneNode(true));
-                simulatorItemsList.appendChild(listItem);
-            });
-        }
-        
-        // Populate skills
-        if (data?.skills) {
-            const skillsList = document.getElementById('skillsList');
-            skillsList.innerHTML = '';
-            Object.entries(skills).forEach(([id, skill]) => {
-                const item = createListItem(skill);
-                skillsList.appendChild(item);
-            });
-        }
+    itemsList.innerHTML = '';
+    simulatorItemsList.innerHTML = '';
+    
+    Object.entries(items).forEach(([id, item]) => {
+        const listItem = createListItem(item);
+        itemsList.appendChild(listItem.cloneNode(true));
+        simulatorItemsList.appendChild(listItem);
+    });
 
-        populateSearchSuggestions(data);
-    } catch (error) {
-        console.error('Error populating items:', error);
-    }
-}, (error) => {
-    console.error('Database error:', error);
-});
+    simulatorItemsList.style.height = '300px';
+    simulatorItemsList.style.overflowY = 'scroll';
+
+ });
+
+ // // Initialize database listener
+// database.ref().on('value', (snapshot) => {
+//     window.data = snapshot.val();
+    
+//     try {
+//         // Populate monsters
+//         if (data?.monsters) {
+//             const monstersList = document.getElementById('monstersList');
+//             monstersList.innerHTML = '';
+//             Object.entries(data.monsters).forEach(([id, monster]) => {
+//                 const item = createListItem(monster);
+//                 monstersList.appendChild(item);
+//             });
+//         }
+        
+//         // Populate items
+//         if (data?.items) {
+//             const itemsList = document.getElementById('itemsList');
+//             const simulatorItemsList = document.getElementById('simulator-itemsList');
+            
+//             itemsList.innerHTML = '';
+//             simulatorItemsList.innerHTML = '';
+            
+//             Object.entries(data.items).forEach(([id, item]) => {
+//                 const listItem = createListItem(item);
+//                 itemsList.appendChild(listItem.cloneNode(true));
+//                 simulatorItemsList.appendChild(listItem);
+//             });
+//         }
+        
+//         // Populate skills
+//         if (data?.skills) {
+//             const skillsList = document.getElementById('skillsList');
+//             skillsList.innerHTML = '';
+//             Object.entries(skills).forEach(([id, skill]) => {
+//                 const item = createListItem(skill);
+//                 skillsList.appendChild(item);
+//             });
+//         }
+
+//         populateSearchSuggestions(data);
+//     } catch (error) {
+//         console.error('Error populating items:', error);
+//     }
+// }, (error) => {
+//     console.error('Database error:', error);
+// });
 
 // Initialize board when page loads
 document.addEventListener('DOMContentLoaded', () => {

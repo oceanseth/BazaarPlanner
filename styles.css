@@ -194,6 +194,10 @@ button:active {
     border-radius: 4px;
     background: #f5f5f5;
 }
+#simulator-itemsList {
+    height: 300px;
+    overflow-y: scroll;
+}
 
 .list-item img {
     width: 32px;
