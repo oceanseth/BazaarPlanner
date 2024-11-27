@@ -20,7 +20,8 @@ def parse_skill_html(html_content):
             # Get skill image URL
             img = div.find('img', class_='relative')
             if img:
-                skill['icon'] = img.get('src')
+                icon_path = img.get('src')
+                skill['icon'] = icon_path.lstrip('/') if icon_path else None
                 
             # Get tags
             tags = {}

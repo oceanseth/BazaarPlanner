@@ -426,7 +426,7 @@ database.ref().on('value', (snapshot) => {
         if (data?.skills) {
             const skillsList = document.getElementById('skillsList');
             skillsList.innerHTML = '';
-            Object.entries(data.skills).forEach(([id, skill]) => {
+            Object.entries(skills).forEach(([id, skill]) => {
                 const item = createListItem(skill);
                 skillsList.appendChild(item);
             });
