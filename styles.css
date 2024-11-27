@@ -3,10 +3,14 @@ body {
     margin: 0;
     padding: 20px;
     background-color: #f0f0f0;
+        background-image: url('images/background.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed; 
+        background-size: 100% 100%;
 }
 
 .section {
-    background: white;
+    background: rgba(255,255,255,.8);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -379,8 +383,18 @@ button:active {
     left: 50%;
     bottom: 100%;
     transform: translateX(-50%);
-    background-color: #1a1a1a;
-    border: 2px solid #4a4a4a;
+    background: radial-gradient(
+        circle at center,
+        #2b1810 40%,  /* Dark brown in the middle */
+        #1a1a1a 70%   /* Fading to black */
+    ), 
+    linear-gradient(
+        to right,
+        #1a1a1a 0%,   /* Black on the left */
+        #2b1810 50%,  /* Dark brown in the middle */
+        #1a1a1a 100%  /* Black on the right */
+    );
+    border: 2px solid rgb(202,212,233);
     border-radius: 8px;
     padding: 12px;
     min-width: 200px;
@@ -407,6 +421,17 @@ button:active {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 8px;
+    color: rgb(251,233,192);
+}
+.tooltip-tag-small,
+.tooltip-tag-medium,
+.tooltip-tag-large {
+    color:rgb(232,156,85);
+}
+.tooltip-tag-friend,
+.tooltip-tag-weapon,
+.tooltip-tag-tool {
+    color:rgb(144,158,238);
 }
 
 .tooltip-divider {

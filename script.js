@@ -120,7 +120,7 @@ function createTooltipElement(itemData) {
     let tooltipContent = `
         <div class="tooltip-content">
             <div class="tooltip-tags">
-                ${tagsArray.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag}">${tag}</span>`).join('')}
             </div>
             <div class="tooltip-name">${itemData.name}</div>
             <div class="tooltip-divider"></div>
