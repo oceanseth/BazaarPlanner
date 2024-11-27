@@ -398,7 +398,7 @@ button:active {
     border-radius: 8px;
     padding: 12px;
     min-width: 200px;
-    color: white;
+    color: rgb(251,233,192);
     z-index: 1000;
     font-family: Arial, sans-serif;
 }
@@ -430,20 +430,24 @@ button:active {
 }
 .tooltip-tag-friend,
 .tooltip-tag-weapon,
+.tooltip-tag-aquatic,
+.tooltip-tag-property,
 .tooltip-tag-tool {
     color:rgb(144,158,238);
 }
 
 .tooltip-divider {
     height: 1px;
-    background-color: #4a4a4a;
+    background-color: rgb(202,212,233);
     margin: 8px 0;
+    border-bottom: 1px solid black;
 }
 
 .tooltip-main {
     display: flex;
     gap: 12px;
     align-items: flex-start;
+    color: rgb(251,233,192);
 }
 
 .cooldown-circle {
@@ -466,11 +470,9 @@ button:active {
 }
 
 .main-text {
-    color: #00ffcc; /* Adjust color to match your game's theme */
     flex-grow: 1;
 }
 
 .tooltip-bottom {
-    color: #888;
     font-style: italic;
 }
