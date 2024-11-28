@@ -5,48 +5,51 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
+        <script src="monsters.js"></script>
+        <script src="skills.js"></script>
+        <script src="items.js"></script>
         <link rel="stylesheet" href="styles.css">
         <script src="script.js" defer></script>
         <title>BazaarPlanner</title>
     </head>
     <body>
-        BazaarPlanner
+        <h2 style="color:white;">BazaarPlanner</h2>
         <div id="Menu">
             <button onclick="showSection('library')" class="selected">Library</button>
             <button onclick="showSection('about')">About</button>
             <button onclick="showSection('simulator')">Simulator</button>
-
-                                
         </div>
-    <div id="about" class="section" style="display: none;">
-    <h1>About</h1>
-    <p style="width:400px;">
-    BazaarPlanner is a library/simulator for build theory crafting/testing
-    It started as a way for "Strong" to teach "simply Noah" javascript (our discord names on the <a href="https://discord.gg/AD9G7FtQ">Bazaar discord</a>).
-    Any donations will support his ongoing education, and the continued development of this tool. 
-    If you've donated at least $1, (and have cookies enabled) you will not be served google ads.
-</p>
-<div id="donate-button-container">
-    <div id="donate-button"></div>
-    <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
-    <script>
-    PayPal.Donation.Button({
-    env:'production',
-    hosted_button_id:'B4LEV6GZB6YP2',
-    image: {
-    src:'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif',
-    alt:'Donate with PayPal button',
-    title:'PayPal - The safer, easier way to pay online!',
-    }
-    }).render('#donate-button');
-    </script>
-    </div>
-    
-</div>
-<div id="simulator" class="section" style="display: none;">
+
+        <!-- About Section -->
+        <div id="about" class="section" style="display: none;">
+            <h1>About</h1>
+            <p style="width:400px;">
+                BazaarPlanner is a library/simulator for build theory crafting/testing
+                It started as a way for "Strong" to teach "simply Noah" javascript (our discord names on the <a href="https://discord.gg/AD9G7FtQ">Bazaar discord</a>).
+                Any donations will support his ongoing education, and the continued development of this tool. 
+                If you've donated at least $1, (and have cookies enabled) you will not be served google ads.
+            </p>
+            <div id="donate-button-container">
+                <div id="donate-button"></div>
+                <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+                <script>
+                PayPal.Donation.Button({
+                env:'production',
+                hosted_button_id:'B4LEV6GZB6YP2',
+                image: {
+                src:'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif',
+                alt:'Donate with PayPal button',
+                title:'PayPal - The safer, easier way to pay online!',
+                }
+                }).render('#donate-button');
+                </script>
+            </div>
+        </div>
+        <!-- Simulator Section -->
+        <div id="simulator" class="section" style="display: none;">
             <div id="simulator-controls">
                 <input type="text" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" placeholder="Search items...">
+                <select id="monster-selector"><option>-- Load a Monster --</option></select>
                 <datalist id="simulator-suggestions"></datalist>
             </div>
             <div style="display: flex; gap: 20px;">
@@ -54,9 +57,10 @@
                     <h3>Available Items</h3>
                     <div id="simulator-itemsList"></div>
                 </div>
-                <div style="flex-grow: 1;">
-                    <div id="topPlayerHealth" class="playerHealth">1000</div>
+                <div style="flex-grow: 1;">                    
                     <div class="board-container">
+                        <div id="topPlayerHealth" class="playerHealth">1000</div>
+                        <div id="topPlayerSkills" class="playerSkills"></div>
                         <div id="inventory-board" class="board">
                             <!-- Slots will be generated here -->
                         </div>
@@ -66,6 +70,8 @@
                         </div>
                     </div>
                     <div class="board-container">
+                        <div id="bottomPlayerHealth" class="playerHealth">1000</div>
+                        <div id="bottomPlayerSkills" class="playerSkills"></div>
                         <div id="bottom-board" class="board">
                             <!-- Slots will be generated here -->
                         </div>
@@ -75,33 +81,27 @@
                         </div>
                     </div>
                 </div>
-                <div id="bottomPlayerHealth" class="playerHealth">1000</div>
+                
             </div>
             <button onclick="startBattle()" class="battle-button">Start Battle</button>
-</div>
-<div id="library" class="section">
-    Library
-    <input type="text" id="search-input" onkeyup="search(this.value)">
-    <div>Monsters
-        <div id="monstersList"></div>
-    </div>
-    <div>Items
-        <div id="itemsList"></div>
-
-    </div>
-    <div>Skills
-        <div id="skillsList"></div>
+            <button onclick="resetBattle()" class="battle-button">Reset Battle</button>
+            <div id="combat-log-div"><textarea id="combat-log"></textarea></div>
+        </div>
+        <!-- Library Section -->
         <div id="library" class="section">
-            Library
+            <h2>Library</h2>
             <input type="text" class="search-input" list="search-suggestions" onkeyup="search(this.value)" placeholder="Search...">
             <datalist id="search-suggestions"></datalist>
-            <div>Monsters
+            <div>
+                <h3>Monsters</h3>
                 <div id="monstersList"></div>
             </div>
-            <div>Items
+            <div>
+                <h3>Items</h3>
                 <div id="itemsList"></div>
             </div>
-            <div>Skills
+            <div>
+                <h3>Skills</h3>
                 <div id="skillsList"></div>
             </div>
         </div>

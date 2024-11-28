@@ -4,7 +4,8 @@ emptyDragImage.style.position = 'absolute';
 emptyDragImage.style.top = '-9999px';
 emptyDragImage.style.opacity = '0';
 document.body.appendChild(emptyDragImage);
-
+var sandstormValue = 1;
+var sandstormIncrement= .25;
 const deleteZone = document.createElement('div');
 deleteZone.className = 'delete-zone';
 deleteZone.textContent = 'Drop here to delete';
@@ -98,20 +99,63 @@ function showSection(sectionId) {
     document.querySelector(`button[onclick="showSection('${sectionId}')"]`).classList.add('selected');
 }
 
-function createTooltip(data) {
-    let tooltipContent = '';
+function createTooltipElement(itemData) {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip';
     
-    // Add text if it exists
-    if (data.text) {
-        tooltipContent += data.text;
+    // Handle tags - convert to array if it's an object
+    let tagsArray = [];
+    if (itemData.tags) {
+        if (Array.isArray(itemData.tags)) {
+            tagsArray = itemData.tags;
+        } else if (typeof itemData.tags === 'object') {
+            // Convert object to array of keys where value is truthy
+            tagsArray = Object.entries(itemData.tags)
+                .filter(([_, value]) => value)
+                .map(([key, _]) => key);
+        }
     }
     
-    // Add bottomText if it exists
-    if (data.bottomText) {
-        tooltipContent += '\n' + data.bottomText;
-    }
+    // Create HTML content with structured layout
+    let tooltipContent = `
+        <div class="tooltip-content">
+            <div class="tooltip-tags">
+                ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag}">${tag}</span>`).join('')}
+            </div>
+            <div class="tooltip-name">${itemData.name}</div>
+            <div class="tooltip-divider"></div>
+            <div class="tooltip-main">
+                ${itemData.cooldown ? `
+                    <div class="cooldown-circle">${itemData.cooldown}<span class="unit">SEC</span></div>
+                ` : ''}
+                <div class="tooltip-main-text">${itemData.text || ''}</div>
+            </div>
+            ${itemData.bottomText ? `
+                <div class="tooltip-divider"></div>
+                <div class="tooltip-bottom">${itemData.bottomText}</div>
+            ` : ''}
+        </div>
+    `;
     
-    return tooltipContent;
+    tooltip.innerHTML = tooltipContent;
+    tooltip.style.display = 'none'; // Hidden by default
+    
+    return tooltip;
+}
+
+function attachTooltipListeners(mergedSlot) {
+    // Create tooltip element
+    const tooltip = createTooltipElement(JSON.parse(mergedSlot.getAttribute('data-item')));
+    mergedSlot.appendChild(tooltip);
+    
+    // Add event listeners
+    mergedSlot.addEventListener('mouseenter', () => {
+        tooltip.style.display = 'block';
+    });
+    
+    mergedSlot.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+    });
 }
 
 function createListItem(data) {
@@ -120,7 +164,6 @@ function createListItem(data) {
     item.draggable = true;
     item.setAttribute('data-name', data.name);
     item.setAttribute('data-item', JSON.stringify(data));
-    item.setAttribute('data-tooltip', createTooltip(data));
     
     if (data.icon) {
         const icon = document.createElement('img');
@@ -134,7 +177,7 @@ function createListItem(data) {
     item.appendChild(text);
     
     item.addEventListener('dragstart', handleDragStart);
-    item.addEventListener('dragend', handleDragEnd);
+    item.addEventListener('dragend', handleDragEnd);    
     
     return item;
 }
@@ -316,7 +359,6 @@ function placeItem(startIndex, size, itemData, boardId = 'inventory-board') {
     mergedSlot.dataset.size = size;
     mergedSlot.setAttribute('data-item', JSON.stringify(itemData));
     mergedSlot.itemData = itemData; 
-    mergedSlot.setAttribute('data-tooltip', createTooltip(itemData));
     mergedSlot.draggable = true;
     
     if (itemData.icon) {
@@ -329,13 +371,14 @@ function placeItem(startIndex, size, itemData, boardId = 'inventory-board') {
     mergedSlot.addEventListener('dragstart', handleDragStart);
     mergedSlot.addEventListener('dragend', handleDragEnd);
 
+    attachTooltipListeners(mergedSlot);
+    
     board.appendChild(mergedSlot);
 }
 
 function createGhostElement(itemData, size = 1) {
     const ghost = document.createElement('div');
     ghost.className = 'drag-ghost';
-    ghost.setAttribute('data-tooltip', createTooltip(itemData));
     ghost.style.width = `${size * 100}px`; // Adjust width based on item size
     
     if (itemData.icon) {
@@ -346,54 +389,84 @@ function createGhostElement(itemData, size = 1) {
     
     return ghost;
 }
+$(document).ready(function() {
+    const monstersList = document.getElementById('monstersList');
+    monstersList.innerHTML = '';
+    Object.entries(monsters).forEach(([id, monster]) => {
+        const item = createListItem(monster);
+        monstersList.appendChild(item);
+    });
 
-// Initialize database listener
-database.ref().on('value', (snapshot) => {
-    window.data = snapshot.val();
+    const skillsList = document.getElementById('skillsList');
+    skillsList.innerHTML = '';
+    Object.entries(skills).forEach(([id, skill]) => {
+        const item = createListItem(skill);
+        skillsList.appendChild(item);
+    });
+    const itemsList = document.getElementById('itemsList');
+    const simulatorItemsList = document.getElementById('simulator-itemsList');
     
-    try {
-        // Populate monsters
-        if (data?.monsters) {
-            const monstersList = document.getElementById('monstersList');
-            monstersList.innerHTML = '';
-            Object.entries(data.monsters).forEach(([id, monster]) => {
-                const item = createListItem(monster);
-                monstersList.appendChild(item);
-            });
-        }
-        
-        // Populate items
-        if (data?.items) {
-            const itemsList = document.getElementById('itemsList');
-            const simulatorItemsList = document.getElementById('simulator-itemsList');
-            
-            itemsList.innerHTML = '';
-            simulatorItemsList.innerHTML = '';
-            
-            Object.entries(data.items).forEach(([id, item]) => {
-                const listItem = createListItem(item);
-                itemsList.appendChild(listItem.cloneNode(true));
-                simulatorItemsList.appendChild(listItem);
-            });
-        }
-        
-        // Populate skills
-        if (data?.skills) {
-            const skillsList = document.getElementById('skillsList');
-            skillsList.innerHTML = '';
-            Object.entries(data.skills).forEach(([id, skill]) => {
-                const item = createListItem(skill);
-                skillsList.appendChild(item);
-            });
-        }
+    itemsList.innerHTML = '';
+    simulatorItemsList.innerHTML = '';
+    
+    Object.entries(items).forEach(([id, item]) => {
+        const listItem = createListItem(item);
+        itemsList.appendChild(listItem.cloneNode(true));
+        simulatorItemsList.appendChild(listItem);
+    });
 
-        populateSearchSuggestions(data);
-    } catch (error) {
-        console.error('Error populating items:', error);
-    }
-}, (error) => {
-    console.error('Database error:', error);
-});
+    simulatorItemsList.style.height = '300px';
+    simulatorItemsList.style.overflowY = 'scroll';
+
+ });
+
+ // // Initialize database listener
+// database.ref().on('value', (snapshot) => {
+//     window.data = snapshot.val();
+    
+//     try {
+//         // Populate monsters
+//         if (data?.monsters) {
+//             const monstersList = document.getElementById('monstersList');
+//             monstersList.innerHTML = '';
+//             Object.entries(data.monsters).forEach(([id, monster]) => {
+//                 const item = createListItem(monster);
+//                 monstersList.appendChild(item);
+//             });
+//         }
+        
+//         // Populate items
+//         if (data?.items) {
+//             const itemsList = document.getElementById('itemsList');
+//             const simulatorItemsList = document.getElementById('simulator-itemsList');
+            
+//             itemsList.innerHTML = '';
+//             simulatorItemsList.innerHTML = '';
+            
+//             Object.entries(data.items).forEach(([id, item]) => {
+//                 const listItem = createListItem(item);
+//                 itemsList.appendChild(listItem.cloneNode(true));
+//                 simulatorItemsList.appendChild(listItem);
+//             });
+//         }
+        
+//         // Populate skills
+//         if (data?.skills) {
+//             const skillsList = document.getElementById('skillsList');
+//             skillsList.innerHTML = '';
+//             Object.entries(skills).forEach(([id, skill]) => {
+//                 const item = createListItem(skill);
+//                 skillsList.appendChild(item);
+//             });
+//         }
+
+//         populateSearchSuggestions(data);
+//     } catch (error) {
+//         console.error('Error populating items:', error);
+//     }
+// }, (error) => {
+//     console.error('Database error:', error);
+// });
 
 // Initialize board when page loads
 document.addEventListener('DOMContentLoaded', () => {
@@ -471,36 +544,52 @@ function saveBoard(boardId) {
 
 var topPlayerHealth = 1000;
 var bottomPlayerHealth = 1000;
+const battleButton = document.querySelector('.battle-button');
+
 function resetHealth() {
     topPlayerHealth = 1000;
     bottomPlayerHealth = 1000;
+    $("#topPlayerHealth").html(topPlayerHealth);
+    $("#bottomPlayerHealth").html(bottomPlayerHealth);
 }
 
 var battleInterval = undefined;
 var startBattleTime;
+function log(s) {
+    combatLog.val(combatLog.val() + "\n" + s);
+    combatLog[0].scrollTop = combatLog[0].scrollHeight;
+}
 
 function triggerItem(item) {
     let itemData = item.itemData;
-    console.log('triggered item ',itemData.name);
+    //log('triggered item ', itemData.name);
     if(itemData.tags.weapon==1) {
+        let damage = itemData.damage;
+        let crit="";
+        // Handle critical hits using itemData.crit (0-100) instead of critChance
+        if (itemData.crit && Math.random() < (itemData.crit / 100)) {
+            damage *= 2;
+            crit =" critically strikes and";
+        }
+        
         if(item.parentElement.id == 'bottom-board') {
-            topPlayerHealth -= itemData.damage;
-            console.log("Bottom player's "+itemData.name+" deals "+ itemData.damage+" damage.");
+            topPlayerHealth -= damage;
+            log("Bottom player's "+itemData.name + 
+                        crit +
+                        " deals "+ damage+" damage.");
         } else {
-            bottomPlayerHealth -= itemData.damage;
-            console.log("Top player's "+itemData.name+" deals "+ itemData.damage+" damage.");
+            bottomPlayerHealth -= damage;
+            log("Top player's "+itemData.name + 
+                        crit+
+                        " deals "+ damage+" damage.");
         }
     }
-
 }
 
 function battleFunction() {
     let currentTime = Date.now();
     let scaleBy = 1;
-    let timeDiff = currentTime - startBattleTime;
-    if(timeDiff > 200) {
-        scaleBy = Math.floor((currentTime - startBattleTime)/100);
-    }
+    let timeDiff = currentTime - startBattleTime - pauseTime;
 
     //advance all the cooldowns by appropriate amounts
     const progressBars = document.querySelectorAll('.battleItemProgressBar');
@@ -521,19 +610,76 @@ function battleFunction() {
     $("#topPlayerHealth").html(topPlayerHealth);
     $("#bottomPlayerHealth").html(bottomPlayerHealth);
 
+  if(timeDiff>30000) {
+    let sandstormDmg = Math.floor(sandstormValue);
+    log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
+    topPlayerHealth-=sandstormDmg;
+    bottomPlayerHealth-=sandstormDmg;
+    sandstormValue+=sandstormIncrement;
+  }
+
   if(topPlayerHealth<=0) {
     clearInterval(battleInterval);
     alert("you win");
-    resetHealth();
+    resetBattle();
   }
   if(bottomPlayerHealth <=0) {
     clearInterval(battleInterval);
-    resetHealth();
+    resetBattle();
     alert("you lose");
   }
 }
 
+function resetBattle() {
+    if(battleInterval)
+    clearInterval(battleInterval);
+    isPaused=0;
+    pauseTime=0;
+    sandstormValue=1;
+    battleInterval = null; // Clear the interval reference
+    resetHealth();
+    
+    // Remove progress bars
+    document.querySelectorAll('.battleItemProgressBar').forEach(bar => {
+        bar.remove();
+    });
+    
+    // Reset button
+    battleButton.textContent = 'Start Battle';
+    battleButton.classList.remove('pause-battle');
+}
+
+function pauseBattle() {    
+    clearInterval(battleInterval);
+    pauseStartTime = Date.now();
+    isPaused=1;
+    battleButton.textContent = 'Unpause Battle';
+    battleButton.classList.remove('pause-battle');
+}
+
+function unpauseBattle() {
+    isPaused = 0;
+    pauseTime += Date.now() - pauseStartTime;
+    battleInterval = setInterval(battleFunction, 100);
+    // Update button
+    battleButton.textContent = 'Pause Battle';
+    battleButton.classList.add('pause-battle');
+}
+var combatLog = $("#combat-log");
+var isPaused = 0;
+var pauseTime = 0;
 function startBattle() {
+    if(isPaused) {
+        unpauseBattle();
+        return;
+    } else if (battleInterval && !isPaused) {
+        pauseBattle();
+        return;
+    }
+    
+    combatLog.val("Battle Started");
+    
+    // Start new battle
     startBattleTime = Date.now();
     
     // Get all items from all boards
@@ -551,7 +697,124 @@ function startBattle() {
     });
     
     battleInterval = setInterval(battleFunction, 100);
+
+    // Update button
+    battleButton.textContent = 'Pause Battle';
+    battleButton.classList.add('pause-battle');
 }
+
+function editItem(item) {
+    const itemData = JSON.parse(item.getAttribute('data-item'));
+    
+    const popup = document.createElement('div');
+    popup.className = 'item-edit-popup';
+    popup.innerHTML = `
+        <h3>Edit ${itemData.name}</h3>
+        <div class="form-group">
+            <label>Damage:</label>
+            <input type="number" id="edit-damage" value="${itemData.damage || 0}">
+        </div>
+        <div class="form-group">
+            <label>Cooldown (seconds):</label>
+            <input type="number" id="edit-cooldown" value="${itemData.cooldown || 0}">
+        </div>
+        <div class="form-group">
+            <label>Crit Chance (0-100):</label>
+            <input type="number" min="0" max="100" id="edit-crit" value="${itemData.crit || 0}">
+        </div>
+        <div class="button-group">
+            <button class="save-edit">Save</button>
+            <button class="cancel-edit">Cancel</button>
+        </div>
+    `;
+    
+    document.body.appendChild(popup);
+    
+    popup.querySelector('.save-edit').addEventListener('click', () => {
+        itemData.damage = parseFloat(popup.querySelector('#edit-damage').value) || 0;
+        itemData.cooldown = parseFloat(popup.querySelector('#edit-cooldown').value) || 0;
+        itemData.crit = parseFloat(popup.querySelector('#edit-crit').value) || 0;
+        
+        item.setAttribute('data-item', JSON.stringify(itemData));
+        item.itemData = itemData;
+        popup.remove();
+    });
+    
+    popup.querySelector('.cancel-edit').addEventListener('click', () => {
+        popup.remove();
+    });
+}
+
+// Add click handler to merged slots
+document.addEventListener('click', (e) => {
+    const mergedSlot = e.target.closest('.merged-slot');
+    if (mergedSlot) {
+        editItem(mergedSlot);
+    }
+});
+
+function saveToFile(boardId) {
+    const board = document.getElementById(boardId);
+    const items = Array.from(board.querySelectorAll('.merged-slot')).map(slot => ({
+        item: JSON.parse(slot.getAttribute('data-item')),
+        startIndex: parseInt(slot.dataset.startIndex),
+        size: parseInt(slot.dataset.size)
+    }));
+    
+    const blob = new Blob([JSON.stringify(items, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${boardId}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function loadFromFile(boardId) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    
+    input.onchange = e => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = event => {
+            try {
+                const items = JSON.parse(event.target.result);
+                initializeBoard(boardId);
+                items.forEach(({item, startIndex, size}) => {
+                    placeItem(startIndex, size, item, boardId);
+                });
+            } catch (error) {
+                console.error('Error loading file:', error);
+                alert('Invalid file format');
+            }
+        };
+        
+        reader.readAsText(file);
+    };
+    
+    input.click();
+}
+
+// Update the board controls to use file-based save/load
+function updateBoardControls() {
+    document.querySelectorAll('.board-controls').forEach(controls => {
+        const boardId = controls.closest('.board-container').querySelector('.board').id;
+        controls.innerHTML = `
+            <button onclick="saveToFile('${boardId}')">Save</button>
+            <button onclick="loadFromFile('${boardId}')">Load</button>
+        `;
+    });
+}
+
+// Call this when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    initializeBoard('inventory-board');
+    initializeBoard('bottom-board');
+    updateBoardControls();
+});
 
 function loadBoard(boardId) {
     const savedItems = localStorage.getItem(`saved_${boardId}`);
@@ -622,7 +885,6 @@ function handleDragStart(e) {
     const ghost = document.createElement('div');
     ghost.className = 'drag-ghost';
     const itemData = JSON.parse(e.target.getAttribute('data-item'));
-    ghost.setAttribute('data-tooltip', createTooltip(itemData));
     
     if (itemData.icon) {
         const ghostIcon = document.createElement('img');
@@ -750,3 +1012,74 @@ deleteZone.addEventListener('drop', (e) => {
     deleteZone.classList.remove('active');
     deleteZone.style.display = 'none';
 }); 
+
+$(document).ready(()=>{
+    // Populate monster selector dropdown
+    for (const key in monsters) {
+        if (monsters.hasOwnProperty(key)) {  // defensive programming
+            $('#monster-selector').append($('<option>', {
+                value: key,
+                text: key
+            }));
+        }
+    }
+
+    // Handle NPC selection change
+    $('#monster-selector').on('change', function() {
+        const selectedMonster = $(this).val();
+        if (monsters[selectedMonster]) {
+            loadMonsterBoard(monsters[selectedMonster]);
+        }
+    });
+});
+function stripEnchantFromName(name) {
+    const enchantPrefixes = /^(Fiery|Radiant|Heavy|Golden|Icy|Turbo|Shielded|Restorative|Toxic|Shiny|Deadly)\s+/;
+    if (enchantPrefixes.test(name)) {
+        return name.replace(enchantPrefixes, '');
+    }
+    return name;
+}
+function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
+    // Clear the current board first
+    initializeBoard(boardId);
+    let startIndex = 0;
+    
+    // Load monster items to the board
+    monsterData.items.forEach(item => {        
+        item = items[stripEnchantFromName(item)];
+        let size = 1;
+        
+        if (item.tags.some(tag => tag.toLowerCase() === 'medium')) size = 2;
+        if (item.tags.some(tag => tag.toLowerCase() === 'large')) size = 3;
+        
+        placeItem(startIndex, size, item, boardId);
+        startIndex += size;
+    });
+
+    $('#topPlayerSkills').empty();
+    monsterData.skills.forEach(skill => {
+        const skillData = skills[skill];
+        const skillElement = $('<div>', {
+            class: 'skill-icon',
+            'data-skill': JSON.stringify(skillData)
+        }).append($('<img>', {
+            src: skillData.icon
+        }));
+
+        // Create and attach tooltip
+        const tooltip = createTooltipElement(skillData);
+        skillElement.append(tooltip);
+
+        // Add hover listeners
+        skillElement.on('mouseenter', () => {
+            tooltip.style.display = 'block';
+        });
+        
+        skillElement.on('mouseleave', () => {
+            tooltip.style.display = 'none';
+        });
+
+        $('#topPlayerSkills').append(skillElement);
+    });
+    topPlayerHealth = monsterData.health;
+}
