@@ -116,7 +116,18 @@ body {
     transition: opacity 0.2s;
     user-select: none;
 }
-
+.playerSkills {
+    display: flex;
+    gap: 10px;
+}
+.skill-icon {
+    height: 50px;
+    width: 50px;
+}
+.skill-icon img {
+    height: 100%;
+    width: 100%;
+}
 .merged-slot img {
     height: 100%;
     width: 100%;

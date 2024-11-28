@@ -129,10 +129,23 @@ def parse_monsters():
                             except Exception as e:
                                 print(f"Error getting items: {str(e)}")
                             
+                            # Get monster health
+                            try:
+                                health_element = WebDriverWait(driver, 10).until(
+                                    EC.presence_of_element_located((By.CSS_SELECTOR, "div.font-medium.inline-flex.items-center.text-green-800"))
+                                )
+                                # Extract just the number from the health text
+                                health = int(health_element.text.split()[0])
+                                print(f"Found health: {health}")
+                            except Exception as e:
+                                print(f"Error getting health: {str(e)}")
+                                health = None
+                            
                             # Store monster data and save backup immediately
                             monsters[name] = {
                                 "name": name,
                                 "icon": icon,
+                                "health": health,  # Add health to the monster data
                                 "skills": skills,
                                 "items": items
                             }

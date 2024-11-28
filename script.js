@@ -1014,7 +1014,6 @@ deleteZone.addEventListener('drop', (e) => {
 }); 
 
 $(document).ready(()=>{
-    console.log("monsters is ",monsters);
     // Populate monster selector dropdown
     for (const key in monsters) {
         if (monsters.hasOwnProperty(key)) {  // defensive programming
@@ -1043,7 +1042,8 @@ function stripEnchantFromName(name) {
 function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
     // Clear the current board first
     initializeBoard(boardId);
-    let startIndex=0;
+    let startIndex = 0;
+    
     // Load monster items to the board
     monsterData.items.forEach(item => {        
         item = items[stripEnchantFromName(item)];
@@ -1055,4 +1055,31 @@ function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
         placeItem(startIndex, size, item, boardId);
         startIndex += size;
     });
+
+    $('#topPlayerSkills').empty();
+    monsterData.skills.forEach(skill => {
+        const skillData = skills[skill];
+        const skillElement = $('<div>', {
+            class: 'skill-icon',
+            'data-skill': JSON.stringify(skillData)
+        }).append($('<img>', {
+            src: skillData.icon
+        }));
+
+        // Create and attach tooltip
+        const tooltip = createTooltipElement(skillData);
+        skillElement.append(tooltip);
+
+        // Add hover listeners
+        skillElement.on('mouseenter', () => {
+            tooltip.style.display = 'block';
+        });
+        
+        skillElement.on('mouseleave', () => {
+            tooltip.style.display = 'none';
+        });
+
+        $('#topPlayerSkills').append(skillElement);
+    });
+    topPlayerHealth = monsterData.health;
 }

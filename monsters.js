@@ -2,6 +2,7 @@ const monsters = {
   "Fanged Inglet": {
     "name": "Fanged Inglet",
     "icon": "images/monsters/FangedInglet.avif",
+    "health": 150,
     "skills": [
       "Deadly Eye"
     ],
@@ -15,6 +16,7 @@ const monsters = {
   "Kyver Drone": {
     "name": "Kyver Drone",
     "icon": "images/monsters/KyverDrone.avif",
+    "health": 150,
     "skills": [
       "Trained"
     ],
@@ -28,6 +30,7 @@ const monsters = {
   "Viper": {
     "name": "Viper",
     "icon": "images/monsters/Viper.avif",
+    "health": 100,
     "skills": [
       "Lash Out"
     ],
@@ -41,6 +44,7 @@ const monsters = {
   "Banannabal": {
     "name": "Banannabal",
     "icon": "images/monsters/Banannabal.avif",
+    "health": 150,
     "skills": [],
     "items": [
       "Medkit",
@@ -51,6 +55,7 @@ const monsters = {
   "Pyro": {
     "name": "Pyro",
     "icon": "images/monsters/Pyro.avif",
+    "health": 150,
     "skills": [],
     "items": [
       "Cinders",
@@ -61,6 +66,7 @@ const monsters = {
   "Haunted Kimono": {
     "name": "Haunted Kimono",
     "icon": "images/monsters/HauntedKimono.avif",
+    "health": 150,
     "skills": [
       "Standardized Defenses"
     ],
@@ -73,6 +79,7 @@ const monsters = {
   "Coconut Crab": {
     "name": "Coconut Crab",
     "icon": "images/monsters/CoconutCrab.avif",
+    "health": 250,
     "skills": [
       "Hard Shell",
       "Toughness"
@@ -86,6 +93,7 @@ const monsters = {
   "Giant Mosquito": {
     "name": "Giant Mosquito",
     "icon": "images/monsters/GiantMosquito.avif",
+    "health": 250,
     "skills": [
       "Rush",
       "Keen Eye"
@@ -100,6 +108,7 @@ const monsters = {
   "Covetous Thief": {
     "name": "Covetous Thief",
     "icon": "images/monsters/CovetousThief.avif",
+    "health": 400,
     "skills": [
       "Pickpocket",
       "Keen Eye"
@@ -115,6 +124,7 @@ const monsters = {
   "Tent City Mayor": {
     "name": "Tent City Mayor",
     "icon": "images/monsters/TentCityMayor.avif",
+    "health": 400,
     "skills": [
       "Augmented Weaponry",
       "Augmented Defenses"
@@ -129,6 +139,7 @@ const monsters = {
   "Boarrior": {
     "name": "Boarrior",
     "icon": "images/monsters/Boarrior.avif",
+    "health": 550,
     "skills": [
       "Frontal Shielding",
       "Strength"
@@ -147,6 +158,7 @@ const monsters = {
   "Rogue Scrapper": {
     "name": "Rogue Scrapper",
     "icon": "images/monsters/RogueScrapper.avif",
+    "health": 550,
     "skills": [
       "Rust"
     ],
@@ -162,6 +174,7 @@ const monsters = {
   "Tempest Flamedancer": {
     "name": "Tempest Flamedancer",
     "icon": "images/monsters/TempestFlamedancer.avif",
+    "health": 350,
     "skills": [
       "Flamedancer"
     ],
@@ -177,6 +190,7 @@ const monsters = {
   "Dabbling Apprentice": {
     "name": "Dabbling Apprentice",
     "icon": "images/monsters/DabblingApprentice.avif",
+    "health": 350,
     "skills": [
       "Panic"
     ],
@@ -191,6 +205,7 @@ const monsters = {
   "Frost Street Challenger": {
     "name": "Frost Street Challenger",
     "icon": "images/monsters/FrostStreetChallenger.avif",
+    "health": 550,
     "skills": [
       "Snowstorm"
     ],
@@ -205,6 +220,7 @@ const monsters = {
   "Scout Trooper": {
     "name": "Scout Trooper",
     "icon": "images/monsters/ScoutTrooper.avif",
+    "health": 750,
     "skills": [
       "Gunner",
       "Small Weaponry"
@@ -222,6 +238,7 @@ const monsters = {
   "Eccentric Etherwright": {
     "name": "Eccentric Etherwright",
     "icon": "images/monsters/EccentricEtherwright.avif",
+    "health": 750,
     "skills": [
       "Rigged",
       "Toughness"
@@ -236,6 +253,7 @@ const monsters = {
   "Boilerroom Brawler": {
     "name": "Boilerroom Brawler",
     "icon": "images/monsters/BoilerroomBrawler.avif",
+    "health": 500,
     "skills": [
       "Time to Tinker",
       "Flashy Mechanic"
@@ -253,6 +271,7 @@ const monsters = {
   "Outlands Dervish": {
     "name": "Outlands Dervish",
     "icon": "images/monsters/OutlandsDervish.avif",
+    "health": 500,
     "skills": [
       "Keen Eye"
     ],
@@ -268,6 +287,7 @@ const monsters = {
   "Retiree": {
     "name": "Retiree",
     "icon": "images/monsters/Retiree.avif",
+    "health": 750,
     "skills": [
       "Extreme Comfort"
     ],
@@ -283,6 +303,7 @@ const monsters = {
   "Bloodreef Raider": {
     "name": "Bloodreef Raider",
     "icon": "images/monsters/BloodreefRaider.avif",
+    "health": 750,
     "skills": [
       "Ammo Stash",
       "Right-Handed",
@@ -301,6 +322,7 @@ const monsters = {
   "Flame Juggler": {
     "name": "Flame Juggler",
     "icon": "images/monsters/FlameJuggler.avif",
+    "health": 750,
     "skills": [
       "Burst of Flame",
       "Fiery"
@@ -318,6 +340,7 @@ const monsters = {
   "Techno Virus": {
     "name": "Techno Virus",
     "icon": "images/monsters/TechnoVirus.avif",
+    "health": 1000,
     "skills": [
       "Flanking Toxins"
     ],
@@ -333,6 +356,7 @@ const monsters = {
   "Deadly Crooner": {
     "name": "Deadly Crooner",
     "icon": "images/monsters/DeadlyCrooner.avif",
+    "health": 1000,
     "skills": [
       "Left-Handed"
     ],
@@ -347,6 +371,7 @@ const monsters = {
   "Hydrodude": {
     "name": "Hydrodude",
     "icon": "images/monsters/Hydrodude.avif",
+    "health": 1400,
     "skills": [
       "Slowed Targets",
       "Slow and Steady"
@@ -364,6 +389,7 @@ const monsters = {
   "Preening Duelist": {
     "name": "Preening Duelist",
     "icon": "images/monsters/PreeningDuelist.avif",
+    "health": 700,
     "skills": [
       "All Talk"
     ],
@@ -380,6 +406,7 @@ const monsters = {
   "Sabretooth": {
     "name": "Sabretooth",
     "icon": "images/monsters/Sabretooth.avif",
+    "health": 700,
     "skills": [
       "Diamond Fangs",
       "Small Weaponry"
@@ -400,6 +427,7 @@ const monsters = {
   "Infernal Envoy": {
     "name": "Infernal Envoy",
     "icon": "images/monsters/InfernalEnvoy.avif",
+    "health": 1000,
     "skills": [
       "Vengeance",
       "Strength"
@@ -415,6 +443,7 @@ const monsters = {
   "Hakurvian Rocket Trooper": {
     "name": "Hakurvian Rocket Trooper",
     "icon": "images/monsters/HakurvianRocketTrooper.avif",
+    "health": 1000,
     "skills": [
       "Flashy Reload",
       "Heavy Weaponry",
@@ -432,6 +461,7 @@ const monsters = {
   "Mod Squad": {
     "name": "Mod Squad",
     "icon": "images/monsters/ModSquad.avif",
+    "health": 1300,
     "skills": [
       "Beautiful Friendship"
     ],
@@ -448,6 +478,7 @@ const monsters = {
   "Gorgon Noble": {
     "name": "Gorgon Noble",
     "icon": "images/monsters/GorgonNoble.avif",
+    "health": 1300,
     "skills": [
       "Petrifying Gaze",
       "Paralytic Poison",
@@ -465,6 +496,7 @@ const monsters = {
   "Dire Inglet": {
     "name": "Dire Inglet",
     "icon": "images/monsters/DireInglet.avif",
+    "health": 900,
     "skills": [
       "Aggressive"
     ],
@@ -482,6 +514,7 @@ const monsters = {
   "Zookeeper": {
     "name": "Zookeeper",
     "icon": "images/monsters/Zookeeper.avif",
+    "health": 1000,
     "skills": [
       "Toxic Friendship"
     ],
@@ -498,6 +531,7 @@ const monsters = {
   "Dire Mosquito": {
     "name": "Dire Mosquito",
     "icon": "images/monsters/DireMosquito.avif",
+    "health": 900,
     "skills": [
       "Paralyzing Rush"
     ],
@@ -515,6 +549,7 @@ const monsters = {
   "Trash Golem": {
     "name": "Trash Golem",
     "icon": "images/monsters/TrashGolem.avif",
+    "health": 1400,
     "skills": [
       "Jury Rigger"
     ],
@@ -531,6 +566,7 @@ const monsters = {
   "Foreman": {
     "name": "Foreman",
     "icon": "images/monsters/Foreman.avif",
+    "health": 1300,
     "skills": [
       "Flashy Mechanic"
     ],
@@ -546,6 +582,7 @@ const monsters = {
   "Enclave Weeper": {
     "name": "Enclave Weeper",
     "icon": "images/monsters/EnclaveWeeper.avif",
+    "health": 1700,
     "skills": [
       "Exposing Toxins"
     ],
@@ -563,6 +600,7 @@ const monsters = {
   "Loan Shark": {
     "name": "Loan Shark",
     "icon": "images/monsters/LoanShark.avif",
+    "health": 1650,
     "skills": [
       "Power Broker",
       "Crashing Waves"
@@ -578,6 +616,7 @@ const monsters = {
   "Infernal": {
     "name": "Infernal",
     "icon": "images/monsters/Infernal.avif",
+    "health": 2000,
     "skills": [
       "Burning Rage",
       "Tracer Fire",
@@ -596,6 +635,7 @@ const monsters = {
   "Lich": {
     "name": "Lich",
     "icon": "images/monsters/Lich.avif",
+    "health": 2750,
     "skills": [
       "Chilling Touch",
       "Petrifying Gaze",
@@ -615,6 +655,7 @@ const monsters = {
   "Viper Tyrant": {
     "name": "Viper Tyrant",
     "icon": "images/monsters/ViperTyrant.avif",
+    "health": 1200,
     "skills": [
       "Revitalizing Toxins"
     ],
@@ -634,6 +675,7 @@ const monsters = {
   "Sergeant Suds": {
     "name": "Sergeant Suds",
     "icon": "images/monsters/SergeantSuds.avif",
+    "health": 1300,
     "skills": [
       "Clean Storefront"
     ],
@@ -648,6 +690,7 @@ const monsters = {
   "Cosmic Roc": {
     "name": "Cosmic Roc",
     "icon": "images/monsters/CosmicRoc.avif",
+    "health": 1650,
     "skills": [
       "Cosmic Wind",
       "Keen Eye"
@@ -666,6 +709,7 @@ const monsters = {
   "Joyful Jack": {
     "name": "Joyful Jack",
     "icon": "images/monsters/JoyfulJack.avif",
+    "health": 1650,
     "skills": [
       "Equivalent Exchange",
       "Rapid Thaw",
@@ -684,6 +728,7 @@ const monsters = {
   "Thug": {
     "name": "Thug",
     "icon": "images/monsters/Thug.avif",
+    "health": 1650,
     "skills": [
       "Bonk",
       "Strength",
@@ -702,6 +747,7 @@ const monsters = {
   "Shock Trooper": {
     "name": "Shock Trooper",
     "icon": "images/monsters/ShockTrooper.avif",
+    "health": 2100,
     "skills": [
       "Tracer Fire"
     ],
@@ -718,6 +764,7 @@ const monsters = {
   "Chilly Charles": {
     "name": "Chilly Charles",
     "icon": "images/monsters/ChillyCharles.avif",
+    "health": 2100,
     "skills": [
       "Reaching the Summit"
     ],
@@ -732,6 +779,7 @@ const monsters = {
   "Treasure Turtle": {
     "name": "Treasure Turtle",
     "icon": "images/monsters/TreasureTurtle.avif",
+    "health": 2100,
     "skills": [
       "Hunker Down",
       "Toughness"
@@ -751,6 +799,7 @@ const monsters = {
   "Radiant Corsair": {
     "name": "Radiant Corsair",
     "icon": "images/monsters/RadiantCorsair.avif",
+    "health": 3600,
     "skills": [
       "Fiery Rebirth",
       "Flamedancer"
@@ -766,6 +815,7 @@ const monsters = {
   "Infernal Frigate": {
     "name": "Infernal Frigate",
     "icon": "images/monsters/InfernalFrigate.avif",
+    "health": 2050,
     "skills": [
       "Firestarter"
     ],
@@ -782,6 +832,7 @@ const monsters = {
   "Oasis Guardian": {
     "name": "Oasis Guardian",
     "icon": "images/monsters/OasisGuardian.avif",
+    "health": 2100,
     "skills": [
       "Waters of Infinity"
     ],
@@ -797,6 +848,7 @@ const monsters = {
   "Dr. Vortex": {
     "name": "Dr. Vortex",
     "icon": "images/monsters/DrVortex.avif",
+    "health": 2500,
     "skills": [
       "Neophiliac"
     ],
@@ -811,6 +863,7 @@ const monsters = {
   "Robo-Bouncer": {
     "name": "Robo-Bouncer",
     "icon": "images/monsters/RoboBouncer.avif",
+    "health": 2500,
     "skills": [
       "Sharpened Steel"
     ],
@@ -826,6 +879,7 @@ const monsters = {
   "Wandering Shoal": {
     "name": "Wandering Shoal",
     "icon": "images/monsters/WanderingShoal.avif",
+    "health": 2700,
     "skills": [
       "Thick Hide",
       "Improved Toxins"
@@ -843,6 +897,7 @@ const monsters = {
   "Burninator Bot": {
     "name": "Burninator Bot",
     "icon": "images/monsters/BurninatorBot.avif",
+    "health": 2500,
     "skills": [],
     "items": [
       "Induction Aegis",
@@ -855,6 +910,7 @@ const monsters = {
   "Bloodreef Captain": {
     "name": "Bloodreef Captain",
     "icon": "images/monsters/BloodreefCaptain.avif",
+    "health": 2050,
     "skills": [
       "Full Arsenal"
     ],
@@ -868,6 +924,7 @@ const monsters = {
   "Elite Duelist": {
     "name": "Elite Duelist",
     "icon": "images/monsters/EliteDuelist.avif",
+    "health": 2500,
     "skills": [
       "Big Ego",
       "Small Weaponry",
@@ -888,6 +945,7 @@ const monsters = {
   "Ferros Khan": {
     "name": "Ferros Khan",
     "icon": "images/monsters/FerrosKhan.avif",
+    "health": 2600,
     "skills": [
       "One Shot, One Kill",
       "Left-Handed",
@@ -905,6 +963,7 @@ const monsters = {
   "Roaming Isle": {
     "name": "Roaming Isle",
     "icon": "images/monsters/RoamingIsle.avif",
+    "health": 3300,
     "skills": [
       "Shored Up",
       "First Responder",
@@ -924,6 +983,7 @@ const monsters = {
   "Weapons Platform": {
     "name": "Weapons Platform",
     "icon": "images/monsters/WeaponsPlatform.avif",
+    "health": 3000,
     "skills": [
       "Distributed Systems",
       "Keen Eye"
@@ -942,6 +1002,7 @@ const monsters = {
   "Enclave Revenant": {
     "name": "Enclave Revenant",
     "icon": "images/monsters/EnclaveRevenant.avif",
+    "health": 3600,
     "skills": [
       "Exposing Toxins",
       "Purifying Flame"
@@ -960,6 +1021,7 @@ const monsters = {
   "Death Knight Reaper": {
     "name": "Death Knight Reaper",
     "icon": "images/monsters/DeathKnightReaper.avif",
+    "health": 4200,
     "skills": [
       "Hypnotic Drain",
       "Deadly Eye",
@@ -976,6 +1038,7 @@ const monsters = {
   "Hulking Experiment": {
     "name": "Hulking Experiment",
     "icon": "images/monsters/HulkingExperiment.avif",
+    "health": 2800,
     "skills": [
       "Adaptive Ordinance",
       "Parting Shot"
@@ -994,6 +1057,7 @@ const monsters = {
   "Boss Harrow": {
     "name": "Boss Harrow",
     "icon": "images/monsters/BossHarrow.avif",
+    "health": 2750,
     "skills": [
       "Assault Focus",
       "Strength",
@@ -1012,6 +1076,7 @@ const monsters = {
   "Master Alchemist": {
     "name": "Master Alchemist",
     "icon": "images/monsters/MasterAlchemist.avif",
+    "health": 2500,
     "skills": [
       "Retool"
     ],
@@ -1027,6 +1092,7 @@ const monsters = {
   "Trash Titan": {
     "name": "Trash Titan",
     "icon": "images/monsters/TrashTitan.avif",
+    "health": 3300,
     "skills": [
       "Juggler",
       "Heavy Weaponry"
@@ -1045,6 +1111,7 @@ const monsters = {
   "Property Baron": {
     "name": "Property Baron",
     "icon": "images/monsters/PropertyBaron.avif",
+    "health": 3200,
     "skills": [
       "Master Salesman"
     ],
@@ -1058,6 +1125,7 @@ const monsters = {
   "Sparring Partner": {
     "name": "Sparring Partner",
     "icon": "images/monsters/SparringPartner.avif",
+    "health": 1000,
     "skills": [
       "Sparring Partner"
     ],
@@ -1066,6 +1134,7 @@ const monsters = {
   "Volkas Enforcer": {
     "name": "Volkas Enforcer",
     "icon": "images/monsters/VolkasEnforcer.avif",
+    "health": 3500,
     "skills": [
       "Cryomastery",
       "Reaching the Summit"
@@ -1083,6 +1152,7 @@ const monsters = {
   "Frost Street Champion": {
     "name": "Frost Street Champion",
     "icon": "images/monsters/FrostStreetChampion.avif",
+    "health": 3600,
     "skills": [
       "Blizzard",
       "Invigorating Cold"
@@ -1099,6 +1169,7 @@ const monsters = {
   "Void Golem": {
     "name": "Void Golem",
     "icon": "images/monsters/VoidGolem.avif",
+    "health": 3600,
     "skills": [
       "Into the Void",
       "Void Render"
@@ -1115,6 +1186,7 @@ const monsters = {
   "Veteran Octopus": {
     "name": "Veteran Octopus",
     "icon": "images/monsters/VeteranOctopus.avif",
+    "health": 4200,
     "skills": [
       "Arms Race",
       "Hyper Focus",
@@ -1135,6 +1207,7 @@ const monsters = {
   "Awakened District": {
     "name": "Awakened District",
     "icon": "images/monsters/AwakenedDistrict.avif",
+    "health": 7000,
     "skills": [
       "Prosperity",
       "Trickle Down Economics",
@@ -1150,6 +1223,7 @@ const monsters = {
   "Lord Arken": {
     "name": "Lord Arken",
     "icon": "images/monsters/LordArken.avif",
+    "health": 6000,
     "skills": [
       "Unwavering",
       "Heavy Weaponry",
@@ -1167,6 +1241,7 @@ const monsters = {
   "Void Colossus": {
     "name": "Void Colossus",
     "icon": "images/monsters/VoidColossus.avif",
+    "health": 6000,
     "skills": [
       "Void Energy",
       "Void Rage"
@@ -1182,6 +1257,7 @@ const monsters = {
   "Lord of the Wastes": {
     "name": "Lord of the Wastes",
     "icon": "images/monsters/LordoftheWastes.avif",
+    "health": 5500,
     "skills": [
       "Foreboding Winds",
       "Heavy Weaponry"
