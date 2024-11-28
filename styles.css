@@ -120,7 +120,6 @@ body {
 .merged-slot img {
     height: 100%;
     width: 100%;
-    object-fit: contain;
 }
 
 .merged-slot:hover {

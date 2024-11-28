@@ -1012,3 +1012,47 @@ deleteZone.addEventListener('drop', (e) => {
     deleteZone.classList.remove('active');
     deleteZone.style.display = 'none';
 }); 
+
+$(document).ready(()=>{
+    console.log("monsters is ",monsters);
+    // Populate monster selector dropdown
+    for (const key in monsters) {
+        if (monsters.hasOwnProperty(key)) {  // defensive programming
+            $('#monster-selector').append($('<option>', {
+                value: key,
+                text: key
+            }));
+        }
+    }
+
+    // Handle NPC selection change
+    $('#monster-selector').on('change', function() {
+        const selectedMonster = $(this).val();
+        if (monsters[selectedMonster]) {
+            loadMonsterBoard(monsters[selectedMonster]);
+        }
+    });
+});
+function stripEnchantFromName(name) {
+    const enchantPrefixes = /^(Fiery|Radiant|Heavy|Golden|Icy|Turbo|Shielded|Restorative|Toxic|Shiny|Deadly)\s+/;
+    if (enchantPrefixes.test(name)) {
+        return name.replace(enchantPrefixes, '');
+    }
+    return name;
+}
+function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
+    // Clear the current board first
+    initializeBoard(boardId);
+    let startIndex=0;
+    // Load monster items to the board
+    monsterData.items.forEach(item => {        
+        item = items[stripEnchantFromName(item)];
+        let size = 1;
+        
+        if (item.tags.some(tag => tag.toLowerCase() === 'medium')) size = 2;
+        if (item.tags.some(tag => tag.toLowerCase() === 'large')) size = 3;
+        
+        placeItem(startIndex, size, item, boardId);
+        startIndex += size;
+    });
+}

@@ -221,33 +221,3 @@ npcs["CosmicRoc"] = [
         size: 1
     }
 ];
-  $(document).ready(()=>{
-    console.log("npcs is ",npcs);
-    // Populate NPC selector dropdown
-    for (const key in npcs) {
-        if (npcs.hasOwnProperty(key)) {  // defensive programming
-            $('#npc-selector').append($('<option>', {
-                value: key,
-                text: key
-            }));
-        }
-    }
-
-    // Handle NPC selection change
-    $('#npc-selector').on('change', function() {
-        const selectedNpc = $(this).val();
-        if (npcs[selectedNpc]) {
-            loadNpcBoard(npcs[selectedNpc]);
-        }
-    });
-});
-
-function loadNpcBoard(npcData, boardId = 'inventory-board') {
-    // Clear the current board first
-    initializeBoard(boardId);
-    
-    // Load each item from the NPC's inventory
-    npcData.forEach(({item, startIndex, size}) => {
-        placeItem(startIndex, size, item, boardId);
-    });
-}
