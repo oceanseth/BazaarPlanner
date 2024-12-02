@@ -1082,4 +1082,26 @@ function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
         $('#topPlayerSkills').append(skillElement);
     });
     topPlayerHealth = monsterData.health;
+    $("#topPlayerHealth").html(topPlayerHealth);
+}
+
+function searchMonsters(query) {
+    const suggestions = document.getElementById('monster-suggestions');
+    suggestions.innerHTML = '';
+    
+    // Assuming you have a monsters array/object available
+    const filteredMonsters = Object.values(monsters)
+        .sort((a, b) => a.name.localeCompare(b.name)) // Sort alphabetically
+        .filter(monster => monster.name.toLowerCase().includes(query.toLowerCase()));
+    
+    filteredMonsters.forEach(monster => {
+        const option = document.createElement('option');
+        option.value = monster.name;
+        suggestions.appendChild(option);
+    });
+}
+
+// Call this when initializing your page to populate the initial monster list
+function initializeMonsterSearch() {
+    searchMonsters('');
 }
