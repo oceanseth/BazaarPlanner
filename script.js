@@ -417,7 +417,7 @@ $(document).ready(function() {
 
     simulatorItemsList.style.height = '300px';
     simulatorItemsList.style.overflowY = 'scroll';
-
+    initializeMonsterSearch();
  });
 
  // // Initialize database listener
@@ -668,6 +668,7 @@ function unpauseBattle() {
 var combatLog = $("#combat-log");
 var isPaused = 0;
 var pauseTime = 0;
+
 function startBattle() {
     if(isPaused) {
         unpauseBattle();
@@ -706,34 +707,121 @@ function startBattle() {
 function editItem(item) {
     const itemData = JSON.parse(item.getAttribute('data-item'));
     
+    // List of available enchantments and rarities
+    const enchantments = [
+        'None',
+        'Fiery',
+        'Radiant',
+        'Heavy',
+        'Golden',
+        'Icy',
+        'Turbo',
+        'Shielded',
+        'Restorative',
+        'Toxic',
+        'Shiny',
+        'Deadly'
+    ];
+
+    const rarities = [
+        'Bronze',
+        'Silver',
+        'Gold',
+        'Diamond'
+    ];
+
+    // Extract current enchantment if it exists
+    const enchantPrefixes = /^(Fiery|Radiant|Heavy|Golden|Icy|Turbo|Shielded|Restorative|Toxic|Shiny|Deadly)\s+/;
+    const currentEnchant = enchantPrefixes.test(itemData.name) ? 
+        itemData.name.match(enchantPrefixes)[1] : 'None';
+    const baseName = stripEnchantFromName(itemData.name);
+    
     const popup = document.createElement('div');
     popup.className = 'item-edit-popup';
-    popup.innerHTML = `
-        <h3>Edit ${itemData.name}</h3>
+    
+    // Start with basic HTML
+    let popupHTML = `<h3>Edit ${itemData.name}</h3>`;
+    
+    // Add enchantment field
+    popupHTML += `
         <div class="form-group">
-            <label>Damage:</label>
-            <input type="number" id="edit-damage" value="${itemData.damage || 0}">
-        </div>
-        <div class="form-group">
-            <label>Cooldown (seconds):</label>
-            <input type="number" id="edit-cooldown" value="${itemData.cooldown || 0}">
-        </div>
-        <div class="form-group">
-            <label>Crit Chance (0-100):</label>
-            <input type="number" min="0" max="100" id="edit-crit" value="${itemData.crit || 0}">
-        </div>
+            <label>Enchantment:</label>
+            <select id="edit-enchant">
+                ${enchantments.map(e => 
+                    `<option value="${e}" ${e === currentEnchant ? 'selected' : ''}>${e}</option>`
+                ).join('')}
+            </select>
+        </div>`;
+    
+    // Add rarity field only if item is upgradeable (has rarity or damage)
+    if (itemData.rarity || itemData.damage !== undefined) {
+        popupHTML += `
+            <div class="form-group">
+                <label>Rarity:</label>
+                <select id="edit-rarity">
+                    ${rarities.map(r => 
+                        `<option value="${r}" ${r === (itemData.rarity || 'Bronze') ? 'selected' : ''}>${r}</option>`
+                    ).join('')}
+                </select>
+            </div>`;
+    }
+    
+    // Add damage field only if item has damage
+    if (itemData.damage !== undefined) {
+        popupHTML += `
+            <div class="form-group">
+                <label>Damage:</label>
+                <input type="number" id="edit-damage" value="${itemData.damage || 0}">
+            </div>`;
+    }
+    
+    // Add cooldown field only if item has cooldown
+    if (itemData.cooldown !== undefined) {
+        popupHTML += `
+            <div class="form-group">
+                <label>Cooldown (seconds):</label>
+                <input type="number" id="edit-cooldown" value="${itemData.cooldown || 0}">
+            </div>`;
+    }
+    
+    // Add crit chance field only if item has damage
+    if (itemData.damage !== undefined) {
+        popupHTML += `
+            <div class="form-group">
+                <label>Crit Chance (0-100):</label>
+                <input type="number" min="0" max="100" id="edit-crit" value="${itemData.crit || 0}">
+            </div>`;
+    }
+    
+    // Add buttons
+    popupHTML += `
         <div class="button-group">
             <button class="save-edit">Save</button>
             <button class="cancel-edit">Cancel</button>
-        </div>
-    `;
+        </div>`;
     
+    popup.innerHTML = popupHTML;
     document.body.appendChild(popup);
     
     popup.querySelector('.save-edit').addEventListener('click', () => {
-        itemData.damage = parseFloat(popup.querySelector('#edit-damage').value) || 0;
-        itemData.cooldown = parseFloat(popup.querySelector('#edit-cooldown').value) || 0;
-        itemData.crit = parseFloat(popup.querySelector('#edit-crit').value) || 0;
+        const enchant = popup.querySelector('#edit-enchant').value;
+        
+        // Update name with enchantment
+        itemData.name = enchant === 'None' ? baseName : `${enchant} ${baseName}`;
+        
+        // Only update fields that exist in the form
+        if (popup.querySelector('#edit-rarity')) {
+            itemData.rarity = popup.querySelector('#edit-rarity').value;
+        }
+        if (popup.querySelector('#edit-damage')) {
+            itemData.damage = parseFloat(popup.querySelector('#edit-damage').value) || 0;
+        }
+        if (popup.querySelector('#edit-cooldown')) {
+            itemData.cooldown = parseFloat(popup.querySelector('#edit-cooldown').value) || 0;
+        }
+        if (popup.querySelector('#edit-crit')) {
+            itemData.crit = parseFloat(popup.querySelector('#edit-crit').value) || 0;
+        }
         
         item.setAttribute('data-item', JSON.stringify(itemData));
         item.itemData = itemData;
@@ -1086,6 +1174,7 @@ function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
 }
 
 function searchMonsters(query) {
+    
     const suggestions = document.getElementById('monster-suggestions');
     suggestions.innerHTML = '';
     
