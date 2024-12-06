@@ -679,7 +679,13 @@ function startBattle() {
     }
     
     combatLog.val("Battle Started");
-    
+        // Initialize players
+        window.topPlayer = new Player();
+        window.bottomPlayer = new Player();
+        
+        topPlayer.initialize('inventory-board', 'topPlayerSkills', topPlayerHealth);
+        bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', bottomPlayerHealth);
+        
     // Start new battle
     startBattleTime = Date.now();
     
