@@ -4,7 +4,8 @@ emptyDragImage.style.position = 'absolute';
 emptyDragImage.style.top = '-9999px';
 emptyDragImage.style.opacity = '0';
 document.body.appendChild(emptyDragImage);
-
+var sandstormValue = 1;
+var sandstormIncrement= .25;
 const deleteZone = document.createElement('div');
 deleteZone.className = 'delete-zone';
 deleteZone.textContent = 'Drop here to delete';
@@ -98,20 +99,63 @@ function showSection(sectionId) {
     document.querySelector(`button[onclick="showSection('${sectionId}')"]`).classList.add('selected');
 }
 
-function createTooltip(data) {
-    let tooltipContent = '';
+function createTooltipElement(itemData) {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip';
     
-    // Add text if it exists
-    if (data.text) {
-        tooltipContent += data.text;
+    // Handle tags - convert to array if it's an object
+    let tagsArray = [];
+    if (itemData.tags) {
+        if (Array.isArray(itemData.tags)) {
+            tagsArray = itemData.tags;
+        } else if (typeof itemData.tags === 'object') {
+            // Convert object to array of keys where value is truthy
+            tagsArray = Object.entries(itemData.tags)
+                .filter(([_, value]) => value)
+                .map(([key, _]) => key);
+        }
     }
     
-    // Add bottomText if it exists
-    if (data.bottomText) {
-        tooltipContent += '\n' + data.bottomText;
-    }
+    // Create HTML content with structured layout
+    let tooltipContent = `
+        <div class="tooltip-content">
+            <div class="tooltip-tags">
+                ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag}">${tag}</span>`).join('')}
+            </div>
+            <div class="tooltip-name">${itemData.name}</div>
+            <div class="tooltip-divider"></div>
+            <div class="tooltip-main">
+                ${itemData.cooldown ? `
+                    <div class="cooldown-circle">${itemData.cooldown}<span class="unit">SEC</span></div>
+                ` : ''}
+                <div class="tooltip-main-text">${itemData.text || ''}</div>
+            </div>
+            ${itemData.bottomText ? `
+                <div class="tooltip-divider"></div>
+                <div class="tooltip-bottom">${itemData.bottomText}</div>
+            ` : ''}
+        </div>
+    `;
     
-    return tooltipContent;
+    tooltip.innerHTML = tooltipContent;
+    tooltip.style.display = 'none'; // Hidden by default
+    
+    return tooltip;
+}
+
+function attachTooltipListeners(mergedSlot) {
+    // Create tooltip element
+    const tooltip = createTooltipElement(JSON.parse(mergedSlot.getAttribute('data-item')));
+    mergedSlot.appendChild(tooltip);
+    
+    // Add event listeners
+    mergedSlot.addEventListener('mouseenter', () => {
+        tooltip.style.display = 'block';
+    });
+    
+    mergedSlot.addEventListener('mouseleave', () => {
+        tooltip.style.display = 'none';
+    });
 }
 
 function createListItem(data) {
@@ -120,7 +164,6 @@ function createListItem(data) {
     item.draggable = true;
     item.setAttribute('data-name', data.name);
     item.setAttribute('data-item', JSON.stringify(data));
-    item.setAttribute('data-tooltip', createTooltip(data));
     
     if (data.icon) {
         const icon = document.createElement('img');
@@ -134,7 +177,7 @@ function createListItem(data) {
     item.appendChild(text);
     
     item.addEventListener('dragstart', handleDragStart);
-    item.addEventListener('dragend', handleDragEnd);
+    item.addEventListener('dragend', handleDragEnd);    
     
     return item;
 }
@@ -316,7 +359,6 @@ function placeItem(startIndex, size, itemData, boardId = 'inventory-board') {
     mergedSlot.dataset.size = size;
     mergedSlot.setAttribute('data-item', JSON.stringify(itemData));
     mergedSlot.itemData = itemData; 
-    mergedSlot.setAttribute('data-tooltip', createTooltip(itemData));
     mergedSlot.draggable = true;
     
     if (itemData.icon) {
@@ -329,13 +371,14 @@ function placeItem(startIndex, size, itemData, boardId = 'inventory-board') {
     mergedSlot.addEventListener('dragstart', handleDragStart);
     mergedSlot.addEventListener('dragend', handleDragEnd);
 
+    attachTooltipListeners(mergedSlot);
+    
     board.appendChild(mergedSlot);
 }
 
 function createGhostElement(itemData, size = 1) {
     const ghost = document.createElement('div');
     ghost.className = 'drag-ghost';
-    ghost.setAttribute('data-tooltip', createTooltip(itemData));
     ghost.style.width = `${size * 100}px`; // Adjust width based on item size
     
     if (itemData.icon) {
@@ -346,54 +389,84 @@ function createGhostElement(itemData, size = 1) {
     
     return ghost;
 }
+$(document).ready(function() {
+    const monstersList = document.getElementById('monstersList');
+    monstersList.innerHTML = '';
+    Object.entries(monsters).forEach(([id, monster]) => {
+        const item = createListItem(monster);
+        monstersList.appendChild(item);
+    });
 
-// Initialize database listener
-database.ref().on('value', (snapshot) => {
-    window.data = snapshot.val();
+    const skillsList = document.getElementById('skillsList');
+    skillsList.innerHTML = '';
+    Object.entries(skills).forEach(([id, skill]) => {
+        const item = createListItem(skill);
+        skillsList.appendChild(item);
+    });
+    const itemsList = document.getElementById('itemsList');
+    const simulatorItemsList = document.getElementById('simulator-itemsList');
     
-    try {
-        // Populate monsters
-        if (data?.monsters) {
-            const monstersList = document.getElementById('monstersList');
-            monstersList.innerHTML = '';
-            Object.entries(data.monsters).forEach(([id, monster]) => {
-                const item = createListItem(monster);
-                monstersList.appendChild(item);
-            });
-        }
-        
-        // Populate items
-        if (data?.items) {
-            const itemsList = document.getElementById('itemsList');
-            const simulatorItemsList = document.getElementById('simulator-itemsList');
-            
-            itemsList.innerHTML = '';
-            simulatorItemsList.innerHTML = '';
-            
-            Object.entries(data.items).forEach(([id, item]) => {
-                const listItem = createListItem(item);
-                itemsList.appendChild(listItem.cloneNode(true));
-                simulatorItemsList.appendChild(listItem);
-            });
-        }
-        
-        // Populate skills
-        if (data?.skills) {
-            const skillsList = document.getElementById('skillsList');
-            skillsList.innerHTML = '';
-            Object.entries(data.skills).forEach(([id, skill]) => {
-                const item = createListItem(skill);
-                skillsList.appendChild(item);
-            });
-        }
+    itemsList.innerHTML = '';
+    simulatorItemsList.innerHTML = '';
+    
+    Object.entries(items).forEach(([id, item]) => {
+        const listItem = createListItem(item);
+        itemsList.appendChild(listItem.cloneNode(true));
+        simulatorItemsList.appendChild(listItem);
+    });
 
-        populateSearchSuggestions(data);
-    } catch (error) {
-        console.error('Error populating items:', error);
-    }
-}, (error) => {
-    console.error('Database error:', error);
-});
+    simulatorItemsList.style.height = '300px';
+    simulatorItemsList.style.overflowY = 'scroll';
+    initializeMonsterSearch();
+ });
+
+ // // Initialize database listener
+// database.ref().on('value', (snapshot) => {
+//     window.data = snapshot.val();
+    
+//     try {
+//         // Populate monsters
+//         if (data?.monsters) {
+//             const monstersList = document.getElementById('monstersList');
+//             monstersList.innerHTML = '';
+//             Object.entries(data.monsters).forEach(([id, monster]) => {
+//                 const item = createListItem(monster);
+//                 monstersList.appendChild(item);
+//             });
+//         }
+        
+//         // Populate items
+//         if (data?.items) {
+//             const itemsList = document.getElementById('itemsList');
+//             const simulatorItemsList = document.getElementById('simulator-itemsList');
+            
+//             itemsList.innerHTML = '';
+//             simulatorItemsList.innerHTML = '';
+            
+//             Object.entries(data.items).forEach(([id, item]) => {
+//                 const listItem = createListItem(item);
+//                 itemsList.appendChild(listItem.cloneNode(true));
+//                 simulatorItemsList.appendChild(listItem);
+//             });
+//         }
+        
+//         // Populate skills
+//         if (data?.skills) {
+//             const skillsList = document.getElementById('skillsList');
+//             skillsList.innerHTML = '';
+//             Object.entries(skills).forEach(([id, skill]) => {
+//                 const item = createListItem(skill);
+//                 skillsList.appendChild(item);
+//             });
+//         }
+
+//         populateSearchSuggestions(data);
+//     } catch (error) {
+//         console.error('Error populating items:', error);
+//     }
+// }, (error) => {
+//     console.error('Database error:', error);
+// });
 
 // Initialize board when page loads
 document.addEventListener('DOMContentLoaded', () => {
@@ -471,6 +544,8 @@ function saveBoard(boardId) {
 
 var topPlayerHealth = 1000;
 var bottomPlayerHealth = 1000;
+const battleButton = document.querySelector('.battle-button');
+
 function resetHealth() {
     topPlayerHealth = 1000;
     bottomPlayerHealth = 1000;
@@ -480,10 +555,14 @@ function resetHealth() {
 
 var battleInterval = undefined;
 var startBattleTime;
+function log(s) {
+    combatLog.val(combatLog.val() + "\n" + s);
+    combatLog[0].scrollTop = combatLog[0].scrollHeight;
+}
 
 function triggerItem(item) {
     let itemData = item.itemData;
-    console.log('triggered item ', itemData.name);
+    //log('triggered item ', itemData.name);
     if(itemData.tags.weapon==1) {
         let damage = itemData.damage;
         let crit="";
@@ -495,12 +574,12 @@ function triggerItem(item) {
         
         if(item.parentElement.id == 'bottom-board') {
             topPlayerHealth -= damage;
-            console.log("Bottom player's "+itemData.name + 
+            log("Bottom player's "+itemData.name + 
                         crit +
                         " deals "+ damage+" damage.");
         } else {
             bottomPlayerHealth -= damage;
-            console.log("Top player's "+itemData.name + 
+            log("Top player's "+itemData.name + 
                         crit+
                         " deals "+ damage+" damage.");
         }
@@ -508,21 +587,16 @@ function triggerItem(item) {
 }
 
 function battleFunction() {
-    let currentTime = Date.now();
-    let scaleBy = 1;
-    let timeDiff = currentTime - startBattleTime;
-    if(timeDiff > 200) {
-        scaleBy = Math.floor((currentTime - startBattleTime)/100);
-    }
+    battleTimeDiff += 100;
 
     //advance all the cooldowns by appropriate amounts
     const progressBars = document.querySelectorAll('.battleItemProgressBar');
     progressBars.forEach(bar => {
         const cooldown = parseInt(bar.dataset.cooldown) * 1000;        
-        let heightPercent = 100*((timeDiff) % cooldown ) / cooldown;
+        let heightPercent = 100*((battleTimeDiff) % cooldown ) / cooldown;
         let bottomstyle = 'calc('+heightPercent+'% - 5px)';
         bar.style.bottom = bottomstyle;
-        let numTriggers = Math.floor(timeDiff/cooldown);
+        let numTriggers = Math.floor(battleTimeDiff/cooldown);
         let count = 0;
         while(bar.dataset.numTriggers != numTriggers && count++<100) {
             bar.dataset.numTriggers++;
@@ -534,20 +608,31 @@ function battleFunction() {
     $("#topPlayerHealth").html(topPlayerHealth);
     $("#bottomPlayerHealth").html(bottomPlayerHealth);
 
+  if(battleTimeDiff>30000) {
+    let sandstormDmg = Math.floor(sandstormValue);
+    log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
+    topPlayerHealth-=sandstormDmg;
+    bottomPlayerHealth-=sandstormDmg;
+    sandstormValue+=sandstormIncrement;
+  }
+
   if(topPlayerHealth<=0) {
     clearInterval(battleInterval);
     alert("you win");
-    resetHealth();
+    resetBattle();
   }
   if(bottomPlayerHealth <=0) {
     clearInterval(battleInterval);
-    resetHealth();
+    resetBattle();
     alert("you lose");
   }
 }
 
 function resetBattle() {
+    if(battleInterval)
     clearInterval(battleInterval);
+    isPaused=0;
+    sandstormValue=1;
     battleInterval = null; // Clear the interval reference
     resetHealth();
     
@@ -557,75 +642,187 @@ function resetBattle() {
     });
     
     // Reset button
-    const battleButton = document.querySelector('.battle-button');
     battleButton.textContent = 'Start Battle';
-    battleButton.classList.remove('stop-battle');
+    battleButton.classList.remove('pause-battle');
 }
 
+function pauseBattle() {    
+    clearInterval(battleInterval);
+    isPaused=1;
+    battleButton.textContent = 'Unpause Battle';
+    battleButton.classList.remove('pause-battle');
+}
+
+function unpauseBattle() {
+    isPaused = 0;
+    battleInterval = setInterval(battleFunction, 100);
+    // Update button
+    battleButton.textContent = 'Pause Battle';
+    battleButton.classList.add('pause-battle');
+}
+var combatLog = $("#combat-log");
+var isPaused = 0;
+
 function startBattle() {
-    const battleButton = document.querySelector('.battle-button');
-    
-    // If battle is ongoing, stop it
-    if (battleInterval) {
-        resetBattle();
+    if(isPaused) {
+        unpauseBattle();
+        return;
+    } else if (battleInterval && !isPaused) {
+        pauseBattle();
         return;
     }
     
+    combatLog.val("Battle Started");
+        // Initialize players
+        window.topPlayer = new Player();
+        window.bottomPlayer = new Player();
+        
+        topPlayer.initialize('inventory-board', 'topPlayerSkills', topPlayerHealth);
+        bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', bottomPlayerHealth);
+        
     // Start new battle
-    startBattleTime = Date.now();
-    
+    // startBattleTime = Date.now();
+    battleTimeDiff = 0;
+    // checkpoint
     // Get all items from all boards
     const items = document.querySelectorAll('.merged-slot');
     items.forEach(item => {
         const itemData = JSON.parse(item.getAttribute('data-item'));
-        const cooldown = itemData.cooldown || 0; // Default to 0 if no cooldown specified
-        if(cooldown==0) return;
-        const progressBar = document.createElement('div');
-        progressBar.className = 'battleItemProgressBar';
-        progressBar.dataset.cooldown = cooldown;
-        progressBar.dataset.numTriggers = 0;
+        const cooldown = itemData.cooldown || 0; // Default to 0 if no cooldown specified 1
+        if(cooldown==0) return; // done 1 
+        const progressBar = document.createElement('div'); // new crated thing = progress bar super global(local)
+        progressBar.className = 'battleItemProgressBar';// Div class battle item progressbar // now something you can check back on 
+        progressBar.dataset.cooldown = cooldown; // checkpoint
+        progressBar.dataset.numTriggers = 0; // in start battle func
         
         item.appendChild(progressBar);
     });
-    
+
     battleInterval = setInterval(battleFunction, 100);
 
     // Update button
-    battleButton.textContent = 'Stop Battle';
-    battleButton.classList.add('stop-battle');
+    battleButton.textContent = 'Pause Battle';
+    battleButton.classList.add('pause-battle');
 }
 
 function editItem(item) {
     const itemData = JSON.parse(item.getAttribute('data-item'));
     
+    // List of available enchantments and rarities
+    const enchantments = [
+        'None',
+        'Fiery',
+        'Radiant',
+        'Heavy',
+        'Golden',
+        'Icy',
+        'Turbo',
+        'Shielded',
+        'Restorative',
+        'Toxic',
+        'Shiny',
+        'Deadly'
+    ];
+
+    const rarities = [
+        'Bronze',
+        'Silver',
+        'Gold',
+        'Diamond'
+    ];
+
+    // Extract current enchantment if it exists
+    const enchantPrefixes = /^(Fiery|Radiant|Heavy|Golden|Icy|Turbo|Shielded|Restorative|Toxic|Shiny|Deadly)\s+/;
+    const currentEnchant = enchantPrefixes.test(itemData.name) ? 
+        itemData.name.match(enchantPrefixes)[1] : 'None';
+    const baseName = stripEnchantFromName(itemData.name);
+    
     const popup = document.createElement('div');
     popup.className = 'item-edit-popup';
-    popup.innerHTML = `
-        <h3>Edit ${itemData.name}</h3>
+    
+    // Start with basic HTML
+    let popupHTML = `<h3>Edit ${itemData.name}</h3>`;
+    
+    // Add enchantment field
+    popupHTML += `
         <div class="form-group">
-            <label>Damage:</label>
-            <input type="number" id="edit-damage" value="${itemData.damage || 0}">
-        </div>
-        <div class="form-group">
-            <label>Cooldown (seconds):</label>
-            <input type="number" id="edit-cooldown" value="${itemData.cooldown || 0}">
-        </div>
-        <div class="form-group">
-            <label>Crit Chance (0-100):</label>
-            <input type="number" min="0" max="100" id="edit-crit" value="${itemData.crit || 0}">
-        </div>
+            <label>Enchantment:</label>
+            <select id="edit-enchant">
+                ${enchantments.map(e => 
+                    `<option value="${e}" ${e === currentEnchant ? 'selected' : ''}>${e}</option>`
+                ).join('')}
+            </select>
+        </div>`;
+    
+    // Add rarity field only if item is upgradeable (has rarity or damage)
+    if (itemData.rarity || itemData.damage !== undefined) {
+        popupHTML += `
+            <div class="form-group">
+                <label>Rarity:</label>
+                <select id="edit-rarity">
+                    ${rarities.map(r => 
+                        `<option value="${r}" ${r === (itemData.rarity || 'Bronze') ? 'selected' : ''}>${r}</option>`
+                    ).join('')}
+                </select>
+            </div>`;
+    }
+    
+    // Add damage field only if item has damage
+    if (itemData.damage !== undefined) {
+        popupHTML += `
+            <div class="form-group">
+                <label>Damage:</label>
+                <input type="number" id="edit-damage" value="${itemData.damage || 0}">
+            </div>`;
+    }
+    
+    // Add cooldown field only if item has cooldown
+    if (itemData.cooldown !== undefined) {
+        popupHTML += `
+            <div class="form-group">
+                <label>Cooldown (seconds):</label>
+                <input type="number" id="edit-cooldown" value="${itemData.cooldown || 0}">
+            </div>`;
+    }
+    
+    // Add crit chance field only if item has damage
+    if (itemData.damage !== undefined) {
+        popupHTML += `
+            <div class="form-group">
+                <label>Crit Chance (0-100):</label>
+                <input type="number" min="0" max="100" id="edit-crit" value="${itemData.crit || 0}">
+            </div>`;
+    }
+    
+    // Add buttons
+    popupHTML += `
         <div class="button-group">
             <button class="save-edit">Save</button>
             <button class="cancel-edit">Cancel</button>
-        </div>
-    `;
+        </div>`;
     
+    popup.innerHTML = popupHTML;
     document.body.appendChild(popup);
     
     popup.querySelector('.save-edit').addEventListener('click', () => {
-        itemData.damage = parseFloat(popup.querySelector('#edit-damage').value) || 0;
-        itemData.cooldown = parseFloat(popup.querySelector('#edit-cooldown').value) || 0;
-        itemData.crit = parseFloat(popup.querySelector('#edit-crit').value) || 0;
+        const enchant = popup.querySelector('#edit-enchant').value;
+        
+        // Update name with enchantment
+        itemData.name = enchant === 'None' ? baseName : `${enchant} ${baseName}`;
+        
+        // Only update fields that exist in the form
+        if (popup.querySelector('#edit-rarity')) {
+            itemData.rarity = popup.querySelector('#edit-rarity').value;
+        }
+        if (popup.querySelector('#edit-damage')) {
+            itemData.damage = parseFloat(popup.querySelector('#edit-damage').value) || 0;
+        }
+        if (popup.querySelector('#edit-cooldown')) {
+            itemData.cooldown = parseFloat(popup.querySelector('#edit-cooldown').value) || 0;
+        }
+        if (popup.querySelector('#edit-crit')) {
+            itemData.crit = parseFloat(popup.querySelector('#edit-crit').value) || 0;
+        }
         
         item.setAttribute('data-item', JSON.stringify(itemData));
         item.itemData = itemData;
@@ -777,7 +974,6 @@ function handleDragStart(e) {
     const ghost = document.createElement('div');
     ghost.className = 'drag-ghost';
     const itemData = JSON.parse(e.target.getAttribute('data-item'));
-    ghost.setAttribute('data-tooltip', createTooltip(itemData));
     
     if (itemData.icon) {
         const ghostIcon = document.createElement('img');
@@ -905,3 +1101,97 @@ deleteZone.addEventListener('drop', (e) => {
     deleteZone.classList.remove('active');
     deleteZone.style.display = 'none';
 }); 
+
+$(document).ready(()=>{
+    // Populate monster selector dropdown
+    for (const key in monsters) {
+        if (monsters.hasOwnProperty(key)) {  // defensive programming
+            $('#monster-selector').append($('<option>', {
+                value: key,
+                text: key
+            }));
+        }
+    }
+
+    // Handle NPC selection change
+    $('#monster-selector').on('change', function() {
+        const selectedMonster = $(this).val();
+        if (monsters[selectedMonster]) {
+            loadMonsterBoard(monsters[selectedMonster]);
+        }
+    });
+});
+function stripEnchantFromName(name) {
+    const enchantPrefixes = /^(Fiery|Radiant|Heavy|Golden|Icy|Turbo|Shielded|Restorative|Toxic|Shiny|Deadly)\s+/;
+    if (enchantPrefixes.test(name)) {
+        return name.replace(enchantPrefixes, '');
+    }
+    return name;
+}
+function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
+    // Clear the current board first
+    initializeBoard(boardId);
+    let startIndex = 0;
+    
+    // Load monster items to the board
+    monsterData.items.forEach(item => {        
+        item = items[stripEnchantFromName(item)];
+        let size = 1;
+        
+        if (item.tags.some(tag => tag.toLowerCase() === 'medium')) size = 2;
+        if (item.tags.some(tag => tag.toLowerCase() === 'large')) size = 3;
+        
+        placeItem(startIndex, size, item, boardId);
+        startIndex += size;
+    });
+
+    $('#topPlayerSkills').empty();
+    monsterData.skills.forEach(skill => {
+        const skillData = skills[skill];
+        const skillElement = $('<div>', {
+            class: 'skill-icon',
+            'data-skill': JSON.stringify(skillData)
+        }).append($('<img>', {
+            src: skillData.icon
+        }));
+
+        // Create and attach tooltip
+        const tooltip = createTooltipElement(skillData);
+        skillElement.append(tooltip);
+
+        // Add hover listeners
+        skillElement.on('mouseenter', () => {
+            tooltip.style.display = 'block';
+        });
+        
+        skillElement.on('mouseleave', () => {
+            tooltip.style.display = 'none';
+        });
+
+        $('#topPlayerSkills').append(skillElement);
+    });
+    topPlayerHealth = monsterData.health;
+    $("#topPlayerHealth").html(topPlayerHealth);
+}
+
+function searchMonsters(query) {
+    
+    const suggestions = document.getElementById('monster-suggestions');
+    suggestions.innerHTML = '';
+    
+    // Assuming you have a monsters array/object available
+    const filteredMonsters = Object.values(monsters)
+        .sort((a, b) => a.name.localeCompare(b.name)) // Sort alphabetically
+        .filter(monster => monster.name.toLowerCase().includes(query.toLowerCase()));
+    
+    filteredMonsters.forEach(monster => {
+        const option = document.createElement('option');
+        option.value = monster.name;
+        suggestions.appendChild(option);
+    });
+}
+
+// Call this when initializing your page to populate the initial monster list
+function initializeMonsterSearch() {
+    searchMonsters('');
+}
