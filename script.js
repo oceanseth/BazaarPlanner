@@ -662,6 +662,7 @@ function unpauseBattle() {
 }
 var combatLog = $("#combat-log");
 var isPaused = 0;
+var pauseTime = 0;
 
 function startBattle() {
     if(isPaused) {

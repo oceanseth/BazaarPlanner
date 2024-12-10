@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -5,12 +6,16 @@
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+        <script src="monsters.js"></script>
+        <script src="skills.js"></script>
+        <script src="items.js"></script>
         <link rel="stylesheet" href="styles.css">
-        <script src="script.js" defer></script>
+        <script defer src="js/Player.js"></script>
+        <script defer src="script.js"></script>
         <title>BazaarPlanner</title>
     </head>
     <body>
-        BazaarPlanner
+        <h2 style="color:white;">BazaarPlanner</h2>
         <div id="Menu">
             <button onclick="showSection('library')" class="selected">Library</button>
             <button onclick="showSection('about')">About</button>
@@ -46,6 +51,17 @@
         <div id="simulator" class="section" style="display: none;">
             <div id="simulator-controls">
                 <input type="text" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" placeholder="Search items...">
+                <input type="text" 
+                       class="search-input" 
+                       list="monster-suggestions" 
+                       onkeyup="if(!this.value.includes(this.defaultValue)) searchMonsters(this.value)"
+                       onchange="if(this.value in monsters){
+                         loadMonsterBoard(monsters[this.value]); 
+                         this.defaultValue = this.value;
+                         document.getElementById('monster-suggestions').innerHTML = ''
+                       }"
+                       placeholder="Search monsters...">
+                <datalist id="monster-suggestions"></datalist>
                 <datalist id="simulator-suggestions"></datalist>
             </div>
             <div style="display: flex; gap: 20px;">
@@ -53,9 +69,10 @@
                     <h3>Available Items</h3>
                     <div id="simulator-itemsList"></div>
                 </div>
-                <div style="flex-grow: 1;">
-                    <div id="topPlayerHealth" class="playerHealth">1000</div>
+                <div style="flex-grow: 1;">                    
                     <div class="board-container">
+                        <div id="topPlayerHealth" class="playerHealth">1000</div>
+                        <div id="topPlayerSkills" class="playerSkills"></div>
                         <div id="inventory-board" class="board">
                             <!-- Slots will be generated here -->
                         </div>
@@ -65,6 +82,8 @@
                         </div>
                     </div>
                     <div class="board-container">
+                        <div id="bottomPlayerHealth" class="playerHealth">1000</div>
+                        <div id="bottomPlayerSkills" class="playerSkills"></div>
                         <div id="bottom-board" class="board">
                             <!-- Slots will be generated here -->
                         </div>
@@ -74,9 +93,11 @@
                         </div>
                     </div>
                 </div>
-                <div id="bottomPlayerHealth" class="playerHealth">1000</div>
+                
             </div>
             <button onclick="startBattle()" class="battle-button">Start Battle</button>
+            <button onclick="resetBattle()" class="battle-button">Reset Battle</button>
+            <div id="combat-log-div"><textarea id="combat-log"></textarea></div>
         </div>
         <!-- Library Section -->
         <div id="library" class="section">
