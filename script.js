@@ -587,18 +587,16 @@ function triggerItem(item) {
 }
 
 function battleFunction() {
-    let currentTime = Date.now();
-    let scaleBy = 1;
-    let timeDiff = currentTime - startBattleTime - pauseTime;
+    battleTimeDiff += 100;
 
     //advance all the cooldowns by appropriate amounts
     const progressBars = document.querySelectorAll('.battleItemProgressBar');
     progressBars.forEach(bar => {
         const cooldown = parseInt(bar.dataset.cooldown) * 1000;        
-        let heightPercent = 100*((timeDiff) % cooldown ) / cooldown;
+        let heightPercent = 100*((battleTimeDiff) % cooldown ) / cooldown;
         let bottomstyle = 'calc('+heightPercent+'% - 5px)';
         bar.style.bottom = bottomstyle;
-        let numTriggers = Math.floor(timeDiff/cooldown);
+        let numTriggers = Math.floor(battleTimeDiff/cooldown);
         let count = 0;
         while(bar.dataset.numTriggers != numTriggers && count++<100) {
             bar.dataset.numTriggers++;
@@ -610,7 +608,7 @@ function battleFunction() {
     $("#topPlayerHealth").html(topPlayerHealth);
     $("#bottomPlayerHealth").html(bottomPlayerHealth);
 
-  if(timeDiff>30000) {
+  if(battleTimeDiff>30000) {
     let sandstormDmg = Math.floor(sandstormValue);
     log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
     topPlayerHealth-=sandstormDmg;
@@ -634,7 +632,6 @@ function resetBattle() {
     if(battleInterval)
     clearInterval(battleInterval);
     isPaused=0;
-    pauseTime=0;
     sandstormValue=1;
     battleInterval = null; // Clear the interval reference
     resetHealth();
@@ -651,7 +648,6 @@ function resetBattle() {
 
 function pauseBattle() {    
     clearInterval(battleInterval);
-    pauseStartTime = Date.now();
     isPaused=1;
     battleButton.textContent = 'Unpause Battle';
     battleButton.classList.remove('pause-battle');
@@ -659,7 +655,6 @@ function pauseBattle() {
 
 function unpauseBattle() {
     isPaused = 0;
-    pauseTime += Date.now() - pauseStartTime;
     battleInterval = setInterval(battleFunction, 100);
     // Update button
     battleButton.textContent = 'Pause Battle';
@@ -687,22 +682,23 @@ function startBattle() {
         bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', bottomPlayerHealth);
         
     // Start new battle
-    startBattleTime = Date.now();
-    
+    // startBattleTime = Date.now();
+    battleTimeDiff = 0;
+    // checkpoint
     // Get all items from all boards
     const items = document.querySelectorAll('.merged-slot');
     items.forEach(item => {
         const itemData = JSON.parse(item.getAttribute('data-item'));
-        const cooldown = itemData.cooldown || 0; // Default to 0 if no cooldown specified
-        if(cooldown==0) return;
-        const progressBar = document.createElement('div');
-        progressBar.className = 'battleItemProgressBar';
-        progressBar.dataset.cooldown = cooldown;
-        progressBar.dataset.numTriggers = 0;
+        const cooldown = itemData.cooldown || 0; // Default to 0 if no cooldown specified 1
+        if(cooldown==0) return; // done 1 
+        const progressBar = document.createElement('div'); // new crated thing = progress bar super global(local)
+        progressBar.className = 'battleItemProgressBar';// Div class battle item progressbar // now something you can check back on 
+        progressBar.dataset.cooldown = cooldown; // checkpoint
+        progressBar.dataset.numTriggers = 0; // in start battle func
         
         item.appendChild(progressBar);
     });
-    
+
     battleInterval = setInterval(battleFunction, 100);
 
     // Update button
