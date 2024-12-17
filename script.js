@@ -210,9 +210,14 @@ function search(searchString, section = 'all') {
         items.forEach(item => {
             const itemName = item.getAttribute('data-name') || '';
             const itemText = item.textContent || '';
+            const itemData = JSON.parse(item.getAttribute('data-item')); // Get item data for tag check
+            
+            // Check if the search string matches the name, text, or tags
+            const matchesTag = itemData.tags && itemData.tags.some(tag => tag.toLowerCase() === searchString); // Check for tag match
             
             if (itemName.toLowerCase().includes(searchString) || 
-                itemText.toLowerCase().includes(searchString)) {
+                itemText.toLowerCase().includes(searchString) || 
+                matchesTag) { // Include tag match in the condition
                 item.style.display = '';
             } else {
                 item.style.display = 'none';
