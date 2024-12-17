@@ -584,6 +584,40 @@ function triggerItem(item) {
                         " deals "+ damage+" damage.");
         }
     }
+     // Check for haste effect when item is triggered
+     if (itemData.text && itemData.text.includes('Haste')) {
+        applyHasteEffect(item, item.closest('.board'));
+    }
+}
+
+function applyHasteEffect(sourceItem, board) {
+    // Extract haste text from the item's text property
+    const hasteRegex = /Haste \(([^)]+)\) .* item.* for (\d+) second/;
+    const itemData = JSON.parse(sourceItem.getAttribute('data-item'));
+    
+    if (!itemData.text || !hasteRegex.test(itemData.text)) return;
+    
+    const [_, hasteValues, duration] = itemData.text.match(hasteRegex);
+    
+    // Parse haste values (e.g., "1 » 2 » 3 » 4" into [1, 2, 3, 4])
+    const values = hasteValues.split('»').map(v => parseFloat(v.trim()));
+    
+    // Get the appropriate haste value based on item's rarity
+    const rarityIndex = ['Bronze', 'Silver', 'Gold', 'Diamond'].indexOf(itemData.rarity || 'Bronze');
+    const numItemsToHaste = values[rarityIndex] || values[0];
+    
+    // Find all progress bars in the same board
+    const progressBars = Array.from(board.querySelectorAll('.battleItemProgressBar')); // Exclude source item's bar
+    
+    // Randomly select N progress bars
+    const selectedBars = progressBars
+        .sort(() => Math.random() - 0.5) // Shuffle array
+        .slice(0, numItemsToHaste); // Take first N items
+    
+    // Apply haste effect to selected bars
+    selectedBars.forEach(bar => {
+        bar.dataset.hasteTimeRemaining = parseInt(bar.dataset.hasteTimeRemaining || 0) + duration*1000;
+    });
 }
 
 function battleFunction() {
@@ -593,10 +627,23 @@ function battleFunction() {
     const progressBars = document.querySelectorAll('.battleItemProgressBar');
     progressBars.forEach(bar => {
         const cooldown = parseInt(bar.dataset.cooldown) * 1000;        
-        let heightPercent = 100*((battleTimeDiff) % cooldown ) / cooldown;
+        let hastedTime = parseInt(bar.dataset.hastedTime) || 0;
+        let hasteTimeRemaining = parseInt(bar.dataset.hasteTimeRemaining) || 0;
+        if(bar.dataset.isHasted==1) {
+            hastedTime+=100;
+            hasteTimeRemaining-=100;
+            bar.dataset.hastedTime = hastedTime;
+            bar.dataset.hasteTimeRemaining = hasteTimeRemaining;
+            if(hasteTimeRemaining<=0) {
+                bar.dataset.isHasted = 0;
+            }
+        } else if(hasteTimeRemaining>0) {
+            bar.dataset.isHasted = 1;
+        }
+        let heightPercent = 100*((battleTimeDiff+hastedTime) % cooldown ) / cooldown;
         let bottomstyle = 'calc('+heightPercent+'% - 5px)';
         bar.style.bottom = bottomstyle;
-        let numTriggers = Math.floor(battleTimeDiff/cooldown);
+        let numTriggers = Math.floor((battleTimeDiff+hastedTime)/cooldown);
         let count = 0;
         while(bar.dataset.numTriggers != numTriggers && count++<100) {
             bar.dataset.numTriggers++;
@@ -695,7 +742,11 @@ function startBattle() {
         progressBar.className = 'battleItemProgressBar';// Div class battle item progressbar // now something you can check back on 
         progressBar.dataset.cooldown = cooldown; // checkpoint
         progressBar.dataset.numTriggers = 0; // in start battle func
+        progressBar.dataset.hastedTime = 0;
+        progressBar.dataset.hasteTimeRemaining = 0;
+        progressBar.dataset.isHasted = 0;
         
+
         item.appendChild(progressBar);
     });
 
