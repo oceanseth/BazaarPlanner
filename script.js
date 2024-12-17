@@ -209,7 +209,7 @@ function search(searchString, section = 'all') {
         const items = container.querySelectorAll('.list-item');
         items.forEach(item => {
             const itemName = item.getAttribute('data-name') || '';
-            const itemText = item.textContent || '';
+            const itemText = (item.text || '')+ " " + (item.bottomtext||'');
             const itemData = JSON.parse(item.getAttribute('data-item')); // Get item data for tag check
             
             // Check if the search string matches the name, text, or tags
