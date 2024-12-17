@@ -15,6 +15,7 @@ class Player {
         this.healTriggers = [];
         this.shieldTriggers = [];
         this.critTriggers = [];
+        this.ammoTriggers = [];
     }
 
     initialize(boardId, skillsContainer, maxHealth) {
