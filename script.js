@@ -251,11 +251,9 @@ function search(searchString, section = 'all') {
 
 function getSizeValue(size) {
     switch(size?.toLowerCase()) {
-        case 'tiny': return 0;
         case 'small': return 1;
         case 'medium': return 2;
         case 'large': return 3;
-        case 'huge': return 4;
         default: return 1;
     }
 }
@@ -590,9 +588,15 @@ function startBattle() {
     items.forEach(item => {
         const itemData = JSON.parse(item.getAttribute('data-item'));
         if(itemData.tags.includes("Weapon")) {
-            const damageRegex = /Deal \(([^)]+)\) damage/;
+            // Updated regex to capture both "(X>>Y>>Z)" format and simple "X" format
+            const damageRegex = /Deal (?:\(([^)]+)\)|(\d+)) damage/i;
             const match = itemData.text.match(damageRegex);
-            itemData.damage = match ? getRarityValue(match[1], itemData.rarity) : 0;
+            
+            // If there's a match, use the first captured group (parentheses format) or second group (simple number)
+            itemData.damage = match ? 
+                (match[1] ? getRarityValue(match[1], itemData.rarity) : parseInt(match[2])) 
+                : 0;
+            
             item.setAttribute('data-item', JSON.stringify(itemData));
             item.itemData = itemData;
         }
@@ -842,8 +846,8 @@ function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
     
     // Load monster items to the board
     monsterData.items.forEach(item => {        
-        item = items[stripEnchantFromName(item)];
-        let size = getSizeValue(item.size);
+        item = Item.getFromName(item);
+        let size = item.size;
         
         const newItem = board.placeItem(startIndex, size, item, boardId);
         board.items.add(newItem);
