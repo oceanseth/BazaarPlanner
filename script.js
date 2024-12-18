@@ -568,7 +568,7 @@ function log(s) {
 function triggerItem(item) {
     let itemData = item.itemData;
     //log('triggered item ', itemData.name);
-    if(itemData.tags.weapon==1) {
+    if(itemData.tags.includes("Weapon")) {
         let damage = itemData.damage;
         let crit="";
         // Handle critical hits using itemData.crit (0-100) instead of critChance
@@ -749,6 +749,13 @@ function startBattle() {
     const items = document.querySelectorAll('.merged-slot');
     items.forEach(item => {
         const itemData = JSON.parse(item.getAttribute('data-item'));
+        if(itemData.tags.includes("Weapon")) {
+            const damageRegex = /Deal \(([^)]+)\) damage/;
+            const match = itemData.text.match(damageRegex);
+            itemData.damage = match ? getRarityValue(match[1], itemData.rarity) : 0;
+            item.setAttribute('data-item', JSON.stringify(itemData));
+            item.itemData = itemData;
+        }
         const cooldown = itemData.cooldown || 0; // Default to 0 if no cooldown specified 1
         if(cooldown==0) return; // done 1 
         const progressBar = document.createElement('div'); // new crated thing = progress bar super global(local)
@@ -1259,4 +1266,13 @@ function searchMonsters(query) {
 // Call this when initializing your page to populate the initial monster list
 function initializeMonsterSearch() {
     searchMonsters('');
+}
+
+function getRarityValue(valueString, rarity) {
+    // Parse values (e.g., "1 » 2 » 3 » 4" or "1 >> 2 >> 3 >> 4" into [1, 2, 3, 4])
+    const values = valueString.split(/[»>]+/).map(v => parseFloat(v.trim()));
+    
+    // Get the appropriate value based on item's rarity
+    const rarityIndex = ['Bronze', 'Silver', 'Gold', 'Diamond'].indexOf(rarity || 'Bronze');
+    return values[rarityIndex] || values[0];
 }
