@@ -209,10 +209,15 @@ function search(searchString, section = 'all') {
         const items = container.querySelectorAll('.list-item');
         items.forEach(item => {
             const itemName = item.getAttribute('data-name') || '';
-            const itemText = item.textContent || '';
+            const itemText = (item.text || '')+ " " + (item.bottomtext||'');
+            const itemData = JSON.parse(item.getAttribute('data-item')); // Get item data for tag check
+            
+            // Check if the search string matches the name, text, or tags
+            const matchesTag = itemData.tags && itemData.tags.some(tag => tag.toLowerCase() === searchString); // Check for tag match
             
             if (itemName.toLowerCase().includes(searchString) || 
-                itemText.toLowerCase().includes(searchString)) {
+                itemText.toLowerCase().includes(searchString) || 
+                matchesTag) { // Include tag match in the condition
                 item.style.display = '';
             } else {
                 item.style.display = 'none';
@@ -417,7 +422,7 @@ $(document).ready(function() {
 
     simulatorItemsList.style.height = '300px';
     simulatorItemsList.style.overflowY = 'scroll';
-
+    initializeMonsterSearch();
  });
 
  // // Initialize database listener
@@ -584,21 +589,74 @@ function triggerItem(item) {
                         " deals "+ damage+" damage.");
         }
     }
+     // Check for haste effect when item is triggered
+     if (itemData.text && itemData.text.includes('Haste')) {
+        applyHasteEffect(item, item.closest('.board'));
+    }
+}
+
+function applyHasteEffect(sourceItem, board) {
+    // Extract haste text from the item's text property
+    const hasteRegex = /Haste \(([^)]+)\) (?:(\w+) )?item.* for (\d+) second/;
+    const itemData = JSON.parse(sourceItem.getAttribute('data-item'));
+    
+    if (!itemData.text || !hasteRegex.test(itemData.text)) return;
+    
+    const [_, hasteValues, requiredTag, duration] = itemData.text.match(hasteRegex);
+    
+    // Parse haste values (e.g., "1 » 2 » 3 » 4" into [1, 2, 3, 4])
+    const values = hasteValues.split('»').map(v => parseFloat(v.trim()));
+    
+    // Get the appropriate haste value based on item's rarity
+    const rarityIndex = ['Bronze', 'Silver', 'Gold', 'Diamond'].indexOf(itemData.rarity || 'Bronze');
+    const numItemsToHaste = values[rarityIndex] || values[0];
+    
+    // Find all progress bars in the same board
+    let progressBars = Array.from(board.querySelectorAll('.battleItemProgressBar'));
+    
+    // Filter by tag if one was specified
+    if (requiredTag) {
+        progressBars = progressBars.filter(bar => {
+            const itemData = JSON.parse(bar.parentElement.getAttribute('data-item'));
+            return itemData.tags && itemData.tags.includes(requiredTag);
+        });
+    }
+    
+    // Randomly select N progress bars
+    const selectedBars = progressBars
+        .sort(() => Math.random() - 0.5) // Shuffle array
+        .slice(0, numItemsToHaste); // Take first N items
+    
+    // Apply haste effect to selected bars
+    selectedBars.forEach(bar => {
+        bar.dataset.hasteTimeRemaining = parseInt(bar.dataset.hasteTimeRemaining || 0) + duration*1000;
+    });
 }
 
 function battleFunction() {
-    let currentTime = Date.now();
-    let scaleBy = 1;
-    let timeDiff = currentTime - startBattleTime - pauseTime;
+    battleTimeDiff += 100;
 
     //advance all the cooldowns by appropriate amounts
     const progressBars = document.querySelectorAll('.battleItemProgressBar');
     progressBars.forEach(bar => {
         const cooldown = parseInt(bar.dataset.cooldown) * 1000;        
-        let heightPercent = 100*((timeDiff) % cooldown ) / cooldown;
+        let hastedTime = parseInt(bar.dataset.hastedTime) || 0;
+        let hasteTimeRemaining = parseInt(bar.dataset.hasteTimeRemaining) || 0;
+        if(bar.dataset.isHasted==1) {
+            hastedTime+=100;
+            hasteTimeRemaining-=100;
+            bar.dataset.hastedTime = hastedTime;
+            bar.dataset.hasteTimeRemaining = hasteTimeRemaining;
+            if(hasteTimeRemaining<=0) {
+                bar.dataset.isHasted = 0;
+            }
+        } else if(hasteTimeRemaining>0) {
+            bar.dataset.isHasted = 1;
+        }
+        let heightPercent = 100*((battleTimeDiff+hastedTime) % cooldown ) / cooldown;
         let bottomstyle = 'calc('+heightPercent+'% - 5px)';
         bar.style.bottom = bottomstyle;
-        let numTriggers = Math.floor(timeDiff/cooldown);
+        let numTriggers = Math.floor((battleTimeDiff+hastedTime)/cooldown);
         let count = 0;
         while(bar.dataset.numTriggers != numTriggers && count++<100) {
             bar.dataset.numTriggers++;
@@ -610,7 +668,7 @@ function battleFunction() {
     $("#topPlayerHealth").html(topPlayerHealth);
     $("#bottomPlayerHealth").html(bottomPlayerHealth);
 
-  if(timeDiff>30000) {
+  if(battleTimeDiff>30000) {
     let sandstormDmg = Math.floor(sandstormValue);
     log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
     topPlayerHealth-=sandstormDmg;
@@ -634,7 +692,6 @@ function resetBattle() {
     if(battleInterval)
     clearInterval(battleInterval);
     isPaused=0;
-    pauseTime=0;
     sandstormValue=1;
     battleInterval = null; // Clear the interval reference
     resetHealth();
@@ -651,7 +708,6 @@ function resetBattle() {
 
 function pauseBattle() {    
     clearInterval(battleInterval);
-    pauseStartTime = Date.now();
     isPaused=1;
     battleButton.textContent = 'Unpause Battle';
     battleButton.classList.remove('pause-battle');
@@ -659,7 +715,6 @@ function pauseBattle() {
 
 function unpauseBattle() {
     isPaused = 0;
-    pauseTime += Date.now() - pauseStartTime;
     battleInterval = setInterval(battleFunction, 100);
     // Update button
     battleButton.textContent = 'Pause Battle';
@@ -668,6 +723,7 @@ function unpauseBattle() {
 var combatLog = $("#combat-log");
 var isPaused = 0;
 var pauseTime = 0;
+
 function startBattle() {
     if(isPaused) {
         unpauseBattle();
@@ -678,24 +734,35 @@ function startBattle() {
     }
     
     combatLog.val("Battle Started");
-    
+        // Initialize players
+        window.topPlayer = new Player();
+        window.bottomPlayer = new Player();
+        
+        topPlayer.initialize('inventory-board', 'topPlayerSkills', topPlayerHealth);
+        bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', bottomPlayerHealth);
+        
     // Start new battle
-    startBattleTime = Date.now();
-    
+    // startBattleTime = Date.now();
+    battleTimeDiff = 0;
+    // checkpoint
     // Get all items from all boards
     const items = document.querySelectorAll('.merged-slot');
     items.forEach(item => {
         const itemData = JSON.parse(item.getAttribute('data-item'));
-        const cooldown = itemData.cooldown || 0; // Default to 0 if no cooldown specified
-        if(cooldown==0) return;
-        const progressBar = document.createElement('div');
-        progressBar.className = 'battleItemProgressBar';
-        progressBar.dataset.cooldown = cooldown;
-        progressBar.dataset.numTriggers = 0;
+        const cooldown = itemData.cooldown || 0; // Default to 0 if no cooldown specified 1
+        if(cooldown==0) return; // done 1 
+        const progressBar = document.createElement('div'); // new crated thing = progress bar super global(local)
+        progressBar.className = 'battleItemProgressBar';// Div class battle item progressbar // now something you can check back on 
+        progressBar.dataset.cooldown = cooldown; // checkpoint
+        progressBar.dataset.numTriggers = 0; // in start battle func
+        progressBar.dataset.hastedTime = 0;
+        progressBar.dataset.hasteTimeRemaining = 0;
+        progressBar.dataset.isHasted = 0;
         
+
         item.appendChild(progressBar);
     });
-    
+
     battleInterval = setInterval(battleFunction, 100);
 
     // Update button
@@ -706,34 +773,121 @@ function startBattle() {
 function editItem(item) {
     const itemData = JSON.parse(item.getAttribute('data-item'));
     
+    // List of available enchantments and rarities
+    const enchantments = [
+        'None',
+        'Fiery',
+        'Radiant',
+        'Heavy',
+        'Golden',
+        'Icy',
+        'Turbo',
+        'Shielded',
+        'Restorative',
+        'Toxic',
+        'Shiny',
+        'Deadly'
+    ];
+
+    const rarities = [
+        'Bronze',
+        'Silver',
+        'Gold',
+        'Diamond'
+    ];
+
+    // Extract current enchantment if it exists
+    const enchantPrefixes = /^(Fiery|Radiant|Heavy|Golden|Icy|Turbo|Shielded|Restorative|Toxic|Shiny|Deadly)\s+/;
+    const currentEnchant = enchantPrefixes.test(itemData.name) ? 
+        itemData.name.match(enchantPrefixes)[1] : 'None';
+    const baseName = stripEnchantFromName(itemData.name);
+    
     const popup = document.createElement('div');
     popup.className = 'item-edit-popup';
-    popup.innerHTML = `
-        <h3>Edit ${itemData.name}</h3>
+    
+    // Start with basic HTML
+    let popupHTML = `<h3>Edit ${itemData.name}</h3>`;
+    
+    // Add enchantment field
+    popupHTML += `
         <div class="form-group">
-            <label>Damage:</label>
-            <input type="number" id="edit-damage" value="${itemData.damage || 0}">
-        </div>
-        <div class="form-group">
-            <label>Cooldown (seconds):</label>
-            <input type="number" id="edit-cooldown" value="${itemData.cooldown || 0}">
-        </div>
-        <div class="form-group">
-            <label>Crit Chance (0-100):</label>
-            <input type="number" min="0" max="100" id="edit-crit" value="${itemData.crit || 0}">
-        </div>
+            <label>Enchantment:</label>
+            <select id="edit-enchant">
+                ${enchantments.map(e => 
+                    `<option value="${e}" ${e === currentEnchant ? 'selected' : ''}>${e}</option>`
+                ).join('')}
+            </select>
+        </div>`;
+    
+    // Add rarity field only if item is upgradeable (has rarity or damage)
+    if (itemData.rarity || itemData.damage !== undefined) {
+        popupHTML += `
+            <div class="form-group">
+                <label>Rarity:</label>
+                <select id="edit-rarity">
+                    ${rarities.map(r => 
+                        `<option value="${r}" ${r === (itemData.rarity || 'Bronze') ? 'selected' : ''}>${r}</option>`
+                    ).join('')}
+                </select>
+            </div>`;
+    }
+    
+    // Add damage field only if item has damage
+    if (itemData.damage !== undefined) {
+        popupHTML += `
+            <div class="form-group">
+                <label>Damage:</label>
+                <input type="number" id="edit-damage" value="${itemData.damage || 0}">
+            </div>`;
+    }
+    
+    // Add cooldown field only if item has cooldown
+    if (itemData.cooldown !== undefined) {
+        popupHTML += `
+            <div class="form-group">
+                <label>Cooldown (seconds):</label>
+                <input type="number" id="edit-cooldown" value="${itemData.cooldown || 0}">
+            </div>`;
+    }
+    
+    // Add crit chance field only if item has damage
+    if (itemData.damage !== undefined) {
+        popupHTML += `
+            <div class="form-group">
+                <label>Crit Chance (0-100):</label>
+                <input type="number" min="0" max="100" id="edit-crit" value="${itemData.crit || 0}">
+            </div>`;
+    }
+    
+    // Add buttons
+    popupHTML += `
         <div class="button-group">
             <button class="save-edit">Save</button>
             <button class="cancel-edit">Cancel</button>
-        </div>
-    `;
+        </div>`;
     
+    popup.innerHTML = popupHTML;
     document.body.appendChild(popup);
     
     popup.querySelector('.save-edit').addEventListener('click', () => {
-        itemData.damage = parseFloat(popup.querySelector('#edit-damage').value) || 0;
-        itemData.cooldown = parseFloat(popup.querySelector('#edit-cooldown').value) || 0;
-        itemData.crit = parseFloat(popup.querySelector('#edit-crit').value) || 0;
+        const enchant = popup.querySelector('#edit-enchant').value;
+        
+        // Update name with enchantment
+        itemData.name = enchant === 'None' ? baseName : `${enchant} ${baseName}`;
+        
+        // Only update fields that exist in the form
+        if (popup.querySelector('#edit-rarity')) {
+            itemData.rarity = popup.querySelector('#edit-rarity').value;
+        }
+        if (popup.querySelector('#edit-damage')) {
+            itemData.damage = parseFloat(popup.querySelector('#edit-damage').value) || 0;
+        }
+        if (popup.querySelector('#edit-cooldown')) {
+            itemData.cooldown = parseFloat(popup.querySelector('#edit-cooldown').value) || 0;
+        }
+        if (popup.querySelector('#edit-crit')) {
+            itemData.crit = parseFloat(popup.querySelector('#edit-crit').value) || 0;
+        }
         
         item.setAttribute('data-item', JSON.stringify(itemData));
         item.itemData = itemData;
@@ -1082,4 +1236,27 @@ function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
         $('#topPlayerSkills').append(skillElement);
     });
     topPlayerHealth = monsterData.health;
+    $("#topPlayerHealth").html(topPlayerHealth);
+}
+
+function searchMonsters(query) {
+    
+    const suggestions = document.getElementById('monster-suggestions');
+    suggestions.innerHTML = '';
+    
+    // Assuming you have a monsters array/object available
+    const filteredMonsters = Object.values(monsters)
+        .sort((a, b) => a.name.localeCompare(b.name)) // Sort alphabetically
+        .filter(monster => monster.name.toLowerCase().includes(query.toLowerCase()));
+    
+    filteredMonsters.forEach(monster => {
+        const option = document.createElement('option');
+        option.value = monster.name;
+        suggestions.appendChild(option);
+    });
+}
+
+// Call this when initializing your page to populate the initial monster list
+function initializeMonsterSearch() {
+    searchMonsters('');
 }

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -9,7 +10,8 @@
         <script src="skills.js"></script>
         <script src="items.js"></script>
         <link rel="stylesheet" href="styles.css">
-        <script src="script.js" defer></script>
+        <script defer src="js/Player.js"></script>
+        <script defer src="script.js"></script>
         <title>BazaarPlanner</title>
     </head>
     <body>
@@ -49,7 +51,17 @@
         <div id="simulator" class="section" style="display: none;">
             <div id="simulator-controls">
                 <input type="text" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" placeholder="Search items...">
-                <select id="monster-selector"><option>-- Load a Monster --</option></select>
+                <input type="text" 
+                       class="search-input" 
+                       list="monster-suggestions" 
+                       onkeyup="if(!this.value.includes(this.defaultValue)) searchMonsters(this.value)"
+                       onchange="if(this.value in monsters){
+                         loadMonsterBoard(monsters[this.value]); 
+                         this.defaultValue = this.value;
+                         document.getElementById('monster-suggestions').innerHTML = ''
+                       }"
+                       placeholder="Search monsters...">
+                <datalist id="monster-suggestions"></datalist>
                 <datalist id="simulator-suggestions"></datalist>
             </div>
             <div style="display: flex; gap: 20px;">
