@@ -51,17 +51,19 @@
         <div id="simulator" class="section" style="display: none;">
             <div id="simulator-controls">
                 <input type="text" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" placeholder="Search items...">
-                <input type="text" 
-                       class="search-input" 
-                       list="monster-suggestions" 
-                       onkeyup="if(!this.value.includes(this.defaultValue)) searchMonsters(this.value)"
-                       onchange="if(this.value in monsters){
-                         loadMonsterBoard(monsters[this.value]); 
-                         this.defaultValue = this.value;
-                         document.getElementById('monster-suggestions').innerHTML = ''
-                       }"
-                       placeholder="Search monsters...">
-                <datalist id="monster-suggestions"></datalist>
+                <div class="search-container">
+                    <input type="text" 
+                           class="search-input" 
+                           id="monster-search"
+                           onkeyup="searchMonsters(this.value)"
+                           onfocus="searchMonsters('')"
+                           onchange="if(monsters[this.value]){
+                             loadMonsterBoard(monsters[this.value]); 
+                             this.defaultValue = this.value;
+                           }"
+                           placeholder="Search monsters...">
+                    <div id="monster-dropdown" class="search-dropdown"></div>
+                </div>
                 <datalist id="simulator-suggestions"></datalist>
             </div>
             <div style="display: flex; gap: 20px;">
