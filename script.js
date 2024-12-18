@@ -597,12 +597,12 @@ function triggerItem(item) {
 
 function applyHasteEffect(sourceItem, board) {
     // Extract haste text from the item's text property
-    const hasteRegex = /Haste \(([^)]+)\) .* item.* for (\d+) second/;
+    const hasteRegex = /Haste \(([^)]+)\) (?:(\w+) )?item.* for (\d+) second/;
     const itemData = JSON.parse(sourceItem.getAttribute('data-item'));
     
     if (!itemData.text || !hasteRegex.test(itemData.text)) return;
     
-    const [_, hasteValues, duration] = itemData.text.match(hasteRegex);
+    const [_, hasteValues, requiredTag, duration] = itemData.text.match(hasteRegex);
     
     // Parse haste values (e.g., "1 » 2 » 3 » 4" into [1, 2, 3, 4])
     const values = hasteValues.split('»').map(v => parseFloat(v.trim()));
@@ -612,7 +612,15 @@ function applyHasteEffect(sourceItem, board) {
     const numItemsToHaste = values[rarityIndex] || values[0];
     
     // Find all progress bars in the same board
-    const progressBars = Array.from(board.querySelectorAll('.battleItemProgressBar')); // Exclude source item's bar
+    let progressBars = Array.from(board.querySelectorAll('.battleItemProgressBar'));
+    
+    // Filter by tag if one was specified
+    if (requiredTag) {
+        progressBars = progressBars.filter(bar => {
+            const itemData = JSON.parse(bar.parentElement.getAttribute('data-item'));
+            return itemData.tags && itemData.tags.includes(requiredTag);
+        });
+    }
     
     // Randomly select N progress bars
     const selectedBars = progressBars
