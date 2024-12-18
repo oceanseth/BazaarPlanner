@@ -73,8 +73,8 @@ body {
 
 .board {
     position: relative;
-    width: 100%;
-    height: 100px;
+    width: 800px;
+    height: 160px;
     background: #fff;
     border: 2px solid #ccc;
     border-radius: 4px;
@@ -86,9 +86,10 @@ body {
 }
 .board-slot {
     position: absolute;
-    width: 10%;
-    height: 100%;
-    border-right: 1px solid #ddd;
+    width: 80px;
+    height: 160px;
+   /* border-right: 1px solid #ddd;
+   */
     box-sizing: border-box;
 }
 
@@ -267,6 +268,8 @@ button:active {
     animation: remove-item 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
 }
+.merged-slot.tag-medium { width: 20%!important; }
+.merged-slot.tag-large { width: 30%!important; }
 
 @keyframes remove-item {
     0% {
@@ -281,6 +284,7 @@ button:active {
 
 .board-container {
     position: relative;
+    width: 800px;
     margin-bottom: 60px;  /* Increased spacing for buttons */
 }
 
@@ -307,7 +311,7 @@ button:active {
     pointer-events: none;
     z-index: 9999;
     opacity: 0.8;
-    height: 100px;
+    height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
