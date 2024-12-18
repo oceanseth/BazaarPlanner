@@ -490,3 +490,31 @@ button:active {
 .tooltip-bottom {
     font-style: italic;
 }
+
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.search-dropdown div {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.search-dropdown div:hover {
+    background-color: #f0f0f0;
+}

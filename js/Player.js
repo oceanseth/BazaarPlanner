@@ -39,5 +39,6 @@ class Player {
                 lastTrigger: 0
             }));
         }
+        
     }
 } 

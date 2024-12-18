@@ -1247,26 +1247,43 @@ function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
 }
 
 function searchMonsters(query) {
+    const dropdown = document.getElementById('monster-dropdown');
+    const searchInput = document.getElementById('monster-search');
     
-    const suggestions = document.getElementById('monster-suggestions');
-    suggestions.innerHTML = '';
+    dropdown.innerHTML = '';
     
-    // Assuming you have a monsters array/object available
+    // Filter monsters - if query is empty, show all monsters
     const filteredMonsters = Object.values(monsters)
-        .sort((a, b) => a.name.localeCompare(b.name)) // Sort alphabetically
-        .filter(monster => monster.name.toLowerCase().includes(query.toLowerCase()));
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .filter(monster => !query || monster.name.toLowerCase().includes(query.toLowerCase()));
     
-    filteredMonsters.forEach(monster => {
-        const option = document.createElement('option');
-        option.value = monster.name;
-        suggestions.appendChild(option);
-    });
+    if (filteredMonsters.length > 0) {
+        dropdown.style.display = 'block';
+        
+        filteredMonsters.forEach(monster => {
+            const div = document.createElement('div');
+            div.textContent = monster.name;
+            div.onclick = () => {
+                searchInput.value = monster.name;
+                loadMonsterBoard(monster);
+                dropdown.style.display = 'none';
+            };
+            dropdown.appendChild(div);
+        });
+    } else {
+        dropdown.style.display = 'none';
+    }
 }
 
-// Call this when initializing your page to populate the initial monster list
-function initializeMonsterSearch() {
-    searchMonsters('');
-}
+// Add click handler to hide dropdown when clicking outside
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('monster-dropdown');
+    const searchContainer = e.target.closest('.search-container');
+    
+    if (!searchContainer && dropdown) {
+        dropdown.style.display = 'none';
+    }
+});
 
 function getRarityValue(valueString, rarity) {
     // Parse values (e.g., "1 » 2 » 3 » 4" or "1 >> 2 >> 3 >> 4" into [1, 2, 3, 4])
