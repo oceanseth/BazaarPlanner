@@ -11,6 +11,7 @@
         <script src="items.js"></script>
         <link rel="stylesheet" href="styles.css">
         <script defer src="js/Player.js"></script>
+        <script defer src="js/Board.js"></script>
         <script defer src="script.js"></script>
         <title>BazaarPlanner</title>
     </head>
@@ -75,12 +76,12 @@
                     <div class="board-container">
                         <div id="topPlayerHealth" class="playerHealth">1000</div>
                         <div id="topPlayerSkills" class="playerSkills"></div>
-                        <div id="inventory-board" class="board">
+                       <div id="inventory-board" class="board">
                             <!-- Slots will be generated here -->
                         </div>
                         <div class="board-controls">
-                            <button onclick="saveBoard('inventory-board')">Save</button>
-                            <button onclick="loadBoard('inventory-board')">Load</button>
+                            <button onclick="saveToFile('inventory-board')">Save</button>
+                            <button onclick="saveToFile('inventory-board')">Load</button>
                         </div>
                     </div>
                     <div class="board-container">
@@ -90,8 +91,8 @@
                             <!-- Slots will be generated here -->
                         </div>
                         <div class="board-controls">
-                            <button onclick="saveBoard('bottom-board')">Save</button>
-                            <button onclick="loadBoard('bottom-board')">Load</button>
+                            <button onclick="saveToFile('bottom-board')">Save</button>
+                            <button onclick="saveToFile('bottom-board')">Load</button>
                         </div>
                     </div>
                 </div>
