@@ -596,15 +596,20 @@ function triggerItem(item) {
 }
 
 function applyHasteEffect(sourceItem, board) {
-    // Extract haste text from the item's text property
-    const hasteRegex = /Haste \(([^)]+)\) .* item.* for (\d+) second/;
+    // Flexible haste regex to capture various formats
+    const hasteRegex = /Haste\s*.*?for\s*\(\s*([^)]*)\s*\)\s*second/i;
     const itemData = JSON.parse(sourceItem.getAttribute('data-item'));
     
-    if (!itemData.text || !hasteRegex.test(itemData.text)) return;
+    console.log("Applying haste effect for item:", itemData.name); // Debugging log
+
+    if (!itemData.text || !hasteRegex.test(itemData.text)) {
+        console.warn("No haste effect found for item:", itemData.name); // Debugging log
+        return;
+    }
     
     const [_, hasteValues, duration] = itemData.text.match(hasteRegex);
     
-    // Parse haste values (e.g., "1 » 2 » 3 » 4" into [1, 2, 3, 4])
+    // Parse haste values (e.g., "1 » 2 » 3" into [1, 2, 3])
     const values = hasteValues.split('»').map(v => parseFloat(v.trim()));
     
     // Get the appropriate haste value based on item's rarity
@@ -621,63 +626,76 @@ function applyHasteEffect(sourceItem, board) {
     
     // Apply haste effect to selected bars
     selectedBars.forEach(bar => {
-        bar.dataset.hasteTimeRemaining = parseInt(bar.dataset.hasteTimeRemaining || 0) + duration*1000;
+        // Store the original cooldown if not already stored
+        if (!bar.dataset.originalCooldown) {
+            bar.dataset.originalCooldown = bar.dataset.cooldown;
+            // Halve the cooldown only if it's not already hasted
+            bar.dataset.cooldown = bar.dataset.cooldown / 2;
+        }
+
+        // Add to the existing hasted time
+        bar.dataset.hastedTime = (parseInt(bar.dataset.hastedTime) || 0) + (duration * 1000); // Update hasted time
+        bar.dataset.isHasted = 1; // Mark as hasted
     });
 }
 
 function battleFunction() {
     battleTimeDiff += 100;
 
-    //advance all the cooldowns by appropriate amounts
+    // Advance all the cooldowns by appropriate amounts
     const progressBars = document.querySelectorAll('.battleItemProgressBar');
     progressBars.forEach(bar => {
         const cooldown = parseInt(bar.dataset.cooldown) * 1000;        
         let hastedTime = parseInt(bar.dataset.hastedTime) || 0;
         let hasteTimeRemaining = parseInt(bar.dataset.hasteTimeRemaining) || 0;
-        if(bar.dataset.isHasted==1) {
-            hastedTime+=100;
-            hasteTimeRemaining-=100;
-            bar.dataset.hastedTime = hastedTime;
+
+        // Update hasted time and check if it should be applied
+        if (hasteTimeRemaining > 0) {
+            hastedTime += 100; // Advance hasted time
+            hasteTimeRemaining -= 100; // Decrease remaining haste time
             bar.dataset.hasteTimeRemaining = hasteTimeRemaining;
-            if(hasteTimeRemaining<=0) {
-                bar.dataset.isHasted = 0;
+            if (hasteTimeRemaining <= 0) {
+                bar.dataset.isHasted = 0; // Reset hasted status
+                // Restore the original cooldown
+                bar.dataset.cooldown = bar.dataset.originalCooldown;
             }
-        } else if(hasteTimeRemaining>0) {
-            bar.dataset.isHasted = 1;
         }
-        let heightPercent = 100*((battleTimeDiff+hastedTime) % cooldown ) / cooldown;
-        let bottomstyle = 'calc('+heightPercent+'% - 5px)';
+
+        let heightPercent = 100 * ((battleTimeDiff + hastedTime) % cooldown) / cooldown;
+        let bottomstyle = 'calc(' + heightPercent + '% - 5px)';
         bar.style.bottom = bottomstyle;
-        let numTriggers = Math.floor((battleTimeDiff+hastedTime)/cooldown);
+
+        let numTriggers = Math.floor((battleTimeDiff + hastedTime) / cooldown);
         let count = 0;
-        while(bar.dataset.numTriggers != numTriggers && count++<100) {
+        while (bar.dataset.numTriggers != numTriggers && count++ < 100) {
             bar.dataset.numTriggers++;
             triggerItem(bar.parentElement);
         }
-
     });
 
     $("#topPlayerHealth").html(topPlayerHealth);
     $("#bottomPlayerHealth").html(bottomPlayerHealth);
 
-  if(battleTimeDiff>30000) {
-    let sandstormDmg = Math.floor(sandstormValue);
-    log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
-    topPlayerHealth-=sandstormDmg;
-    bottomPlayerHealth-=sandstormDmg;
-    sandstormValue+=sandstormIncrement;
-  }
+    // Handle sandstorm damage
+    if (battleTimeDiff > 30000) {
+        let sandstormDmg = Math.floor(sandstormValue);
+        log("Sandstorm deals " + sandstormDmg + " damage to both players.");
+        topPlayerHealth -= sandstormDmg;
+        bottomPlayerHealth -= sandstormDmg;
+        sandstormValue += sandstormIncrement;
+    }
 
-  if(topPlayerHealth<=0) {
-    clearInterval(battleInterval);
-    alert("you win");
-    resetBattle();
-  }
-  if(bottomPlayerHealth <=0) {
-    clearInterval(battleInterval);
-    resetBattle();
-    alert("you lose");
-  }
+    // Check for player health
+    if (topPlayerHealth <= 0) {
+        clearInterval(battleInterval);
+        alert("you win");
+        resetBattle();
+    }
+    if (bottomPlayerHealth <= 0) {
+        clearInterval(battleInterval);
+        resetBattle();
+        alert("you lose");
+    }
 }
 
 function resetBattle() {
