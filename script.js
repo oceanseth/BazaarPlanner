@@ -1,3 +1,66 @@
+// Initialize board variables at the top
+let inventoryBoard;
+let bottomBoard;
+
+// Call this when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+        const monstersList = document.getElementById('monstersList');
+        monstersList.innerHTML = '';
+        Object.entries(monsters).forEach(([id, monster]) => {
+            const item = createListItem(monster);
+            monstersList.appendChild(item);
+        });
+    
+        const skillsList = document.getElementById('skillsList');
+        skillsList.innerHTML = '';
+        Object.entries(skills).forEach(([id, skill]) => {
+            const item = createListItem(skill);
+            skillsList.appendChild(item);
+        });
+        const itemsList = document.getElementById('itemsList');
+        const simulatorItemsList = document.getElementById('simulator-itemsList');
+        
+         // Populate monster selector dropdown
+    for (const key in monsters) {
+        if (monsters.hasOwnProperty(key)) {  // defensive programming
+            $('#monster-selector').append($('<option>', {
+                value: key,
+                text: key
+            }));
+        }
+    }
+
+        // Handle NPC selection change
+        $('#monster-selector').on('change', function() {
+            const selectedMonster = $(this).val();
+            if (monsters[selectedMonster]) {
+                loadMonsterBoard(monsters[selectedMonster]);
+            }
+        });
+
+
+        
+        Object.entries(items).forEach(([id, item]) => {
+            const listItem = createListItem(item);
+            itemsList.appendChild(listItem.cloneNode(true));
+            simulatorItemsList.appendChild(listItem);
+        });
+    
+        simulatorItemsList.style.height = '300px';
+        simulatorItemsList.style.overflowY = 'scroll';
+  //      initializeMonsterSearch();
+    
+    
+    inventoryBoard = new Board('inventory-board');
+    bottomBoard = new Board('bottom-board');
+    inventoryBoard.initialize();
+    bottomBoard.initialize();
+});
+
+
+// Remove the duplicate DOMContentLoaded listener that initializes boards
+// (the one we added in the previous code)
+
 const emptyDragImage = new Image();
 emptyDragImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 emptyDragImage.style.position = 'absolute';
@@ -12,63 +75,23 @@ deleteZone.textContent = 'Drop here to delete';
 document.querySelector('.board-container:last-child').appendChild(deleteZone);
 
 function saveBoards() {
-    const topBoard = document.getElementById('inventory-board');
-    const bottomBoard = document.getElementById('bottom-board');
-    
-    // Get all items from both boards
-    const topItems = Array.from(topBoard.querySelectorAll('.merged-slot')).map(slot => ({
-        item: JSON.parse(slot.getAttribute('data-item')),
-        startIndex: parseInt(slot.dataset.startIndex),
-        size: parseInt(slot.dataset.size)
-    }));
-    
-    const bottomItems = Array.from(bottomBoard.querySelectorAll('.merged-slot')).map(slot => ({
-        item: JSON.parse(slot.getAttribute('data-item')),
-        startIndex: parseInt(slot.dataset.startIndex),
-        size: parseInt(slot.dataset.size)
-    }));
-    
-    // Save to localStorage
-    localStorage.setItem('savedTopBoard', JSON.stringify(topItems));
-    localStorage.setItem('savedBottomBoard', JSON.stringify(bottomItems));
-    
+    inventoryBoard.save();
+    bottomBoard.save();
     alert('Boards saved successfully!');
 }
 
 function loadTopBoard() {
-    const savedTop = localStorage.getItem('savedTopBoard');
-    if (!savedTop) {
+    if (!inventoryBoard.load()) {
         alert('No saved top board found!');
-        return;
     }
-    
-    // Clear current board
-    initializeBoard('inventory-board');
-    
-    // Load saved items
-    const items = JSON.parse(savedTop);
-    items.forEach(({item, startIndex, size}) => {
-        placeItem(startIndex, size, item, 'inventory-board');
-    });
 }
 
 function loadBottomBoard() {
-    
-    const savedBottom = localStorage.getItem('savedBottomBoard');
-    if (!savedBottom) {
+    if (!bottomBoard.load()) {
         alert('No saved bottom board found!');
-        return;
     }
-    
-    // Clear current board
-    initializeBoard('bottom-board');
-    
-    // Load saved items
-    const items = JSON.parse(savedBottom);
-    items.forEach(({item, startIndex, size}) => {
-        placeItem(startIndex, size, item, 'bottom-board');
-    });
-} 
+}
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCrDTf9_S8PURED8DZBDbbEsJuMA1poduw",
@@ -176,8 +199,8 @@ function createListItem(data) {
     text.textContent = data.name;
     item.appendChild(text);
     
-    item.addEventListener('dragstart', handleDragStart);
-    item.addEventListener('dragend', handleDragEnd);    
+    item.addEventListener('dragstart', Board.handleDragStart);
+    item.addEventListener('dragend', Board.handleDragEnd);    
     
     return item;
 }
@@ -228,29 +251,10 @@ function search(searchString, section = 'all') {
 
 function getSizeValue(size) {
     switch(size?.toLowerCase()) {
-        case 'tiny': return 0;
         case 'small': return 1;
         case 'medium': return 2;
         case 'large': return 3;
-        case 'huge': return 4;
         default: return 1;
-    }
-}
-
-function initializeBoard(boardId) {
-    const board = document.getElementById(boardId);
-    board.innerHTML = '';
-    
-    for (let i = 0; i < 10; i++) {
-        const slot = document.createElement('div');
-        slot.className = 'board-slot';
-        slot.style.left = `${i * 10}%`;
-        slot.dataset.index = i;
-        
-        slot.addEventListener('dragover', handleDragOver);
-        slot.addEventListener('drop', handleDrop);
-        
-        board.appendChild(slot);
     }
 }
 
@@ -297,89 +301,7 @@ function clearDropPreview() {
     });
 }
 
-function handleDrop(e) {
-    e.preventDefault();
-    clearDropPreview();
-    
-    try {
-        const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-        const slot = e.target.closest('.board-slot');
-        if (!slot) return;
-        
-        const board = e.target.closest('.board');
-        const startIndex = parseInt(slot.dataset.index);
-        const size = data.size || getSizeValue(data.item.size);
-        
-        if (isValidPlacement(startIndex, size, board.id)) {
-            const sourceElement = document.querySelector('.merged-slot.dragging');
-            if (sourceElement) {
-                sourceElement.style.left = `${startIndex * 10}%`;
-                sourceElement.dataset.startIndex = startIndex;
-                board.appendChild(sourceElement);
-            } else {
-                placeItem(startIndex, size, data.item, board.id);
-            }
-        }
-    } catch (error) {
-        console.error('Error handling drop:', error);
-    }
-}
 
-function isValidPlacement(startIndex, size, boardId) {
-    // Check if item would extend beyond board
-    if (startIndex + size > 10 || startIndex < 0) return false;
-    
-    // Check for overlapping items only in the current board
-    const currentBoard = document.getElementById(boardId);
-    const existingSlots = Array.from(currentBoard.querySelectorAll('.merged-slot'));
-    const draggingSlot = currentBoard.querySelector('.merged-slot.dragging');
-    
-    // Filter out the currently dragging slot from overlap checks
-    const slotsToCheck = existingSlots.filter(slot => slot !== draggingSlot);
-    
-    // Check each position the new item would occupy
-    for (let i = startIndex; i < startIndex + size; i++) {
-        // Check against each existing slot
-        for (const slot of slotsToCheck) {
-            const slotStart = parseInt(slot.dataset.startIndex);
-            const slotSize = parseInt(slot.dataset.size);
-            
-            // Check if current position overlaps with existing item
-            if (i >= slotStart && i < slotStart + slotSize) {
-                return false;
-            }
-        }
-    }
-    
-    return true;
-}
-
-function placeItem(startIndex, size, itemData, boardId = 'inventory-board') {
-    const board = document.getElementById(boardId);
-    const mergedSlot = document.createElement('div');
-    mergedSlot.className = 'merged-slot';
-    mergedSlot.style.width = `${size * 10}%`;
-    mergedSlot.style.left = `${startIndex * 10}%`;
-    mergedSlot.dataset.startIndex = startIndex;
-    mergedSlot.dataset.size = size;
-    mergedSlot.setAttribute('data-item', JSON.stringify(itemData));
-    mergedSlot.itemData = itemData; 
-    mergedSlot.draggable = true;
-    
-    if (itemData.icon) {
-        const icon = document.createElement('img');
-        icon.src = itemData.icon;
-        icon.draggable = false;
-        mergedSlot.appendChild(icon);
-    }
-
-    mergedSlot.addEventListener('dragstart', handleDragStart);
-    mergedSlot.addEventListener('dragend', handleDragEnd);
-
-    attachTooltipListeners(mergedSlot);
-    
-    board.appendChild(mergedSlot);
-}
 
 function createGhostElement(itemData, size = 1) {
     const ghost = document.createElement('div');
@@ -394,90 +316,6 @@ function createGhostElement(itemData, size = 1) {
     
     return ghost;
 }
-$(document).ready(function() {
-    const monstersList = document.getElementById('monstersList');
-    monstersList.innerHTML = '';
-    Object.entries(monsters).forEach(([id, monster]) => {
-        const item = createListItem(monster);
-        monstersList.appendChild(item);
-    });
-
-    const skillsList = document.getElementById('skillsList');
-    skillsList.innerHTML = '';
-    Object.entries(skills).forEach(([id, skill]) => {
-        const item = createListItem(skill);
-        skillsList.appendChild(item);
-    });
-    const itemsList = document.getElementById('itemsList');
-    const simulatorItemsList = document.getElementById('simulator-itemsList');
-    
-    itemsList.innerHTML = '';
-    simulatorItemsList.innerHTML = '';
-    
-    Object.entries(items).forEach(([id, item]) => {
-        const listItem = createListItem(item);
-        itemsList.appendChild(listItem.cloneNode(true));
-        simulatorItemsList.appendChild(listItem);
-    });
-
-    simulatorItemsList.style.height = '300px';
-    simulatorItemsList.style.overflowY = 'scroll';
-    initializeMonsterSearch();
- });
-
- // // Initialize database listener
-// database.ref().on('value', (snapshot) => {
-//     window.data = snapshot.val();
-    
-//     try {
-//         // Populate monsters
-//         if (data?.monsters) {
-//             const monstersList = document.getElementById('monstersList');
-//             monstersList.innerHTML = '';
-//             Object.entries(data.monsters).forEach(([id, monster]) => {
-//                 const item = createListItem(monster);
-//                 monstersList.appendChild(item);
-//             });
-//         }
-        
-//         // Populate items
-//         if (data?.items) {
-//             const itemsList = document.getElementById('itemsList');
-//             const simulatorItemsList = document.getElementById('simulator-itemsList');
-            
-//             itemsList.innerHTML = '';
-//             simulatorItemsList.innerHTML = '';
-            
-//             Object.entries(data.items).forEach(([id, item]) => {
-//                 const listItem = createListItem(item);
-//                 itemsList.appendChild(listItem.cloneNode(true));
-//                 simulatorItemsList.appendChild(listItem);
-//             });
-//         }
-        
-//         // Populate skills
-//         if (data?.skills) {
-//             const skillsList = document.getElementById('skillsList');
-//             skillsList.innerHTML = '';
-//             Object.entries(skills).forEach(([id, skill]) => {
-//                 const item = createListItem(skill);
-//                 skillsList.appendChild(item);
-//             });
-//         }
-
-//         populateSearchSuggestions(data);
-//     } catch (error) {
-//         console.error('Error populating items:', error);
-//     }
-// }, (error) => {
-//     console.error('Database error:', error);
-// });
-
-// Initialize board when page loads
-document.addEventListener('DOMContentLoaded', () => {
-    initializeBoard('inventory-board');
-    initializeBoard('bottom-board');
-});
 
 function populateSearchSuggestions(data) {
     const suggestions = new Set();
@@ -750,9 +588,15 @@ function startBattle() {
     items.forEach(item => {
         const itemData = JSON.parse(item.getAttribute('data-item'));
         if(itemData.tags.includes("Weapon")) {
-            const damageRegex = /Deal \(([^)]+)\) damage/;
+            // Updated regex to capture both "(X>>Y>>Z)" format and simple "X" format
+            const damageRegex = /Deal (?:\(([^)]+)\)|(\d+)) damage/i;
             const match = itemData.text.match(damageRegex);
-            itemData.damage = match ? getRarityValue(match[1], itemData.rarity) : 0;
+            
+            // If there's a match, use the first captured group (parentheses format) or second group (simple number)
+            itemData.damage = match ? 
+                (match[1] ? getRarityValue(match[1], itemData.rarity) : parseInt(match[2])) 
+                : 0;
+            
             item.setAttribute('data-item', JSON.stringify(itemData));
             item.itemData = itemData;
         }
@@ -943,9 +787,10 @@ function loadFromFile(boardId) {
         reader.onload = event => {
             try {
                 const items = JSON.parse(event.target.result);
-                initializeBoard(boardId);
+                const board = Board.getBoardFromId(boardId);
+                board.clear();
                 items.forEach(({item, startIndex, size}) => {
-                    placeItem(startIndex, size, item, boardId);
+                    board.placeItem(startIndex, size, item, boardId);
                 });
             } catch (error) {
                 console.error('Error loading file:', error);
@@ -957,194 +802,6 @@ function loadFromFile(boardId) {
     };
     
     input.click();
-}
-
-// Update the board controls to use file-based save/load
-function updateBoardControls() {
-    document.querySelectorAll('.board-controls').forEach(controls => {
-        const boardId = controls.closest('.board-container').querySelector('.board').id;
-        controls.innerHTML = `
-            <button onclick="saveToFile('${boardId}')">Save</button>
-            <button onclick="loadFromFile('${boardId}')">Load</button>
-        `;
-    });
-}
-
-// Call this when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    initializeBoard('inventory-board');
-    initializeBoard('bottom-board');
-    updateBoardControls();
-});
-
-function loadBoard(boardId) {
-    const savedItems = localStorage.getItem(`saved_${boardId}`);
-    if (!savedItems) {
-        const notification = document.createElement('div');
-        notification.textContent = 'No saved board found';
-        notification.style.position = 'absolute';
-        notification.style.right = '0';
-        notification.style.bottom = '-50px';
-        notification.style.background = '#f44336';
-        notification.style.color = 'white';
-        notification.style.padding = '4px 8px';
-        notification.style.borderRadius = '4px';
-        notification.style.fontSize = '12px';
-        notification.style.opacity = '0';
-        notification.style.transition = 'opacity 0.3s';
-        
-        document.getElementById(boardId).parentElement.appendChild(notification);
-        setTimeout(() => notification.style.opacity = '1', 10);
-        setTimeout(() => {
-            notification.style.opacity = '0';
-            setTimeout(() => notification.remove(), 300);
-        }, 1500);
-        return;
-    }
-    
-    // Clear current board
-    initializeBoard(boardId);
-    
-    // Load saved items
-    const items = JSON.parse(savedItems);
-    items.forEach(({item, startIndex, size}) => {
-        placeItem(startIndex, size, item, boardId);
-    });
-}
-
-function isValidDrop(startIndex, size, boardId, draggingElement = null) {
-    const board = document.getElementById(boardId);
-    const endIndex = startIndex + size - 1;
-    
-    // Check if item fits on board
-    if (endIndex >= 10) return false;
-    
-    // Check for overlapping items
-    const existingItems = board.querySelectorAll('.merged-slot');
-    for (const item of existingItems) {
-        // Skip the item being dragged
-        if (item === draggingElement || item.classList.contains('dragging')) continue;
-        
-        const itemStart = parseInt(item.dataset.startIndex);
-        const itemSize = parseInt(item.dataset.size);
-        const itemEnd = itemStart + itemSize - 1;
-        
-        // Check if there's any overlap
-        if (!(endIndex < itemStart || startIndex > itemEnd)) {
-            return false;
-        }
-    }
-    
-    return true;
-}
-
-function handleDragStart(e) {
-    e.target.classList.add('dragging');
-    deleteZone.style.display = 'flex';
-    
-    // Create and show ghost
-    const ghost = document.createElement('div');
-    ghost.className = 'drag-ghost';
-    const itemData = JSON.parse(e.target.getAttribute('data-item'));
-    
-    if (itemData.icon) {
-        const ghostIcon = document.createElement('img');
-        ghostIcon.src = itemData.icon;
-        ghost.appendChild(ghostIcon);
-    }
-    
-    document.body.appendChild(ghost);
-    e.dataTransfer.setDragImage(emptyDragImage, 0, 0);
-    e.dataTransfer.setData('text/plain', e.target.getAttribute('data-item'));
-
-    // Update ghost position during drag
-    const moveGhost = (e) => {
-        ghost.style.left = e.clientX - ghost.offsetWidth / 2 + 'px';
-        ghost.style.top = e.clientY - ghost.offsetHeight / 2 + 'px';
-    };
-    
-    document.addEventListener('dragover', moveGhost);
-    
-    // Store the ghost element for cleanup
-    e.target.ghostElement = ghost;
-}
-
-function handleDragEnd(e) {
-    e.target.classList.remove('dragging');
-    deleteZone.style.display = 'none';
-    deleteZone.classList.remove('active');
-    
-    // Remove the ghost element
-    if (e.target.ghostElement) {
-        e.target.ghostElement.remove();
-        delete e.target.ghostElement;
-    }
-    
-    // Remove any lingering visual feedback
-    document.querySelectorAll('.valid-drop, .invalid-drop').forEach(element => {
-        element.classList.remove('valid-drop', 'invalid-drop');
-    });
-}
-
-function handleDragOver(e) {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-    
-    const slot = e.target.closest('.board-slot');
-    if (!slot) return;
-    
-    const draggingElement = document.querySelector('.dragging');
-    if (!draggingElement) return;
-    
-    const itemData = JSON.parse(draggingElement.getAttribute('data-item'));
-    const size = getSizeValue(itemData.size);
-    const startIndex = parseInt(slot.dataset.index);
-    
-    // Pass the dragging element to isValidDrop
-    if (isValidDrop(startIndex, size, slot.closest('.board').id, draggingElement)) {
-        slot.classList.add('valid-drop');
-        slot.classList.remove('invalid-drop');
-    } else {
-        slot.classList.add('invalid-drop');
-        slot.classList.remove('valid-drop');
-    }
-}
-
-function handleDrop(e) {
-    e.preventDefault();
-    const slot = e.target.closest('.board-slot');
-    if (!slot) return;
-    
-    const board = slot.closest('.board');
-    const startIndex = parseInt(slot.dataset.index);
-    const itemData = JSON.parse(e.dataTransfer.getData('text/plain'));
-    const size = getSizeValue(itemData.size);
-    
-    const draggingElement = document.querySelector('.dragging');
-    // Pass the dragging element to isValidDrop
-    if (isValidDrop(startIndex, size, board.id, draggingElement)) {
-        if (draggingElement) {
-            if (draggingElement.classList.contains('merged-slot')) {
-                draggingElement.remove();
-            }
-            draggingElement.classList.remove('dragging');
-        }
-        placeItem(startIndex, size, itemData, board.id);
-    }
-    
-    slot.classList.remove('valid-drop', 'invalid-drop');
-    deleteZone.style.display = 'none';
-}
-
-function handleDeleteDrop(e) {
-    e.preventDefault();
-    const draggingElement = document.querySelector('.dragging');
-    if (draggingElement.classList.contains('merged-slot')) {
-        draggingElement.classList.add('removing');
-        setTimeout(() => draggingElement.remove(), 500);
-    }
-    deleteZone.classList.remove('active');
-    deleteZone.style.display = 'none';
 }
 
 // Add dragover and drop handlers for delete zone
@@ -1174,25 +831,7 @@ deleteZone.addEventListener('drop', (e) => {
     deleteZone.style.display = 'none';
 }); 
 
-$(document).ready(()=>{
-    // Populate monster selector dropdown
-    for (const key in monsters) {
-        if (monsters.hasOwnProperty(key)) {  // defensive programming
-            $('#monster-selector').append($('<option>', {
-                value: key,
-                text: key
-            }));
-        }
-    }
 
-    // Handle NPC selection change
-    $('#monster-selector').on('change', function() {
-        const selectedMonster = $(this).val();
-        if (monsters[selectedMonster]) {
-            loadMonsterBoard(monsters[selectedMonster]);
-        }
-    });
-});
 function stripEnchantFromName(name) {
     const enchantPrefixes = /^(Fiery|Radiant|Heavy|Golden|Icy|Turbo|Shielded|Restorative|Toxic|Shiny|Deadly)\s+/;
     if (enchantPrefixes.test(name)) {
@@ -1201,19 +840,17 @@ function stripEnchantFromName(name) {
     return name;
 }
 function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
-    // Clear the current board first
-    initializeBoard(boardId);
+    const board = Board.getBoardFromId(boardId);
+    board.clear();
     let startIndex = 0;
     
     // Load monster items to the board
     monsterData.items.forEach(item => {        
-        item = items[stripEnchantFromName(item)];
-        let size = 1;
+        item = Item.getFromName(item);
+        let size = item.size;
         
-        if (item.tags.some(tag => tag.toLowerCase() === 'medium')) size = 2;
-        if (item.tags.some(tag => tag.toLowerCase() === 'large')) size = 3;
-        
-        placeItem(startIndex, size, item, boardId);
+        const newItem = board.placeItem(startIndex, size, item, boardId);
+        board.items.add(newItem);
         startIndex += size;
     });
 
