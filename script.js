@@ -431,23 +431,28 @@ function triggerItem(item) {
      if (itemData.text && itemData.text.includes('Haste')) {
         applyHasteEffect(item, item.closest('.board'));
     }
+    if (itemData.text && itemData.text.includes('Slow')) {
+        applySlowEffect(item, item.closest('.board').id == 'inventory-board' ? document.getElementById('bottom-board') : document.getElementById('inventory-board'));
+    }
 }
 
-function applyHasteEffect(sourceItem, board) {
-    // Extract haste text from the item's text property
-    const hasteRegex = /Haste \(([^)]+)\) (?:(\w+) )?item.* for (\d+) second/;
+function applySlowEffect(sourceItem, board) {
+    // Extract slow text from the item's text property - tag is optional
+    // Both item count and duration can be either a single digit or a range
+    const slowRegex = /Slow (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?item for (?:\(([^)]+)\)|(\d+)) second/;
     const itemData = JSON.parse(sourceItem.getAttribute('data-item'));
     
-    if (!itemData.text || !hasteRegex.test(itemData.text)) return;
+    if (!itemData.text || !slowRegex.test(itemData.text)) return;
     
-    const [_, hasteValues, requiredTag, duration] = itemData.text.match(hasteRegex);
+    const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = itemData.text.match(slowRegex);
     
-    // Parse haste values (e.g., "1 » 2 » 3 » 4" into [1, 2, 3, 4])
-    const values = hasteValues.split('»').map(v => parseFloat(v.trim()));
-    
-    // Get the appropriate haste value based on item's rarity
-    const rarityIndex = ['Bronze', 'Silver', 'Gold', 'Diamond'].indexOf(itemData.rarity || 'Bronze');
-    const numItemsToHaste = values[rarityIndex] || values[0];
+    // Get the appropriate values based on item's rarity
+    const numItemsToSlow = itemsRange ? 
+        getRarityValue(itemsRange, itemData.rarity) : 
+        parseInt(singleItemCount);
+    const duration = durationRange ? 
+        getRarityValue(durationRange, itemData.rarity) : 
+        parseInt(singleDuration);
     
     // Find all progress bars in the same board
     let progressBars = Array.from(board.querySelectorAll('.battleItemProgressBar'));
@@ -462,12 +467,54 @@ function applyHasteEffect(sourceItem, board) {
     
     // Randomly select N progress bars
     const selectedBars = progressBars
-        .sort(() => Math.random() - 0.5) // Shuffle array
-        .slice(0, numItemsToHaste); // Take first N items
+        .sort(() => Math.random() - 0.5)
+        .slice(0, numItemsToSlow);
+    
+    // Apply slow effect to selected bars
+    selectedBars.forEach(bar => {
+        bar.dataset.slowTimeRemaining = parseInt(bar.dataset.slowTimeRemaining || 0) + duration*1000;
+        log(sourceItem.itemData.name + " slowed " + bar.parentElement.itemData.name + " for " + duration + " seconds");
+    });
+}
+
+function applyHasteEffect(sourceItem, board) {
+    // Extract haste text from the item's text property - tag is optional
+    // Both item count and duration can be either a single digit or a range
+    const hasteRegex = /Haste (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?item.* for (?:\(([^)]+)\)|(\d+)) second/;
+    const itemData = JSON.parse(sourceItem.getAttribute('data-item'));
+    
+    if (!itemData.text || !hasteRegex.test(itemData.text)) return;
+    
+    const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = itemData.text.match(hasteRegex);
+    
+    // Get the appropriate values based on item's rarity
+    const numItemsToHaste = itemsRange ? 
+        getRarityValue(itemsRange, itemData.rarity) : 
+        parseInt(singleItemCount);
+    const duration = durationRange ? 
+        getRarityValue(durationRange, itemData.rarity) : 
+        parseInt(singleDuration);
+    
+    // Find all progress bars in the same board
+    let progressBars = Array.from(board.querySelectorAll('.battleItemProgressBar'));
+    
+    // Filter by tag if one was specified
+    if (requiredTag) {
+        progressBars = progressBars.filter(bar => {
+            const itemData = JSON.parse(bar.parentElement.getAttribute('data-item'));
+            return itemData.tags && itemData.tags.includes(requiredTag);
+        });
+    }
+    
+    // Randomly select N progress bars
+    const selectedBars = progressBars
+        .sort(() => Math.random() - 0.5)
+        .slice(0, numItemsToHaste);
     
     // Apply haste effect to selected bars
     selectedBars.forEach(bar => {
         bar.dataset.hasteTimeRemaining = parseInt(bar.dataset.hasteTimeRemaining || 0) + duration*1000;
+        log(sourceItem.itemData.name + " hasted " + bar.parentElement.itemData.name + " for " + duration + " seconds");
     });
 }
 
@@ -480,27 +527,68 @@ function battleFunction() {
         const cooldown = parseInt(bar.dataset.cooldown) * 1000;        
         let hastedTime = parseInt(bar.dataset.hastedTime) || 0;
         let hasteTimeRemaining = parseInt(bar.dataset.hasteTimeRemaining) || 0;
-        if(bar.dataset.isHasted==1) {
-            hastedTime+=100;
-            hasteTimeRemaining-=100;
+        let slowedTime = parseInt(bar.dataset.slowedTime) || 0;
+        let slowTimeRemaining = parseInt(bar.dataset.slowTimeRemaining) || 0;
+
+        
+        // Handle haste effect
+        if(bar.dataset.isHasted == 1) {
+            hastedTime += 50;
+            hasteTimeRemaining -= 100;
             bar.dataset.hastedTime = hastedTime;
             bar.dataset.hasteTimeRemaining = hasteTimeRemaining;
-            if(hasteTimeRemaining<=0) {
+            if(hasteTimeRemaining <= 0) {
                 bar.dataset.isHasted = 0;
             }
-        } else if(hasteTimeRemaining>0) {
+        } else if(hasteTimeRemaining > 0) {
             bar.dataset.isHasted = 1;
         }
-        let heightPercent = 100*((battleTimeDiff+hastedTime) % cooldown ) / cooldown;
-        let bottomstyle = 'calc('+heightPercent+'% - 5px)';
+
+        // Handle slow effect
+        if(bar.dataset.isSlowed == 1) {
+            slowedTime += 50;
+            slowTimeRemaining -= 100;
+            bar.dataset.slowedTime = slowedTime;
+            bar.dataset.slowTimeRemaining = slowTimeRemaining;
+            if(slowTimeRemaining <= 0) {
+                bar.dataset.isSlowed = 0;
+            }
+        } else if(slowTimeRemaining > 0) {
+            bar.dataset.isSlowed = 1;
+        }
+
+        // Calculate progress considering both haste and slow
+        let effectiveTime = battleTimeDiff + hastedTime - slowedTime;
+        let heightPercent = 100 * (effectiveTime % cooldown) / cooldown;
+        let bottomstyle = 'calc(' + heightPercent + '% - 5px)';
         bar.style.bottom = bottomstyle;
-        let numTriggers = Math.floor((battleTimeDiff+hastedTime)/cooldown);
+
+        
+        // Update haste indicator
+        const hasteIndicator = bar.querySelector('.haste-indicator');
+        if (hasteTimeRemaining > 0) {
+            hasteIndicator.classList.remove('hidden');
+            hasteIndicator.textContent = (hasteTimeRemaining / 1000).toFixed(1);
+        } else {
+            hasteIndicator.classList.add('hidden');
+        }
+
+        // Update slow indicator
+        const slowIndicator = bar.querySelector('.slow-indicator');
+        if (slowTimeRemaining > 0) {
+            slowIndicator.classList.remove('hidden');
+            slowIndicator.textContent = (slowTimeRemaining / 1000).toFixed(1);
+        } else {
+            slowIndicator.classList.add('hidden');
+        }
+        
+
+        let numTriggers = Math.floor(effectiveTime / cooldown);
         let count = 0;
-        while(bar.dataset.numTriggers != numTriggers && count++<100) {
+        while(bar.dataset.numTriggers != numTriggers && count++ < 100) {
             bar.dataset.numTriggers++;
             triggerItem(bar.parentElement);
         }
-
     });
 
     $("#topPlayerHealth").html(topPlayerHealth);
@@ -609,7 +697,18 @@ function startBattle() {
         progressBar.dataset.hastedTime = 0;
         progressBar.dataset.hasteTimeRemaining = 0;
         progressBar.dataset.isHasted = 0;
-        
+        progressBar.dataset.slowedTime = 0;
+        progressBar.dataset.slowTimeRemaining = 0;
+        progressBar.dataset.isSlowed = 0;
+                
+        // Add the status indicators (hidden by default)
+        const hasteIndicator = document.createElement('div');
+        hasteIndicator.className = 'haste-indicator hidden';
+        progressBar.appendChild(hasteIndicator);
+
+        const slowIndicator = document.createElement('div');
+        slowIndicator.className = 'slow-indicator hidden';
+        progressBar.appendChild(slowIndicator);
 
         item.appendChild(progressBar);
     });
