@@ -918,6 +918,12 @@ deleteZone.addEventListener('drop', (e) => {
     e.preventDefault();
     const draggingElement = document.querySelector('.dragging');
     if (draggingElement) {
+        // Get the source board and remove the item from its tracking
+        const sourceBoard = Board.getBoardFromId(draggingElement.closest('.board')?.id);
+        if (sourceBoard) {
+            sourceBoard.items.delete(draggingElement);
+        }
+        
         draggingElement.classList.add('removing');
         setTimeout(() => {
             draggingElement.remove();

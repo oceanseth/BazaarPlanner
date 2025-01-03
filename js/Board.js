@@ -223,6 +223,13 @@ class Board {
         draggedElement.classList.remove('dragging');
         deleteZone.style.display = 'none';
         
+        // Get the board that originally contained this element
+        const sourceBoard = Board.getBoardFromId(draggedElement.closest('.board')?.id);
+        if (sourceBoard) {
+            // Remove the item from the board's tracking
+            sourceBoard.items.delete(draggedElement);
+        }
+        
         // Re-enable tooltip functionality after drag ends
         document.querySelectorAll('.tooltip').forEach(tooltip => {
             tooltip.style.display = 'none';  // Reset to none, will show on next mouseenter
