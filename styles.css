@@ -42,7 +42,7 @@ body {
  width: 100%;
  height: 5px;
  background-color: rgba(76, 175, 80, 0.5);
- position: absolute;
+ position: absolute!important;
  bottom: -5px;
  transition: bottom 0.1s ease;
 }
@@ -521,4 +521,25 @@ button:active {
 
 .search-dropdown div:hover {
     background-color: #f0f0f0;
+}
+
+.haste-indicator, .slow-indicator {
+    position: absolute;
+    top: -20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.haste-indicator {
+    left: 0;
+    color: #4CAF50;  /* Green */
+}
+
+.slow-indicator {
+    right: 0;
+    color: #f44336;  /* Red */
+}
+
+.hidden {
+    display: none;
 }
