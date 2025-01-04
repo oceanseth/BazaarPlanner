@@ -130,7 +130,11 @@ class Board {
                 draggingElement.style.left = `${startIndex * 10}%`;
                 draggingElement.dataset.startIndex = startIndex;
                 targetBoard.element.appendChild(draggingElement);
-                targetBoard.items.add(draggingElement);
+                targetBoard.items.push({
+                    element: draggingElement,
+                    startIndex: startIndex,
+                    size: size
+                });
             } else {
                 const newItem = targetBoard.placeItem(startIndex, size, itemData);
                 targetBoard.items.add(newItem);
