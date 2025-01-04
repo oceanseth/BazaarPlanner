@@ -227,6 +227,7 @@ class Board {
             console.error('No item data found on dragged element');
             return;
         }
+        e.dataTransfer.setDragImage(draggedElement, 0, draggedElement.offsetHeight / 2);
         e.dataTransfer.setData('text/plain', itemData);
         draggedElement.classList.add('dragging');
         
@@ -240,7 +241,9 @@ class Board {
 
     static handleDragEnd(e) {
         const draggedElement = e.currentTarget;
-        draggedElement.classList.remove('dragging');
+        document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
+            element.classList.remove('valid-drop', 'invalid-drop', 'dragging');
+        });
         deleteZone.style.display = 'none';
         
         // Get the board that originally contained this element
