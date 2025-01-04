@@ -37,16 +37,16 @@ class Board {
         
         const itemsToCheck = existingItems.filter(item => 
             item && 
-            item.dataset && 
-            item !== draggingSlot
+            item.element.dataset && 
+            item.element !== draggingSlot
         );
         
         // Check each slot that would be occupied by the new item
         for (let i = startIndex; i < startIndex + size; i++) {
             // Check if any existing item overlaps with this slot
             for (const item of itemsToCheck) {
-                const slotStart = parseInt(item.dataset.startIndex);
-                const slotSize = parseInt(item.dataset.size);
+                const slotStart = parseInt(item.startIndex);
+                const slotSize = parseInt(item.size);
                 
                 if (!isNaN(slotStart) && !isNaN(slotSize)) {
                     // Check if there's any overlap between the existing item and the slot we're checking
@@ -124,20 +124,25 @@ class Board {
         const draggingElement = document.querySelector('.dragging');
         const boardElement = slot.closest('.board');
         const targetBoard = Board.getBoardFromId(boardElement.id);
-        
+        const sourceBoard = Board.getBoardFromId(draggingElement.closest('.board')?.id);
+
         if (targetBoard.isValidPlacement(startIndex, size, draggingElement)) {
             if (draggingElement?.classList.contains('merged-slot')) {
                 draggingElement.style.left = `${startIndex * 10}%`;
                 draggingElement.dataset.startIndex = startIndex;
                 targetBoard.element.appendChild(draggingElement);
-                targetBoard.items.push({
+                targetBoard.items.add({
                     element: draggingElement,
                     startIndex: startIndex,
                     size: size
                 });
+                const itemToRemove = Array.from(sourceBoard.items).find(item => item.element === draggingElement);
+                if (itemToRemove) {
+                    sourceBoard.items.delete(itemToRemove);
+                }
             } else {
                 const newItem = targetBoard.placeItem(startIndex, size, itemData);
-                targetBoard.items.add(newItem);
+                targetBoard.items.add({element: newItem, startIndex: startIndex, size: size});
             }
         }
         document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
