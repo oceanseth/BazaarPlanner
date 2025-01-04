@@ -253,9 +253,10 @@ class Board {
         draggedElement.style.pointerEvents = '';  // Reset to default
         draggedElement.style.zIndex = '';  // Reset to default
         
-        document.querySelectorAll('.dragging').forEach(element => {
-            element.classList.remove('dragging');
+        document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
+            element.classList.remove('valid-drop', 'invalid-drop', 'dragging');
         });
+    
         
         deleteZone.style.display = 'none';
 
