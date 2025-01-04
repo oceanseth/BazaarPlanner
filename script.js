@@ -53,8 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     inventoryBoard = new Board('inventory-board');
     bottomBoard = new Board('bottom-board');
-    inventoryBoard.initialize();
-    bottomBoard.initialize();
 });
 
 

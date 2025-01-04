@@ -6,14 +6,13 @@ class Board {
     constructor(boardId) {
         this.boardId = boardId;
         this.element = document.getElementById(boardId);
-        this.slots = [];
-        this.items = new Set();
         this.initialize();
     }
 
     initialize() {
         this.element.innerHTML = '';
-        
+        this.slots = [];
+        this.items = new Set();
         // Create slots
         for (let i = 0; i < 10; i++) {
             const slot = document.createElement('div');
@@ -30,6 +29,7 @@ class Board {
     }
 
     isValidPlacement(startIndex, size, draggingElement = null) {
+        // First check if the item would extend beyond the board
         if (startIndex + size > 10 || startIndex < 0) return false;
         
         const existingItems = Array.from(this.items);
@@ -41,13 +41,17 @@ class Board {
             item !== draggingSlot
         );
         
+        // Check each slot that would be occupied by the new item
         for (let i = startIndex; i < startIndex + size; i++) {
+            // Check if any existing item overlaps with this slot
             for (const item of itemsToCheck) {
                 const slotStart = parseInt(item.dataset.startIndex);
                 const slotSize = parseInt(item.dataset.size);
                 
                 if (!isNaN(slotStart) && !isNaN(slotSize)) {
-                    if (i >= slotStart && i < slotStart + slotSize) {
+                    // Check if there's any overlap between the existing item and the slot we're checking
+                    const itemEnd = slotStart + slotSize - 1;
+                    if (i >= slotStart && i <= itemEnd) {
                         return false;
                     }
                 }
@@ -68,7 +72,7 @@ class Board {
         if (!draggingElement) return;
         
         const itemData = JSON.parse(draggingElement.getAttribute('data-item'));
-        const size = getSizeValue(itemData.size);
+        const size = getSizeValue(itemData.tags.find(tag => ['Small', 'Medium', 'Large'].includes(tag)) || 'Small');
         const startIndex = parseInt(slot.dataset.index);
         
         // Get the correct board instance for the slot being hovered over
@@ -79,16 +83,21 @@ class Board {
     }
 
     updateDropPreview(slot, startIndex, size, draggingElement) {
+        // Clear all preview classes first
         document.querySelectorAll('.valid-drop, .invalid-drop').forEach(element => {
             element.classList.remove('valid-drop', 'invalid-drop');
         });
         
         if (this.isValidPlacement(startIndex, size, draggingElement)) {
-            slot.classList.add('valid-drop');
-            slot.classList.remove('invalid-drop');
+            // Add valid-drop class to all affected slots
+            for (let i = 0; i < size; i++) {
+                const targetSlot = this.slots[startIndex + i];
+                if (targetSlot) {
+                    targetSlot.classList.add('valid-drop');
+                }
+            }
         } else {
             slot.classList.add('invalid-drop');
-            slot.classList.remove('valid-drop');
         }
     }
 
@@ -111,7 +120,7 @@ class Board {
         
         if (!itemData) return;
         
-        const size = getSizeValue(itemData.size);
+        const size = getSizeValue(itemData.tags.find(tag => ['Small', 'Medium', 'Large'].includes(tag)) || 'Small');
         const draggingElement = document.querySelector('.dragging');
         const boardElement = slot.closest('.board');
         const targetBoard = Board.getBoardFromId(boardElement.id);
@@ -127,8 +136,10 @@ class Board {
                 targetBoard.items.add(newItem);
             }
         }
-        
-        slot.classList.remove('valid-drop', 'invalid-drop');
+        document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
+            element.classList.remove('valid-drop', 'invalid-drop', 'dragging');
+        });
+    
         deleteZone.style.display = 'none';
     }
 
