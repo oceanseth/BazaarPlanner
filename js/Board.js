@@ -33,20 +33,20 @@ class Board {
         if (startIndex + size > 10 || startIndex < 0) return false;
         
         const existingItems = Array.from(this.items);
-        const draggingSlot = document.querySelector('.merged-slot.dragging');
         
-        const itemsToCheck = existingItems.filter(item => 
-            item && 
-            item.element.dataset && 
-            item.element !== draggingSlot
-        );
+        // Filter out the item being dragged from the check
+        const itemsToCheck = existingItems.filter(item => {
+            const itemElement = item.element || item;  // Handle both object and direct element storage
+            return itemElement !== draggingElement;
+        });
         
         // Check each slot that would be occupied by the new item
         for (let i = startIndex; i < startIndex + size; i++) {
             // Check if any existing item overlaps with this slot
             for (const item of itemsToCheck) {
-                const slotStart = parseInt(item.startIndex);
-                const slotSize = parseInt(item.size);
+                const itemElement = item.element || item;
+                const slotStart = parseInt(itemElement.dataset.startIndex);
+                const slotSize = parseInt(itemElement.dataset.size);
                 
                 if (!isNaN(slotStart) && !isNaN(slotSize)) {
                     // Check if there's any overlap between the existing item and the slot we're checking
@@ -231,6 +231,13 @@ class Board {
         e.dataTransfer.setData('text/plain', itemData);
         draggedElement.classList.add('dragging');
         
+        // Use requestAnimationFrame to modify the element after the drag has started
+        requestAnimationFrame(() => {
+            draggedElement.style.opacity = '0';
+            draggedElement.style.pointerEvents = 'none';
+            draggedElement.style.zIndex = '-1';
+        });
+        
         // Hide all tooltips when starting to drag
         document.querySelectorAll('.tooltip').forEach(tooltip => {
             tooltip.style.display = 'none';
@@ -241,11 +248,17 @@ class Board {
 
     static handleDragEnd(e) {
         const draggedElement = e.currentTarget;
-        document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
-            element.classList.remove('valid-drop', 'invalid-drop', 'dragging');
-        });
-        deleteZone.style.display = 'none';
+        // Restore original element properties
+        draggedElement.style.opacity = '1';
+        draggedElement.style.pointerEvents = '';  // Reset to default
+        draggedElement.style.zIndex = '';  // Reset to default
         
+        document.querySelectorAll('.dragging').forEach(element => {
+            element.classList.remove('dragging');
+        });
+        
+        deleteZone.style.display = 'none';
+
         // Get the board that originally contained this element
         const sourceBoard = Board.getBoardFromId(draggedElement.closest('.board')?.id);
         if (sourceBoard) {
@@ -255,7 +268,7 @@ class Board {
         
         // Re-enable tooltip functionality after drag ends
         document.querySelectorAll('.tooltip').forEach(tooltip => {
-            tooltip.style.display = 'none';  // Reset to none, will show on next mouseenter
+            tooltip.style.display = 'none';
         });
     }
 }
