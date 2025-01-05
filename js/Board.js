@@ -42,7 +42,7 @@ class Board {
         });
         
         // Check each slot that would be occupied by the new item
-        for (let i = startIndex; i < startIndex + draggingElement.dataset.size; i++) {
+        for (let i = startIndex; i < startIndex + parseInt(draggingElement.dataset.size); i++) {
             // Check if any existing item overlaps with this slot
             for (const someItem of itemsToCheck) {
                 const slotStart = someItem.startIndex;
