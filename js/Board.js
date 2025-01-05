@@ -6,14 +6,13 @@ class Board {
     constructor(boardId) {
         this.boardId = boardId;
         this.element = document.getElementById(boardId);
-        this.slots = [];
-        this.items = new Set();
         this.initialize();
     }
 
     initialize() {
         this.element.innerHTML = '';
-        
+        this.slots = [];
+        this.items = [];
         // Create slots
         for (let i = 0; i < 10; i++) {
             const slot = document.createElement('div');
@@ -21,33 +20,38 @@ class Board {
             slot.style.left = `${i * 10}%`;
             slot.dataset.index = i;
             
-            slot.addEventListener('dragover', (e) => this.handleDragOver(e));
-            slot.addEventListener('drop', (e) => this.handleDrop(e));
+            slot.addEventListener('dragover', (e) => this.handleSlotDragOver(e, this));
+            slot.addEventListener('drop', (e) => this.handleSlotDrop(e, this));
             
             this.element.appendChild(slot);
             this.slots.push(slot);
         }
     }
 
-    isValidPlacement(startIndex, size, draggingElement = null) {
-        if (startIndex + size > 10 || startIndex < 0) return false;
+    updateCombat(timeDiff) {
+        this.items.forEach(item => item.updateCombat(timeDiff));
+    }
+
+    isValidPlacement(startIndex, draggingElement) {
+        if (startIndex + parseInt(draggingElement.dataset.size) > 10 || startIndex < 0) return false;
         
-        const existingItems = Array.from(this.items);
-        const draggingSlot = document.querySelector('.merged-slot.dragging');
+        const existingItems = this.items;
         
-        const itemsToCheck = existingItems.filter(item => 
-            item && 
-            item.dataset && 
-            item !== draggingSlot
-        );
+        const itemsToCheck = existingItems.filter(someItem => {
+            return someItem.element !== draggingElement;
+        });
         
-        for (let i = startIndex; i < startIndex + size; i++) {
-            for (const item of itemsToCheck) {
-                const slotStart = parseInt(item.dataset.startIndex);
-                const slotSize = parseInt(item.dataset.size);
+        // Check each slot that would be occupied by the new item
+        for (let i = startIndex; i < startIndex + parseInt(draggingElement.dataset.size); i++) {
+            // Check if any existing item overlaps with this slot
+            for (const someItem of itemsToCheck) {
+                const slotStart = someItem.startIndex;
+                const slotSize = someItem.size;
                 
                 if (!isNaN(slotStart) && !isNaN(slotSize)) {
-                    if (i >= slotStart && i < slotStart + slotSize) {
+                    // Check if there's any overlap between the existing item and the slot we're checking
+                    const itemEnd = slotStart + slotSize - 1;
+                    if (i >= slotStart && i <= itemEnd) {
                         return false;
                     }
                 }
@@ -57,7 +61,7 @@ class Board {
         return true;
     }
 
-    handleDragOver(e) {
+    handleSlotDragOver(e,board) {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
         
@@ -67,89 +71,93 @@ class Board {
         const draggingElement = document.querySelector('.dragging');
         if (!draggingElement) return;
         
-        const itemData = JSON.parse(draggingElement.getAttribute('data-item'));
-        const size = getSizeValue(itemData.size);
         const startIndex = parseInt(slot.dataset.index);
         
-        // Get the correct board instance for the slot being hovered over
-        const boardElement = slot.closest('.board');
-        const targetBoard = Board.getBoardFromId(boardElement.id);
-        
-        targetBoard.updateDropPreview(slot, startIndex, size, draggingElement);
+        // Get the correct board instance for the slot being hovered over        
+        board.updateDropPreview(slot, startIndex, draggingElement);
     }
 
-    updateDropPreview(slot, startIndex, size, draggingElement) {
+    updateDropPreview(slot, startIndex, draggingElement) {
+        // Clear all preview classes first
         document.querySelectorAll('.valid-drop, .invalid-drop').forEach(element => {
             element.classList.remove('valid-drop', 'invalid-drop');
         });
         
-        if (this.isValidPlacement(startIndex, size, draggingElement)) {
-            slot.classList.add('valid-drop');
-            slot.classList.remove('invalid-drop');
+        if (this.isValidPlacement(startIndex, draggingElement)) {
+            // Add valid-drop class to all affected slots
+            for (let i = 0; i < draggingElement.dataset.size; i++) {
+                const targetSlot = this.slots[startIndex + i];
+                if (targetSlot) {
+                    targetSlot.classList.add('valid-drop');
+                }
+            }
         } else {
             slot.classList.add('invalid-drop');
-            slot.classList.remove('valid-drop');
         }
     }
 
-    handleDrop(e) {
+    handleSlotDrop(e, board) {
         e.preventDefault();
         clearDropPreview();
         
         const slot = e.target.closest('.board-slot');
         if (!slot) return;
-        
-        const startIndex = parseInt(slot.dataset.index);
         let itemData;
+        const startIndex = parseInt(slot.dataset.index);
         
-        try {
-            itemData = JSON.parse(e.dataTransfer.getData('text/plain'));
-        } catch (error) {
-            console.error('Invalid JSON data in drag and drop:', error);
-            return;
-        }
-        
-        if (!itemData) return;
-        
-        const size = getSizeValue(itemData.size);
         const draggingElement = document.querySelector('.dragging');
+        const alreadyOnBoard = draggingElement.classList.contains('merged-slot');
+        let size=1;
+        if(alreadyOnBoard) {
+            let boardItems = Board.getBoardFromId(draggingElement.closest('.board')?.id).items;
+            size = boardItems.find(item => item.element === draggingElement).size;
+        } else {
+            itemData = JSON.parse(draggingElement.getAttribute('data-item'));
+            size = getSizeValue(itemData.tags.find(tag => ['Small', 'Medium', 'Large'].includes(tag)) || 'Small');
+        }
+
         const boardElement = slot.closest('.board');
         const targetBoard = Board.getBoardFromId(boardElement.id);
-        
-        if (targetBoard.isValidPlacement(startIndex, size, draggingElement)) {
-            if (draggingElement?.classList.contains('merged-slot')) {
-                draggingElement.style.left = `${startIndex * 10}%`;
-                draggingElement.dataset.startIndex = startIndex;
-                targetBoard.element.appendChild(draggingElement);
-                targetBoard.items.add(draggingElement);
-            } else {
-                const newItem = targetBoard.placeItem(startIndex, size, itemData);
-                targetBoard.items.add(newItem);
+        const sourceBoard = Board.getBoardFromId(draggingElement.closest('.board')?.id);
+
+        if (board.isValidPlacement(startIndex, draggingElement)) {
+            if (alreadyOnBoard) {
+                const foundItem = sourceBoard.items.find(item => item.element === draggingElement);    
+                if(targetBoard==sourceBoard) {
+                    foundItem.setIndex(startIndex);
+                } else {
+                    targetBoard.addItem(foundItem);
+                    foundItem.setIndex(startIndex);
+                    sourceBoard.removeItem(foundItem);
+                }
+            } else { // If it was not already on a board, create a new item on the target board
+               let newItem = new Item(itemData, targetBoard);
+                newItem.setIndex(startIndex);
             }
         }
-        
-        slot.classList.remove('valid-drop', 'invalid-drop');
+        document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
+            element.classList.remove('valid-drop', 'invalid-drop', 'dragging');
+        });
+    
         deleteZone.style.display = 'none';
     }
 
+    addItem(item) {
+        this.items.push(item);
+        this.element.appendChild(item.element);
+    }
+
     removeItem(item) {
-        this.items.delete(item);
-        item.remove();
+        this.items = this.items.filter(i => i !== item);
     }
 
     clear() {
-        this.items.clear();
+        this.items = [];
         this.initialize();
     }
 
-    save() {
-        const items = Array.from(this.items).map(slot => ({
-            item: JSON.parse(slot.getAttribute('data-item')),
-            startIndex: parseInt(slot.dataset.startIndex),
-            size: parseInt(slot.dataset.size)
-        }));
-        
-        localStorage.setItem(`saved_${this.boardId}`, JSON.stringify(items));
+    save() {        
+        localStorage.setItem(`saved_${this.boardId}`, JSON.stringify(this.items));
     }
 
     load() {
@@ -158,57 +166,26 @@ class Board {
         
         this.clear();
         const items = JSON.parse(savedItems);
-        items.forEach(({item, startIndex, size}) => {
-            const newItem = this.placeItem(startIndex, size, item);
-            this.items.add(newItem);
+        items.forEach((itemData) => {
+            new Item(itemData, this);
         });
         return true;
     }
-    
-    placeItem(startIndex, size, itemData) {
-        const mergedSlot = document.createElement('div');
-        mergedSlot.className = 'merged-slot';
-        
-        // Add classes for each tag
-        if (itemData.tags && Array.isArray(itemData.tags)) {
-            itemData.tags.forEach(tag => {
-                mergedSlot.classList.add(`tag-${tag.toLowerCase()}`);
-            });
-        }
-        
-        mergedSlot.style.width = `${size * 10}%`;
-        mergedSlot.style.left = `${startIndex * 10}%`;
-        mergedSlot.dataset.startIndex = startIndex;
-        mergedSlot.dataset.size = size;
-        mergedSlot.setAttribute('data-item', JSON.stringify(itemData));
-        mergedSlot.itemData = itemData; 
-        mergedSlot.draggable = true;
-        
-        if (itemData.icon) {
-            const icon = document.createElement('img');
-            icon.src = itemData.icon;
-            icon.draggable = false;
-            mergedSlot.appendChild(icon);
-        }
-
-        mergedSlot.addEventListener('dragstart', Board.handleDragStart);
-        mergedSlot.addEventListener('dragend', Board.handleDragEnd);
-
-        attachTooltipListeners(mergedSlot);
-        
-        document.getElementById(this.boardId).appendChild(mergedSlot);
-        return mergedSlot;
+    resetItems() {
+        this.items.forEach(item => item.reset());
     }
 
     static handleDragStart(e) {
         const draggedElement = e.currentTarget;
-        const itemData = draggedElement.getAttribute('data-item');
-        if (!itemData) {
-            console.error('No item data found on dragged element');
-            return;
-        }
-        e.dataTransfer.setData('text/plain', itemData);
+        e.dataTransfer.setDragImage(draggedElement, 0, draggedElement.offsetHeight / 2);
         draggedElement.classList.add('dragging');
+        
+        // Use requestAnimationFrame to modify the element after the drag has started
+        requestAnimationFrame(() => {
+            draggedElement.style.opacity = '0';
+            draggedElement.style.pointerEvents = 'none';
+            draggedElement.style.zIndex = '-1';
+        });
         
         // Hide all tooltips when starting to drag
         document.querySelectorAll('.tooltip').forEach(tooltip => {
@@ -220,13 +197,49 @@ class Board {
 
     static handleDragEnd(e) {
         const draggedElement = e.currentTarget;
-        draggedElement.classList.remove('dragging');
+        // Restore original element properties
+        draggedElement.style.opacity = '1';
+        draggedElement.style.pointerEvents = '';  // Reset to default
+        draggedElement.style.zIndex = '';  // Reset to default
+        
+        document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
+            element.classList.remove('valid-drop', 'invalid-drop', 'dragging');
+        });
+    
+        
         deleteZone.style.display = 'none';
+
+        /*
+        // Get the board that originally contained this element
+        const sourceBoard = Board.getBoardFromId(draggedElement.closest('.board')?.id);
+        if (sourceBoard) {
+            // Remove the item from the board's tracking
+            sourceBoard.items.delete(draggedElement);
+        }
+        */
         
         // Re-enable tooltip functionality after drag ends
         document.querySelectorAll('.tooltip').forEach(tooltip => {
-            tooltip.style.display = 'none';  // Reset to none, will show on next mouseenter
+            tooltip.style.display = 'none';
         });
+    }
+
+    loadMonsterData(monsterData) {            
+        let startIndex = 0;
+        // Load monster items to the board
+        monsterData.items.forEach(item => {                    
+            let newItem = new Item(Item.getDataFromName(item), this);
+            newItem.setIndex(startIndex);
+            startIndex += newItem.size;
+        });
+
+        $('#topPlayerSkills').empty();
+        monsterData.skills.forEach(skill => {
+            let newSkill = new Skill(skills[skill]);
+            $('#topPlayerSkills').append(newSkill.element);
+        });
+        topPlayerHealth = monsterData.health;
+        $("#topPlayerHealth").html(topPlayerHealth);
     }
 }
 

@@ -35,11 +35,11 @@ def parse_skill_html(html_content):
                     if (not tag_text.endswith('+') and 
                         tag_text not in ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'] and 
                         tag_text):
-                        tags[tag_text.lower()] = 1
+                        tags[tag_text.title()] = 1
                     
             skill['name'] = name
-            skill['tags'] = tags
-            print(f"  Final tags: {tags}")
+            skill['tags'] = list(tags.keys())
+            print(f"  Final tags: {skill['tags']}")
             
             # Get description
             description = []
