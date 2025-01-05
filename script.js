@@ -120,64 +120,6 @@ function showSection(sectionId) {
     document.querySelector(`button[onclick="showSection('${sectionId}')"]`).classList.add('selected');
 }
 
-function createTooltipElement(itemData) {
-    const tooltip = document.createElement('div');
-    tooltip.className = 'tooltip';
-    
-    // Handle tags - convert to array if it's an object
-    let tagsArray = [];
-    if (itemData.tags) {
-        if (Array.isArray(itemData.tags)) {
-            tagsArray = itemData.tags;
-        } else if (typeof itemData.tags === 'object') {
-            // Convert object to array of keys where value is truthy
-            tagsArray = Object.entries(itemData.tags)
-                .filter(([_, value]) => value)
-                .map(([key, _]) => key);
-        }
-    }
-    
-    // Create HTML content with structured layout
-    let tooltipContent = `
-        <div class="tooltip-content">
-            <div class="tooltip-tags">
-                ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag}">${tag}</span>`).join('')}
-            </div>
-            <div class="tooltip-name">${itemData.name}</div>
-            <div class="tooltip-divider"></div>
-            <div class="tooltip-main">
-                ${itemData.cooldown ? `
-                    <div class="cooldown-circle">${itemData.cooldown}<span class="unit">SEC</span></div>
-                ` : ''}
-                <div class="tooltip-main-text">${itemData.text || ''}</div>
-            </div>
-            ${itemData.bottomText ? `
-                <div class="tooltip-divider"></div>
-                <div class="tooltip-bottom">${itemData.bottomText}</div>
-            ` : ''}
-        </div>
-    `;
-    
-    tooltip.innerHTML = tooltipContent;
-    tooltip.style.display = 'none'; // Hidden by default
-    
-    return tooltip;
-}
-
-function attachTooltipListeners(mergedSlot) {
-    // Create tooltip element
-    const tooltip = createTooltipElement(JSON.parse(mergedSlot.getAttribute('data-item')));
-    mergedSlot.appendChild(tooltip);
-    
-    // Add event listeners
-    mergedSlot.addEventListener('mouseenter', () => {
-        tooltip.style.display = 'block';
-    });
-    
-    mergedSlot.addEventListener('mouseleave', () => {
-        tooltip.style.display = 'none';
-    });
-}
 
 function createListItem(data) {
     const item = document.createElement('div');
@@ -185,7 +127,9 @@ function createListItem(data) {
     item.draggable = true;
     item.setAttribute('data-name', data.name);
     item.setAttribute('data-item', JSON.stringify(data));
-    
+    if(data.tags) {
+        item.setAttribute('data-size', getSizeValue(data.tags.find(tag => ['Small', 'Medium', 'Large'].includes(tag)) || 'Small'));
+    }
     if (data.icon) {
         const icon = document.createElement('img');
         icon.src = data.icon;
@@ -401,194 +345,89 @@ function log(s) {
     combatLog[0].scrollTop = combatLog[0].scrollHeight;
 }
 
-function triggerItem(item) {
-    let itemData = item.itemData;
-    //log('triggered item ', itemData.name);
-    if(itemData.tags.includes("Weapon")) {
-        let damage = itemData.damage;
-        let crit="";
-        // Handle critical hits using itemData.crit (0-100) instead of critChance
-        if (itemData.crit && Math.random() < (itemData.crit / 100)) {
-            damage *= 2;
-            crit =" critically strikes and";
-        }
-        
-        if(item.parentElement.id == 'bottom-board') {
-            topPlayerHealth -= damage;
-            log("Bottom player's "+itemData.name + 
-                        crit +
-                        " deals "+ damage+" damage.");
-        } else {
-            bottomPlayerHealth -= damage;
-            log("Top player's "+itemData.name + 
-                        crit+
-                        " deals "+ damage+" damage.");
-        }
-    }
-     // Check for haste effect when item is triggered
-     if (itemData.text && itemData.text.includes('Haste')) {
-        applyHasteEffect(item, item.closest('.board'));
-    }
-    if (itemData.text && itemData.text.includes('Slow')) {
-        applySlowEffect(item, item.closest('.board').id == 'inventory-board' ? document.getElementById('bottom-board') : document.getElementById('inventory-board'));
-    }
-}
-
-function applySlowEffect(sourceItem, board) {
+function applySlowEffect(item, board) {
     // Extract slow text from the item's text property - tag is optional
     // Both item count and duration can be either a single digit or a range
     const slowRegex = /Slow (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?item for (?:\(([^)]+)\)|(\d+)) second/;
-    const itemData = JSON.parse(sourceItem.getAttribute('data-item'));
     
-    if (!itemData.text || !slowRegex.test(itemData.text)) return;
+    if (!item.text || !slowRegex.test(item.text)) return;
     
-    const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = itemData.text.match(slowRegex);
+    const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = item.text.match(slowRegex);
     
     // Get the appropriate values based on item's rarity
     const numItemsToSlow = itemsRange ? 
-        getRarityValue(itemsRange, itemData.rarity) : 
+        getRarityValue(itemsRange, item.rarity) : 
         parseInt(singleItemCount);
     const duration = durationRange ? 
-        getRarityValue(durationRange, itemData.rarity) : 
+        getRarityValue(durationRange, item.rarity) : 
         parseInt(singleDuration);
     
     // Find all progress bars in the same board
-    let progressBars = Array.from(board.querySelectorAll('.battleItemProgressBar'));
+    let items = Array.from(board.items);
     
     // Filter by tag if one was specified
     if (requiredTag) {
-        progressBars = progressBars.filter(bar => {
-            const itemData = JSON.parse(bar.parentElement.getAttribute('data-item'));
-            return itemData.tags && itemData.tags.includes(requiredTag);
+        items = items.filter(i => {
+            return i.tags && i.tags.includes(requiredTag);
         });
     }
     
     // Randomly select N progress bars
-    const selectedBars = progressBars
+    const selectedItems = items
         .sort(() => Math.random() - 0.5)
         .slice(0, numItemsToSlow);
     
     // Apply slow effect to selected bars
-    selectedBars.forEach(bar => {
-        bar.dataset.slowTimeRemaining = parseInt(bar.dataset.slowTimeRemaining || 0) + duration*1000;
-        log(sourceItem.itemData.name + " slowed " + bar.parentElement.itemData.name + " for " + duration + " seconds");
+    selectedItems.forEach(i => {
+        i.slowTimeRemaining = parseInt(i.slowTimeRemaining || 0) + duration*1000;
+        log(item.name + " slowed " + i.name + " for " + duration + " seconds");
     });
 }
 
-function applyHasteEffect(sourceItem, board) {
+function applyHasteEffect(item, board) {
     // Extract haste text from the item's text property - tag is optional
     // Both item count and duration can be either a single digit or a range
     const hasteRegex = /Haste (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?item.* for (?:\(([^)]+)\)|(\d+)) second/;
-    const itemData = JSON.parse(sourceItem.getAttribute('data-item'));
+
+    if (!item.text || !hasteRegex.test(item.text)) return;
     
-    if (!itemData.text || !hasteRegex.test(itemData.text)) return;
-    
-    const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = itemData.text.match(hasteRegex);
+    const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = item.text.match(hasteRegex);
     
     // Get the appropriate values based on item's rarity
     const numItemsToHaste = itemsRange ? 
-        getRarityValue(itemsRange, itemData.rarity) : 
+        getRarityValue(itemsRange, item.rarity) : 
         parseInt(singleItemCount);
     const duration = durationRange ? 
-        getRarityValue(durationRange, itemData.rarity) : 
+        getRarityValue(durationRange, item.rarity) : 
         parseInt(singleDuration);
     
     // Find all progress bars in the same board
-    let progressBars = Array.from(board.querySelectorAll('.battleItemProgressBar'));
+    let items = Array.from(board.items);
     
     // Filter by tag if one was specified
     if (requiredTag) {
-        progressBars = progressBars.filter(bar => {
-            const itemData = JSON.parse(bar.parentElement.getAttribute('data-item'));
-            return itemData.tags && itemData.tags.includes(requiredTag);
+        items = items.filter(i => {
+            return i.tags && i.tags.includes(requiredTag);
         });
     }
     
     // Randomly select N progress bars
-    const selectedBars = progressBars
+    const selectedItems = items
         .sort(() => Math.random() - 0.5)
         .slice(0, numItemsToHaste);
     
     // Apply haste effect to selected bars
-    selectedBars.forEach(bar => {
-        bar.dataset.hasteTimeRemaining = parseInt(bar.dataset.hasteTimeRemaining || 0) + duration*1000;
-        log(sourceItem.itemData.name + " hasted " + bar.parentElement.itemData.name + " for " + duration + " seconds");
+    selectedItems.forEach(i => {
+        i.hasteTimeRemaining = parseInt(i.hasteTimeRemaining || 0) + duration*1000;
+        log(item.name + " hasted " + i.name + " for " + duration + " seconds");
     });
 }
 
 function battleFunction() {
     battleTimeDiff += 100;
-
-    //advance all the cooldowns by appropriate amounts
-    const progressBars = document.querySelectorAll('.battleItemProgressBar');
-    progressBars.forEach(bar => {
-        const cooldown = parseInt(bar.dataset.cooldown) * 1000;        
-        let hastedTime = parseInt(bar.dataset.hastedTime) || 0;
-        let hasteTimeRemaining = parseInt(bar.dataset.hasteTimeRemaining) || 0;
-        let slowedTime = parseInt(bar.dataset.slowedTime) || 0;
-        let slowTimeRemaining = parseInt(bar.dataset.slowTimeRemaining) || 0;
-
-        
-        // Handle haste effect
-        if(bar.dataset.isHasted == 1) {
-            hastedTime += 50;
-            hasteTimeRemaining -= 100;
-            bar.dataset.hastedTime = hastedTime;
-            bar.dataset.hasteTimeRemaining = hasteTimeRemaining;
-            if(hasteTimeRemaining <= 0) {
-                bar.dataset.isHasted = 0;
-            }
-        } else if(hasteTimeRemaining > 0) {
-            bar.dataset.isHasted = 1;
-        }
-
-        // Handle slow effect
-        if(bar.dataset.isSlowed == 1) {
-            slowedTime += 50;
-            slowTimeRemaining -= 100;
-            bar.dataset.slowedTime = slowedTime;
-            bar.dataset.slowTimeRemaining = slowTimeRemaining;
-            if(slowTimeRemaining <= 0) {
-                bar.dataset.isSlowed = 0;
-            }
-        } else if(slowTimeRemaining > 0) {
-            bar.dataset.isSlowed = 1;
-        }
-
-        // Calculate progress considering both haste and slow
-        let effectiveTime = battleTimeDiff + hastedTime - slowedTime;
-        let heightPercent = 100 * (effectiveTime % cooldown) / cooldown;
-        let bottomstyle = 'calc(' + heightPercent + '% - 5px)';
-        bar.style.bottom = bottomstyle;
-
-        
-        // Update haste indicator
-        const hasteIndicator = bar.querySelector('.haste-indicator');
-        if (hasteTimeRemaining > 0) {
-            hasteIndicator.classList.remove('hidden');
-            hasteIndicator.textContent = (hasteTimeRemaining / 1000).toFixed(1);
-        } else {
-            hasteIndicator.classList.add('hidden');
-        }
-
-        // Update slow indicator
-        const slowIndicator = bar.querySelector('.slow-indicator');
-        if (slowTimeRemaining > 0) {
-            slowIndicator.classList.remove('hidden');
-            slowIndicator.textContent = (slowTimeRemaining / 1000).toFixed(1);
-        } else {
-            slowIndicator.classList.add('hidden');
-        }
-        
-
-        let numTriggers = Math.floor(effectiveTime / cooldown);
-        let count = 0;
-        while(bar.dataset.numTriggers != numTriggers && count++ < 100) {
-            bar.dataset.numTriggers++;
-            triggerItem(bar.parentElement);
-        }
-    });
-
+    inventoryBoard.updateCombat(100);
+    bottomBoard.updateCombat(100);
+    
     $("#topPlayerHealth").html(topPlayerHealth);
     $("#bottomPlayerHealth").html(bottomPlayerHealth);
 
@@ -620,11 +459,8 @@ function resetBattle() {
     battleInterval = null; // Clear the interval reference
     resetHealth();
     
-    // Remove progress bars
-    document.querySelectorAll('.battleItemProgressBar').forEach(bar => {
-        bar.remove();
-    });
-    
+    inventoryBoard.resetItems();
+    bottomBoard.resetItems();
     // Reset button
     battleButton.textContent = 'Start Battle';
     battleButton.classList.remove('pause-battle');
@@ -658,58 +494,14 @@ function startBattle() {
     }
     
     combatLog.val("Battle Started");
-        // Initialize players
-        window.topPlayer = new Player();
-        window.bottomPlayer = new Player();
-        
-        topPlayer.initialize('inventory-board', 'topPlayerSkills', topPlayerHealth);
-        bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', bottomPlayerHealth);
-        
-    // Start new battle
-    // startBattleTime = Date.now();
+    // Initialize players
+    window.topPlayer = new Player();
+    window.bottomPlayer = new Player();
+    
+    topPlayer.initialize('inventory-board', 'topPlayerSkills', topPlayerHealth);
+    bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', bottomPlayerHealth);
+    
     battleTimeDiff = 0;
-    // checkpoint
-    // Get all items from all boards
-    const items = document.querySelectorAll('.merged-slot');
-    items.forEach(item => {
-        const itemData = JSON.parse(item.getAttribute('data-item'));
-        if(itemData.tags.includes("Weapon")) {
-            // Updated regex to capture both "(X>>Y>>Z)" format and simple "X" format
-            const damageRegex = /Deal (?:\(([^)]+)\)|(\d+)) damage/i;
-            const match = itemData.text.match(damageRegex);
-            
-            // If there's a match, use the first captured group (parentheses format) or second group (simple number)
-            itemData.damage = match ? 
-                (match[1] ? getRarityValue(match[1], itemData.rarity) : parseInt(match[2])) 
-                : 0;
-            
-            item.setAttribute('data-item', JSON.stringify(itemData));
-            item.itemData = itemData;
-        }
-        const cooldown = itemData.cooldown || 0; // Default to 0 if no cooldown specified 1
-        if(cooldown==0) return; // done 1 
-        const progressBar = document.createElement('div'); // new crated thing = progress bar super global(local)
-        progressBar.className = 'battleItemProgressBar';// Div class battle item progressbar // now something you can check back on 
-        progressBar.dataset.cooldown = cooldown; // checkpoint
-        progressBar.dataset.numTriggers = 0; // in start battle func
-        progressBar.dataset.hastedTime = 0;
-        progressBar.dataset.hasteTimeRemaining = 0;
-        progressBar.dataset.isHasted = 0;
-        progressBar.dataset.slowedTime = 0;
-        progressBar.dataset.slowTimeRemaining = 0;
-        progressBar.dataset.isSlowed = 0;
-                
-        // Add the status indicators (hidden by default)
-        const hasteIndicator = document.createElement('div');
-        hasteIndicator.className = 'haste-indicator hidden';
-        progressBar.appendChild(hasteIndicator);
-
-        const slowIndicator = document.createElement('div');
-        slowIndicator.className = 'slow-indicator hidden';
-        progressBar.appendChild(slowIndicator);
-
-        item.appendChild(progressBar);
-    });
 
     battleInterval = setInterval(battleFunction, 100);
 
@@ -919,7 +711,8 @@ deleteZone.addEventListener('drop', (e) => {
         // Get the source board and remove the item from its tracking
         const sourceBoard = Board.getBoardFromId(draggingElement.closest('.board')?.id);
         if (sourceBoard) {
-            sourceBoard.items.delete(draggingElement);
+            // Remove the item from the board's tracking by matching the element
+            sourceBoard.items = sourceBoard.items.filter(item => item.element !== draggingElement);
         }
         
         draggingElement.classList.add('removing');
@@ -945,45 +738,7 @@ function stripEnchantFromName(name) {
 function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
     const board = Board.getBoardFromId(boardId);
     board.clear();
-    let startIndex = 0;
-    
-    // Load monster items to the board
-    monsterData.items.forEach(item => {        
-        item = Item.getFromName(item);
-        let size = item.size;
-        
-        const newItem = board.placeItem(startIndex, size, item, boardId);
-        board.items.add(newItem);
-        startIndex += size;
-    });
-
-    $('#topPlayerSkills').empty();
-    monsterData.skills.forEach(skill => {
-        const skillData = skills[skill];
-        const skillElement = $('<div>', {
-            class: 'skill-icon',
-            'data-skill': JSON.stringify(skillData)
-        }).append($('<img>', {
-            src: skillData.icon
-        }));
-
-        // Create and attach tooltip
-        const tooltip = createTooltipElement(skillData);
-        skillElement.append(tooltip);
-
-        // Add hover listeners
-        skillElement.on('mouseenter', () => {
-            tooltip.style.display = 'block';
-        });
-        
-        skillElement.on('mouseleave', () => {
-            tooltip.style.display = 'none';
-        });
-
-        $('#topPlayerSkills').append(skillElement);
-    });
-    topPlayerHealth = monsterData.health;
-    $("#topPlayerHealth").html(topPlayerHealth);
+    board.loadMonsterData(monsterData);    
 }
 
 function searchMonsters(query) {
