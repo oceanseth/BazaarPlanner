@@ -6,7 +6,6 @@ class Item {
         this.board = board;
         Object.assign(this, this.startItemData);
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
-        this.cooldown = (this.startItemData.cooldown || 5) * 1000;
 
         this.progressBar = document.createElement('div'); 
         this.progressBar.className = 'battleItemProgressBar';
@@ -32,7 +31,10 @@ class Item {
     reset() {
         Object.assign(this, this.startItemData);
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
-        this.cooldown = (this.startItemData.cooldown || 5) * 1000; // Convert to ms
+        if(this.startItemData.cooldown) {
+            this.cooldown = (this.startItemData.cooldown || 5) * 1000;
+        }
+
         this.hasteTimeRemaining = 0;
         this.slowTimeRemaining = 0;
         this.numTriggers = 0;
@@ -54,7 +56,8 @@ class Item {
 
         this.progressBar.style.bottom = '-5px';
         this.hasteIndicator.classList.add('hidden');
-        this.slowIndicator.classList.add('hidden');                
+        this.slowIndicator.classList.add('hidden');    
+        this.progressBar.style.display = 'none';            
     }
     createElement() {
         const mergedSlot = document.createElement('div');

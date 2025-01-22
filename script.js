@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
         topPlayer.hostileTarget = bottomPlayer;
         bottomPlayer.hostileTarget = topPlayer;
         
-        topPlayer.initialize('inventory-board', 'topPlayerSkills', topPlayerHealth);
-        bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', bottomPlayerHealth);
+        topPlayer.initialize('inventory-board', 'topPlayerSkills', 1000);
+        bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', 1000);
   //      initializeMonsterSearch();
 });
 
@@ -308,9 +308,6 @@ function saveBoard(boardId) {
     }, 1500);
 }
 
-
-var topPlayerHealth = 1000;
-var bottomPlayerHealth = 1000;
 const battleButton = document.querySelector('.battle-button');
 
 function resetHealth() {
@@ -331,23 +328,23 @@ function battleFunction() {
     topPlayer.updateCombat(100);
     bottomPlayer.updateCombat(100);
     
-    $("#topPlayerHealth").html(topPlayerHealth);
-    $("#bottomPlayerHealth").html(bottomPlayerHealth);
+    $("#topPlayerHealth").html(topPlayer.health);
+    $("#bottomPlayerHealth").html(bottomPlayer.health);
 
   if(battleTimeDiff>30000) {
     let sandstormDmg = Math.floor(sandstormValue);
     log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
-    topPlayerHealth-=sandstormDmg;
-    bottomPlayerHealth-=sandstormDmg;
+    topPlayer.health-=sandstormDmg;
+    bottomPlayer.health-=sandstormDmg;
     sandstormValue+=sandstormIncrement;
   }
 
-  if(topPlayerHealth<=0) {
+  if(topPlayer.health<=0) {
     clearInterval(battleInterval);
     alert("you win");
     resetBattle();
   }
-  if(bottomPlayerHealth <=0) {
+  if(bottomPlayer.health <=0) {
     clearInterval(battleInterval);
     resetBattle();
     alert("you lose");

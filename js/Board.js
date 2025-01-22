@@ -23,7 +23,6 @@ class Board {
             const slot = document.createElement('div');
             slot.className = 'board-slot';
             slot.style.left = `${i * 10}%`;
-            slot.style.display = 'none';
             slot.dataset.index = i;
             
             slot.addEventListener('dragover', (e) => this.handleSlotDragOver(e, this));
@@ -34,7 +33,7 @@ class Board {
         }
     }
     startBattle() {
-        this.slots.forEach(slot => slot.style.display = 'block');
+        this.items.forEach(item => item.progressBar.style.display = 'block');
     }
 
     updateCombat(timeDiff) {
@@ -183,7 +182,6 @@ class Board {
 
     reset() {
         this.resetItems();
-        this.slots.forEach(slot => slot.style.display = 'none');
     }
 
     resetItems() {
@@ -254,7 +252,7 @@ class Board {
             let newSkill = new Skill(skills[skill]);
             $('#topPlayerSkills').append(newSkill.element);
         });
-        topPlayerHealth = monsterData.health;
+        this.player.maxHealth = monsterData.health;
         $("#topPlayerHealth").html(topPlayerHealth);
     }
 }
