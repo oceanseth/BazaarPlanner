@@ -1,12 +1,17 @@
 class Board {
+    player = null; //Will be set when a player is initialized and they create a board
+    static boards = [];
     static getBoardFromId(boardId) {
-        return boardId === 'inventory-board' ? inventoryBoard : bottomBoard;
+        if(Board.boards[boardId]) return Board.boards[boardId];
+        console.log("Board not found: " + boardId);
+        return null;
     }
 
     constructor(boardId) {
         this.boardId = boardId;
         this.element = document.getElementById(boardId);
         this.initialize();
+        Board.boards[boardId] = this;
     }
 
     initialize() {
@@ -18,6 +23,7 @@ class Board {
             const slot = document.createElement('div');
             slot.className = 'board-slot';
             slot.style.left = `${i * 10}%`;
+            slot.style.display = 'none';
             slot.dataset.index = i;
             
             slot.addEventListener('dragover', (e) => this.handleSlotDragOver(e, this));
@@ -26,6 +32,9 @@ class Board {
             this.element.appendChild(slot);
             this.slots.push(slot);
         }
+    }
+    startBattle() {
+        this.slots.forEach(slot => slot.style.display = 'block');
     }
 
     updateCombat(timeDiff) {
@@ -171,6 +180,11 @@ class Board {
         });
         return true;
     }
+
+    reset() {
+        this.resetItems();
+    }
+
     resetItems() {
         this.items.forEach(item => item.reset());
     }
@@ -232,6 +246,7 @@ class Board {
             newItem.setIndex(startIndex);
             startIndex += newItem.size;
         });
+        
 
         $('#topPlayerSkills').empty();
         monsterData.skills.forEach(skill => {

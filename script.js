@@ -1,8 +1,3 @@
-// Initialize board variables at the top
-let inventoryBoard;
-let bottomBoard;
-
-// Call this when the page loads
 document.addEventListener('DOMContentLoaded', () => {
         const monstersList = document.getElementById('monstersList');
         monstersList.innerHTML = '';
@@ -48,11 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
         simulatorItemsList.style.height = '300px';
         simulatorItemsList.style.overflowY = 'scroll';
+            
+        // Initialize players
+        window.topPlayer = new Player("Top Player");
+        window.bottomPlayer = new Player("Bottom Player");
+        topPlayer.hostileTarget = bottomPlayer;
+        bottomPlayer.hostileTarget = topPlayer;
+        
+        topPlayer.initialize('inventory-board', 'topPlayerSkills', topPlayerHealth);
+        bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', bottomPlayerHealth);
   //      initializeMonsterSearch();
-    
-    
-    inventoryBoard = new Board('inventory-board');
-    bottomBoard = new Board('bottom-board');
 });
 
 
@@ -71,24 +71,6 @@ const deleteZone = document.createElement('div');
 deleteZone.className = 'delete-zone';
 deleteZone.textContent = 'Drop here to delete';
 document.querySelector('.board-container:last-child').appendChild(deleteZone);
-
-function saveBoards() {
-    inventoryBoard.save();
-    bottomBoard.save();
-    alert('Boards saved successfully!');
-}
-
-function loadTopBoard() {
-    if (!inventoryBoard.load()) {
-        alert('No saved top board found!');
-    }
-}
-
-function loadBottomBoard() {
-    if (!bottomBoard.load()) {
-        alert('No saved bottom board found!');
-    }
-}
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -295,7 +277,7 @@ function saveBoard(boardId) {
     const board = document.getElementById(boardId);
     
     // Get all items from the board
-    const items = Array.from(board.querySelectorAll('.merged-slot')).map(slot => ({
+    const items = Array.from(board.element.querySelectorAll('.merged-slot')).map(slot => ({
         item: JSON.parse(slot.getAttribute('data-item')),
         startIndex: parseInt(slot.dataset.startIndex),
         size: parseInt(slot.dataset.size)
@@ -332,10 +314,8 @@ var bottomPlayerHealth = 1000;
 const battleButton = document.querySelector('.battle-button');
 
 function resetHealth() {
-    topPlayerHealth = 1000;
-    bottomPlayerHealth = 1000;
-    $("#topPlayerHealth").html(topPlayerHealth);
-    $("#bottomPlayerHealth").html(bottomPlayerHealth);
+    $("#topPlayerHealth").html(topPlayer.maxHealth);
+    $("#bottomPlayerHealth").html(bottomPlayer.maxHealth);
 }
 
 var battleInterval = undefined;
@@ -345,88 +325,11 @@ function log(s) {
     combatLog[0].scrollTop = combatLog[0].scrollHeight;
 }
 
-function applySlowEffect(item, board) {
-    // Extract slow text from the item's text property - tag is optional
-    // Both item count and duration can be either a single digit or a range
-    const slowRegex = /Slow (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?item for (?:\(([^)]+)\)|(\d+)) second/;
-    
-    if (!item.text || !slowRegex.test(item.text)) return;
-    
-    const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = item.text.match(slowRegex);
-    
-    // Get the appropriate values based on item's rarity
-    const numItemsToSlow = itemsRange ? 
-        getRarityValue(itemsRange, item.rarity) : 
-        parseInt(singleItemCount);
-    const duration = durationRange ? 
-        getRarityValue(durationRange, item.rarity) : 
-        parseInt(singleDuration);
-    
-    // Find all progress bars in the same board
-    let items = Array.from(board.items);
-    
-    // Filter by tag if one was specified
-    if (requiredTag) {
-        items = items.filter(i => {
-            return i.tags && i.tags.includes(requiredTag);
-        });
-    }
-    
-    // Randomly select N progress bars
-    const selectedItems = items
-        .sort(() => Math.random() - 0.5)
-        .slice(0, numItemsToSlow);
-    
-    // Apply slow effect to selected bars
-    selectedItems.forEach(i => {
-        i.slowTimeRemaining = parseInt(i.slowTimeRemaining || 0) + duration*1000;
-        log(item.name + " slowed " + i.name + " for " + duration + " seconds");
-    });
-}
-
-function applyHasteEffect(item, board) {
-    // Extract haste text from the item's text property - tag is optional
-    // Both item count and duration can be either a single digit or a range
-    const hasteRegex = /Haste (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?item.* for (?:\(([^)]+)\)|(\d+)) second/;
-
-    if (!item.text || !hasteRegex.test(item.text)) return;
-    
-    const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = item.text.match(hasteRegex);
-    
-    // Get the appropriate values based on item's rarity
-    const numItemsToHaste = itemsRange ? 
-        getRarityValue(itemsRange, item.rarity) : 
-        parseInt(singleItemCount);
-    const duration = durationRange ? 
-        getRarityValue(durationRange, item.rarity) : 
-        parseInt(singleDuration);
-    
-    // Find all progress bars in the same board
-    let items = Array.from(board.items);
-    
-    // Filter by tag if one was specified
-    if (requiredTag) {
-        items = items.filter(i => {
-            return i.tags && i.tags.includes(requiredTag);
-        });
-    }
-    
-    // Randomly select N progress bars
-    const selectedItems = items
-        .sort(() => Math.random() - 0.5)
-        .slice(0, numItemsToHaste);
-    
-    // Apply haste effect to selected bars
-    selectedItems.forEach(i => {
-        i.hasteTimeRemaining = parseInt(i.hasteTimeRemaining || 0) + duration*1000;
-        log(item.name + " hasted " + i.name + " for " + duration + " seconds");
-    });
-}
 
 function battleFunction() {
     battleTimeDiff += 100;
-    inventoryBoard.updateCombat(100);
-    bottomBoard.updateCombat(100);
+    topPlayer.updateCombat(100);
+    bottomPlayer.updateCombat(100);
     
     $("#topPlayerHealth").html(topPlayerHealth);
     $("#bottomPlayerHealth").html(bottomPlayerHealth);
@@ -458,9 +361,8 @@ function resetBattle() {
     sandstormValue=1;
     battleInterval = null; // Clear the interval reference
     resetHealth();
-    
-    inventoryBoard.resetItems();
-    bottomBoard.resetItems();
+    topPlayer.reset();
+    bottomPlayer.reset();
     // Reset button
     battleButton.textContent = 'Start Battle';
     battleButton.classList.remove('pause-battle');
@@ -484,6 +386,8 @@ var combatLog = $("#combat-log");
 var isPaused = 0;
 var pauseTime = 0;
 
+let battleRNG = null;
+
 function startBattle() {
     if(isPaused) {
         unpauseBattle();
@@ -493,13 +397,18 @@ function startBattle() {
         return;
     }
     
-    combatLog.val("Battle Started");
-    // Initialize players
-    window.topPlayer = new Player();
-    window.bottomPlayer = new Player();
+    // Generate a random seed (32 characters)
+    // Using ASCII printable characters (33-126)
+    const battleSeed = [...crypto.getRandomValues(new Uint8Array(32))]
+        .reduce((acc, x) => acc + String.fromCharCode(33 + (x % 94)), '');
     
-    topPlayer.initialize('inventory-board', 'topPlayerSkills', topPlayerHealth);
-    bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', bottomPlayerHealth);
+    // Initialize the RNG with the seed
+    battleRNG = new Math.seedrandom(battleSeed);
+    
+    combatLog.val("Battle Started\nBattle Seed: " + battleSeed);
+    
+    topPlayer.board.startBattle();
+    bottomPlayer.board.startBattle();
     
     battleTimeDiff = 0;
 
