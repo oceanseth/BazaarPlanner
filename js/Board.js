@@ -183,6 +183,7 @@ class Board {
 
     reset() {
         this.resetItems();
+        this.slots.forEach(slot => slot.style.display = 'none');
     }
 
     resetItems() {
