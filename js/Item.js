@@ -39,6 +39,7 @@ class Item {
         this.slowTimeRemaining = 0;
         this.numTriggers = 0;
         this.effectiveBattleTime = 0;
+        this.value = this.startItemData.value || this.getInitialValue();
         this.damage = this.calculateDamage();
         this.burn = this.calculateBurn();
         this.poison = this.calculatePoison();
@@ -59,6 +60,12 @@ class Item {
         this.slowIndicator.classList.add('hidden');    
         this.progressBar.style.display = 'none';            
     }
+
+    getInitialValue() {
+        const rarityIndex = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'].indexOf(this.rarity || 'Bronze');
+        return this.size * Math.pow(2,this.rarityIndex);           
+    }
+
     createElement() {
         const mergedSlot = document.createElement('div');
         mergedSlot.className = 'merged-slot';
