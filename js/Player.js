@@ -62,9 +62,10 @@ class Player {
             return shieldDamage;
         }
         else {
+            let damageTaken = this.shield + (damage - this.shield/shieldScalar);
             this.health -= damage - (this.shield/shieldScalar);
             this.shield = 0;
-            return damage;
+            return damageTaken;
         }
     }
     updateCombat(timeDiff) {
