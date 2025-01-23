@@ -50,20 +50,21 @@ class Player {
         
     }
     takeDamage(damage, shieldScalar = 1, ignoreShield = false) {
+        
         if(ignoreShield || this.shield <= 0) {
             this.health -= damage;
             return damage;
-        } else {
-            let shieldDamage = damage*shieldScalar;
-            if(this.shield > shieldDamage) {
-                this.shield -= shieldDamage;
-                return shieldDamage;
-            }
-            else {
-                this.health -= damage - this.shield;
-                this.shield = 0;
-                return damage;
-            }
+        }
+
+        let shieldDamage = damage*shieldScalar;
+        if(this.shield > shieldDamage) {
+            this.shield -= shieldDamage;
+            return shieldDamage;
+        }
+        else {
+            this.health -= damage - this.shield;
+            this.shield = 0;
+            return damage;
         }
     }
     updateCombat(timeDiff) {
