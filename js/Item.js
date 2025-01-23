@@ -7,7 +7,7 @@ class Item {
         Object.assign(this, this.startItemData);
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
         if(this.startItemData.cooldown) {
-            this.cooldown = (this.startItemData.cooldown || 5) * 1000;
+            this.cooldown = this.startItemData.cooldown * 1000;
         }
 
         this.progressBar = document.createElement('div'); 
