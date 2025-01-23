@@ -328,7 +328,7 @@ class Item {
     applySlowTrigger() {
         // Extract slow text from the item's text property - tag is optional
         // Both item count and duration can be either a single digit or a range
-        const slowRegex = /Slow (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?items?\(?s?\)?\s*for (?:\(([^)]+)\)|(\d+)) seconds?\(?s?\)?/i;
+        const slowRegex = /Slow (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?items?\(?s?\)?\s*for (?:\(([^)]+)\)|(\d+)) second/i;
         
         if (!this.text || !slowRegex.test(this.text)) return;
         
