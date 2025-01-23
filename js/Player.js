@@ -62,8 +62,9 @@ class Player {
             return shieldDamage;
         }
         else {
-            let damageTaken = this.shield + (damage - this.shield/shieldScalar);
-            this.health -= damage - (this.shield/shieldScalar);
+            let healthDamage = (damage - this.shield/shieldScalar);
+            let damageTaken = this.shield + healthDamage;
+            this.health -= healthDamage;
             this.shield = 0;
             return damageTaken;
         }
