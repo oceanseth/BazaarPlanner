@@ -57,7 +57,7 @@ class Player {
         }
 
         let shieldDamage = damage*shieldScalar;
-        if(this.shield > shieldDamage) {
+        if(this.shield >= shieldDamage) {
             this.shield -= shieldDamage;
             return shieldDamage;
         }
