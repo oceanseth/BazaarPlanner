@@ -3,7 +3,7 @@ class Board {
     static boards = [];
     static getBoardFromId(boardId) {
         if(Board.boards[boardId]) return Board.boards[boardId];
-        console.log("Board not found: " + boardId);
+        //console.log("Board not found: " + boardId);
         return null;
     }
 

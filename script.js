@@ -417,8 +417,7 @@ function startBattle() {
 }
 
 function editItem(item) {
-    const itemData = JSON.parse(item.getAttribute('data-item'));
-    
+    const itemData = item.startItemData;
     // List of available enchantments and rarities
     const enchantments = [
         'None',
@@ -497,7 +496,7 @@ function editItem(item) {
     }
     
     // Add crit chance field only if item has damage
-    if (itemData.damage !== undefined) {
+    if (itemData.tags.indexOf('Weapon') !== -1) {
         popupHTML += `
             <div class="form-group">
                 <label>Crit Chance (0-100):</label>
@@ -549,7 +548,16 @@ function editItem(item) {
 document.addEventListener('click', (e) => {
     const mergedSlot = e.target.closest('.merged-slot');
     if (mergedSlot) {
-        editItem(mergedSlot);
+        topPlayer.board.items.forEach(item => {
+           if(item.element === mergedSlot) {
+            editItem(item);
+           }
+        });
+        bottomPlayer.board.items.forEach(item => {
+            if(item.element === mergedSlot) {
+             editItem(item);
+            }
+         });
     }
 });
 
@@ -693,4 +701,13 @@ function getRarityValue(valueString, rarity) {
     // Get the appropriate value based on item's rarity
     const rarityIndex = ['Bronze', 'Silver', 'Gold', 'Diamond'].indexOf(rarity || 'Bronze');
     return values[rarityIndex] || values[0];
+}
+
+// Helper function to get random numbers during battle
+function battleRandom() {
+    if (!battleRNG) {
+        console.error('Battle RNG not initialized!');
+        return Math.random(); // Fallback to regular random
+    }
+    return battleRNG();
 }

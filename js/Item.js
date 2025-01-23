@@ -6,6 +6,9 @@ class Item {
         this.board = board;
         Object.assign(this, this.startItemData);
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
+        if(this.startItemData.cooldown) {
+            this.cooldown = (this.startItemData.cooldown || 5) * 1000;
+        }
 
         this.progressBar = document.createElement('div'); 
         this.progressBar.className = 'battleItemProgressBar';
@@ -20,8 +23,41 @@ class Item {
 
         this.element = this.createElement();
         this.element.appendChild(this.progressBar);
-        
+
         this.reset();
+
+
+        this.priceTagElement = document.createElement('div');
+        this.priceTagElement.className = 'price-tag';
+        this.priceTagElement.textContent = this.value;
+        this.element.appendChild(this.priceTagElement);
+        
+        this.triggerValuesElement = document.createElement('div');
+        this.triggerValuesElement.className = 'trigger-values';
+        this.element.appendChild(this.triggerValuesElement);
+
+        if(this.tags.includes("Weapon")) {
+            this.damageElement = document.createElement('div');
+            this.damageElement.className = 'damage-element';
+            this.damageElement.textContent = this.damage;
+            this.triggerValuesElement.appendChild(this.damageElement);
+        }
+
+        if(this.tags.includes("Burn")) {    
+            this.burnElement = document.createElement('div');
+            this.burnElement.className = 'burn-element';
+            this.burnElement.textContent = this.burn;
+            this.triggerValuesElement.appendChild(this.burnElement);
+        }
+
+        if(this.tags.includes("Poison")) {
+            this.poisonElement = document.createElement('div');
+            this.poisonElement.className = 'poison-element';
+            this.poisonElement.textContent = this.poison;
+            this.triggerValuesElement.appendChild(this.poisonElement);
+        }
+
+   
      
 
         if(board) {
@@ -63,7 +99,7 @@ class Item {
 
     getInitialValue() {
         const rarityIndex = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'].indexOf(this.rarity || 'Bronze');
-        return this.size * Math.pow(2,this.rarityIndex);           
+        return this.size * Math.pow(2, rarityIndex);           
     }
 
     createElement() {
@@ -292,7 +328,7 @@ class Item {
     applySlowTrigger() {
         // Extract slow text from the item's text property - tag is optional
         // Both item count and duration can be either a single digit or a range
-        const slowRegex = /Slow (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?item for (?:\(([^)]+)\)|(\d+)) second/;
+        const slowRegex = /Slow (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?items?\(?s?\)?\s*for (?:\(([^)]+)\)|(\d+)) seconds?\(?s?\)?/i;
         
         if (!this.text || !slowRegex.test(this.text)) return;
         
@@ -305,16 +341,18 @@ class Item {
         const duration = durationRange ? 
             getRarityValue(durationRange, this.rarity) : 
             parseInt(singleDuration);
-        // Find all progress bars in the same board
-        let items = Array.from(this.board.player.hostileTarget.board.items);
-
-        // Filter by tag if one was specified
-        if (requiredTag) {
-            items = items.filter(i => {
-                return i.tags && i.tags.includes(requiredTag);
-            });
-        }
+      
         this.triggerFunctions.push(() => {
+                // Find all progress bars in the same board
+            let items = Array.from(this.board.player.hostileTarget.board.items);
+            items = items.filter(i => i.cooldown != null); // filter out items that do not have a cooldown/ability to trigger
+
+            // Filter by tag if one was specified
+            if (requiredTag) {
+                items = items.filter(i => {
+                    return i.tags && i.tags.includes(requiredTag);
+                });
+            }
             // Randomly select N progress bars
             const selectedItems = items
                 .sort(() => battleRandom() - 0.5)
@@ -345,16 +383,18 @@ class Item {
             getRarityValue(durationRange, this.rarity) : 
             parseInt(singleDuration);
         
-        // Find all progress bars in the same board
-        let items = Array.from(this.board.items);
-        
-        // Filter by tag if one was specified
-        if (requiredTag) {
-            items = items.filter(i => {
-                return i.tags && i.tags.includes(requiredTag);
-            });
-        }
+       
         this.triggerFunctions.push(() => {
+             // Find all progress bars in the same board
+            let items = Array.from(this.board.items);
+            items = items.filter(i => i.cooldown != null); // filter out items that do not have a cooldown/ability to trigger
+            
+            // Filter by tag if one was specified
+            if (requiredTag) {
+                items = items.filter(i => {
+                    return i.tags && i.tags.includes(requiredTag);
+                });
+            }
             // Randomly select N items from the board
             const selectedItems = items
             .sort(() => battleRandom() - 0.5)
@@ -372,7 +412,7 @@ class Item {
         if(!this.tags.includes("Poison")) return; 
         this.triggerFunctions.push(() => {
             this.board.player.hostileTarget.poison += this.poison;
-            log(this.name + " poisoned " + this.board.player.hostileTarget.name);
+            log(this.name + " poisoned " + this.board.player.hostileTarget.name + " for " + this.poison);
         });
     }
 
@@ -380,7 +420,7 @@ class Item {
         if(!this.tags.includes("Burn")) return; 
         this.triggerFunctions.push(() => {
             this.board.player.hostileTarget.burn += this.burn;
-            log(this.name + " burned " + this.board.player.hostileTarget.name);
+            log(this.name + " burned " + this.board.player.hostileTarget.name + " for " + this.burn);
         });
     }
 

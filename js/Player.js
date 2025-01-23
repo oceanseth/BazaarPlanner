@@ -57,13 +57,14 @@ class Player {
                 return shieldDamage;
             }
             else {
-                this.health -= damage - this.shield/shieldScalar;
+                this.health -= damage - this.shield;
                 this.shield = 0;
-                this.health -= damage;
+                return damage;
             }
         }
         else {
             this.health -= damage;
+            return damage;
         }
     }
     updateCombat(timeDiff) {
@@ -76,8 +77,8 @@ class Player {
             this.burn--;
         }
         if(this.combatTime%1000==0 && this.poison > 0) { // Poison damage every 1000ms  
-            dmg = this.takeDamage(this.poison, 1, true);
-            log( this.name + " has "+this.poison+" poison and takes " + dmg + " damage.");
+            this.takeDamage(this.poison, 1, true);
+            log( this.name + " takes " + this.poison + " damage from poison.");
         }
     }
     reset() {
