@@ -3041,7 +3041,7 @@ const items = {
       "Fiery": "Burn 6.",
       "Shiny": "+1 Multicast"
     },
-    "text": "Slow ( 1 » 2 » 3 » 4 ) item(s) for ( 4 » 4 » 4 » 3 ) second(s)."
+    "text": "Slow ( 2 » 3 » 4 ) item(s) for 3 second(s)."
   },
   "Dog": {
     "name": "Dog",

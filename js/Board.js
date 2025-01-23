@@ -1,12 +1,17 @@
 class Board {
+    player = null; //Will be set when a player is initialized and they create a board
+    static boards = [];
     static getBoardFromId(boardId) {
-        return boardId === 'inventory-board' ? inventoryBoard : bottomBoard;
+        if(Board.boards[boardId]) return Board.boards[boardId];
+        //console.log("Board not found: " + boardId);
+        return null;
     }
 
     constructor(boardId) {
         this.boardId = boardId;
         this.element = document.getElementById(boardId);
         this.initialize();
+        Board.boards[boardId] = this;
     }
 
     initialize() {
@@ -26,6 +31,9 @@ class Board {
             this.element.appendChild(slot);
             this.slots.push(slot);
         }
+    }
+    startBattle() {
+        this.items.forEach(item => item.progressBar.style.display = 'block');
     }
 
     updateCombat(timeDiff) {
@@ -171,6 +179,11 @@ class Board {
         });
         return true;
     }
+
+    reset() {
+        this.resetItems();
+    }
+
     resetItems() {
         this.items.forEach(item => item.reset());
     }
@@ -232,13 +245,14 @@ class Board {
             newItem.setIndex(startIndex);
             startIndex += newItem.size;
         });
+        
 
         $('#topPlayerSkills').empty();
         monsterData.skills.forEach(skill => {
             let newSkill = new Skill(skills[skill]);
             $('#topPlayerSkills').append(newSkill.element);
         });
-        topPlayerHealth = monsterData.health;
+        this.player.maxHealth = monsterData.health;
         $("#topPlayerHealth").html(topPlayerHealth);
     }
 }

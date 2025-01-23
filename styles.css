@@ -526,18 +526,70 @@ button:active {
     top: -20px;
     font-size: 12px;
     font-weight: bold;
+    color:white;
+    border-radius: 2px;
 }
 
 .haste-indicator {
+    background-color: #4CAF50;
     left: 0;
-    color: #4CAF50;  /* Green */
+    border: 1px solid #45a049; 
+    padding: 2px 4px;
 }
 
 .slow-indicator {
     right: 0;
-    color: #f44336;  /* Red */
+    background-color: #f44336;  /* Red */
+    border: 1px solid #d32f2f; 
+    padding: 2px 4px;
 }
 
 .hidden {
     display: none;
+}
+.price-tag {
+    position: absolute;
+    bottom: -5px;
+    left: -5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #f3880d;
+    padding: 2px 4px;
+    border-radius: 4px;
+    border: 1px solid #ffffff;
+}
+.trigger-values {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 4px; 
+    position: absolute;
+    top: 2px;
+    height: 20px;
+}
+
+.damage-element,
+.burn-element,
+.poison-element {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Optional: Different colors for different types */
+.damage-element {
+    background-color: rgba(255, 0, 0, 0.7);
+}
+
+.burn-element {
+    background-color: rgba(255, 128, 0, 0.7);
+}
+
+.poison-element {
+    background-color: rgba(0, 255, 0, 0.7);
 }
