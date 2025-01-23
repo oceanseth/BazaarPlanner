@@ -62,7 +62,7 @@ class Player {
             return shieldDamage;
         }
         else {
-            this.health -= damage - this.shield;
+            this.health -= damage - (this.shield/shieldScalar);
             this.shield = 0;
             return damage;
         }
