@@ -78,7 +78,7 @@ class Item {
         if(this.burnElement) this.burnElement.textContent = Number(this.burn).toFixed(1);
         if(this.poisonElement) this.poisonElement.textContent = Number(this.poison).toFixed(1);
         if(this.damageElement) this.damageElement.textContent = Number(this.damage).toFixed(1);
-        this.priceTagElement.textContent = Number(this.value).toFixed(1);
+        this.priceTagElement.textContent = Number(this.value).toFixed(0);
     }
     reset() {
         Object.assign(this, this.startItemData);
@@ -357,11 +357,11 @@ class Item {
         const newTriggers = Math.floor(this.effectiveBattleTime / this.cooldown);
         if (newTriggers > this.numTriggers && (!this.ammo || this.ammoRemaining>0)) {
             if(this.ammo) this.ammoRemaining--;
-            this.trigger();
             if(this.multicast>0) {
-                this.pendingMulticasts+=this.multicast-1;    
-            }    
+                this.pendingMulticasts+=parseInt(this.multicast)-1;    
+            }
             this.numTriggers = newTriggers;
+            this.trigger();
         }
         if(this.pendingMulticasts>0) {
             this.pendingMulticasts--;
@@ -412,6 +412,25 @@ class Item {
                     });
                 }
             }
+            //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
+            damageRegex = /Your weapons gain (?:\(([^)]+)\)|(\d+)) damage for the fight/i;
+            for (const textElement of this.text) {
+                const match = textElement.match(damageRegex);
+                if(match) {
+                    const dmgGain = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
+                    this.triggerFunctions.push(() => {
+                        this.board.items.forEach(item => {
+                            if(item.tags.includes("Weapon")) {
+                                item.damage += dmgGain;
+                                log(item.name + " gained " + dmgGain + " damage for the fight");
+                                item.updateTriggerValuesElement();
+                            }
+                        });
+                    });
+                }
+            }
+
+
             //Deal ( 10 >> 20 >> 30 >> 40 ) damage.
             damageRegex = /Deal (?:\(([^)]+)\)|(\d+)) damage/i;
             for (const textElement of this.text) {
@@ -590,8 +609,8 @@ class Item {
                 this.triggerFunctions.push(() => {
                     const shieldAmount = this.board.player.health;
                     this.shield = shieldAmount;
-                    this.board.player.shield += this.shield;
-                    log(this.name + " shielded " + this.board.player.name + " for " + this.shield);
+                    this.board.player.applyShield(shieldAmount);
+                    log(this.name + " shielded " + this.board.player.name + " for " + shieldAmount);
                     this.updateTriggerValuesElement();
                 });
                 continue;
@@ -607,7 +626,7 @@ class Item {
                 this.updateTriggerValuesElement();
                 const itemTriggered = (item) => {
                     this.shield = this.value * multiplier;
-                    this.board.player.shield += this.shield;
+                    this.board.player.applyShield(this.shield);
                     log((item?.name||"unknown item") + " was used, causing " +this.name + " to shield " + this.board.player.name + " for " + this.shield);
                 };
                 this.board.player.largeItemTriggers.push(itemTriggered);
@@ -623,7 +642,7 @@ class Item {
                 const shieldAmount = getRarityValue(match[1], this.rarity);
                 this.shield = shieldAmount;
                 this.adjacentItemTriggers.push((item) => {
-                    this.board.player.shield += this.shield;
+                    this.board.player.applyShield(this.shield);
                     log(item.name+" usage caused " + this.name + " to shield " + this.board.player.name + " for " + this.shield);                    
                 });
                 continue;

@@ -58,6 +58,11 @@ class Player {
             return damageTaken;
         }
     }
+    
+    applyShield(shieldAmount) {
+        this.shield += shieldAmount;
+        this.board.updateHealthElement();
+    }
 
     updateCombat(timeDiff) {
         this.combatTime += timeDiff;
