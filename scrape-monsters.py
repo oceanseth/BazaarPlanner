@@ -56,121 +56,156 @@ def parse_monsters():
     processed_count = 0
     
     try:
-        monster_buttons = WebDriverWait(driver, 20).until(
-            EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.grid.gap-2.justify-items-center.grid-cols-5 button"))
-        )
-        total_monsters = len(monster_buttons)
-        print(f"Found {total_monsters} monsters to process")
-        
-        while processed_count < total_monsters:
-            try:
-                monster_buttons = WebDriverWait(driver, 20).until(
-                    EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.grid.gap-2.justify-items-center.grid-cols-5 button"))
-                )
+        while True:  # Keep going until we've processed all monsters
+            # Re-fetch day sections each time
+            day_sections = WebDriverWait(driver, 30).until(
+                EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.mb-8"))
+            )
+            
+            if processed_count == 0:  # Only count total on first pass
+                total_monsters = sum(len(section.find_elements(By.CSS_SELECTOR, "button")) 
+                                   for section in day_sections)
+                print(f"Found {total_monsters} monsters to process")
+            
+            found_new_monster = False
+            
+            for section in day_sections:
+                # Scroll section into view
+                driver.execute_script("arguments[0].scrollIntoView(true);", section)
+                time.sleep(1)
+                
+                day_header = section.find_element(By.CSS_SELECTOR, "div.text-2xl.font-bold").text
+                day = int(day_header.replace("Day ", ""))
+                print(f"\nChecking {day_header}")
+                
+                monster_buttons = section.find_elements(By.CSS_SELECTOR, "button")
                 
                 for button in monster_buttons:
                     try:
-                        name = button.find_element(By.CSS_SELECTOR, "div.font-bold").text
+                        # Scroll button into view
+                        driver.execute_script("arguments[0].scrollIntoView(true);", button)
+                        time.sleep(1)
+                        
+                        name = button.find_element(By.CSS_SELECTOR, "div.font-semibold div").text
                         
                         if name not in monsters:
                             print(f"Processing monster: {name} ({processed_count + 1}/{total_monsters})")
+                            found_new_monster = True
                             
-                            # Get monster icon
                             try:
-                                icon = button.find_element(By.CSS_SELECTOR, "img").get_attribute("src")
-                                # Remove the domain part and leading slash
-                                icon = icon.replace("https://www.howbazaar.gg/", "").lstrip('/')
-                                print(f"Found icon: {icon}")
-                            except Exception as e:
-                                print(f"Error getting icon: {str(e)}")
-                                icon = ""
-                            
-                            # Click the button
-                            WebDriverWait(driver, 10).until(
-                                EC.element_to_be_clickable(button)
-                            ).click()
-                            
-                            # Wait for monster details
-                            WebDriverWait(driver, 10).until(
-                                EC.presence_of_element_located((By.CSS_SELECTOR, ".font-bold.text-3xl"))
-                            )
-                            
-                            # Get skills - updated selectors
-                            skills = []
-                            try:
-                                # Wait for skills section
-                                skills_header = WebDriverWait(driver, 10).until(
-                                    EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'font-semibold') and text()='Skills']"))
+                                clickable_button = WebDriverWait(driver, 10).until(
+                                    EC.element_to_be_clickable(button)
                                 )
-                                # Get the grid div that immediately follows the Skills header
-                                skills_grid = skills_header.find_element(By.XPATH, "following-sibling::div[1]")
-                                skill_cards = skills_grid.find_elements(By.CSS_SELECTOR, "div.bg-white")
-                                for card in skill_cards:
-                                    skill_name = card.find_element(By.CSS_SELECTOR, "div.font-bold.text-2xl").text
-                                    skills.append(skill_name)
-                                print(f"Found {len(skills)} skills")
-                            except Exception as e:
-                                print(f"Error getting skills: {str(e)}")
-                            
-                            # Get items - updated selectors
-                            items = []
-                            try:
-                                # Wait for items section
-                                items_header = WebDriverWait(driver, 10).until(
-                                    EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'font-semibold') and text()='Items']"))
+                                
+                                # Get icon before clicking
+                                try:
+                                    icon = button.find_element(By.CSS_SELECTOR, "img").get_attribute("src")
+                                    icon = icon.replace("https://www.howbazaar.gg/", "").lstrip('/')
+                                    print(f"Found icon: {icon}")
+                                except Exception as e:
+                                    print(f"Error getting icon: {str(e)}")
+                                    icon = ""
+                                
+                                # Create the expected ID from monster name
+                                monster_details_id = name.replace(" ", "_")
+                                
+                                # Click with JavaScript as it's more reliable
+                                driver.execute_script("arguments[0].click();", clickable_button)
+                                
+                                # Wait for monster details section to load using the ID
+                                WebDriverWait(driver, 10).until(
+                                    EC.presence_of_element_located((By.ID, monster_details_id)),
+                                    message=f"Waiting for {name} details to load"
                                 )
-                                # Get the grid div that immediately follows the Items header
-                                items_grid = items_header.find_element(By.XPATH, "following-sibling::div[1]")
-                                item_cards = items_grid.find_elements(By.CSS_SELECTOR, "div.bg-white")
-                                for card in item_cards:
-                                    item_name = card.find_element(By.CSS_SELECTOR, "div.font-bold.text-2xl").text.strip()
-                                    items.append(item_name)
-                                print(f"Found {len(items)} items")
+                                
+                                # Get skills - updated selectors
+                                skills = []
+                                try:
+                                    # Wait for skills section
+                                    skills_header = WebDriverWait(driver, 10).until(
+                                        EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'font-semibold') and text()='Skills']"))
+                                    )
+                                    # Get the grid div that immediately follows the Skills header
+                                    skills_grid = skills_header.find_element(By.XPATH, "following-sibling::div[1]")
+                                    skill_cards = skills_grid.find_elements(By.CSS_SELECTOR, "div.bg-white")
+                                    for card in skill_cards:
+                                        skill_name = card.find_element(By.CSS_SELECTOR, "div.font-bold.text-lg").text
+                                        skills.append(skill_name)
+                                    print(f"Found {len(skills)} skills")
+                                except Exception as e:
+                                    print(f"Error getting skills: {str(e)}")
+                                
+                                # Get items - updated selectors
+                                items = []
+                                try:
+                                    # Wait for items section
+                                    items_header = WebDriverWait(driver, 10).until(
+                                        EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'font-semibold') and text()='Items']"))
+                                    )
+                                    
+                                    # Get the parent grid div that contains all items
+                                    items_grid = WebDriverWait(driver, 10).until(
+                                        EC.presence_of_element_located((By.CSS_SELECTOR, "div.grid.gap-2.grid-cols-3"))
+                                    )
+                                    
+                                    # Find all item cards
+                                    item_cards = items_grid.find_elements(By.CSS_SELECTOR, "div.bg-white")
+                                    
+                                    for card in item_cards:
+                                        # Updated selector to match the actual HTML structure
+                                        item_name = card.find_element(By.CSS_SELECTOR, "div.font-bold.text-lg, div.font-bold.text-xl").text.strip()
+                                        items.append(item_name)
+                                    print(f"Found {len(items)} items")
+                                except Exception as e:
+                                    print(f"Error getting items: {str(e)}")
+                                
+                                # Get monster health - updated selector to match new HTML
+                                try:
+                                    health_element = WebDriverWait(driver, 10).until(
+                                        EC.presence_of_element_located((By.CSS_SELECTOR, "span.text-xl.text-green-700"))
+                                    )
+                                    health = int(health_element.text.replace(" health", ""))
+                                    print(f"Found health: {health}")
+                                except Exception as e:
+                                    print(f"Error getting health: {str(e)}")
+                                    health = None
+                                
+                                # Store monster data and save backup immediately
+                                monsters[name] = {
+                                    "name": name,
+                                    "icon": icon,
+                                    "day": day,
+                                    "health": health,  # Add health to the monster data
+                                    "skills": skills,
+                                    "items": items
+                                }
+                                
+                                # Save backup after each monster
+                                with open('monsters_backup.json', 'w', encoding='utf-8') as f:
+                                    json.dump(monsters, f, indent=2, ensure_ascii=False)
+                                
+                                processed_count += 1
+                                print(f"Successfully processed {name}")
+                                
+                                # Return to monster list and break inner loop
+                                driver.get("https://www.howbazaar.gg/monsters")
+                                time.sleep(3)
+                                break
+                                
                             except Exception as e:
-                                print(f"Error getting items: {str(e)}")
-                            
-                            # Get monster health
-                            try:
-                                health_element = WebDriverWait(driver, 10).until(
-                                    EC.presence_of_element_located((By.CSS_SELECTOR, "div.font-medium.inline-flex.items-center.text-green-800"))
-                                )
-                                # Extract just the number from the health text
-                                health = int(health_element.text.split()[0])
-                                print(f"Found health: {health}")
-                            except Exception as e:
-                                print(f"Error getting health: {str(e)}")
-                                health = None
-                            
-                            # Store monster data and save backup immediately
-                            monsters[name] = {
-                                "name": name,
-                                "icon": icon,
-                                "health": health,  # Add health to the monster data
-                                "skills": skills,
-                                "items": items
-                            }
-                            
-                            # Save backup after each monster
-                            with open('monsters_backup.json', 'w', encoding='utf-8') as f:
-                                json.dump(monsters, f, indent=2, ensure_ascii=False)
-                            
-                            processed_count += 1
-                            print(f"Successfully processed {name}")
-                            
-                            # Go back to monster list
-                            driver.get("https://www.howbazaar.gg/monsters")
-                            time.sleep(2)
-                            break
-                            
+                                print(f"Error processing monster details: {str(e)}")
+                                continue
+                    
                     except Exception as e:
-                        print(f"Error processing button: {str(e)}")
+                        print(f"Error reading monster button: {str(e)}")
                         continue
                 
-            except Exception as e:
-                print(f"Error in main loop: {str(e)}")
-                driver.get("https://www.howbazaar.gg/monsters")
-                time.sleep(5)
-                continue
+                if found_new_monster:
+                    break  # Break out of section loop to restart with fresh elements
+            
+            if not found_new_monster:
+                print("No new monsters found - finished!")
+                break  # Exit main loop
                 
     finally:
         driver.quit()

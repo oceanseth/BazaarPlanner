@@ -2,24 +2,27 @@ class Skill {
     constructor(skillData) {
         Object.assign(this, skillData);
         
-        const skillElement = $('<div>', {
-            class: 'skill-icon',
-            'data-skill': JSON.stringify(skillData)
-        }).append($('<img>', {
-            src: skillData.icon
-        }));
+        const skillElement = document.createElement('div');
+        skillElement.className = 'skill-icon';
+        skillElement.style.position = 'relative';
+        skillElement.dataset.skill = JSON.stringify(skillData);
+        
+        const imgElement = document.createElement('img');
+        imgElement.src = skillData.icon;
+        skillElement.appendChild(imgElement);
+        
         this.element = skillElement;
 
         // Create and attach tooltip
         const tooltip = this.createTooltipElement();
-        skillElement.append(tooltip);
+        skillElement.appendChild(tooltip);
 
         // Add hover listeners
-        skillElement.on('mouseenter', () => {
+        skillElement.addEventListener('mouseenter', () => {
             tooltip.style.display = 'block';
         });
         
-        skillElement.on('mouseleave', () => {
+        skillElement.addEventListener('mouseleave', () => {
             tooltip.style.display = 'none';
         });
     }
@@ -28,6 +31,7 @@ class Skill {
         const tooltip = document.createElement('div');
         this.tooltip = tooltip;
         tooltip.className = 'tooltip';
+        
         
         // Handle tags - convert to array if it's an object
         let tagsArray = [];
