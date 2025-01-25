@@ -27,6 +27,13 @@ class Player {
         this.reset();
     }
 
+    heal(healAmount) {
+        this.health += healAmount;
+        if(this.poison > 0) this.poison--; //cleanse 1 poison when a heal occurs
+        if(this.health > this.maxHealth) this.health = this.maxHealth;
+        this.board.updateHealthElement();
+    }
+    
     takeDamage(damage, shieldScalar = 1, ignoreShield = false) {        
         if(ignoreShield || this.shield <= 0) {
             this.health -= damage;

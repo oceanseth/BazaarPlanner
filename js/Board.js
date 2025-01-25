@@ -46,6 +46,7 @@ class Board {
         this.healthElementShield.innerHTML = this.player?.shield||"";
         this.healthElementBurn.innerHTML = this.player?.burn||"";
         this.healthElementPoison.innerHTML = this.player?.poison||"";
+        this.healthElementRegen.innerHTML = this.player?.regen||"";
     }
     createHealthElement() {
         this.healthElement = document.createElement('div');

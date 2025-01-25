@@ -493,9 +493,9 @@ class Item {
             let healAmount = this.heal;
             if(this.board.player.health + this.heal > this.board.player.maxHealth) {
                 healAmount = this.board.player.maxHealth - this.board.player.health;
-                this.board.player.health = this.board.player.maxHealth;
+                this.board.player.heal(healAmount);
             } else {
-                this.board.player.health += this.heal;
+                this.board.player.heal(this.heal);
             }
 
             log(this.name + " healed " + this.board.player.name + " for " + healAmount);
