@@ -397,12 +397,13 @@ class Item {
             this.board.player.hostileTarget.name);            
     }
     applyWeaponTrigger() {
+        let match;
         if(this.tags.includes("Weapon")) {
             //Deal damage equal to ( 20% » 30% ) of your enemy's Max Health.
-            let damageRegex = /Deal damage equal to \(\s*(\d+)%\s*»\s*(\d+)%\s*\) of your enemy's Max Health/i;
             
             for (const textElement of this.text) {
-                const match = textElement.match(damageRegex);
+                let damageRegex = /Deal damage equal to \(\s*(\d+)%\s*»\s*(\d+)%\s*\) of your enemy's Max Health/i;
+                match = textElement.match(damageRegex);
                 if(match) {
                     const dmgMultiplier = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
                     this.damage = this.board.player.hostileTarget.maxHealth*dmgMultiplier/100;         
@@ -410,12 +411,12 @@ class Item {
                         this.damage = this.board.player.hostileTarget.maxHealth*dmgMultiplier/100;      
                         this.dealDamage(this.damage);
                     });
+                    continue;
                 }
-            }
-            //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
-            damageRegex = /Your weapons gain (?:\(([^)]+)\)|(\d+)) damage for the fight/i;
-            for (const textElement of this.text) {
-                const match = textElement.match(damageRegex);
+            
+                //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
+                damageRegex = /Your weapons gain (?:\(([^)]+)\)|(\d+)) damage for the fight/i;
+                match = textElement.match(damageRegex);
                 if(match) {
                     const dmgGain = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
                     this.triggerFunctions.push(() => {
@@ -427,92 +428,120 @@ class Item {
                             }
                         });
                     });
+                    continue;
                 }
-            }
+                //Adjacent Weapons gain ( 5 » 10 ) Damage for the fight.
+                damageRegex = /Adjacent Weapons gain \(\s*(\d+)\s*»\s*(\d+)\s*\) Damage for the fight/i;
+                match = textElement.match(damageRegex);
+                if(match) {
+                    const dmgGain = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
+                    const adjacentWeapons = this.getAdjacentItems().filter(item => item.tags.includes("Weapon"));
+                    this.triggerFunctions.push(() => {
+                        adjacentWeapons.forEach(item => {
+                            item.damage += dmgGain;
+                            log(this.name + " gave " + item.name + " " + dmgGain + " damage for the fight");
+                            item.updateTriggerValuesElement();
+                        });
+                    });
+                    continue;
+                }
 
-
-            //Deal ( 10 >> 20 >> 30 >> 40 ) damage.
-            damageRegex = /Deal (?:\(([^)]+)\)|(\d+)) damage/i;
-            for (const textElement of this.text) {
-                const match = textElement.match(damageRegex);
+                //Deal ( 10 >> 20 >> 30 >> 40 ) damage.
+                damageRegex = /Deal (?:\(([^)]+)\)|(\d+)) damage/i;
+                match = textElement.match(damageRegex);
                 if(match) {
                     const dmgMultiplier = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
-                              
+                                
                     this.triggerFunctions.push(() => {   
                         this.dealDamage(this.damage);        
                     });
+                    continue;
                 }
             }
         }
     }
         
-    applySlowTrigger() {
-        const slowRegex = /Slow (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?items?\(?s?\)?\s*for (?:\(([^)]+)\)|(\d+)) second/i;
-        
+    applySlowTrigger() {        
         for (const textElement of this.text) {
-            if (!slowRegex.test(textElement)) continue;
-            
-            const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = textElement.match(slowRegex);
-            
-            const numItemsToSlow = itemsRange ? 
-                getRarityValue(itemsRange, this.rarity) : 
-                parseInt(singleItemCount);
-            const duration = durationRange ? 
-                getRarityValue(durationRange, this.rarity) : 
-                parseInt(singleDuration);
-          
-            this.triggerFunctions.push(() => {
-                let items = Array.from(this.board.player.hostileTarget.board.items);
-                items = items.filter(i => i.cooldown != null);
-
-                if (requiredTag) {
-                    items = items.filter(i => i.tags && i.tags.includes(requiredTag));
-                }
-                const selectedItems = items
-                    .sort(() => battleRandom() - 0.5)
-                    .slice(0, numItemsToSlow);
+            let slowRegex = /Slow (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?items?\(?s?\)?\s*for (?:\(([^)]+)\)|(\d+)) second/i;
+            if (slowRegex.test(textElement)) {            
+                const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = textElement.match(slowRegex);
                 
-                selectedItems.forEach(i => {
-                    i.applySlow(duration);
-                    log(this.name + " slowed " + i.name + " for " + duration + " seconds");
+                const numItemsToSlow = itemsRange ? 
+                    getRarityValue(itemsRange, this.rarity) : 
+                    parseInt(singleItemCount);
+                const duration = durationRange ? 
+                    getRarityValue(durationRange, this.rarity) : 
+                    parseInt(singleDuration);
+            
+                this.triggerFunctions.push(() => {
+                    let items = Array.from(this.board.player.hostileTarget.board.items);
+                    items = items.filter(i => i.cooldown != null);
+
+                    if (requiredTag) {
+                        items = items.filter(i => i.tags && i.tags.includes(requiredTag));
+                    }
+                    const selectedItems = items
+                        .sort(() => battleRandom() - 0.5)
+                        .slice(0, numItemsToSlow);
+                    
+                    selectedItems.forEach(i => {
+                        i.applySlow(duration);
+                        log(this.name + " slowed " + i.name + " for " + duration + " seconds");
+                        });
                 });
-            });
-            return; // Only apply the first slow effect found
+            }
         }
     }
 
-    applyHasteTrigger() {
-        const hasteRegex = /Haste (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?item.* for (?:\(([^)]+)\)|(\d+)) second/;
-
+    applyHasteTrigger() {        
         for (const textElement of this.text) {
-            if (!hasteRegex.test(textElement)) continue;
-            
-            const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = textElement.match(hasteRegex);
-            
-            const numItemsToHaste = itemsRange ? 
-                getRarityValue(itemsRange, this.rarity) : 
-                parseInt(singleItemCount);
-            const duration = durationRange ? 
-                getRarityValue(durationRange, this.rarity) : 
-                parseInt(singleDuration);
-           
-            this.triggerFunctions.push(() => {
-                let items = Array.from(this.board.items);
-                items = items.filter(i => i.cooldown != null);
+            let hasteRegex = /Haste (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?item.* for (?:\(([^)]+)\)|(\d+)) second/;
+            if (hasteRegex.test(textElement)) {                
+                const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = textElement.match(hasteRegex);
                 
-                if (requiredTag) {
-                    items = items.filter(i => i.tags && i.tags.includes(requiredTag));
-                }
-                const selectedItems = items
-                    .sort(() => battleRandom() - 0.5)
-                    .slice(0, numItemsToHaste);
+                const numItemsToHaste = itemsRange ? 
+                    getRarityValue(itemsRange, this.rarity) : 
+                    parseInt(singleItemCount);
+                const duration = durationRange ? 
+                    getRarityValue(durationRange, this.rarity) : 
+                    parseInt(singleDuration);
             
-                selectedItems.forEach(i => {
-                    i.applyHaste(duration);
-                    log(this.name + " hasted " + i.name + " for " + duration + " seconds");
+                this.triggerFunctions.push(() => {
+                    let items = Array.from(this.board.items);
+                    items = items.filter(i => i.cooldown != null);
+                    
+                    if (requiredTag) {
+                        items = items.filter(i => i.tags && i.tags.includes(requiredTag));
+                    }
+                    const selectedItems = items
+                        .sort(() => battleRandom() - 0.5)
+                        .slice(0, numItemsToHaste);
+                
+                    selectedItems.forEach(i => {
+                        i.applyHaste(duration);
+                        log(this.name + " hasted " + i.name + " for " + duration + " seconds");
+                    });
                 });
-            });
-            return; // Only apply the first haste effect found
+            }
+            hasteRegex = /Haste your items for (?:\(([^)]+)\)|(\d+)) second/i;
+            if (hasteRegex.test(textElement)) {
+                const duration = getRarityValue(textElement.match(hasteRegex)[1], this.rarity);
+                this.triggerFunctions.push(() => {
+                    this.board.items.forEach(i => i.applyHaste(duration));
+                    log(this.name + " hasted all items for " + duration + " seconds");
+                });
+            }
+            //Haste another item for ( 1 » 2 » 3 » 4 ) second(s).
+            hasteRegex = /Haste another item for (?:\(([^)]+)\)|(\d+)) second/i;
+            if (hasteRegex.test(textElement)) {
+                const duration = getRarityValue(textElement.match(hasteRegex)[1], this.rarity);
+                this.triggerFunctions.push(() => {
+                    let itemToHaste = this.board.items.filter(i => i.cooldown != null).sort(() => battleRandom() - 0.5)[0];
+                    itemToHaste.applyHaste(duration);
+                    log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
+                });
+            }
         }
     }
 
@@ -657,6 +686,21 @@ class Item {
                     this.damage += gainDamage;
                     log(this.name + " gained " + gainDamage + " damage for "+this.board.player.name+" losing " + shieldLost + " shield");
                     this.updateTriggerValuesElement();
+                });
+                continue;
+            }
+            //Adjacent Shield items gain ( 5 » 10 ) Shield for the fight.
+            shieldRegex = /Adjacent Shield items gain \(\s*(\d+)\s*»\s*(\d+)\s*\) Shield for the fight/i;
+            match = textElement.match(shieldRegex);
+            if (match) {
+                const shieldAmount = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
+                const adjacentShields = this.getAdjacentItems().filter(item => item.tags.includes("Shield"));
+                this.triggerFunctions.push(() => {
+                  adjacentShields.forEach(item => {
+                        item.shield += shieldAmount;
+                        item.updateTriggerValuesElement();
+                        log(this.name + " gave " + item.name + " " + shieldAmount + " shield");
+                    });
                 });
                 continue;
             }
