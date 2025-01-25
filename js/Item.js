@@ -91,12 +91,16 @@ class Item {
         this.slowTimeRemaining = 0;
         this.numTriggers = 0;
         this.effectiveBattleTime = 0;
+        this.pendingMulticasts = 0;
+
         this.value = this.startItemData.value || this.getInitialValue();
         this.damage = this.calculateDamage();
         this.burn = this.calculateBurn();
         this.poison = this.calculatePoison();
         this.heal = this.calculateHeal();
-        this.shield = this.calculateShield();
+        this.multicast = this.calculateMulticast();
+        this.ammoRemaining = this.ammo;
+
         this.triggerFunctions = [];
         this.adjacentItemTriggers = [];
         this.applyWeaponTrigger();
@@ -258,6 +262,16 @@ class Item {
         }
         return 0;
     }
+    calculateMulticast() {
+        const multicastRegex = /Multicast (?:\(([^)]+)\)|(\d+))/i;
+        for (const textElement of this.text) {
+            const match = textElement.match(multicastRegex);
+            if (match) {
+                return match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            }
+        }
+        return 0;
+    }
     calculateHeal() {
         if (!this.tags.includes('Heal')) return 0;
         const healRegex = /Heal (?:\(([^)]+)\)|(\d+))/i;
@@ -331,15 +345,27 @@ class Item {
                 this.isSlowed = 0;
             }
         }
+        if(this.ammo && this.ammoRemaining<=0 && this.numTriggers < Math.floor((effectiveTimeDiff+this.effectiveBattleTime) / this.cooldown)) {
+            //don't progress battle time if no ammo is remaining and the item is ready to trigger
+            return;
+        }
         this.effectiveBattleTime += effectiveTimeDiff;
         // Update progress and check for triggers
         const progress = (this.effectiveBattleTime % this.cooldown) / this.cooldown * 100;
         this.updateProgressBar(progress);
 
         const newTriggers = Math.floor(this.effectiveBattleTime / this.cooldown);
-        if (newTriggers > this.numTriggers) {
+        if (newTriggers > this.numTriggers && (!this.ammo || this.ammoRemaining>0)) {
+            if(this.ammo) this.ammoRemaining--;
             this.trigger();
+            if(this.multicast>0) {
+                this.pendingMulticasts+=this.multicast-1;    
+            }    
             this.numTriggers = newTriggers;
+        }
+        if(this.pendingMulticasts>0) {
+            this.pendingMulticasts--;
+            this.trigger();
         }
     }
 
@@ -612,6 +638,19 @@ class Item {
                     this.damage += gainDamage;
                     log(this.name + " gained " + gainDamage + " damage for "+this.board.player.name+" losing " + shieldLost + " shield");
                     this.updateTriggerValuesElement();
+                });
+                continue;
+            }
+            //Shield ( 1 » 2 » 3 » 4 ).
+            shieldRegex = /Shield (?:\(([^)]+)\)|(\d+))/i;
+            match = textElement.match(shieldRegex);
+            if (match) {
+                const shieldAmount = getRarityValue(match[1], this.rarity);
+                this.shield = shieldAmount;
+                this.updateTriggerValuesElement();
+                this.triggerFunctions.push(() => {
+                    this.board.player.applyShield(this.shield);
+                    log(this.name + " shielded " + this.board.player.name + " for " + this.shield);
                 });
                 continue;
             }

@@ -33,10 +33,11 @@ class Player {
         if(this.health > this.maxHealth) this.health = this.maxHealth;
         this.board.updateHealthElement();
     }
-    
+
     takeDamage(damage, shieldScalar = 1, ignoreShield = false) {        
         if(ignoreShield || this.shield <= 0) {
             this.health -= damage;
+            this.board.updateHealthElement();
             return damage;
         }
 
@@ -44,6 +45,7 @@ class Player {
         if(this.shield >= shieldDamage) {
             this.shield -= shieldDamage;
             this.lostShieldTriggers.forEach(func => func(shieldDamage));
+            this.board.updateHealthElement();
             return shieldDamage;
         }
         else {
@@ -52,6 +54,7 @@ class Player {
             this.health -= healthDamage;
             this.shield = 0;
             this.lostShieldTriggers.forEach(func => func(shieldDamage));
+            this.board.updateHealthElement();
             return damageTaken;
         }
     }
