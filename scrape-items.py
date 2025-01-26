@@ -8,6 +8,9 @@ from selenium.webdriver.common.action_chains import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 import json
 import time
+import os
+import requests
+from pathlib import Path
 
 def setup_driver():
     chrome_options = Options()
@@ -27,7 +30,7 @@ def scroll_to_bottom(driver):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         
         # Wait for new items to load
-        time.sleep(2)
+        time.sleep(1)
         
         # Calculate new scroll height and compare with last scroll height
         new_height = driver.execute_script("return document.body.scrollHeight")
@@ -95,7 +98,7 @@ def parse_description(description_list):
         if "text" not in result:
             result["text"] = line
         else:
-            result["bottomtext"] = line
+            result["bottomText"] = line
             
     return result
 
@@ -144,10 +147,27 @@ def process_item(item_div):
         elif not line.startswith("Ammo Max"):  # Skip ammo lines
             if "text" not in item_data:
                 item_data["text"] = line
-            elif "bottomtext" not in item_data:
-                item_data["bottomtext"] = line
+            elif "bottomText" not in item_data:
+                item_data["bottomText"] = line
     
     return name, item_data
+
+def download_image(url, filepath):
+    """Download an image from url and save it to filepath"""
+    try:
+        response = requests.get(f"https://www.howbazaar.gg/{url}")
+        response.raise_for_status()
+        
+        # Ensure directory exists
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        
+        # Save the image
+        with open(filepath, 'wb') as f:
+            f.write(response.content)
+            
+        print(f"Downloaded {url}")
+    except Exception as e:
+        print(f"Failed to download {url}: {e}")
 
 def parse_items():
     driver = setup_driver()
@@ -174,16 +194,21 @@ def parse_items():
         for item in item_elements:
             try:
                 # Get item name
-                name_element = item.find_element(By.CSS_SELECTOR, "div.flex.flex-col.gap-2.p-4 > div.font-bold.text-2xl")
+                name_element = item.find_element(By.CSS_SELECTOR, "div.font-bold.text-2xl")
                 name = name_element.text.replace(" 🔗", "")
                 
-                # Get item icon URL and convert to relative path
-                icon_element = item.find_element(By.CSS_SELECTOR, "img.relative.h-\\[200px\\]")
+                # Get and process icon URL
+                icon_element = item.find_element(By.CSS_SELECTOR, "img[class*='absolute'][class*='object-fill']")
                 full_icon_url = icon_element.get_attribute("src")
                 icon_url = full_icon_url.replace("https://www.howbazaar.gg/", "").lstrip("/")
                 
+                # Check if icon exists locally and download if missing
+                icon_path = Path(f"./{icon_url}")  # Prepend "./" to make it relative to current directory
+                if not icon_path.exists():
+                    download_image(icon_url, icon_path)
+                
                 # Get item tiers
-                tier_elements = item.find_elements(By.CSS_SELECTOR, "div.font-medium.inline-flex[class*='bg-tiers-']")
+                tier_elements = item.find_elements(By.CSS_SELECTOR, "div[class*='bg-tiers-']")
                 tier = tier_elements[0].text.replace("+", "") if tier_elements else "Unknown"
 
                 # Get item tags
@@ -197,8 +222,8 @@ def parse_items():
                 # Get item description and stats
                 stat_elements = item.find_elements(By.CSS_SELECTOR, "ul.list-inside.leading-loose > li")
                 cooldown = None
-                text = None
-                bottomtext = None
+                ammo = None
+                text_sentences = []
                 
                 for stat in stat_elements:
                     line = stat.text
@@ -207,15 +232,19 @@ def parse_items():
                             cooldown = int(line.split()[1])
                         except (IndexError, ValueError):
                             pass
-                    elif not line.startswith("Ammo Max"):
-                        if text is None:
-                            text = line
-                        else:
-                            bottomtext = line
+                    elif line.startswith("Ammo Max"):
+                        try:
+                            ammo = int(line.split()[2])
+                        except (IndexError, ValueError):
+                            pass
+                    else:
+                        # Add non-empty sentences to the array
+                        if line.strip():
+                            text_sentences.append(line.strip())
 
                 # Get enchantments
                 enchants = {}
-                enchant_elements = item.find_elements(By.CSS_SELECTOR, "div.grid.grid-cols-3 > div")
+                enchant_elements = item.find_elements(By.CSS_SELECTOR, "div.grid.grid-cols-3 > div, div.grid.grid-cols-4 > div, div.grid.grid-cols-5 > div")
                 for enchant in enchant_elements:
                     try:
                         enchant_name = enchant.find_element(By.CSS_SELECTOR, "div.text-lg.font-semibold").text
@@ -231,13 +260,10 @@ def parse_items():
                     "tier": tier,
                     "tags": tags,
                     "cooldown": cooldown,
+                    "ammo": ammo,
+                    "text": text_sentences,
                     "enchants": enchants
                 }
-                
-                if text:
-                    item_data["text"] = text
-                if bottomtext:
-                    item_data["bottomtext"] = bottomtext
 
                 items[name] = item_data
 

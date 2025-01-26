@@ -1,6 +1,7 @@
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
     static boards = [];
+    shieldValuesChangedTriggers = new Map();
     static getBoardFromId(boardId) {
         if(Board.boards[boardId]) return Board.boards[boardId];
         //console.log("Board not found: " + boardId);
@@ -18,11 +19,12 @@ class Board {
         this.element.innerHTML = '';
         this.slots = [];
         this.items = [];
+        this.skills = [];
         // Create slots
         for (let i = 0; i < 10; i++) {
             const slot = document.createElement('div');
             slot.className = 'board-slot';
-            slot.style.left = `${i * 10}%`;
+            slot.style.left = `${i * 82}px`;
             slot.dataset.index = i;
             
             slot.addEventListener('dragover', (e) => this.handleSlotDragOver(e, this));
@@ -31,6 +33,50 @@ class Board {
             this.element.appendChild(slot);
             this.slots.push(slot);
         }
+        this.createHealthElement();
+        this.createSkillsElement();
+    }
+    shieldValuesChanged() {
+        this.shieldValuesChangedTriggers.forEach(func => func());
+    }
+    updateHealthElement() {
+        const healthPercent = (this.player?.health || 0) / (this.player?.maxHealth || 1000) * 100;
+        this.healthElement.style.background = `linear-gradient(to right, 
+            #44ff44 ${healthPercent}%, 
+            #999999 ${healthPercent}%
+        )`;
+        
+        this.healthElementHealth.innerHTML = this.player?.health;
+        this.healthElementShield.innerHTML = this.player?.shield||"";
+        this.healthElementBurn.innerHTML = this.player?.burn||"";
+        this.healthElementPoison.innerHTML = this.player?.poison||"";
+        this.healthElementRegen.innerHTML = this.player?.regen||"";
+    }
+    createHealthElement() {
+        this.healthElement = document.createElement('div');
+        this.healthElement.className = 'health-element';
+        this.healthElementHealth = document.createElement('div');
+        this.healthElementHealth.className = 'health-element-health';
+        this.healthElement.appendChild(this.healthElementHealth);
+        this.healthElementShield = document.createElement('div');
+        this.healthElementShield.className = 'health-element-shield';
+        this.healthElement.appendChild(this.healthElementShield);
+        this.healthElementBurn = document.createElement('div');
+        this.healthElementBurn.className = 'health-element-burn';
+        this.healthElement.appendChild(this.healthElementBurn);
+        this.healthElementPoison = document.createElement('div');
+        this.healthElementPoison.className = 'health-element-poison';
+        this.healthElement.appendChild(this.healthElementPoison);
+        this.healthElementRegen = document.createElement('div');
+        this.healthElementRegen.className = 'health-element-regen';
+        this.healthElement.appendChild(this.healthElementRegen);
+        this.element.appendChild(this.healthElement);
+        this.updateHealthElement();
+    }
+    createSkillsElement() {
+        this.skillsElement = document.createElement('div');
+        this.skillsElement.className = 'skills-element';
+        this.element.appendChild(this.skillsElement);
     }
     startBattle() {
         this.items.forEach(item => item.progressBar.style.display = 'block');
@@ -38,6 +84,8 @@ class Board {
 
     updateCombat(timeDiff) {
         this.items.forEach(item => item.updateCombat(timeDiff));
+        this.updateHealthElement();
+        this.player.hostileTarget.board.updateHealthElement();
     }
 
     isValidPlacement(startIndex, draggingElement) {
@@ -114,6 +162,10 @@ class Board {
         const startIndex = parseInt(slot.dataset.index);
         
         const draggingElement = document.querySelector('.dragging');
+        if(draggingElement==null) {
+            console.log("No dragging element found");
+            return;
+        }
         const alreadyOnBoard = draggingElement.classList.contains('merged-slot');
         let size=1;
         if(alreadyOnBoard) {
@@ -153,15 +205,14 @@ class Board {
     addItem(item) {
         this.items.push(item);
         this.element.appendChild(item.element);
+        this.sortItems();
+        this.resetItems();
     }
-
+    sortItems() {
+        this.items.sort(Item.compareByIndex);
+    }
     removeItem(item) {
         this.items = this.items.filter(i => i !== item);
-    }
-
-    clear() {
-        this.items = [];
-        this.initialize();
     }
 
     save() {        
@@ -172,7 +223,7 @@ class Board {
         const savedItems = localStorage.getItem(`saved_${this.boardId}`);
         if (!savedItems) return false;
         
-        this.clear();
+        this.initialize();
         const items = JSON.parse(savedItems);
         items.forEach((itemData) => {
             new Item(itemData, this);
@@ -182,6 +233,8 @@ class Board {
 
     reset() {
         this.resetItems();
+        this.updateHealthElement();
+        this.shieldValuesChangedTriggers.clear();
     }
 
     resetItems() {
@@ -238,6 +291,7 @@ class Board {
     }
 
     loadMonsterData(monsterData) {            
+        this.initialize();
         let startIndex = 0;
         // Load monster items to the board
         monsterData.items.forEach(item => {                    
@@ -246,14 +300,16 @@ class Board {
             startIndex += newItem.size;
         });
         
-
-        $('#topPlayerSkills').empty();
         monsterData.skills.forEach(skill => {
             let newSkill = new Skill(skills[skill]);
-            $('#topPlayerSkills').append(newSkill.element);
+            this.skills.push(newSkill);
+            this.skillsElement.appendChild(newSkill.element);
         });
         this.player.maxHealth = monsterData.health;
-        $("#topPlayerHealth").html(topPlayerHealth);
+        this.player.health = this.player.maxHealth;
+        this.updateHealthElement();
+        this.resetItems();
+        this.player.hostileTarget.board.resetItems();
     }
 }
 
