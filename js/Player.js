@@ -112,7 +112,7 @@ class Player {
         if(item.tags.includes("Weapon")) {
             this.weaponTriggered(item);
         }
-        else if(item.tags.includes("Shield")) {
+        if(item.tags.includes("Shield")) {
             this.shieldTriggered(item);
         }
         if(this.item.tag.includes("Small")) {
