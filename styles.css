@@ -73,8 +73,8 @@ body {
 
 .board {
     position: relative;
-    width: 800px;
-    height: 160px;
+    width: 822px;
+    height: 164px;
     background: #fff;
     border: 2px solid #ccc;
     border-radius: 4px;
@@ -86,8 +86,9 @@ body {
 }
 .board-slot {
     position: absolute;
-    width: 80px;
+    width: 82px;
     height: 160px;
+    top: 2px;
    /* border-right: 1px solid #ddd;
    */
     box-sizing: border-box;
@@ -104,7 +105,7 @@ body {
 
 .merged-slot {
     position: absolute;
-    height: 100%;
+    height: 160px;
     margin: 0;
     background: #f0f0f0;
     border-radius: 4px;
@@ -116,6 +117,9 @@ body {
     transform: translateZ(0);
     transition: opacity 0.2s;
     user-select: none;
+    box-sizing: border-box;
+    margin-right: 2px;
+    top: 2px;
 }
 .playerSkills {
     display: flex;
@@ -204,7 +208,7 @@ button:active {
     background: #f5f5f5;
 }
 #simulator-itemsList {
-    height: 300px;
+    height: 100%;
     overflow-y: scroll;
 }
 
@@ -266,8 +270,9 @@ button:active {
     animation: remove-item 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
 }
-.merged-slot.tag-medium { width: 20%!important; }
-.merged-slot.tag-large { width: 30%!important; }
+.merged-slot.tag-small { width: 80px !important; }
+.merged-slot.tag-medium { width: 162px !important; }
+.merged-slot.tag-large { width: 244px !important; }
 
 @keyframes remove-item {
     0% {
@@ -282,7 +287,7 @@ button:active {
 
 .board-container {
     position: relative;
-    width: 800px;
+    width: 818px;
     margin-bottom: 60px;  /* Increased spacing for buttons */
 }
 
@@ -417,6 +422,7 @@ button:active {
     color: rgb(251,233,192);
     z-index: 1000;
     font-family: Arial, sans-serif;
+    pointer-events: none;
 }
 
 .tooltip-tags {
@@ -431,6 +437,7 @@ button:active {
     border-radius: 4px;
     font-size: 12px;
     text-transform: uppercase;
+    color:white;
 }
 
 .tooltip-name {
@@ -466,7 +473,7 @@ button:active {
     color: rgb(251,233,192);
 }
 
-.cooldown-circle {
+.tooltip-cooldown-circle {
     background-color: #333;
     border-radius: 50%;
     width: 40px;
@@ -478,11 +485,35 @@ button:active {
     font-weight: bold;
     line-height: 1;
     flex-shrink: 0;
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color:white;
 }
 
-.cooldown-circle .unit {
+.tooltip-cooldown-circle .unit {
     font-size: 10px;
     opacity: 0.7;
+}
+
+.tooltip-ammo {
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.2;
+    white-space: nowrap;
+    color: white;
+}
+
+.tooltip-content {
+    position: relative;
 }
 
 .main-text {
@@ -549,16 +580,46 @@ button:active {
 }
 .price-tag {
     position: absolute;
-    bottom: -5px;
-    left: -5px;
-    font-size: 12px;
+    bottom: 5px;
+    left: -8px;
+    height: 20px;  /* Added explicit height */
+    line-height: 20px;  /* Added to vertically center text */
+    font-size: 16px;
     font-weight: bold;
     color: #fff;
     background-color: #f3880d;
-    padding: 2px 4px;
-    border-radius: 4px;
+    padding: 0px 10px 0px 10px;
+    border-radius: 0 4px 4px 0;
     border: 1px solid #ffffff;
+    text-shadow: 
+        -0.5px -0.5px 0 #333,
+        0.5px -0.5px 0 #333,
+        -0.5px 0.5px 0 #333,
+        0.5px 0.5px 0 #333,
+        1px 1px 1px rgba(0, 0, 0, .5);
 }
+
+.price-tag::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 0;
+    border-top: 10px solid transparent;  /* Half of height */
+    border-bottom: 10px solid transparent;  /* Half of height */
+    border-right: 8px solid #f3880d;
+}
+
+.price-tag::after {
+    content: '';
+    position: absolute;
+    left: -9px;
+    top: -1px;
+    border-top: 11px solid transparent;  /* Half of height + 1 for border */
+    border-bottom: 11px solid transparent;  /* Half of height + 1 for border */
+    border-right: 9px solid #ffffff;
+    z-index: -1;
+}
+
 .trigger-values {
     width: 100%;
     display: flex;
@@ -568,7 +629,7 @@ button:active {
     top: 2px;
     height: 20px;
 }
-
+.shield-element,
 .damage-element,
 .burn-element,
 .poison-element {
@@ -579,6 +640,12 @@ button:active {
     font-size: 0.8em;
     min-width: 20px;
     text-align: center;
+    text-shadow: 
+        -0.5px -0.5px 0 #333,
+        0.5px -0.5px 0 #333,
+        -0.5px 0.5px 0 #333,
+        0.5px 0.5px 0 #333,
+        1px 1px 1px rgba(0, 0, 0, 1);
 }
 
 /* Optional: Different colors for different types */
@@ -592,4 +659,78 @@ button:active {
 
 .poison-element {
     background-color: rgba(0, 255, 0, 0.7);
+}
+.shield-element {
+    background-color: rgb(255, 255, 0);
+    text-shadow: 
+        -0.5px -0.5px 0 #333,
+        0.5px -0.5px 0 #333,
+        -0.5px 0.5px 0 #333,
+        0.5px 0.5px 0 #333,
+        1px 1px 1px rgba(0, 0, 0, 1);
+}
+.merged-slot.Bronze {
+    border: 3px solid #966f33;
+}
+.merged-slot.Silver {
+    border: 1px solid #b8b8b8;
+}
+.merged-slot.Gold {
+    border: 2px solid #ffd700;
+}
+.merged-slot.Diamond {
+    border: 1px solid #00bfff;
+}
+.merged-slot.Legendary {
+    border: 1px solid #ff4500;
+}
+.health-element {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    font-size: 16px;
+    text-shadow: 
+    -0.5px -0.5px 0 #333,
+    0.5px -0.5px 0 #333,
+    -0.5px 0.5px 0 #333,
+    0.5px 0.5px 0 #333,
+    1px 1px 1px rgba(0, 0, 0, 1);
+}
+.health-element > div {
+    display: inline-block;
+    padding-right: 5px;
+}
+.health-element-regen {
+    color: rgb(0, 255, 0);
+    padding: 2px 4px;
+    font-size: 0.8em;
+    min-width: 20px;
+    text-align: center;
+}
+.health-element-burn {
+    color: rgb(255, 128, 0);
+}
+.health-element-poison {
+    color: rgb(10, 94, 10);
+}
+.health-element-shield {
+    color: rgb(255, 255, 0);
+}
+.health-element-regen {
+    color: rgb(0, 255, 0);
+}
+.skills-element {
+    position: absolute;
+    top: -65px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    display: flex;
+    gap: 4px;
 }

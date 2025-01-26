@@ -41,9 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
             simulatorItemsList.appendChild(listItem);
         });
     
-        simulatorItemsList.style.height = '300px';
-        simulatorItemsList.style.overflowY = 'scroll';
-            
         // Initialize players
         window.topPlayer = new Player("Top Player");
         window.bottomPlayer = new Player("Bottom Player");
@@ -310,11 +307,6 @@ function saveBoard(boardId) {
 
 const battleButton = document.querySelector('.battle-button');
 
-function resetHealth() {
-    $("#topPlayerHealth").html(topPlayer.maxHealth);
-    $("#bottomPlayerHealth").html(bottomPlayer.maxHealth);
-}
-
 var battleInterval = undefined;
 var startBattleTime;
 function log(s) {
@@ -322,33 +314,30 @@ function log(s) {
     combatLog[0].scrollTop = combatLog[0].scrollHeight;
 }
 
-
 function battleFunction() {
+    if(topPlayer.health<=0) {
+        clearInterval(battleInterval);
+        alert("you win");
+        return;
+    }
+    if(bottomPlayer.health <=0) {
+        clearInterval(battleInterval);
+        alert("you lose");
+        return;
+    }
     battleTimeDiff += 100;
     topPlayer.updateCombat(100);
     bottomPlayer.updateCombat(100);
     
-    $("#topPlayerHealth").html(topPlayer.health);
-    $("#bottomPlayerHealth").html(bottomPlayer.health);
-
   if(battleTimeDiff>30000) {
     let sandstormDmg = Math.floor(sandstormValue);
     log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
-    topPlayer.health-=sandstormDmg;
-    bottomPlayer.health-=sandstormDmg;
+    topPlayer.takeDamage(sandstormDmg);
+    bottomPlayer.takeDamage(sandstormDmg);
     sandstormValue+=sandstormIncrement;
   }
 
-  if(topPlayer.health<=0) {
-    clearInterval(battleInterval);
-    alert("you win");
-    resetBattle();
-  }
-  if(bottomPlayer.health <=0) {
-    clearInterval(battleInterval);
-    resetBattle();
-    alert("you lose");
-  }
+ 
 }
 
 function resetBattle() {
@@ -357,7 +346,6 @@ function resetBattle() {
     isPaused=0;
     sandstormValue=1;
     battleInterval = null; // Clear the interval reference
-    resetHealth();
     topPlayer.reset();
     bottomPlayer.reset();
     // Reset button
@@ -416,150 +404,6 @@ function startBattle() {
     battleButton.classList.add('pause-battle');
 }
 
-function editItem(item) {
-    const itemData = item.startItemData;
-    // List of available enchantments and rarities
-    const enchantments = [
-        'None',
-        'Fiery',
-        'Radiant',
-        'Heavy',
-        'Golden',
-        'Icy',
-        'Turbo',
-        'Shielded',
-        'Restorative',
-        'Toxic',
-        'Shiny',
-        'Deadly'
-    ];
-
-    const rarities = [
-        'Bronze',
-        'Silver',
-        'Gold',
-        'Diamond'
-    ];
-
-    // Extract current enchantment if it exists
-    const enchantPrefixes = /^(Fiery|Radiant|Heavy|Golden|Icy|Turbo|Shielded|Restorative|Toxic|Shiny|Deadly)\s+/;
-    const currentEnchant = enchantPrefixes.test(itemData.name) ? 
-        itemData.name.match(enchantPrefixes)[1] : 'None';
-    const baseName = stripEnchantFromName(itemData.name);
-    
-    const popup = document.createElement('div');
-    popup.className = 'item-edit-popup';
-    
-    // Start with basic HTML
-    let popupHTML = `<h3>Edit ${itemData.name}</h3>`;
-    
-    // Add enchantment field
-    popupHTML += `
-        <div class="form-group">
-            <label>Enchantment:</label>
-            <select id="edit-enchant">
-                ${enchantments.map(e => 
-                    `<option value="${e}" ${e === currentEnchant ? 'selected' : ''}>${e}</option>`
-                ).join('')}
-            </select>
-        </div>`;
-    
-    // Add rarity field only if item is upgradeable (has rarity or damage)
-    if (itemData.rarity || itemData.damage !== undefined) {
-        popupHTML += `
-            <div class="form-group">
-                <label>Rarity:</label>
-                <select id="edit-rarity">
-                    ${rarities.map(r => 
-                        `<option value="${r}" ${r === (itemData.rarity || 'Bronze') ? 'selected' : ''}>${r}</option>`
-                    ).join('')}
-                </select>
-            </div>`;
-    }
-    
-    // Add damage field only if item has damage
-    if (itemData.damage !== undefined) {
-        popupHTML += `
-            <div class="form-group">
-                <label>Damage:</label>
-                <input type="number" id="edit-damage" value="${itemData.damage || 0}">
-            </div>`;
-    }
-    
-    // Add cooldown field only if item has cooldown
-    if (itemData.cooldown !== undefined) {
-        popupHTML += `
-            <div class="form-group">
-                <label>Cooldown (seconds):</label>
-                <input type="number" id="edit-cooldown" value="${itemData.cooldown || 0}">
-            </div>`;
-    }
-    
-    // Add crit chance field only if item has damage
-    if (itemData.tags.indexOf('Weapon') !== -1) {
-        popupHTML += `
-            <div class="form-group">
-                <label>Crit Chance (0-100):</label>
-                <input type="number" min="0" max="100" id="edit-crit" value="${itemData.crit || 0}">
-            </div>`;
-    }
-    
-    // Add buttons
-    popupHTML += `
-        <div class="button-group">
-            <button class="save-edit">Save</button>
-            <button class="cancel-edit">Cancel</button>
-        </div>`;
-    
-    popup.innerHTML = popupHTML;
-    document.body.appendChild(popup);
-    
-    popup.querySelector('.save-edit').addEventListener('click', () => {
-        const enchant = popup.querySelector('#edit-enchant').value;
-        
-        // Update name with enchantment
-        itemData.name = enchant === 'None' ? baseName : `${enchant} ${baseName}`;
-        
-        // Only update fields that exist in the form
-        if (popup.querySelector('#edit-rarity')) {
-            itemData.rarity = popup.querySelector('#edit-rarity').value;
-        }
-        if (popup.querySelector('#edit-damage')) {
-            itemData.damage = parseFloat(popup.querySelector('#edit-damage').value) || 0;
-        }
-        if (popup.querySelector('#edit-cooldown')) {
-            itemData.cooldown = parseFloat(popup.querySelector('#edit-cooldown').value) || 0;
-        }
-        if (popup.querySelector('#edit-crit')) {
-            itemData.crit = parseFloat(popup.querySelector('#edit-crit').value) || 0;
-        }
-        
-        item.setAttribute('data-item', JSON.stringify(itemData));
-        item.itemData = itemData;
-        popup.remove();
-    });
-    
-    popup.querySelector('.cancel-edit').addEventListener('click', () => {
-        popup.remove();
-    });
-}
-
-// Add click handler to merged slots
-document.addEventListener('click', (e) => {
-    const mergedSlot = e.target.closest('.merged-slot');
-    if (mergedSlot) {
-        topPlayer.board.items.forEach(item => {
-           if(item.element === mergedSlot) {
-            editItem(item);
-           }
-        });
-        bottomPlayer.board.items.forEach(item => {
-            if(item.element === mergedSlot) {
-             editItem(item);
-            }
-         });
-    }
-});
 
 function saveToFile(boardId) {
     const board = document.getElementById(boardId);
@@ -642,16 +486,8 @@ deleteZone.addEventListener('drop', (e) => {
 }); 
 
 
-function stripEnchantFromName(name) {
-    const enchantPrefixes = /^(Fiery|Radiant|Heavy|Golden|Icy|Turbo|Shielded|Restorative|Toxic|Shiny|Deadly)\s+/;
-    if (enchantPrefixes.test(name)) {
-        return name.replace(enchantPrefixes, '');
-    }
-    return name;
-}
 function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
     const board = Board.getBoardFromId(boardId);
-    board.clear();
     board.loadMonsterData(monsterData);    
 }
 

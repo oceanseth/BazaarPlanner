@@ -3,40 +3,17 @@ class Player {
     constructor(name) {
         this.name = name;
         this.combatTime = 0;
-        this.items = [];
         this.skills = [];
         this.maxHealth = 1000;
-        this.health = 1000;
-        this.burn = 0;
-        this.poison = 0;
-        this.shield = 0;
-        
-        // Trigger arrays for various effects
-        this.burnTriggers = [];
-        this.hasteTriggers = [];
-        this.poisonTriggers = [];
-        this.healTriggers = [];
-        this.shieldTriggers = [];
-        this.critTriggers = [];
-        this.ammoTriggers = [];
-        this.largeItemTriggers = [];
-        this.mediumItemTriggers = [];
-        this.smallItemTriggers = [];
     }
 
     initialize(boardId, skillsContainer, maxHealth) {
         this.maxHealth = maxHealth;
         this.health = maxHealth;
         
-        // Get items from board
         const board = new Board(boardId);
         board.player = this;
         this.board = board;
-        this.items = Array.from(board.element.querySelectorAll('.merged-slot')).map(slot => ({
-            element: slot,
-            data: JSON.parse(slot.getAttribute('data-item')),
-            lastTrigger: 0
-        }));
         
         // Get skills from skills container
         const skillsDiv = document.getElementById(skillsContainer);
@@ -47,18 +24,28 @@ class Player {
                 lastTrigger: 0
             }));
         }
-        
+        this.reset();
     }
-    takeDamage(damage, shieldScalar = 1, ignoreShield = false) {
-        
+
+    heal(healAmount) {
+        this.health += healAmount;
+        if(this.poison > 0) this.poison--; //cleanse 1 poison when a heal occurs
+        if(this.health > this.maxHealth) this.health = this.maxHealth;
+        this.board.updateHealthElement();
+    }
+
+    takeDamage(damage, shieldScalar = 1, ignoreShield = false) {        
         if(ignoreShield || this.shield <= 0) {
             this.health -= damage;
+            this.board.updateHealthElement();
             return damage;
         }
 
         let shieldDamage = damage*shieldScalar;
         if(this.shield >= shieldDamage) {
             this.shield -= shieldDamage;
+            this.lostShieldTriggers.forEach(func => func(shieldDamage));
+            this.board.updateHealthElement();
             return shieldDamage;
         }
         else {
@@ -66,9 +53,17 @@ class Player {
             let damageTaken = this.shield + healthDamage;
             this.health -= healthDamage;
             this.shield = 0;
+            this.lostShieldTriggers.forEach(func => func(shieldDamage));
+            this.board.updateHealthElement();
             return damageTaken;
         }
     }
+
+    applyShield(shieldAmount) {
+        this.shield += shieldAmount;
+        this.board.updateHealthElement();
+    }
+
     updateCombat(timeDiff) {
         this.combatTime += timeDiff;
         this.board.updateCombat(timeDiff);
@@ -82,22 +77,61 @@ class Player {
             this.takeDamage(this.poison, 1, true);
             log( this.name + " takes " + this.poison + " damage from poison.");
         }
+        if(this.combatTime%1000==0 && this.regen > 0) { // Regen health every 1000ms
+            this.health += this.regen;
+            log( this.name + " regens " + this.regen + " health.");
+        }
     }
+
     reset() {
         this.combatTime = 0;
         this.burn = 0;
         this.poison = 0;
         this.shield = 0;
         this.health = this.maxHealth;
+        this.burn = 0;
+        this.poison = 0;
+        this.shield = 0;
+        this.regen = 0;
+        
+        // Trigger arrays for various effects
+        this.burnTriggers = [];
+        this.hasteTriggers = [];
+        this.poisonTriggers = [];
+        this.healTriggers = [];
+        this.shieldTriggers = [];
+        this.critTriggers = [];
+        this.ammoTriggers = [];
+        this.largeItemTriggers = [];
+        this.mediumItemTriggers = [];
+        this.smallItemTriggers = [];
+        this.lostShieldTriggers = new Map();
         this.board.reset();
     }
-    smallItemTriggered() {
-        this.smallItemTriggers.forEach(func => func());
+    itemTriggered(item) {
+        if(item.tags.includes("Weapon")) {
+            this.weaponTriggered(item);
+        }
+        if(item.tags.includes("Shield")) {
+            this.shieldTriggered(item);
+        }
+        if(this.item.tag.includes("Small")) {
+            this.smallItemTriggered(item);
+        }
+        else if(this.item.tag.includes("Medium")) {
+            this.mediumItemTriggered(item);
+        }
+        else if(this.item.tag.includes("Large")) {
+            this.largeItemTriggered(item);
+        }
     }
-    mediumItemTriggered() {
-        this.mediumItemTriggers.forEach(func => func());
+    smallItemTriggered(item) {
+        this.smallItemTriggers.forEach(func => func(item));
     }
-    largeItemTriggered() {
-        this.largeItemTriggers.forEach(func => func());
+    mediumItemTriggered(item) {
+        this.mediumItemTriggers.forEach(func => func(item));
+    }
+    largeItemTriggered(item) {
+        this.largeItemTriggers.forEach(func => func(item));
     }
 } 
