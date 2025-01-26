@@ -314,7 +314,6 @@ function log(s) {
     combatLog[0].scrollTop = combatLog[0].scrollHeight;
 }
 
-
 function battleFunction() {
     if(topPlayer.health<=0) {
         clearInterval(battleInterval);

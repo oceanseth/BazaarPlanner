@@ -58,7 +58,7 @@ class Player {
             return damageTaken;
         }
     }
-    
+
     applyShield(shieldAmount) {
         this.shield += shieldAmount;
         this.board.updateHealthElement();
@@ -107,6 +107,23 @@ class Player {
         this.smallItemTriggers = [];
         this.lostShieldTriggers = new Map();
         this.board.reset();
+    }
+    itemTriggered(item) {
+        if(item.tags.includes("Weapon")) {
+            this.weaponTriggered(item);
+        }
+        else if(item.tags.includes("Shield")) {
+            this.shieldTriggered(item);
+        }
+        if(this.item.tag.includes("Small")) {
+            this.smallItemTriggered(item);
+        }
+        else if(this.item.tag.includes("Medium")) {
+            this.mediumItemTriggered(item);
+        }
+        else if(this.item.tag.includes("Large")) {
+            this.largeItemTriggered(item);
+        }
     }
     smallItemTriggered(item) {
         this.smallItemTriggers.forEach(func => func(item));

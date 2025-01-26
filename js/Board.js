@@ -1,6 +1,7 @@
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
     static boards = [];
+    shieldValuesChangedTriggers = new Map();
     static getBoardFromId(boardId) {
         if(Board.boards[boardId]) return Board.boards[boardId];
         //console.log("Board not found: " + boardId);
@@ -34,6 +35,9 @@ class Board {
         }
         this.createHealthElement();
         this.createSkillsElement();
+    }
+    shieldValuesChanged() {
+        this.shieldValuesChangedTriggers.forEach(func => func());
     }
     updateHealthElement() {
         const healthPercent = (this.player?.health || 0) / (this.player?.maxHealth || 1000) * 100;
@@ -230,6 +234,7 @@ class Board {
     reset() {
         this.resetItems();
         this.updateHealthElement();
+        this.shieldValuesChangedTriggers.clear();
     }
 
     resetItems() {
