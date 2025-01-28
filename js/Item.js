@@ -85,7 +85,7 @@ class Item {
         if(this.burnElement) this.burnElement.textContent = Number(this.burn).toFixed(1);
         if(this.poisonElement) this.poisonElement.textContent = Number(this.poison).toFixed(1);
         if(this.damageElement) this.damageElement.textContent = Number(this.damage).toFixed(1);
-        if(this.multicastElement) this.multicastElement.textContent = "x"+Number(this.multicast).toFixed(0);
+        if(this.multicastElement && this.multicast>0) this.multicastElement.textContent = "x"+Number(this.multicast).toFixed(0);
         this.priceTagElement.textContent = Number(this.value).toFixed(0);
     }
     reset() {
