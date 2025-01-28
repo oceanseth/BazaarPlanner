@@ -16,7 +16,7 @@ def scroll_to_bottom(driver):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         
         # Wait for new content to load
-        time.sleep(2)
+        time.sleep(1)
         
         # Calculate new scroll height
         new_height = driver.execute_script("return document.body.scrollHeight")
@@ -75,12 +75,19 @@ def parse_skill_html(html_content):
             name = name_div.text.strip().replace(' 🔗', '')
             print(f"\nProcessing: {name}")
             
-            # Get skill image URL
-            img = div.find('img', class_='relative')
-            if img:
-                icon_path = img.get('src')
-                skill['icon'] = icon_path.lstrip('/') if icon_path else None
-                
+            # Get skill image URL - simplified to use first image found
+            img_container = div.find('div', class_=lambda x: x and 'relative' in x and 'overflow-hidden' in x and 'rounded-md' in x)
+            if img_container:
+                img = img_container.find('img')
+                if img:
+                    icon_path = img.get('src')
+                    skill['icon'] = icon_path.lstrip('/') if icon_path else None
+                    print(f"Found icon: {skill['icon']}")
+                else:
+                    print(f"Warning: No img tag found for {name}")
+            else:
+                print(f"Warning: No img container found for {name}")
+            
             # Get tags
             tags = {}
             flex_wraps = div.find_all('div', class_=lambda x: x and 'flex flex-wrap gap-2' in x)

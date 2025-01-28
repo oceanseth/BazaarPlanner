@@ -1,5 +1,6 @@
 const skills = {
   "Adaptive Ordinance": {
+    "icon": "images/skills/AdaptiveOrdinance.avif",
     "name": "Adaptive Ordinance",
     "tags": [
       "Common",
@@ -9,6 +10,7 @@ const skills = {
     "text": "You have (  2  » 4  » 6   ) Regeneration for each item with Ammo you have. [0]"
   },
   "Advanced Synthetics": {
+    "icon": "images/skills/AdvancedSynthetics.avif",
     "name": "Advanced Synthetics",
     "tags": [
       "Dooley",
@@ -17,6 +19,7 @@ const skills = {
     "text": "When you Level Up, upgrade a (  Bronze-tier  » Silver-tier   ) item."
   },
   "Aggressive": {
+    "icon": "images/skills/Aggressive.avif",
     "name": "Aggressive",
     "tags": [
       "Common",
@@ -26,6 +29,7 @@ const skills = {
     "text": "When you use a Weapon, give it (  +2%  » +4%  » +6%  » +8%   ) crit Chance for the fight."
   },
   "Alacrity": {
+    "icon": "images/skills/Alacrity.avif",
     "name": "Alacrity",
     "tags": [
       "Vanessa",
@@ -36,6 +40,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you Crit each fight, Charge 1 item 1 second(s)."
   },
   "All Talk": {
+    "icon": "images/skills/AllTalk.avif",
     "name": "All Talk",
     "tags": [
       "Common",
@@ -45,6 +50,7 @@ const skills = {
     "text": "While you have more than half Health, your weapons have (  +25  » +50   ) damage."
   },
   "Ambush": {
+    "icon": "images/skills/Ambush.avif",
     "name": "Ambush",
     "tags": [
       "Common",
@@ -53,6 +59,7 @@ const skills = {
     "text": "At the start of each fight, deal damage equal to (  15%  » 30%   ) of the enemy's Max Health."
   },
   "Ammo Stash": {
+    "icon": "images/skills/AmmoStash.avif",
     "name": "Ammo Stash",
     "tags": [
       "Common",
@@ -61,6 +68,7 @@ const skills = {
     "text": "Your leftmost item with Ammo has (  +1  » +2  » +3  » +4   ) Max Ammo."
   },
   "Anything to Win": {
+    "icon": "images/skills/AnythingtoWin.avif",
     "name": "Anything to Win",
     "tags": [
       "Common",
@@ -71,6 +79,7 @@ const skills = {
     "text": "When you use a non-weapon item, Burn (  1  » 2  » 3   ) and Poison (  1  » 2  » 3   )."
   },
   "Arbitrage": {
+    "icon": "images/skills/Arbitrage.avif",
     "name": "Arbitrage",
     "tags": [
       "Vanessa",
@@ -80,6 +89,7 @@ const skills = {
     "text": "When you win a fight against a player, gain (  2  » 3  » 4  » 5   ) gold."
   },
   "Arms Dealer": {
+    "icon": "images/skills/ArmsDealer.avif",
     "name": "Arms Dealer",
     "tags": [
       "Vanessa",
@@ -90,6 +100,7 @@ const skills = {
     "text": "When you buy a Weapon, gain (  20  » 30  » 40  » 50   ) Max Health."
   },
   "Arms Race": {
+    "icon": "images/skills/ArmsRace.avif",
     "name": "Arms Race",
     "tags": [
       "Common",
@@ -99,6 +110,7 @@ const skills = {
     "text": "Your items have (  +2%  » +3%   ) Crit Chance for each weapon you have. [0]"
   },
   "Artillery Spotter": {
+    "icon": "images/skills/ArtillerySpotter.avif",
     "name": "Artillery Spotter",
     "tags": [
       "Pygmalien",
@@ -112,6 +124,7 @@ const skills = {
     "text": "If you have 4 or fewer items, your items have (  +5%  » +10%  » +20%   ) Crit Chance."
   },
   "Assault Focus": {
+    "icon": "images/skills/AssaultFocus.avif",
     "name": "Assault Focus",
     "tags": [
       "Common",
@@ -121,6 +134,7 @@ const skills = {
     "text": "When any non-weapon item is used, slow it for (  2  » 4   ) second(s)."
   },
   "Augmented Defenses": {
+    "icon": "images/skills/AugmentedDefenses.avif",
     "name": "Augmented Defenses",
     "tags": [
       "Common",
@@ -129,6 +143,7 @@ const skills = {
     "text": "Your Shield items have +1 Shield. When you sell a small item, increase this bonus by (  +1  » +2  » +3  » +4   ) Shield."
   },
   "Augmented Weaponry": {
+    "icon": "images/skills/AugmentedWeaponry.avif",
     "name": "Augmented Weaponry",
     "tags": [
       "Common",
@@ -138,6 +153,7 @@ const skills = {
     "text": "Your weapons have +1 Damage. When you sell a small item, increase this bonus by (  +1  » +2  » +3  » +4   ) Damage."
   },
   "Backroom Dealings": {
+    "icon": "images/skills/BackroomDealings.avif",
     "name": "Backroom Dealings",
     "tags": [
       "Pygmalien",
@@ -147,6 +163,7 @@ const skills = {
     "text": "When you visit a Merchant, gain (  25  » 50  » 75   ) Max Health."
   },
   "Backup Defenses": {
+    "icon": "images/skills/BackupDefenses.avif",
     "name": "Backup Defenses",
     "tags": [
       "Pygmalien",
@@ -158,6 +175,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, Shield equal to (  20%  » 30%   ) of your Max Health. [0%]"
   },
   "Balanced Friendship": {
+    "icon": "images/skills/BalancedFriendship.avif",
     "name": "Balanced Friendship",
     "tags": [
       "Vanessa",
@@ -169,6 +187,7 @@ const skills = {
     "text": "Your Weapons have (  +2  » +4  » +6   ) damage and Shield items have (  +2  » +4  » +6   ) shield for each friend you have. [0, 0]"
   },
   "Barnacle Crusted": {
+    "icon": "images/skills/BarnacleCrusted.avif",
     "name": "Barnacle Crusted",
     "tags": [
       "Vanessa",
@@ -178,6 +197,7 @@ const skills = {
     "text": "Reduce the cooldown of your aquatic items by (  10%  » 20%   )."
   },
   "Beautiful Friendship": {
+    "icon": "images/skills/BeautifulFriendship.avif",
     "name": "Beautiful Friendship",
     "tags": [
       "Dooley",
@@ -188,6 +208,7 @@ const skills = {
     "text": "When you use a Friend, your weapons gain (  3  » 6   ) damage for the fight."
   },
   "Berserker": {
+    "icon": "images/skills/Berserker.avif",
     "name": "Berserker",
     "tags": [
       "Vanessa",
@@ -197,6 +218,7 @@ const skills = {
     "text": "While your enemy has more health than you, your Weapons have their cooldowns reduced by (  5%  » 10%  » 20%   )."
   },
   "Big Ego": {
+    "icon": "images/skills/BigEgo.avif",
     "name": "Big Ego",
     "tags": [
       "Common",
@@ -206,6 +228,7 @@ const skills = {
     "text": "Your Weapons have Lifesteal."
   },
   "Big Guns": {
+    "icon": "images/skills/BigGuns.avif",
     "name": "Big Guns",
     "tags": [
       "Vanessa",
@@ -217,6 +240,7 @@ const skills = {
     "text": "Double the damage of your Large weapons."
   },
   "Big Numbers": {
+    "icon": "images/skills/BigNumbers.avif",
     "name": "Big Numbers",
     "tags": [
       "Pygmalien",
@@ -230,6 +254,7 @@ const skills = {
     "text": "Your large items have (  +25%  » +50%   ) crit chance"
   },
   "Blizzard": {
+    "icon": "images/skills/Blizzard.avif",
     "name": "Blizzard",
     "tags": [
       "Common",
@@ -239,6 +264,7 @@ const skills = {
     "text": "At the start of each fight, Freeze all non-weapon items for (  2  » 3   ) second(s)."
   },
   "Bloodhound": {
+    "icon": "images/skills/Bloodhound.avif",
     "name": "Bloodhound",
     "tags": [
       "Vanessa",
@@ -247,6 +273,7 @@ const skills = {
     "text": "The first time your enemy falls below half health each fight, Charge your items (  2  » 3  » 4   ) second(s)."
   },
   "Boar Market": {
+    "icon": "images/skills/BoarMarket.avif",
     "name": "Boar Market",
     "tags": [
       "Pygmalien",
@@ -257,6 +284,7 @@ const skills = {
     "text": "Your leftmost and rightmost Weapons have + Damage equal to (  1x  » 2x   ) their value."
   },
   "Bold Under Pressure": {
+    "icon": "images/skills/BoldUnderPressure.avif",
     "name": "Bold Under Pressure",
     "tags": [
       "Vanessa",
@@ -268,6 +296,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, Haste (  2  » 4  » 6   ) items 2 second(s)."
   },
   "Bonk": {
+    "icon": "images/skills/Bonk.avif",
     "name": "Bonk",
     "tags": [
       "Common"
@@ -275,6 +304,7 @@ const skills = {
     "text": "Enemy cooldowns are increased by 1 second(s)."
   },
   "Brawler": {
+    "icon": "images/skills/Brawler.avif",
     "name": "Brawler",
     "tags": [
       "Pygmalien",
@@ -284,6 +314,7 @@ const skills = {
     "text": "You have (  +100  » +200  » +300   ) Max Health for each Weapon you have. [0]"
   },
   "Buddy System": {
+    "icon": "images/skills/BuddySystem.avif",
     "name": "Buddy System",
     "tags": [
       "Dooley",
@@ -295,6 +326,7 @@ const skills = {
     "text": "If you have exactly one friend, reduce its and the Core's cooldown by (  5%  » 10%  » 15%   )."
   },
   "Building Crescendo": {
+    "icon": "images/skills/BuildingCrescendo.avif",
     "name": "Building Crescendo",
     "tags": [
       "Pygmalien",
@@ -308,6 +340,7 @@ const skills = {
     "text": "When you use an item, your items gain (  10%  » 15%   ) crit chance for the fight. Your items have 100% less crit chance."
   },
   "Bullet Time": {
+    "icon": "images/skills/BulletTime.avif",
     "name": "Bullet Time",
     "tags": [
       "Vanessa",
@@ -317,6 +350,7 @@ const skills = {
     "text": "The first (  4  » 8   ) times you use an Ammo item each fight, Slow 1 item for 1 second(s)."
   },
   "Burn Containment": {
+    "icon": "images/skills/BurnContainment.avif",
     "name": "Burn Containment",
     "tags": [
       "Dooley",
@@ -327,6 +361,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you Burn each fight, Charge 1 Shield item 1 second(s)."
   },
   "Burning Rage": {
+    "icon": "images/skills/BurningRage.avif",
     "name": "Burning Rage",
     "tags": [
       "Common",
@@ -337,6 +372,7 @@ const skills = {
     "text": "When you Burn, your Weapons gain (  +2  » +4  » +6  » +8   ) damage for the fight."
   },
   "Burning Shield": {
+    "icon": "images/skills/BurningShield.avif",
     "name": "Burning Shield",
     "tags": [
       "Dooley",
@@ -347,6 +383,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, Shield equal to (  2  » 3  » 4   ) times the Burn on your opponent. [0]"
   },
   "Burst of Flame": {
+    "icon": "images/skills/BurstofFlame.avif",
     "name": "Burst of Flame",
     "tags": [
       "Common",
@@ -355,6 +392,7 @@ const skills = {
     "text": "The first time your enemy falls below half health, Burn (  10  » 15  » 20  » 25   )."
   },
   "Captain's Charge": {
+    "icon": "images/skills/CaptainsCharge.avif",
     "name": "Captain's Charge",
     "tags": [
       "Vanessa",
@@ -366,6 +404,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, Haste (  2  » 3  » 4   ) items for 3 second(s)."
   },
   "Cash Deposits": {
+    "icon": "images/skills/CashDeposits.avif",
     "name": "Cash Deposits",
     "tags": [
       "Pygmalien",
@@ -375,6 +414,7 @@ const skills = {
     "text": "Your weapons have + damage equal to your gold."
   },
   "Chemical Fire": {
+    "icon": "images/skills/ChemicalFire.avif",
     "name": "Chemical Fire",
     "tags": [
       "Vanessa",
@@ -386,6 +426,7 @@ const skills = {
     "text": "Your Burn items have (  +2  » +4  » +6   ) Burn. Your Poison items have (  +2  » +4  » +6   ) Poison."
   },
   "Chilling Touch": {
+    "icon": "images/skills/ChillingTouch.avif",
     "name": "Chilling Touch",
     "tags": [
       "Common",
@@ -395,6 +436,7 @@ const skills = {
     "text": "The first time you Freeze each fight, Slow all your opponent's items for (  3  » 5  » 7   ) second(s)."
   },
   "Chocoholic": {
+    "icon": "images/skills/Chocoholic.avif",
     "name": "Chocoholic",
     "tags": [
       "Pygmalien",
@@ -403,6 +445,7 @@ const skills = {
     "text": "When you sell a medium or large item, get (  1  » 2   ) Chocolate Bar(s)."
   },
   "Circle of Life": {
+    "icon": "images/skills/CircleofLife.avif",
     "name": "Circle of Life",
     "tags": [
       "Vanessa",
@@ -413,6 +456,7 @@ const skills = {
     "text": "Your leftmost Weapon has lifesteal."
   },
   "Clean Storefront": {
+    "icon": "images/skills/CleanStorefront.avif",
     "name": "Clean Storefront",
     "tags": [
       "Common",
@@ -421,6 +465,7 @@ const skills = {
     "text": "Your leftmost item has (  +15  » +30  » +50   ) value during combat."
   },
   "Combat Medic": {
+    "icon": "images/skills/CombatMedic.avif",
     "name": "Combat Medic",
     "tags": [
       "Pygmalien",
@@ -431,6 +476,7 @@ const skills = {
     "text": "When you Heal, an item gains (  3%  » 5%   ) Crit Chance for the fight."
   },
   "Command Ship": {
+    "icon": "images/skills/CommandShip.avif",
     "name": "Command Ship",
     "tags": [
       "Vanessa",
@@ -442,6 +488,7 @@ const skills = {
     "text": "If you have a vehicle, reduce your non-vehicle items' cooldowns by (  10%  » 15%  » 20%   )."
   },
   "Commercial Zoning": {
+    "icon": "images/skills/CommercialZoning.avif",
     "name": "Commercial Zoning",
     "tags": [
       "Pygmalien",
@@ -452,6 +499,7 @@ const skills = {
     "text": "When you use a Property, deal damage equal to (  1x  » 2x   ) your gold. [NaN]"
   },
   "Conflagration": {
+    "icon": "images/skills/Conflagration.avif",
     "name": "Conflagration",
     "tags": [
       "Vanessa",
@@ -464,6 +512,7 @@ const skills = {
     "text": "When you use an item with Burn, that item gains (  1  » 2   ) Burn for the fight."
   },
   "Coolant Leak": {
+    "icon": "images/skills/CoolantLeak.avif",
     "name": "Coolant Leak",
     "tags": [
       "Pygmalien",
@@ -475,6 +524,7 @@ const skills = {
     "text": "The first (  4  » 8   ) times you use your rightmost item each fight, Freeze 1 item for 1 second(s)."
   },
   "Corrosive Toxins": {
+    "icon": "images/skills/CorrosiveToxins.avif",
     "name": "Corrosive Toxins",
     "tags": [
       "Mak",
@@ -483,6 +533,7 @@ const skills = {
     "text": "When you Poison, enemy Weapons lose (  2  » 4   ) damage."
   },
   "Cosmic Wind": {
+    "icon": "images/skills/CosmicWind.avif",
     "name": "Cosmic Wind",
     "tags": [
       "Common",
@@ -492,6 +543,7 @@ const skills = {
     "text": "When you Crit, Haste an item for (  1  » 2  » 3   ) second(s)."
   },
   "CPU Throttling": {
+    "icon": "images/skills/CPUThrottling.avif",
     "name": "CPU Throttling",
     "tags": [
       "Dooley",
@@ -501,6 +553,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you use The Core each fight, Slow 1 item for 2 second(s)."
   },
   "Crashing Waves": {
+    "icon": "images/skills/CrashingWaves.avif",
     "name": "Crashing Waves",
     "tags": [
       "Vanessa",
@@ -511,6 +564,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you use an Aquatic item each fight, Haste 1 weapon for 1 second(s)."
   },
   "Creeping Chill": {
+    "icon": "images/skills/CreepingChill.avif",
     "name": "Creeping Chill",
     "tags": [
       "Dooley",
@@ -523,6 +577,7 @@ const skills = {
     "text": "The first time you Slow each fight, Freeze an item for (  3  » 4  » 5   ) second(s)."
   },
   "Creeping Toxins": {
+    "icon": "images/skills/CreepingToxins.avif",
     "name": "Creeping Toxins",
     "tags": [
       "Vanessa",
@@ -535,6 +590,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you Slow each fight, Charge 1 Poison item 1 second(s)."
   },
   "Critical Aid": {
+    "icon": "images/skills/CriticalAid.avif",
     "name": "Critical Aid",
     "tags": [
       "Pygmalien",
@@ -544,6 +600,7 @@ const skills = {
     "text": "Your Heal items have (  +5%  » +10%  » +15%  » +20%   ) Crit chance."
   },
   "Critical Captain": {
+    "icon": "images/skills/CriticalCaptain.avif",
     "name": "Critical Captain",
     "tags": [
       "Vanessa",
@@ -554,6 +611,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, your items gain (  +4%  » +8%  » +12%  » +16%   ) Crit Chance for the fight."
   },
   "Critical Investments": {
+    "icon": "images/skills/CriticalInvestments.avif",
     "name": "Critical Investments",
     "tags": [
       "Pygmalien",
@@ -563,6 +621,7 @@ const skills = {
     "text": "Your Properties have (  +10%  » +15%  » +20%   ) Crit chance."
   },
   "Critical Protector": {
+    "icon": "images/skills/CriticalProtector.avif",
     "name": "Critical Protector",
     "tags": [
       "Pygmalien",
@@ -572,6 +631,7 @@ const skills = {
     "text": "Your Shield items have (  +5%  » +10%  » +15%  » +20%   ) Crit chance."
   },
   "Cryomastery": {
+    "icon": "images/skills/Cryomastery.avif",
     "name": "Cryomastery",
     "tags": [
       "Common",
@@ -581,6 +641,7 @@ const skills = {
     "text": "When you Freeze, your Shield items gain (  3  » 5   ) Shield for the fight."
   },
   "Deadly Eye": {
+    "icon": "images/skills/DeadlyEye.avif",
     "name": "Deadly Eye",
     "tags": [
       "Pygmalien",
@@ -595,6 +656,7 @@ const skills = {
     "text": "Your Weapons have (  +5%  » +10%  » +15%  » +20%   ) Crit chance."
   },
   "Defense Grid": {
+    "icon": "images/skills/DefenseGrid.avif",
     "name": "Defense Grid",
     "tags": [
       "Pygmalien",
@@ -606,6 +668,7 @@ const skills = {
     "text": "At the start of each fight, gain shield equal to (  10%  » 20%  » 35%  » 50%   ) of your max health."
   },
   "Defensive Stance": {
+    "icon": "images/skills/DefensiveStance.avif",
     "name": "Defensive Stance",
     "tags": [
       "Pygmalien",
@@ -617,6 +680,7 @@ const skills = {
     "text": "When you use a weapon, your Shield items gain (  3  » 6  » 9   ) Shield for the fight."
   },
   "Depth Charge": {
+    "icon": "images/skills/DepthCharge.avif",
     "name": "Depth Charge",
     "tags": [
       "Vanessa",
@@ -628,6 +692,7 @@ const skills = {
     "text": "If you have exactly one weapon, it has (  +5  » +10   ) Max Ammo. ...if it is also Aquatic, it has (  +25  » +50   ) Damage."
   },
   "Desperate Cleanse": {
+    "icon": "images/skills/DesperateCleanse.avif",
     "name": "Desperate Cleanse",
     "tags": [
       "Pygmalien",
@@ -636,6 +701,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, remove Freeze and Slow from your items and Cleanse half your Burn and Poison."
   },
   "Desperate Strike": {
+    "icon": "images/skills/DesperateStrike.avif",
     "name": "Desperate Strike",
     "tags": [
       "Vanessa",
@@ -646,6 +712,7 @@ const skills = {
     "text": "While you have less health than your opponent, your items gain (  10%  » 15%  » 20%   ) Crit Chance."
   },
   "Diamond Fangs": {
+    "icon": "images/skills/DiamondFangs.avif",
     "name": "Diamond Fangs",
     "tags": [
       "Common",
@@ -654,6 +721,7 @@ const skills = {
     "text": "Your Small Diamond-tier items have their cooldowns reduced by (  30%  » 40%  » 50%  » 60%   )."
   },
   "Diamond Heart": {
+    "icon": "images/skills/DiamondHeart.avif",
     "name": "Diamond Heart",
     "tags": [
       "Pygmalien",
@@ -663,6 +731,7 @@ const skills = {
     "text": "You have (  +300  » +500   ) Max Health for each Diamond-tier item you have. [0]"
   },
   "Distributed Systems": {
+    "icon": "images/skills/DistributedSystems.avif",
     "name": "Distributed Systems",
     "tags": [
       "Common",
@@ -671,6 +740,7 @@ const skills = {
     "text": "When you use a large item, haste (  2  » 3   ) small items for (  2  » 3   ) second(s)."
   },
   "Double Down": {
+    "icon": "images/skills/DoubleDown.avif",
     "name": "Double Down",
     "tags": [
       "Vanessa",
@@ -682,6 +752,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, double the damage of your leftmost Weapon for the fight."
   },
   "Draconic Rage": {
+    "icon": "images/skills/DraconicRage.avif",
     "name": "Draconic Rage",
     "tags": [
       "Common",
@@ -690,6 +761,7 @@ const skills = {
     "text": "When you use a Medium item, a Burn item gains (  10  » 15   ) burn for the fight."
   },
   "Electrified Hull": {
+    "icon": "images/skills/ElectrifiedHull.avif",
     "name": "Electrified Hull",
     "tags": [
       "Pygmalien",
@@ -700,6 +772,7 @@ const skills = {
     "text": "The first (  4  » 8   ) times you Shield each fight, Charge 1 item 1 second(s)."
   },
   "Emergency Burn": {
+    "icon": "images/skills/EmergencyBurn.avif",
     "name": "Emergency Burn",
     "tags": [
       "Dooley",
@@ -710,6 +783,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, Burn (  20  » 30  » 40   )."
   },
   "Emergency Draught": {
+    "icon": "images/skills/EmergencyDraught.avif",
     "name": "Emergency Draught",
     "tags": [
       "Mak",
@@ -718,6 +792,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, gain (  20  » 30  » 40   ) Regeneration for the fight."
   },
   "Emergency Shield": {
+    "icon": "images/skills/EmergencyShield.avif",
     "name": "Emergency Shield",
     "tags": [
       "Pygmalien",
@@ -728,6 +803,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, use your highest Shield item."
   },
   "Endurance": {
+    "icon": "images/skills/Endurance.avif",
     "name": "Endurance",
     "tags": [
       "Pygmalien",
@@ -737,6 +813,7 @@ const skills = {
     "text": "When you use a weapon, give your Healing items (  +10  » +20  » +30   ) Healing for the fight."
   },
   "Equivalent Exchange": {
+    "icon": "images/skills/EquivalentExchange.avif",
     "name": "Equivalent Exchange",
     "tags": [
       "Common",
@@ -746,6 +823,7 @@ const skills = {
     "text": "When you Heal, charge a Poison 1 second."
   },
   "Expert Pilot": {
+    "icon": "images/skills/ExpertPilot.avif",
     "name": "Expert Pilot",
     "tags": [
       "Stelle",
@@ -754,6 +832,7 @@ const skills = {
     "text": "Your Shield Vehicles gain (  30%  » 60%   ) Shield. Your Weapon Vehicles gain (  30%  » 60%   ) Damage."
   },
   "Exposing Toxins": {
+    "icon": "images/skills/ExposingToxins.avif",
     "name": "Exposing Toxins",
     "tags": [
       "Vanessa",
@@ -765,6 +844,7 @@ const skills = {
     "text": "When you Poison, your items gain (  +1%  » +2%  » +3%   ) Crit Chance for the fight."
   },
   "Extreme Comfort": {
+    "icon": "images/skills/ExtremeComfort.avif",
     "name": "Extreme Comfort",
     "tags": [
       "Common",
@@ -774,6 +854,7 @@ const skills = {
     "text": "When you heal, your Shield items gain (  1  » 2  » 3  » 4   ) shield for the fight."
   },
   "Fiery": {
+    "icon": "images/skills/Fiery.avif",
     "name": "Fiery",
     "tags": [
       "Vanessa",
@@ -786,6 +867,7 @@ const skills = {
     "text": "Your Burn items have (  +2  » +4  » +6  » +8   ) Burn."
   },
   "Fiery Rebirth": {
+    "icon": "images/skills/FieryRebirth.avif",
     "name": "Fiery Rebirth",
     "tags": [
       "Common"
@@ -793,6 +875,7 @@ const skills = {
     "text": "The first time you would die each fight, Heal to full."
   },
   "Final Dose": {
+    "icon": "images/skills/FinalDose.avif",
     "name": "Final Dose",
     "tags": [
       "Vanessa",
@@ -803,6 +886,7 @@ const skills = {
     "text": "Your rightmost Poison item has (  +3  » +6  » +9  » +12   ) Poison."
   },
   "Final Flame": {
+    "icon": "images/skills/FinalFlame.avif",
     "name": "Final Flame",
     "tags": [
       "Vanessa",
@@ -815,6 +899,7 @@ const skills = {
     "text": "Your rightmost Burn item has (  +3  » +6  » +9  » +12   ) Burn."
   },
   "Finesse Shield": {
+    "icon": "images/skills/FinesseShield.avif",
     "name": "Finesse Shield",
     "tags": [
       "Pygmalien",
@@ -826,6 +911,7 @@ const skills = {
     "text": "While your enemy has more health than you, your Shield items have their cooldowns reduced by (  5%  » 10%  » 20%   )."
   },
   "Firepower": {
+    "icon": "images/skills/Firepower.avif",
     "name": "Firepower",
     "tags": [
       "Dooley",
@@ -835,6 +921,7 @@ const skills = {
     "text": "When you use the Core, adjacent weapons gain (  10  » 20  » 30   ) damage for the fight."
   },
   "Firestarter": {
+    "icon": "images/skills/Firestarter.avif",
     "name": "Firestarter",
     "tags": [
       "Common",
@@ -843,6 +930,7 @@ const skills = {
     "text": "At the start of each fight, burn (  17  » 25  » 35   )."
   },
   "First Flames": {
+    "icon": "images/skills/FirstFlames.avif",
     "name": "First Flames",
     "tags": [
       "Vanessa",
@@ -855,6 +943,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, Burn (  10  » 15  » 20   )."
   },
   "First Responder": {
+    "icon": "images/skills/FirstResponder.avif",
     "name": "First Responder",
     "tags": [
       "Pygmalien",
@@ -864,6 +953,7 @@ const skills = {
     "text": "Your leftmost Heal item has (  +20  » +35  » +50  » +65   ) Heal."
   },
   "First Strike": {
+    "icon": "images/skills/FirstStrike.avif",
     "name": "First Strike",
     "tags": [
       "Pygmalien",
@@ -877,6 +967,7 @@ const skills = {
     "text": "Your items have (  +30%  » +50%   ) Crit Chance. When you use an item, all your items lose 10% crit chance for the fight."
   },
   "Flamedancer": {
+    "icon": "images/skills/Flamedancer.avif",
     "name": "Flamedancer",
     "tags": [
       "Common",
@@ -885,6 +976,7 @@ const skills = {
     "text": "Your Burn items have (  +2%  » +4%  » +6%  » +8%   ) Crit Chance."
   },
   "Flanking Aid": {
+    "icon": "images/skills/FlankingAid.avif",
     "name": "Flanking Aid",
     "tags": [
       "Pygmalien",
@@ -894,6 +986,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, Adjacent items gain (  15  » 20  » 25   ) Healing for the fight."
   },
   "Flanking Criticals": {
+    "icon": "images/skills/FlankingCriticals.avif",
     "name": "Flanking Criticals",
     "tags": [
       "Pygmalien",
@@ -907,6 +1000,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, Adjacent items gain (  15%  » 20%  » 25%   ) Crit Chance for the fight."
   },
   "Flanking Fire": {
+    "icon": "images/skills/FlankingFire.avif",
     "name": "Flanking Fire",
     "tags": [
       "Vanessa",
@@ -917,6 +1011,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, Adjacent items gain (  7  » 10  » 13   ) Burn for the fight."
   },
   "Flanking Shield": {
+    "icon": "images/skills/FlankingShield.avif",
     "name": "Flanking Shield",
     "tags": [
       "Pygmalien",
@@ -927,6 +1022,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, adjacent Shield items gain (  15  » 30  » 50   ) Shield for the fight."
   },
   "Flanking Shots": {
+    "icon": "images/skills/FlankingShots.avif",
     "name": "Flanking Shots",
     "tags": [
       "Pygmalien",
@@ -941,6 +1037,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, adjacent weapons gain (  15  » 30  » 50   ) Damage for the fight."
   },
   "Flanking Toxins": {
+    "icon": "images/skills/FlankingToxins.avif",
     "name": "Flanking Toxins",
     "tags": [
       "Vanessa",
@@ -951,6 +1048,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, adjacent Poison items gain (  4  » 6  » 8   ) Poison for the fight."
   },
   "Flashy Mechanic": {
+    "icon": "images/skills/FlashyMechanic.avif",
     "name": "Flashy Mechanic",
     "tags": [
       "Vanessa",
@@ -962,6 +1060,7 @@ const skills = {
     "text": "When you use a Tool, items adjacent to it gain (  3%  » 6%  » 9%   ) Crit chance."
   },
   "Flashy Pilot": {
+    "icon": "images/skills/FlashyPilot.avif",
     "name": "Flashy Pilot",
     "tags": [
       "Vanessa",
@@ -972,6 +1071,7 @@ const skills = {
     "text": "When you use a Vehicle, your items gain (  10%  » 20%  » 30%   ) Crit chance."
   },
   "Flashy Reload": {
+    "icon": "images/skills/FlashyReload.avif",
     "name": "Flashy Reload",
     "tags": [
       "Vanessa",
@@ -981,6 +1081,7 @@ const skills = {
     "text": "When you Crit with an item, reload another item +1 ammo."
   },
   "Flurry of Blows": {
+    "icon": "images/skills/FlurryofBlows.avif",
     "name": "Flurry of Blows",
     "tags": [
       "Vanessa",
@@ -990,6 +1091,7 @@ const skills = {
     "text": "The first (  4  » 8   ) times you use a Weapon each fight, charge 1 item 1 second(s)."
   },
   "Focused Rage": {
+    "icon": "images/skills/FocusedRage.avif",
     "name": "Focused Rage",
     "tags": [
       "Pygmalien",
@@ -999,6 +1101,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, double all your items' Crit Chance for the fight."
   },
   "Follow-Up Care": {
+    "icon": "images/skills/FollowUpCare.avif",
     "name": "Follow-Up Care",
     "tags": [
       "Pygmalien",
@@ -1008,6 +1111,7 @@ const skills = {
     "text": "Your rightmost Heal item has (  +20  » +35  » +50  » +65   ) Heal."
   },
   "Foreboding Winds": {
+    "icon": "images/skills/ForebodingWinds.avif",
     "name": "Foreboding Winds",
     "tags": [
       "Common",
@@ -1016,6 +1120,7 @@ const skills = {
     "text": "When any player uses an item, all items gain (  2%  » 4%   ) Crit Chance for the fight."
   },
   "Frontal Shielding": {
+    "icon": "images/skills/FrontalShielding.avif",
     "name": "Frontal Shielding",
     "tags": [
       "Pygmalien",
@@ -1028,6 +1133,7 @@ const skills = {
     "text": "Your leftmost Shield item has (  +20  » +30  » +40  » +50   ) Shield."
   },
   "Frostfire": {
+    "icon": "images/skills/Frostfire.avif",
     "name": "Frostfire",
     "tags": [
       "Dooley",
@@ -1041,6 +1147,7 @@ const skills = {
     "text": "The first time you Burn each fight, Freeze an item for (  3  » 4  » 5   ) second(s)."
   },
   "Frozen Flames": {
+    "icon": "images/skills/FrozenFlames.avif",
     "name": "Frozen Flames",
     "tags": [
       "Vanessa",
@@ -1054,6 +1161,7 @@ const skills = {
     "text": "When your items gain Freeze, Burn (  8  » 12  » 16   )."
   },
   "Frozen Shot": {
+    "icon": "images/skills/FrozenShot.avif",
     "name": "Frozen Shot",
     "tags": [
       "Pygmalien",
@@ -1066,6 +1174,7 @@ const skills = {
     "text": "The first (  4  » 8   ) times you use your Slowest weapon each fight, Freeze 1 item of equal or smaller size for 1 second(s)."
   },
   "Frozen Synapse": {
+    "icon": "images/skills/FrozenSynapse.avif",
     "name": "Frozen Synapse",
     "tags": [
       "Dooley",
@@ -1076,6 +1185,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you Freeze each fight, Haste the Core for 2 second(s)."
   },
   "Full Arsenal": {
+    "icon": "images/skills/FullArsenal.avif",
     "name": "Full Arsenal",
     "tags": [
       "Common",
@@ -1087,6 +1197,7 @@ const skills = {
     "text": "Your item's cooldowns are reduced by (  5%  » 10%   ) if you have a Vehicle, reduced by (  5%  » 10%   ) if you have a Weapon, and reduced by (  5%  » 10%   ) if you have a Tool."
   },
   "Glass Cannon": {
+    "icon": "images/skills/GlassCannon.avif",
     "name": "Glass Cannon",
     "tags": [
       "Vanessa",
@@ -1099,6 +1210,7 @@ const skills = {
     "text": "Both players' weapons have double damage."
   },
   "Grease Fire": {
+    "icon": "images/skills/GreaseFire.avif",
     "name": "Grease Fire",
     "tags": [
       "Dooley",
@@ -1110,6 +1222,7 @@ const skills = {
     "text": "When you use a tool, Burn (  3  » 5   )."
   },
   "Gunner": {
+    "icon": "images/skills/Gunner.avif",
     "name": "Gunner",
     "tags": [
       "Vanessa",
@@ -1119,6 +1232,7 @@ const skills = {
     "text": "Your items have (  +1  » +2  » +3   ) Max Ammo."
   },
   "Hard Shell": {
+    "icon": "images/skills/HardShell.avif",
     "name": "Hard Shell",
     "tags": [
       "Common",
@@ -1128,6 +1242,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, Shield equal to (  20%  » 30%  » 40%  » 50%   ) of your Max Health. [0]"
   },
   "Hardened Shield": {
+    "icon": "images/skills/HardenedShield.avif",
     "name": "Hardened Shield",
     "tags": [
       "Pygmalien",
@@ -1138,6 +1253,7 @@ const skills = {
     "text": "When your enemy uses a Weapon, your Shield items gain (  5  » 10  » 15   ) Shield for the fight."
   },
   "Hardly Workin'": {
+    "icon": "images/skills/HardlyWorkin.avif",
     "name": "Hardly Workin'",
     "tags": [
       "Dooley",
@@ -1150,6 +1266,7 @@ const skills = {
     "text": "When you Slow, gain (  2  » 4   ) Regeneration for the fight."
   },
   "Heal Power": {
+    "icon": "images/skills/HealPower.avif",
     "name": "Heal Power",
     "tags": [
       "Pygmalien",
@@ -1159,6 +1276,7 @@ const skills = {
     "text": "Your Heal items have (  +10  » +20  » +30  » +40   ) Heal."
   },
   "Healthy Hoarder": {
+    "icon": "images/skills/HealthyHoarder.avif",
     "name": "Healthy Hoarder",
     "tags": [
       "Pygmalien",
@@ -1167,6 +1285,7 @@ const skills = {
     "text": "You have (  +35  » +100  » +200  » +300   ) Max Health for each Non-Weapon item you have. [0]"
   },
   "Healthy Lifestyle": {
+    "icon": "images/skills/HealthyLifestyle.avif",
     "name": "Healthy Lifestyle",
     "tags": [
       "Pygmalien",
@@ -1177,6 +1296,7 @@ const skills = {
     "text": "You have (  1  » 2  » 3   ) Regeneration for each non-weapon item you have. [0]"
   },
   "Healthy Tip": {
+    "icon": "images/skills/HealthyTip.avif",
     "name": "Healthy Tip",
     "tags": [
       "Pygmalien",
@@ -1186,6 +1306,7 @@ const skills = {
     "text": "When you gain gold, gain Max Health equal to (  1x  » 2x   ) the amount of gold gained."
   },
   "Heat Lover": {
+    "icon": "images/skills/HeatLover.avif",
     "name": "Heat Lover",
     "tags": [
       "Common",
@@ -1195,6 +1316,7 @@ const skills = {
     "text": "When you or your enemy Burns, gain (  2  » 4  » 6  » 8   ) Regeneration for the fight."
   },
   "Heat Shield": {
+    "icon": "images/skills/HeatShield.avif",
     "name": "Heat Shield",
     "tags": [
       "Dooley",
@@ -1205,6 +1327,7 @@ const skills = {
     "text": "When you Burn with an item, gain Shield equal to (  1x  » 2x   ) that item's Burn."
   },
   "Heated Shells": {
+    "icon": "images/skills/HeatedShells.avif",
     "name": "Heated Shells",
     "tags": [
       "Vanessa",
@@ -1215,6 +1338,7 @@ const skills = {
     "text": "When you use an Ammo item, Burn (  2  » 3  » 4   )."
   },
   "Heavy Firepower": {
+    "icon": "images/skills/HeavyFirepower.avif",
     "name": "Heavy Firepower",
     "tags": [
       "Dooley",
@@ -1229,6 +1353,7 @@ const skills = {
     "text": "If you have 4 or fewer items in play, your Weapons have (  +25  » +50  » +75   ) damage."
   },
   "Heavy Machinery": {
+    "icon": "images/skills/HeavyMachinery.avif",
     "name": "Heavy Machinery",
     "tags": [
       "Dooley",
@@ -1238,6 +1363,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you use The Core each fight, Haste 1 item for 2 second(s)."
   },
   "Heavy Mettle": {
+    "icon": "images/skills/HeavyMettle.avif",
     "name": "Heavy Mettle",
     "tags": [
       "Pygmalien",
@@ -1248,6 +1374,7 @@ const skills = {
     "text": "Your Shield items have + Shield equal to (  2  » 3  » 4   ) times your level. [NaN]"
   },
   "Heavy Shielding": {
+    "icon": "images/skills/HeavyShielding.avif",
     "name": "Heavy Shielding",
     "tags": [
       "Stelle",
@@ -1258,6 +1385,7 @@ const skills = {
     "text": "Your Large Shield items have (  +12  » +36  » +72  » +120   ) shield."
   },
   "Heavy Weaponry": {
+    "icon": "images/skills/HeavyWeaponry.avif",
     "name": "Heavy Weaponry",
     "tags": [
       "Jules",
@@ -1272,6 +1400,7 @@ const skills = {
     "text": "Your Large Weapons deal (  +12  » +36  » +72  » +120   ) Damage."
   },
   "Honed Arsenal": {
+    "icon": "images/skills/HonedArsenal.avif",
     "name": "Honed Arsenal",
     "tags": [
       "Pygmalien",
@@ -1286,6 +1415,7 @@ const skills = {
     "text": "Your items have (  +1%  » +3%  » +5%   ) Crit Chance per Weapon you have. [0%]"
   },
   "Honed Strike": {
+    "icon": "images/skills/HonedStrike.avif",
     "name": "Honed Strike",
     "tags": [
       "Vanessa",
@@ -1295,6 +1425,7 @@ const skills = {
     "text": "When you Crit with an item, it gains (  +5%  » +10%   ) Crit Chance for the fight."
   },
   "Hot Spot": {
+    "icon": "images/skills/HotSpot.avif",
     "name": "Hot Spot",
     "tags": [
       "Vanessa",
@@ -1306,6 +1437,7 @@ const skills = {
     "text": "When you use your leftmost item, Burn (  2  » 3  » 4   )."
   },
   "Housewarming Gifts": {
+    "icon": "images/skills/HousewarmingGifts.avif",
     "name": "Housewarming Gifts",
     "tags": [
       "Pygmalien",
@@ -1314,6 +1446,7 @@ const skills = {
     "text": "When you buy a property, gain (  1  » 2   ) Chocolate Bar(s) and (  1  » 2   ) Spare Change."
   },
   "Hunker Down": {
+    "icon": "images/skills/HunkerDown.avif",
     "name": "Hunker Down",
     "tags": [
       "Common",
@@ -1323,6 +1456,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, Shield equal to (  30%  » 50%  » 80%   ) of your Max Health. [0]"
   },
   "Hyper Focus": {
+    "icon": "images/skills/HyperFocus.avif",
     "name": "Hyper Focus",
     "tags": [
       "Common",
@@ -1331,6 +1465,7 @@ const skills = {
     "text": "If you have only one medium item, its cooldown is reduced by 30%."
   },
   "Hypnotic Drain": {
+    "icon": "images/skills/HypnoticDrain.avif",
     "name": "Hypnotic Drain",
     "tags": [
       "Common",
@@ -1340,6 +1475,7 @@ const skills = {
     "text": "When you use a weapon with Lifesteal, Freeze a smaller item for 2 second(s)."
   },
   "Ice Bullets": {
+    "icon": "images/skills/IceBullets.avif",
     "name": "Ice Bullets",
     "tags": [
       "Vanessa",
@@ -1349,6 +1485,7 @@ const skills = {
     "text": "When you Freeze, reload an Weapon 1 ammo."
   },
   "Ignition": {
+    "icon": "images/skills/Ignition.avif",
     "name": "Ignition",
     "tags": [
       "Stelle"
@@ -1356,6 +1493,7 @@ const skills = {
     "text": ""
   },
   "Immolating Spark": {
+    "icon": "images/skills/ImmolatingSpark.avif",
     "name": "Immolating Spark",
     "tags": [
       "Vanessa",
@@ -1368,6 +1506,7 @@ const skills = {
     "text": "Your leftmost Burn item has (  +3  » +6  » +9  » +12   ) Burn."
   },
   "Improved Toxins": {
+    "icon": "images/skills/ImprovedToxins.avif",
     "name": "Improved Toxins",
     "tags": [
       "Vanessa",
@@ -1378,6 +1517,7 @@ const skills = {
     "text": "Your Poison items have (  +2  » +4  » +6  » +8   ) Poison."
   },
   "Improvised Burn": {
+    "icon": "images/skills/ImprovisedBurn.avif",
     "name": "Improvised Burn",
     "tags": [
       "Vanessa",
@@ -1388,6 +1528,7 @@ const skills = {
     "text": "When you Crit, your Burn items gain (  1  » 2   ) Burn for the fight."
   },
   "Improvised Heal": {
+    "icon": "images/skills/ImprovisedHeal.avif",
     "name": "Improvised Heal",
     "tags": [
       "Pygmalien",
@@ -1399,6 +1540,7 @@ const skills = {
     "text": "When you Crit, your Heal items gain (  10  » 20  » 30   ) Heal for the fight."
   },
   "Improvised Poison": {
+    "icon": "images/skills/ImprovisedPoison.avif",
     "name": "Improvised Poison",
     "tags": [
       "Vanessa",
@@ -1409,6 +1551,7 @@ const skills = {
     "text": "When you Crit, your Poison items gain (  1  » 2   ) Poison for the fight."
   },
   "Improvised Protection": {
+    "icon": "images/skills/ImprovisedProtection.avif",
     "name": "Improvised Protection",
     "tags": [
       "Pygmalien",
@@ -1422,6 +1565,7 @@ const skills = {
     "text": "When you Crit, your Shield items gain (  5  » 10  » 15   ) Shield for the fight."
   },
   "Improvised Weaponry": {
+    "icon": "images/skills/ImprovisedWeaponry.avif",
     "name": "Improvised Weaponry",
     "tags": [
       "Pygmalien",
@@ -1437,6 +1581,7 @@ const skills = {
     "text": "When you Crit, your weapons gain (  5  » 10  » 15   ) Damage for the fight."
   },
   "Industrialist": {
+    "icon": "images/skills/Industrialist.avif",
     "name": "Industrialist",
     "tags": [
       "Pygmalien",
@@ -1446,6 +1591,7 @@ const skills = {
     "text": "Reduce the cooldown of your Properties by (  10%  » 15%   )."
   },
   "Inexorable": {
+    "icon": "images/skills/Inexorable.avif",
     "name": "Inexorable",
     "tags": [
       "Vanessa",
@@ -1454,6 +1600,7 @@ const skills = {
     "text": "Your items have +2% crit chance. When you start a fight, increase this bonus by (  +2%  » +4%  » +6%   )."
   },
   "Initial Chill": {
+    "icon": "images/skills/InitialChill.avif",
     "name": "Initial Chill",
     "tags": [
       "Pygmalien",
@@ -1465,6 +1612,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, Freeze an item for (  3  » 4  » 5   ) second(s)."
   },
   "Initial Dose": {
+    "icon": "images/skills/InitialDose.avif",
     "name": "Initial Dose",
     "tags": [
       "Vanessa",
@@ -1475,6 +1623,7 @@ const skills = {
     "text": "Your leftmost Poison item has (  +3  » +6  » +9  » +12   ) Poison."
   },
   "Into the Void": {
+    "icon": "images/skills/IntotheVoid.avif",
     "name": "Into the Void",
     "tags": [
       "Common"
@@ -1482,6 +1631,7 @@ const skills = {
     "text": "At the start of each fight, destroy an item on each player's board for the fight."
   },
   "Intrusion Countermeasures": {
+    "icon": "images/skills/IntrusionCountermeasures.avif",
     "name": "Intrusion Countermeasures",
     "tags": [
       "Dooley",
@@ -1490,6 +1640,7 @@ const skills = {
     "text": "The first time you fall below half health in a fight, use your Friends."
   },
   "Invigorating Blade": {
+    "icon": "images/skills/InvigoratingBlade.avif",
     "name": "Invigorating Blade",
     "tags": [
       "Pygmalien",
@@ -1500,6 +1651,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you use a Weapon each fight, Charge 1 Heal item 1 second(s)."
   },
   "Invigorating Cold": {
+    "icon": "images/skills/InvigoratingCold.avif",
     "name": "Invigorating Cold",
     "tags": [
       "Dooley",
@@ -1514,6 +1666,7 @@ const skills = {
     "text": "The first time you Freeze each fight, Haste (  1  » 2  » 3   ) items for 2 second(s)."
   },
   "Iron Sharpens Iron": {
+    "icon": "images/skills/IronSharpensIron.avif",
     "name": "Iron Sharpens Iron",
     "tags": [
       "Vanessa",
@@ -1525,6 +1678,7 @@ const skills = {
     "text": "Your leftmost Weapon has +2 damage. When you buy a weapon, increase this bonus by (  2  » 3  » 4   )."
   },
   "Juggler": {
+    "icon": "images/skills/Juggler.avif",
     "name": "Juggler",
     "tags": [
       "Common",
@@ -1533,6 +1687,7 @@ const skills = {
     "text": "When you use a small item, Charge a large item for 1 second(s)."
   },
   "Jury Rigger": {
+    "icon": "images/skills/JuryRigger.avif",
     "name": "Jury Rigger",
     "tags": [
       "Common",
@@ -1541,6 +1696,7 @@ const skills = {
     "text": "When you use an item with Ammo, reload (  1  » 2  » 3   ) the item to the left of it."
   },
   "Keen Eye": {
+    "icon": "images/skills/KeenEye.avif",
     "name": "Keen Eye",
     "tags": [
       "Pygmalien",
@@ -1554,6 +1710,7 @@ const skills = {
     "text": "Your items have (  +4%  » +8%  » +12%  » +16%   ) Crit chance."
   },
   "Knife Tricks": {
+    "icon": "images/skills/KnifeTricks.avif",
     "name": "Knife Tricks",
     "tags": [
       "Vanessa",
@@ -1568,6 +1725,7 @@ const skills = {
     "text": "When you use a weapon, reduce its cooldown by 5% for the fight."
   },
   "Large Appetites": {
+    "icon": "images/skills/LargeAppetites.avif",
     "name": "Large Appetites",
     "tags": [
       "Pygmalien",
@@ -1581,6 +1739,7 @@ const skills = {
     "text": "If you have 4 or fewer items, you have (  +500  » +1000  » +2000   ) Max Health."
   },
   "Large Poisons": {
+    "icon": "images/skills/LargePoisons.avif",
     "name": "Large Poisons",
     "tags": [
       "Mak",
@@ -1589,6 +1748,7 @@ const skills = {
     "text": "Your Large Poison items have (  +4  » +8  » +12  » +16   ) Poison."
   },
   "Lash Out": {
+    "icon": "images/skills/LashOut.avif",
     "name": "Lash Out",
     "tags": [
       "Common",
@@ -1597,6 +1757,7 @@ const skills = {
     "text": "At the start of each fight, Poison (  3  » 6  » 9  » 12   )."
   },
   "Left Eye": {
+    "icon": "images/skills/LeftEye.avif",
     "name": "Left Eye",
     "tags": [
       "Pygmalien",
@@ -1610,6 +1771,7 @@ const skills = {
     "text": "Your leftmost item has (  +8%  » +16%  » +24%  » +32%   ) Crit chance."
   },
   "Left-Handed": {
+    "icon": "images/skills/LeftHanded.avif",
     "name": "Left-Handed",
     "tags": [
       "Jules",
@@ -1624,6 +1786,7 @@ const skills = {
     "text": "Your leftmost Weapon deals (  +20  » +30  » +40  » +50   ) Damage."
   },
   "Lefty Loosey": {
+    "icon": "images/skills/LeftyLoosey.avif",
     "name": "Lefty Loosey",
     "tags": [
       "Dooley",
@@ -1634,6 +1797,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you use your leftmost item each fight, Haste 1 item for 1 second(s)."
   },
   "Lethargy": {
+    "icon": "images/skills/Lethargy.avif",
     "name": "Lethargy",
     "tags": [
       "Pygmalien",
@@ -1643,6 +1807,7 @@ const skills = {
     "text": "All items have a cooldown increase of (  30%  » 50%   )."
   },
   "Letting off Steam": {
+    "icon": "images/skills/LettingoffSteam.avif",
     "name": "Letting off Steam",
     "tags": [
       "Dooley",
@@ -1653,6 +1818,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you Burn each fight, Haste the Core for 2 second(s)."
   },
   "Lifting": {
+    "icon": "images/skills/Lifting.avif",
     "name": "Lifting",
     "tags": [
       "Pygmalien",
@@ -1664,6 +1830,7 @@ const skills = {
     "text": "Your weapons have +1 Damage. When you buy a Weapon, increase this bonus by (  +1  » +2  » +3   ) Damage."
   },
   "Like Clockwork": {
+    "icon": "images/skills/LikeClockwork.avif",
     "name": "Like Clockwork",
     "tags": [
       "Dooley",
@@ -1673,6 +1840,7 @@ const skills = {
     "text": "When you level up, give your Weapons (  +5  » +10  » +15  » +20   ) damage. If you have a Weapon Core, double this."
   },
   "Liquid Cooled": {
+    "icon": "images/skills/LiquidCooled.avif",
     "name": "Liquid Cooled",
     "tags": [
       "Dooley",
@@ -1682,6 +1850,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times use the Core each fight, Freeze 1 item of equal or smaller size for 1 second(s)."
   },
   "Living Flame": {
+    "icon": "images/skills/LivingFlame.avif",
     "name": "Living Flame",
     "tags": [
       "Vanessa",
@@ -1695,6 +1864,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, your Burn items have their cooldowns reduced by 50% for the fight."
   },
   "Loaded Fury": {
+    "icon": "images/skills/LoadedFury.avif",
     "name": "Loaded Fury",
     "tags": [
       "Vanessa",
@@ -1704,6 +1874,7 @@ const skills = {
     "text": "Your items have +0 damage for each ammo you have on your items in play. [0]"
   },
   "Long Strides": {
+    "icon": "images/skills/LongStrides.avif",
     "name": "Long Strides",
     "tags": [
       "Pygmalien",
@@ -1712,6 +1883,7 @@ const skills = {
     "text": "If you have 4 or fewer items, your items have their cooldowns reduced by (  4%  » 8%  » 12%   )."
   },
   "Machine Learning": {
+    "icon": "images/skills/MachineLearning.avif",
     "name": "Machine Learning",
     "tags": [
       "Dooley",
@@ -1720,6 +1892,7 @@ const skills = {
     "text": "When you buy or upgrade this, upgrade the core."
   },
   "Makeshift Plate": {
+    "icon": "images/skills/MakeshiftPlate.avif",
     "name": "Makeshift Plate",
     "tags": [
       "Pygmalien",
@@ -1729,6 +1902,7 @@ const skills = {
     "text": "Your Shield items have +1 Shield for every (  4  » 3  » 2   ) gold you have. [NaN]"
   },
   "Master Salesman": {
+    "icon": "images/skills/MasterSalesman.avif",
     "name": "Master Salesman",
     "tags": [
       "Common",
@@ -1737,6 +1911,7 @@ const skills = {
     "text": "Your items have double value during combat."
   },
   "Medical Ward": {
+    "icon": "images/skills/MedicalWard.avif",
     "name": "Medical Ward",
     "tags": [
       "Pygmalien",
@@ -1746,6 +1921,7 @@ const skills = {
     "text": "Your Large Heal items have (  +12  » +36  » +72  » +120   ) Heal."
   },
   "Microfiber": {
+    "icon": "images/skills/Microfiber.avif",
     "name": "Microfiber",
     "tags": [
       "Stelle",
@@ -1756,6 +1932,7 @@ const skills = {
     "text": "Your Small Shield items have (  +3  » +9  » +18  » +30   ) shield."
   },
   "Minimalist": {
+    "icon": "images/skills/Minimalist.avif",
     "name": "Minimalist",
     "tags": [
       "Pygmalien",
@@ -1764,6 +1941,7 @@ const skills = {
     "text": "If you have no weapons, your items' cooldowns are reduced by (  10%  » 20%   )."
   },
   "Mixed Message": {
+    "icon": "images/skills/MixedMessage.avif",
     "name": "Mixed Message",
     "tags": [
       "Vanessa",
@@ -1777,6 +1955,7 @@ const skills = {
     "text": "The first (  4  » 8   ) times you use a non-Weapon item each fight, Charge 1 Weapon 1 second(s)."
   },
   "Moth to a Flame": {
+    "icon": "images/skills/MothtoaFlame.avif",
     "name": "Moth to a Flame",
     "tags": [
       "Dooley",
@@ -1787,6 +1966,7 @@ const skills = {
     "text": "You have Regeneration equal to half the Burn on your enemy."
   },
   "Nanite Healing": {
+    "icon": "images/skills/NaniteHealing.avif",
     "name": "Nanite Healing",
     "tags": [
       "Pygmalien",
@@ -1796,6 +1976,7 @@ const skills = {
     "text": "Your Small Heal items have (  +3  » +9  » +18  » +30   ) Heal."
   },
   "Neophiliac": {
+    "icon": "images/skills/Neophiliac.avif",
     "name": "Neophiliac",
     "tags": [
       "Common",
@@ -1809,6 +1990,7 @@ const skills = {
     "text": "The first time you freeze, burn, slow, poison, and haste each fight, charge an item (  2  » 4   ) second(s)."
   },
   "Net Launcher": {
+    "icon": "images/skills/NetLauncher.avif",
     "name": "Net Launcher",
     "tags": [
       "Vanessa",
@@ -1820,6 +2002,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, Slow (  2  » 3  » 4   ) item(s) for 3 second(s)."
   },
   "Noisy Cricket": {
+    "icon": "images/skills/NoisyCricket.avif",
     "name": "Noisy Cricket",
     "tags": [
       "Dooley",
@@ -1834,6 +2017,7 @@ const skills = {
     "text": "If you have at least 7 items in play, your Weapons deal (  +20  » +25  » +30   ) damage."
   },
   "Oceanic Rush": {
+    "icon": "images/skills/OceanicRush.avif",
     "name": "Oceanic Rush",
     "tags": [
       "Vanessa",
@@ -1843,6 +2027,7 @@ const skills = {
     "text": "At the start of each fight, Haste (  1  » 2  » 3   ) Aquatic items for 2 second(s)."
   },
   "One Shot, One Kill": {
+    "icon": "images/skills/OneShot,OneKill.avif",
     "name": "One Shot, One Kill",
     "tags": [
       "Common",
@@ -1852,6 +2037,7 @@ const skills = {
     "text": "If you only have one weapon, it deals triple damage and has its cooldown increased by 50%."
   },
   "Open for Business": {
+    "icon": "images/skills/OpenforBusiness.avif",
     "name": "Open for Business",
     "tags": [
       "Pygmalien",
@@ -1861,6 +2047,7 @@ const skills = {
     "text": "You have (  +1  » +2  » +3   ) income for each Property you have (including Stash)."
   },
   "Outmaneuver": {
+    "icon": "images/skills/Outmaneuver.avif",
     "name": "Outmaneuver",
     "tags": [
       "Vanessa",
@@ -1872,6 +2059,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you Slow each fight, Haste 1 vehicle for 2 second(s)."
   },
   "Overclocked": {
+    "icon": "images/skills/Overclocked.avif",
     "name": "Overclocked",
     "tags": [
       "Dooley",
@@ -1882,6 +2070,7 @@ const skills = {
     "text": "The Core has its cooldown reduced by (  10%  » 15%   ). While you have Burn, double this effect."
   },
   "Panic": {
+    "icon": "images/skills/Panic.avif",
     "name": "Panic",
     "tags": [
       "Common",
@@ -1890,6 +2079,7 @@ const skills = {
     "text": "The first time you fall below 50% health each fight, reload (  2  » 4  » 6  » 8   ) items."
   },
   "Paralytic Poison": {
+    "icon": "images/skills/ParalyticPoison.avif",
     "name": "Paralytic Poison",
     "tags": [
       "Dooley",
@@ -1901,6 +2091,7 @@ const skills = {
     "text": "The first time you Poison each fight, Freeze an item for (  3  » 4  » 5   ) second(s)."
   },
   "Paralyzing Rush": {
+    "icon": "images/skills/ParalyzingRush.avif",
     "name": "Paralyzing Rush",
     "tags": [
       "Common",
@@ -1911,6 +2102,7 @@ const skills = {
     "text": "When you Slow, Haste a Weapon (  1  » 2   ) second(s)."
   },
   "Parting Shot": {
+    "icon": "images/skills/PartingShot.avif",
     "name": "Parting Shot",
     "tags": [
       "Vanessa",
@@ -1920,6 +2112,7 @@ const skills = {
     "text": "When you use an item with Ammo, give it (  +5%  » +10%   ) Crit Chance for the fight."
   },
   "Party Like it's 011111001111": {
+    "icon": "images/skills/PartyLikeits011111001111.avif",
     "name": "Party Like it's 011111001111",
     "tags": [
       "Dooley",
@@ -1931,6 +2124,7 @@ const skills = {
     "text": "When you upgrade a Friend, your other items gain (  3  » 6  » 9   ) bonus Damage, (  3  » 6  » 9   ) bonus Shield and (  1  » 2  » 3   ) bonus Burn."
   },
   "Peaceful Eye": {
+    "icon": "images/skills/PeacefulEye.avif",
     "name": "Peaceful Eye",
     "tags": [
       "Pygmalien",
@@ -1945,6 +2139,7 @@ const skills = {
     "text": "Your Non-Weapon items have (  +5%  » +10%  » +15%  » +20%   ) Crit chance."
   },
   "Petrifying Gaze": {
+    "icon": "images/skills/PetrifyingGaze.avif",
     "name": "Petrifying Gaze",
     "tags": [
       "Common",
@@ -1954,6 +2149,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, Freeze all enemy items for (  1  » 2  » 3   ) second(s)."
   },
   "Pickpocket": {
+    "icon": "images/skills/Pickpocket.avif",
     "name": "Pickpocket",
     "tags": [
       "Common"
@@ -1961,6 +2157,7 @@ const skills = {
     "text": "At the start of each fight, gain (  1  » 2  » 3  » 4   ) gold."
   },
   "Poison Tyrant": {
+    "icon": "images/skills/PoisonTyrant.avif",
     "name": "Poison Tyrant",
     "tags": [
       "Common",
@@ -1970,6 +2167,7 @@ const skills = {
     "text": "When you or your enemy Poisons, gain (  2  » 4  » 6  » 8   ) Regeneration for the fight."
   },
   "Poisonous Opener": {
+    "icon": "images/skills/PoisonousOpener.avif",
     "name": "Poisonous Opener",
     "tags": [
       "Vanessa",
@@ -1980,6 +2178,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, Poison (  10  » 15  » 20   )."
   },
   "Power Broker": {
+    "icon": "images/skills/PowerBroker.avif",
     "name": "Power Broker",
     "tags": [
       "Common",
@@ -1990,6 +2189,7 @@ const skills = {
     "text": "Your weapons have + damage equal to (  1x  » 2x   ) your income."
   },
   "Precision Diver": {
+    "icon": "images/skills/PrecisionDiver.avif",
     "name": "Precision Diver",
     "tags": [
       "Vanessa",
@@ -1999,6 +2199,7 @@ const skills = {
     "text": "Your Aquatic items have (  +8%  » +10%  » +12%   ) Crit chance."
   },
   "Prime Real Estate": {
+    "icon": "images/skills/PrimeRealEstate.avif",
     "name": "Prime Real Estate",
     "tags": [
       "Pygmalien",
@@ -2008,6 +2209,7 @@ const skills = {
     "text": "When you use a Property, adjacent items gain (  5  » 10  » 15   ) Crit chance for the fight."
   },
   "Property Mogul": {
+    "icon": "images/skills/PropertyMogul.avif",
     "name": "Property Mogul",
     "tags": [
       "Pygmalien",
@@ -2017,6 +2219,7 @@ const skills = {
     "text": "When you buy a Property, gain (  50  » 100  » 150   ) Max Health."
   },
   "Prosperity": {
+    "icon": "images/skills/Prosperity.avif",
     "name": "Prosperity",
     "tags": [
       "Common",
@@ -2026,6 +2229,7 @@ const skills = {
     "text": "Your Shield items have + Shield equal to the value of your Items. [0]"
   },
   "Purifying Flame": {
+    "icon": "images/skills/PurifyingFlame.avif",
     "name": "Purifying Flame",
     "tags": [
       "Common",
@@ -2035,6 +2239,7 @@ const skills = {
     "text": "When you gain Regeneration, a Burn item gains (  1  » 2   ) Burn for the fight."
   },
   "Pyromania": {
+    "icon": "images/skills/Pyromania.avif",
     "name": "Pyromania",
     "tags": [
       "Common",
@@ -2043,6 +2248,7 @@ const skills = {
     "text": "When you use a large item, Burn (  10  » 15   )."
   },
   "Quality over Quantity": {
+    "icon": "images/skills/QualityoverQuantity.avif",
     "name": "Quality over Quantity",
     "tags": [
       "Vanessa",
@@ -2055,6 +2261,7 @@ const skills = {
     "text": "If you have exactly one weapon, it has Lifesteal and (  5%  » 10%   ) Crit Chance."
   },
   "Quick Freeze": {
+    "icon": "images/skills/QuickFreeze.avif",
     "name": "Quick Freeze",
     "tags": [
       "Dooley",
@@ -2067,6 +2274,7 @@ const skills = {
     "text": "The first time you Haste each fight, Freeze an item for (  3  » 4  » 5   ) second(s)."
   },
   "Quick Ignition": {
+    "icon": "images/skills/QuickIgnition.avif",
     "name": "Quick Ignition",
     "tags": [
       "Vanessa",
@@ -2079,6 +2287,7 @@ const skills = {
     "text": "At the start of each fight, Haste (  2  » 3   ) Burn items for 2 second(s)."
   },
   "Rapid Relief": {
+    "icon": "images/skills/RapidRelief.avif",
     "name": "Rapid Relief",
     "tags": [
       "Pygmalien",
@@ -2089,6 +2298,7 @@ const skills = {
     "text": "While your enemy has more health than you, your Heal items have their cooldowns reduced by (  5%  » 10%   )."
   },
   "Ravenous": {
+    "icon": "images/skills/Ravenous.avif",
     "name": "Ravenous",
     "tags": [
       "Common"
@@ -2096,6 +2306,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, destroy an item for the fight."
   },
   "Re-Tooled": {
+    "icon": "images/skills/ReTooled.avif",
     "name": "Re-Tooled",
     "tags": [
       "Pygmalien",
@@ -2109,6 +2320,7 @@ const skills = {
     "text": "Your leftmost Tool has +1 Multicast."
   },
   "Reaching the Summit": {
+    "icon": "images/skills/ReachingtheSummit.avif",
     "name": "Reaching the Summit",
     "tags": [
       "Vanessa",
@@ -2122,6 +2334,7 @@ const skills = {
     "text": "When you Freeze, your items gain (  +2%  » +4%   ) Crit Chance for the fight."
   },
   "Rear Shielding": {
+    "icon": "images/skills/RearShielding.avif",
     "name": "Rear Shielding",
     "tags": [
       "Pygmalien",
@@ -2134,6 +2347,7 @@ const skills = {
     "text": "Your rightmost Shield item has (  +20  » +30  » +40  » +50   ) Shield."
   },
   "Red Envelope": {
+    "icon": "images/skills/RedEnvelope.avif",
     "name": "Red Envelope",
     "tags": [
       "Vanessa",
@@ -2146,6 +2360,7 @@ const skills = {
     "text": "When you buy this, gain 10 gold."
   },
   "Reel 'Em In": {
+    "icon": "images/skills/ReelEmIn.avif",
     "name": "Reel 'Em In",
     "tags": [
       "Vanessa",
@@ -2155,6 +2370,7 @@ const skills = {
     "text": "The first time your enemy falls below half health each fight, your items have their cooldowns reduced by 50% for the fight."
   },
   "Regenerative": {
+    "icon": "images/skills/Regenerative.avif",
     "name": "Regenerative",
     "tags": [
       "Vanessa",
@@ -2165,6 +2381,7 @@ const skills = {
     "text": "You have (  10  » 20  » 30   ) Regeneration."
   },
   "Reinforced Steel": {
+    "icon": "images/skills/ReinforcedSteel.avif",
     "name": "Reinforced Steel",
     "tags": [
       "Pygmalien",
@@ -2175,6 +2392,7 @@ const skills = {
     "text": "When you use a Property, your Weapons gain (  +5  » +10  » +15   ) damage and your Shield items gain (  +5  » +10  » +15   ) shield for the fight."
   },
   "Renovation": {
+    "icon": "images/skills/Renovation.avif",
     "name": "Renovation",
     "tags": [
       "Pygmalien",
@@ -2183,6 +2401,7 @@ const skills = {
     "text": "When you level up, upgrade a Property."
   },
   "Reserve Shield": {
+    "icon": "images/skills/ReserveShield.avif",
     "name": "Reserve Shield",
     "tags": [
       "Pygmalien",
@@ -2194,6 +2413,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, Shield equal to (  10%  » 20%  » 30%   ) of your max health."
   },
   "Retaliatory Toxins": {
+    "icon": "images/skills/RetaliatoryToxins.avif",
     "name": "Retaliatory Toxins",
     "tags": [
       "Dooley",
@@ -2204,6 +2424,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, Poison (  20  » 30  » 40   )."
   },
   "Retool": {
+    "icon": "images/skills/Retool.avif",
     "name": "Retool",
     "tags": [
       "Common",
@@ -2213,6 +2434,7 @@ const skills = {
     "text": "When you use a Tool, reload 1 to adjacent items."
   },
   "Rigged": {
+    "icon": "images/skills/Rigged.avif",
     "name": "Rigged",
     "tags": [
       "Common",
@@ -2221,6 +2443,7 @@ const skills = {
     "text": "At the start of each fight, Haste (  2  » 3  » 4  » 5   ) items for 3 second(s)."
   },
   "Right Eye": {
+    "icon": "images/skills/RightEye.avif",
     "name": "Right Eye",
     "tags": [
       "Pygmalien",
@@ -2234,6 +2457,7 @@ const skills = {
     "text": "Your rightmost item has (  +8%  » +16%  » +24%  » +32%   ) Crit chance."
   },
   "Right-Handed": {
+    "icon": "images/skills/RightHanded.avif",
     "name": "Right-Handed",
     "tags": [
       "Jules",
@@ -2248,6 +2472,7 @@ const skills = {
     "text": "Your rightmost Weapon has (  +20  » +30  » +40  » +50   ) Damage."
   },
   "Righty Tighty": {
+    "icon": "images/skills/RightyTighty.avif",
     "name": "Righty Tighty",
     "tags": [
       "Dooley",
@@ -2258,6 +2483,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you use your rightmost item each fight, slow 1 item for 1 second(s)."
   },
   "Rush": {
+    "icon": "images/skills/Rush.avif",
     "name": "Rush",
     "tags": [
       "Common",
@@ -2267,6 +2493,7 @@ const skills = {
     "text": "At the start of each fight, Haste a weapon (  3  » 5  » 7  » 9   ) second(s)."
   },
   "Rust": {
+    "icon": "images/skills/Rust.avif",
     "name": "Rust",
     "tags": [
       "Common",
@@ -2275,6 +2502,7 @@ const skills = {
     "text": "At the start of each fight, slow an item for (  3  » 5  » 7  » 9   ) second(s)."
   },
   "Sabotage": {
+    "icon": "images/skills/Sabotage.avif",
     "name": "Sabotage",
     "tags": [
       "Vanessa",
@@ -2286,6 +2514,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you use a Tool each fight, Slow 1 item for 1 second(s)."
   },
   "Second Degree Burns": {
+    "icon": "images/skills/SecondDegreeBurns.avif",
     "name": "Second Degree Burns",
     "tags": [
       "Vanessa",
@@ -2298,6 +2527,7 @@ const skills = {
     "text": "Your Medium Burn items have (  +2  » +4  » +6  » +8   ) Burn."
   },
   "Second Wind": {
+    "icon": "images/skills/SecondWind.avif",
     "name": "Second Wind",
     "tags": [
       "Pygmalien",
@@ -2309,6 +2539,7 @@ const skills = {
     "text": "The first time you use a Large item each fight, heal (  20%  » 40%  » 60%   ) of your max health."
   },
   "Sharp Corners": {
+    "icon": "images/skills/SharpCorners.avif",
     "name": "Sharp Corners",
     "tags": [
       "Pygmalien",
@@ -2321,6 +2552,7 @@ const skills = {
     "text": "When you Shield, your weapons gain (  3  » 6  » 9   ) damage for the fight."
   },
   "Sharpened Steel": {
+    "icon": "images/skills/SharpenedSteel.avif",
     "name": "Sharpened Steel",
     "tags": [
       "Common",
@@ -2330,6 +2562,7 @@ const skills = {
     "text": "When you use a Weapon, Adjacent items gain (  4%  » 8%  » 12%   ) Crit Chance for the fight."
   },
   "Shatter": {
+    "icon": "images/skills/Shatter.avif",
     "name": "Shatter",
     "tags": [
       "Vanessa",
@@ -2345,6 +2578,7 @@ const skills = {
     "text": "When you freeze, your Weapons gain (  +10  » +15  » +20   ) damage for the fight."
   },
   "Shellshock": {
+    "icon": "images/skills/Shellshock.avif",
     "name": "Shellshock",
     "tags": [
       "Common",
@@ -2353,6 +2587,7 @@ const skills = {
     "text": "Your items have +1 damage for each ammo you have on your items in play. [0]"
   },
   "Shield Bash": {
+    "icon": "images/skills/ShieldBash.avif",
     "name": "Shield Bash",
     "tags": [
       "Pygmalien",
@@ -2364,6 +2599,7 @@ const skills = {
     "text": "The first (  4  » 8   ) times your enemy uses a non-weapon item each fight, Charge 1 Weapon 1 second(s)."
   },
   "Shored Up": {
+    "icon": "images/skills/ShoredUp.avif",
     "name": "Shored Up",
     "tags": [
       "Common",
@@ -2373,6 +2609,7 @@ const skills = {
     "text": "When you Heal, charge a Shield item 1 second."
   },
   "Sick Burn": {
+    "icon": "images/skills/SickBurn.avif",
     "name": "Sick Burn",
     "tags": [
       "Vanessa",
@@ -2383,6 +2620,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you Poison each fight, charge 1 Burn item 1 second(s)."
   },
   "Slow and Steady": {
+    "icon": "images/skills/SlowandSteady.avif",
     "name": "Slow and Steady",
     "tags": [
       "Vanessa",
@@ -2396,6 +2634,7 @@ const skills = {
     "text": "When you Slow, your weapons gain (  3  » 6   ) damage for the fight."
   },
   "Slowed Targets": {
+    "icon": "images/skills/SlowedTargets.avif",
     "name": "Slowed Targets",
     "tags": [
       "Vanessa",
@@ -2408,6 +2647,7 @@ const skills = {
     "text": "When you Slow, your items gain (  +1%  » +2%  » +3%   ) Crit Chance for the fight."
   },
   "Small Weaponry": {
+    "icon": "images/skills/SmallWeaponry.avif",
     "name": "Small Weaponry",
     "tags": [
       "Jules",
@@ -2422,6 +2662,7 @@ const skills = {
     "text": "Your Small Weapons deal (  +3  » +9  » +18  » +30   ) Damage."
   },
   "Snowstorm": {
+    "icon": "images/skills/Snowstorm.avif",
     "name": "Snowstorm",
     "tags": [
       "Common",
@@ -2431,6 +2672,7 @@ const skills = {
     "text": "When you freeze, your weapons gain (  2  » 4  » 6  » 8   ) damage for the fight."
   },
   "Sparring Partner": {
+    "icon": "images/skills/SparringPartner.avif",
     "name": "Sparring Partner",
     "tags": [
       "Common"
@@ -2438,6 +2680,7 @@ const skills = {
     "text": "When you would die, Cleanse all Burn and Poison, double your Max Health and Heal to full. In addition, your enemy gains 1 Gold."
   },
   "Specialist": {
+    "icon": "images/skills/Specialist.avif",
     "name": "Specialist",
     "tags": [
       "Pygmalien",
@@ -2449,6 +2692,7 @@ const skills = {
     "text": "If you have exactly 1 weapon, your Shield items have (  +10  » +20  » +30   ) shield."
   },
   "Standard Ordnance": {
+    "icon": "images/skills/StandardOrdnance.avif",
     "name": "Standard Ordnance",
     "tags": [
       "Jules",
@@ -2463,6 +2707,7 @@ const skills = {
     "text": "Your Medium Weapons deal (  +6  » +18  » +36  » +60   ) Damage."
   },
   "Standardized Care": {
+    "icon": "images/skills/StandardizedCare.avif",
     "name": "Standardized Care",
     "tags": [
       "Pygmalien",
@@ -2472,6 +2717,7 @@ const skills = {
     "text": "Your Medium Heal items have (  +6  » +18  » +36  » +60   ) Heal."
   },
   "Standardized Defenses": {
+    "icon": "images/skills/StandardizedDefenses.avif",
     "name": "Standardized Defenses",
     "tags": [
       "Stelle",
@@ -2482,6 +2728,7 @@ const skills = {
     "text": "Your Medium Shield items have (  +6  » +18  » +36  » +60   ) shield."
   },
   "Standardized Toxins": {
+    "icon": "images/skills/StandardizedToxins.avif",
     "name": "Standardized Toxins",
     "tags": [
       "Vanessa",
@@ -2492,6 +2739,7 @@ const skills = {
     "text": "Your Medium Poison items have (  +2  » +4  » +6  » +8   ) Poison."
   },
   "Static Acceleration": {
+    "icon": "images/skills/StaticAcceleration.avif",
     "name": "Static Acceleration",
     "tags": [
       "Dooley",
@@ -2503,6 +2751,7 @@ const skills = {
     "text": "When you Haste, your items gain (  +1%  » +2%   ) crit chance for the fight."
   },
   "Staying Power": {
+    "icon": "images/skills/StayingPower.avif",
     "name": "Staying Power",
     "tags": [
       "Pygmalien",
@@ -2512,6 +2761,7 @@ const skills = {
     "text": "When you use a Tool, Heal (  5  » 10  » 15  » 20   )."
   },
   "Stop That!": {
+    "icon": "images/skills/StopThat!.avif",
     "name": "Stop That!",
     "tags": [
       "Vanessa",
@@ -2522,6 +2772,7 @@ const skills = {
     "text": "The first time you fall below half health each fight, slow (  2  » 4  » 4   ) items for (  2  » 2  » 6   ) second(s)."
   },
   "Strength": {
+    "icon": "images/skills/Strength.avif",
     "name": "Strength",
     "tags": [
       "Jules",
@@ -2536,6 +2787,7 @@ const skills = {
     "text": "Your Weapons deal (  +10  » +15  » +20  » +25   ) Damage."
   },
   "Strong Arm": {
+    "icon": "images/skills/StrongArm.avif",
     "name": "Strong Arm",
     "tags": [
       "Pygmalien",
@@ -2546,6 +2798,7 @@ const skills = {
     "text": "Your Weapons have + Damage equal to (  1x  » 2x  » 3x   ) your income. [NaN]"
   },
   "Stunning Strike": {
+    "icon": "images/skills/StunningStrike.avif",
     "name": "Stunning Strike",
     "tags": [
       "Vanessa",
@@ -2555,6 +2808,7 @@ const skills = {
     "text": "The first time you Crit each fight, Freeze an item for (  3  » 4  » 5   ) second(s)."
   },
   "Submerged": {
+    "icon": "images/skills/Submerged.avif",
     "name": "Submerged",
     "tags": [
       "Vanessa",
@@ -2566,6 +2820,7 @@ const skills = {
     "text": "Your Weapons have (  +3  » +6  » +9   ) Damage for each Aquatic item you have. [0] Your Shield items have (  +3  » +6  » +9   ) Shield for each Aquatic item you have. [0]"
   },
   "Tall Buildings": {
+    "icon": "images/skills/TallBuildings.avif",
     "name": "Tall Buildings",
     "tags": [
       "Pygmalien",
@@ -2575,6 +2830,7 @@ const skills = {
     "text": "When you use a Property, haste items adjacent to it (  1  » 2   ) second(s)."
   },
   "Tempering": {
+    "icon": "images/skills/Tempering.avif",
     "name": "Tempering",
     "tags": [
       "Vanessa",
@@ -2584,6 +2840,7 @@ const skills = {
     "text": "When you use a weapon, give it (  +3  » +6  » +9   ) damage for the fight."
   },
   "Temporal Strike": {
+    "icon": "images/skills/TemporalStrike.avif",
     "name": "Temporal Strike",
     "tags": [
       "Vanessa",
@@ -2595,6 +2852,7 @@ const skills = {
     "text": "If you have exactly one weapon, the first (  5  » 10   ) times you use it each fight, Slow 1 item for 3 second(s)."
   },
   "The Best Defense": {
+    "icon": "images/skills/TheBestDefense.avif",
     "name": "The Best Defense",
     "tags": [
       "Vanessa",
@@ -2604,6 +2862,7 @@ const skills = {
     "text": "When you use a weapon, give weapons adjacent to it (  +3  » +6  » +9   ) damage for the fight."
   },
   "The Right Tool": {
+    "icon": "images/skills/TheRightTool.avif",
     "name": "The Right Tool",
     "tags": [
       "Common",
@@ -2613,6 +2872,7 @@ const skills = {
     "text": "Your non-tool items have (  +5%  » +10%  » +15%   ) Crit Chance for each tool you have. [0]"
   },
   "Thick Hide": {
+    "icon": "images/skills/ThickHide.avif",
     "name": "Thick Hide",
     "tags": [
       "Common",
@@ -2622,6 +2882,7 @@ const skills = {
     "text": "When you slow, charge an item 1 second(s)."
   },
   "Third Degree Burns": {
+    "icon": "images/skills/ThirdDegreeBurns.avif",
     "name": "Third Degree Burns",
     "tags": [
       "Vanessa",
@@ -2634,6 +2895,7 @@ const skills = {
     "text": "Your Large Burn items have (  +4  » +8  » +12  » +16   ) Burn."
   },
   "Time to Tinker": {
+    "icon": "images/skills/TimetoTinker.avif",
     "name": "Time to Tinker",
     "tags": [
       "Common",
@@ -2643,6 +2905,7 @@ const skills = {
     "text": "When you Haste, Shield (  10  » 20  » 30  » 40   )."
   },
   "Tiny Dancer": {
+    "icon": "images/skills/TinyDancer.avif",
     "name": "Tiny Dancer",
     "tags": [
       "Dooley",
@@ -2652,6 +2915,7 @@ const skills = {
     "text": "If you have at least 7 items in play, your items have their cooldowns reduced by (  5%  » 10%  » 15%   )."
   },
   "Titanium Casing": {
+    "icon": "images/skills/TitaniumCasing.avif",
     "name": "Titanium Casing",
     "tags": [
       "Dooley",
@@ -2661,6 +2925,7 @@ const skills = {
     "text": "When you use The Core, your Shield items gain (  15  » 30   ) Shield for the fight."
   },
   "Tools of the Trade": {
+    "icon": "images/skills/ToolsoftheTrade.avif",
     "name": "Tools of the Trade",
     "tags": [
       "Dooley",
@@ -2672,6 +2937,7 @@ const skills = {
     "text": "The first (  5  » 10   ) times you use a Tool each fight, Haste 1 Tool for 1 second(s)."
   },
   "Toughness": {
+    "icon": "images/skills/Toughness.avif",
     "name": "Toughness",
     "tags": [
       "Pygmalien",
@@ -2682,6 +2948,7 @@ const skills = {
     "text": "Your Shield items have (  +10  » +15  » +20  » +25   ) Shield."
   },
   "Toxic": {
+    "icon": "images/skills/Toxic.avif",
     "name": "Toxic",
     "tags": [
       "Vanessa",
@@ -2692,6 +2959,7 @@ const skills = {
     "text": "When you poison, your weapons gain (  5  » 10  » 15   ) damage for the fight."
   },
   "Toxic Exposure": {
+    "icon": "images/skills/ToxicExposure.avif",
     "name": "Toxic Exposure",
     "tags": [
       "Vanessa",
@@ -2702,6 +2970,7 @@ const skills = {
     "text": "When you Poison, your enemy loses (  5  » 10   ) Max Health for the fight."
   },
   "Toxic Flame": {
+    "icon": "images/skills/ToxicFlame.avif",
     "name": "Toxic Flame",
     "tags": [
       "Vanessa",
@@ -2713,6 +2982,7 @@ const skills = {
     "text": "When you Burn with an item, Poison (  1  » 2   ). When you Poison with an item, Burn (  2  » 4   )."
   },
   "Toxic Friendship": {
+    "icon": "images/skills/ToxicFriendship.avif",
     "name": "Toxic Friendship",
     "tags": [
       "Common",
@@ -2722,6 +2992,7 @@ const skills = {
     "text": "When you use a Friend, Poison (  1  » 2   )."
   },
   "Toxic Weapons": {
+    "icon": "images/skills/ToxicWeapons.avif",
     "name": "Toxic Weapons",
     "tags": [
       "Vanessa",
@@ -2732,6 +3003,7 @@ const skills = {
     "text": "Your Poison items have (  +2  » +4  » +6   ) Poison for each Weapon you have. [0]"
   },
   "Toxin Injector": {
+    "icon": "images/skills/ToxinInjector.avif",
     "name": "Toxin Injector",
     "tags": [
       "Vanessa",
@@ -2742,6 +3014,7 @@ const skills = {
     "text": "At the start of each fight, Haste (  2  » 3   ) Poison items for 2 second(s)."
   },
   "Tracer Fire": {
+    "icon": "images/skills/TracerFire.avif",
     "name": "Tracer Fire",
     "tags": [
       "Vanessa",
@@ -2755,6 +3028,7 @@ const skills = {
     "text": "When you burn, your items gain (  +1%  » +2%  » +3%   ) Crit Chance for the fight."
   },
   "Trader": {
+    "icon": "images/skills/Trader.avif",
     "name": "Trader",
     "tags": [
       "Pygmalien",
@@ -2763,6 +3037,7 @@ const skills = {
     "text": "At the start of each day, your items gain (  1  » 2   ) value."
   },
   "Trained": {
+    "icon": "images/skills/Trained.avif",
     "name": "Trained",
     "tags": [
       "Damagereference",
@@ -2772,6 +3047,7 @@ const skills = {
     "text": "When you slow, a weapon gains (  +5  » +10  » +15  » +20   ) damage for the fight."
   },
   "Trickle Down Economics": {
+    "icon": "images/skills/TrickleDownEconomics.avif",
     "name": "Trickle Down Economics",
     "tags": [
       "Common",
@@ -2780,6 +3056,7 @@ const skills = {
     "text": "When you use a large item, haste an item for (  3  » 4   ) second(s)."
   },
   "Unwavering": {
+    "icon": "images/skills/Unwavering.avif",
     "name": "Unwavering",
     "tags": [
       "Common",
@@ -2788,6 +3065,7 @@ const skills = {
     "text": "When you use an item, Shield (  20  » 40   )."
   },
   "Vengeance": {
+    "icon": "images/skills/Vengeance.avif",
     "name": "Vengeance",
     "tags": [
       "Common",
@@ -2796,6 +3074,7 @@ const skills = {
     "text": "Your leftmost and rightmost items have their cooldowns reduced by (  5%  » 10%  » 15%   )."
   },
   "Venomous Vitality": {
+    "icon": "images/skills/VenomousVitality.avif",
     "name": "Venomous Vitality",
     "tags": [
       "Vanessa",
@@ -2806,6 +3085,7 @@ const skills = {
     "text": "You have Regeneration equal to half the Poison on your enemy."
   },
   "Void Energy": {
+    "icon": "images/skills/VoidEnergy.avif",
     "name": "Void Energy",
     "tags": [
       "Common",
@@ -2815,6 +3095,7 @@ const skills = {
     "text": "When you Burn, charge a Shield item 1 second."
   },
   "Void Rage": {
+    "icon": "images/skills/VoidRage.avif",
     "name": "Void Rage",
     "tags": [
       "Common",
@@ -2824,6 +3105,7 @@ const skills = {
     "text": "When you burn, Haste an item for (  1  » 2   ) second(s)."
   },
   "Void Render": {
+    "icon": "images/skills/VoidRender.avif",
     "name": "Void Render",
     "tags": [
       "Common"
@@ -2831,6 +3113,7 @@ const skills = {
     "text": "When you destroy an item during combat, your Weapons gain (  100  » 200   ) damage and your burn items gain (  10  » 20   ) Burn for the fight."
   },
   "Warm Hugs": {
+    "icon": "images/skills/WarmHugs.avif",
     "name": "Warm Hugs",
     "tags": [
       "Dooley",
@@ -2840,6 +3123,7 @@ const skills = {
     "text": "When you use a Friend, Burn (  2  » 3   )."
   },
   "Waters of Infinity": {
+    "icon": "images/skills/WatersofInfinity.avif",
     "name": "Waters of Infinity",
     "tags": [
       "Common",
@@ -2848,6 +3132,7 @@ const skills = {
     "text": "You have (  +8  » +12  » +16   ) Regeneration."
   },
   "Well-Oiled Machine": {
+    "icon": "images/skills/WellOiledMachine.avif",
     "name": "Well-Oiled Machine",
     "tags": [
       "Dooley",
@@ -2857,6 +3142,7 @@ const skills = {
     "text": "When you use The Core, reduce an item's cooldown by 5% for the fight."
   },
   "Workin' Hard": {
+    "icon": "images/skills/WorkinHard.avif",
     "name": "Workin' Hard",
     "tags": [
       "Dooley",
