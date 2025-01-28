@@ -6,6 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import json
 import time
 import os
+import requests
 
 def scroll_to_bottom(driver):
     # Get initial height
@@ -59,7 +60,22 @@ def fetch_skills_html():
     finally:
         driver.quit()
 
+def download_image(url, local_path):
+    try:
+        response = requests.get(f"https://www.howbazaar.gg/{url}")
+        if response.status_code == 200:
+            os.makedirs(os.path.dirname(local_path), exist_ok=True)
+            with open(local_path, 'wb') as f:
+                f.write(response.content)
+            return True
+        return False
+    except Exception as e:
+        print(f"Error downloading image {url}: {str(e)}")
+        return False
+
 def parse_skill_html(html_content):
+    # Ensure the images directory exists
+    
     soup = BeautifulSoup(html_content, 'html.parser')
     skills = {}
     
@@ -75,14 +91,26 @@ def parse_skill_html(html_content):
             name = name_div.text.strip().replace(' 🔗', '')
             print(f"\nProcessing: {name}")
             
-            # Get skill image URL - simplified to use first image found
+            # Get skill image URL
             img_container = div.find('div', class_=lambda x: x and 'relative' in x and 'overflow-hidden' in x and 'rounded-md' in x)
             if img_container:
                 img = img_container.find('img')
                 if img:
                     icon_path = img.get('src')
-                    skill['icon'] = icon_path.lstrip('/') if icon_path else None
-                    print(f"Found icon: {skill['icon']}")
+                    if icon_path:
+                        icon_path = icon_path.lstrip('/')
+                        skill['icon'] = icon_path
+                        
+                        # Check if image exists locally and download if it doesn't
+                        local_path = f"./{icon_path}"
+                        if not os.path.exists(local_path):
+                            print(f"Downloading missing icon: {icon_path}")
+                            if download_image(icon_path, local_path):
+                                print(f"Successfully downloaded: {icon_path}")
+                            else:
+                                print(f"Failed to download: {icon_path}")
+                        
+                        print(f"Found icon: {skill['icon']}")
                 else:
                     print(f"Warning: No img tag found for {name}")
             else:
