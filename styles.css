@@ -441,6 +441,7 @@ button:active {
     padding: 10px 20px;
     margin: 0px;
     box-sizing: border-box;
+    border: 1px solid;
 }
 .tooltip-name
  {
@@ -451,7 +452,9 @@ button:active {
     padding: 10px 20px;
     line-height: 20px;
 }
-
+.tooltip-main,.tooltip-bottom {
+    border-top: 0px;
+}
 .BronzeBorder {
     border-color: rgb(150,111,51)!important;
 }

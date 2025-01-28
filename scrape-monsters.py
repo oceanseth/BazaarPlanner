@@ -48,21 +48,20 @@ def setup_driver():
     driver = webdriver.Chrome(service=service, options=chrome_options)
     return driver
 
-@run_with_timeout(300)  # 5 minutes timeout
 def parse_monsters():
     driver = setup_driver()
     driver.get("https://www.howbazaar.gg/monsters")
     monsters = {}
     processed_count = 0
+    completed_days = set()  # Track which days we've completed
     
     try:
-        while True:  # Keep going until we've processed all monsters
-            # Re-fetch day sections each time
-            day_sections = WebDriverWait(driver, 30).until(
+        while True:
+            day_sections = WebDriverWait(driver, 10).until(  # Reduced wait time from 30 to 10
                 EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.mb-8"))
             )
             
-            if processed_count == 0:  # Only count total on first pass
+            if processed_count == 0:
                 total_monsters = sum(len(section.find_elements(By.CSS_SELECTOR, "button")) 
                                    for section in day_sections)
                 print(f"Found {total_monsters} monsters to process")
@@ -70,25 +69,32 @@ def parse_monsters():
             found_new_monster = False
             
             for section in day_sections:
-                # Scroll section into view
-                driver.execute_script("arguments[0].scrollIntoView(true);", section)
-                time.sleep(1)
-                
                 day_header = section.find_element(By.CSS_SELECTOR, "div.text-2xl.font-bold").text
-                day = int(day_header.replace("Day ", ""))
+                if day_header == "Event":
+                    day = 11  # Treat Event section as day 11
+                else:
+                    day = int(day_header.replace("Day ", ""))
+                
+                # Skip days we've already completed
+                if day in completed_days:
+                    continue
+                
                 print(f"\nChecking {day_header}")
+                driver.execute_script("arguments[0].scrollIntoView(true);", section)
+                time.sleep(0.1)  # Reduced from 1 second
                 
                 monster_buttons = section.find_elements(By.CSS_SELECTOR, "button")
+                all_processed = True  # Track if we've processed all monsters in this day
                 
                 for button in monster_buttons:
                     try:
-                        # Scroll button into view
                         driver.execute_script("arguments[0].scrollIntoView(true);", button)
-                        time.sleep(1)
+                        time.sleep(0.1)  # Reduced from 1 second
                         
                         name = button.find_element(By.CSS_SELECTOR, "div.font-semibold div").text
                         
                         if name not in monsters:
+                            all_processed = False
                             print(f"Processing monster: {name} ({processed_count + 1}/{total_monsters})")
                             found_new_monster = True
                             
@@ -185,11 +191,9 @@ def parse_monsters():
                                     json.dump(monsters, f, indent=2, ensure_ascii=False)
                                 
                                 processed_count += 1
-                                print(f"Successfully processed {name}")
-                                
-                                # Return to monster list and break inner loop
-                                driver.get("https://www.howbazaar.gg/monsters")
-                                time.sleep(3)
+                                #time.sleep(.05)  # Reduced wait after processing
+                            #    driver.get("https://www.howbazaar.gg/monsters")
+                             #   time.sleep(.15)  # Reduced from 3 seconds
                                 break
                                 
                             except Exception as e:
@@ -200,13 +204,17 @@ def parse_monsters():
                         print(f"Error reading monster button: {str(e)}")
                         continue
                 
+                if all_processed:
+                    print(f"Completed Day {day}")
+                    completed_days.add(day)
+                
                 if found_new_monster:
-                    break  # Break out of section loop to restart with fresh elements
-            
+                    break
+
             if not found_new_monster:
                 print("No new monsters found - finished!")
-                break  # Exit main loop
-                
+                break
+
     finally:
         driver.quit()
         print("Driver closed successfully")

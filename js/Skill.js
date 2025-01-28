@@ -59,10 +59,9 @@ class Skill {
         let tooltipContent = `
             <div class="tooltip-content">
                 <div class="tooltip-tags">
-                    ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag}">${tag}</span>`).join('')}
+                    ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag.toLowerCase()}">${tag}</span>`).join('')}
                 </div>
                 <div class="tooltip-name">${this.name}</div>
-                <div class="tooltip-divider"></div>
                 <div class="tooltip-main">
                     ${this.cooldown ? `
                         <div class="cooldown-circle">${this.cooldown}<span class="unit">SEC</span></div>
