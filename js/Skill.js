@@ -26,7 +26,16 @@ class Skill {
             tooltip.style.display = 'none';
         });
     }
-    
+    reset() {
+        let regext = "your items have \(\s*(\d+)\s*»\s*(\d+)\s*»\s*(\d+)\s*»\s*(\d+)\s*\) crit chance"
+        let match = this.text.match(regext);        
+        if(match) {
+            let critChance = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);
+            this.board.items.forEach(item => {
+                item.crit += this.critChance;
+            });
+        }
+    }
     createTooltipElement() {
         const tooltip = document.createElement('div');
         this.tooltip = tooltip;

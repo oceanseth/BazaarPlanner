@@ -63,6 +63,15 @@ class Player {
         this.shield += shieldAmount;
         this.board.updateHealthElement();
     }
+    applyBurn(burnAmount) {
+        this.burn += burnAmount;
+        this.board.updateHealthElement();
+    }   
+    applyPoison(poisonAmount) {
+        this.poison += poisonAmount;
+        this.board.updateHealthElement();
+    }
+
 
     updateCombat(timeDiff) {
         this.combatTime += timeDiff;
@@ -93,45 +102,12 @@ class Player {
         this.poison = 0;
         this.shield = 0;
         this.regen = 0;
+        this.gold = 0;
         
         // Trigger arrays for various effects
-        this.burnTriggers = [];
-        this.hasteTriggers = [];
-        this.poisonTriggers = [];
-        this.healTriggers = [];
-        this.shieldTriggers = [];
-        this.critTriggers = [];
-        this.ammoTriggers = [];
-        this.largeItemTriggers = [];
-        this.mediumItemTriggers = [];
-        this.smallItemTriggers = [];
         this.lostShieldTriggers = new Map();
+
         this.board.reset();
     }
-    itemTriggered(item) {
-        if(item.tags.includes("Weapon")) {
-            this.weaponTriggered(item);
-        }
-        if(item.tags.includes("Shield")) {
-            this.shieldTriggered(item);
-        }
-        if(this.item.tag.includes("Small")) {
-            this.smallItemTriggered(item);
-        }
-        else if(this.item.tag.includes("Medium")) {
-            this.mediumItemTriggered(item);
-        }
-        else if(this.item.tag.includes("Large")) {
-            this.largeItemTriggered(item);
-        }
-    }
-    smallItemTriggered(item) {
-        this.smallItemTriggers.forEach(func => func(item));
-    }
-    mediumItemTriggered(item) {
-        this.mediumItemTriggers.forEach(func => func(item));
-    }
-    largeItemTriggered(item) {
-        this.largeItemTriggers.forEach(func => func(item));
-    }
+   
 } 
