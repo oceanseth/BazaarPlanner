@@ -18,22 +18,25 @@ class Item {
         this.isEditable = true;
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
         if(this.startItemData.cooldown) {
-            this.cooldown = this.startItemData.cooldown * 1000;
+            this.cooldown = (this.startItemData.cooldown || 0) * 1000;
         }
-
-        this.progressBar = document.createElement('div'); 
-        this.progressBar.className = 'battleItemProgressBar';
-
-        this.hasteIndicator = document.createElement('div');
-        this.hasteIndicator.className = 'haste-indicator hidden';
-        this.progressBar.appendChild(this.hasteIndicator);
-
-        this.slowIndicator = document.createElement('div');
-        this.slowIndicator.className = 'slow-indicator hidden';
-        this.progressBar.appendChild(this.slowIndicator);
-
         this.element = this.createElement();
-        this.element.appendChild(this.progressBar);
+
+        if(itemData.cooldown) {
+            this.cooldown = this.startItemData.cooldown * 1000;
+            this.progressBar = document.createElement('div'); 
+            this.progressBar.className = 'battleItemProgressBar';
+
+            this.hasteIndicator = document.createElement('div');
+            this.hasteIndicator.className = 'haste-indicator hidden';
+            this.progressBar.appendChild(this.hasteIndicator);
+
+            this.slowIndicator = document.createElement('div');
+            this.slowIndicator.className = 'slow-indicator hidden';
+            this.progressBar.appendChild(this.slowIndicator);
+    
+            this.element.appendChild(this.progressBar);
+        }
 
         this.priceTagElement = document.createElement('div');
         this.priceTagElement.className = 'price-tag';
@@ -42,6 +45,10 @@ class Item {
         this.triggerValuesElement = document.createElement('div');
         this.triggerValuesElement.className = 'trigger-values';
         this.element.appendChild(this.triggerValuesElement);
+
+        this.multicastElement = document.createElement('div');
+        this.multicastElement.className = 'multicast-element';
+        this.triggerValuesElement.appendChild(this.multicastElement);
 
         if(this.tags.includes("Weapon")) {
             this.damageElement = document.createElement('div');
@@ -78,13 +85,14 @@ class Item {
         if(this.burnElement) this.burnElement.textContent = Number(this.burn).toFixed(1);
         if(this.poisonElement) this.poisonElement.textContent = Number(this.poison).toFixed(1);
         if(this.damageElement) this.damageElement.textContent = Number(this.damage).toFixed(1);
+        if(this.multicastElement && this.multicast>0) this.multicastElement.textContent = "x"+Number(this.multicast).toFixed(0);
         this.priceTagElement.textContent = Number(this.value).toFixed(0);
     }
     reset() {
         Object.assign(this, this.startItemData);
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
         if(this.startItemData.cooldown) {
-            this.cooldown = (this.startItemData.cooldown || 5) * 1000;
+            this.cooldown = (this.startItemData.cooldown || 0) * 1000;
         }
         this.isDestroyed = false;
         this.hasteTimeRemaining = 0;
@@ -99,13 +107,14 @@ class Item {
         this.burn = this.calculateBurn();
         this.poison = this.calculatePoison();
         this.heal = this.calculateHeal();
-        this.multicast = this.calculateMulticast();
         this.ammoRemaining = this.ammo;
 
         this.triggerFunctions = [];
-        this.adjacentItemTriggers = [];
-        this.onHasteTriggers = [];
+        this.adjacentItemTriggers = []; //functions to call when any item adjacent to this item is triggered
+        this.hasteTriggers = []; //functions to call when haste is applied to this item
+        this.slowTriggers = []; //functions to call when slow is applied to this item
 
+        /*
         this.applyWeaponTrigger();
         this.applySlowTrigger();
         this.applyHasteTrigger();
@@ -114,12 +123,17 @@ class Item {
         this.applyHealTrigger();
         this.applyShieldTrigger();
         this.applyItemSizeTrigger();
+        */
+
+        this.text.forEach(text => this.setupTextFunctions(text));
         this.updateTriggerValuesElement();
 
-        this.progressBar.style.bottom = '-5px';
-        this.hasteIndicator.classList.add('hidden');
-        this.slowIndicator.classList.add('hidden');    
-        this.progressBar.style.display = 'none';            
+        if(this.progressBar) {
+            this.progressBar.style.bottom = '-5px';
+            this.progressBar.style.display = 'none';   
+            this.hasteIndicator.classList.add('hidden');
+            this.slowIndicator.classList.add('hidden');             
+        }        
     }
 
     getInitialValue() {
@@ -160,16 +174,16 @@ class Item {
         mergedSlot.addEventListener('dragstart', Board.handleDragStart);
         mergedSlot.addEventListener('dragend', Board.handleDragEnd);
 
-        const tooltip = this.createTooltipElement();
-        mergedSlot.appendChild(tooltip);
+        this.tooltip = this.createTooltipElement();
+        mergedSlot.appendChild(this.tooltip);
         
         // Add event listeners
         mergedSlot.addEventListener('mouseenter', () => {
-            tooltip.style.display = 'block';
+            this.tooltip.style.display = 'block';
         });
         
         mergedSlot.addEventListener('mouseleave', () => {
-            tooltip.style.display = 'none';
+            this.tooltip.style.display = 'none';
         });
         
         return mergedSlot;
@@ -177,7 +191,6 @@ class Item {
     
     createTooltipElement() {
         const tooltip = document.createElement('div');
-        this.tooltip = tooltip;
         tooltip.className = 'tooltip';
         tooltip.style.pointerEvents = 'none';
 
@@ -202,18 +215,28 @@ class Item {
                     </div>
                 ` : ''}
                 ${this.cooldown ? `
-                    <div class="tooltip-cooldown-circle">${this.cooldown/1000}<span class="unit">SEC</span></div>
+                    <div class="tooltip-cooldown-circle ${this.rarity||'Bronze'}Border">${this.cooldown/1000}<span class="unit">SEC</span></div>
                 ` : ''}
                 <div class="tooltip-tags">
-                    ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag}">${tag}</span>`).join('')}
+                    ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag.toLowerCase()}">${tag}</span>`).join('')}
                 </div>
-                <div class="tooltip-name">${this.name}</div>
-                <div class="tooltip-divider"></div>
-                <div class="tooltip-main">                    
+                <div class="tooltip-name ${this.rarity||'Bronze'}Border">${this.name}</div>
+                <div class="tooltip-main ${this.rarity||'Bronze'}Border">                    
                     <div class="tooltip-main-text">
                         ${Array.isArray(this.text) ? 
                             this.text.join('<br>') : 
                             (this.text || '')}
+                    </div>
+                    ${this.crit ? `
+                    <div class="tooltip-divider"></div>
+                    <div class="tooltip-crit">
+                       Crit Chance: ${this.crit}%
+                    </div>
+                ` : ''}
+                </div>
+                <div class="tooltip-bottom">
+                    <div class="tooltip-bottom-text">
+                        ${this.bottomText || ''}
                     </div>
                 </div>
             </div>
@@ -239,7 +262,13 @@ class Item {
         if (this.board) {
             this.board.sortItems();
             this.board.resetItems();
+            this.updateTooltip();
         }
+    }
+    updateTooltip() {
+        const newTooltip = this.createTooltipElement();
+        $(this.tooltip).replaceWith(newTooltip);
+        this.tooltip = newTooltip;  // Update the reference to point to the new element
     }
     calculateDamage() {
         if (!this.tags.includes('Weapon')) return 0;
@@ -259,16 +288,6 @@ class Item {
         
         for (const textElement of this.text) {
             const match = textElement.match(burnRegex);
-            if (match) {
-                return match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            }
-        }
-        return 0;
-    }
-    calculateMulticast() {
-        const multicastRegex = /Multicast (?:\(([^)]+)\)|(\d+))/i;
-        for (const textElement of this.text) {
-            const match = textElement.match(multicastRegex);
             if (match) {
                 return match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             }
@@ -311,13 +330,16 @@ class Item {
         }
         return 0;
     }
+
     applyHaste(duration) {
         this.hasteTimeRemaining += duration * 1000;
-        this.onHasteTriggers.forEach(func => func());
+        this.hasteTriggers.forEach(func => func(this));
+        this.board.hasteTriggers.forEach(func => func(this));
     }
 
     applySlow(duration) {
         this.slowTimeRemaining += duration * 1000;
+        this.board.onSlowTriggers.forEach(func => func());
     }
 
     updateProgressBar(progress) {
@@ -375,7 +397,7 @@ class Item {
 
     trigger() {
         this.triggerFunctions.forEach(func => func());
-        this.board.player.itemTriggered(this);
+        this.board.itemTriggered(this);
         this.getAdjacentItems().forEach(item => item.adjacentItemTriggered(this));
     }
 
@@ -392,94 +414,107 @@ class Item {
             " deals "+ damage+" damage to " +
             this.board.player.hostileTarget.name);            
     }
-    applyWeaponTrigger() {
+    getWeaponTriggerFunction(text) {
         let match;
-        if(this.tags.includes("Weapon")) {
-            //Deal damage equal to ( 20% » 30% ) of your enemy's Max Health.
-            
-            for (const textElement of this.text) {
-                let damageRegex = /Deal damage equal to \(\s*(\d+)%\s*»\s*(\d+)%\s*\) of your enemy's Max Health/i;
-                match = textElement.match(damageRegex);
-                if(match) {
-                    const dmgMultiplier = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
-                    this.damage = this.board.player.hostileTarget.maxHealth*dmgMultiplier/100;         
-                    this.triggerFunctions.push(() => {
-                        this.damage = this.board.player.hostileTarget.maxHealth*dmgMultiplier/100;      
-                        this.dealDamage(this.damage);
-                        this.updateTriggerValuesElement();
-                    });
-                    continue;
-                }
-            
-                //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
-                damageRegex = /^\s*Your weapons gain (?:\(([^)]+)\)|(\d+)) damage for the fight/i;
-                match = textElement.match(damageRegex);
-                if(match) {
-                    const dmgGain = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
-                    this.triggerFunctions.push(() => {
-                        this.board.items.forEach(item => {
-                            if(item.tags.includes("Weapon")) {
-                                item.damage += dmgGain;
-                                log(item.name + " gained " + dmgGain + " damage for the fight");
-                                item.updateTriggerValuesElement();
-                            }
-                        });
-                    });
-                    continue;
-                }
-                //Adjacent Weapons gain ( 5 » 10 ) Damage for the fight.
-                damageRegex = /Adjacent Weapons gain \(\s*(\d+)\s*»\s*(\d+)\s*\) Damage for the fight/i;
-                match = textElement.match(damageRegex);
-                if(match) {
-                    const dmgGain = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
-                    const adjacentWeapons = this.getAdjacentItems().filter(item => item.tags.includes("Weapon"));
-                    this.triggerFunctions.push(() => {
-                        adjacentWeapons.forEach(item => {
-                            item.damage += dmgGain;
-                            log(this.name + " gave " + item.name + " " + dmgGain + " damage for the fight");
-                            item.updateTriggerValuesElement();
-                        });
-                    });
-                    continue;
-                }
-                //Deal damage equal to the highest Shield value of items you have.  
-                damageRegex = /Deal damage equal to the highest Shield value of items you have/i;
-                match = textElement.match(damageRegex);
-                const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
-                if(match) {
-                    this.damage = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
-                    this.triggerFunctions.push(() => {
-                        this.damage = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
-                        this.dealDamage(this.damage);
-                        this.updateTriggerValuesElement();
-                    });
-                    this.board.shieldValuesChangedTriggers.set(this.id, () => {
-                        this.damage = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
-                        this.updateTriggerValuesElement();
-                    });
-                    continue;
-                }
+        if(!this.tags.includes("Weapon")) return null;
 
-                //Deal ( 10 >> 20 >> 30 >> 40 ) damage.
-                damageRegex = /Deal (?:\(([^)]+)\)|(\d+)) damage/i;
-                match = textElement.match(damageRegex);
-                if(match) {
-                    const dmgMultiplier = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
-                                
-                    this.triggerFunctions.push(() => {   
-                        this.dealDamage(this.damage);        
-                    });
-                    continue;
-                }
-            }
+        //Deal damage equal to ( 20% » 30% ) of your enemy's Max Health.
+        let damageRegex = /Deal damage equal to \(\s*(\d+)%\s*»\s*(\d+)%\s*\) of your enemy's Max Health/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const dmgMultiplier = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
+            this.damage = this.board.player.hostileTarget.maxHealth*dmgMultiplier/100;         
+            return () => {
+                this.damage = this.board.player.hostileTarget.maxHealth*dmgMultiplier/100;      
+                this.dealDamage(this.damage);
+                this.updateTriggerValuesElement();
+            };
         }
+
+        //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
+        damageRegex = /^\s*Your weapons gain (?:\(([^)]+)\)|(\d+)) damage for the fight/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const dmgGain = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
+            return () => {
+                this.board.items.forEach(item => {
+                    if(item.tags.includes("Weapon")) {
+                        item.damage += dmgGain;
+                        log(item.name + " gained " + dmgGain + " damage for the fight");
+                        item.updateTriggerValuesElement();
+                    }
+                });
+            };
+        }
+
+        //Adjacent Weapons gain ( 5 » 10 ) Damage for the fight.
+        damageRegex = /Adjacent Weapons gain \(\s*(\d+)\s*»\s*(\d+)\s*\) Damage for the fight/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const dmgGain = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
+            const adjacentWeapons = this.getAdjacentItems().filter(item => item.tags.includes("Weapon"));
+            return () => {
+                adjacentWeapons.forEach(item => {
+                    item.damage += dmgGain;
+                    log(this.name + " gave " + item.name + " " + dmgGain + " damage for the fight");
+                    item.updateTriggerValuesElement();
+                });
+            };
+        }
+
+        //Deal damage equal to the highest Shield value of items you have.  
+        damageRegex = /Deal damage equal to the highest Shield value of items you have/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
+            this.damage = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
+            this.board.shieldValuesChangedTriggers.set(this.id, () => {
+                this.damage = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
+                this.updateTriggerValuesElement();
+            });
+            return () => {
+                this.damage = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
+                this.dealDamage(this.damage);
+                this.updateTriggerValuesElement();
+            };
+        } 
+               
+        //it also gains ( +10 » +20 » +30 » +40 ) damage.
+        damageRegex = /it also gains\s*\(\s*\+?(\d+)\s*»\s*\+?(\d+)\s*»\s*\+?(\d+)\s*»\s*\+?(\d+)\s*\)\s*damage/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const dmgGain = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);
+            return (item) => {
+                item.damage += dmgGain;
+                log(item.name + " gained " + dmgGain + " damage");
+                item.updateTriggerValuesElement();
+            };
+        }
+
+        //Deal ( 10 » 20 » 30 » 40 ) damage.
+        damageRegex = /Deal (?:\(([^)]+)\)|(\d+)) damage/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const damageValue = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            this.damage = damageValue;
+            return () => {   
+                this.dealDamage(this.damage);        
+            };
+        }
+
+        return null;
+    }
+    isHasteTargetable() {
+        return this.cooldown && this.isDestroyed == false;
+    }
+    isSlowTargetable() {
+        return this.cooldown && this.isDestroyed == false;
     }
         
-    applySlowTrigger() {        
-        for (const textElement of this.text) {
-            let slowRegex = /Slow (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?items?\(?s?\)?\s*for (?:\(([^)]+)\)|(\d+)) second/i;
-            if (slowRegex.test(textElement)) {            
-                const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = textElement.match(slowRegex);
+    getSlowTriggerFunctionFromText(text) {        
+        let slowRegex = /Slow (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?items?\(?s?\)?\s*for (?:\(([^)]+)\)|(\d+)) second/i;
+        if (slowRegex.test(text)) {            
+            const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = text.match(slowRegex);
                 
                 const numItemsToSlow = itemsRange ? 
                     getRarityValue(itemsRange, this.rarity) : 
@@ -488,9 +523,9 @@ class Item {
                     getRarityValue(durationRange, this.rarity) : 
                     parseInt(singleDuration);
             
-                this.triggerFunctions.push(() => {
-                    let items = Array.from(this.board.player.hostileTarget.board.items);
-                    items = items.filter(i => i.cooldown != null);
+            return () => {
+                let items = Array.from(this.board.player.hostileTarget.board.items);
+                items = items.filter(i => i.isSlowTargetable());
 
                     if (requiredTag) {
                         items = items.filter(i => i.tags && i.tags.includes(requiredTag));
@@ -502,17 +537,16 @@ class Item {
                     selectedItems.forEach(i => {
                         i.applySlow(duration);
                         log(this.name + " slowed " + i.name + " for " + duration + " seconds");
-                        });
                 });
-            }
+            };
         }
+        return null;
     }
 
-    applyHasteTrigger() {        
-        for (const textElement of this.text) {
-            let hasteRegex = /Haste (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?item.* for (?:\(([^)]+)\)|(\d+)) second/;
-            if (hasteRegex.test(textElement)) {                
-                const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = textElement.match(hasteRegex);
+    getHasteTriggerFunctionFromText(text) {        
+        let hasteRegex = /^Haste (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?item.* for (?:\(([^)]+)\)|(\d+)) second/;
+        if (hasteRegex.test(text)) {                
+            const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = text.match(hasteRegex);
                 
                 const numItemsToHaste = itemsRange ? 
                     getRarityValue(itemsRange, this.rarity) : 
@@ -521,10 +555,10 @@ class Item {
                     getRarityValue(durationRange, this.rarity) : 
                     parseInt(singleDuration);
             
-                this.triggerFunctions.push(() => {
-                    let items = Array.from(this.board.items);
-                    items = items.filter(i => i.cooldown != null);
-                    
+            return () => {
+                let items = Array.from(this.board.items);
+                items = items.filter(i => i.cooldown != null);
+                
                     if (requiredTag) {
                         items = items.filter(i => i.tags && i.tags.includes(requiredTag));
                     }
@@ -536,67 +570,99 @@ class Item {
                         i.applyHaste(duration);
                         log(this.name + " hasted " + i.name + " for " + duration + " seconds");
                     });
-                });
-            }
-            hasteRegex = /Haste your items for (?:\(([^)]+)\)|(\d+)) second/i;
-            if (hasteRegex.test(textElement)) {
-                const duration = getRarityValue(textElement.match(hasteRegex)[1], this.rarity);
-                this.triggerFunctions.push(() => {
-                    this.board.items.forEach(i => i.applyHaste(duration));
-                    log(this.name + " hasted all items for " + duration + " seconds");
-                });
-            }
-            //Haste another item for ( 1 » 2 » 3 » 4 ) second(s).
-            hasteRegex = /Haste another item for (?:\(([^)]+)\)|(\d+)) second/i;
-            if (hasteRegex.test(textElement)) {
-                const duration = getRarityValue(textElement.match(hasteRegex)[1], this.rarity);
-                this.triggerFunctions.push(() => {
-                    let itemToHaste = this.board.items.filter(i => i.cooldown != null).sort(() => battleRandom() - 0.5)[0];
-                    itemToHaste.applyHaste(duration);
-                    log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
-                });
-            }
-            //When this gains Haste, your items gain ( +2% » +4% » +6% » +8% ) Crit chance for the fight.
-            hasteRegex = /When this gains Haste, your items gain \(\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*\) Crit chance for the fight/i;
-            if (hasteRegex.test(textElement)) { 
-                const critGain = getRarityValue(textElement.match(hasteRegex)[1], this.rarity);
-                this.onHasteTriggers.push(() => {
-                    this.board.items.forEach(i => i.crit += critGain);
-                    log(this.name + " gave all items " + critGain + " crit chance");
-                });
+            };
+        }
+        hasteRegex = /^Haste your items for (?:\(([^)]+)\)|(\d+)) second/i;
+        if (hasteRegex.test(text)) {
+            const duration = getRarityValue(text.match(hasteRegex)[1], this.rarity);
+            return () => {
+                this.board.items.forEach(i => i.applyHaste(duration));
+                log(this.name + " hasted all items for " + duration + " seconds");
+            };
+        }
+        //Haste another item for ( 1 » 2 » 3 » 4 ) second(s).
+        hasteRegex = /^Haste another item for (?:\(([^)]+)\)|(\d+)) second/i;
+        if (hasteRegex.test(text)) {
+            const duration = getRarityValue(text.match(hasteRegex)[1], this.rarity);
+            return () => {
+                let itemToHaste = this.board.items.filter(i => i.cooldown != null).sort(() => battleRandom() - 0.5)[0];
+                itemToHaste.applyHaste(duration);
+                log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
+            };
+        }
+        hasteRegex = /^Haste the item to the right of this/i;
+        if (hasteRegex.test(text)) {
+            const itemToHaste = this.getItemToTheRight();
+            if(itemToHaste) {
+                itemToHaste.applyHaste(duration);
+                log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
             }
         }
-    }
-
-    applyPoisonTrigger() {
-        if(!this.tags.includes("Poison")) return; 
-        this.triggerFunctions.push(() => {
-            this.board.player.hostileTarget.poison += this.poison;
-            log(this.name + " poisoned " + this.board.player.hostileTarget.name + " for " + this.poison);
-        });
-    }
-
-    applyBurnTrigger() {
-        if(!this.tags.includes("Burn")) return; 
-        this.triggerFunctions.push(() => {
-            this.board.player.hostileTarget.burn += this.burn;
-            log(this.name + " burned " + this.board.player.hostileTarget.name + " for " + this.burn);
-        });
-    }
-
-    applyHealTrigger() {
-        if(!this.tags.includes("Heal")) return; 
-        this.triggerFunctions.push(() => {
-            let healAmount = this.heal;
-            if(this.board.player.health + this.heal > this.board.player.maxHealth) {
-                healAmount = this.board.player.maxHealth - this.board.player.health;
-                this.board.player.heal(healAmount);
-            } else {
-                this.board.player.heal(this.heal);
+        hasteRegex = /^Haste the item to the left of this/i;
+        if (hasteRegex.test(text)) {
+            const itemToHaste = this.getItemToTheLeft();
+            if(itemToHaste) {
+                itemToHaste.applyHaste(duration);
+                log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
             }
+        }
+        hasteRegex = /^Haste it for (?:\(([^)]+)\)|(\d+)) second/i;
+        if (hasteRegex.test(text)) {
+            const duration = getRarityValue(text.match(hasteRegex)[1], this.rarity);
+            return (item) => {
+                item.applyHaste(duration);
+                log(this.name + " hasted "+item.name+" for " + duration + " seconds");
+            };
+        }
+        return null;
+    }
 
-            log(this.name + " healed " + this.board.player.name + " for " + healAmount);
-        });
+    getPoisonTriggerFunctionFromText(text) {
+        if(!this.tags.includes("Poison")) return null; 
+        let regex = /Poison (?:\(([^)]+)\)|(\d+))/i;
+        let match = text.match(regex);
+        if(match) {
+            const poisonAmount = getRarityValue(match[1], this.rarity);
+            this.poison = poisonAmount;
+            this.updateTriggerValuesElement();
+            return () => {                
+                this.board.player.hostileTarget.poison += this.poison;
+                log(this.name + " poisoned " + this.board.player.hostileTarget.name + " for " + this.poison);
+            };
+        }
+        return null;
+    }
+
+    getBurnTriggerFunctionFromText(text) {
+        if(!this.tags.includes("Burn")) return null; 
+        let regex = /Burn (?:\(([^)]+)\)|(\d+))/i;
+        let match = text.match(regex);
+        if(match) {
+            const burnAmount = getRarityValue(match[1], this.rarity);
+            this.burn = burnAmount;
+            this.updateTriggerValuesElement();
+            return () => {                
+                this.board.player.hostileTarget.applyBurn(this.burn);
+                log(this.name + " burned " + this.board.player.hostileTarget.name + " for " + this.burn);
+            };
+        }
+        return null;
+    }
+
+    getHealTriggerFunctionFromText(text) {
+        if(!this.tags.includes("Heal")) return null; 
+        let regex = /Heal (?:\(([^)]+)\)|(\d+))/i;
+        let match = text.match(regex);
+        if(match) {
+            const healAmount = getRarityValue(match[1], this.rarity);
+            this.heal = healAmount;
+            this.updateTriggerValuesElement();
+            return () => {                
+                this.board.player.heal(this.heal);
+                log(this.name + " healed " + this.board.player.name + " for " + healAmount);
+            };
+        }
+        return null;
     }   
 
     getItemToTheLeft() {
@@ -624,141 +690,125 @@ class Item {
         return [this.getItemToTheLeft(), this.getItemToTheRight()].filter(item => item !== null);
     }
 
-    applyShieldTrigger() {
-        if(!this.tags.includes("Shield") && !this.tags.includes("ShieldReference")) return; 
-     
-        for (const textElement of this.text) {
-            // Match patterns like "Shield equal to ( 1x » 2x ) the value of the adjacent items"
-            let shieldRegex = /Shield equal to \(\s*(\d+)x\s*»\s*(\d+)x\s*\) the value of the adjacent items/i;
-            let match = textElement.match(shieldRegex);
-            if (match) {
-                const [_, minMultiplier, maxMultiplier] = match;
-                const multiplier = getRarityValue(`${minMultiplier}»${maxMultiplier}`, this.rarity);
+    getShieldTriggerFunctionFromText(text) {
+    if(!this.tags.includes("Shield") && !this.tags.includes("ShieldReference")) return null;        
+        // Match patterns like "Shield equal to ( 1x » 2x ) the value of the adjacent items"
+        let regex = /Shield equal to \(\s*(\d+)x\s*»\s*(\d+)x\s*\) the value of the adjacent items/i;
+        let match = text.match(regex);
+        if (match) {
+            const [_, minMultiplier, maxMultiplier] = match;
+            const multiplier = getRarityValue(`${minMultiplier}»${maxMultiplier}`, this.rarity);
+            const shieldAmount = this.getAdjacentItems().reduce((sum, item) => sum + item.value, 0) * multiplier;
+            this.shield = shieldAmount;
+            this.updateTriggerValuesElement();
+            return () => {
                 const shieldAmount = this.getAdjacentItems().reduce((sum, item) => sum + item.value, 0) * multiplier;
                 this.shield = shieldAmount;
                 this.updateTriggerValuesElement();
-                continue;
-            }
+            };
+        }
 
-            // Shield equal to ( 2 » 3 ) times the value of your items.
-            shieldRegex = /Shield equal to \(\s*(\d+)\s*»\s*(\d+)\s*\) times the value of your items/i;
-            match = textElement.match(shieldRegex);
-            if (match) {
-                const [_, minMultiplier, maxMultiplier] = match;
-                const multiplier = getRarityValue(`${minMultiplier}»${maxMultiplier}`, this.rarity);
+        // Shield equal to ( 2 » 3 ) times the value of your items.
+        regex = /Shield equal to \(\s*(\d+)\s*»\s*(\d+)\s*\) times the value of your items/i;
+        match = text.match(regex);
+        if (match) {
+            const [_, minMultiplier, maxMultiplier] = match;
+            const multiplier = getRarityValue(`${minMultiplier}»${maxMultiplier}`, this.rarity);
+            const shieldAmount = this.board.items.reduce((sum, item) => sum + item.value, 0) * multiplier;
+            this.shield = shieldAmount;
+            this.updateTriggerValuesElement();
+            return () => {
                 const shieldAmount = this.board.items.reduce((sum, item) => sum + item.value, 0) * multiplier;
                 this.shield = shieldAmount;
                 this.updateTriggerValuesElement();
-                continue;
-            }
-
-            //Shield equal to your current Health.
-            shieldRegex = /Shield equal to your current Health/i;
-            match = textElement.match(shieldRegex);
-            if (match) {
-                this.shield = this.board.player.maxHealth;
-                this.updateTriggerValuesElement();
-                this.triggerFunctions.push(() => {
-                    const shieldAmount = this.board.player.health;
-                    this.shield = shieldAmount;
-                    this.board.player.applyShield(shieldAmount);
-                    log(this.name + " shielded " + this.board.player.name + " for " + shieldAmount);
-                    this.updateTriggerValuesElement();
-                });
-                continue;
-            }
-
-            //When you use an item, Shield equal to ( 1x » 2x » 3x ) this item's value.
-            shieldRegex = /When you use an item, Shield equal to \(\s*(\d+)x\s*»\s*(\d+)x\s*»\s*(\d+)x\s*\) this item's value/i;
-            match = textElement.match(shieldRegex);
-            if (match) {
-                const [_, minMultiplier, maxMultiplier, maxMultiplier2] = match;
-                const multiplier = getRarityValue(`${minMultiplier}»${maxMultiplier}»${maxMultiplier2}`, this.rarity);
-                this.shield = this.value * multiplier;
-                this.updateTriggerValuesElement();
-                const itemTriggered = (item) => {
-                    this.shield = this.value * multiplier;
-                    this.board.player.applyShield(this.shield);
-                    log((item?.name||"unknown item") + " was used, causing " +this.name + " to shield " + this.board.player.name + " for " + this.shield);
-                };
-                this.board.player.largeItemTriggers.push(itemTriggered);
-                this.board.player.mediumItemTriggers.push(itemTriggered);
-                this.board.player.smallItemTriggers.push(itemTriggered);
-                continue;
-            }
-
-            //When you use an adjacent item, Shield ( 1 » 2 » 3 » 4 ).
-            shieldRegex = /When you use an adjacent item, Shield (?:\(([^)]+)\)|(\d+))/i;
-            match = textElement.match(shieldRegex);
-            if (match) {
-                const shieldAmount = getRarityValue(match[1], this.rarity);
-                this.shield = shieldAmount;
-                this.adjacentItemTriggers.push((item) => {
-                    this.board.player.applyShield(this.shield);
-                    log(item.name+" usage caused " + this.name + " to shield " + this.board.player.name + " for " + this.shield);                    
-                });
-                continue;
-            }
-            
-            //When you lose Shield, this gains damage equal to ( 10% » 20% » 40% ) of the Shield lost.
-            shieldRegex = /When you lose Shield, this gains damage equal to \(\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*\) of the Shield lost/i;            
-            match = textElement.match(shieldRegex);
-            if (match) {
-                this.board.player.lostShieldTriggers.set(this.id, (shieldLost) => {
-                    let gainDamage = shieldLost * getRarityValue(`${match[1]}»${match[2]}»${match[3]}`, this.rarity)/100;
-                    this.damage += gainDamage;
-                    log(this.name + " gained " + gainDamage + " damage for "+this.board.player.name+" losing " + shieldLost + " shield");
-                    this.updateTriggerValuesElement();
-                });
-                continue;
-            }
-            //Adjacent Shield items gain ( 5 » 10 ) Shield for the fight.
-            shieldRegex = /Adjacent Shield items gain \(\s*(\d+)\s*»\s*(\d+)\s*\) Shield for the fight/i;
-            match = textElement.match(shieldRegex);
-            if (match) {
-                const shieldAmount = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
-                const adjacentShields = this.getAdjacentItems().filter(item => item.tags.includes("Shield"));
-                this.triggerFunctions.push(() => {
-                  adjacentShields.forEach(item => {
-                        item.shield += shieldAmount;
-                        item.updateTriggerValuesElement();
-                        log(this.name + " gave " + item.name + " " + shieldAmount + " shield");
-                    });
-                });
-                continue;
-            }
-            //Your Shield items gain ( +2 » +4 » +6 » +8 ) Shield for the fight.
-            shieldRegex = /Your Shield items gain\s*\(\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*\)\s*Shield for the fight/i;
-            match = textElement.match(shieldRegex);
-            if (match) {
-                const shieldAmount = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);
-                const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
-                this.triggerFunctions.push(() => {
-                    shieldItems.forEach(item => {
-                        item.shield += shieldAmount;
-                        log(this.name + " gave " + item.name + " " + shieldAmount + " shield");
-                        item.updateTriggerValuesElement();
-                    });
-                    this.board.shieldValuesChanged();
-                });
-                continue;
-            }
-
-            //Shield ( 1 » 2 » 3 » 4 ).
-            shieldRegex = /Shield (?:\(([^)]+)\)|(\d+))/i;
-            match = textElement.match(shieldRegex);
-            if (match) {
-                const shieldAmount = getRarityValue(match[1], this.rarity);
-                this.shield = shieldAmount;
-                this.updateTriggerValuesElement();
-                this.triggerFunctions.push(() => {
-                    this.board.player.applyShield(this.shield);
-                    log(this.name + " shielded " + this.board.player.name + " for " + this.shield);
-                });
-                continue;
-            }
-
+            };
         }
+
+        //Shield equal to your current Health.
+        regex = /Shield equal to your current Health/i;
+        match = text.match(regex);
+        if (match) {
+            this.shield = this.board.player.maxHealth;
+            this.updateTriggerValuesElement();
+            return () => {
+                const shieldAmount = this.board.player.health;
+                this.shield = shieldAmount;
+                this.board.player.applyShield(shieldAmount);
+                log(this.name + " shielded " + this.board.player.name + " for " + shieldAmount);
+                this.updateTriggerValuesElement();
+            };
+        }
+
+        //Shield equal to ( 1x » 2x » 3x ) this item's value.
+        regex = /Shield equal to \(\s*(\d+)x\s*»\s*(\d+)x\s*»\s*(\d+)x\s*\) this item's value/i;
+        match = text.match(regex);
+        if (match) {
+            const [_, minMultiplier, maxMultiplier, maxMultiplier2] = match;
+            const multiplier = getRarityValue(`${minMultiplier}»${maxMultiplier}»${maxMultiplier2}`, this.rarity);
+            this.shield = this.value * multiplier;
+            this.updateTriggerValuesElement();
+            return (item) => {
+                this.shield = this.value * multiplier;
+                this.board.player.applyShield(this.shield);
+                log((item?.name||"unknown item") + " was used, causing " +this.name + " to shield " + this.board.player.name + " for " + this.shield);
+            };
+        }
+        
+        //this gains damage equal to ( 10% » 20% » 40% ) of the Shield lost.
+        regex = /this gains damage equal to \(\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*\) of the Shield lost/i;            
+        match = text.match(regex);
+        if (match) {
+            return (shieldLost) => {
+                let gainDamage = shieldLost * getRarityValue(`${match[1]}»${match[2]}»${match[3]}`, this.rarity)/100;
+                this.damage += gainDamage;
+                log(this.name + " gained " + gainDamage + " damage for "+this.board.player.name+" losing " + shieldLost + " shield");
+                this.updateTriggerValuesElement();
+            };
+        }
+        
+        //Adjacent Shield items gain ( 5 » 10 ) Shield for the fight.
+        regex = /Adjacent Shield items gain \(\s*(\d+)\s*»\s*(\d+)\s*\) Shield for the fight/i;
+        match = text.match(regex);
+        if (match) {
+            const shieldAmount = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
+            const adjacentShields = this.getAdjacentItems().filter(item => item.tags.includes("Shield"));
+            return () => {
+                adjacentShields.forEach(item => {
+                    item.shield += shieldAmount;
+                    item.updateTriggerValuesElement();
+                    log(this.name + " gave " + item.name + " " + shieldAmount + " shield");
+                });
+            };
+        }
+        //Your Shield items gain ( +2 » +4 » +6 » +8 ) Shield for the fight.
+        regex = /Your Shield items gain\s*\(\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*\)\s*Shield for the fight/i;
+        match = text.match(regex);
+        if (match) {
+            const shieldAmount = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);
+            const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
+            return () => {
+                shieldItems.forEach(item => {
+                    item.shield += shieldAmount;
+                    log(this.name + " gave " + item.name + " " + shieldAmount + " shield");
+                    item.updateTriggerValuesElement();
+                });
+                this.board.shieldValuesChanged();
+            };
+        }
+
+        //Shield ( 1 » 2 » 3 » 4 ).
+        regex = /Shield (?:\(([^)]+)\)|(\d+))/i;
+        match = text.match(regex);
+        if (match) {
+            const shieldAmount = getRarityValue(match[1], this.rarity);
+            this.shield = shieldAmount;
+            this.updateTriggerValuesElement();
+            return () => {
+                this.board.player.applyShield(this.shield);
+                log(this.name + " shielded " + this.board.player.name + " for " + this.shield);
+            };            
+        }
+        return null;
     }
 
     updateStatusIndicators() {
@@ -915,4 +965,190 @@ class Item {
     static compareByIndex(a, b) {
         return a.startIndex - b.startIndex;
     }
+
+    setupTextFunctions(text) {
+        let regex = /^\s*When you ([^,]*), (.*)\./i;
+        let match = text.match(regex);
+        let ifFunction = null;
+        if(match) {
+            const ifregex = /\s*if (.*), (.*)\./i;
+            const ifmatch = text.match(ifregex);
+            if(ifmatch) {
+                switch(ifmatch[1].toLowerCase()) {
+                    case "it is a weapon":
+                        ifFunction = (item) => {
+                            if(item.tags.includes("Weapon")) {
+                                if(!(('fnFromItem'+this.id) in item)) {
+                                    item['fnFromitem'+this.id] = item.getTriggerFunctionFromText(ifmatch[2]);
+                                }
+                                if(item['fnFromitem'+this.id]) {
+                                    item['fnFromitem'+this.id](item);
+                                }
+                            }
+                        }
+                    break;                
+                }
+            }          
+
+            switch(match[1].toLowerCase()) {
+                case "use an item":
+                    this.board.itemTriggers.set(this.id, this.getTriggerFunctionFromText(match[2]));
+                    return;
+                case "use an adjacent item":
+                    this.adjacentItemTriggers.push(this.getTriggerFunctionFromText(match[2]));
+                    return;
+                case "use the item to the right of this":
+                    const rightItem = this.getItemToTheRight();
+                    const rightItemUsedFunction = this.getTriggerFunctionFromText(match[2]);
+                    if(rightItem) {
+                        this.board.itemTriggers.set(rightItem.id, (item)=> {
+                            if(item.id === rightItem.id) {
+                                rightItemUsedFunction(item);
+                                if(ifFunction) ifFunction(item);
+                            }
+                        });
+                    }
+                    return;
+                case "use the core or another ray":
+                    const f = this.getTriggerFunctionFromText(match[2]);
+                    this.whenItemTagTriggers(["Core", "Ray"], 
+                        (item) => {
+                            if(item.id !== this.id) {
+                              f(item);  
+                            }
+                        }
+                    );
+                    return;
+                case "haste":
+                    this.board.hasteTriggers.set(this.id,this.getTriggerFunctionFromText(match[2]));
+                    return;
+                case "slow":
+                    this.board.slowTriggers.set(this.id,this.getTriggerFunctionFromText(match[2]));
+                    return;
+                case "lose shield":
+                    this.board.player.lostShieldTriggers.set(this.id, this.getTriggerFunctionFromText(match[2]));
+                    return;
+                case "sell this": //do nothing
+                case "buy this":
+                    return;
+            }
+            console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + match[2]+"'");
+            return;
+        }
+        regex = /^\s*When this gains (.*), (.*)/i;
+        match = text.match(regex);
+        if(match) {
+            switch(match[1].toLowerCase()) {
+                case "haste":
+                    this.board.hasteTriggers.set(this.id,this.getTriggerFunctionFromText(match[2]));
+                    return;
+                case "slow":
+                    this.board.slowTriggers.set(this.id,this.getTriggerFunctionFromText(match[2]));
+                    return;
+                case "damage":
+                    this.board.damageTriggers.set(this.id,this.getTriggerFunctionFromText(match[2]));
+                    return;
+            }
+        }
+
+        this.triggerFunctions.push(this.getTriggerFunctionFromText(text));
+        return null;
+    }
+    
+    /*
+    When an item with a tag is used, trigger the given function
+    tag can be a string or an array of strings
+    */
+    whenItemTagTriggers(tag, func) {
+        this.board.itemTriggers.set(this.id,(item) => {
+            // Handle both string and array cases
+            const tags = Array.isArray(tag) ? tag : [tag];
+            if (tags.some(t => item.tags.includes(t))) {
+                func(item);
+            }
+        });
+    }
+
+    getAnonymousTriggerFunctionFromText(text) {        
+        let regex,match;
+        //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
+        regex = /^\s*your weapons gain (?:\(([^)]+)\)|(\d+)) damage for the fight/i;                
+        match = text.match(regex);
+        if(match) {
+            const dmgGain = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
+            return () => {
+                this.board.items.forEach(item => {
+                    if(item.tags.includes("Weapon")) {
+                        item.damage += dmgGain;
+                        log(item.name + " gained " + dmgGain + " damage for the fight");
+                        item.updateTriggerValuesElement();
+                    }
+                });
+            }
+        }
+        //your items gain ( +2% » +4% » +6% » +8% ) Crit chance for the fight.
+        regex = /your items gain \(\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*\) Crit chance for the fight/i;
+        match = text.match(regex);
+        if(match) {
+            const critGain = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);
+            return () => {
+                this.board.items.forEach(i => i.crit += critGain);
+                log(this.name + " gave all items " + critGain + " crit chance");
+            }
+        }
+        //Multicast ( 1 » 2 » 3 » 4 ).
+        regex = /^Multicast (?:\(([^)]+)\)|(\d+))/i;
+        match = text.match(regex);
+        if(match) {
+            this.multicast = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            return () => {};
+        }        
+        regex = /^Gain (?:\(([^)]+)\)|(\d+)) gold/i;
+        match = text.match(regex);
+        if(match) {            
+            return () => {
+                this.board.player.gold += match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+                log(this.name + " gave " + this.board.player.gold + " gold to " + this.board.player.name);
+            }
+        }
+        //Give the weapon to the left of this ( +10 » +20 » +30 ) damage for the fight
+        regex = /^Give the weapon to the left of this \(\s*\+?(\d+)\s*»\s*\+?(\d+)\s*»\s*\+?(\d+)\s*\) damage for the fight/i;
+        match = text.match(regex);
+        if(match) {
+            const dmgGain = getRarityValue(`${match[1]}»${match[2]}»${match[3]}`, this.rarity);
+            const leftItem = this.getItemToTheLeft();
+            return () => {
+                if(leftItem) {
+                    leftItem.damage += dmgGain;
+                    log(this.name+" gave " + leftItem.name + " " + dmgGain + " damage");
+                    leftItem.updateTriggerValuesElement();
+                }
+            }
+        }
+        regex = /^Crit chance \(\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*\)/i;
+        match = text.match(regex);
+        if(match) {
+            this.crit = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);
+            this.updateTooltip();
+            this.text = this.text.filter(t => t!=text);
+            this.updateTooltip();
+            return () => {};
+        }
+        return null;
+    }
+    
+    getTriggerFunctionFromText(text) {
+        return this.getWeaponTriggerFunction(text) ||
+        this.getSlowTriggerFunctionFromText(text) ||
+        this.getShieldTriggerFunctionFromText(text) ||
+        this.getBurnTriggerFunctionFromText(text) ||
+        this.getHasteTriggerFunctionFromText(text) ||
+        this.getPoisonTriggerFunctionFromText(text) ||
+        this.getHealTriggerFunctionFromText(text) ||
+    //    this.getCritTriggerFunctionFromText(text) ||
+   //     this.getAmmoTriggerFunctionFromText(text) ||
+        this.getAnonymousTriggerFunctionFromText(text) ||
+        (() => { console.log("Could not parse "+ text+ " into a trigger function.")})
+    }
+    
 }

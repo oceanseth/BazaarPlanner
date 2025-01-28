@@ -259,11 +259,6 @@ button:active {
 .tooltip-content {
     font-size: 14px;
     white-space: nowrap;
-    color: #333;
-}
-
-.tooltip-content strong {
-    color: #000;
 }
 
 .merged-slot.removing {
@@ -404,6 +399,31 @@ button:active {
     left: 50%;
     bottom: 100%;
     transform: translateX(-50%);
+    padding: 0px;
+    margin: 0px;
+    min-width: 200px;
+    color: rgb(251,233,192);
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+    pointer-events: none;
+}
+
+.tooltip-tags {
+    display: flex;
+}
+
+.tooltip-tags .tag {
+    padding: 2px 8px;
+    border-radius: 4px 4px 0 0;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.tooltip-tags .tag,
+.tooltip-name,
+.tooltip-main,
+.tooltip-bottom
+{
     background: radial-gradient(
         circle at center,
         #2b1810 40%,  /* Dark brown in the middle */
@@ -415,36 +435,40 @@ button:active {
         #2b1810 50%,  /* Dark brown in the middle */
         #1a1a1a 100%  /* Black on the right */
     );
-    border: 2px solid rgb(202,212,233);
-    border-radius: 8px;
-    padding: 12px;
-    min-width: 200px;
-    color: rgb(251,233,192);
-    z-index: 1000;
-    font-family: Arial, sans-serif;
-    pointer-events: none;
 }
 
-.tooltip-tags {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 8px;
+.tooltip-name,.tooltip-main,.tooltip-bottom {
+    padding: 10px 20px;
+    margin: 0px;
+    box-sizing: border-box;
+    border: 1px solid;
 }
-
-.tooltip-tags .tag {
-    background-color: #4a4a4a;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    text-transform: uppercase;
-    color:white;
-}
-
-.tooltip-name {
+.tooltip-name
+ {
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 8px;
-    color: rgb(251,233,192);
+    width: 100%;
+    border: 1px solid;
+    padding: 10px 20px;
+    line-height: 20px;
+}
+.tooltip-main,.tooltip-bottom {
+    border-top: 0px;
+}
+.BronzeBorder {
+    border-color: rgb(150,111,51)!important;
+}
+.SilverBorder {
+    border-color: rgb(184,184,184)!important;
+}
+.GoldBorder {
+    border-color: rgb(255,215,0)!important;
+}
+.DiamondBorder {
+    border-color: rgb(0,191,255)!important;
+}
+.LegendaryBorder {
+    border-color: rgb(255,69,0)!important;
 }
 .tooltip-tag-small,
 .tooltip-tag-medium,
@@ -466,13 +490,6 @@ button:active {
     border-bottom: 1px solid black;
 }
 
-.tooltip-main {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    color: rgb(251,233,192);
-}
-
 .tooltip-cooldown-circle {
     background-color: #333;
     border-radius: 50%;
@@ -486,10 +503,11 @@ button:active {
     line-height: 1;
     flex-shrink: 0;
     position: absolute;
-    left: -40px;
-    top: 50%;
+    left: -30px;
+    top: 90px;
     transform: translateY(-50%);
     color:white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 .tooltip-cooldown-circle .unit {
@@ -733,4 +751,14 @@ button:active {
     height: 20px;
     display: flex;
     gap: 4px;
+}
+.multicast-element {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 30px;  /* 20px (height of trigger-values) + 10px spacing */
+    left: 50%;
+    transform: translateX(-50%);  /* Centers the element horizontally */
+    color: white;
+    font-size: 10px;
+    padding: 2px 4px;
 }
