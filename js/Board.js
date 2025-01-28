@@ -1,7 +1,6 @@
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
     static boards = [];
-    shieldValuesChangedTriggers = new Map();
     static getBoardFromId(boardId) {
         if(Board.boards[boardId]) return Board.boards[boardId];
         //console.log("Board not found: " + boardId);
@@ -35,7 +34,28 @@ class Board {
         }
         this.createHealthElement();
         this.createSkillsElement();
+        this.reset();
     }
+    
+    reset() {
+        this.itemTriggers = new Map(); //functions to call when any item on this board is triggered
+        this.shieldValuesChangedTriggers = new Map(); //functions to call when shield values change
+        this.hasteTriggers = new Map(); //functions to call when haste is applied to any item on this board
+        this.slowTriggers = new Map(); //functions to call when slow is applied to any item on this board
+        this.burnTriggers = [];
+        this.poisonTriggers = [];
+        this.healTriggers = [];
+        this.shieldTriggers = [];
+        this.critTriggers = [];
+        this.ammoTriggers = [];
+        this.largeItemTriggers = [];
+        this.mediumItemTriggers = [];
+        this.smallItemTriggers = [];
+        
+        this.resetItems();
+        this.updateHealthElement();
+    }
+
     shieldValuesChanged() {
         this.shieldValuesChangedTriggers.forEach(func => func());
     }
@@ -79,7 +99,7 @@ class Board {
         this.element.appendChild(this.skillsElement);
     }
     startBattle() {
-        this.items.forEach(item => item.progressBar.style.display = 'block');
+        this.items.forEach(item => {if(item.progressBar) item.progressBar.style.display = 'block'});
     }
 
     updateCombat(timeDiff) {
@@ -231,14 +251,12 @@ class Board {
         return true;
     }
 
-    reset() {
-        this.resetItems();
-        this.updateHealthElement();
-        this.shieldValuesChangedTriggers.clear();
-    }
-
     resetItems() {
         this.items.forEach(item => item.reset());
+        this.resetSkills();
+    }
+    resetSkills() {
+        this.skills.forEach(skill => skill.reset());
     }
 
     static handleDragStart(e) {
@@ -303,6 +321,7 @@ class Board {
         monsterData.skills.forEach(skill => {
             let newSkill = new Skill(skills[skill]);
             this.skills.push(newSkill);
+            newSkill.board = this;
             this.skillsElement.appendChild(newSkill.element);
         });
         this.player.maxHealth = monsterData.health;
@@ -310,6 +329,9 @@ class Board {
         this.updateHealthElement();
         this.resetItems();
         this.player.hostileTarget.board.resetItems();
+    }
+    itemTriggered(item) {    
+        this.itemTriggers.forEach(func => func(item));
     }
 }
 
