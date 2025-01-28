@@ -258,7 +258,6 @@ button:active {
 
 .tooltip-content {
     font-size: 14px;
-    white-space: nowrap;
 }
 
 .merged-slot.removing {
@@ -402,6 +401,7 @@ button:active {
     padding: 0px;
     margin: 0px;
     min-width: 200px;
+    max-width: 700px;
     color: rgb(251,233,192);
     z-index: 1000;
     font-family: Arial, sans-serif;
