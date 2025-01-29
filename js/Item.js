@@ -84,6 +84,10 @@ class Item {
             board.addItem(this);
         }
     }
+    destroy() {
+        this.isDestroyed = true;
+        this.element.classList.add('destroyed');
+    }
     updateTriggerValuesElement() {
         const formatNumber = num => Number.isInteger(num) ? num.toString() : num.toFixed(1);
         
@@ -102,6 +106,7 @@ class Item {
             this.cooldown = (this.startItemData.cooldown || 0) * 1000;
         }
         this.isDestroyed = false;
+        this.element.classList.remove('destroyed');
         this.hasteTimeRemaining = 0;
         this.slowTimeRemaining = 0;
         this.numTriggers = 0;

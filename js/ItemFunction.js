@@ -12,3 +12,14 @@ ItemFunction.items.set("Flagship",(item)=>{
         if(multicast>0) item.multicastElement.style.display = 'block';
     };
 });
+ItemFunction.items.set("Antimatter Chamber",(item)=>{
+    //Destroy this and 3 small enemy items for the fight
+    return () => {
+        item.triggerFunctions.push(()=>{
+            let smallEnemyItems = item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes("Small"));
+            let numItemsToDestroy = Math.min(3,smallEnemyItems.length);
+            smallEnemyItems.sort(() => battleRandom() - 0.5).slice(0,numItemsToDestroy).forEach(i=>i.destroy());
+            item.destroy();
+        });
+    };
+});
