@@ -28,7 +28,7 @@ ItemFunction.items.set("Crow's Nest",(item)=>{
             weaponItems[0].lifesteal = 100;
             weaponItems[0].updateTriggerValuesElement();
         }
-        item.board.items.forEach(i=>{
+        weaponItems.board.items.forEach(i=>{
             if(i.id!=item.id) {
                 i.crit += critToGain;
             }
