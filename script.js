@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+window.onload = () => {
         const monstersList = document.getElementById('monstersList');
         monstersList.innerHTML = '';
         Object.entries(monsters).forEach(([id, monster]) => {
@@ -50,11 +50,136 @@ document.addEventListener('DOMContentLoaded', () => {
         topPlayer.initialize('inventory-board', 'topPlayerSkills', 1000);
         bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', 1000);
   //      initializeMonsterSearch();
-});
 
+
+     window.firebaseConfig = {
+        apiKey: "AIzaSyCrDTf9_S8PURED8DZBDbbEsJuMA1poduw",
+        authDomain: "bazaarplanner.firebaseapp.com",
+        databaseURL: "https://bazaarplanner-default-rtdb.firebaseio.com",
+        projectId: "bazaarplanner",
+        storageBucket: "bazaarplanner.firebasestorage.app",
+        messagingSenderId: "785099543393",
+        appId: "1:785099543393:web:64f446c9ff8b0a34086b20",
+        measurementId: "G-PPXK7672LC"
+    };
+
+    // Initialize Firebase with error handling
+    try {
+        if (!firebase.apps.length) {
+            window.app = firebase.initializeApp(firebaseConfig);
+        } else {
+            window.app = firebase.app();
+        }
+        window.auth = firebase.auth();
+        
+        // Initialize the FirebaseUI Widget
+        const ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+        // FirebaseUI config
+        const uiConfig = {
+            signInOptions: [
+                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                firebase.auth.EmailAuthProvider.PROVIDER_ID
+            ],
+            callbacks: {
+                signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                    // User successfully signed in.
+                    // Return type determines whether we continue the redirect automatically
+                    // or whether we leave that to developer to handle.
+                    return false;
+                }
+            },
+            signInFlow: 'popup'
+        };
+
+        // Initialize the auth UI
+        function initAuth() {
+            if (ui.isPendingRedirect()) {
+                ui.start('#firebaseui-auth-container', uiConfig);
+            } else {
+                ui.start('#firebaseui-auth-container', uiConfig);
+            }
+        }
+
+        // Track auth state
+        function initApp() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                // Get the login button
+                const loginButton = document.querySelector('button[onclick="login()"]');
+                
+                if (user) {
+                    // User is signed in
+                    user.getIdToken().then(function(accessToken) {
+                        // Update status elements
+                        document.getElementById('sign-in-status').textContent = 'Signed in as ' + user.displayName;
+                        document.getElementById('account-details').textContent = JSON.stringify({
+                            displayName: user.displayName,
+                            email: user.email,
+                            emailVerified: user.emailVerified,
+                            photoURL: user.photoURL,
+                            uid: user.uid
+                        }, null, '  ');
+
+                        // Update login button to show logout
+                        if (loginButton) {
+                            loginButton.textContent = 'Logout';
+                            loginButton.onclick = logout;
+                        }
+                    });
+                    
+                    // Hide the auth UI when signed in
+                    document.getElementById('firebaseui-auth-container').style.display = 'none';
+                } else {
+                    // User is signed out
+                    document.getElementById('sign-in-status').textContent = '';
+                    document.getElementById('account-details').textContent = '';
+                    
+                    // Reset login button
+                    if (loginButton) {
+                        loginButton.textContent = 'Login';
+                        loginButton.onclick = login;
+                    }
+                    
+
+                }
+            });
+        }
+        window.login = function() {
+            // Show the auth UI when signed out
+            document.getElementById('firebaseui-auth-container').style.display = 'block';
+            initAuth();
+        }
+
+    initApp();
+
+    } catch (error) {
+        console.error("Firebase initialization error:", error);
+    }
+}
+
+
+function logout() {
+    if (!firebase.auth) {
+        console.error("Firebase auth is not initialized");
+        return;
+    }
+
+    firebase.auth().signOut()
+        .then(() => {
+            console.log("Logout successful");
+            // The auth state observer will handle UI updates
+        })
+        .catch(error => {
+            console.error("Logout error:", error);
+            // More detailed error information
+            console.error("Error code:", error.code);
+            console.error("Error message:", error.message);
+        });
+}
 
 // Remove the duplicate DOMContentLoaded listener that initializes boards
 // (the one we added in the previous code)
+
 
 const emptyDragImage = new Image();
 emptyDragImage.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
@@ -66,26 +191,8 @@ var sandstormValue = 1;
 var sandstormIncrement= .25;
 const deleteZone = document.createElement('div');
 deleteZone.className = 'delete-zone';
-deleteZone.textContent = 'Drop here to delete';
+deleteZone.textContent = ' Drop here to delete';
 document.querySelector('.board-container:last-child').appendChild(deleteZone);
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCrDTf9_S8PURED8DZBDbbEsJuMA1poduw",
-  authDomain: "bazaarplanner.firebaseapp.com",
-  databaseURL: "https://bazaarplanner-default-rtdb.firebaseio.com",
-  projectId: "bazaarplanner",
-  storageBucket: "bazaarplanner.firebasestorage.app",
-  messagingSenderId: "785099543393",
-  appId: "1:785099543393:web:64f446c9ff8b0a34086b20",
-  measurementId: "G-PPXK7672LC"
-};
-
-// Initialize Firebase
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
-const database = firebase.database();
 
 function showSection(sectionId) {
     document.querySelectorAll('.section').forEach(section => {
@@ -402,53 +509,6 @@ function startBattle() {
     // Update button
     battleButton.textContent = 'Pause Battle';
     battleButton.classList.add('pause-battle');
-}
-
-
-function saveToFile(boardId) {
-    const board = document.getElementById(boardId);
-    const items = Array.from(board.querySelectorAll('.merged-slot')).map(slot => ({
-        item: JSON.parse(slot.getAttribute('data-item')),
-        startIndex: parseInt(slot.dataset.startIndex),
-        size: parseInt(slot.dataset.size)
-    }));
-    
-    const blob = new Blob([JSON.stringify(items, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${boardId}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-}
-
-function loadFromFile(boardId) {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.json';
-    
-    input.onchange = e => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        
-        reader.onload = event => {
-            try {
-                const items = JSON.parse(event.target.result);
-                const board = Board.getBoardFromId(boardId);
-                board.clear();
-                items.forEach(({item, startIndex, size}) => {
-                    board.placeItem(startIndex, size, item, boardId);
-                });
-            } catch (error) {
-                console.error('Error loading file:', error);
-                alert('Invalid file format');
-            }
-        };
-        
-        reader.readAsText(file);
-    };
-    
-    input.click();
 }
 
 // Add dragover and drop handlers for delete zone
