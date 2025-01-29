@@ -30,13 +30,15 @@ def scroll_to_bottom(driver):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         
         # Wait for new items to load
-        time.sleep(1)
+        time.sleep(.2)
         
         # Calculate new scroll height and compare with last scroll height
         new_height = driver.execute_script("return document.body.scrollHeight")
         if new_height == last_height:
             # If heights are the same, we've reached the bottom
-            break
+            time.sleep(.8)
+            if new_height == last_height:
+                break
         last_height = new_height
 
 def get_enchants(driver, item_button):
@@ -189,7 +191,7 @@ def parse_items():
         scroll_to_bottom(driver)
         
         # Wait a moment for the final items to load
-        time.sleep(2)
+        time.sleep(.3)
         
         print("Getting item elements...")
         item_elements = driver.find_elements(By.CSS_SELECTOR, "div.bg-white.rounded-lg.border-gray-200")
