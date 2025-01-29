@@ -85,10 +85,12 @@ class Item {
         }
     }
     updateTriggerValuesElement() {
-        if(this.shieldElement) this.shieldElement.textContent = Number(this.shield).toFixed(1);
-        if(this.burnElement) this.burnElement.textContent = Number(this.burn).toFixed(1);
-        if(this.poisonElement) this.poisonElement.textContent = Number(this.poison).toFixed(1);
-        if(this.damageElement) this.damageElement.textContent = Number(this.damage).toFixed(1);
+        const formatNumber = num => Number.isInteger(num) ? num.toString() : num.toFixed(1);
+        
+        if(this.shieldElement) this.shieldElement.textContent = formatNumber(this.shield);
+        if(this.burnElement) this.burnElement.textContent = formatNumber(this.burn);
+        if(this.poisonElement) this.poisonElement.textContent = formatNumber(this.poison);
+        if(this.damageElement) this.damageElement.textContent = formatNumber(this.damage);
         if(this.multicastElement && this.multicast>0) this.multicastElement.textContent = "x"+Number(this.multicast).toFixed(0);
         else this.multicastElement.style.display = 'none';
         this.priceTagElement.textContent = Number(this.value).toFixed(0);
