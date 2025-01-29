@@ -84,8 +84,10 @@
                             <!-- Slots will be generated here -->
                         </div>
                         <div class="board-controls">
+                            <button onclick="Board.getBoardFromId('inventory-board').clear()">Clear</button>
                             <button onclick="Board.getBoardFromId('inventory-board').save()">Save</button>
                             <button onclick="Board.getBoardFromId('inventory-board').load()">Load</button>
+                            
                         </div>
                     </div>
                     <div class="board-container">
@@ -93,6 +95,7 @@
                             <!-- Slots will be generated here -->
                         </div>
                         <div class="board-controls">
+                            <button onclick="Board.getBoardFromId('bottom-board').clear()">Clear</button>
                             <button onclick="Board.getBoardFromId('bottom-board').save()">Save</button>
                             <button onclick="Board.getBoardFromId('bottom-board').load()">Load</button>
                         </div>
