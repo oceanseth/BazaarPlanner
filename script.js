@@ -404,53 +404,6 @@ function startBattle() {
     battleButton.classList.add('pause-battle');
 }
 
-
-function saveToFile(boardId) {
-    const board = document.getElementById(boardId);
-    const items = Array.from(board.querySelectorAll('.merged-slot')).map(slot => ({
-        item: JSON.parse(slot.getAttribute('data-item')),
-        startIndex: parseInt(slot.dataset.startIndex),
-        size: parseInt(slot.dataset.size)
-    }));
-    
-    const blob = new Blob([JSON.stringify(items, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${boardId}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-}
-
-function loadFromFile(boardId) {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.json';
-    
-    input.onchange = e => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        
-        reader.onload = event => {
-            try {
-                const items = JSON.parse(event.target.result);
-                const board = Board.getBoardFromId(boardId);
-                board.clear();
-                items.forEach(({item, startIndex, size}) => {
-                    board.placeItem(startIndex, size, item, boardId);
-                });
-            } catch (error) {
-                console.error('Error loading file:', error);
-                alert('Invalid file format');
-            }
-        };
-        
-        reader.readAsText(file);
-    };
-    
-    input.click();
-}
-
 // Add dragover and drop handlers for delete zone
 deleteZone.addEventListener('dragover', (e) => {
     e.preventDefault();

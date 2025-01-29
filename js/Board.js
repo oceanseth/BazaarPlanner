@@ -36,17 +36,23 @@ class Board {
         this.createSkillsElement();
         this.reset();
     }
-    
+    clear() {
+        this.items.forEach(item => item.element.remove());
+        this.items = [];
+        this.skills = [];
+        this.reset();
+    }
     reset() {
         this.itemTriggers = new Map(); //functions to call when any item on this board is triggered
+        this.freezeTriggers = new Map(); //functions to call when any item on this board is frozen
         this.shieldValuesChangedTriggers = new Map(); //functions to call when shield values change
         this.hasteTriggers = new Map(); //functions to call when haste is applied to any item on this board
         this.slowTriggers = new Map(); //functions to call when slow is applied to any item on this board
-        this.burnTriggers = [];
-        this.poisonTriggers = [];
+        this.burnTriggers = new Map();
+        this.poisonTriggers = new Map();
+        this.critTriggers = new Map();
         this.healTriggers = [];
         this.shieldTriggers = [];
-        this.critTriggers = [];
         this.ammoTriggers = [];
         this.largeItemTriggers = [];
         this.mediumItemTriggers = [];
@@ -54,6 +60,9 @@ class Board {
         
         this.resetItems();
         this.updateHealthElement();
+    }
+    itemDidCrit(item) {
+        this.critTriggers.forEach(func => func(item));
     }
 
     shieldValuesChanged() {
@@ -188,9 +197,11 @@ class Board {
         }
         const alreadyOnBoard = draggingElement.classList.contains('merged-slot');
         let size=1;
+        let foundItem = null;
         if(alreadyOnBoard) {
             let boardItems = Board.getBoardFromId(draggingElement.closest('.board')?.id).items;
-            size = boardItems.find(item => item.element === draggingElement).size;
+            foundItem = boardItems.find(item => item.element === draggingElement);
+            size = foundItem.size;
         } else {
             itemData = JSON.parse(draggingElement.getAttribute('data-item'));
             size = getSizeValue(itemData.tags.find(tag => ['Small', 'Medium', 'Large'].includes(tag)) || 'Small');
@@ -201,11 +212,11 @@ class Board {
         const sourceBoard = Board.getBoardFromId(draggingElement.closest('.board')?.id);
 
         if (board.isValidPlacement(startIndex, draggingElement)) {
-            if (alreadyOnBoard) {
-                const foundItem = sourceBoard.items.find(item => item.element === draggingElement);    
+            if (alreadyOnBoard) {  
                 if(targetBoard==sourceBoard) {
                     foundItem.setIndex(startIndex);
                 } else {
+                    foundItem.board = targetBoard;
                     targetBoard.addItem(foundItem);
                     foundItem.setIndex(startIndex);
                     sourceBoard.removeItem(foundItem);
@@ -236,19 +247,47 @@ class Board {
     }
 
     save() {        
-        localStorage.setItem(`saved_${this.boardId}`, JSON.stringify(this.items));
+        const name = prompt("What do you want to name this board?");
+        const items = this.items.map(item => ({
+            item: item.startItemData,
+            startIndex: item.startIndex,
+            size: item.size
+        }));
+        const blob = new Blob([JSON.stringify(items, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `BP-${name}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
     }
 
     load() {
-        const savedItems = localStorage.getItem(`saved_${this.boardId}`);
-        if (!savedItems) return false;
+        this.clear();
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        input.onchange = e => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = event => {
+                try {
+                    const items = JSON.parse(event.target.result);
+                    items.forEach(({item, startIndex, size}) => {
+                        let newItem = new Item(item, this);
+                        newItem.setIndex(startIndex);
+                    });
+                } catch (error) {
+                    console.error('Error loading file:', error);
+                    alert('Invalid file format');
+                }
+            };
+            
+            reader.readAsText(file);
+        };
         
-        this.initialize();
-        const items = JSON.parse(savedItems);
-        items.forEach((itemData) => {
-            new Item(itemData, this);
-        });
-        return true;
+        input.click();
     }
 
     resetItems() {
