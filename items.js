@@ -4471,39 +4471,6 @@ const items = {
       "Shiny": "This has +1 Multicast."
     }
   },
-  "Focused Core": {
-    "name": "Focused Core",
-    "icon": "images/items/FocusedCore.avif",
-    "tier": "Bronze",
-    "tags": [
-      "Dooley",
-      "Medium",
-      "Charge",
-      "Core",
-      "Haste",
-      "Tech",
-      "Unsellable"
-    ],
-    "cooldown": 6,
-    "ammo": null,
-    "text": [
-      "Charge the item to the right of this ( 1 » 2 » 3 » 4 ) second(s).",
-      "Haste the item to the right of this ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you use any item to the left of this, Charge this ( 1 » 2 » 3 » 4 ) second(s)."
-    ],
-    "enchants": {
-      "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
-      "Turbo": "This has double Haste duration.",
-      "Shielded": "Shield 80.",
-      "Restorative": "Heal 120.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
-      "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your items to the right gain +10% Crit Chance for the fight.",
-      "Obsidian": "This has Lifesteal."
-    }
-  },
   "Force Field": {
     "name": "Force Field",
     "icon": "images/items/ForceField.avif",

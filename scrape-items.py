@@ -155,6 +155,10 @@ def process_item(item_div):
 def download_image(url, filepath):
     """Download an image from url and save it to filepath"""
     try:
+        # First, remove any existing file with different casing
+        if filepath.exists():
+            filepath.unlink()
+            
         response = requests.get(f"https://www.howbazaar.gg/{url}")
         response.raise_for_status()
         
@@ -202,10 +206,27 @@ def parse_items():
                 full_icon_url = icon_element.get_attribute("src")
                 icon_url = full_icon_url.replace("https://www.howbazaar.gg/", "").lstrip("/")
                 
-                # Check if icon exists locally and download if missing
-                icon_path = Path(f"./{icon_url}")  # Prepend "./" to make it relative to current directory
-                if not icon_path.exists():
+                # Check if icon exists locally with any casing
+                icon_path = Path(f"./{icon_url}")
+                icon_dir = icon_path.parent
+                icon_filename = icon_path.name.lower()  # Convert to lowercase for comparison
+                
+                file_exists = False
+                if icon_dir.exists():
+                    # Check all files in directory for case-insensitive match
+                    for existing_file in icon_dir.iterdir():
+                        if existing_file.name.lower() == icon_filename:
+                            file_exists = True
+                            # Remove existing file if it has different casing
+                            if existing_file.name != icon_path.name:
+                                existing_file.unlink()
+                                file_exists = False
+                            break
+                
+                if not file_exists:
                     download_image(icon_url, icon_path)
+                else:
+                    print(f"Icon already exists: {icon_path.name}")
                 
                 # Get item tiers
                 tier_elements = item.find_elements(By.CSS_SELECTOR, "div[class*='bg-tiers-']")
