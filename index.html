@@ -7,6 +7,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />  
         <script src="monsters.js"></script>
         <script src="skills.js"></script>
         <script src="items.js"></script>
@@ -21,10 +24,15 @@
     </head>
     <body>
         <h2 style="color:white;">BazaarPlanner</h2>
-        <div id="Menu">
+        <div id="Menu" style="display: flex; gap: 10px;">
             <button onclick="showSection('library')" class="selected">Library</button>
             <button onclick="showSection('about')">About</button>
             <button onclick="showSection('simulator')">Simulator</button>
+           
+            <div id="firebaseui-auth-container" style="margin-left: auto;"></div>
+            <div id="sign-in-status" style="margin-left: auto;"></div>
+            <div id="account-details" style="margin-left: auto; display:none;"></div>
+            <button onclick="login()" style="margin-left: auto;">Login</button>
         </div>
 
         <!-- About Section -->

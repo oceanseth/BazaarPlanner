@@ -97,6 +97,8 @@ class Item {
         if(this.damageElement) this.damageElement.textContent = formatNumber(this.damage);
         if(this.multicastElement && this.multicast>0) this.multicastElement.textContent = "x"+Number(this.multicast).toFixed(0);
         else this.multicastElement.style.display = 'none';
+        if(this.lifesteal > 0) this.damageElement.classList.add('lifesteal');
+        else this.element.classList.remove('lifesteal');
         this.priceTagElement.textContent = Number(this.value).toFixed(0);
     }
     reset() {
@@ -141,16 +143,18 @@ class Item {
         this.applyItemSizeTrigger();
         */
 
-        this.text.forEach(text => this.setupTextFunctions(text));
-        this.updateTriggerValuesElement();
-
         if(this.progressBar) {
             this.progressBar.style.bottom = '-5px';
             this.progressBar.style.display = 'none';   
             this.hasteIndicator.classList.add('hidden');
             this.slowIndicator.classList.add('hidden');             
-        }        
-        this.executeSpecificItemFunction();
+        }            
+    }
+    setup() {
+        if(!this.executeSpecificItemFunction()) {
+            this.text.forEach(text => this.setupTextFunctions(text));
+        }
+        this.updateTriggerValuesElement();    
     }
 
     getInitialValue() {
@@ -254,7 +258,8 @@ class Item {
                 </div>
                 <div class="tooltip-bottom">
                     <div class="tooltip-bottom-text">
-                        ${this.bottomText || ''}
+                        ${this.lifesteal>0?'Lifesteal<br>':''}
+                        ${this.critMultiplier>100?'Crit Multiplier: '+this.critMultiplier+'%<br>':''}
                     </div>
                 </div>
             </div>
@@ -692,7 +697,19 @@ class Item {
                 log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
             }
         }
+        //Haste adjacent items for ( 1 » 2 » 3 ) second(s)
+        hasteRegex = /^Haste adjacent items for (?:\(([^)]+)\)|(\d+)) second/i;
+        match = text.match(hasteRegex);
+        if(match) {
+            const duration = getRarityValue(match[1], this.rarity);
+            return () => {
+                this.getAdjacentItems().forEach(item => item.applyHaste(duration));
+                log(this.name + " hasted adjacent items for " + duration + " seconds"); 
+            };
+        }
+
         hasteRegex = /^Haste it for (?:\(([^)]+)\)|(\d+)) second/i;
+
         if (hasteRegex.test(text)) {
             const duration = getRarityValue(text.match(hasteRegex)[1], this.rarity);
             return (item) => {
@@ -1417,14 +1434,49 @@ class Item {
                 });
             };
         }
+        //If you have a Vehicle or Large item, reduce this item's cooldown by 50%
+        regex = /^If you have a ([^\s]+) (or ([^\s]+))? item, reduce this item's cooldown by (\d+)%/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const tagToMatch2 = Item.getTagFromText(match[3]);
+            const cooldownReduction = parseInt(match[4]);
+            if(this.board.items.some(item => item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2))) {
+                this.cooldown *= (1-cooldownReduction/100);
+                this.updateTriggerValuesElement();
+            }
+            return ()=>{};
+
+
+        }
+        //For each adjacent Friend or Property, this gains ( +4 » +8 ) Burn.
+        regex = /^For each adjacent ([^\s]+)( or ([^\s]+))?, this gains (?:\(([^)]+)\)|(\d+)) ([^\s]+).*/i;
+        match = text.match(regex);
+
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const tagToMatch2 = Item.getTagFromText(match[2]);
+            const gainAmount = match[3] ? getRarityValue(match[3], this.rarity) : parseInt(match[4]);
+            return () => {
+                this.getAdjacentItems().forEach(item => {
+
+                    if(item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2)) {
+                        item[match[4].toLowerCase()] += gainAmount;
+                        item.updateTriggerValuesElement();  
+                    }
+                });
+            }
+        }
         return null;
     }
 
     executeSpecificItemFunction() {
         const f = ItemFunction.items.get(this.name);
-        if(f) { f(this)(); }
+        if(f) { f(this); return true; }
+        return false;
     }
     
+
     getTriggerFunctionFromText(text) {
         return this.getWeaponTriggerFunction(text) ||
         this.getSlowTriggerFunctionFromText(text) ||

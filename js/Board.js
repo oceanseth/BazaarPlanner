@@ -37,6 +37,7 @@ class Board {
         this.reset();
     }
     clear() {
+        this.skillsElement.innerHTML = '';
         this.items.forEach(item => item.element.remove());
         this.items = [];
         this.skills = [];
@@ -292,6 +293,7 @@ class Board {
 
     resetItems() {
         this.items.forEach(item => item.reset());
+        this.items.forEach(item => item.setup());
         this.resetSkills();
     }
     resetSkills() {
