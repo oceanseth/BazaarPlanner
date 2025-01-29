@@ -30,13 +30,15 @@ def scroll_to_bottom(driver):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         
         # Wait for new items to load
-        time.sleep(1)
+        time.sleep(.2)
         
         # Calculate new scroll height and compare with last scroll height
         new_height = driver.execute_script("return document.body.scrollHeight")
         if new_height == last_height:
             # If heights are the same, we've reached the bottom
-            break
+            time.sleep(.8)
+            if new_height == last_height:
+                break
         last_height = new_height
 
 def get_enchants(driver, item_button):
@@ -155,6 +157,10 @@ def process_item(item_div):
 def download_image(url, filepath):
     """Download an image from url and save it to filepath"""
     try:
+        # First, remove any existing file with different casing
+        if filepath.exists():
+            filepath.unlink()
+            
         response = requests.get(f"https://www.howbazaar.gg/{url}")
         response.raise_for_status()
         
@@ -185,7 +191,7 @@ def parse_items():
         scroll_to_bottom(driver)
         
         # Wait a moment for the final items to load
-        time.sleep(2)
+        time.sleep(.3)
         
         print("Getting item elements...")
         item_elements = driver.find_elements(By.CSS_SELECTOR, "div.bg-white.rounded-lg.border-gray-200")
@@ -202,10 +208,27 @@ def parse_items():
                 full_icon_url = icon_element.get_attribute("src")
                 icon_url = full_icon_url.replace("https://www.howbazaar.gg/", "").lstrip("/")
                 
-                # Check if icon exists locally and download if missing
-                icon_path = Path(f"./{icon_url}")  # Prepend "./" to make it relative to current directory
-                if not icon_path.exists():
+                # Check if icon exists locally with any casing
+                icon_path = Path(f"./{icon_url}")
+                icon_dir = icon_path.parent
+                icon_filename = icon_path.name.lower()  # Convert to lowercase for comparison
+                
+                file_exists = False
+                if icon_dir.exists():
+                    # Check all files in directory for case-insensitive match
+                    for existing_file in icon_dir.iterdir():
+                        if existing_file.name.lower() == icon_filename:
+                            file_exists = True
+                            # Remove existing file if it has different casing
+                            if existing_file.name != icon_path.name:
+                                existing_file.unlink()
+                                file_exists = False
+                            break
+                
+                if not file_exists:
                     download_image(icon_url, icon_path)
+                else:
+                    print(f"Icon already exists: {icon_path.name}")
                 
                 # Get item tiers
                 tier_elements = item.find_elements(By.CSS_SELECTOR, "div[class*='bg-tiers-']")
