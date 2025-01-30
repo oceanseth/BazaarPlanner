@@ -669,6 +669,7 @@ button:active {
 .shield-element,
 .damage-element,
 .burn-element,
+.heal-element,
 .poison-element {
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
@@ -688,6 +689,9 @@ button:active {
 /* Optional: Different colors for different types */
 .damage-element {
     background-color: rgba(255, 0, 0, 0.7);
+}
+.heal-element {
+    color: rgb(0, 255, 0);
 }
 .lifesteal {
     color: purple!important;
@@ -804,6 +808,7 @@ button:active {
     background-color: rgba(0, 0, 0, 0.7);
     text-align: center;
     line-height: 30px;
+    filter:none!important;
 }
 .destroyed {
     opacity: 0.5;
