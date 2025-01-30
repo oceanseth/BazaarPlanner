@@ -75,6 +75,12 @@ class Item {
             this.shieldElement.textContent = this.shield;
             this.triggerValuesElement.appendChild(this.shieldElement);
         }
+        if(this.tags.includes("Heal")) {
+            this.healElement = document.createElement('div');
+            this.healElement.className = 'heal-element';
+            this.healElement.textContent = this.heal;
+            this.triggerValuesElement.appendChild(this.healElement);
+        }
 
         this.reset();
 
@@ -97,6 +103,7 @@ class Item {
         if(this.poisonElement) this.poisonElement.textContent = formatNumber(this.poison);
         if(this.damageElement) this.damageElement.textContent = formatNumber(this.damage);
         if(this.multicastElement && this.multicast>0) this.multicastElement.textContent = "x"+Number(this.multicast).toFixed(0);
+        if(this.healElement) this.healElement.textContent = formatNumber(this.heal);
         else this.multicastElement.style.display = 'none';
         if(this.lifesteal > 0) this.damageElement.classList.add('lifesteal');
         else this.element.classList.remove('lifesteal');
@@ -1146,6 +1153,14 @@ class Item {
                         }
                     });
                     return;
+                case "use another non-weapon item":
+                    const useAnotherNonWeaponItemFunction = this.getTriggerFunctionFromText(match[2]);
+                    this.board.itemTriggers.set(this.id, (item) =>  {                        
+                        if(item.id !== this.id && !item.tags.includes("Weapon")) {
+                            useAnotherNonWeaponItemFunction(item);
+                        }
+                    });
+                    return;
                 case "use an adjacent item":
                     this.adjacentItemTriggers.push(this.getTriggerFunctionFromText(match[2]));
                     return;
@@ -1189,11 +1204,32 @@ class Item {
                         }
                     );
                     return;
+                case "use the core":
+                    const coretriggered = this.getTriggerFunctionFromText(match[2]);
+                    this.whenItemTagTriggers(["Core"],
+                        (item) => {
+                            coretriggered(item);  
+                        }
+                    );
+                    return;
                 case "haste":
                     this.board.hasteTriggers.set(this.id,this.getTriggerFunctionFromText(match[2]));
                     return;
                 case "slow":
                     this.board.slowTriggers.set(this.id,this.getTriggerFunctionFromText(match[2]));
+                    return;
+                case "freeze":
+                    const freezeFunction = this.getTriggerFunctionFromText(match[2]);
+                    this.board.player.hostileTarget.board.freezeTriggers.set(this.id,(target,source)=>{
+                        if(source.board==this.board) {
+                            freezeFunction();
+                        }
+                    });
+                    this.board.freezeTriggers.set(this.id,(target,source)=>{
+                        if(source.board==this.board) {
+                            freezeFunction();
+                        }
+                    });
                     return;
                 case "lose shield":
                     this.board.player.lostShieldTriggers.set(this.id, this.getTriggerFunctionFromText(match[2]));
@@ -1203,8 +1239,14 @@ class Item {
                     return;
                 case "use a Tech":
                     const useATechFunction = this.getTriggerFunctionFromText(match[2]);
-                    this.board.whenItemTagTriggers("Tech", (item) => {
+                    this.whenItemTagTriggers("Tech", (item) => {
                         useATechFunction(item);
+                    });
+                    return;
+                case "use a property":
+                    const useAPropertyFunction = this.getTriggerFunctionFromText(match[2]);
+                    this.whenItemTagTriggers("Property", (item) => {
+                        useAPropertyFunction(item);
                     });
                     return;
                 case "crit with any item":
@@ -1213,9 +1255,19 @@ class Item {
                 case "sell this": //do nothing
                 case "buy this":
                 case "buy another aquatic item":
+                case "level up":
+                case "sell a spare change":
                     return;
             }
             console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + match[1]+"'");
+            return;
+        }
+        //At the start of each fight,
+        regex = /^\s*At the start of each fight, (.*)/i;
+        match = text.match(regex);
+        if(match) {
+            const f = this.getTriggerFunctionFromText(match[1]);
+            this.board.startOfFightTriggers.set(this.id,f);
             return;
         }
         regex = /^\s*When this gains (.*), (.*)/i;
@@ -1248,7 +1300,15 @@ class Item {
             });
             return;
         }
-
+        //The first time you fall below half health each fight, Freeze 1 item(s) for 99 second(s). into a trigger function.
+        regex = /^\s*The first time you fall below half health each fight, (.*)\./i;
+        match = text.match(regex);
+        if(match) {
+            const f = this.getTriggerFunctionFromText(match[1]);
+            this.board.player.healthBelowHalfTriggers.set(this.id,f);
+            
+            return;
+        }
 
         this.triggerFunctions.push(this.getTriggerFunctionFromText(text));
         return null;
@@ -1333,15 +1393,42 @@ class Item {
            this.damageElement.classList.add('lifesteal');
            return () => {};
         }
-        //this gains ( 5 » 10 » 15 » 20 ) damage for the fight
-        regex = /^\s*this gains \(\s*(\d+)\s*»\s*(\d+)\s*»\s*(\d+)\s*»\s*(\d+)\s*\) damage for the fight/i;
+        //This has +1 Multicast for each adjacent Property.
+        regex = /^\s*This has \+\d+ Multicast for each adjacent ([^\s^\.]+)\.?/i;
         match = text.match(regex);
         if(match) {
-            const dmgGain = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);
+            const tagToMatch = Item.getTagFromText(match[1]);
+            this.getAdjacentItems().forEach(item => {
+                if(item.tags.includes(tagToMatch)) {
+                    this.multicast++;
+                }
+            });
+            return () => {};
+        }
+        //This has +1 Multicast for each Property you have.
+        regex = /^\s*This has \+(\d+) Multicast for each ([^\s^\.]+) you have\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[2]);
+            this.board.items.forEach(item => {
+                if(item.tags.includes(tagToMatch)) {
+                    this.multicast+=match[1];
+                }
+            });
+        }
+        /*this gains ( 5 » 10 » 15 » 20 ) damage for the fight
+
+        somehow, magically, this is covered by the regex used for 'this and adjacent Poison items gain ( 1 » 2 » 3 ) Poison for the fight' case, as 'damage' works the same way as 'Poison'
+
+        regex = /^\s*this gains (?:\(([^)]+)\)|(\d+)) damage for the fight/i;
+        match = text.match(regex);
+        if(match) {
+            const dmgGain = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             return () => {
                 this.damage += dmgGain;
+                log(this.name + " gained " + dmgGain + " damage");
             };
-        }
+        }*/
 
         //Give the weapon to the left of this ( +10 » +20 » +30 ) damage for the fight
         regex = /^Give the weapon to the left of this \(\s*\+?(\d+)\s*»\s*\+?(\d+)\s*»\s*\+?(\d+)\s*\) damage for the fight/i;
@@ -1390,19 +1477,20 @@ class Item {
             return () => {};            
         }
         //Freeze 1 small? item for ( 1 » 2 ) second(s)
-        regex = /^\s*Freeze\s+(\d+)\s*([^\s]+)?\s*items?\s+for\s+\(([^)]+)\)\s+seconds?\.?/i;
+        regex = /^\s*Freeze\s+(?:(?:\(([^)]+)\)|(\d+))|an|a)\s*([^\s]+)?\s*item\(?s?\)?\s+for\s+(?:\(([^)]+)\)|(\d+))\s+second\(?s?\)?\.?/i;
         match = text.match(regex);        
         if(match) {
-            const seconds = getRarityValue(match[3], this.rarity);
-            const tagToMatch = Item.getTagFromText(match[2]);
+            const seconds = match[4] ? getRarityValue(match[4], this.rarity) : parseInt(match[5]);
+            const tagToMatch = match[3] ? Item.getTagFromText(match[3]) : null;
+            let numToFreeze = match[1] ? getRarityValue(match[1], this.rarity) : match[2] ? parseInt(match[2]) : 1;
             return () => {
                 let itemsToFreeze = this.board.player.hostileTarget.board.items;
                 if(tagToMatch) {
                     itemsToFreeze = itemsToFreeze.filter(item => item.tags.includes(tagToMatch));
                 }
                 itemsToFreeze = itemsToFreeze.filter(item => item.canBeFrozen());
-                const numToFreeze = Math.min(parseInt(match[1]), itemsToFreeze.length);
-                itemsToFreeze.sort(()=>battleRandom() - 0.5).slice(0,numToFreeze).forEach(item => {
+                const numToFreezeNow = Math.min(numToFreeze, itemsToFreeze.length);
+                itemsToFreeze.sort(()=>battleRandom() - 0.5).slice(0,numToFreezeNow).forEach(item => {
                     item.applyFreeze(seconds,this);
                 });
             };
@@ -1427,6 +1515,7 @@ class Item {
             return () => {               
                 itemsToGain.forEach(item => {
                     item[match[6].toLowerCase()] += gainAmount;
+                    log(item.name + " gained " + gainAmount + " " + match[6]);
                 });
             }
         }
@@ -1448,7 +1537,17 @@ class Item {
             this.value *= 3;
             return ()=>{};
         }
-
+        //Charge all items to the right of this 1 second(s).
+        regex = /^Charge all items to the right of this (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const seconds = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            return () => {
+                this.board.items.filter(item => item.startIndex>this.startIndex).forEach(item => {
+                    item.chargeBy(seconds);
+                });
+            };
+        }
 
         //Burn items to the right of this gain ( 1 » 2 » 3 » 4 ) Burn for the fight
         regex = /^([^\s]+) items to the right of this gain (?:\(([^)]+)\)|(\d+)) ([^\s]+).*/i;
@@ -1458,6 +1557,21 @@ class Item {
             const tagToMatch = Item.getTagFromText(match[1]);
             return () => {
                 this.board.items.filter(item => item.startIndex>this.startIndex && item.tags.includes(tagToMatch)).forEach(item => {
+                    item[match[4].toLowerCase()] += gainAmount;
+                    log(this.name + " gave " + item.name + " " + gainAmount + " " + match[4]);
+                });
+            };
+        }
+
+        //Give Shield items to the right of this ( +5 » +10 » +20 » +40 ) Shield for the fight.
+        regex = /^Give ([^\s]+)? items to the right of this (?:\(([^)]+)\)|(\d+)) ([^\s]+) for the fight\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = match[1] ? Item.getTagFromText(match[1]) : null;
+            const gainAmount = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
+            const itemsToGive = this.board.items.filter(item => item.startIndex>this.startIndex && (tagToMatch ? item.tags.includes(tagToMatch) : true));
+            return () => {
+                itemsToGive.forEach(item => {
                     item[match[4].toLowerCase()] += gainAmount;
                     log(this.name + " gave " + item.name + " " + gainAmount + " " + match[4]);
                 });
@@ -1501,7 +1615,23 @@ class Item {
                 log(this.name + " gained " + item.value + " Shield");
             };
         }
-
+        //Cleanse half your Burn.
+        regex = /^\s*Cleanse half your Burn\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                this.board.player.burn /= 2;
+                log(this.name + " cleansed half "+this.board.player.name+"'s Burn");
+            }
+        }
+        //use this
+        regex = /^\s*use this/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                this.trigger();
+            }
+        }
 
         return null;
     }

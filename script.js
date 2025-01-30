@@ -1,5 +1,5 @@
 window.onload = () => {
-        const monstersList = document.getElementById('monstersList');
+     /*   const monstersList = document.getElementById('monstersList');
         monstersList.innerHTML = '';
         Object.entries(monsters).forEach(([id, monster]) => {
             const item = createListItem(monster);
@@ -13,6 +13,7 @@ window.onload = () => {
             skillsList.appendChild(item);
         });
         const itemsList = document.getElementById('itemsList');
+        */
         const simulatorItemsList = document.getElementById('simulator-itemsList');
         
          // Populate monster selector dropdown
@@ -37,7 +38,7 @@ window.onload = () => {
         
         Object.entries(items).forEach(([id, item]) => {
             const listItem = createListItem(item);
-            itemsList.appendChild(listItem.cloneNode(true));
+        //    itemsList.appendChild(listItem.cloneNode(true));
             simulatorItemsList.appendChild(listItem);
         });
     

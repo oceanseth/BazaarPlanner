@@ -52,6 +52,7 @@ class Board {
         this.burnTriggers = new Map();
         this.poisonTriggers = new Map();
         this.critTriggers = new Map();
+        this.startOfFightTriggers = new Map();
         this.healTriggers = [];
         this.shieldTriggers = [];
         this.ammoTriggers = [];
@@ -110,6 +111,7 @@ class Board {
     }
     startBattle() {
         this.items.forEach(item => {if(item.progressBar) item.progressBar.style.display = 'block'});
+        this.startOfFightTriggers.forEach(func => func());
     }
 
     updateCombat(timeDiff) {

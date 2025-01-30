@@ -30,9 +30,10 @@
     <body>
         <h2 style="color:white;">BazaarPlanner</h2>
         <div id="Menu" style="display: flex; gap: 10px;">
-            <button onclick="showSection('library')" class="selected">Library</button>
-            <button onclick="showSection('about')">About</button>
+            <!--<button onclick="showSection('library')" class="selected">Library</button>-->
             <button onclick="showSection('simulator')">Simulator</button>
+            <button onclick="showSection('about')">About</button>
+            
            
             <div id="firebaseui-auth-container" style="margin-left: auto;"></div>
             <div id="sign-in-status" style="margin-left: auto;"></div>
@@ -44,10 +45,20 @@
         <div id="about" class="section" style="display: none;">
             <h1>About</h1>
             <p style="width:400px;">
-                BazaarPlanner is a library/simulator for build theory crafting/testing
+                BazaarPlanner is a simulator for build theory crafting/testing
                 It started as a way for "Strong" to teach "simply Noah" javascript (our discord names on the <a href="https://discord.gg/AD9G7FtQ">Bazaar discord</a>).
                 Any donations will support his ongoing education, and the continued development of this tool. 
                 If you've donated at least $1, (and have cookies enabled) you will not be served google ads.
+            </p>
+            <h1>Kickstarter</h1>
+            <p style="width:400px;">
+                This project is currently in development. We'd like to enable some features to make it more useful.
+                If the kickstarter is successful, we'll add the following features:
+                <ul>
+                    <li>1. Import from Bazaar Insights - after finishing a run in the game, with bazaar insights running, it gives a url. We'll be able to import the build from that url.</li>
+                    <li>2. Community builds - we'll be able to import builds from the community, and vote on the best builds. You'll be able to see the top builds, and load them into the simulator.</li>
+                    <li>3. Deep linking - after setting up a board, not only can you save it to load it again later, but you can share it with others with a unique url that will bring someone to this site with that board loaded.</li>
+                </ul>
             </p>
             <div id="donate-button-container">
                 <div id="donate-button"></div>
@@ -66,9 +77,9 @@
             </div>
         </div>
         <!-- Simulator Section -->
-        <div id="simulator" class="section" style="display: none;">
+        <div id="simulator" class="section">
             <div id="simulator-controls">
-                <input type="text" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" placeholder="Search items...">
+                <input type="text" id="simulator-search-input" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" placeholder="Search items...">
                 <div class="search-container">
                     <input type="text" 
                            class="search-input" 
@@ -120,10 +131,10 @@
             <button onclick="resetBattle()" class="battle-button">Reset Battle</button>
             <div id="combat-log-div"><textarea id="combat-log"></textarea></div>
         </div>
-        <!-- Library Section -->
+        <!-- Library Section 
         <div id="library" class="section">
             <h2>Library</h2>
-            <input type="text" class="search-input" list="search-suggestions" onkeyup="search(this.value)" placeholder="Search...">
+            <input type="text" id="library-search-input" gitclass="search-input" list="search-suggestions" onkeyup="search(this.value)" placeholder="Search...">
             <datalist id="search-suggestions"></datalist>
             <div>
                 <h3>Monsters</h3>
@@ -138,5 +149,6 @@
                 <div id="skillsList"></div>
             </div>
         </div>
+        -->
     </body>
 </html> 
