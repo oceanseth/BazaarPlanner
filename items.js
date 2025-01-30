@@ -1,4 +1,4 @@
-const items = {
+export const items = {
   "Abacus": {
     "name": "Abacus",
     "icon": "images/items/Abacus.avif",

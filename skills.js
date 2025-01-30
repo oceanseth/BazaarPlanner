@@ -1,4 +1,4 @@
-const skills = {
+export const skills = {
   "Adaptive Ordinance": {
     "icon": "images/skills/AdaptiveOrdinance.avif",
     "name": "Adaptive Ordinance",

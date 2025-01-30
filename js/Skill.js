@@ -1,4 +1,4 @@
-class Skill {
+export class Skill {
     constructor(skillData) {
         Object.assign(this, skillData);
         

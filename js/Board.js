@@ -394,4 +394,6 @@ function getSizeValue(size) {
         case 'Large': return 3;
         default: return 1;
     }
-} 
+}
+
+export { Board, getSizeValue }; 
