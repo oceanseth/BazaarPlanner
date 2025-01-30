@@ -1,4 +1,6 @@
-class Player {
+import { Board } from './Board.js';
+
+export class Player {
     hostileTarget = null;
     constructor(name) {
         this.name = name;

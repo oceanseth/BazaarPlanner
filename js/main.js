@@ -1,3 +1,28 @@
+import { monsters } from '../monsters.js';
+import { skills } from '../skills.js';
+import { items } from '../items.js';
+import { Board, getSizeValue } from './Board.js';
+import { Player } from './Player.js';
+import { Skill } from './Skill.js';
+import { Item } from './Item.js';
+import { ItemFunction } from './ItemFunction.js';
+import { getRarityValue, battleRandom } from './utils.js';
+
+// Make necessary functions/classes available globally
+window.Board = Board;
+window.Player = Player;
+window.Item = Item;
+window.getSizeValue = getSizeValue;
+window.getRarityValue = getRarityValue;
+window.battleRandom = battleRandom;
+
+// Initialize delete zone globally
+const deleteZone = document.createElement('div');
+deleteZone.className = 'delete-zone';
+deleteZone.textContent = ' Drop here to delete';
+document.querySelector('.board-container:last-child').appendChild(deleteZone);
+window.deleteZone = deleteZone;
+
 window.onload = () => {
      /*   const monstersList = document.getElementById('monstersList');
         monstersList.innerHTML = '';
@@ -190,10 +215,6 @@ emptyDragImage.style.opacity = '0';
 document.body.appendChild(emptyDragImage);
 var sandstormValue = 1;
 var sandstormIncrement= .25;
-const deleteZone = document.createElement('div');
-deleteZone.className = 'delete-zone';
-deleteZone.textContent = ' Drop here to delete';
-document.querySelector('.board-container:last-child').appendChild(deleteZone);
 
 function showSection(sectionId) {
     document.querySelectorAll('.section').forEach(section => {
@@ -276,15 +297,6 @@ function search(searchString, section = 'all') {
             }
         });
     });
-}
-
-function getSizeValue(size) {
-    switch(size?.toLowerCase()) {
-        case 'small': return 1;
-        case 'medium': return 2;
-        case 'large': return 3;
-        default: return 1;
-    }
 }
 
 function setupBoardEventListeners(board) {
@@ -549,21 +561,3 @@ document.addEventListener('click', (e) => {
         dropdown.style.display = 'none';
     }
 });
-
-function getRarityValue(valueString, rarity) {
-    // Parse values (e.g., "1 » 2 » 3 » 4" or "1 >> 2 >> 3 >> 4" into [1, 2, 3, 4])
-    const values = valueString.split(/[»>]+/).map(v => parseFloat(v.trim()));
-    
-    // Get the appropriate value based on item's rarity
-    const rarityIndex = ['Bronze', 'Silver', 'Gold', 'Diamond'].indexOf(rarity || 'Bronze');
-    return values[rarityIndex] || values[0];
-}
-
-// Helper function to get random numbers during battle
-function battleRandom() {
-    if (!battleRNG) {
-        console.error('Battle RNG not initialized!');
-        return Math.random(); // Fallback to regular random
-    }
-    return battleRNG();
-}

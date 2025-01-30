@@ -1,4 +1,8 @@
-class Item {
+import { Board } from './Board.js';
+import { getRarityValue, battleRandom } from './utils.js';
+import { ItemFunction } from './ItemFunction.js';
+
+export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static itemID = 0;
     

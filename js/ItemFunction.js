@@ -1,4 +1,4 @@
-class ItemFunction {
+export class ItemFunction {
     static items = new Map();
 }
 ItemFunction.items.set("Flagship",(item)=>{
