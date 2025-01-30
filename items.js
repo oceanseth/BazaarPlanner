@@ -12343,7 +12343,7 @@ const items = {
     "ammo": null,
     "text": [
       "Heal ( 10 » 20 » 40 » 80 ).",
-      "This has +1 Multicast for each Property you have. [0]"
+      "This has +1 Multicast for each Property you have."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",

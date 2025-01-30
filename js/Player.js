@@ -31,13 +31,11 @@ class Player {
         this.health += healAmount;
         if(this.poison > 0) this.poison--; //cleanse 1 poison when a heal occurs
         if(this.health > this.maxHealth) this.health = this.maxHealth;
-        this.board.updateHealthElement();
     }
 
     takeDamage(damage, shieldScalar = 1, ignoreShield = false) {        
         if(ignoreShield || this.shield <= 0) {
             this.health -= damage;
-            this.board.updateHealthElement();
             return damage;
         }
 
@@ -45,7 +43,6 @@ class Player {
         if(this.shield >= shieldDamage) {
             this.shield -= shieldDamage;
             this.lostShieldTriggers.forEach(func => func(shieldDamage));
-            this.board.updateHealthElement();
             return shieldDamage;
         }
         else {
@@ -54,22 +51,18 @@ class Player {
             this.health -= healthDamage;
             this.shield = 0;
             this.lostShieldTriggers.forEach(func => func(shieldDamage));
-            this.board.updateHealthElement();
             return damageTaken;
         }
     }
 
     applyShield(shieldAmount) {
         this.shield += shieldAmount;
-        this.board.updateHealthElement();
     }
     applyBurn(burnAmount) {
         this.burn += burnAmount;
-        this.board.updateHealthElement();
     }   
     applyPoison(poisonAmount) {
         this.poison += poisonAmount;
-        this.board.updateHealthElement();
     }
 
 
@@ -90,6 +83,11 @@ class Player {
             this.health += this.regen;
             log( this.name + " regens " + this.regen + " health.");
         }
+        if(this.health < this.maxHealth/2 && !this.fellBelowHalfHealth) {
+            this.fellBelowHalfHealth = true;
+            this.healthBelowHalfTriggers.forEach(func => func());
+        }
+        this.board.updateHealthElement();
     }
 
     reset() {
@@ -103,9 +101,11 @@ class Player {
         this.shield = 0;
         this.regen = 0;
         this.gold = 0;
+        this.fellBelowHalfHealth = false;
         
         // Trigger arrays for various effects
         this.lostShieldTriggers = new Map();
+        this.healthBelowHalfTriggers = new Map();
 
         this.board.reset();
     }
