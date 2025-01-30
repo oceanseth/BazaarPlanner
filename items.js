@@ -365,7 +365,7 @@ const items = {
       "Haste",
       "Tool"
     ],
-    "cooldown": null,
+    "cooldown": "( 6 » 5 » 4 )",
     "ammo": null,
     "text": [
       "Haste a non-weapon item for 2 second(s).",
@@ -1187,7 +1187,7 @@ const items = {
       "Poison",
       "Weapon"
     ],
-    "cooldown": null,
+    "cooldown": "( 8 » 6 )",
     "ammo": null,
     "text": [
       "Deal 2 damage.",
@@ -1970,7 +1970,7 @@ const items = {
       "Charge",
       "Tech"
     ],
-    "cooldown": null,
+    "cooldown": "( 7 » 6 » 5 )",
     "ammo": null,
     "text": [
       "Charge adjacent items 1 second(s)."
@@ -5441,7 +5441,7 @@ const items = {
       "Ammo",
       "Aquatic"
     ],
-    "cooldown": null,
+    "cooldown": "( 8 » 7 » 6 » 5 )",
     "ammo": 1,
     "text": [
       "Destroy a small item."
@@ -6468,7 +6468,7 @@ const items = {
       "Pygmalien",
       "Small"
     ],
-    "cooldown": null,
+    "cooldown": "( 12 » 8 )",
     "ammo": null,
     "text": [
       "Use a property."
@@ -6603,7 +6603,7 @@ const items = {
       "Shield",
       "Value"
     ],
-    "cooldown": null,
+    "cooldown": "( 9 » 8 » 7 )",
     "ammo": null,
     "text": [
       "Shield equal to this item's value.",
@@ -9584,7 +9584,7 @@ const items = {
       "Small",
       "Tech"
     ],
-    "cooldown": null,
+    "cooldown": "( 10 » 8 » 6 )",
     "ammo": null,
     "text": [
       "Use the Core."
@@ -11702,7 +11702,7 @@ const items = {
       "Damage",
       "Weapon"
     ],
-    "cooldown": null,
+    "cooldown": "( 20 » 16 )",
     "ammo": 1,
     "text": [
       "Deal damage equal to your enemy's max health."
@@ -12517,7 +12517,7 @@ const items = {
       "Property",
       "Value"
     ],
-    "cooldown": null,
+    "cooldown": "( 9 » 8 » 7 )",
     "ammo": null,
     "text": [
       "Heal equal to this item's value.",
@@ -12742,7 +12742,7 @@ const items = {
       "Haste",
       "Property"
     ],
-    "cooldown": null,
+    "cooldown": "( 9 » 8 » 7 )",
     "ammo": null,
     "text": [
       "Haste your other items for 2 second(s).",

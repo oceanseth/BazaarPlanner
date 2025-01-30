@@ -28,9 +28,18 @@ ItemFunction.items.set("Crow's Nest",(item)=>{
             weaponItems[0].lifesteal = 100;
             weaponItems[0].updateTriggerValuesElement();
         }
-        weaponItems.board.items.forEach(i=>{
+        weaponItems.forEach(i=>{
             if(i.id!=item.id) {
                 i.crit += critToGain;
             }
         });
+});
+ItemFunction.items.set("Balcony",(item)=>{
+    //The Property to the left of this has double value in combat and has its cooldown reduced by ( 10% » 20% » 30% ).
+    const property = item.getItemToTheLeft();
+    if(property && property.tags.includes("Property")) {
+        property.value *= 2;
+        property.cooldown *= 1-(getRarityValue("10 >> 10 >> 20 >> 30",item.rarity)/100);
+        property.updateTriggerValuesElement();
+    }
 });

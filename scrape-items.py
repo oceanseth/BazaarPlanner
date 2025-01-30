@@ -14,6 +14,7 @@ from pathlib import Path
 
 def setup_driver():
     chrome_options = Options()
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=1920,1080")
     chrome_options.add_argument("--log-level=3")
     chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
@@ -142,8 +143,14 @@ def process_item(item_div):
     for line in description_list:
         if line.startswith("Cooldown"):
             try:
-                cooldown_value = line.split()[1]
-                item_data["cooldown"] = int(cooldown_value)
+                # Check if it's a range cooldown with arrows
+                if "»" in line:
+                    # Extract the part between parentheses
+                    cooldown = line.split("Cooldown")[1].split("seconds")[0].strip()
+                else:
+                    # Original logic for simple cooldown numbers
+                    cooldown = int(line.split()[1])
+                item_data["cooldown"] = cooldown
             except (IndexError, ValueError):
                 pass
         elif not line.startswith("Ammo Max"):  # Skip ammo lines
@@ -252,7 +259,13 @@ def parse_items():
                     line = stat.text
                     if line.startswith("Cooldown"):
                         try:
-                            cooldown = int(line.split()[1])
+                            # Check if it's a range cooldown with arrows
+                            if "»" in line:
+                                # Extract the part between parentheses
+                                cooldown = line.split("Cooldown")[1].split("seconds")[0].strip()
+                            else:
+                                # Original logic for simple cooldown numbers
+                                cooldown = int(line.split()[1])
                         except (IndexError, ValueError):
                             pass
                     elif line.startswith("Ammo Max"):

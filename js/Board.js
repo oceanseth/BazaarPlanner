@@ -114,6 +114,7 @@ class Board {
 
     updateCombat(timeDiff) {
         this.items.forEach(item => item.updateCombat(timeDiff));
+        this.items.forEach(item => item.updateTriggerValuesElement());
         this.updateHealthElement();
         this.player.hostileTarget.board.updateHealthElement();
     }
@@ -182,9 +183,15 @@ class Board {
         }
     }
 
+    clearDropPreview() {
+        document.querySelectorAll('.board-slot').forEach(slot => {
+            slot.classList.remove('valid-drop', 'invalid-drop');
+        });
+    }
+
     handleSlotDrop(e, board) {
         e.preventDefault();
-        clearDropPreview();
+        this.clearDropPreview();
         
         const slot = e.target.closest('.board-slot');
         if (!slot) return;
@@ -221,6 +228,7 @@ class Board {
                     targetBoard.addItem(foundItem);
                     foundItem.setIndex(startIndex);
                     sourceBoard.removeItem(foundItem);
+                    sourceBoard.resetItems();
                 }
             } else { // If it was not already on a board, create a new item on the target board
                let newItem = new Item(itemData, targetBoard);
@@ -367,6 +375,7 @@ class Board {
         });
         this.player.maxHealth = monsterData.health;
         this.player.health = this.player.maxHealth;
+        this.player.name = monsterData.name;
         this.updateHealthElement();
         this.resetItems();
         this.player.hostileTarget.board.resetItems();
