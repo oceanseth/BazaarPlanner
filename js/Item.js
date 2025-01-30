@@ -513,6 +513,14 @@ class Item {
         this.board.freezeTriggers.forEach(func => func(this,source));
         log(this.name + " was frozen by " + source.name + " for " + duration + " seconds");
     }
+    removeFreeze(source) {
+        if (this.freezeDurationRemaining <= 0) 
+            return;
+        this.freezeDurationRemaining = 0;
+        this.element.classList.remove('frozen');
+        this.freezeElement.classList.add('hidden');
+        log(source.name + ' unfroze ' + this.name);
+    }
     getWeaponTriggerFunction(text) {
         let match;
         if(!this.tags.includes("Weapon")) return null;
@@ -1269,7 +1277,14 @@ class Item {
                 log(this.name + " charged for " + match[1] + " second(s)");
             }
         }
-     
+        //remove freeze from your items
+        regex = /^\s*remove freeze from your items/i;
+        match = text.match(regex) ;
+        if(match) {
+            return () => {
+                this.board.items.forEach(i => i.removeFreeze(this));
+            }
+        }
         //your items gain ( +2% » +4% » +6% » +8% ) Crit chance for the fight.
         regex = /your items gain \(\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*\) Crit chance for the fight/i;
         match = text.match(regex);
