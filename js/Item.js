@@ -487,7 +487,7 @@ class Item {
         if(doesCrit) {
             burnAmount *= (1+this.critMultiplier/100);
         }
-        log(this.name + (doesCrit?"critically ":"")+" burned " + this.board.player.name + " for " + burnAmount);
+        log(this.name + (doesCrit?"critically ":"")+" burned " + this.board.player.hostileTarget.name + " for " + burnAmount);
         this.board.player.hostileTarget.applyBurn(burnAmount);
         if(doesCrit) {
             this.board.itemDidCrit(this);
@@ -767,7 +767,6 @@ class Item {
             this.burn = burnAmount;
             return () => {                
                 this.applyBurn(this.burn);
-                log(this.name + " burned " + this.board.player.hostileTarget.name + " for " + this.burn);
             };
         }
         return null;
@@ -1236,6 +1235,19 @@ class Item {
                     return;
             }
         }
+        //When any item gains freeze, ...
+        regex = /^\s*When any item gains freeze, (.*)/i;
+        match = text.match(regex);
+        if(match) {
+            const f = this.getTriggerFunctionFromText(match[1]);
+            this.board.freezeTriggers.set(this.id,(item,source)=>{
+                    f();
+            });
+            this.board.player.hostileTarget.board.freezeTriggers.set(this.id,(item,source)=>{
+                f();
+            });
+            return;
+        }
 
 
         this.triggerFunctions.push(this.getTriggerFunctionFromText(text));
@@ -1268,13 +1280,14 @@ class Item {
 
     getAnonymousTriggerFunctionFromText(text) {        
         let regex,match;
-        //charge this 1 second(s)
-        regex = /^\s*charge this (\d+) second\(?s?\)?/i;
+        //charge this 1 second(s) OR charge this ( 1 » 2 » 3 ) second(s)
+        regex = /^\s*charge this (?:\(([^)]+)\)|(\d+)) second\(?s?\)?/i;
         match = text.match(regex);
         if(match) {
+            const seconds = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             return () => {
-                this.chargeBy(match[1]);
-                log(this.name + " charged for " + match[1] + " second(s)");
+                this.chargeBy(seconds);
+                log(this.name + " charged for " + seconds + " second(s)");
             }
         }
         //remove freeze from your items
