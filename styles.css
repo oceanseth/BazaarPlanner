@@ -804,6 +804,7 @@ button:active {
     background-color: rgba(0, 0, 0, 0.7);
     text-align: center;
     line-height: 30px;
+    filter:none!important;
 }
 .destroyed {
     opacity: 0.5;

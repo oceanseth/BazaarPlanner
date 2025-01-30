@@ -301,50 +301,6 @@ function setupBoardEventListeners(board) {
     board.addEventListener('drop', handleDrop);
 }
 
-function updateDropPreview(e) {
-    const slot = e.target.closest('.board-slot');
-    if (!slot) return;
-
-    try {
-        const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-        const startIndex = parseInt(slot.dataset.index);
-        const size = getSizeValue(data.size);
-        const board = slot.closest('.board');
-        
-        if (isValidPlacement(startIndex, size, board.id)) {
-            slot.classList.add('valid-drop');
-            slot.classList.remove('invalid-drop');
-        } else {
-            slot.classList.add('invalid-drop');
-            slot.classList.remove('valid-drop');
-        }
-    } catch (error) {
-        console.error('Error updating drop preview:', error);
-    }
-}
-
-function clearDropPreview() {
-    document.querySelectorAll('.board-slot').forEach(slot => {
-        slot.classList.remove('valid-drop', 'invalid-drop');
-    });
-}
-
-
-
-function createGhostElement(itemData, size = 1) {
-    const ghost = document.createElement('div');
-    ghost.className = 'drag-ghost';
-    ghost.style.width = `${size * 100}px`; // Adjust width based on item size
-    
-    if (itemData.icon) {
-        const icon = document.createElement('img');
-        icon.src = itemData.icon;
-        ghost.appendChild(icon);
-    }
-    
-    return ghost;
-}
-
 function populateSearchSuggestions(data) {
     const suggestions = new Set();
     
@@ -417,10 +373,12 @@ const battleButton = document.querySelector('.battle-button');
 var battleInterval = undefined;
 var startBattleTime;
 function log(s) {
-    combatLog.val(combatLog.val() + "\n" + s);
+    combatLogEntries.push(s);
+}
+function updateCombatLogDisplay() {
+    combatLog.val(combatLogEntries.join("\n"));
     combatLog[0].scrollTop = combatLog[0].scrollHeight;
 }
-
 function battleFunction() {
     if(topPlayer.health<=0) {
         clearInterval(battleInterval);
@@ -444,7 +402,7 @@ function battleFunction() {
     sandstormValue+=sandstormIncrement;
   }
 
- 
+  updateCombatLogDisplay();
 }
 
 function resetBattle() {
@@ -477,6 +435,7 @@ function unpauseBattle() {
 var combatLog = $("#combat-log");
 var isPaused = 0;
 var pauseTime = 0;
+var combatLogEntries = [];
 
 let battleRNG = null;
 
@@ -496,8 +455,8 @@ function startBattle() {
     
     // Initialize the RNG with the seed
     battleRNG = new Math.seedrandom(battleSeed);
-    
-    combatLog.val("Battle Started\nBattle Seed: " + battleSeed);
+    combatLogEntries = [];
+    log("Battle Started\nBattle Seed: " + battleSeed);
     
     topPlayer.board.startBattle();
     bottomPlayer.board.startBattle();
