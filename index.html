@@ -10,16 +10,8 @@
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
         <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />  
-        <script src="monsters.js"></script>
-        <script src="skills.js"></script>
-        <script src="items.js"></script>
         <link rel="stylesheet" href="styles.css">
-        <script async src="js/Player.js"></script>
-        <script async src="js/ItemFunction.js"></script>
-        <script async src="js/Item.js"></script>
-        <script async src="js/Board.js"></script>
-        <script async src="js/Skill.js"></script>
-        <script defer src="script.js"></script>
+        <script type="module" src="/js/main.js"></script>
         <title>BazaarPlanner</title>
         <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -102,7 +94,7 @@
                 <div id="simulator-items">                    
                     <div id="simulator-itemsList"></div>
                 </div>
-                <div style="flex-grow: 1; padding-top:100px;">                    
+                <div style="flex-grow: 1;">                    
                     <div class="board-container">
                        <div id="inventory-board" class="board">
                             <!-- Slots will be generated here -->

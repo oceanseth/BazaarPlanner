@@ -1,4 +1,4 @@
-const monsters = {
+export const monsters = {
   "Fanged Inglet": {
     "name": "Fanged Inglet",
     "icon": "images/monsters/FangedInglet.avif",

@@ -1,10 +1,13 @@
-class Player {
+import { Board } from './Board.js';
+
+export class Player {
     hostileTarget = null;
     constructor(name) {
         this.name = name;
         this.combatTime = 0;
         this.skills = [];
         this.maxHealth = 1000;
+        this.income = 5;
     }
 
     initialize(boardId, skillsContainer, maxHealth) {
@@ -32,7 +35,35 @@ class Player {
         if(this.poison > 0) this.poison--; //cleanse 1 poison when a heal occurs
         if(this.health > this.maxHealth) this.health = this.maxHealth;
     }
-
+    openEditor() {
+        const editorElement = document.createElement("div");
+        editorElement.id = "player-editor";
+        editorElement.innerHTML = `
+            <h1>Edit Player</h1>
+            <div class="form-row">
+                <label for="player-name">Name:</label>
+                <input type="text" id="player-name" value="${this.name}"/>
+            </div>
+            <div class="form-row">
+                <label for="player-max-health">Health:</label>
+                <input type="number" id="player-max-health" value="${this.maxHealth}"/>
+            </div>
+            <div class="form-row">
+                <label for="player-income">Income:</label>
+                <input type="number" id="player-income" value="${this.income}"/>
+            </div>
+            <button id="save-player">Save</button>
+        `;
+        document.body.appendChild(editorElement);
+        editorElement.querySelector("#save-player").addEventListener("click", () => {
+            this.name = editorElement.querySelector("#player-name").value;
+            this.maxHealth = editorElement.querySelector("#player-max-health").value;
+            this.income = editorElement.querySelector("#player-income").value;
+            this.health = this.maxHealth;
+            editorElement.remove();
+            this.board.reset();
+        });
+    }
     takeDamage(damage, shieldScalar = 1, ignoreShield = false) {        
         if(ignoreShield || this.shield <= 0) {
             this.health -= damage;

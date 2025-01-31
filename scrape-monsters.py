@@ -229,7 +229,7 @@ if __name__ == "__main__":
         
         # Write as JavaScript constant
         with open('monsters.js', 'w', encoding='utf-8') as f:
-            f.write("const monsters = ")
+            f.write("export const monsters = ")
             json.dump(monsters, f, indent=2, ensure_ascii=False)
             f.write(";")
             
@@ -240,7 +240,7 @@ if __name__ == "__main__":
         with open('monsters_backup.json', 'r', encoding='utf-8') as backup_file:
             monsters = json.load(backup_file)
         with open('monsters.js', 'w', encoding='utf-8') as f:
-            f.write("const monsters = ")
+            f.write("export const monsters = ")
             json.dump(monsters, f, indent=2, ensure_ascii=False)
             f.write(";")
         print("Final data saved to monsters.js")
@@ -250,7 +250,7 @@ if __name__ == "__main__":
         with open('monsters_backup.json', 'r', encoding='utf-8') as backup_file:
             monsters = json.load(backup_file)
         with open('monsters.js', 'w', encoding='utf-8') as f:
-            f.write("const monsters = ")
+            f.write("export const monsters = ")
             json.dump(monsters, f, indent=2, ensure_ascii=False)
             f.write(";")
         print("Final data saved to monsters.js")

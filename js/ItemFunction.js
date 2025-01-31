@@ -1,5 +1,11 @@
-class ItemFunction {
+export class ItemFunction {
     static items = new Map();
+    static doNothingItemNames = ["Bar of Gold"];
+    static setupItems() {
+        ItemFunction.doNothingItemNames.forEach(itemName => {
+            ItemFunction.items.set(itemName, (item) => {});
+        });
+    }
 }
 ItemFunction.items.set("Flagship",(item)=>{
         let multicast = item.multicast || 0;
@@ -88,3 +94,4 @@ ItemFunction.items.set("Stopwatch",(item)=>{
     });
 });
 
+ItemFunction.setupItems();

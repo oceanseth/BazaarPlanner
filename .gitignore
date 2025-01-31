@@ -12,10 +12,25 @@ yarn-error.log
 # Build output
 /dist
 /build
+dist-ssr
+*.local
 
 # IDE and editor files
 .idea/
 .vscode/
 *.swp
 *.swo
-.DS_Store 
+.DS_Store
+
+# Logs
+logs
+*.log
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories and files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw? 

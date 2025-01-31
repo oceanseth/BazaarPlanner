@@ -323,7 +323,7 @@ if __name__ == "__main__":
     
     # Save as JavaScript file
     with open('items.js', 'w', encoding='utf-8') as f:
-        f.write("const items = ")
+        f.write("export const items = ")
         json.dump(items, f, indent=2, ensure_ascii=False)
         f.write(";")
     print("Done!") 

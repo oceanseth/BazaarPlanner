@@ -1,3 +1,43 @@
+import { monsters } from '../monsters.js';
+import { skills } from '../skills.js';
+import { items } from '../items.js';
+import { Board, getSizeValue } from './Board.js';
+import { Player } from './Player.js';
+import { Skill } from './Skill.js';
+import { Item } from './Item.js';
+import { ItemFunction } from './ItemFunction.js';
+import { getRarityValue, battleRandom } from './utils.js';
+
+// Make necessary functions/classes available globally
+window.Board = Board;
+window.Player = Player;
+window.Item = Item;
+window.getSizeValue = getSizeValue;
+window.getRarityValue = getRarityValue;
+window.battleRandom = battleRandom;
+window.startBattle = startBattle;
+window.resetBattle = resetBattle;
+window.loadMonsterBoard = loadMonsterBoard;
+window.searchMonsters = searchMonsters;
+window.search = search;
+window.pauseBattle = pauseBattle;
+window.unpauseBattle = unpauseBattle;
+window.monsters = monsters;
+window.skills = skills;
+window.items = items;
+window.log = log;
+window.updateCombatLogDisplay = updateCombatLogDisplay;
+window.createListItem = createListItem;
+window.search = search;
+window.populateSearchSuggestions = populateSearchSuggestions;
+
+// Initialize delete zone globally
+const deleteZone = document.createElement('div');
+deleteZone.className = 'delete-zone';
+deleteZone.textContent = ' Drop here to delete';
+document.querySelector('.board-container:last-child').appendChild(deleteZone);
+window.deleteZone = deleteZone;
+
 window.onload = () => {
      /*   const monstersList = document.getElementById('monstersList');
         monstersList.innerHTML = '';
@@ -190,12 +230,8 @@ emptyDragImage.style.opacity = '0';
 document.body.appendChild(emptyDragImage);
 var sandstormValue = 1;
 var sandstormIncrement= .25;
-const deleteZone = document.createElement('div');
-deleteZone.className = 'delete-zone';
-deleteZone.textContent = ' Drop here to delete';
-document.querySelector('.board-container:last-child').appendChild(deleteZone);
 
-function showSection(sectionId) {
+window.showSection = function(sectionId) {
     document.querySelectorAll('.section').forEach(section => {
         section.style.display = 'none';
     });
@@ -278,30 +314,6 @@ function search(searchString, section = 'all') {
     });
 }
 
-function getSizeValue(size) {
-    switch(size?.toLowerCase()) {
-        case 'small': return 1;
-        case 'medium': return 2;
-        case 'large': return 3;
-        default: return 1;
-    }
-}
-
-function setupBoardEventListeners(board) {
-    board.addEventListener('dragover', e => {
-        e.preventDefault();
-        updateDropPreview(e);
-    });
-    
-    board.addEventListener('dragleave', e => {
-        if (!e.target.closest('.board')) {
-            clearDropPreview();
-        }
-    });
-    
-    board.addEventListener('drop', handleDrop);
-}
-
 function populateSearchSuggestions(data) {
     const suggestions = new Set();
     
@@ -332,41 +344,6 @@ function populateSearchSuggestions(data) {
             datalist.appendChild(option);
         });
     });
-}
-
-function saveBoard(boardId) {
-    const board = document.getElementById(boardId);
-    
-    // Get all items from the board
-    const items = Array.from(board.element.querySelectorAll('.merged-slot')).map(slot => ({
-        item: JSON.parse(slot.getAttribute('data-item')),
-        startIndex: parseInt(slot.dataset.startIndex),
-        size: parseInt(slot.dataset.size)
-    }));
-    
-    // Save to localStorage with board-specific key
-    localStorage.setItem(`saved_${boardId}`, JSON.stringify(items));
-    
-    // Show small notification instead of alert
-    const notification = document.createElement('div');
-    notification.textContent = 'Saved!';
-    notification.style.position = 'absolute';
-    notification.style.right = '0';
-    notification.style.bottom = '-50px';
-    notification.style.background = '#4CAF50';
-    notification.style.color = 'white';
-    notification.style.padding = '4px 8px';
-    notification.style.borderRadius = '4px';
-    notification.style.fontSize = '12px';
-    notification.style.opacity = '0';
-    notification.style.transition = 'opacity 0.3s';
-    
-    board.parentElement.appendChild(notification);
-    setTimeout(() => notification.style.opacity = '1', 10);
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        setTimeout(() => notification.remove(), 300);
-    }, 1500);
 }
 
 const battleButton = document.querySelector('.battle-button');
@@ -448,7 +425,7 @@ function startBattle() {
         pauseBattle();
         return;
     }
-    
+    resetBattle();
     // Generate a random seed (32 characters)
     // Using ASCII printable characters (33-126)
     const battleSeed = [...crypto.getRandomValues(new Uint8Array(32))]
@@ -462,7 +439,7 @@ function startBattle() {
     topPlayer.board.startBattle();
     bottomPlayer.board.startBattle();
     
-    battleTimeDiff = 0;
+    window.battleTimeDiff = 0;
 
     battleInterval = setInterval(battleFunction, 100);
 
@@ -549,21 +526,3 @@ document.addEventListener('click', (e) => {
         dropdown.style.display = 'none';
     }
 });
-
-function getRarityValue(valueString, rarity) {
-    // Parse values (e.g., "1 » 2 » 3 » 4" or "1 >> 2 >> 3 >> 4" into [1, 2, 3, 4])
-    const values = valueString.split(/[»>]+/).map(v => parseFloat(v.trim()));
-    
-    // Get the appropriate value based on item's rarity
-    const rarityIndex = ['Bronze', 'Silver', 'Gold', 'Diamond'].indexOf(rarity || 'Bronze');
-    return values[rarityIndex] || values[0];
-}
-
-// Helper function to get random numbers during battle
-function battleRandom() {
-    if (!battleRNG) {
-        console.error('Battle RNG not initialized!');
-        return Math.random(); // Fallback to regular random
-    }
-    return battleRNG();
-}

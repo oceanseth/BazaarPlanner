@@ -154,7 +154,7 @@ if __name__ == "__main__":
         
         # Save as JavaScript constant
         with open('skills.js', 'w', encoding='utf-8') as f:
-            f.write("const skills = ")
+            f.write("export const skills = ")
             json.dump(skills, f, indent=2, ensure_ascii=False)
             f.write(";")
             
