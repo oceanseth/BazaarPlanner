@@ -138,7 +138,7 @@ export class Item {
         this.element.classList.remove('frozen');
 
         this.value = this.startItemData.value || this.getInitialValue();
-        this.damage = this.calculateDamage();
+        this.damage = this.calculateDamage()+(this.startItemData.damage||0);
         this.burn = this.calculateBurn();
         this.poison = this.calculatePoison();
         this.heal = this.calculateHeal();
@@ -201,7 +201,7 @@ export class Item {
         mergedSlot.draggable = true;
         mergedSlot.setAttribute('data-size', this.size);
         mergedSlot.addEventListener('click', () => {
-            this.editPopup();
+            this.showEditor();
         });
         
         if (this.icon) {
@@ -521,8 +521,8 @@ export class Item {
         this.element.classList.add('frozen');
         this.freezeElement.textContent = (this.freezeDurationRemaining/1000).toFixed(1);
         this.freezeElement.classList.remove('hidden');
-        this.board.freezeTriggers.forEach(func => func(this,source));
         log(this.name + " was frozen by " + source.name + " for " + duration + " seconds");
+        this.board.freezeTriggers.forEach(func => func(this,source));
     }
     removeFreeze(source) {
         if (this.freezeDurationRemaining <= 0) 
@@ -609,7 +609,7 @@ export class Item {
         match = text.match(damageRegex);
         if(match) {
             const damageValue = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            this.damage = damageValue;
+            this.damage = damageValue + (this.startItemData.damage||0);
             return () => {   
                 this.dealDamage(this.damage);        
             };
@@ -981,8 +981,8 @@ export class Item {
          }
     }
         
-    editPopup() {
-        if(!this.isEditable || document.querySelector('.item-edit-popup')==null) return;
+    showEditor() {
+        if(!this.isEditable || document.querySelector('.item-edit-popup')!=null) return;
         const itemData = this.startItemData;
         // List of available enchantments and rarities
         const enchantments = [
@@ -1040,11 +1040,11 @@ export class Item {
                 </select>
             </div>`;
         // Add damage field only if item has damage
-        if (itemData.damage !== undefined) {
+        if (this.damage !== undefined) {
             popupHTML += `
                 <div class="form-group">
                     <label>Damage:</label>
-                    <input type="number" id="edit-damage" value="${itemData.damage || 0}">
+                    <input type="number" id="edit-damage" value="${this.damage || 0}">
                 </div>`;
         }
         
@@ -1087,23 +1087,25 @@ export class Item {
                 itemData.rarity = popup.querySelector('#edit-rarity').value;
             }
             if (popup.querySelector('#edit-damage')) {
-                itemData.damage = parseFloat(popup.querySelector('#edit-damage').value) || 0;
+                this.damage = parseFloat(popup.querySelector('#edit-damage').value);
+                this.startItemData.damage = this.damage - this.calculateDamage();
             }
             if (popup.querySelector('#edit-cooldown')) {
                 itemData.cooldown = parseFloat(popup.querySelector('#edit-cooldown').value) || 0;
             }
             if (popup.querySelector('#edit-crit')) {
                 itemData.crit = parseFloat(popup.querySelector('#edit-crit').value) || 0;
-            }
-            
-            item.setAttribute('data-item', JSON.stringify(itemData));
-            item.itemData = itemData;
+            }            
+            this.startItemData = itemData;
             popup.remove();
+            //this.updateStatusIndicators();
+            this.updateTriggerValuesElement();
         });
         
         popup.querySelector('.cancel-edit').addEventListener('click', () => {
             popup.remove();
         });
+
     }
     static stripEnchantFromName(name) {
         const enchantPrefixes = /^(Fiery|Radiant|Heavy|Golden|Icy|Turbo|Shielded|Restorative|Toxic|Shiny|Deadly)\s+/;
@@ -1235,6 +1237,9 @@ export class Item {
                         }
                     });
                     return;
+                case "crit":
+                    this.board.critTriggers.set(this.id, this.getTriggerFunctionFromText(match[2]));
+                    return;
                 case "lose shield":
                     this.board.player.lostShieldTriggers.set(this.id, this.getTriggerFunctionFromText(match[2]));
                     return;
@@ -1274,7 +1279,7 @@ export class Item {
             this.board.startOfFightTriggers.set(this.id,f);
             return;
         }
-        regex = /^\s*When this gains (.*), (.*)/i;
+        regex = /^\s*When (?:this|this item) gains (.*), (.*)/i;
         match = text.match(regex);
         if(match) {
             const f = this.getTriggerFunctionFromText(match[2]);
@@ -1288,6 +1293,13 @@ export class Item {
                     return;
                 case "damage":
                     this.board.damageTriggers.set(this.id,f2);
+                    return;
+                case "freeze":
+                    this.board.freezeTriggers.set(this.id,(target, source) =>{
+                        if(target.id==this.id) {
+                            f(this, source);
+                        }
+                    });
                     return;
             }
         }
@@ -1420,6 +1432,15 @@ export class Item {
                 }
             });
         }
+        // remove Freeze from it
+        regex = /^\s*remove Freeze from it/i;
+        match = text.match(regex);
+        if(match) {
+            return (target, source) => {
+                target.removeFreeze(this);
+            }
+        }
+
         /*this gains ( 5 » 10 » 15 » 20 ) damage for the fight
 
         somehow, magically, this is covered by the regex used for 'this and adjacent Poison items gain ( 1 » 2 » 3 ) Poison for the fight' case, as 'damage' works the same way as 'Poison'

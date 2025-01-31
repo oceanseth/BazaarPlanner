@@ -295,6 +295,7 @@ button:active {
 .board-container {
     position: relative;
     width: 818px;
+    margin-top: 90px;
     margin-bottom: 60px;  /* Increased spacing for buttons */
 }
 
@@ -755,6 +756,7 @@ button:active {
 .health-element > div {
     display: inline-block;
     padding-right: 5px;
+    cursor: pointer;
 }
 .health-element-regen {
     color: rgb(0, 255, 0);
@@ -784,6 +786,63 @@ button:active {
     display: flex;
     gap: 4px;
 }
+#player-editor {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    width: 300px;
+    color: #333;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#player-editor h1 {
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-size: 24px;
+}
+
+#player-editor .form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#player-editor label {
+    width: 30%;
+    font-size: 16px;
+}
+
+#player-editor input {
+    width: 70%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+}
+
+#player-editor button {
+    display: block;
+    margin: 20px auto 0;
+    padding: 8px 24px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#player-editor button:hover {
+    background: #45a049;
+}
+
 .multicast-element {
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;

@@ -15,6 +15,21 @@ window.Item = Item;
 window.getSizeValue = getSizeValue;
 window.getRarityValue = getRarityValue;
 window.battleRandom = battleRandom;
+window.startBattle = startBattle;
+window.resetBattle = resetBattle;
+window.loadMonsterBoard = loadMonsterBoard;
+window.searchMonsters = searchMonsters;
+window.search = search;
+window.pauseBattle = pauseBattle;
+window.unpauseBattle = unpauseBattle;
+window.monsters = monsters;
+window.skills = skills;
+window.items = items;
+window.log = log;
+window.updateCombatLogDisplay = updateCombatLogDisplay;
+window.createListItem = createListItem;
+window.search = search;
+window.populateSearchSuggestions = populateSearchSuggestions;
 
 // Initialize delete zone globally
 const deleteZone = document.createElement('div');
@@ -216,7 +231,7 @@ document.body.appendChild(emptyDragImage);
 var sandstormValue = 1;
 var sandstormIncrement= .25;
 
-function showSection(sectionId) {
+window.showSection = function(sectionId) {
     document.querySelectorAll('.section').forEach(section => {
         section.style.display = 'none';
     });
@@ -299,21 +314,6 @@ function search(searchString, section = 'all') {
     });
 }
 
-function setupBoardEventListeners(board) {
-    board.addEventListener('dragover', e => {
-        e.preventDefault();
-        updateDropPreview(e);
-    });
-    
-    board.addEventListener('dragleave', e => {
-        if (!e.target.closest('.board')) {
-            clearDropPreview();
-        }
-    });
-    
-    board.addEventListener('drop', handleDrop);
-}
-
 function populateSearchSuggestions(data) {
     const suggestions = new Set();
     
@@ -344,41 +344,6 @@ function populateSearchSuggestions(data) {
             datalist.appendChild(option);
         });
     });
-}
-
-function saveBoard(boardId) {
-    const board = document.getElementById(boardId);
-    
-    // Get all items from the board
-    const items = Array.from(board.element.querySelectorAll('.merged-slot')).map(slot => ({
-        item: JSON.parse(slot.getAttribute('data-item')),
-        startIndex: parseInt(slot.dataset.startIndex),
-        size: parseInt(slot.dataset.size)
-    }));
-    
-    // Save to localStorage with board-specific key
-    localStorage.setItem(`saved_${boardId}`, JSON.stringify(items));
-    
-    // Show small notification instead of alert
-    const notification = document.createElement('div');
-    notification.textContent = 'Saved!';
-    notification.style.position = 'absolute';
-    notification.style.right = '0';
-    notification.style.bottom = '-50px';
-    notification.style.background = '#4CAF50';
-    notification.style.color = 'white';
-    notification.style.padding = '4px 8px';
-    notification.style.borderRadius = '4px';
-    notification.style.fontSize = '12px';
-    notification.style.opacity = '0';
-    notification.style.transition = 'opacity 0.3s';
-    
-    board.parentElement.appendChild(notification);
-    setTimeout(() => notification.style.opacity = '1', 10);
-    setTimeout(() => {
-        notification.style.opacity = '0';
-        setTimeout(() => notification.remove(), 300);
-    }, 1500);
 }
 
 const battleButton = document.querySelector('.battle-button');
@@ -460,7 +425,7 @@ function startBattle() {
         pauseBattle();
         return;
     }
-    
+    resetBattle();
     // Generate a random seed (32 characters)
     // Using ASCII printable characters (33-126)
     const battleSeed = [...crypto.getRandomValues(new Uint8Array(32))]
@@ -474,7 +439,7 @@ function startBattle() {
     topPlayer.board.startBattle();
     bottomPlayer.board.startBattle();
     
-    battleTimeDiff = 0;
+    window.battleTimeDiff = 0;
 
     battleInterval = setInterval(battleFunction, 100);
 
