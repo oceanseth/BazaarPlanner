@@ -1,3 +1,6 @@
+import { Item } from './Item.js';
+import { Skill } from './Skill.js';
+
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
     static boards = [];
@@ -102,6 +105,9 @@ class Board {
         this.healthElementRegen.className = 'health-element-regen';
         this.healthElement.appendChild(this.healthElementRegen);
         this.element.appendChild(this.healthElement);
+        this.healthElement.onclick = () => {
+            this.player.openEditor();
+        }
         this.updateHealthElement();
     }
     createSkillsElement() {
