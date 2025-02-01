@@ -93,5 +93,38 @@ ItemFunction.items.set("Stopwatch",(item)=>{
         });
     });
 });
+ItemFunction.items.set("Forklift",(item)=>{
+    //Deal ( 50 » 100 ) damage for each item to the left of this.
+    //Haste this and the items on the right of this for ( 2 » 4 ) second(s). into a trigger function.
+    let damage = getRarityValue("50 >> 100",item.rarity);
+    item.damage = (item.startItemData.damage||0) + item.board.items.reduce((acc,i)=>i.startIndex<item.startIndex?acc+damage:acc,0);
+    item.triggerFunctions.push(()=>{    
+        let thisAndItemsToTheRight = item.board.items.filter(i=>i.startIndex>=item.startIndex);
+        thisAndItemsToTheRight.forEach(i=>i.applyHaste(getRarityValue("2 >> 4",item.rarity),item));
+    });
+});
+ItemFunction.items.set("GPU",(item)=>{
+    //Haste the Core for ( 1 » 2 » 3 » 4 ) second(s).
+    item.board.player.hostileTarget.board.items.forEach(i=>{
+        if(i.tags.includes("Core")) {
+            i.applyHaste(getRarityValue("1 >> 2 >> 3 >> 4",item.rarity),item);
+        }
+    });
+});
+ItemFunction.items.set("Metronome",(item)=>{
+    let hasteDuration = getRarityValue("1 >> 2 >> 3",item.rarity);
+    //When you use an adjacent item, give the other adjacent item haste for ( 1 » 2 » 3 ) second(s).
+    item.getAdjacentItems().forEach(i=>{
+        i.triggerFunctions.push(()=>{
+            let otherAdjacentItem = item.getAdjacentItems().find(i2=>i!=i2);
+            if(otherAdjacentItem) {
+                otherAdjacentItem.applyHaste(hasteDuration,item);
+                log("usage of "+i.name+" gave "+otherAdjacentItem.name+" haste for "+hasteDuration+" seconds");
+            }
+        });
+    });
+
+
+});
 
 ItemFunction.setupItems();

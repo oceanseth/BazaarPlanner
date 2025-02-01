@@ -1,5 +1,5 @@
 import { Board } from './Board.js';
-import { getRarityValue, battleRandom } from './utils.js';
+import { getRarityValue, battleRandom, updateUrlState } from './utils.js';
 import { ItemFunction } from './ItemFunction.js';
 
 export class Item {
@@ -48,44 +48,6 @@ export class Item {
         this.priceTagElement.className = 'price-tag';
         this.element.appendChild(this.priceTagElement);
         
-        this.triggerValuesElement = document.createElement('div');
-        this.triggerValuesElement.className = 'trigger-values';
-        this.element.appendChild(this.triggerValuesElement);
-
-        this.multicastElement = document.createElement('div');
-        this.multicastElement.className = 'multicast-element';
-        this.triggerValuesElement.appendChild(this.multicastElement);
-
-        if(this.tags.includes("Weapon")) {
-            this.damageElement = document.createElement('div');
-            this.damageElement.className = 'damage-element';
-            this.triggerValuesElement.appendChild(this.damageElement);
-        }
-
-        if(this.tags.includes("Burn")) {    
-            this.burnElement = document.createElement('div');
-            this.burnElement.className = 'burn-element';
-            this.triggerValuesElement.appendChild(this.burnElement);
-        }
-
-        if(this.tags.includes("Poison")) {
-            this.poisonElement = document.createElement('div');
-            this.poisonElement.className = 'poison-element';
-            this.triggerValuesElement.appendChild(this.poisonElement);
-        }
-        if(this.tags.includes("Shield")) {
-            this.shieldElement = document.createElement('div');
-            this.shieldElement.className = 'shield-element';
-            this.shieldElement.textContent = this.shield;
-            this.triggerValuesElement.appendChild(this.shieldElement);
-        }
-        if(this.tags.includes("Heal")) {
-            this.healElement = document.createElement('div');
-            this.healElement.className = 'heal-element';
-            this.healElement.textContent = this.heal;
-            this.triggerValuesElement.appendChild(this.healElement);
-        }
-
         this.reset();
 
         if(board) {
@@ -97,20 +59,51 @@ export class Item {
         this.element.classList.add('destroyed');
     }
     canBeFrozen() {
-        return !this.isDestroyed && this.cooldown > 0 && this.freezeDurationRemaining <= 0;
+        return !this.isDestroyed && this.cooldown > 0 && this.freezeDurationRemaining <= 0 && this.enchant!='Radiant';
     }
     updateTriggerValuesElement() {
         const formatNumber = num => Number.isInteger(num) ? num.toString() : num.toFixed(1);
-        
-        if(this.shieldElement) this.shieldElement.textContent = formatNumber(this.shield);
-        if(this.burnElement) this.burnElement.textContent = formatNumber(this.burn);
-        if(this.poisonElement) this.poisonElement.textContent = formatNumber(this.poison);
-        if(this.damageElement) this.damageElement.textContent = formatNumber(this.damage);
-        if(this.multicastElement && this.multicast>0) this.multicastElement.textContent = "x"+Number(this.multicast).toFixed(0);
-        if(this.healElement) this.healElement.textContent = formatNumber(this.heal);
+      
+
+        if(this.heal>0) {
+            this.healElement.style.display ='block';
+            this.healElement.textContent = formatNumber(this.heal); 
+        }
+        else this.healElement.style.display = 'none';
+
+        if(this.shield>0) {
+            this.shieldElement.style.display ='block';
+            this.shieldElement.textContent = formatNumber(this.shield);
+        }
+        else this.shieldElement.style.display = 'none';
+
+        if(this.burn>0) {
+            this.burnElement.style.display ='block';
+            this.burnElement.textContent = formatNumber(this.burn);
+        }
+        else this.burnElement.style.display = 'none';
+
+        if(this.poison>0) {
+            this.poisonElement.style.display ='block';
+            this.poisonElement.textContent = formatNumber(this.poison);
+        }
+        else this.poisonElement.style.display = 'none';
+
+        if(this.damage>0) {
+            this.damageElement.style.display ='block';
+            this.damageElement.textContent = formatNumber(this.damage);
+        }
+        else this.damageElement.style.display = 'none';
+
+        if(this.multicast>0) {
+            this.multicastElement.style.display ='block';
+            this.multicastElement.textContent = "x"+Number(this.multicast).toFixed(0);
+        }
         else this.multicastElement.style.display = 'none';
+
         if(this.lifesteal > 0) this.damageElement.classList.add('lifesteal');
         else this.element.classList.remove('lifesteal');
+
         this.priceTagElement.textContent = Number(this.value).toFixed(0);
     }
     resetCooldown() {
@@ -123,6 +116,7 @@ export class Item {
     }
     reset() {
         Object.assign(this, this.startItemData);
+        if(this.enchant) this.name = this.enchant + ' ' + this.name;
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
         this.resetCooldown();
         this.isDestroyed = false;
@@ -132,35 +126,30 @@ export class Item {
         this.numTriggers = 0;
         this.effectiveBattleTime = 0;
         this.pendingMulticasts = 0;
-        this.crit = 0;
+        this.burn = 0;
+        this.poison = 0;
+        this.heal = 0;
+        this.shield = 0;
+
+        this.crit = this.calculateCrit()+(this.startItemData.crit||0);
         this.freezeDurationRemaining = 0;
         this.freezeElement.classList.add('hidden');
-        this.element.classList.remove('frozen');
-
+        this.element.classList.remove('frozen','Bronze','Silver','Gold','Diamond','Legendary');
+        this.element.classList.add(this.rarity || 'Bronze');
+        this.element.classList.remove(...Object.keys(this.enchants));
+        if(this.enchant) {
+            this.element.classList.add(this.enchant);
+        }
+    
         this.value = this.startItemData.value || this.getInitialValue();
         this.damage = this.calculateDamage()+(this.startItemData.damage||0);
-        this.burn = this.calculateBurn();
-        this.poison = this.calculatePoison();
-        this.heal = this.calculateHeal();
-        this.shield = this.calculateShield();
         this.multicast = 0;
         this.ammoRemaining = this.ammo;
 
         this.triggerFunctions = [];
         this.adjacentItemTriggers = []; //functions to call when any item adjacent to this item is triggered
         this.hasteTriggers = []; //functions to call when haste is applied to this item
-        this.slowTriggers = []; //functions to call when slow is applied to this item
-
-        /*
-        this.applyWeaponTrigger();
-        this.applySlowTrigger();
-        this.applyHasteTrigger();
-        this.applyPoisonTrigger();
-        this.applyBurnTrigger();
-        this.applyHealTrigger();
-        this.applyShieldTrigger();
-        this.applyItemSizeTrigger();
-        */
+        this.slowTriggers = []; //functions to call when slow is applied to this item   
 
         if(this.progressBar) {
             this.progressBar.style.bottom = '-5px';
@@ -173,6 +162,12 @@ export class Item {
         if(!this.executeSpecificItemFunction()) {
             this.text.forEach(text => this.setupTextFunctions(text));
         }
+        if(this.enchant) {
+            if(this.enchant!='Radiant') {
+                this.setupTextFunctions(this.enchants[this.enchant]);
+            }            
+        }
+        
         this.updateTriggerValuesElement();    
     }
 
@@ -187,6 +182,24 @@ export class Item {
 
     createElement() {
         const mergedSlot = document.createElement('div');
+        mergedSlot.innerHTML = `<div class="trigger-values">
+            <div class="damage-element"></div>
+            <div class="burn-element"></div>
+            <div class="poison-element"></div>
+            <div class="heal-element"></div>
+            <div class="shield-element"></div>
+            <div class="multicast-element"></div>
+            </div>
+            <div class="price-tag"></div>
+        </div>`;        
+        this.triggerValuesElement = mergedSlot.querySelector('.trigger-values');
+        this.damageElement = this.triggerValuesElement.querySelector('.damage-element');
+        this.burnElement = this.triggerValuesElement.querySelector('.burn-element');
+        this.poisonElement = this.triggerValuesElement.querySelector('.poison-element');
+        this.healElement = this.triggerValuesElement.querySelector('.heal-element');
+        this.shieldElement = this.triggerValuesElement.querySelector('.shield-element');
+        this.multicastElement = this.triggerValuesElement.querySelector('.multicast-element');
+
         mergedSlot.className = 'merged-slot';
         
         // Add classes for each tag
@@ -213,18 +226,16 @@ export class Item {
 
         mergedSlot.addEventListener('dragstart', Board.handleDragStart);
         mergedSlot.addEventListener('dragend', Board.handleDragEnd);
-
-        this.tooltip = this.createTooltipElement();
-        mergedSlot.appendChild(this.tooltip);
-        
         // Add event listeners
         mergedSlot.addEventListener('mouseenter', () => {
-            this.updateTooltip();
-            this.tooltip.style.display = 'block';
+            if(this.isDestroyed) return;
+            this.tooltip = this.createTooltipElement();
+            this.element.appendChild(this.tooltip);
         });
         
         mergedSlot.addEventListener('mouseleave', () => {
             this.tooltip.style.display = 'none';
+            this.tooltip.remove();
         });
         
         return mergedSlot;
@@ -246,10 +257,11 @@ export class Item {
                     .map(([key, _]) => key);
             }
         }
-        
+        let rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
+        let rarityIndex = rarityLevels.indexOf(this.rarity || 'Bronze');
         // Create HTML content with structured layout
         let tooltipContent = `
-            <div class="tooltip-content">
+            <div class="tooltip-content" style="display:block;">
                 ${this.ammo ? `
                     <div class="tooltip-ammo">
                         Ammo<br>${this.ammo}
@@ -265,7 +277,16 @@ export class Item {
                 <div class="tooltip-main ${this.rarity||'Bronze'}Border">                    
                     <div class="tooltip-main-text">
                         ${Array.isArray(this.text) ? 
-                            this.text.join('<br>') : 
+                            this.text.map(line => {
+                                // Match patterns like ( X » Y » Z » W )
+                                return line.replace(/\(\s*((?:[^»)]+\s*»\s*)*[^»)]+)\s*\)/g, (match, values) => {
+                                    const parts = values.split('»').map(s => s.trim());
+                                    const selectedValue = parts[Math.min(rarityIndex, parts.length - 1)];
+                                    return `(${parts.map((val, i) => 
+                                        i+(4-parts.length) === rarityIndex ? `<b class="rarity-${this.rarity||rarityLevels[4-parts.length]}">${val}</b>` : val
+                                    ).join(' » ')})`;
+                                });
+                            }).join('<br>') : 
                             (this.text || '')}
                     </div>
                     ${this.crit ? `
@@ -279,19 +300,18 @@ export class Item {
                     <div class="tooltip-bottom-text">
                         ${this.lifesteal>0?'Lifesteal<br>':''}
                         ${this.critMultiplier>100?'Crit Multiplier: '+this.critMultiplier+'%<br>':''}
+                        ${this.enchant?this.enchants[this.enchant]+'<br>':''}
                     </div>
                 </div>
             </div>
         `;
         
         tooltip.innerHTML = tooltipContent;
-        tooltip.style.display = 'none'; // Hidden by default
-        
         return tooltip;
     }
 
     static getDataFromName(itemName) {
-        return items[itemName];
+        return structuredClone(items[itemName]);
     }
     static constructFromName(itemName, board) {
         let itemData = Item.getDataFromName(itemName);
@@ -303,13 +323,8 @@ export class Item {
         // Sort the board's items array after changing an index
         if (this.board) {
             this.board.sortItems();
-            this.board.resetItems();
+            this.board.resetItems(); //need to rerun the text functions for new position of item
         }
-    }
-    updateTooltip() {
-        const newTooltip = this.createTooltipElement();
-        $(this.tooltip).replaceWith(newTooltip);
-        this.tooltip = newTooltip;  // Update the reference to point to the new element
     }
     calculateDamage() {
         if (!this.tags.includes('Weapon')) return 0;
@@ -323,18 +338,18 @@ export class Item {
         }
         return 0;
     }
-    calculateBurn() {
-        if (!this.tags.includes('Burn')) return 0;
-        const burnRegex = /^Burn (?:\(([^)]+)\)|(\d+))/i;
-        
+    calculateCrit() {
+        let critRegex = /^Crit Chance (?:\(\s*(\d+)%(?:\s*»\s*(\d+)%)*\s*\)|(\d+)%)\.?/i;      
         for (const textElement of this.text) {
-            const match = textElement.match(burnRegex);
+            const match = textElement.match(critRegex);
             if (match) {
                 return match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             }
         }
         return 0;
+
     }
+
     calculateHeal() {
         if (!this.tags.includes('Heal')) return 0;
         const healRegex = /Heal (?:\(([^)]+)\)|(\d+))/i;
@@ -353,18 +368,6 @@ export class Item {
         
         for (const textElement of this.text) {
             const match = textElement.match(shieldRegex);
-            if (match) {
-                return match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            }
-        }
-        return 0;
-    }
-    calculatePoison() {
-        if (!this.tags.includes('Poison')) return 0;
-        const poisonRegex = /Poison (?:\(([^)]+)\)|(\d+))/i;
-        
-        for (const textElement of this.text) {
-            const match = textElement.match(poisonRegex);
             if (match) {
                 return match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             }
@@ -469,7 +472,7 @@ export class Item {
         }
         
         this.board.player.hostileTarget.takeDamage(damage);
-        log(this.board.player.name + "'s " + this.name + (doesCrit?" critically strikes and":"") +
+        log(this.name + (doesCrit?" critically strikes and":"") +
             " deals "+ damage+" damage to " +
             this.board.player.hostileTarget.name);            
         if(this.lifesteal >0) {
@@ -534,7 +537,6 @@ export class Item {
     }
     getWeaponTriggerFunction(text) {
         let match;
-        if(!this.tags.includes("Weapon")) return null;
 
         //Deal damage equal to ( 20% » 30% ) of your enemy's Max Health.
         let damageRegex = /Deal damage equal to \(\s*(\d+)%\s*»\s*(\d+)%\s*\) of your enemy's Max Health/i;
@@ -564,19 +566,24 @@ export class Item {
             };
         }
 
-        //Adjacent Weapons gain ( 5 » 10 ) Damage for the fight.
-        damageRegex = /Adjacent Weapons gain \(\s*(\d+)\s*»\s*(\d+)\s*\) Damage for the fight/i;
+        //Adjacent (Weapons|Tool items|Tools) gain ( 5 » 10 ) Damage for the fight.
+        damageRegex = /(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*gain (?:\(([^)]+)\)|(\d+)) ([^\s]+) for the fight\.?/i;
         match = text.match(damageRegex);
         if(match) {
-            const dmgGain = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
-            const adjacentWeapons = this.getAdjacentItems().filter(item => item.tags.includes("Weapon"));
+            const itemType = match[2];
+            const gainAmount = match[3] ? getRarityValue(match[3], this.rarity) : parseInt(match[4]);            
             return () => {
-                adjacentWeapons.forEach(item => {
-                    item.damage += dmgGain;
-                    log(this.name + " gave " + item.name + " " + dmgGain + " damage for the fight");
+                const adjacentItems = this.getAdjacentItems().filter(item => item.tags.includes(Item.getTagFromText(itemType)));
+
+                if(match[1]) adjacentItems.push(this);
+                adjacentItems.forEach(item => {
+                    item[match[5].toLowerCase()] += gainAmount;
+                    log(item.name + " gained " + gainAmount + " " + match[5] + " for the fight");
                 });
+
             };
         }
+
 
         //Deal damage equal to the highest Shield value of items you have.  
         damageRegex = /Deal damage equal to the highest Shield value of items you have/i;
@@ -615,6 +622,14 @@ export class Item {
             };
         }
 
+        //Crit Chance 20%
+        let critRegex = /^Crit Chance (?:\(\s*(\d+)%(?:\s*»\s*(\d+)%)*\s*\)|(\d+)%)\.?/i;
+        match = text.match(critRegex);
+        if(match) {
+            const critChance = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            this.crit = critChance + (this.startItemData.crit||0);
+            return () => {};
+        }
         return null;
     }
     isHasteTargetable() {
@@ -754,7 +769,6 @@ export class Item {
     }
 
     getPoisonTriggerFunctionFromText(text) {
-        if(!this.tags.includes("Poison")) return null; 
         let regex = /Poison (?:\(([^)]+)\)|(\d+))/i;
         let match = text.match(regex);
         if(match) {
@@ -770,11 +784,10 @@ export class Item {
     }
 
     getBurnTriggerFunctionFromText(text) {
-        if(!this.tags.includes("Burn")) return null; 
         let regex = /Burn (?:\(([^)]+)\)|(\d+))/i;
         let match = text.match(regex);
         if(match) {
-            const burnAmount = getRarityValue(match[1], this.rarity);
+            const burnAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             this.burn = burnAmount;
             return () => {                
                 this.applyBurn(this.burn);
@@ -784,15 +797,24 @@ export class Item {
     }
 
     getHealTriggerFunctionFromText(text) {
-        if(!this.tags.includes("Heal")) return null; 
         let regex = /Heal (?:\(([^)]+)\)|(\d+))/i;
         let match = text.match(regex);
         if(match) {
-            const healAmount = getRarityValue(match[1], this.rarity);
+            const healAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             this.heal = healAmount;
             return () => {                
                 this.board.player.heal(this.heal);
                 log(this.name + " healed " + this.board.player.name + " for " + healAmount);
+            };
+        }
+        //Heal equal to this item's Damage.
+        regex = /Heal equal to this item's Damage/i;
+        match = text.match(regex);
+        if(match) {
+            this.heal = this.damage;
+            return () => {
+                this.heal = this.damage;
+                this.applyHeal(this.heal);
             };
         }
         //Heal equal to ( 1x » 2x » 3x » 4x ) this item's value
@@ -834,8 +856,7 @@ export class Item {
     }
 
 
-    getShieldTriggerFunctionFromText(text) {
-    if(!this.tags.includes("Shield") && !this.tags.includes("ShieldReference")) return null;        
+    getShieldTriggerFunctionFromText(text) {        
         // Match patterns like "Shield equal to ( 1x » 2x ) the value of the adjacent items"
         let regex = /Shield equal to \(\s*(\d+)x\s*»\s*(\d+)x\s*\) the value of the adjacent items/i;
         let match = text.match(regex);
@@ -913,20 +934,7 @@ export class Item {
                 log(this.name + " gained " + gainDamage + " damage for "+this.board.player.name+" losing " + shieldLost + " shield");
             };
         }
-        
-        //Adjacent Shield items gain ( 5 » 10 ) Shield for the fight.
-        regex = /Adjacent Shield items gain \(\s*(\d+)\s*»\s*(\d+)\s*\) Shield for the fight/i;
-        match = text.match(regex);
-        if (match) {
-            const shieldAmount = getRarityValue(`${match[1]}»${match[2]}`, this.rarity);
-            const adjacentShields = this.getAdjacentItems().filter(item => item.tags.includes("Shield"));
-            return () => {
-                adjacentShields.forEach(item => {
-                    item.shield += shieldAmount;
-                    log(this.name + " gave " + item.name + " " + shieldAmount + " shield");
-                });
-            };
-        }
+
         //Your Shield items gain ( +2 » +4 » +6 » +8 ) Shield for the fight.
         regex = /Your Shield items gain\s*\(\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*\)\s*Shield for the fight/i;
         match = text.match(regex);
@@ -950,11 +958,32 @@ export class Item {
                 //log(this.name + " dealt " + this.shield + " damage");
             };
         }
+        //Shield equal to this item's damage.
+        regex = /Shield equal to this item's damage/i;
+        match = text.match(regex);
+        if (match) {
+            this.shield = this.damage;
+            return () => {
+                this.shield = this.damage;
+                this.applyShield(this.damage);
+            };
+        }
+        //Shield equal to ( 1 » 2 » 3 » 4 ) time(s) your Income.
+        regex = /Shield equal to (?:\(([^)]+)\)|(\d+)) time\(?s\)? your Income/i;
+        match = text.match(regex);
+        if (match) {
+            const multiplier =  match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            this.shield = this.board.player.income * multiplier;
+            return () => {
+                this.shield = this.board.player.income * multiplier;
+                this.applyShield(this.shield);
+            };
+        }
         //Shield ( 1 » 2 » 3 » 4 ).
         regex = /Shield (?:\(([^)]+)\)|(\d+))/i;
         match = text.match(regex);
         if (match) {
-            const shieldAmount = getRarityValue(match[1], this.rarity);
+            const shieldAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             this.shield = shieldAmount;
             return () => {
                 this.applyShield(this.shield);
@@ -980,7 +1009,12 @@ export class Item {
              this.slowIndicator.classList.add('hidden');
          }
     }
-        
+    setEnchant(enchant) {
+        if(this.enchant!=enchant) {
+            this.tags = this.startItemData.tags; //reset tags to default when enchant changes
+            this.enchant = enchant=='None'?'':enchant;
+        }
+    }
     showEditor() {
         if(!this.isEditable || document.querySelector('.item-edit-popup')!=null) return;
         const itemData = this.startItemData;
@@ -1008,11 +1042,9 @@ export class Item {
         ];
 
         // Extract current enchantment if it exists
-        const enchantPrefixes = /^(Fiery|Radiant|Heavy|Golden|Icy|Turbo|Shielded|Restorative|Toxic|Shiny|Deadly)\s+/;
-        const currentEnchant = enchantPrefixes.test(itemData.name) ? 
-            itemData.name.match(enchantPrefixes)[1] : 'None';
-        const baseName = Item.stripEnchantFromName(itemData.name);
-        
+       
+        let [baseName, enchant] = Item.stripEnchantFromName(itemData.name);
+        enchant = this.enchant;
         const popup = document.createElement('div');
         popup.className = 'item-edit-popup';
         
@@ -1025,7 +1057,7 @@ export class Item {
                 <label>Enchantment:</label>
                 <select id="edit-enchant">
                     ${enchantments.map(e => 
-                        `<option value="${e}" ${e === currentEnchant ? 'selected' : ''}>${e}</option>`
+                        `<option value="${e}" ${e === enchant ? 'selected' : ''}>${e}</option>`
                     ).join('')}
                 </select>
             </div>`;
@@ -1062,7 +1094,7 @@ export class Item {
             popupHTML += `
                 <div class="form-group">
                     <label>Crit Chance (0-100):</label>
-                    <input type="number" min="0" max="100" id="edit-crit" value="${itemData.crit || 0}">
+                    <input type="number" min="0" max="100" id="edit-crit" value="${this.crit || 0}">
                 </div>`;
         }
         
@@ -1080,11 +1112,13 @@ export class Item {
             const enchant = popup.querySelector('#edit-enchant').value;
             
             // Update name with enchantment
-            itemData.name = enchant === 'None' ? baseName : `${enchant} ${baseName}`;
+            this.name = enchant === 'None' ? baseName : `${enchant} ${baseName}`;
+            this.setEnchant(enchant);
             
             // Only update fields that exist in the form
             if (popup.querySelector('#edit-rarity')) {
-                itemData.rarity = popup.querySelector('#edit-rarity').value;
+                this.startItemData.rarity = popup.querySelector('#edit-rarity').value;
+                this.rarity = popup.querySelector('#edit-rarity').value;
             }
             if (popup.querySelector('#edit-damage')) {
                 this.damage = parseFloat(popup.querySelector('#edit-damage').value);
@@ -1094,14 +1128,19 @@ export class Item {
                 itemData.cooldown = parseFloat(popup.querySelector('#edit-cooldown').value) || 0;
             }
             if (popup.querySelector('#edit-crit')) {
-                itemData.crit = parseFloat(popup.querySelector('#edit-crit').value) || 0;
+                this.crit = parseFloat(popup.querySelector('#edit-crit').value);
+                this.startItemData.crit = this.crit - this.calculateCrit();
             }            
             this.startItemData = itemData;
             popup.remove();
             //this.updateStatusIndicators();
-            this.updateTriggerValuesElement();
+            //this.updateTriggerValuesElement();
+            this.reset();
+            this.setup();
+            updateUrlState();
         });
         
+
         popup.querySelector('.cancel-edit').addEventListener('click', () => {
             popup.remove();
         });
@@ -1110,9 +1149,12 @@ export class Item {
     static stripEnchantFromName(name) {
         const enchantPrefixes = /^(Fiery|Radiant|Heavy|Golden|Icy|Turbo|Shielded|Restorative|Toxic|Shiny|Deadly)\s+/;
         if (enchantPrefixes.test(name)) {
-            return name.replace(enchantPrefixes, '');
+            const match = enchantPrefixes.exec(name);
+            return [name.replace(match[0], ''), match[1]];
         }
-        return name;
+        return [name, ''];
+
+
     }
 
     // Add this new method to the Item class
@@ -1160,6 +1202,7 @@ export class Item {
                     });
                     return;
                 case "use another non-weapon item":
+                case "use a non-weapon item":
                     const useAnotherNonWeaponItemFunction = this.getTriggerFunctionFromText(match[2]);
                     this.board.itemTriggers.set(this.id, (item) =>  {                        
                         if(item.id !== this.id && !item.tags.includes("Weapon")) {
@@ -1200,6 +1243,14 @@ export class Item {
                         }
                     });
                     return;
+                case "use the property to the left of this":
+                    const leftPropertyUsedFunction = this.getTriggerFunctionFromText(match[2]);
+                    const leftPropertyItem = this.getItemToTheLeft();
+                    if(leftPropertyItem&&leftPropertyItem.tags.includes("Property")) {
+                        leftPropertyItem.triggerFunctions.push(leftPropertyUsedFunction);
+                    }
+                    return;
+
                 case "use the core or another ray":
                     const f = this.getTriggerFunctionFromText(match[2]);
                     this.whenItemTagTriggers(["Core", "Ray"], 
@@ -1258,6 +1309,12 @@ export class Item {
                         useAPropertyFunction(item);
                     });
                     return;
+                case "use a small item":
+                    const useASmallItemFunction = this.getTriggerFunctionFromText(match[2]);
+                    this.whenItemTagTriggers("Small", (item) => {
+                        useASmallItemFunction(item);
+                    });
+                    return;
                 case "crit with any item":
                     this.board.critTriggers.set(this.id, this.getTriggerFunctionFromText(match[2]));
                     return;
@@ -1266,6 +1323,7 @@ export class Item {
                 case "buy another aquatic item":
                 case "level up":
                 case "sell a spare change":
+                case "win a fight":
                     return;
             }
             console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + match[1]+"'");
@@ -1366,6 +1424,37 @@ export class Item {
                 log(this.name + " charged for " + seconds + " second(s)");
             }
         }
+        //Reload the item to the right of this ( 1 » 2 » 3 » 4 ) Ammo.
+        regex = /^\s*Reload the item to the right of this (?:\(([^)]+)\)|(\d+)) Ammo\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const ammo = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            //any item to the right
+            // while(!rightAmmoItem.tags.includes("Ammo") && (rightAmmoItem=rightAmmoItem.getItemToTheRight()));
+
+            return () => {
+                const rightItem = this.getItemToTheRight();
+                if(rightItem&&rightItem.tags.includes("Ammo")) {
+                    rightItem.ammoRemaining += ammo;
+                    if(rightItem.ammoRemaining>rightItem.ammo) {
+                        rightItem.ammoRemaining = rightItem.ammo;
+                    } else {
+                        log(this.name + " gave " + rightItem.name + " " + ammo + " Ammo");
+                    }                    
+                }
+            }
+        }
+        //Adjacent items have ( +1 » +2 » +3 » +4 ) Max Ammo
+        regex = /^\s*Adjacent items have (?:\(\s*\+?(\d+)(?:\s*»\s*\+?(\d+))*\s*\)|\+?(\d+)) Max Ammo/i;
+        match = text.match(regex);
+        if(match) {
+            const maxAmmo = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            this.getAdjacentItems().forEach(item => {
+                item.ammo +=maxAmmo;
+                item.ammoRemaining += maxAmmo;
+            });
+            return () => {};
+        }
         //remove freeze from your items
         regex = /^\s*remove freeze from your items/i;
         match = text.match(regex) ;
@@ -1374,16 +1463,21 @@ export class Item {
                 this.board.items.forEach(i => i.removeFreeze(this));
             }
         }
+       
         //your items gain ( +2% » +4% » +6% » +8% ) Crit chance for the fight.
-        regex = /your items gain \(\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*\) Crit chance for the fight/i;
+        //or: your items gain +20% Crit chance for the fight.
+        regex = /your items gain (?:\(\s*\+?(\d+)%(?:\s*»\s*\+?(\d+)%)*\s*\)|\+?(\d+)%) Crit chance for the fight/i;
         match = text.match(regex);
         if(match) {
-            const critGain = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);
+            const critGain = match[3] ? 
+                parseInt(match[3]) : // Single value format
+                getRarityValue(match.slice(1, 3).filter(Boolean).join('»'), this.rarity); // Rarity progression format
             return () => {
                 this.board.items.forEach(i => i.crit += critGain);
                 log(this.name + " gave all items " + critGain + " crit chance");
             }
         }
+
         //Multicast ( 1 » 2 » 3 » 4 ).
         regex = /^Multicast (?:\(([^)]+)\)|(\d+))/i;
         match = text.match(regex);
@@ -1426,19 +1520,35 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const tagToMatch = Item.getTagFromText(match[2]);
+            this.multicast = this.startItemData.multicast||1;
             this.board.items.forEach(item => {
                 if(item.tags.includes(tagToMatch)) {
-                    this.multicast+=match[1];
+                    this.multicast+=parseInt(match[1]);
                 }
             });
+            return () => {};
+
         }
         // remove Freeze from it
         regex = /^\s*remove Freeze from it/i;
         match = text.match(regex);
+
         if(match) {
             return (target, source) => {
                 target.removeFreeze(this);
             }
+        }
+        // Your other tools have their cooldowns reduced by ( 5% » 10% » 15% » 20% ).
+        regex = /^\s*Your other tools have their cooldowns reduced by \(\s*(\d+)%(?:\s*»\s*(\d+)%){1,3}\s*\)\s*\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const cooldownReduction = getRarityValue(match.slice(1).filter(Boolean).join('»'), this.rarity);
+            this.board.items.forEach(item => {
+                if(item.id != this.id && item.tags.includes("Tool")) {
+                    item.cooldown *= (1-cooldownReduction/100);
+                }
+            });
+            return () => {};
         }
 
         /*this gains ( 5 » 10 » 15 » 20 ) damage for the fight
@@ -1521,29 +1631,6 @@ export class Item {
             };
         }
         
-        //this and adjacent Poison items gain ( 1 » 2 » 3 ) Poison for the fight
-        regex = /^this( and adjacent( ([^\s]+))? items?)? gains?\s*(?:\(([^)]+)\)|(\d+)) ([^\s]+).*(?:for the fight)?/i;
-        match = text.match(regex);
-        
-        if(match) {
-            let itemsToGain = [this];
-            if(match[1] != undefined) {  // If "and adjacent" part exists
-                const requiredTag = match[3];  // Optional tag requirement (e.g., "Poison")
-                const adjacentItems = this.getAdjacentItems();
-                if (requiredTag) {
-                    itemsToGain.push(...adjacentItems.filter(item => item.tags.includes(requiredTag)));
-                } else {
-                    itemsToGain.push(...adjacentItems);
-                }
-            }
-            const gainAmount = match[4] ? getRarityValue(match[4], this.rarity) : parseInt(match[5]);
-            return () => {               
-                itemsToGain.forEach(item => {
-                    item[match[6].toLowerCase()] += gainAmount;
-                    log(item.name + " gained " + gainAmount + " " + match[6]);
-                });
-            }
-        }
 
         //Adjacent items have ( +3% » +6% » +9% » +12% ) Crit chance
         regex = /^Adjacent items have \(\s*\+?(\d+)%\s*»\s*\+?(\d+)%\s*»\s*\+?(\d+)%\s*»\s*\+?(\d+)%\s*\) Crit chance/i;
@@ -1553,6 +1640,27 @@ export class Item {
             this.getAdjacentItems().forEach(item => {
                 item.crit += critGain;
             });
+            return ()=>{};
+        }
+
+        //Adjacent items have their cooldown reduced by ( 10% » 15% » 20% » 25% ).
+        regex = /^Adjacent items have their cooldown reduced by (?:\(\s*(\d+)%(?:\s*»\s*(\d+)%)*\s*\)|(\d+)%)\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            if (match[3]) {
+                // Single number format
+                const cooldownReduction = parseInt(match[3]);
+                this.getAdjacentItems().forEach(item => {
+                    item.cooldown *= (1-cooldownReduction/100);
+                });
+            } else {
+                // Range format
+                const rarityString = match.slice(1).filter(Boolean).join('»');
+                const cooldownReduction = getRarityValue(rarityString, this.rarity);
+                this.getAdjacentItems().forEach(item => {
+                    item.cooldown *= (1-cooldownReduction/100);
+                });
+            }
             return ()=>{};
         }
         //This has triple value in combat.
@@ -1573,10 +1681,25 @@ export class Item {
                 });
             };
         }
+        //Charge adjacent Small items ( 1 » 2 » 3 » 4 ) second(s).
+        regex = /^Charge adjacent ([^\s]+) items (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const seconds = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
+            const tagToMatch = Item.getTagFromText(match[1]);
+            return () => {
+                this.getAdjacentItems().filter(item => item.tags.includes(tagToMatch)).forEach(item => {
+                    item.chargeBy(seconds);
+                });
+            };
+
+        }
 
         //Burn items to the right of this gain ( 1 » 2 » 3 » 4 ) Burn for the fight
+
         regex = /^([^\s]+) items to the right of this gain (?:\(([^)]+)\)|(\d+)) ([^\s]+).*/i;
         match = text.match(regex);
+
         if(match) {
             const gainAmount = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
             const tagToMatch = Item.getTagFromText(match[1]);
@@ -1649,6 +1772,15 @@ export class Item {
                 log(this.name + " cleansed half "+this.board.player.name+"'s Burn");
             }
         }
+        //reload 2 Ammo
+        regex = /^\s*reload (\d+) Ammo/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                this.ammo += parseInt(match[1]);
+                log(this.name + " reloaded " + match[1] + " Ammo");
+            }
+        }
         //use this
         regex = /^\s*use this/i;
         match = text.match(regex);
@@ -1662,10 +1794,12 @@ export class Item {
     }
 
     executeSpecificItemFunction() {
-        const f = ItemFunction.items.get(this.name);
+        const [strippedName] = Item.stripEnchantFromName(this.name);
+        const f = ItemFunction.items.get(strippedName);
         if(f) { f(this); return true; }
         return false;
     }
+
     
 
     getTriggerFunctionFromText(text) {
@@ -1682,6 +1816,8 @@ export class Item {
         (() => { console.log("Could not parse "+ text+ " into a trigger function."); return ()=>{};})();
     }
     static getTagFromText(text) {
-        return text!=""?text.charAt(0).toUpperCase() + text.slice(1):null;
+        if (!text) return null;
+        text = text.replace(/s$/, ''); // Remove trailing 's' if present
+        return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
     }
 }
