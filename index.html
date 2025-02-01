@@ -71,9 +71,10 @@
         <!-- Simulator Section -->
         <div id="simulator" class="section">
             <div id="simulator-controls">
-                <input type="text" id="simulator-search-input" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" placeholder="Search items...">
+                <input type="text" id="simulator-search-input" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" autocomplete="off" placeholder="Search items...">
                 <div class="search-container">
                     <input type="text" 
+                           autocomplete="off" 
                            class="search-input" 
                            id="monster-search"
                            onkeyup="searchMonsters(this.value)"

@@ -136,8 +136,8 @@ body {
     gap: 10px;
 }
 .skill-icon {
-    height: 50px;
-    width: 50px;
+    height: 35px;
+    width: 35px;
 }
 .skill-icon img {
     height: 100%;
@@ -720,6 +720,21 @@ button:active {
         0.5px 0.5px 0 #333,
         1px 1px 1px rgba(0, 0, 0, 1);
 }
+.rarity-Bronze {
+    color: #966f33;
+}   
+.rarity-Silver {
+    color: #b8b8b8;
+}
+.rarity-Gold {
+    color: #ffd700;
+}
+.rarity-Diamond {
+    color: #00bfff;
+}
+.rarity-Legendary {
+    color: #ff4500;
+}
 .merged-slot.Bronze {
     border: 3px solid #966f33;
 }
@@ -779,7 +794,7 @@ button:active {
 }
 .skills-element {
     position: absolute;
-    top: -65px;
+    top: -40px;
     left: 0;
     width: 100%;
     height: 20px;
@@ -901,4 +916,52 @@ button:active {
     top: 60px;
     right: 10px;
     z-index: 1000;
+}
+.Toxic:before,
+.Heavy:before,
+.Golden:before,
+.Icy:before,
+.Turbo:before,
+.Shielded:before,
+.Restorative:before,
+.Fiery:before,
+.Shiny:before,
+.Deadly:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    content: "";
+}
+.Toxic:before {
+background-color: rgba(91, 238, 157, 0.2);
+}
+.Heavy:before {
+background-color: rgba(255, 255, 255, 0.2);
+}
+.Golden:before {
+background-color: rgba(255, 215, 0, 0.2);
+}
+.Icy:before {
+background-color: rgba(0, 0, 255, 0.2);
+}
+.Turbo:before {
+background-color: rgba(0, 255, 0, 0.2);
+}
+.Shielded:before {
+background-color: rgba(235, 235, 39, 0.4);
+}
+.Restorative:before {
+background-color: rgba(0, 255, 0, 0.2);
+}
+.Fiery:before {
+background-color: rgba(255, 153, 0, 0.2);
+}
+.Shiny:before {
+background-color: rgba(255, 255, 255, 0.2);
+}
+.Deadly:before {
+background-color: rgba(255, 0, 0, 0.2);
 }

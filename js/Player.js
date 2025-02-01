@@ -57,8 +57,8 @@ export class Player {
         document.body.appendChild(editorElement);
         editorElement.querySelector("#save-player").addEventListener("click", () => {
             this.name = editorElement.querySelector("#player-name").value;
-            this.maxHealth = editorElement.querySelector("#player-max-health").value;
-            this.income = editorElement.querySelector("#player-income").value;
+            this.maxHealth = parseInt(editorElement.querySelector("#player-max-health").value);
+            this.income = parseInt(editorElement.querySelector("#player-income").value);
             this.health = this.maxHealth;
             editorElement.remove();
             this.board.reset();
