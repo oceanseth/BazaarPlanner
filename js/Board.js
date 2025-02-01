@@ -1,20 +1,23 @@
 import { Item } from './Item.js';
 import { Skill } from './Skill.js';
+import { updateUrlState, loadFromUrl } from './utils.js';
 
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
-    static boards = [];
+    static boards = new Map();
+
     static getBoardFromId(boardId) {
-        if(Board.boards[boardId]) return Board.boards[boardId];
+        if(Board.boards.has(boardId)) return Board.boards.get(boardId);
         //console.log("Board not found: " + boardId);
         return null;
     }
+
 
     constructor(boardId) {
         this.boardId = boardId;
         this.element = document.getElementById(boardId);
         this.initialize();
-        Board.boards[boardId] = this;
+        Board.boards.set(boardId,this);
     }
 
     initialize() {
@@ -80,11 +83,11 @@ class Board {
             #999999 ${healthPercent}%
         )`;
         
-        this.healthElementHealth.innerHTML = this.player?.health;
-        this.healthElementShield.innerHTML = this.player?.shield||"";
-        this.healthElementBurn.innerHTML = this.player?.burn||"";
-        this.healthElementPoison.innerHTML = this.player?.poison||"";
-        this.healthElementRegen.innerHTML = this.player?.regen||"";
+        this.healthElementHealth.innerHTML = this.player?.health.toFixed(0);
+        this.healthElementShield.innerHTML = this.player?.shield>0?this.player?.shield.toFixed(0):"";
+        this.healthElementBurn.innerHTML = this.player?.burn>0?this.player?.burn.toFixed(0):"";
+        this.healthElementPoison.innerHTML = this.player?.poison>0?this.player?.poison.toFixed(0):"";
+        this.healthElementRegen.innerHTML = this.player?.regen>0?this.player?.regen.toFixed(0):"";
     }
     createHealthElement() {
         this.healthElement = document.createElement('div');
@@ -255,12 +258,14 @@ class Board {
         this.element.appendChild(item.element);
         this.sortItems();
         this.resetItems();
+        updateUrlState();
     }
     sortItems() {
         this.items.sort(Item.compareByIndex);
     }
     removeItem(item) {
         this.items = this.items.filter(i => i !== item);
+        updateUrlState();
     }
 
     save() {        
@@ -391,7 +396,10 @@ class Board {
     itemTriggered(item) {    
         this.itemTriggers.forEach(func => func(item));
     }
+
+   
 }
+
 
 function getSizeValue(size) {
     switch(size?.toLowerCase()) {

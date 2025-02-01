@@ -6,7 +6,7 @@ import { Player } from './Player.js';
 import { Skill } from './Skill.js';
 import { Item } from './Item.js';
 import { ItemFunction } from './ItemFunction.js';
-import { getRarityValue, battleRandom } from './utils.js';
+import { getRarityValue, battleRandom, loadFromUrl } from './utils.js';
 
 // Make necessary functions/classes available globally
 window.Board = Board;
@@ -54,7 +54,7 @@ window.onload = () => {
         });
         const itemsList = document.getElementById('itemsList');
         */
-        const simulatorItemsList = document.getElementById('simulator-itemsList');
+    const simulatorItemsList = document.getElementById('simulator-itemsList');
         
          // Populate monster selector dropdown
     for (const key in monsters) {
@@ -66,31 +66,31 @@ window.onload = () => {
         }
     }
 
-        // Handle NPC selection change
-        $('#monster-selector').on('change', function() {
-            const selectedMonster = $(this).val();
-            if (monsters[selectedMonster]) {
-                loadMonsterBoard(monsters[selectedMonster]);
-            }
-        });
+    // Handle NPC selection change
+    $('#monster-selector').on('change', function() {
+        const selectedMonster = $(this).val();
+        if (monsters[selectedMonster]) {
+            loadMonsterBoard(monsters[selectedMonster]);
+        }
+    });
 
 
-        
-        Object.entries(items).forEach(([id, item]) => {
-            const listItem = createListItem(item);
-        //    itemsList.appendChild(listItem.cloneNode(true));
-            simulatorItemsList.appendChild(listItem);
-        });
     
-        // Initialize players
-        window.topPlayer = new Player("Top Player");
-        window.bottomPlayer = new Player("Bottom Player");
-        topPlayer.hostileTarget = bottomPlayer;
-        bottomPlayer.hostileTarget = topPlayer;
-        
-        topPlayer.initialize('inventory-board', 'topPlayerSkills', 1000);
-        bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', 1000);
-  //      initializeMonsterSearch();
+    Object.entries(items).forEach(([id, item]) => {
+        const listItem = createListItem(item);
+    //    itemsList.appendChild(listItem.cloneNode(true));
+        simulatorItemsList.appendChild(listItem);
+    });
+
+    // Initialize players
+    window.topPlayer = new Player("Top Player");
+    window.bottomPlayer = new Player("Bottom Player");
+    topPlayer.hostileTarget = bottomPlayer;
+    bottomPlayer.hostileTarget = topPlayer;
+    
+    topPlayer.initialize('inventory-board', 'topPlayerSkills', 1000);
+    bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', 1000);
+//      initializeMonsterSearch();
 
 
      window.firebaseConfig = {
@@ -195,7 +195,8 @@ window.onload = () => {
 
     } catch (error) {
         console.error("Firebase initialization error:", error);
-    }
+    }    
+    loadFromUrl();
 }
 
 
@@ -415,7 +416,7 @@ var isPaused = 0;
 var pauseTime = 0;
 var combatLogEntries = [];
 
-let battleRNG = null;
+window.battleRNG = null;
 
 function startBattle() {
     if(isPaused) {
@@ -432,7 +433,7 @@ function startBattle() {
         .reduce((acc, x) => acc + String.fromCharCode(33 + (x % 94)), '');
     
     // Initialize the RNG with the seed
-    battleRNG = new Math.seedrandom(battleSeed);
+    window.battleRNG = new Math.seedrandom(battleSeed);
     combatLogEntries = [];
     log("Battle Started\nBattle Seed: " + battleSeed);
     
