@@ -40,12 +40,17 @@ export class Skill {
             });
         }
     }
+    static getDataFromName(name) {
+        return structuredClone(skills[name]);
+    }
+
     createTooltipElement() {
         const tooltip = document.createElement('div');
         this.tooltip = tooltip;
         tooltip.className = 'tooltip';
         
         
+
         // Handle tags - convert to array if it's an object
         let tagsArray = [];
         if (this.tags) {

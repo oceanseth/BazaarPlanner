@@ -48,6 +48,20 @@ def setup_driver():
     driver = webdriver.Chrome(service=service, options=chrome_options)
     return driver
 
+def get_tier_from_class(class_attr):
+    """Helper function to determine tier from class attribute"""
+    if "bronze" in class_attr.lower():
+        return 1
+    elif "silver" in class_attr.lower():
+        return 2
+    elif "gold" in class_attr.lower():
+        return 3
+    elif "diamond" in class_attr.lower():
+        return 4
+    elif "legendary" in class_attr.lower():
+        return 5
+    return 1  # default to tier 1 if no tier found
+
 def parse_monsters():
     driver = setup_driver()
     driver.get("https://www.howbazaar.gg/monsters")
@@ -124,7 +138,7 @@ def parse_monsters():
                                     message=f"Waiting for {name} details to load"
                                 )
                                 
-                                # Get skills - updated selectors
+                                # Get skills - updated to include tiers
                                 skills = []
                                 try:
                                     # Wait for skills section
@@ -136,12 +150,16 @@ def parse_monsters():
                                     skill_cards = skills_grid.find_elements(By.CSS_SELECTOR, "div.bg-white")
                                     for card in skill_cards:
                                         skill_name = card.find_element(By.CSS_SELECTOR, "div.font-bold.text-lg").text
-                                        skills.append(skill_name)
+                                        class_attr = card.get_attribute("class")
+                                        skills.append({
+                                            "name": skill_name,
+                                            "tier": get_tier_from_class(class_attr)
+                                        })
                                     print(f"Found {len(skills)} skills")
                                 except Exception as e:
                                     print(f"Error getting skills: {str(e)}")
                                 
-                                # Get items - updated selectors
+                                # Get items - updated to include tiers
                                 items = []
                                 try:
                                     # Wait for items section
@@ -160,7 +178,11 @@ def parse_monsters():
                                     for card in item_cards:
                                         # Updated selector to match the actual HTML structure
                                         item_name = card.find_element(By.CSS_SELECTOR, "div.font-bold.text-lg, div.font-bold.text-xl").text.strip()
-                                        items.append(item_name)
+                                        class_attr = card.get_attribute("class")
+                                        items.append({
+                                            "name": item_name,
+                                            "tier": get_tier_from_class(class_attr)
+                                        })
                                     print(f"Found {len(items)} items")
                                 except Exception as e:
                                     print(f"Error getting items: {str(e)}")

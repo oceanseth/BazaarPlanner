@@ -15,7 +15,6 @@ export class Item {
         this.id = Item.itemID++;
         this.startItemData = itemData;
         this.board = board;
-        this.critMultiplier = 100; //default crit multiplier is 100% more damage
         Object.assign(this, this.startItemData);
         
         // Ensure text is always an array
@@ -142,6 +141,7 @@ export class Item {
         this.poison = 0;
         this.heal = 0;
         this.shield = 0;
+        this.critMultiplier = 100; //default crit multiplier is 100% more damage
 
         this.crit = this.calculateCrit()+(this.startItemData.crit||0);
         this.freezeDurationRemaining = 0;
@@ -1274,6 +1274,21 @@ export class Item {
                         leftPropertyItem.triggerFunctions.push(leftPropertyUsedFunction);
                     }
                     return;
+                case "use the weapon to the left of this":
+                    const leftWeaponItem = this.getItemToTheLeft();
+                    const leftWeaponUsedFunction = this.getTriggerFunctionFromText(match[2]);
+                    if(leftWeaponItem&&leftWeaponItem.tags.includes("Weapon")) {
+                        leftWeaponItem.triggerFunctions.push(leftWeaponUsedFunction);
+                    }
+                    return;
+                case "use the weapon to the right of this":
+                    const rightWeaponItem = this.getItemToTheRight();
+                    const rightWeaponUsedFunction = this.getTriggerFunctionFromText(match[2]);
+                    if(rightWeaponItem&&rightWeaponItem.tags.includes("Weapon")) {
+                        rightWeaponItem.triggerFunctions.push(rightWeaponUsedFunction);
+                    }
+                    return;
+
 
                 case "use the core or another ray":
                     const f = this.getTriggerFunctionFromText(match[2]);
@@ -1451,6 +1466,13 @@ export class Item {
                 this.chargeBy(seconds);
                 log(this.name + " charged for " + seconds + " second(s)");
             }
+        }
+        //This deals double Crit damage
+        regex = /^\s*This deals double Crit damage/i;
+        match = text.match(regex);
+        if(match) {
+            this.critMultiplier*=2;
+            return () => {};
         }
         //Reload this
         regex = /^\s*Reload this/i;
