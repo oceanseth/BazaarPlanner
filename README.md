@@ -30,6 +30,7 @@ A web application for planning and optimizing your Bazaar strategies. Built with
 - `src/` - Source code
 - `public/` - Static assets (images, etc.)
 - `dist/` - Production build output (generated)
+- `import-lambda/` - Lambda function for the bazaartracker import functionality
 
 ## 🔧 Tech Stack
 - Vite - Build tool and development server

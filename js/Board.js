@@ -1,6 +1,6 @@
 import { Item } from './Item.js';
 import { Skill } from './Skill.js';
-import { updateUrlState, loadFromUrl } from './utils.js';
+import { updateUrlState } from './utils.js';
 
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
@@ -40,14 +40,19 @@ class Board {
         }
         this.createHealthElement();
         this.createSkillsElement();
+        this.createGoldElement();
+        this.createIncomeElement();
         this.reset();
+
     }
     clear() {
         this.skillsElement.innerHTML = '';
         this.items.forEach(item => item.element.remove());
         this.items = [];
         this.skills = [];
+        this.skillsElement.innerHTML = '';
         this.reset();
+        updateUrlState();
     }
     reset() {
         this.itemTriggers = new Map(); //functions to call when any item on this board is triggered
@@ -60,7 +65,7 @@ class Board {
         this.critTriggers = new Map();
         this.startOfFightTriggers = new Map();
         this.healTriggers = [];
-        this.shieldTriggers = [];
+        this.shieldTriggers = new Map();
         this.ammoTriggers = [];
         this.largeItemTriggers = [];
         this.mediumItemTriggers = [];
@@ -68,10 +73,13 @@ class Board {
         
         this.resetItems();
         this.updateHealthElement();
+        this.updateGoldElement();
+        this.updateIncomeElement();
     }
     itemDidCrit(item) {
         this.critTriggers.forEach(func => func(item));
     }
+
 
     shieldValuesChanged() {
         this.shieldValuesChangedTriggers.forEach(func => func());
@@ -88,10 +96,74 @@ class Board {
         this.healthElementBurn.innerHTML = this.player?.burn>0?this.player?.burn.toFixed(0):"";
         this.healthElementPoison.innerHTML = this.player?.poison>0?this.player?.poison.toFixed(0):"";
         this.healthElementRegen.innerHTML = this.player?.regen>0?this.player?.regen.toFixed(0):"";
+    } 
+    updateGoldElement() {
+        this.goldElement.textContent = this.player?.gold;
     }
+    updateIncomeElement() {
+        this.incomeElement.textContent = "+" +this.player?.income;
+    }
+    importFromBazaarTracker() {
+        const runId = prompt("Enter the bazaar tracker run ID:");
+        if(runId) {
+            fetch(`https://www.bazaarplanner.com/import?runId=${runId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.error) {
+                        alert(data.error);
+                    } else {
+                        this.player.gold = data.gold;
+                        this.player.level = data.level;
+                        this.player.name = data.heroName;
+                        this.clear();
+                        let currentIndex=0;
+                        data.hand.forEach(item => {
+                            let itemData = items[item.name];
+                            itemData.rarity = ["Bronze","Silver","Gold","Diamond","Legendary"][parseInt(item.tier)];
+                            let newItem = new Item(items[item.name], this);
+                            this.addItem(newItem);
+                            newItem.setIndex(currentIndex);
+                            if(item.attributes.DamageAmount) {
+                                newItem.damage = item.attributes.DamageAmount;
+                            }
+                            if(item.attributes.Cooldown) {
+                                newItem.startItemData.cooldown = item.attributes.Cooldown/1000; //might have to do after all items are added, because other items affect it's cooldown
+                            }
+                            if(item.attributes.CritChance) {
+                                newItem.startItemData.text.push("Crit Chance "+item.attributes.CritChance+"%");
+                            }                            
+                            currentIndex += newItem.size;
+                        });
+                        data.skills.forEach(skill => {
+                            if(skills[skill.name]) {
+                                let skillData = skills[skill.name]; 
+                                skillData.rarity = ["Bronze","Silver","Gold","Diamond","Legendary"][parseInt(skill.tier)];
+                                let newSkill = new Skill(skillData);
+                                this.skills.push(newSkill);
+                                newSkill.board = this;
+                                this.skillsElement.appendChild(newSkill.element);
+
+                            } else {
+                                console.log("Skill not found: " + skill.name);
+                            }
+                        });
+
+
+                    }
+
+                })
+
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    }
+
+
     createHealthElement() {
         this.healthElement = document.createElement('div');
         this.healthElement.className = 'health-element';
+
         this.healthElementHealth = document.createElement('div');
         this.healthElementHealth.className = 'health-element-health';
         this.healthElement.appendChild(this.healthElementHealth);
@@ -113,11 +185,27 @@ class Board {
         }
         this.updateHealthElement();
     }
+    createGoldElement() {
+        this.goldElement = document.createElement('div');
+        this.goldElement.className = 'gold-element';
+        this.goldElement.title = "Gold";
+        this.element.appendChild(this.goldElement);
+    }
+    createIncomeElement() {
+        this.incomeElement = document.createElement('div');
+        this.incomeElement.className = 'income-element';
+        this.incomeElement.title = "Income";
+        this.element.appendChild(this.incomeElement);
+    }
+
+
     createSkillsElement() {
         this.skillsElement = document.createElement('div');
         this.skillsElement.className = 'skills-element';
         this.element.appendChild(this.skillsElement);
     }
+
+
     startBattle() {
         this.items.forEach(item => {if(item.progressBar) item.progressBar.style.display = 'block'});
         this.startOfFightTriggers.forEach(func => func());

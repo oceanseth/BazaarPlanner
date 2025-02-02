@@ -120,6 +120,7 @@ body {
     box-sizing: border-box;
     margin-right: 2px;
     top: 2px;
+    z-index:3;
 }
 .merged-slot.frozen:before {
     content: '';
@@ -134,14 +135,51 @@ body {
 .playerSkills {
     display: flex;
     gap: 10px;
+    position: relative;
+    z-index: 1;
 }
 .skill-icon {
     height: 35px;
     width: 35px;
+    z-index: 1;
+    position: relative;
 }
+
+.skill-icon:after {
+    content: "";
+    display: block;
+    background-image: url('/images/fromBT/skill_tier_bronze.png');
+    background-size: 100% 100%;
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    top:-5px;
+    left:-5px;
+    margin:0px;
+    padding:0px;    
+    z-index: 2;
+}
+.skill-icon.Bronze:after {
+    background-image: url('/images/fromBT/skill_tier_bronze.png');
+}
+.skill-icon.Silver:after {
+    background-image: url('/images/fromBT/skill_tier_silver.png');
+}
+.skill-icon.Gold:after {
+    background-image: url('/images/fromBT/skill_tier_gold.png');
+}
+.skill-icon.Diamond:after {
+    background-image: url('/images/fromBT/skill_tier_diamond.png');
+}
+.skill-icon.Legendary:after {
+    background-image: url('/images/fromBT/skill_tier_legendary.png');
+}
+
+
 .skill-icon img {
     height: 100%;
     width: 100%;
+    border-radius: 50%;
 }
 .merged-slot img {
     height: 100%;
@@ -271,6 +309,9 @@ button:active {
 .tooltip-content {
     font-size: 14px;
     filter: none!important;
+    position: relative;
+    display:block;
+    z-index:1000;
 }
 
 .merged-slot.removing {
@@ -550,10 +591,6 @@ button:active {
     color: white;
 }
 
-.tooltip-content {
-    position: relative;
-}
-
 .main-text {
     flex-grow: 1;
 }
@@ -635,6 +672,7 @@ button:active {
         -0.5px 0.5px 0 #333,
         0.5px 0.5px 0 #333,
         1px 1px 1px rgba(0, 0, 0, .5);
+        z-index:10;
 }
 
 .price-tag::before {
@@ -735,6 +773,16 @@ button:active {
 .rarity-Legendary {
     color: #ff4500;
 }
+.merged-slot:after {
+    background-size: 100% 100%;
+    content: "";
+    width: calc(100% + 10px);
+    height: calc(100% + 20px);
+    position: absolute;
+    top: -10px;
+    left: -5px;
+    z-index: 5;
+}
 .merged-slot.Bronze {
     border: 3px solid #966f33;
 }
@@ -750,6 +798,58 @@ button:active {
 .merged-slot.Legendary {
     border: 1px solid #ff4500;
 }
+.merged-slot.Bronze.tag-small:after {
+    background-image: url('/images/fromBT/CardFrame_Bronze_S_TUI.png');
+}
+.merged-slot.Silver.tag-small:after {
+    background-image: url('/images/fromBT/CardFrame_Silver_S_TUI.png');
+}
+
+.merged-slot.Gold.tag-small:after {
+    background-image: url('/images/fromBT/CardFrame_Gold_S_TUI.png');
+}
+
+.merged-slot.Diamond.tag-small:after {
+    background-image: url('/images/fromBT/CardFrame_Diamond_S_TUI.png');
+}
+.merged-slot.Legendary.tag-small:after {
+    background-image: url('/images/fromBT/CardFrame_Legendary_S_TUI.png');
+}
+.merged-slot.Bronze.tag-medium:after {
+    background-image: url('/images/fromBT/CardFrame_Bronze_M_TUI.png');
+}
+.merged-slot.Silver.tag-medium:after {
+    background-image: url('/images/fromBT/CardFrame_Silver_M_TUI.png');
+}   
+.merged-slot.Gold.tag-medium:after {
+    background-image: url('/images/fromBT/CardFrame_Gold_M_TUI.png');
+}
+.merged-slot.Diamond.tag-medium:after {
+    background-image: url('/images/fromBT/CardFrame_Diamond_M_TUI.png');
+}
+.merged-slot.Legendary.tag-medium:after {
+    background-image: url('/images/fromBT/CardFrame_Legendary_M_TUI.png');
+}
+.merged-slot.Bronze.tag-large:after {
+    background-image: url('/images/fromBT/CardFrame_Bronze_L_TUI.png');
+}
+.merged-slot.Silver.tag-large:after {
+    background-image: url('/images/fromBT/CardFrame_Silver_L_TUI.png');
+}   
+.merged-slot.Gold.tag-large:after {
+    background-image: url('/images/fromBT/CardFrame_Gold_L_TUI.png');
+}
+.merged-slot.Diamond.tag-large:after {
+    background-image: url('/images/fromBT/CardFrame_Diamond_L_TUI.png');
+}
+.merged-slot.Legendary.tag-large:after {
+    background-image: url('/images/fromBT/CardFrame_Legendary_L_TUI.png');
+}
+
+
+
+
+
 .health-element {
     position: absolute;
     bottom: -22px;
@@ -964,4 +1064,35 @@ background-color: rgba(255, 255, 255, 0.2);
 }
 .Deadly:before {
 background-color: rgba(255, 0, 0, 0.2);
+}
+.gold-element {
+    left: 10px;
+}
+.income-element {
+    left: 70px;
+}
+.gold-element, .income-element {
+    text-shadow: 
+    -0.5px -0.5px 0 #333,
+    0.5px -0.5px 0 #333,
+    -0.5px 0.5px 0 #333,
+    0.5px 0.5px 0 #333,
+    1px 1px 1px rgba(0, 0, 0, 1);
+    user-select: none;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    color: gold;
+    position: absolute;
+    bottom: -45px;
+}
+.gold-element:before, .income-element:before {
+    content: "";
+    display: block;
+    background-image: url('/images/fromBT/UI_PurseIcon.png');
+    background-size: 100% 100%;
+    width: 20px;
+    height: 20px;
+    position:absolute;
+    left: -25px;
 }

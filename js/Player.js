@@ -1,5 +1,5 @@
 import { Board } from './Board.js';
-
+import { updateUrlState } from './utils.js';
 export class Player {
     hostileTarget = null;
     constructor(name) {
@@ -8,6 +8,7 @@ export class Player {
         this.skills = [];
         this.maxHealth = 1000;
         this.income = 5;
+        this.level = 1;
     }
 
     initialize(boardId, skillsContainer, maxHealth) {
@@ -62,8 +63,10 @@ export class Player {
             this.health = this.maxHealth;
             editorElement.remove();
             this.board.reset();
+            updateUrlState();
         });
     }
+
     takeDamage(damage, shieldScalar = 1, ignoreShield = false) {        
         if(ignoreShield || this.shield <= 0) {
             this.health -= damage;
@@ -118,8 +121,13 @@ export class Player {
             this.fellBelowHalfHealth = true;
             this.healthBelowHalfTriggers.forEach(func => func());
         }
+        if(this.health <= 0 && !this.diedOnce) {
+            this.diedOnce = true;
+            this.dieTriggers.forEach(func => func());
+        }
         this.board.updateHealthElement();
     }
+
 
     reset() {
         this.combatTime = 0;
@@ -131,14 +139,31 @@ export class Player {
         this.poison = 0;
         this.shield = 0;
         this.regen = 0;
-        this.gold = 0;
+        if(this.gold==undefined) this.gold = 0;
+        if(this.income==undefined) this.income = 5;
         this.fellBelowHalfHealth = false;
-        
+        this.diedOnce = false;
+ 
         // Trigger arrays for various effects
         this.lostShieldTriggers = new Map();
         this.healthBelowHalfTriggers = new Map();
+        this.dieTriggers = new Map();
 
         this.board.reset();
     }
-   
+    setIncome(income) {
+        this.income = income;
+        this.board.updateIncomeElement();
+    }
+    addGold(goldAmount) {
+        this.gold += goldAmount;
+        this.board.updateGoldElement();
+    }
+    addIncome(incomeAmount) {
+        this.income += incomeAmount;
+        this.board.updateIncomeElement();
+    }
+
+
+
 } 
