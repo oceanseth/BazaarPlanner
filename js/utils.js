@@ -50,7 +50,7 @@ export function updateUrlState() {
                     toReturn[key] = item[key];
                 }
             }
-            if(parseInt(baseItem.cooldown) == parseInt(item.cooldown/1000))
+            if(parseInt(Item.getStartingCooldownFromText(baseItem.cooldown)) == parseInt(item.cooldown/1000))
                 delete toReturn.cooldown;
             return toReturn;
 
