@@ -26,7 +26,6 @@ export class Item {
         this.element = this.createElement();
 
         if(itemData.cooldown) {
-            this.cooldown = this.startItemData.cooldown * 1000;
             this.progressBar = document.createElement('div'); 
             this.progressBar.className = 'battleItemProgressBar';
 
@@ -55,11 +54,12 @@ export class Item {
         }
     }
     destroy() {
+        if(this.enchant=='Radiant') {return};
         this.isDestroyed = true;
         this.element.classList.add('destroyed');
     }
     canBeFrozen() {
-        return !this.isDestroyed && this.cooldown > 0 && this.freezeDurationRemaining <= 0 && this.enchant!='Radiant';
+        return !this.isDestroyed && this.cooldown > 0 && this.freezeDurationRemaining <= 0;
     }
     updateTriggerValuesElement() {
         const formatNumber = num => Number.isInteger(num) ? num.toString() : num.toFixed(1);
@@ -107,15 +107,22 @@ export class Item {
         this.priceTagElement.textContent = Number(this.value).toFixed(0);
     }
     resetCooldown() {
-        if(typeof this.startItemData.cooldown === 'string') {
-            this.cooldown = parseInt(getRarityValue(this.startItemData.cooldown.slice(1,-1), this.startItemData.rarity||'Bronze'))*1000;
+        this.cooldown = Item.getStartingCooldownFromText(this.startItemData.cooldown);
+    }
+    static getStartingCooldownFromText(cooldown) {
+        if(typeof cooldown === 'string') {
+            return parseInt(getRarityValue(cooldown.slice(1,-1), this.rarity||'Bronze'))*1000;
         }
-        else if(this.startItemData.cooldown) {
-            this.cooldown = (this.startItemData.cooldown || 0) * 1000;
+
+        else if(cooldown) {
+            return cooldown * 1000;
         }
+        return 0;
+
     }
     reset() {
         Object.assign(this, this.startItemData);
+
         if(this.enchant) this.name = this.enchant + ' ' + this.name;
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
         this.resetCooldown();
@@ -519,6 +526,7 @@ export class Item {
         }
     }
     applyFreeze(duration,source) {
+        if(this.enchant=='Radiant') return;
         if(!this.canBeFrozen()) return;
         this.freezeDurationRemaining += duration*1000;
         this.element.classList.add('frozen');
@@ -1081,14 +1089,15 @@ export class Item {
         }
         
         // Add cooldown field only if item has cooldown
-        if (itemData.cooldown !== undefined) {
+        if (this.cooldown !== undefined && this.cooldown>0) {
             popupHTML += `
                 <div class="form-group">
                     <label>Cooldown (seconds):</label>
-                    <input type="number" id="edit-cooldown" value="${itemData.cooldown || 0}">
+                    <input type="number" id="edit-cooldown" value="${(this.cooldown/1000).toFixed(1) || 0}">
                 </div>`;
         }
         
+
         // Add crit chance field only if item has damage
         if (itemData.tags.indexOf('Weapon') !== -1) {
             popupHTML += `
@@ -1789,6 +1798,33 @@ export class Item {
                 this.trigger();
             }
         }
+        //Use the Core.
+        regex = /^\s*Use the Core\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                this.board.items.forEach(item=>{
+                    if(item.tags.includes("Core")) {
+                        log(this.name+" used "+item.name);
+                        item.trigger();
+                    }
+                });
+            }
+        }
+        //this gains ( 1 » 2 » 3 » 4 ) (tag)
+        regex = /^\s*this gains (?:\(([^)]+)\)|(\d+)) ([^\s]+)\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const gainAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            const whatToGain = match[3].toLowerCase();
+            return () => {
+                this[whatToGain] += gainAmount;
+                log(this.name + " gained " + gainAmount + " " + whatToGain);
+            }
+
+        }
+
+
 
         return null;
     }
