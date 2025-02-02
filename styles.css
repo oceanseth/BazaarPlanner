@@ -145,9 +145,13 @@ body {
     z-index: 1;
     position: relative;
 }
+.skill-icon:hover {
+    z-index: 1000;
+}
 
 .skill-icon:after {
     content: "";
+
     display: block;
     background-image: url('/images/fromBT/skill_tier_bronze.png');
     background-size: 100% 100%;
@@ -182,10 +186,14 @@ body {
     width: 100%;
     border-radius: 50%;
 }
+.skill-icon:hover img {
+    box-shadow: 1px 1px 10px 1px rgba(14,14, 14, 1);
+}
 .merged-slot img {
     height: 100%;
     width: 100%;
 }
+
 
 .merged-slot:hover {
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
@@ -460,7 +468,7 @@ button:active {
     min-width: 200px;
     max-width: 700px;
     color: rgb(251,233,192);
-    z-index: 1000;
+    z-index: 2000;
     font-family: Arial, sans-serif;
     pointer-events: none;
 }

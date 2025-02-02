@@ -51,16 +51,16 @@ def setup_driver():
 def get_tier_from_class(class_attr):
     """Helper function to determine tier from class attribute"""
     if "bronze" in class_attr.lower():
-        return 1
+        return 0
     elif "silver" in class_attr.lower():
-        return 2
+        return 1
     elif "gold" in class_attr.lower():
-        return 3
+        return 2
     elif "diamond" in class_attr.lower():
-        return 4
+        return 3
     elif "legendary" in class_attr.lower():
-        return 5
-    return 1  # default to tier 1 if no tier found
+        return 4
+    return 0  # default to tier 0 if no tier found
 
 def parse_monsters():
     driver = setup_driver()
