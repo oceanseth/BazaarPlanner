@@ -4,9 +4,13 @@ export class Skill {
         
         const skillElement = document.createElement('div');
         skillElement.className = 'skill-icon';
+        if(skillData.rarity) {
+            skillElement.classList.add(skillData.rarity);
+        }
         skillElement.style.position = 'relative';
         skillElement.dataset.skill = JSON.stringify(skillData);
         
+
         const imgElement = document.createElement('img');
         imgElement.src = skillData.icon;
         skillElement.appendChild(imgElement);

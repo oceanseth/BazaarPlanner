@@ -52,7 +52,11 @@ export class Item {
         if(board) {
             board.addItem(this);
         }
+        if(this.startItemData.enchants['Radiant']==undefined) {
+            this.startItemData.enchants['Radiant'] = 'Can not be Frozen, Slowed or Destroyed.';
+        }
     }
+
     destroy() {
         if(this.enchant=='Radiant') {return};
         this.isDestroyed = true;
@@ -268,14 +272,14 @@ export class Item {
         let rarityIndex = rarityLevels.indexOf(this.rarity || 'Bronze');
         // Create HTML content with structured layout
         let tooltipContent = `
-            <div class="tooltip-content" style="display:block;">
+            <div class="tooltip-content">
                 ${this.ammo ? `
                     <div class="tooltip-ammo">
                         Ammo<br>${this.ammo}
                     </div>
                 ` : ''}
                 ${this.cooldown ? `
-                    <div class="tooltip-cooldown-circle ${this.rarity||'Bronze'}Border">${this.cooldown/1000}<span class="unit">SEC</span></div>
+                    <div class="tooltip-cooldown-circle ${this.rarity||'Bronze'}Border">${(this.cooldown/1000).toFixed(1)}<span class="unit">SEC</span></div>
                 ` : ''}
                 <div class="tooltip-tags">
                     ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag.toLowerCase()}">${tag}</span>`).join('')}
@@ -332,6 +336,7 @@ export class Item {
             this.board.sortItems();
             this.board.resetItems(); //need to rerun the text functions for new position of item
         }
+        updateUrlState();
     }
     calculateDamage() {
         if (!this.tags.includes('Weapon')) return 0;
@@ -502,6 +507,7 @@ export class Item {
         if(doesCrit) {
             this.board.itemDidCrit(this);
         }
+        this.board.shieldTriggers.forEach(func => func(this));
     }
     applyBurn(burnAmount) {
         let doesCrit = this.doICrit();
@@ -744,7 +750,7 @@ export class Item {
             }
         }
         //Haste adjacent items for ( 1 » 2 » 3 ) second(s)
-        hasteRegex = /^Haste adjacent items for (?:\(([^)]+)\)|(\d+)) second/i;
+        hasteRegex = /^Haste adjacent items (?:for)?\s*(?:\(([^)]+)\)|(\d+)) second/i;
         match = text.match(hasteRegex);
         if(match) {
             const duration = getRarityValue(match[1], this.rarity);
@@ -1210,6 +1216,14 @@ export class Item {
                         }
                     });
                     return;
+                case "use another friend":
+                    const useAnotherFriendFunction = this.getTriggerFunctionFromText(match[2]);
+                    this.board.itemTriggers.set(this.id, (item) =>  {                        
+                        if(item.id !== this.id && item.tags.includes("Friend")) {
+                            useAnotherFriendFunction(item);
+                        }
+                    });
+                    return;
                 case "use another non-weapon item":
                 case "use a non-weapon item":
                     const useAnotherNonWeaponItemFunction = this.getTriggerFunctionFromText(match[2]);
@@ -1300,9 +1314,13 @@ export class Item {
                 case "crit":
                     this.board.critTriggers.set(this.id, this.getTriggerFunctionFromText(match[2]));
                     return;
+                case "shield":
+                    this.board.shieldTriggers.set(this.id, this.getTriggerFunctionFromText(match[2]));
+                    return;
                 case "lose shield":
                     this.board.player.lostShieldTriggers.set(this.id, this.getTriggerFunctionFromText(match[2]));
                     return;
+
                 case "poison":
                     this.board.poisonTriggers.set(this.id, this.getTriggerFunctionFromText(match[2]));
                     return;
@@ -1433,6 +1451,29 @@ export class Item {
                 log(this.name + " charged for " + seconds + " second(s)");
             }
         }
+        //Reload this
+        regex = /^\s*Reload this/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                this.ammoRemaining = this.ammo;
+                log(this.name + " reloaded");
+            }
+        }
+        //Your other Friends' cooldowns are reduced by ( 10% » 20% » 30% )
+        regex = /^\s*Your other Friends' cooldowns are reduced by (?:\(\s*(\d+)%(?:\s*»\s*(\d+)%)*\s*\)|\+?(\d+)%)/i;
+        match = text.match(regex);
+        if(match) {
+            const cooldownReduction = getRarityValue(match.slice(1).filter(Boolean).join('»'), this.rarity);
+            this.board.items.forEach(item => {  
+                if(item.id !== this.id && item.tags.includes("Friend")) {
+                    item.cooldown *= (1-cooldownReduction/100);
+                }
+            });
+            return () => {};
+        }
+
+
         //Reload the item to the right of this ( 1 » 2 » 3 » 4 ) Ammo.
         regex = /^\s*Reload the item to the right of this (?:\(([^)]+)\)|(\d+)) Ammo\.?/i;
         match = text.match(regex);
@@ -1499,7 +1540,7 @@ export class Item {
         match = text.match(regex);
         if(match) {            
             return () => {
-                this.board.player.gold += match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+                this.board.player.addGold(match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]));
                 log(this.name + " gave " + this.board.player.gold + " gold to " + this.board.player.name);
             }
         }

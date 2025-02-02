@@ -22,41 +22,48 @@ export function battleRandom() {
 export function updateUrlState() {        
     if(window.isLoadingFromUrl) { return; }
     const boardState = Array.from(Board.boards.values())
-        .flatMap(board => board.items)
-        .map(item => {
-            let toReturn = {name: item.name, startIndex: item.startIndex, board: item.board.boardId};
-            if(item.rarity && item.rarity!='Bronze') toReturn.rarity = item.rarity;
-            const [baseName] = Item.stripEnchantFromName(item.name);   
-            const baseItem = structuredClone(items[baseName]);
+    .flatMap(board => board.items)
+    .map(item => {
+        let toReturn = {name: item.name, startIndex: item.startIndex, board: item.board.boardId};
+        if(item.rarity && item.rarity!='Bronze') toReturn.rarity = item.rarity;
+        const [baseName] = Item.stripEnchantFromName(item.name);   
+        const baseItem = structuredClone(items[baseName]);
 
-            for(const key in baseItem) {
-                if (Array.isArray(baseItem[key]) && Array.isArray(item[key])) {
-                    // Compare arrays by checking if they have the same values
-                    if (!baseItem[key].every((val, i) => val === item[key][i]) || 
-                        baseItem[key].length !== item[key].length) {
-                        toReturn[key] = item[key];
-                    }
-                } else if (typeof baseItem[key] === 'object' && baseItem[key] !== null && 
-                           typeof item[key] === 'object' && item[key] !== null) {
-                    // Deep compare objects
-                    const baseKeys = Object.keys(baseItem[key]);
-                    const itemKeys = Object.keys(item[key]);
-                    
-                    if (baseKeys.length !== itemKeys.length || 
-                        !baseKeys.every(k => baseItem[key][k] === item[key][k])) {
-                        toReturn[key] = item[key];
-                    }
-                } else if(baseItem[key] != item[key]) {
+        for(const key in baseItem) {
+            if (Array.isArray(baseItem[key]) && Array.isArray(item[key])) {
+                // Compare arrays by checking if they have the same values
+                if (!baseItem[key].every((val, i) => val === item[key][i]) || 
+                    baseItem[key].length !== item[key].length) {
                     toReturn[key] = item[key];
                 }
+            } else if (typeof baseItem[key] === 'object' && baseItem[key] !== null && 
+                        typeof item[key] === 'object' && item[key] !== null) {
+                // Deep compare objects
+                const baseKeys = Object.keys(baseItem[key]);
+                const itemKeys = Object.keys(item[key]);
+                
+                if (baseKeys.length !== itemKeys.length || 
+                    !baseKeys.every(k => baseItem[key][k] === item[key][k])) {
+                    toReturn[key] = item[key];
+                }
+            } else if(baseItem[key] != item[key]) {
+                toReturn[key] = item[key];
             }
-            if(parseInt(Item.getStartingCooldownFromText(baseItem.cooldown)) == parseInt(item.cooldown/1000))
-                delete toReturn.cooldown;
-            return toReturn;
-
-        });
-
+        }
+        if(parseInt(Item.getStartingCooldownFromText(baseItem.cooldown)) == parseInt(item.cooldown/1000))
+            delete toReturn.cooldown;
+        return toReturn;
+    });
     
+    Board.boards.forEach(board=>{
+        boardState.push({
+            name: 'DataForBoard_'+board.boardId,
+            health: board.player.maxHealth,
+            skills: board.skills.map(skill => ({name: skill.name, rarity: skill.rarity}))
+        });
+    });
+
+
 
     // Compress the JSON string using LZ compression
     const stateStr = LZString.compressToEncodedURIComponent(JSON.stringify(boardState));
@@ -72,17 +79,36 @@ export function loadFromUrl() {
         const boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(hash));
         // Add items from URL state
         boardState.forEach((item) => {
+            if(item.name.startsWith('DataForBoard_')) {
+                const board = Board.getBoardFromId(item.name.slice(13));
+                board.player.maxHealth = item.health;
+                board.player.health = item.health;
+
+                item.skills.forEach(skill => {
+                    let skillData = skills[skill.name];
+                    if(skill.rarity) {
+                        skillData.rarity = skill.rarity;
+                    }
+                    const newSkill = new Skill(skillData);
+                    board.skills.push(newSkill);
+                    newSkill.board = board;              
+                });
+
+                board.updateHealthElement();
+                return;
+
+            }
             const { board, startIndex, name, ...itemWithoutBoardAndStartIndex} = item;
+
             const [baseName, enchant] = Item.stripEnchantFromName(name);
+
             const newItemData = structuredClone(items[baseName]);
             Object.assign(newItemData, itemWithoutBoardAndStartIndex);   
             const newItem = new Item(newItemData, Board.getBoardFromId(board));
+
             newItem.enchant = enchant;
             newItem.name = name;
             newItem.setIndex(startIndex);
-            
-
-
         });
 
     } catch (error) {

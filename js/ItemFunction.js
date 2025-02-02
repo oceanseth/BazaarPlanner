@@ -126,5 +126,22 @@ ItemFunction.items.set("Metronome",(item)=>{
 
 
 });
+ItemFunction.items.set("Luxury Tents",(item)=>{
+    //The first time you would die each fight, Heal for ( 25% » 50% ) of your Max Health. into a trigger function.
+    //Your Heal items have +1 Multicast.
+    item.board.items.forEach(i=>{
+        if(i.id!=item.id && i.tags.includes("Heal")) {
+            i.multicast++;
+        }
+    });
+    const healAmount = getRarityValue("25 >> 50",item.rarity);
+    item.board.player.dieTriggers.set(item.id,()=>{
+        item.board.player.heal(item.board.player.maxHealth*healAmount/100);
+        log(item.name + " healed for " + healAmount + "% of max health.");
+    });
 
+    
+
+
+});
 ItemFunction.setupItems();
