@@ -52,6 +52,9 @@ export function updateUrlState() {
         }
         if(parseInt(Item.getStartingCooldownFromText(baseItem.cooldown)) == parseInt(item.cooldown/1000))
             delete toReturn.cooldown;
+        else {
+            toReturn.cooldown = parseInt(item.cooldown/1000);
+        }
         return toReturn;
     });
     
