@@ -151,6 +151,8 @@ window.onload = () => {
                 if (user) {
                     // User is signed in
                     user.getIdToken().then(function(accessToken) {
+                        window.user = user;
+                        window.isDoner = true;
                         // Update status elements
                         document.getElementById('sign-in-status').textContent = 'Signed in as ' + user.displayName;
                         document.getElementById('account-details').textContent = JSON.stringify({

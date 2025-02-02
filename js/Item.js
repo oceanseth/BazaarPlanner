@@ -4,6 +4,7 @@ import { ItemFunction } from './ItemFunction.js';
 
 export class Item {
     static hiddenTags = ['Damage', 'Crit'];
+    static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static itemID = 0;
     
     constructor(itemData, board) {
@@ -330,7 +331,7 @@ export class Item {
     }
     setIndex(index) {
         this.startIndex = index;
-        this.element.style.left = `${2+(index * 82)}px`;
+        this.element.style.left = `${(index * 84)}px`;
         // Sort the board's items array after changing an index
         if (this.board) {
             this.board.sortItems();

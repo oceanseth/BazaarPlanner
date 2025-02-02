@@ -1,6 +1,7 @@
 import LZString from 'lz-string';
 import { Board } from './Board.js';
 import { Item } from './Item.js';
+import { Skill } from './Skill.js';
 
 export function getRarityValue(valueString, rarity) {
     // Parse values (e.g., "1 » 2 » 3 » 4" or "1 >> 2 >> 3 >> 4" into [1, 2, 3, 4])
@@ -62,7 +63,7 @@ export function updateUrlState() {
         boardState.push({
             name: 'DataForBoard_'+board.boardId,
             health: board.player.maxHealth,
-            skills: board.skills.map(skill => ({name: skill.name, rarity: skill.rarity}))
+            skills: board.skills.map(skill => ({name: skill.name, tier: Item.rarityLevels.indexOf(skill.rarity)}))
         });
     });
 
@@ -88,14 +89,10 @@ export function loadFromUrl() {
                 board.player.health = item.health;
 
                 item.skills.forEach(skill => {
-                    let skillData = skills[skill.name];
-                    if(skill.rarity) {
-                        skillData.rarity = skill.rarity;
-                    }
-                    const newSkill = new Skill(skillData);
-                    board.skills.push(newSkill);
-                    newSkill.board = board;              
+                    board.addSkill(skill.name,{rarity:Item.rarityLevels[parseInt(skill.tier)]});
                 });
+
+
 
                 board.updateHealthElement();
                 return;
@@ -113,9 +110,12 @@ export function loadFromUrl() {
             newItem.name = name;
             newItem.setIndex(startIndex);
         });
-
+        Board.boards.forEach(board=>{
+            board.sortItems();
+        });
     } catch (error) {
         console.error('Error loading board state from URL:', error);
     }
+
     window.isLoadingFromUrl = false;
 }
