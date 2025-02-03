@@ -1,7 +1,10 @@
+import { colorTextArray } from './utils.js';
+
 export class Skill {
     constructor(skillData) {
         Object.assign(this, skillData);
         
+
         const skillElement = document.createElement('div');
         skillElement.className = 'skill-icon';
         if(skillData.rarity) {
@@ -16,18 +19,16 @@ export class Skill {
         skillElement.appendChild(imgElement);
         
         this.element = skillElement;
-
-        // Create and attach tooltip
-        const tooltip = this.createTooltipElement();
-        skillElement.appendChild(tooltip);
-
         // Add hover listeners
         skillElement.addEventListener('mouseenter', () => {
-            tooltip.style.display = 'block';
+            this.tooltip = this.createTooltipElement();                        
+            this.element.appendChild(this.tooltip);
         });
         
         skillElement.addEventListener('mouseleave', () => {
-            tooltip.style.display = 'none';
+            this.tooltip.style.display = 'none';
+            this.tooltip.remove();
+            this.tooltip = null;
         });
     }
     reset() {
@@ -40,12 +41,18 @@ export class Skill {
             });
         }
     }
+    static getDataFromName(name) {
+        if(!skills[name]) {
+            console.log("Skill not found: " + name);
+            return null;
+        }
+        return structuredClone(skills[name]);
+    }
+
     createTooltipElement() {
         const tooltip = document.createElement('div');
-        this.tooltip = tooltip;
         tooltip.className = 'tooltip';
-        
-        
+
         // Handle tags - convert to array if it's an object
         let tagsArray = [];
         if (this.tags) {
@@ -58,7 +65,7 @@ export class Skill {
                     .map(([key, _]) => key);
             }
         }
-        
+        let rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
         // Create HTML content with structured layout
         let tooltipContent = `
             <div class="tooltip-content">
@@ -70,8 +77,11 @@ export class Skill {
                     ${this.cooldown ? `
                         <div class="cooldown-circle">${this.cooldown}<span class="unit">SEC</span></div>
                     ` : ''}
-                    <div class="tooltip-main-text">${this.text || ''}</div>
+                    <div class="tooltip-main-text">${colorTextArray([this.text],rarityIndex)}</div>
                 </div>
+
+
+
                 ${this.bottomText ? `
                     <div class="tooltip-divider"></div>
                     <div class="tooltip-bottom">${this.bottomText}</div>
@@ -79,9 +89,7 @@ export class Skill {
             </div>
         `;
         
-        tooltip.innerHTML = tooltipContent;
-        tooltip.style.display = 'none'; // Hidden by default
-        
+        tooltip.innerHTML = tooltipContent;        
         return tooltip;
     }
 }

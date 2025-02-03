@@ -1,9 +1,10 @@
 import { Board } from './Board.js';
-import { getRarityValue, battleRandom, updateUrlState } from './utils.js';
+import { getRarityValue, battleRandom, updateUrlState, colorTextArray } from './utils.js';
 import { ItemFunction } from './ItemFunction.js';
 
 export class Item {
     static hiddenTags = ['Damage', 'Crit'];
+    static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static itemID = 0;
     
     constructor(itemData, board) {
@@ -14,7 +15,6 @@ export class Item {
         this.id = Item.itemID++;
         this.startItemData = itemData;
         this.board = board;
-        this.critMultiplier = 100; //default crit multiplier is 100% more damage
         Object.assign(this, this.startItemData);
         
         // Ensure text is always an array
@@ -101,7 +101,7 @@ export class Item {
 
         if(this.multicast>0) {
             this.multicastElement.style.display ='block';
-            this.multicastElement.textContent = "x"+Number(this.multicast).toFixed(0);
+            this.multicastElement.textContent = "x"+Number(this.multicast+1).toFixed(0);
         }
         else this.multicastElement.style.display = 'none';
 
@@ -141,6 +141,7 @@ export class Item {
         this.poison = 0;
         this.heal = 0;
         this.shield = 0;
+        this.critMultiplier = 100; //default crit multiplier is 100% more damage
 
         this.crit = this.calculateCrit()+(this.startItemData.crit||0);
         this.freezeDurationRemaining = 0;
@@ -268,8 +269,7 @@ export class Item {
                     .map(([key, _]) => key);
             }
         }
-        let rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
-        let rarityIndex = rarityLevels.indexOf(this.rarity || 'Bronze');
+        let rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
         // Create HTML content with structured layout
         let tooltipContent = `
             <div class="tooltip-content">
@@ -287,18 +287,7 @@ export class Item {
                 <div class="tooltip-name ${this.rarity||'Bronze'}Border">${this.name}</div>
                 <div class="tooltip-main ${this.rarity||'Bronze'}Border">                    
                     <div class="tooltip-main-text">
-                        ${Array.isArray(this.text) ? 
-                            this.text.map(line => {
-                                // Match patterns like ( X » Y » Z » W )
-                                return line.replace(/\(\s*((?:[^»)]+\s*»\s*)*[^»)]+)\s*\)/g, (match, values) => {
-                                    const parts = values.split('»').map(s => s.trim());
-                                    const selectedValue = parts[Math.min(rarityIndex, parts.length - 1)];
-                                    return `(${parts.map((val, i) => 
-                                        i+(4-parts.length) === rarityIndex ? `<b class="rarity-${this.rarity||rarityLevels[4-parts.length]}">${val}</b>` : val
-                                    ).join(' » ')})`;
-                                });
-                            }).join('<br>') : 
-                            (this.text || '')}
+                        ${colorTextArray(this.text,rarityIndex)}
                     </div>
                     ${this.crit ? `
                     <div class="tooltip-divider"></div>
@@ -330,7 +319,7 @@ export class Item {
     }
     setIndex(index) {
         this.startIndex = index;
-        this.element.style.left = `${2+(index * 82)}px`;
+        this.element.style.left = `${(index * 84)}px`;
         // Sort the board's items array after changing an index
         if (this.board) {
             this.board.sortItems();
@@ -452,7 +441,7 @@ export class Item {
         if (newTriggers > this.numTriggers && (!this.ammo || this.ammoRemaining>0)) {
             if(this.ammo) this.ammoRemaining--;
             if(this.multicast>0) {
-                this.pendingMulticasts+=parseInt(this.multicast)-1;    
+                this.pendingMulticasts+=parseInt(this.multicast);    
             }
             this.numTriggers =this.numTriggers+1;
             this.trigger();
@@ -724,14 +713,19 @@ export class Item {
             };
         }
         //Haste another item for ( 1 » 2 » 3 » 4 ) second(s).
-        hasteRegex = /^Haste another item for (?:\(([^)]+)\)|(\d+)) second/i;
+        //Haste an item for ( 1 » 2 » 3 ) second(s)
+        hasteRegex = /^Haste (an|another) item for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
         if (hasteRegex.test(text)) {
-            const duration = getRarityValue(text.match(hasteRegex)[1], this.rarity);
+            const [_, target, durationRange, singleDuration] = text.match(hasteRegex);
+            const duration = durationRange ? 
+                getRarityValue(durationRange, this.rarity) : 
+                parseInt(singleDuration);
             return () => {
-                let itemToHaste = this.board.items.filter(i => i.cooldown != null).sort(() => battleRandom() - 0.5)[0];
+                let itemToHaste = this.board.items.filter(i => (target=='an'||i.id!=this.id) && i.cooldown != null).sort(() => battleRandom() - 0.5)[0];
                 itemToHaste.applyHaste(duration);
                 log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
             };
+
         }
         hasteRegex = /^Haste the item to the right of this/i;
         if (hasteRegex.test(text)) {
@@ -1273,6 +1267,21 @@ export class Item {
                         leftPropertyItem.triggerFunctions.push(leftPropertyUsedFunction);
                     }
                     return;
+                case "use the weapon to the left of this":
+                    const leftWeaponItem = this.getItemToTheLeft();
+                    const leftWeaponUsedFunction = this.getTriggerFunctionFromText(match[2]);
+                    if(leftWeaponItem&&leftWeaponItem.tags.includes("Weapon")) {
+                        leftWeaponItem.triggerFunctions.push(leftWeaponUsedFunction);
+                    }
+                    return;
+                case "use the weapon to the right of this":
+                    const rightWeaponItem = this.getItemToTheRight();
+                    const rightWeaponUsedFunction = this.getTriggerFunctionFromText(match[2]);
+                    if(rightWeaponItem&&rightWeaponItem.tags.includes("Weapon")) {
+                        rightWeaponItem.triggerFunctions.push(rightWeaponUsedFunction);
+                    }
+                    return;
+
 
                 case "use the core or another ray":
                     const f = this.getTriggerFunctionFromText(match[2]);
@@ -1451,6 +1460,31 @@ export class Item {
                 log(this.name + " charged for " + seconds + " second(s)");
             }
         }
+        //Your enemy's Shield items lose ( 5 » 10 » 15 » 20 ) Shield for the fight
+        regex = /^\s*Your enemy's ([^\s]+) items lose (?:\(([^)]+)\)|(\d+)) ([^\s]+) for the fight/i;
+        match = text.match(regex);
+        if(match) {
+            const lossAmount = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
+            return () => {
+                this.board.player.hostileTarget.board.items.forEach(item => {   
+                    if(item.tags.includes(match[1])) {
+
+                        item[match[4].toLowerCase()] -= lossAmount;
+                        log(this.name + " caused " + item.name + " to lose " + lossAmount + " " + match[4]);
+                    }
+                });
+            }
+
+        }
+        
+
+        //This deals double Crit damage
+        regex = /^\s*This deals double Crit damage/i;
+        match = text.match(regex);
+        if(match) {
+            this.critMultiplier*=2;
+            return () => {};
+        }
         //Reload this
         regex = /^\s*Reload this/i;
         match = text.match(regex);
@@ -1532,7 +1566,7 @@ export class Item {
         regex = /^Multicast (?:\(([^)]+)\)|(\d+))/i;
         match = text.match(regex);
         if(match) {
-            this.multicast = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            this.multicast = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2])) - 1;
             return () => {};
         }        
         

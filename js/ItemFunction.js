@@ -139,9 +139,40 @@ ItemFunction.items.set("Luxury Tents",(item)=>{
         item.board.player.heal(item.board.player.maxHealth*healAmount/100);
         log(item.name + " healed for " + healAmount + "% of max health.");
     });
+});
+ItemFunction.items.set("Cybersecurity",(item)=>{
+    // "Deal ( 15 » 30 » 60 ) damage for each Weapon you have.",
+      //"This deals ( 2 » 3 » 4 ) time(s) damage if it is your only friend."
 
-    
+      let damage = getRarityValue("15 >> 30 >> 60",item.rarity);
+      let times = getRarityValue("2 >> 3 >> 4",item.rarity);
+      let weaponCount = item.board.items.filter(i=>i.tags.includes("Weapon")).length;
+      item.damage = damage* weaponCount;
 
+      let onlyFriend = item.board.items.filter(i=>i.tags.includes("Friend")).length==1;
+      item.triggerFunctions.push(()=>{
+        if(onlyFriend) {
+            item.dealDamage(item.damage*times);
+        } else {
+            item.dealDamage(item.damage);
+        }
+      });
+});
+ItemFunction.items.set("Pulse Rifle",(item)=>{
+    //Deal ( 10 » 20 » 40 » 80 ) damage. 
+   //This has +1 Multicast if it is adjacent to a Friend. Double this if it is your only Friend.
+   item.damage = getRarityValue("10 >> 20 >> 40 >> 80",item.rarity);
+   let friendCount = item.board.items.filter(i=>i.tags.includes("Friend")).length;
+   let adjacentFriendCount = item.getAdjacentItems().filter(i=>i.tags.includes("Friend")).length;
 
+   if(adjacentFriendCount>0) {
+    item.multicast++;
+   }
+   if(friendCount==1) {
+    item.multicast++;
+   }
+   item.triggerFunctions.push(()=>{
+    item.dealDamage(item.damage);
+   });
 });
 ItemFunction.setupItems();
