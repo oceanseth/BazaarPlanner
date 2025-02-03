@@ -29,7 +29,7 @@ class Board {
         for (let i = 0; i < 10; i++) {
             const slot = document.createElement('div');
             slot.className = 'board-slot';
-            slot.style.left = `${i * 82}px`;
+            slot.style.left = `${i * 84}px`;
             slot.dataset.index = i;
             
             slot.addEventListener('dragover', (e) => this.handleSlotDragOver(e, this));
@@ -103,12 +103,18 @@ class Board {
     updateIncomeElement() {
         this.incomeElement.textContent = "+" +this.player?.income;
     }
-    importFromBazaarTracker() {
+    importFromBazaarTracker() {        
+        if(!window.isDoner) {
+            alert("This feature is only available for doners or kickstarter backers");
+            return;
+        }
+
         const runId = prompt("Enter the bazaar tracker run ID:");
         if(runId) {
             fetch(`https://www.bazaarplanner.com/import?runId=${runId}`)
                 .then(response => response.json())
                 .then(data => {
+                    window.isLoadingFromUrl = true;
                     if(data.error) {
                         alert(data.error);
                     } else {
@@ -121,7 +127,7 @@ class Board {
                             let itemData = items[item.name];
                             itemData.rarity = ["Bronze","Silver","Gold","Diamond","Legendary"][parseInt(item.tier)];
                             let newItem = new Item(items[item.name], this);
-                            this.addItem(newItem);
+                            //this.addItem(newItem);
                             newItem.setIndex(currentIndex);
                             if(item.attributes.DamageAmount) {
                                 newItem.damage = item.attributes.DamageAmount;
@@ -135,30 +141,40 @@ class Board {
                             currentIndex += newItem.size;
                         });
                         data.skills.forEach(skill => {
-                            if(skills[skill.name]) {
-                                let skillData = skills[skill.name]; 
-                                skillData.rarity = ["Bronze","Silver","Gold","Diamond","Legendary"][parseInt(skill.tier)];
-                                let newSkill = new Skill(skillData);
-                                this.skills.push(newSkill);
-                                newSkill.board = this;
-                                this.skillsElement.appendChild(newSkill.element);
-
-                            } else {
-                                console.log("Skill not found: " + skill.name);
-                            }
+                            this.addSkill(skill.name,{rarity:Item.rarityLevels[parseInt(skill.tier)]});
                         });
 
 
                     }
 
                 })
+                .finally(() => {
+                    window.isLoadingFromUrl = false;
+                    updateUrlState();
+                })
 
                 .catch(error => {
                     console.error('Error:', error);
                 });
+
+
         }
+        
+
     }
 
+    addSkill(skillName,skillData) {
+        if(!skills[skillName]) {
+            console.log("Skill not found: " + skillName);
+            return;
+        }
+        let newSkillData = structuredClone(skills[skillName]);
+        Object.assign(newSkillData,skillData);
+        let newSkill = new Skill(newSkillData);
+        this.skills.push(newSkill);
+        newSkill.board = this;
+        this.skillsElement.appendChild(newSkill.element);
+    }
 
     createHealthElement() {
         this.healthElement = document.createElement('div');
@@ -462,18 +478,26 @@ class Board {
         this.initialize();
         let startIndex = 0;
         // Load monster items to the board
-        monsterData.items.forEach(item => {                    
-            let newItem = new Item(Item.getDataFromName(item), this);
+        monsterData.items.forEach(item => {              
+            let itemData = Item.getDataFromName(item.name);
+            if(!itemData) return;
+            itemData.rarity = Item.rarityLevels[item.tier];
+            let newItem = new Item(itemData, this);
             newItem.setIndex(startIndex);
             startIndex += newItem.size;
         });
+
         
         monsterData.skills.forEach(skill => {
-            let newSkill = new Skill(skills[skill]);
+            let skillData = Skill.getDataFromName(skill.name);
+            if(!skillData) return;
+            skillData.rarity = Item.rarityLevels[skill.tier];
+            let newSkill = new Skill(skillData);
             this.skills.push(newSkill);
             newSkill.board = this;
             this.skillsElement.appendChild(newSkill.element);
         });
+
         this.player.maxHealth = monsterData.health;
         this.player.health = this.player.maxHealth;
         this.player.name = monsterData.name;
@@ -491,9 +515,9 @@ class Board {
 
 function getSizeValue(size) {
     switch(size?.toLowerCase()) {
-        case 'Small': return 1;
-        case 'Medium': return 2;
-        case 'Large': return 3;
+        case 'small': return 1;
+        case 'medium': return 2;
+        case 'large': return 3;
         default: return 1;
     }
 }
