@@ -184,7 +184,7 @@ export class Item {
     }
 
     getInitialValue() {
-        const rarityIndex = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'].indexOf(this.rarity || 'Bronze');
+        const rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
         return this.size * Math.pow(2, rarityIndex);           
     }
 

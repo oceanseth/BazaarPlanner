@@ -26,7 +26,7 @@ functions:
               - X-Api-Key
               - X-Amz-Security-Token
               - X-Amz-User-Agent
-            allowedMethods: ['GET', 'OPTIONS']
+            methods: ['GET', 'OPTIONS']
             allowCredentials: true
       - http:
           path: import
@@ -40,5 +40,5 @@ functions:
               - X-Api-Key
               - X-Amz-Security-Token
               - X-Amz-User-Agent
-            allowedMethods: ['GET', 'OPTIONS']
+            methods: ['GET', 'OPTIONS']
             allowCredentials: true

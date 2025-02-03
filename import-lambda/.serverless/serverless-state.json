@@ -103,7 +103,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-578d5336-5865",
-                "S3Key": "serverless/myImportService/dev/1738479392199-2025-02-02T06:56:32.199Z/myImportService.zip"
+                "S3Key": "serverless/myImportService/dev/1738548571409-2025-02-03T02:09:31.409Z/myImportService.zip"
               },
               "Handler": "import.handler",
               "Runtime": "nodejs18.x",
@@ -121,14 +121,14 @@
               "ImportLogGroup"
             ]
           },
-          "ImportLambdaVersionNHzQEbwbdiV8uNvUfW1wvxvlH88JLbv4nSIjmMoI": {
+          "ImportLambdaVersionLkRPGyqhBHRBl6huOqthW0UVmNfL5kufjQHF2o272k": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ImportLambdaFunction"
               },
-              "CodeSha256": "PKJbTWsv0Ob7tiWjfO9pEcfiA7XXuuTQ9RxhTgSfyBQ="
+              "CodeSha256": "/oHMy9U60svL/ceuPbIVfD3OLTfLlXkuPLS6y7xErso="
             }
           },
           "ApiGatewayRestApi": {
@@ -188,7 +188,7 @@
                     "ResponseParameters": {
                       "method.response.header.Access-Control-Allow-Origin": "'http://localhost'",
                       "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'",
+                      "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
                       "method.response.header.Access-Control-Allow-Credentials": "'true'"
                     },
                     "ResponseTemplates": {
@@ -279,7 +279,7 @@
               "ImportLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1738479377233": {
+          "ApiGatewayDeployment1738548554832": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -341,7 +341,7 @@
           "ImportLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ImportLambdaVersionNHzQEbwbdiV8uNvUfW1wvxvlH88JLbv4nSIjmMoI"
+              "Ref": "ImportLambdaVersionLkRPGyqhBHRBl6huOqthW0UVmNfL5kufjQHF2o272k"
             },
             "Export": {
               "Name": "sls-myImportService-dev-ImportLambdaFunctionQualifiedArn"
@@ -390,8 +390,8 @@
               "method": "get",
               "cors": {
                 "methods": [
-                  "OPTIONS",
-                  "GET"
+                  "GET",
+                  "OPTIONS"
                 ],
                 "headers": [
                   "Content-Type",
@@ -405,10 +405,6 @@
                 "origins": [
                   "http://localhost",
                   "http://localhost:3000"
-                ],
-                "allowedMethods": [
-                  "GET",
-                  "OPTIONS"
                 ]
               },
               "integration": "AWS_PROXY"
@@ -420,6 +416,7 @@
               "method": "options",
               "cors": {
                 "methods": [
+                  "GET",
                   "OPTIONS"
                 ],
                 "headers": [
@@ -433,10 +430,6 @@
                 "allowCredentials": true,
                 "origins": [
                   "http://localhost"
-                ],
-                "allowedMethods": [
-                  "GET",
-                  "OPTIONS"
                 ]
               },
               "integration": "AWS_PROXY"
@@ -448,7 +441,7 @@
         "memory": 1024,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "ImportLambdaVersionNHzQEbwbdiV8uNvUfW1wvxvlH88JLbv4nSIjmMoI"
+        "versionLogicalId": "ImportLambdaVersionLkRPGyqhBHRBl6huOqthW0UVmNfL5kufjQHF2o272k"
       }
     },
     "configValidationMode": "warn",
@@ -469,7 +462,7 @@
     "artifact": "c:\\Users\\PC\\Documents\\BazaarPlanner\\import-lambda\\.serverless\\myImportService.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/myImportService/dev/1738479392199-2025-02-02T06:56:32.199Z",
+    "artifactDirectoryName": "serverless/myImportService/dev/1738548571409-2025-02-03T02:09:31.409Z",
     "artifact": "myImportService.zip"
   }
 }
