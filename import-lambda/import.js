@@ -105,9 +105,29 @@ module.exports.handler = async (event) => {
       return respond({ error: 'No runId provided.' }, 400);
     }
   
+/* Previously, I had to get the run object by scraping the page, but sebastientromp gave me a direct endpoint to get the run object.
+   Leaving this commented out for now, in case his endpoint goes down, we can revert to scraping the page.
+//    const html = await fetchHtml("https://bazaartracker.gg/runs/"+runId);
+//  return respond(extractObjectWithBDay(html));
+//  return respond(extractObjectWithBDay(html));
+*/
+const response = await axios.get("https://ykvg5nr5u7hpf7raike7tx44ja0yajkm.lambda-url.us-west-2.on.aws/"+runId, {
+  responseType: 'text'
+});
+return {
+  statusCode: 200,
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': 'http://localhost:3000',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'GET,OPTIONS'
+  },
+  body: response.data
+};
 
-    const html = await fetchHtml("https://bazaartracker.gg/runs/"+runId);
-    return respond(extractObjectWithBDay(html));
+
+
+
 
   } catch (error) {
     console.error('Error:', error);
