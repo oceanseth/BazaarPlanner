@@ -2633,6 +2633,18 @@ export const skills = {
     ],
     "text": "When you Slow, your weapons gain (  3  » 6   ) damage for the fight."
   },
+  "Slow Burn": {
+    "icon": "images/skills/SlowBurn.avif",
+    "name": "Slow Burn",
+    "tags": [
+      "Vanessa",
+      "Mak",
+      "Burnreference",
+      "Charge",
+      "Slowreference"
+    ],
+    "text": "The first (  5  » 10   ) times you Slow each fight, Charge 1 Burn item 1 second(s)."
+  },
   "Slowed Targets": {
     "icon": "images/skills/SlowedTargets.avif",
     "name": "Slowed Targets",
@@ -2991,6 +3003,17 @@ export const skills = {
     ],
     "text": "When you use a Friend, Poison (  1  » 2   )."
   },
+  "Toxic Shield": {
+    "icon": "images/skills/ToxicShield.avif",
+    "name": "Toxic Shield",
+    "tags": [
+      "Mak",
+      "Dooley",
+      "Poisonreference",
+      "Shield"
+    ],
+    "text": "The first time you fall below half health each fight, Shield equal to (  2  » 3  » 4   ) times the Poison on your opponent. [0]"
+  },
   "Toxic Weapons": {
     "icon": "images/skills/ToxicWeapons.avif",
     "name": "Toxic Weapons",
@@ -3072,6 +3095,18 @@ export const skills = {
       "Cooldown"
     ],
     "text": "Your leftmost and rightmost items have their cooldowns reduced by (  5%  » 10%  » 15%   )."
+  },
+  "Venomous Blade": {
+    "icon": "images/skills/VenomousBlade.avif",
+    "name": "Venomous Blade",
+    "tags": [
+      "Vanessa",
+      "Mak",
+      "Charge",
+      "Poisonreference",
+      "Weapon"
+    ],
+    "text": "The first (  4  » 8   ) times you use a Weapon each fight, Charge 1 Poison item 1 second(s)."
   },
   "Venomous Vitality": {
     "icon": "images/skills/VenomousVitality.avif",

@@ -713,14 +713,19 @@ export class Item {
             };
         }
         //Haste another item for ( 1 » 2 » 3 » 4 ) second(s).
-        hasteRegex = /^Haste another item for (?:\(([^)]+)\)|(\d+)) second/i;
+        //Haste an item for ( 1 » 2 » 3 ) second(s)
+        hasteRegex = /^Haste (an|another) item for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
         if (hasteRegex.test(text)) {
-            const duration = getRarityValue(text.match(hasteRegex)[1], this.rarity);
+            const [_, target, durationRange, singleDuration] = text.match(hasteRegex);
+            const duration = durationRange ? 
+                getRarityValue(durationRange, this.rarity) : 
+                parseInt(singleDuration);
             return () => {
-                let itemToHaste = this.board.items.filter(i => i.cooldown != null).sort(() => battleRandom() - 0.5)[0];
+                let itemToHaste = this.board.items.filter(i => (target=='an'||i.id!=this.id) && i.cooldown != null).sort(() => battleRandom() - 0.5)[0];
                 itemToHaste.applyHaste(duration);
                 log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
             };
+
         }
         hasteRegex = /^Haste the item to the right of this/i;
         if (hasteRegex.test(text)) {

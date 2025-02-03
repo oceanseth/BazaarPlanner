@@ -478,8 +478,9 @@ class Board {
         this.initialize();
         let startIndex = 0;
         // Load monster items to the board
-        monsterData.items.forEach(item => {  
+        monsterData.items.forEach(item => {              
             let itemData = Item.getDataFromName(item.name);
+            if(!itemData) return;
             itemData.rarity = Item.rarityLevels[item.tier];
             let newItem = new Item(itemData, this);
             newItem.setIndex(startIndex);
@@ -489,6 +490,7 @@ class Board {
         
         monsterData.skills.forEach(skill => {
             let skillData = Skill.getDataFromName(skill.name);
+            if(!skillData) return;
             skillData.rarity = Item.rarityLevels[skill.tier];
             let newSkill = new Skill(skillData);
             this.skills.push(newSkill);

@@ -42,6 +42,10 @@ export class Skill {
         }
     }
     static getDataFromName(name) {
+        if(!skills[name]) {
+            console.log("Skill not found: " + name);
+            return null;
+        }
         return structuredClone(skills[name]);
     }
 
