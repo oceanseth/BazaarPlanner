@@ -184,8 +184,8 @@ export class Item {
     }
 
     getInitialValue() {
-        const rarityIndex = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'].indexOf(this.rarity || 'Bronze');
-        return this.size * Math.pow(2, rarityIndex);           
+        const rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
+        return  (this.enchant?2:1) * this.size * Math.pow(2, rarityIndex);           
     }
 
     adjacentItemTriggered(item) {
@@ -580,9 +580,10 @@ export class Item {
 
                 if(match[1]) adjacentItems.push(this);
                 adjacentItems.forEach(item => {
-                    item[match[5].toLowerCase()] += gainAmount;
+                    item.gain(gainAmount,match[5].toLowerCase());
                     log(item.name + " gained " + gainAmount + " " + match[5] + " for the fight");
                 });
+
 
             };
         }
@@ -593,14 +594,20 @@ export class Item {
         match = text.match(damageRegex);
         if(match) {
             const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
-            this.damage = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
-            this.board.shieldValuesChangedTriggers.set(this.id, () => {
-                this.damage = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
+            this.damage = this.board.highestShieldValue = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
+            this.board.shieldValuesChangedTriggers.set(this.id, (shieldItem) => {
+                if(shieldItem.shield != this.board.highestShieldValue) {
+                    let shieldDiff = shieldItem.shield - this.board.highestShieldValue;
+                    this.board.highestShieldValue = shieldItem.shield;
+                    this.gain(shieldDiff,'damage');
+                    this.updateTriggerValuesElement();
+                }
             });
+
             return () => {
-                this.damage = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
                 this.dealDamage(this.damage);
             };
+
         } 
                
         //it also gains ( +10 » +20 » +30 » +40 ) damage.
@@ -863,9 +870,44 @@ export class Item {
         return [this.getItemToTheLeft(), this.getItemToTheRight()].filter(item => item !== null);
     }
 
+    gain(amount,type) {
+        if(type == 'shield') {
+            this.shield += amount;
+            this.board.shieldValuesChangedTriggers.forEach(func => func(this));
+        }
+        if(type == 'damage') {
+            this.damage += amount;
+          //  this.board.damageChangedTriggers.forEach(func => func(this));
+        }   
+        if(type == 'heal') {
+            this.heal += amount;
+           // this.board.healthChangedTriggers.forEach(func => func(this));
+        }
+        if(type == 'gold') {
+            this.gold += amount;
+           // this.board.goldChangedTriggers.forEach(func => func(this));
+        }
+        if(type == 'income') {
+            this.income += amount;
+          //  this.board.incomeChangedTriggers.forEach(func => func(this));
+        }
+        if(type == 'poison') {
+            this.poison += amount;
+         //   this.board.poisonChangedTriggers.forEach(func => func(this));
+        }
+        if(type == 'burn') {
+            this.burn += amount;
+        }
+        if(type == 'crit') {
+            this.crit += amount;
+        }
+    }
+
+
 
     getShieldTriggerFunctionFromText(text) {        
         // Match patterns like "Shield equal to ( 1x » 2x ) the value of the adjacent items"
+
         let regex = /Shield equal to \(\s*(\d+)x\s*»\s*(\d+)x\s*\) the value of the adjacent items/i;
         let match = text.match(regex);
         if (match) {
@@ -873,11 +915,18 @@ export class Item {
             const multiplier = getRarityValue(`${minMultiplier}»${maxMultiplier}`, this.rarity);
             const shieldAmount = this.getAdjacentItems().reduce((sum, item) => sum + item.value, 0) * multiplier;
             this.shield = shieldAmount;
+            this.board.shieldValuesChangedTriggers.forEach(func => func(this));
+            this.board.itemValuesChangedTriggers.set(this.id, () => {
+                let newShield = this.getAdjacentItems().reduce((sum, item) => sum + item.value, 0) * multiplier;
+                if(newShield != this.shield) {
+                    this.shield = newShield;
+                    this.board.shieldValuesChangedTriggers.forEach(func => func(this));
+                }
+            });
             return () => {
-           //     const shieldAmount = this.getAdjacentItems().reduce((sum, item) => sum + item.value, 0) * multiplier;
-            //    this.shield = shieldAmount;
                 this.applyShield(shieldAmount);
             };
+
         }
 
         // Shield equal to ( 2 » 3 ) time(s) the value of your items.
@@ -888,11 +937,13 @@ export class Item {
             const multiplier = getRarityValue(`${minMultiplier}»${maxMultiplier}`, this.rarity);
             const shieldAmount = this.board.items.reduce((sum, item) => sum + item.value, 0) * multiplier;
             this.shield = shieldAmount;
+            this.board.shieldValuesChangedTriggers.forEach(func => func(this));
             return () => {
                 const shieldAmount = this.board.items.reduce((sum, item) => sum + item.value, 0) * multiplier;
                 this.shield = shieldAmount;
                 this.applyShield(shieldAmount);
             };
+
         }
 
         //Shield equal to your current Health.
@@ -951,11 +1002,11 @@ export class Item {
             const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
             return () => {
                 shieldItems.forEach(item => {
-                    item.shield += shieldAmount;
+                    item.gain(shieldAmount,'shield');
                     log(this.name + " gave " + item.name + " " + shieldAmount + " shield");
                 });
-                this.board.shieldValuesChanged();
             };
+
         }
         //Deal damage equal to your shield
         regex = /Deal damage equal to your shield/i;
@@ -1468,8 +1519,7 @@ export class Item {
             return () => {
                 this.board.player.hostileTarget.board.items.forEach(item => {   
                     if(item.tags.includes(match[1])) {
-
-                        item[match[4].toLowerCase()] -= lossAmount;
+                        item.gain(-lossAmount,match[4].toLowerCase());
                         log(this.name + " caused " + item.name + " to lose " + lossAmount + " " + match[4]);
                     }
                 });

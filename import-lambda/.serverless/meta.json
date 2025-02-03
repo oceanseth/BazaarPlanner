@@ -105,7 +105,7 @@
               "Properties": {
                 "Code": {
                   "S3Bucket": "serverless-framework-deployments-us-east-1-578d5336-5865",
-                  "S3Key": "serverless/myImportService/dev/1738479392199-2025-02-02T06:56:32.199Z/myImportService.zip"
+                  "S3Key": "serverless/myImportService/dev/1738548571409-2025-02-03T02:09:31.409Z/myImportService.zip"
                 },
                 "Handler": "import.handler",
                 "Runtime": "nodejs18.x",
@@ -123,14 +123,14 @@
                 "ImportLogGroup"
               ]
             },
-            "ImportLambdaVersionNHzQEbwbdiV8uNvUfW1wvxvlH88JLbv4nSIjmMoI": {
+            "ImportLambdaVersionLkRPGyqhBHRBl6huOqthW0UVmNfL5kufjQHF2o272k": {
               "Type": "AWS::Lambda::Version",
               "DeletionPolicy": "Retain",
               "Properties": {
                 "FunctionName": {
                   "Ref": "ImportLambdaFunction"
                 },
-                "CodeSha256": "PKJbTWsv0Ob7tiWjfO9pEcfiA7XXuuTQ9RxhTgSfyBQ="
+                "CodeSha256": "/oHMy9U60svL/ceuPbIVfD3OLTfLlXkuPLS6y7xErso="
               }
             },
             "ApiGatewayRestApi": {
@@ -190,7 +190,7 @@
                       "ResponseParameters": {
                         "method.response.header.Access-Control-Allow-Origin": "'http://localhost'",
                         "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'",
+                        "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
                         "method.response.header.Access-Control-Allow-Credentials": "<REDACTED>"
                       },
                       "ResponseTemplates": {
@@ -281,7 +281,7 @@
                 "ImportLambdaPermissionApiGateway"
               ]
             },
-            "ApiGatewayDeployment1738479377233": {
+            "ApiGatewayDeployment1738548554832": {
               "Type": "AWS::ApiGateway::Deployment",
               "Properties": {
                 "RestApiId": {
@@ -343,7 +343,7 @@
             "ImportLambdaFunctionQualifiedArn": {
               "Description": "Current Lambda function version",
               "Value": {
-                "Ref": "ImportLambdaVersionNHzQEbwbdiV8uNvUfW1wvxvlH88JLbv4nSIjmMoI"
+                "Ref": "ImportLambdaVersionLkRPGyqhBHRBl6huOqthW0UVmNfL5kufjQHF2o272k"
               },
               "Export": {
                 "Name": "sls-myImportService-dev-ImportLambdaFunctionQualifiedArn"
@@ -391,8 +391,8 @@
                 "method": "get",
                 "cors": {
                   "methods": [
-                    "OPTIONS",
-                    "GET"
+                    "GET",
+                    "OPTIONS"
                   ],
                   "headers": [
                     "Content-Type",
@@ -406,10 +406,6 @@
                   "origins": [
                     "http://localhost",
                     "http://localhost:3000"
-                  ],
-                  "allowedMethods": [
-                    "GET",
-                    "OPTIONS"
                   ]
                 },
                 "integration": "AWS_PROXY"
@@ -421,6 +417,7 @@
                 "method": "options",
                 "cors": {
                   "methods": [
+                    "GET",
                     "OPTIONS"
                   ],
                   "headers": [
@@ -434,10 +431,6 @@
                   "allowCredentials": "<REDACTED>",
                   "origins": [
                     "http://localhost"
-                  ],
-                  "allowedMethods": [
-                    "GET",
-                    "OPTIONS"
                   ]
                 },
                 "integration": "AWS_PROXY"
@@ -449,7 +442,7 @@
           "memory": 1024,
           "runtime": "nodejs18.x",
           "vpc": {},
-          "versionLogicalId": "ImportLambdaVersionNHzQEbwbdiV8uNvUfW1wvxvlH88JLbv4nSIjmMoI"
+          "versionLogicalId": "ImportLambdaVersionLkRPGyqhBHRBl6huOqthW0UVmNfL5kufjQHF2o272k"
         }
       }
     },
@@ -552,7 +545,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "serverless-framework-deployments-us-east-1-578d5336-5865",
-                "S3Key": "serverless/myImportService/dev/1738479392199-2025-02-02T06:56:32.199Z/myImportService.zip"
+                "S3Key": "serverless/myImportService/dev/1738548571409-2025-02-03T02:09:31.409Z/myImportService.zip"
               },
               "Handler": "import.handler",
               "Runtime": "nodejs18.x",
@@ -570,14 +563,14 @@
               "ImportLogGroup"
             ]
           },
-          "ImportLambdaVersionNHzQEbwbdiV8uNvUfW1wvxvlH88JLbv4nSIjmMoI": {
+          "ImportLambdaVersionLkRPGyqhBHRBl6huOqthW0UVmNfL5kufjQHF2o272k": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ImportLambdaFunction"
               },
-              "CodeSha256": "PKJbTWsv0Ob7tiWjfO9pEcfiA7XXuuTQ9RxhTgSfyBQ="
+              "CodeSha256": "/oHMy9U60svL/ceuPbIVfD3OLTfLlXkuPLS6y7xErso="
             }
           },
           "ApiGatewayRestApi": {
@@ -637,7 +630,7 @@
                     "ResponseParameters": {
                       "method.response.header.Access-Control-Allow-Origin": "'http://localhost'",
                       "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                      "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'",
+                      "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
                       "method.response.header.Access-Control-Allow-Credentials": "<REDACTED>"
                     },
                     "ResponseTemplates": {
@@ -728,7 +721,7 @@
               "ImportLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1738479377233": {
+          "ApiGatewayDeployment1738548554832": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -790,7 +783,7 @@
           "ImportLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ImportLambdaVersionNHzQEbwbdiV8uNvUfW1wvxvlH88JLbv4nSIjmMoI"
+              "Ref": "ImportLambdaVersionLkRPGyqhBHRBl6huOqthW0UVmNfL5kufjQHF2o272k"
             },
             "Export": {
               "Name": "sls-myImportService-dev-ImportLambdaFunctionQualifiedArn"
@@ -835,7 +828,7 @@
       "serviceProvider": null,
       "instanceParameters": null
     },
-    "serviceRawFile": "service: myImportService\r\nframeworkVersion: '4'\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs18.x\r\n  region: us-east-1\r\n\r\nfunctions:\r\n  import:\r\n    handler: import.handler\r\n    timeout: 29\r\n    memorySize: 1024\r\n    events:\r\n      - http:\r\n          path: import\r\n          method: get\r\n          cors:\r\n            origins: \r\n              - 'http://localhost'\r\n              - 'http://localhost:3000'\r\n            headers:\r\n              - Content-Type\r\n              - X-Amz-Date\r\n              - Authorization\r\n              - X-Api-Key\r\n              - X-Amz-Security-Token\r\n              - X-Amz-User-Agent\r\n            allowedMethods: ['GET', 'OPTIONS']\r\n            allowCredentials: true\r\n      - http:\r\n          path: import\r\n          method: options\r\n          cors:\r\n            origins: ['http://localhost']\r\n            headers:\r\n              - Content-Type\r\n              - X-Amz-Date\r\n              - Authorization\r\n              - X-Api-Key\r\n              - X-Amz-Security-Token\r\n              - X-Amz-User-Agent\r\n            allowedMethods: ['GET', 'OPTIONS']\r\n            allowCredentials: true",
+    "serviceRawFile": "service: myImportService\r\nframeworkVersion: '4'\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs18.x\r\n  region: us-east-1\r\n\r\nfunctions:\r\n  import:\r\n    handler: import.handler\r\n    timeout: 29\r\n    memorySize: 1024\r\n    events:\r\n      - http:\r\n          path: import\r\n          method: get\r\n          cors:\r\n            origins: \r\n              - 'http://localhost'\r\n              - 'http://localhost:3000'\r\n            headers:\r\n              - Content-Type\r\n              - X-Amz-Date\r\n              - Authorization\r\n              - X-Api-Key\r\n              - X-Amz-Security-Token\r\n              - X-Amz-User-Agent\r\n            methods: ['GET', 'OPTIONS']\r\n            allowCredentials: true\r\n      - http:\r\n          path: import\r\n          method: options\r\n          cors:\r\n            origins: ['http://localhost']\r\n            headers:\r\n              - Content-Type\r\n              - X-Amz-Date\r\n              - Authorization\r\n              - X-Api-Key\r\n              - X-Amz-Security-Token\r\n              - X-Amz-User-Agent\r\n            methods: ['GET', 'OPTIONS']\r\n            allowCredentials: true",
     "command": [
       "deploy"
     ],
@@ -848,12 +841,12 @@
     "serviceProviderAwsCfStackName": "myImportService-dev",
     "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:218827615080:stack/myImportService-dev/d341c9e0-e11d-11ef-88e5-0affceca2edf",
     "serviceProviderAwsCfStackCreated": "2025-02-02T04:26:08.753Z",
-    "serviceProviderAwsCfStackUpdated": "2025-02-02T06:45:38.660Z",
+    "serviceProviderAwsCfStackUpdated": "2025-02-03T01:47:20.200Z",
     "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
     "serviceProviderAwsCfStackOutputs": [
       {
         "OutputKey": "ImportLambdaFunctionQualifiedArn",
-        "OutputValue": "arn:aws:lambda:us-east-1:218827615080:function:myImportService-dev-import:16",
+        "OutputValue": "arn:aws:lambda:us-east-1:218827615080:function:myImportService-dev-import:19",
         "Description": "Current Lambda function version",
         "ExportName": "sls-myImportService-dev-ImportLambdaFunctionQualifiedArn"
       },
@@ -962,7 +955,7 @@
           "Properties": {
             "Code": {
               "S3Bucket": "serverless-framework-deployments-us-east-1-578d5336-5865",
-              "S3Key": "serverless/myImportService/dev/1738479392199-2025-02-02T06:56:32.199Z/myImportService.zip"
+              "S3Key": "serverless/myImportService/dev/1738548571409-2025-02-03T02:09:31.409Z/myImportService.zip"
             },
             "Handler": "import.handler",
             "Runtime": "nodejs18.x",
@@ -980,14 +973,14 @@
             "ImportLogGroup"
           ]
         },
-        "ImportLambdaVersionNHzQEbwbdiV8uNvUfW1wvxvlH88JLbv4nSIjmMoI": {
+        "ImportLambdaVersionLkRPGyqhBHRBl6huOqthW0UVmNfL5kufjQHF2o272k": {
           "Type": "AWS::Lambda::Version",
           "DeletionPolicy": "Retain",
           "Properties": {
             "FunctionName": {
               "Ref": "ImportLambdaFunction"
             },
-            "CodeSha256": "PKJbTWsv0Ob7tiWjfO9pEcfiA7XXuuTQ9RxhTgSfyBQ="
+            "CodeSha256": "/oHMy9U60svL/ceuPbIVfD3OLTfLlXkuPLS6y7xErso="
           }
         },
         "ApiGatewayRestApi": {
@@ -1047,7 +1040,7 @@
                   "ResponseParameters": {
                     "method.response.header.Access-Control-Allow-Origin": "'http://localhost'",
                     "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
-                    "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'",
+                    "method.response.header.Access-Control-Allow-Methods": "'GET,OPTIONS'",
                     "method.response.header.Access-Control-Allow-Credentials": "<REDACTED>"
                   },
                   "ResponseTemplates": {
@@ -1138,7 +1131,7 @@
             "ImportLambdaPermissionApiGateway"
           ]
         },
-        "ApiGatewayDeployment1738479377233": {
+        "ApiGatewayDeployment1738548554832": {
           "Type": "AWS::ApiGateway::Deployment",
           "Properties": {
             "RestApiId": {
@@ -1200,7 +1193,7 @@
         "ImportLambdaFunctionQualifiedArn": {
           "Description": "Current Lambda function version",
           "Value": {
-            "Ref": "ImportLambdaVersionNHzQEbwbdiV8uNvUfW1wvxvlH88JLbv4nSIjmMoI"
+            "Ref": "ImportLambdaVersionLkRPGyqhBHRBl6huOqthW0UVmNfL5kufjQHF2o272k"
           },
           "Export": {
             "Name": "sls-myImportService-dev-ImportLambdaFunctionQualifiedArn"
