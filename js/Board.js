@@ -58,6 +58,7 @@ class Board {
         this.itemTriggers = new Map(); //functions to call when any item on this board is triggered
         this.freezeTriggers = new Map(); //functions to call when any item on this board is frozen
         this.shieldValuesChangedTriggers = new Map(); //functions to call when shield values change
+        this.itemValuesChangedTriggers = new Map(); //functions to call when item values change
         this.hasteTriggers = new Map(); //functions to call when haste is applied to any item on this board
         this.slowTriggers = new Map(); //functions to call when slow is applied to any item on this board
         this.burnTriggers = new Map();
@@ -79,10 +80,8 @@ class Board {
     itemDidCrit(item) {
         this.critTriggers.forEach(func => func(item));
     }
-
-
-    shieldValuesChanged() {
-        this.shieldValuesChangedTriggers.forEach(func => func());
+    itemValuesChanged(item) {
+        this.itemValuesChangedTriggers.forEach(func => func(item));
     }
     updateHealthElement() {
         const healthPercent = (this.player?.health || 0) / (this.player?.maxHealth || 1000) * 100;
@@ -419,6 +418,7 @@ class Board {
     resetItems() {
         this.items.forEach(item => item.reset());
         this.items.forEach(item => item.setup());
+        this.items.forEach(item => item.updateTriggerValuesElement());
         this.resetSkills();
     }
     resetSkills() {
