@@ -594,11 +594,13 @@ export class Item {
         match = text.match(damageRegex);
         if(match) {
             const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
-            this.damage = this.board.highestShieldValue = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
+            this.highestShieldValue = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
+            this.damage = this.highestShieldValue;
+
             this.board.shieldValuesChangedTriggers.set(this.id, (shieldItem) => {
-                if(shieldItem.shield != this.board.highestShieldValue) {
-                    let shieldDiff = shieldItem.shield - this.board.highestShieldValue;
-                    this.board.highestShieldValue = shieldItem.shield;
+                if(shieldItem.shield != this.highestShieldValue) {
+                    let shieldDiff = shieldItem.shield - this.highestShieldValue;
+                    this.highestShieldValue = shieldItem.shield;
                     this.gain(shieldDiff,'damage');
                     this.updateTriggerValuesElement();
                 }
@@ -998,9 +1000,9 @@ export class Item {
         regex = /Your Shield items gain\s*\(\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*\)\s*Shield for the fight/i;
         match = text.match(regex);
         if (match) {
-            const shieldAmount = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);
-            const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
+            const shieldAmount = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);            
             return () => {
+                const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
                 shieldItems.forEach(item => {
                     item.gain(shieldAmount,'shield');
                     log(this.name + " gave " + item.name + " " + shieldAmount + " shield");
@@ -1044,6 +1046,7 @@ export class Item {
         if (match) {
             const shieldAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             this.shield = shieldAmount;
+            this.board.shieldValuesChangedTriggers.forEach(func => func(this));
             return () => {
                 this.applyShield(this.shield);
             };            
@@ -1607,7 +1610,7 @@ export class Item {
                 parseInt(match[3]) : // Single value format
                 getRarityValue(match.slice(1, 3).filter(Boolean).join('»'), this.rarity); // Rarity progression format
             return () => {
-                this.board.items.forEach(i => i.crit += critGain);
+                this.board.items.forEach(i => i.gain(critGain,'crit'));
                 log(this.name + " gave all items " + critGain + " crit chance");
             }
         }
@@ -1776,7 +1779,7 @@ export class Item {
         if(match) {
             const critGain = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);
             this.getAdjacentItems().forEach(item => {
-                item.crit += critGain;
+                item.gain(critGain,'crit');
             });
             return ()=>{};
         }
