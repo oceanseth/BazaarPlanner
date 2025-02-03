@@ -353,6 +353,7 @@ const battleButton = document.querySelector('.battle-button');
 
 var battleInterval = undefined;
 var startBattleTime;
+var battleIntervalSpeed = 100;
 function log(s) {
     combatLogEntries.push(s);
 }
@@ -371,10 +372,16 @@ function battleFunction() {
         alert("you lose");
         return;
     }
-    battleTimeDiff += 100;
-    topPlayer.updateCombat(100);
-    bottomPlayer.updateCombat(100);
-    
+    battleTimeDiff += battleIntervalSpeed;
+
+    if(battleRandom()>.5) {
+        topPlayer.updateCombat(battleIntervalSpeed);
+        bottomPlayer.updateCombat(battleIntervalSpeed);
+    } else {
+        bottomPlayer.updateCombat(battleIntervalSpeed);
+        topPlayer.updateCombat(battleIntervalSpeed);
+    }
+
   if(battleTimeDiff>30000) {
     let sandstormDmg = Math.floor(sandstormValue);
     log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
@@ -408,7 +415,7 @@ function pauseBattle() {
 
 function unpauseBattle() {
     isPaused = 0;
-    battleInterval = setInterval(battleFunction, 100);
+    battleInterval = setInterval(battleFunction, battleIntervalSpeed);
     // Update button
     battleButton.textContent = 'Pause Battle';
     battleButton.classList.add('pause-battle');
@@ -444,7 +451,7 @@ function startBattle() {
     
     window.battleTimeDiff = 0;
 
-    battleInterval = setInterval(battleFunction, 100);
+    battleInterval = setInterval(battleFunction, battleIntervalSpeed);
 
     // Update button
     battleButton.textContent = 'Pause Battle';

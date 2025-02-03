@@ -874,8 +874,8 @@ export class Item {
             const shieldAmount = this.getAdjacentItems().reduce((sum, item) => sum + item.value, 0) * multiplier;
             this.shield = shieldAmount;
             return () => {
-                const shieldAmount = this.getAdjacentItems().reduce((sum, item) => sum + item.value, 0) * multiplier;
-                this.shield = shieldAmount;
+           //     const shieldAmount = this.getAdjacentItems().reduce((sum, item) => sum + item.value, 0) * multiplier;
+            //    this.shield = shieldAmount;
                 this.applyShield(shieldAmount);
             };
         }
@@ -1587,11 +1587,13 @@ export class Item {
            this.damageElement.classList.add('lifesteal');
            return () => {};
         }
+
         //This has +1 Multicast for each adjacent Property.
-        regex = /^\s*This has \+\d+ Multicast for each adjacent ([^\s^\.]+)\.?/i;
+        //For each adjacent Vehicle, this has +1 Multicast. 
+        regex = /^\s*(?:This has \+1 Multicast for each adjacent ([^\s^\.]+)|For each adjacent ([^\s^\.]+), this has \+1 Multicast)\.?/i;
         match = text.match(regex);
         if(match) {
-            const tagToMatch = Item.getTagFromText(match[1]);
+            const tagToMatch = match[1]?Item.getTagFromText(match[1]):Item.getTagFromText(match[2]);
             this.getAdjacentItems().forEach(item => {
                 if(item.tags.includes(tagToMatch)) {
                     this.multicast++;
@@ -1599,6 +1601,8 @@ export class Item {
             });
             return () => {};
         }
+    
+
         //This has +1 Multicast for each Property you have.
         regex = /^\s*This has \+(\d+) Multicast for each ([^\s^\.]+) you have\.?/i;
         match = text.match(regex);
