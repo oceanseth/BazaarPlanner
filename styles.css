@@ -452,7 +452,7 @@ button:active {
     border-radius: 4px;
 }
 
-.item-edit-popup .button-group {
+.button-group {
     display: flex;
     gap: 10px;
     justify-content: flex-end;
@@ -907,7 +907,7 @@ button:active {
     display: flex;
     gap: 4px;
 }
-#player-editor {
+.editor {
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -920,26 +920,26 @@ button:active {
     color: #333;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     z-index:2000;
+    text-align: center;
 }
 
-#player-editor h1 {
-    text-align: center;
+.editor h1 {
     margin: 0 0 20px 0;
     font-size: 24px;
 }
 
-#player-editor .form-row {
+.editor .form-row {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
 }
 
-#player-editor label {
+.editor label {
     width: 30%;
     font-size: 16px;
 }
 
-#player-editor input {
+.editor input {
     width: 70%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -948,7 +948,7 @@ button:active {
     color: #333;
 }
 
-#player-editor button {
+.editor button {
     display: block;
     margin: 20px auto 0;
     padding: 8px 24px;
@@ -961,15 +961,31 @@ button:active {
     transition: background-color 0.3s;
 }
 
-#player-editor button:hover {
+.editor button:hover {
     background: #45a049;
 }
-
+.editor-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.editor-delete {
+    background-color: red;
+}
+.editor .form-group {
+    width: 100%;
+    display: flex;
+    text-align: left;
+    align-items: center;
+    margin:5px;
+}
 .multicast-element {
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     top: 30px;  /* 20px (height of trigger-values) + 10px spacing */
     left: 50%;
+
+
     transform: translateX(-50%);  /* Centers the element horizontally */
     color: white;
     font-size: 10px;
@@ -1103,3 +1119,73 @@ background-color: rgba(255, 0, 0, 0.2);
     position:absolute;
     left: -25px;
 }
+.add-skill-button {
+    position: absolute;
+    top: -40px;
+    right: 0px;
+    color: black;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+}
+.add-skill-button:hover {
+    text-shadow: 
+    -0.5px -0.5px 0 #333,
+    0.5px -0.5px 0 #333,
+    -0.5px 0.5px 0 #333,
+    0.5px 0.5px 0 #333,
+    1px 1px 1px rgba(0, 0, 0, 1);
+}
+.skill-selector {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 380px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    z-index: 1000;
+}
+.skill-selector-header {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom:10px;
+}
+
+.skill-selector-body {
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    overflow-y: scroll;
+}
+.skill-selector-item {
+    height: 25px;
+    line-height: 25px;
+    padding:0px;
+    margin:0px;
+    cursor: pointer;
+    text-align: left;
+}
+.skill-selector-item:hover {
+    background-color: #f0f0f0;
+}
+.skill-selector-item img {
+    width: 20px;
+    height: 20px;
+}
+
+.skill-selector-footer {
+    text-align: center;
+    padding:10px;
+}
+.skill-selector-close {
+    padding:10px;
+    margin-top:10px;
+}
+
+
+

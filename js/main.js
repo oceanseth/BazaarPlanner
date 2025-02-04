@@ -535,4 +535,14 @@ document.addEventListener('click', (e) => {
     if (!searchContainer && dropdown) {
         dropdown.style.display = 'none';
     }
+
+    if(e.target.closest('.editorOpener')==null && e.target.closest('.editor')==null) {
+        document.querySelectorAll('.editor').forEach(editor => {
+            editor.style.display = 'none';
+        });
+    }
+
+
+
+
 });

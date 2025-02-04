@@ -50,10 +50,10 @@ export function updateUrlState() {
                 toReturn[key] = item[key];
             }
         }
-        if(parseInt(Item.getStartingCooldownFromText(baseItem.cooldown)) == parseInt(item.cooldown/1000))
+        if(parseInt(item.getStartingCooldownFromText(baseItem.cooldown)) == parseInt(item.getStartingCooldownFromText(item.startItemData.cooldown)))
             delete toReturn.cooldown;
         else {
-            toReturn.cooldown = parseInt(item.cooldown/1000);
+            toReturn.cooldown = parseInt(item.startItemData.cooldown);
         }
         return toReturn;
     });
