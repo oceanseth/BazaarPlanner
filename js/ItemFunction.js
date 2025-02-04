@@ -188,4 +188,14 @@ ItemFunction.items.set("Pulse Rifle",(item)=>{
     item.dealDamage(item.damage);
    });
 });
+ItemFunction.items.set("Anything to Win",(item)=>{
+    //When you use a non-weapon item, Burn (  1  » 2  » 3   ) and Poison (  1  » 2  » 3   ).
+    const amount = getRarityValue("1 >> 2 >> 3",item.rarity);
+    item.board.itemTriggers.set(item.id,(i)=>{
+        if(i.tags.includes("Weapon")) return;
+        item.applyBurn(amount);
+        item.applyPoison(amount);
+    });
+});
+
 ItemFunction.setupItems();
