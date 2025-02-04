@@ -1,0 +1,32 @@
+{
+  "rules": {
+    "polls": {
+      "harmpoll": {
+        "$voteType": {
+          "$uid": {
+            ".write": "$uid === auth.uid",
+            ".validate": "!data.exists() && 
+                         !root.child('polls/harmpoll/yes').child($uid).exists() && 
+                         !root.child('polls/harmpoll/no').child($uid).exists() &&
+                         newData.child('timestamp').exists()",
+            ".read": true
+          }
+        },
+        "counts": {
+          ".read": true,
+          "$voteType": {
+            ".write": "auth !== null",
+            ".validate": "newData.isNumber() && 
+                        data.exists() && 
+                        newData.val() === data.val() + 1 &&
+                        // Verify the same update includes the user's vote
+                        newData.parent().parent().child($voteType).child(auth.uid).exists() &&
+                        !data.parent().parent().child($voteType).child(auth.uid).exists() &&
+                        // Verify user hasn't voted in the other option
+                        !root.child('polls/harmpoll/' + ($voteType === 'yes' ? 'no' : 'yes')).child(auth.uid).exists()"
+          }
+        }
+      }
+    }
+  }
+} 

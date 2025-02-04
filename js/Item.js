@@ -538,8 +538,20 @@ export class Item {
         this.freezeElement.classList.add('hidden');
         log(source.name + ' unfroze ' + this.name);
     }
+    applyPoison(poisonAmount) {
+        let doesCrit = this.doICrit();
+        if(doesCrit) {
+            poisonAmount *= (1+this.critMultiplier/100);
+        }
+        log(this.name + (doesCrit?"critically ":"")+" poisoned " + this.board.player.hostileTarget.name + " for " + poisonAmount);
+        this.board.player.hostileTarget.applyPoison(poisonAmount);
+        if(doesCrit) {
+            this.board.itemDidCrit(this);
+        }
+    }
     getWeaponTriggerFunction(text) {
         let match;
+
 
         //Deal damage equal to ( 20% » 30% ) of your enemy's Max Health.
         let damageRegex = /Deal damage equal to \(([^)]+)\) of (your|your enemy's|the enemy's) Max Health/i;
