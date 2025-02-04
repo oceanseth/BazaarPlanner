@@ -1,15 +1,22 @@
-import { colorTextArray } from './utils.js';
+import { colorTextArray, updateUrlState } from './utils.js';
+import { Item } from './Item.js';
+
 
 export class Skill {
     constructor(skillData) {
         Object.assign(this, skillData);
-        
+        this.itemProxy = new Item({
+            name: this.name,
+            rarity: this.rarity,
+            text: [this.text],
+            tags: this.tags
+        });
+
 
         const skillElement = document.createElement('div');
         skillElement.className = 'skill-icon';
-        if(skillData.rarity) {
-            skillElement.classList.add(skillData.rarity);
-        }
+        skillElement.classList.add('editorOpener');
+     
         skillElement.style.position = 'relative';
         skillElement.dataset.skill = JSON.stringify(skillData);
         
@@ -30,27 +37,89 @@ export class Skill {
             this.tooltip.remove();
             this.tooltip = null;
         });
+        skillElement.addEventListener('click', () => {
+            this.showEditor();
+        });
+        this.reset();
     }
     reset() {
-        let regext = "your items have \(\s*(\d+)\s*»\s*(\d+)\s*»\s*(\d+)\s*»\s*(\d+)\s*\) crit chance"
-        let match = this.text.match(regext);        
-        if(match) {
-            let critChance = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);
-            this.board.items.forEach(item => {
-                item.crit += this.critChance;
-            });
+        this.element.classList.remove(...Item.rarityLevels);
+        if(this.rarity) {
+            this.element.classList.add(this.rarity);
+            this.itemProxy.rarity = this.rarity;
         }
+        this.itemProxy.reset();
+    }
+
+
+    setup() {
+        this.itemProxy.board=this.board;
+        this.itemProxy.rarity = this.rarity;
+        this.itemProxy.setup();
+    }
+    setBoard(board) {
+        this.itemProxy.board = board;
     }
     static getDataFromName(name) {
         if(!skills[name]) {
             console.log("Skill not found: " + name);
+
             return null;
         }
         return structuredClone(skills[name]);
     }
+    showEditor() {
+        if(this.editor) {
+            this.editor.style.display = 'block';
+            return;
+        }
+        this.editor = document.createElement('div');
+        this.editor.className = 'editor';
+        this.editor.innerHTML = `
+            <div class="editor-header">
+                <h3>${this.name}</h3>
 
+
+            </div>
+            <div class="editor-body">
+                <div class="form-group">
+                    <label>Rarity:</label>
+                    <select id="editor-rarity">
+                        ${Item.rarityLevels.map(r => 
+                            `<option value="${r}" ${r==this.rarity?'selected':''}>${r}</option>`
+                        ).join('')}
+                    </select>
+                </div>
+            </div>
+            <div class="editor-footer">
+                <button class="editor-delete">Remove</button>
+                <button class="editor-save">Save</button>
+            </div>
+
+
+        `;
+        document.body.appendChild(this.editor);
+
+        this.editor.querySelector('.editor-save').onclick = () => {
+            const oldRarity = this.rarity;
+            this.rarity = this.editor.querySelector('#editor-rarity').value;
+
+            if(oldRarity!=this.rarity) {
+                this.board.player.reset();
+                updateUrlState();
+            }
+            this.editor.style.display = 'none';
+        };
+        this.editor.querySelector('.editor-delete').onclick = () => {
+            this.editor.style.display = 'none';
+            this.board.removeSkill(this);
+        };
+    }
     createTooltipElement() {
         const tooltip = document.createElement('div');
+
+
+
         tooltip.className = 'tooltip';
 
         // Handle tags - convert to array if it's an object

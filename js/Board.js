@@ -38,6 +38,17 @@ class Board {
             this.element.appendChild(slot);
             this.slots.push(slot);
         }
+
+        const addSkillButton = document.createElement('div');
+        addSkillButton.className = 'add-skill-button';
+        addSkillButton.classList.add('editorOpener');
+        addSkillButton.innerHTML = "➕";
+        addSkillButton.onclick = () => {
+            this.showSkillSelector();
+        };
+        this.element.appendChild(addSkillButton);
+
+
         this.createHealthElement();
         this.createSkillsElement();
         this.createGoldElement();
@@ -77,6 +88,52 @@ class Board {
         this.updateGoldElement();
         this.updateIncomeElement();
     }
+    showSkillSelector() {
+        if(this.skillSelector) {
+            document.body.removeChild(this.skillSelector);
+        }
+        this.skillSelector = document.createElement('div');
+        this.skillSelector.classList.add('skill-selector', 'editor');
+        this.skillSelector.innerHTML = `
+            <div class="skill-selector-header">
+                <div class="form-group">
+                    <label>Skill Rarity:</label>
+                    <select id="skill-selector-rarity">
+                        ${Item.rarityLevels.map(r => 
+                            `<option value="${r}">${r}</option>`
+                        ).join('')}
+                    </select>
+                </div>
+            </div>
+            <div class="skill-selector-body">
+            </div>
+        `;
+        this.skillSelector.style.display = 'block';
+        
+        for(let skillName in skills) {
+            if(this.skills.find(skill => skill.name == skillName)) continue;
+            const skillItem = document.createElement('div');
+            skillItem.className = 'skill-selector-item';
+            skillItem.innerHTML = `
+                <img src="${skills[skillName].icon}" alt="${skills[skillName].name}">
+                <span>${skills[skillName].name}</span>
+            `;
+            this.skillSelector.querySelector('.skill-selector-body').appendChild(skillItem);
+            skillItem.onclick = () => {
+                const rarity = this.skillSelector.querySelector('#skill-selector-rarity').value;
+                this.addSkill(skillName,{rarity:rarity});
+                this.skillSelector.style.display = 'none';
+            };
+
+
+        }    
+        document.body.appendChild(this.skillSelector);
+    }
+    
+
+
+
+
     itemDidCrit(item) {
         this.critTriggers.forEach(func => func(item));
     }
@@ -173,11 +230,20 @@ class Board {
         this.skills.push(newSkill);
         newSkill.board = this;
         this.skillsElement.appendChild(newSkill.element);
+        newSkill.setup();
+    }
+    removeSkill(skill) {
+        this.skills = this.skills.filter(s => s !== skill);
+        this.skillsElement.removeChild(skill.element);
+        this.player.reset();
+        updateUrlState();
     }
 
     createHealthElement() {
         this.healthElement = document.createElement('div');
+
         this.healthElement.className = 'health-element';
+        this.healthElement.classList.add('editorOpener');
 
         this.healthElementHealth = document.createElement('div');
         this.healthElementHealth.className = 'health-element-health';
@@ -418,12 +484,15 @@ class Board {
     resetItems() {
         this.items.forEach(item => item.reset());
         this.items.forEach(item => item.setup());
-        this.items.forEach(item => item.updateTriggerValuesElement());
         this.resetSkills();
+        this.items.forEach(item => item.updateTriggerValuesElement());
     }
     resetSkills() {
+        this.skills.forEach(skill => skill.setBoard(this));
         this.skills.forEach(skill => skill.reset());
+        this.skills.forEach(skill => skill.setup());
     }
+
 
     static handleDragStart(e) {
         const draggedElement = e.currentTarget;
