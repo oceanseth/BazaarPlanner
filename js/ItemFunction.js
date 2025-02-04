@@ -44,9 +44,10 @@ ItemFunction.items.set("Balcony",(item)=>{
     //The Property to the left of this has double value in combat and has its cooldown reduced by ( 10% » 20% » 30% ).
     const property = item.getItemToTheLeft();
     if(property && property.tags.includes("Property")) {
-        property.value *= 2;
+        property.gain(property.value,'value');
         property.cooldown *= 1-(getRarityValue("10 >> 10 >> 20 >> 30",item.rarity)/100);
         property.updateTriggerValuesElement();
+
     }
 });
 ItemFunction.items.set("Cryosleeve",(item)=>{
@@ -158,7 +159,19 @@ ItemFunction.items.set("Cybersecurity",(item)=>{
         }
       });
 });
+
+ItemFunction.items.set("Atomic Clock",(item)=>{
+//Increase an enemy item's cooldown by ( 1 » 2 » 3 ) seconds for the fight.
+item.triggerFunctions.push(()=>{
+    item.board.player.hostileTarget.board.items.forEach(i=>{
+        i.cooldown += 1000*getRarityValue("1 >> 2 >> 3",item.rarity);
+        i.updateTriggerValuesElement();
+    });
+});
+});
+
 ItemFunction.items.set("Pulse Rifle",(item)=>{
+
     //Deal ( 10 » 20 » 40 » 80 ) damage. 
    //This has +1 Multicast if it is adjacent to a Friend. Double this if it is your only Friend.
    item.damage = getRarityValue("10 >> 20 >> 40 >> 80",item.rarity);

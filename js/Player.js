@@ -37,10 +37,15 @@ export class Player {
         if(this.health > this.maxHealth) this.health = this.maxHealth;
     }
     openEditor() {
-        const editorElement = document.createElement("div");
-        editorElement.id = "player-editor";
-        editorElement.innerHTML = `
+        if(this.editorElement) {
+            this.editorElement.style.display = "block";
+            return;
+        }
+        this.editorElement = document.createElement("div");
+        this.editorElement.className = "editor";
+        this.editorElement.innerHTML = `
             <h1>Edit Player</h1>
+
             <div class="form-row">
                 <label for="player-name">Name:</label>
                 <input type="text" id="player-name" value="${this.name}"/>
@@ -53,16 +58,30 @@ export class Player {
                 <label for="player-income">Income:</label>
                 <input type="number" id="player-income" value="${this.income}"/>
             </div>
+            <div class="form-row">
+                <label for="player-gold">Gold:</label>
+                <input type="number" id="player-gold" value="${this.gold}"/>
+            </div>
+            <div class="form-row">
+
+                <label for="player-level">Level:</label>
+                <input type="number" id="player-level" value="${this.level}"/>
+            </div>
             <button id="save-player">Save</button>
         `;
-        document.body.appendChild(editorElement);
-        editorElement.querySelector("#save-player").addEventListener("click", () => {
-            this.name = editorElement.querySelector("#player-name").value;
-            this.maxHealth = parseInt(editorElement.querySelector("#player-max-health").value);
-            this.income = parseInt(editorElement.querySelector("#player-income").value);
+        document.body.appendChild(this.editorElement);
+
+
+        this.editorElement.querySelector("#save-player").addEventListener("click", () => {
+            this.name = this.editorElement.querySelector("#player-name").value;
+            this.maxHealth = parseInt(this.editorElement.querySelector("#player-max-health").value);
+            this.income = parseInt(this.editorElement.querySelector("#player-income").value);
             this.health = this.maxHealth;
-            editorElement.remove();
-            this.board.reset();
+            this.level = parseInt(this.editorElement.querySelector("#player-level").value);
+            this.gold = parseInt(this.editorElement.querySelector("#player-gold").value);
+            
+            this.editorElement.style.display = "none";
+            this.board.player.reset();
             updateUrlState();
         });
     }
@@ -98,6 +117,10 @@ export class Player {
     applyPoison(poisonAmount) {
         this.poison += poisonAmount;
     }
+    gainRegen(regenAmount) {
+        this.regen += regenAmount;
+    }
+
 
 
     updateCombat(timeDiff) {
