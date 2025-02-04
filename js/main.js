@@ -76,9 +76,18 @@ window.closePoll = function() {
     });
 }
 window.pollCheck = function() {
+    if(!window.user) {
+        document.querySelector('.poll-login').style.display = 'block';
+        document.querySelector('.poll-button-group').style.display = 'none';
+        return;
+    }
+    document.querySelector('.poll-login').style.display = 'none';
+    document.querySelector('.poll-button-group').style.display = 'block';
+
     const userVoteChecks = Promise.all([
         firebase.database().ref(`polls/harmpoll/yes/${window.user.uid}`).once('value'),
         firebase.database().ref(`polls/harmpoll/no/${window.user.uid}`).once('value')
+
     ]).then(([yesSnapshot, noSnapshot]) => {
         if (yesSnapshot.exists() || noSnapshot.exists()) {
             closePoll();
@@ -202,6 +211,7 @@ window.onload = () => {
 
         // Track auth state
         function initApp() {
+            pollCheck();
             firebase.auth().onAuthStateChanged(function(user) {
                 // Get the login button
                 const loginButton = document.querySelector('button[onclick="login()"]');
