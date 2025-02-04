@@ -72,8 +72,28 @@
             </div>
         </div>
         <!-- Simulator Section -->
-        <div id="simulator" class="section">
+        <div id="simulator" class="section polling">
+            <div id="poll">
+                <h1>Message from Reynad</h1>
+                Today, I received a message from Reynad, the developer of Bazaar.<br/><br/>
+                <i><b>"Hey, unfortunately we need you to take down bazaarplanner.com. Combat simulation is a red line for us with external tools because it will harm gameplay a lot in the long run."</b></i><br/><br/>
+                I think he's right that simulators can harm gameplay, but I'm not sure what we're doing here will do that. 
+                As long as the simulator is external, and mostly a tool to learn, perhaps it will increase enagement, enjoyment, and entertainment within the game when you play!
+                <br><br>
+                Please answer the poll before you use the site.
+                <br/><br/>
+                <hr>
+                <br/><br/>
+                Will this <b>current</b> site harm gameplay/your enjoyment of the game?
+                <br/><br/><br/>
+                <div id="button-group">
+                    <button onclick="poll(true)">Yes</button>
+                    <button onclick="poll(false)">No</button>          
+                </div>
+            </div>
+
             <div id="simulator-controls">
+
                 <input type="text" id="simulator-search-input" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" autocomplete="off" placeholder="Search items...">
                 <div class="search-container">
                     <input type="text" 

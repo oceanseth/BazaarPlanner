@@ -30,6 +30,63 @@ window.updateCombatLogDisplay = updateCombatLogDisplay;
 window.createListItem = createListItem;
 window.search = search;
 window.populateSearchSuggestions = populateSearchSuggestions;
+window.poll = (answer) => {
+    if(!window.user) {
+        alert("You must be logged in to poll, please click login on top right of the page.");
+        return;
+    }
+
+    const voteType = answer ? 'yes' : 'no';
+
+    // Get current count first
+
+    firebase.database().ref(`polls/harmpoll/counts/${voteType}`).once('value')
+
+        .then(snapshot => {
+            const currentCount = snapshot.val() || 0;
+            
+            // Create multi-path update
+            const updates = {};
+            updates[`polls/harmpoll/${voteType}/${window.user.uid}`] = {
+                timestamp: firebase.database.ServerValue.TIMESTAMP
+            };
+            updates[`polls/harmpoll/counts/${voteType}`] = currentCount + 1;
+            
+            // Attempt to update both paths atomically
+            return firebase.database().ref().update(updates);
+        })
+        .catch(error => {
+            if (error.code === 'PERMISSION_DENIED') {
+                alert('You have already voted!');
+            } else {
+                console.error('Error casting vote:', error);
+            }
+        }).finally(() => {
+            closePoll();                                
+        });
+}
+window.closePoll = function() {
+    document.getElementById('poll').remove();
+    document.getElementById('simulator').classList.remove('polling');
+    document.getElementById('sign-in-status').innerHTML = 'Does Bazaarplanner harm the game? Poll Results: Yes: <span id="yesResult"></span> No: <span id="noResult"></span>';
+    firebase.database().ref('polls/harmpoll/counts').on('value', snapshot => {
+        const counts = snapshot.val() || { yes: 0, no: 0 };
+        document.getElementById('yesResult').innerHTML = counts.yes;
+        document.getElementById('noResult').innerHTML = counts.no;
+    });
+}
+window.pollCheck = function() {
+    const userVoteChecks = Promise.all([
+        firebase.database().ref(`polls/harmpoll/yes/${window.user.uid}`).once('value'),
+        firebase.database().ref(`polls/harmpoll/no/${window.user.uid}`).once('value')
+    ]).then(([yesSnapshot, noSnapshot]) => {
+        if (yesSnapshot.exists() || noSnapshot.exists()) {
+            closePoll();
+        }
+    });
+}
+
+
 
 // Initialize delete zone globally
 const deleteZone = document.createElement('div');
@@ -37,6 +94,7 @@ deleteZone.className = 'delete-zone';
 deleteZone.textContent = ' Drop here to delete';
 document.querySelector('.board-container:last-child').appendChild(deleteZone);
 window.deleteZone = deleteZone;
+
 
 window.onload = () => {
      /*   const monstersList = document.getElementById('monstersList');
@@ -168,6 +226,7 @@ window.onload = () => {
                             loginButton.textContent = 'Logout';
                             loginButton.onclick = logout;
                         }
+                        pollCheck();
                     });
                     
                     // Hide the auth UI when signed in

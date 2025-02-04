@@ -1189,3 +1189,30 @@ background-color: rgba(255, 0, 0, 0.2);
 
 
 
+#poll {
+    position: fixed;
+    left: 50%;
+    transform: translate(100, -50%);
+    z-index: 1000;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 90%;
+    height:500px;
+    text-align: center;
+}
+
+#simulator.polling #simulator-controls,
+#simulator.polling .board-container,
+#simulator.polling .battle-button,
+#simulator.polling #combat-log-div {
+    filter: blur(4px);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#simulator.polling {
+    position: relative;
+}
