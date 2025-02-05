@@ -457,7 +457,14 @@ function battleFunction() {
     topPlayer.takeDamage(sandstormDmg);
     bottomPlayer.takeDamage(sandstormDmg);
     sandstormValue+=sandstormIncrement;
+
   }
+  
+  [topPlayer,bottomPlayer].forEach(player => {
+    if(player.health <= 0) {
+        player.dieTriggers.forEach(func => func());
+    } 
+  });
 
   updateCombatLogDisplay();
 }

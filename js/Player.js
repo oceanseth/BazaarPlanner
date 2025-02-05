@@ -140,16 +140,19 @@ export class Player {
             this.health += this.regen;
             log( this.name + " regens " + this.regen + " health.");
         }
-        if(this.health < this.maxHealth/2 && !this.fellBelowHalfHealth) {
+        if(this.fellBelowHalfHealth && this.health >= this.maxHealth/2) {            
+            this.healthAboveHalfTriggers.forEach(func => func());
+            this.fellBelowHalfHealth = false;
+        } else if(this.health < this.maxHealth/2 && !this.fellBelowHalfHealth) {
             this.fellBelowHalfHealth = true;
             this.healthBelowHalfTriggers.forEach(func => func());
         }
-        if(this.health <= 0 && !this.diedOnce) {
-            this.diedOnce = true;
-            this.dieTriggers.forEach(func => func());
-        }
+
+
+
         this.board.updateHealthElement();
     }
+
 
 
     reset() {
@@ -170,7 +173,9 @@ export class Player {
         // Trigger arrays for various effects
         this.lostShieldTriggers = new Map();
         this.healthBelowHalfTriggers = new Map();
+        this.healthAboveHalfTriggers = new Map();
         this.dieTriggers = new Map();
+
 
         this.board.reset();
     }

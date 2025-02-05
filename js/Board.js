@@ -104,6 +104,10 @@ class Board {
                         ).join('')}
                     </select>
                 </div>
+                <div class="form-group">
+                    <label>Filter:</label>
+                    <input type=text id='skill-selector-filter'>
+                </div>
             </div>
             <div class="skill-selector-body">
             </div>
@@ -123,10 +127,24 @@ class Board {
                 const rarity = this.skillSelector.querySelector('#skill-selector-rarity').value;
                 this.addSkill(skillName,{rarity:rarity});
                 this.skillSelector.style.display = 'none';
+                updateUrlState();
             };
 
 
         }    
+        this.skillSelector.querySelector('#skill-selector-filter').oninput = (e) => {
+            const filter = e.target.value.toLowerCase();
+            this.skillSelector.querySelector('.skill-selector-body').querySelectorAll('.skill-selector-item').forEach(item => {
+                if(item.querySelector('span').textContent.toLowerCase().includes(filter)) {
+                    item.style.display = 'block';
+
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+
+        }
         document.body.appendChild(this.skillSelector);
     }
     
