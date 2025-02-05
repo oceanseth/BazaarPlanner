@@ -475,8 +475,7 @@ function resetBattle() {
     isPaused=0;
     sandstormValue=1;
     battleInterval = null; // Clear the interval reference
-    topPlayer.reset();
-    bottomPlayer.reset();
+    Board.resetBoards();
     // Reset button
     battleButton.textContent = 'Start Battle';
     battleButton.classList.remove('pause-battle');

@@ -5,10 +5,11 @@ import { Item } from './Item.js';
 export class Skill {
     constructor(skillData) {
         Object.assign(this, skillData);
+        this.text = this.text.split(".").map(t=>t.trim()).filter(t=>t.length>0&&t!='[0]'&&t!='[NaN]'&&t!='[0%]').map(t=>t+".");
         this.itemProxy = new Item({
             name: this.name,
             rarity: this.rarity,
-            text: [this.text],
+            text: this.text,
             tags: this.tags
         });
 
@@ -105,7 +106,7 @@ export class Skill {
             this.rarity = this.editor.querySelector('#editor-rarity').value;
 
             if(oldRarity!=this.rarity) {
-                this.board.player.reset();
+                Board.resetBoards();
                 updateUrlState();
             }
             this.editor.style.display = 'none';
@@ -146,7 +147,7 @@ export class Skill {
                     ${this.cooldown ? `
                         <div class="cooldown-circle">${this.cooldown}<span class="unit">SEC</span></div>
                     ` : ''}
-                    <div class="tooltip-main-text">${colorTextArray([this.text],rarityIndex)}</div>
+                    <div class="tooltip-main-text">${colorTextArray(this.text,rarityIndex)}</div>
                 </div>
 
 

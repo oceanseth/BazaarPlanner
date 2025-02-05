@@ -24,8 +24,8 @@ ItemFunction.items.set("Antimatter Chamber",(item)=>{
         item.triggerFunctions.push(()=>{
             let smallEnemyItems = item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes("Small"));
             let numItemsToDestroy = Math.min(3,smallEnemyItems.length);
-            smallEnemyItems.sort(() => battleRandom() - 0.5).slice(0,numItemsToDestroy).forEach(i=>i.destroy());
-            item.destroy();
+            smallEnemyItems.sort(() => battleRandom() - 0.5).slice(0,numItemsToDestroy).forEach(i=>i.destroy(item));
+            item.destroy(item);
         });
 });
 ItemFunction.items.set("Crow's Nest",(item)=>{
@@ -249,6 +249,27 @@ ItemFunction.items.set("All Talk",(item)=>{
         });
     });
 });
-
+ItemFunction.items.set("Big Ego",(item)=>{
+    //Your Weapons have Lifesteal.
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Weapon")) {
+            i.lifesteal = true;
+        }
+    });
+});
+ItemFunction.items.set("Bonk",(item)=>{
+    //Enemy cooldowns are increased by 1 second(s)
+    item.board.player.hostileTarget.board.items.forEach(i=>{
+        i.cooldown += 1000;
+    });
+});
+ItemFunction.items.set("Big Guns",(item)=>{
+    //Double the damage of your Large weapons. from Big Guns
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Large")) {
+            i.gain(100,'damageMultiplier');
+        }
+    });
+});
 
 ItemFunction.setupItems();

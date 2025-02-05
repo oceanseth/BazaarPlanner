@@ -125,10 +125,7 @@ export function loadFromUrl() {
             newItem.name = name;
             newItem.setIndex(startIndex);
         });
-        Board.boards.forEach(board=>{
-            board.sortItems();
-            board.player.reset();
-        });
+        Board.resetBoards();
     } catch (error) {
         console.error('Error loading board state from URL:', error);
     }

@@ -147,9 +147,6 @@ export class Player {
             this.fellBelowHalfHealth = true;
             this.healthBelowHalfTriggers.forEach(func => func());
         }
-
-
-
         this.board.updateHealthElement();
     }
 
@@ -178,6 +175,9 @@ export class Player {
 
 
         this.board.reset();
+    }
+    setup() {
+        this.board.setup();
     }
     setIncome(income) {
         this.income = income;

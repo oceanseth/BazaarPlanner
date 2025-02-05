@@ -5,6 +5,14 @@ import { updateUrlState } from './utils.js';
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
     static boards = new Map();
+    static resetBoards() {
+        const players = Array.from(Board.boards.values()).map(board=>board.player);
+        players.forEach(player=>player.reset());
+        players.forEach(player=>player.setup());
+    }
+
+
+
 
     static getBoardFromId(boardId) {
         if(Board.boards.has(boardId)) return Board.boards.get(boardId);
@@ -65,9 +73,17 @@ class Board {
         this.reset();
         updateUrlState();
     }
+    get activeItems() {
+        return this.items.filter(item => !item.isDestroyed);
+    }
+    get activeItemCount() {
+        return this.activeItems.length;
+    }
+
     reset() {
         this.itemTriggers = new Map(); //functions to call when any item on this board is triggered
         this.freezeTriggers = new Map(); //functions to call when any item on this board is frozen
+
         this.shieldValuesChangedTriggers = new Map(); //functions to call when shield values change
         this.itemValuesChangedTriggers = new Map(); //functions to call when item values change
         this.hasteTriggers = new Map(); //functions to call when haste is applied to any item on this board
@@ -76,6 +92,7 @@ class Board {
         this.poisonTriggers = new Map();
         this.critTriggers = new Map();
         this.startOfFightTriggers = new Map();
+        this.itemDestroyedTriggers = new Map(); //functions to call when an item on this board is destroyed
         this.healTriggers = [];
         this.shieldTriggers = new Map();
         this.ammoTriggers = [];
@@ -88,6 +105,31 @@ class Board {
         this.updateGoldElement();
         this.updateIncomeElement();
     }
+    
+    setup() {
+        this.setupItems();
+    }
+    setupItems() {
+        this.items.forEach(item => item.setup());
+        this.setupSkills();
+        this.items.forEach(item => item.updateTriggerValuesElement());
+    }
+
+    resetItems() {
+        this.items.forEach(item => item.reset());
+        this.resetSkills();
+        this.items.forEach(item => item.updateTriggerValuesElement());
+    }
+
+    resetSkills() {
+        this.skills.forEach(skill => skill.setBoard(this));
+        this.skills.forEach(skill => skill.reset());
+    }
+    setupSkills() {
+        this.skills.forEach(skill => skill.setup());
+    }
+
+
     showSkillSelector() {
         if(this.skillSelector) {
             document.body.removeChild(this.skillSelector);
@@ -127,8 +169,10 @@ class Board {
                 const rarity = this.skillSelector.querySelector('#skill-selector-rarity').value;
                 this.addSkill(skillName,{rarity:rarity});
                 this.skillSelector.style.display = 'none';
+                Board.resetBoards();
                 updateUrlState();
             };
+
 
 
         }    
@@ -425,13 +469,13 @@ class Board {
                     foundItem.board = targetBoard;
                     targetBoard.addItem(foundItem);
                     foundItem.setIndex(startIndex);
-                    sourceBoard.removeItem(foundItem);
-                    sourceBoard.resetItems();
+                    sourceBoard.removeItem(foundItem);                    
                 }
             } else { // If it was not already on a board, create a new item on the target board
                let newItem = new Item(itemData, targetBoard);
                 newItem.setIndex(startIndex);
             }
+            Board.resetBoards();
         }
         document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
             element.classList.remove('valid-drop', 'invalid-drop', 'dragging');
@@ -444,7 +488,7 @@ class Board {
         this.items.push(item);
         this.element.appendChild(item.element);
         this.sortItems();
-        this.resetItems();
+        Board.resetBoards();
         updateUrlState();
     }
     sortItems() {
@@ -498,19 +542,6 @@ class Board {
         
         input.click();
     }
-
-    resetItems() {
-        this.items.forEach(item => item.reset());
-        this.items.forEach(item => item.setup());
-        this.resetSkills();
-        this.items.forEach(item => item.updateTriggerValuesElement());
-    }
-    resetSkills() {
-        this.skills.forEach(skill => skill.setBoard(this));
-        this.skills.forEach(skill => skill.reset());
-        this.skills.forEach(skill => skill.setup());
-    }
-
 
     static handleDragStart(e) {
         const draggedElement = e.currentTarget;
