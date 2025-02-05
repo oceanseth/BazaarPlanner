@@ -1,3 +1,4 @@
+import { pickRandom } from "./utils.js";
 export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold"];
@@ -23,8 +24,8 @@ ItemFunction.items.set("Antimatter Chamber",(item)=>{
         item.triggerFunctions.push(()=>{
             let smallEnemyItems = item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes("Small"));
             let numItemsToDestroy = Math.min(3,smallEnemyItems.length);
-            smallEnemyItems.sort(() => battleRandom() - 0.5).slice(0,numItemsToDestroy).forEach(i=>i.destroy());
-            item.destroy();
+            smallEnemyItems.sort(() => battleRandom() - 0.5).slice(0,numItemsToDestroy).forEach(i=>i.destroy(item));
+            item.destroy(item);
         });
 });
 ItemFunction.items.set("Crow's Nest",(item)=>{
@@ -139,6 +140,7 @@ ItemFunction.items.set("Luxury Tents",(item)=>{
     item.board.player.dieTriggers.set(item.id,()=>{
         item.board.player.heal(item.board.player.maxHealth*healAmount/100);
         log(item.name + " healed for " + healAmount + "% of max health.");
+        item.board.player.dieTriggers.delete(item.id);
     });
 });
 ItemFunction.items.set("Cybersecurity",(item)=>{
@@ -162,12 +164,15 @@ ItemFunction.items.set("Cybersecurity",(item)=>{
 
 ItemFunction.items.set("Atomic Clock",(item)=>{
 //Increase an enemy item's cooldown by ( 1 » 2 » 3 ) seconds for the fight.
-item.triggerFunctions.push(()=>{
-    item.board.player.hostileTarget.board.items.forEach(i=>{
-        i.cooldown += 1000*getRarityValue("1 >> 2 >> 3",item.rarity);
-        i.updateTriggerValuesElement();
+    const cooldownIncrease = parseInt(getRarityValue("1 >> 2 >> 3",item.rarity));
+    item.triggerFunctions.push(()=>{
+        const itemToIncreaseCooldown = pickRandom(item.board.player.hostileTarget.board.items);
+        if(itemToIncreaseCooldown) {
+            itemToIncreaseCooldown.cooldown += 1000*cooldownIncrease;
+            log(item.name + " increased " + itemToIncreaseCooldown.name + " cooldown by " + cooldownIncrease + " seconds");
+        }
     });
-});
+
 });
 
 ItemFunction.items.set("Pulse Rifle",(item)=>{
@@ -195,6 +200,75 @@ ItemFunction.items.set("Anything to Win",(item)=>{
         if(i.tags.includes("Weapon")) return;
         item.applyBurn(amount);
         item.applyPoison(amount);
+    });
+});
+ItemFunction.items.set("Sparring Partner",(item)=>{
+    //When you would die, Cleanse all Burn and Poison, double your Max Health and Heal to full. In addition, your enemy gains 1 Gold.
+    item.board.player.dieTriggers.set(item.id,()=>{
+        item.board.player.burn=0;
+        item.board.player.poison=0;
+        item.board.player.maxHealth *= 2;
+        item.board.player.heal(item.board.player.maxHealth);
+        item.board.player.hostileTarget.addGold(1);
+    });
+});
+ItemFunction.items.set("Balanced Friendship",(item)=>{
+    //Tour Weapons have (  +2  » +4  » +6   ) damage and Shield items have (  +2  » +4  » +6   ) shield for each friend you have.
+    const amount = getRarityValue("2 >> 4 >> 6",item.rarity);   
+    const friendCount = item.board.items.filter(i=>i.tags.includes("Friend")).length;
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Weapon")) {
+            i.damage += amount*friendCount;
+
+        }
+        if(i.tags.includes("Shield")) {
+            i.shield += amount*friendCount;
+        }
+    });
+});
+ItemFunction.items.set("All Talk",(item)=>{
+//While you have more than half Health, your weapons have (  +25  » +50   ) damage.
+    const amount = getRarityValue("25 >> 50",item.rarity);
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Weapon")) {
+            i.gain(amount,'damage');
+        }
+    });
+    item.board.player.healthAboveHalfTriggers.set(item.id,()=>{
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Weapon")) {
+                i.gain(amount,'damage');
+            }
+        });
+    });
+    item.board.player.healthBelowHalfTriggers.set(item.id,()=>{
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Weapon")) {
+                i.gain(-amount,'damage');
+            }
+        });
+    });
+});
+ItemFunction.items.set("Big Ego",(item)=>{
+    //Your Weapons have Lifesteal.
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Weapon")) {
+            i.lifesteal = true;
+        }
+    });
+});
+ItemFunction.items.set("Bonk",(item)=>{
+    //Enemy cooldowns are increased by 1 second(s)
+    item.board.player.hostileTarget.board.items.forEach(i=>{
+        i.cooldown += 1000;
+    });
+});
+ItemFunction.items.set("Big Guns",(item)=>{
+    //Double the damage of your Large weapons. from Big Guns
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Large")) {
+            i.gain(100,'damageMultiplier');
+        }
     });
 });
 

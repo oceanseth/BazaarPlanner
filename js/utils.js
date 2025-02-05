@@ -125,12 +125,28 @@ export function loadFromUrl() {
             newItem.name = name;
             newItem.setIndex(startIndex);
         });
-        Board.boards.forEach(board=>{
-            board.sortItems();
-        });
+        Board.resetBoards();
     } catch (error) {
         console.error('Error loading board state from URL:', error);
     }
 
     window.isLoadingFromUrl = false;
 }
+
+export function pickRandom(array, count=1) {
+    if (array.length === 0) return null;
+    if (count > array.length) count = array.length;
+
+    const used = new Set();
+    const toReturn = [];
+    
+    while (toReturn.length < count) {
+        const randomIndex = Math.floor(battleRandom() * array.length);
+        if (!used.has(randomIndex)) {
+            used.add(randomIndex);
+            toReturn.push(array[randomIndex]);
+        }
+    }
+    if(count==1) return toReturn[0];
+    return toReturn;
+}   
