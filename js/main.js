@@ -457,7 +457,14 @@ function battleFunction() {
     topPlayer.takeDamage(sandstormDmg);
     bottomPlayer.takeDamage(sandstormDmg);
     sandstormValue+=sandstormIncrement;
+
   }
+  
+  [topPlayer,bottomPlayer].forEach(player => {
+    if(player.health <= 0) {
+        player.dieTriggers.forEach(func => func());
+    } 
+  });
 
   updateCombatLogDisplay();
 }
@@ -468,8 +475,7 @@ function resetBattle() {
     isPaused=0;
     sandstormValue=1;
     battleInterval = null; // Clear the interval reference
-    topPlayer.reset();
-    bottomPlayer.reset();
+    Board.resetBoards();
     // Reset button
     battleButton.textContent = 'Start Battle';
     battleButton.classList.remove('pause-battle');
