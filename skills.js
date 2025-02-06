@@ -7,7 +7,7 @@ export const skills = {
       "Ammoreference",
       "Regen"
     ],
-    "text": "You have (  2  » 4  » 6   ) Regeneration for each item with Ammo you have. [0]"
+    "text": "You have (  2  » 4  » 6   ) Regeneration for each Ammo item you have. [0]"
   },
   "Advanced Synthetics": {
     "icon": "images/skills/AdvancedSynthetics.avif",
@@ -26,7 +26,7 @@ export const skills = {
       "Crit",
       "Weapon"
     ],
-    "text": "When you use a Weapon, give it (  +2%  » +4%  » +6%  » +8%   ) crit Chance for the fight."
+    "text": "When you use a Weapon, it gains (  +2%  » +4%  » +6%  » +8%   ) crit Chance for the fight."
   },
   "Alacrity": {
     "icon": "images/skills/Alacrity.avif",
@@ -65,7 +65,7 @@ export const skills = {
       "Common",
       "Ammo"
     ],
-    "text": "Your leftmost item with Ammo has (  +1  » +2  » +3  » +4   ) Max Ammo."
+    "text": "Your leftmost Ammo item has (  +1  » +2  » +3  » +4   ) Max Ammo."
   },
   "Anything to Win": {
     "icon": "images/skills/AnythingtoWin.avif",
@@ -97,7 +97,7 @@ export const skills = {
       "Health",
       "Weapon"
     ],
-    "text": "When you buy a Weapon, gain (  20  » 30  » 40  » 50   ) Max Health."
+    "text": "When you buy a Weapon, permanently gain (  20  » 30  » 40  » 50   ) Max Health."
   },
   "Arms Race": {
     "icon": "images/skills/ArmsRace.avif",
@@ -160,7 +160,7 @@ export const skills = {
       "Mak",
       "Health"
     ],
-    "text": "When you visit a Merchant, gain (  25  » 50  » 75   ) Max Health."
+    "text": "When you visit a Merchant, permanently gain (  25  » 50  » 75   ) Max Health."
   },
   "Backup Defenses": {
     "icon": "images/skills/BackupDefenses.avif",
@@ -337,7 +337,7 @@ export const skills = {
       "Mak",
       "Crit"
     ],
-    "text": "When you use an item, your items gain (  10%  » 15%   ) crit chance for the fight. Your items have 100% less crit chance."
+    "text": "When you use an item, your items gain (  3%  » 6%   ) crit chance for the fight. Your items have 100% less crit chance."
   },
   "Bullet Time": {
     "icon": "images/skills/BulletTime.avif",
@@ -389,7 +389,7 @@ export const skills = {
       "Common",
       "Burn"
     ],
-    "text": "The first time your enemy falls below half health, Burn (  10  » 15  » 20  » 25   )."
+    "text": "The first time your enemy falls below half health each fight, Burn (  10  » 15  » 20  » 25   )."
   },
   "Captain's Charge": {
     "icon": "images/skills/CaptainsCharge.avif",
@@ -540,7 +540,7 @@ export const skills = {
       "Critreference",
       "Haste"
     ],
-    "text": "When you Crit, Haste an item for (  1  » 2  » 3   ) second(s)."
+    "text": "When you Crit, Haste 1 item for (  1  » 2  » 3   ) second(s)."
   },
   "CPU Throttling": {
     "icon": "images/skills/CPUThrottling.avif",
@@ -574,7 +574,7 @@ export const skills = {
       "Freeze",
       "Slowreference"
     ],
-    "text": "The first time you Slow each fight, Freeze an item for (  3  » 4  » 5   ) second(s)."
+    "text": "The first time you Slow each fight, Freeze 1 item for (  3  » 4  » 5   ) second(s)."
   },
   "Creeping Toxins": {
     "icon": "images/skills/CreepingToxins.avif",
@@ -635,10 +635,10 @@ export const skills = {
     "name": "Cryomastery",
     "tags": [
       "Common",
-      "Freezereference",
-      "Shield"
+      "Freeze",
+      "Shieldreference"
     ],
-    "text": "When you Freeze, your Shield items gain (  3  » 5   ) Shield for the fight."
+    "text": "The first (  3  » 6   ) times you Shield each fight, Freeze 1 item for 2 second(s)."
   },
   "Deadly Eye": {
     "icon": "images/skills/DeadlyEye.avif",
@@ -760,6 +760,15 @@ export const skills = {
     ],
     "text": "When you use a Medium item, a Burn item gains (  10  » 15   ) burn for the fight."
   },
+  "Dual Wield": {
+    "icon": "images/skills/DualWield.avif",
+    "name": "Dual Wield",
+    "tags": [
+      "Common",
+      "Crit"
+    ],
+    "text": "If you have exactly 2 Weapons in play, your items have +50 Crit Chance."
+  },
   "Electrified Hull": {
     "icon": "images/skills/ElectrifiedHull.avif",
     "name": "Electrified Hull",
@@ -810,7 +819,7 @@ export const skills = {
       "Mak",
       "Healreference"
     ],
-    "text": "When you use a weapon, give your Healing items (  +10  » +20  » +30   ) Healing for the fight."
+    "text": "When you use a weapon, your Heal items gain (  +10  » +20  » +30   ) Heal for the fight."
   },
   "Equivalent Exchange": {
     "icon": "images/skills/EquivalentExchange.avif",
@@ -820,7 +829,7 @@ export const skills = {
       "Healreference",
       "Poison"
     ],
-    "text": "When you Heal, charge a Poison 1 second."
+    "text": "When you Heal, charge 1 Poison item 1 second(s)."
   },
   "Expert Pilot": {
     "icon": "images/skills/ExpertPilot.avif",
@@ -829,7 +838,7 @@ export const skills = {
       "Stelle",
       "Vehicle"
     ],
-    "text": "Your Shield Vehicles gain (  30%  » 60%   ) Shield. Your Weapon Vehicles gain (  30%  » 60%   ) Damage."
+    "text": "Cooldown 10 seconds Your Shield Vehicles gain (  30%  » 60%   ) Shield. Your Weapon Vehicles gain (  30%  » 60%   ) Damage."
   },
   "Exposing Toxins": {
     "icon": "images/skills/ExposingToxins.avif",
@@ -983,7 +992,7 @@ export const skills = {
       "Mak",
       "Healreference"
     ],
-    "text": "The first time you use a Large item each fight, Adjacent items gain (  15  » 20  » 25   ) Healing for the fight."
+    "text": "The first time you use a Large item each fight, Adjacent items gain (  +15  » +20  » +25   ) Heal for the fight."
   },
   "Flanking Criticals": {
     "icon": "images/skills/FlankingCriticals.avif",
@@ -1144,7 +1153,7 @@ export const skills = {
       "Burnreference",
       "Freeze"
     ],
-    "text": "The first time you Burn each fight, Freeze an item for (  3  » 4  » 5   ) second(s)."
+    "text": "The first time you Burn each fight, Freeze 1 item for (  3  » 4  » 5   ) second(s)."
   },
   "Frozen Flames": {
     "icon": "images/skills/FrozenFlames.avif",
@@ -1250,7 +1259,7 @@ export const skills = {
       "Stelle",
       "Shieldreference"
     ],
-    "text": "When your enemy uses a Weapon, your Shield items gain (  5  » 10  » 15   ) Shield for the fight."
+    "text": "When your enemy uses a Weapon, your Shield items gain (  5  » 10   ) Shield for the fight."
   },
   "Hardly Workin'": {
     "icon": "images/skills/HardlyWorkin.avif",
@@ -1303,7 +1312,7 @@ export const skills = {
       "Economy",
       "Health"
     ],
-    "text": "When you gain gold, gain Max Health equal to (  1x  » 2x   ) the amount of gold gained."
+    "text": "When you gain gold, permanently gain Max Health equal to (  1x  » 2x   ) the amount of gold gained."
   },
   "Heat Lover": {
     "icon": "images/skills/HeatLover.avif",
@@ -1383,21 +1392,6 @@ export const skills = {
       "Shieldreference"
     ],
     "text": "Your Large Shield items have (  +12  » +36  » +72  » +120   ) shield."
-  },
-  "Heavy Weaponry": {
-    "icon": "images/skills/HeavyWeaponry.avif",
-    "name": "Heavy Weaponry",
-    "tags": [
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Dooley",
-      "Vanessa",
-      "Pygmalien",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "Your Large Weapons deal (  +12  » +36  » +72  » +120   ) Damage."
   },
   "Honed Arsenal": {
     "icon": "images/skills/HonedArsenal.avif",
@@ -1537,7 +1531,7 @@ export const skills = {
       "Critreference",
       "Healreference"
     ],
-    "text": "When you Crit, your Heal items gain (  10  » 20  » 30   ) Heal for the fight."
+    "text": "When you Crit, your Heal items gain (  +10  » +20  » +30   ) Heal for the fight."
   },
   "Improvised Poison": {
     "icon": "images/skills/ImprovisedPoison.avif",
@@ -1609,7 +1603,7 @@ export const skills = {
       "Mak",
       "Freeze"
     ],
-    "text": "The first time you use a Large item each fight, Freeze an item for (  3  » 4  » 5   ) second(s)."
+    "text": "The first time you use a Large item each fight, Freeze 1 item for (  3  » 4  » 5   ) second(s)."
   },
   "Initial Dose": {
     "icon": "images/skills/InitialDose.avif",
@@ -1693,7 +1687,7 @@ export const skills = {
       "Common",
       "Ammo"
     ],
-    "text": "When you use an item with Ammo, reload (  1  » 2  » 3   ) the item to the left of it."
+    "text": "When you use an Ammo item, reload (  1  » 2  » 3   ) the item to the left of it."
   },
   "Keen Eye": {
     "icon": "images/skills/KeenEye.avif",
@@ -1837,7 +1831,7 @@ export const skills = {
       "Core",
       "Damagereference"
     ],
-    "text": "When you level up, give your Weapons (  +5  » +10  » +15  » +20   ) damage. If you have a Weapon Core, double this."
+    "text": "When you level up, Your Weapons gain (  +5  » +10  » +15  » +20   ) damage. If you have a Weapon Core, double this."
   },
   "Liquid Cooled": {
     "icon": "images/skills/LiquidCooled.avif",
@@ -1871,7 +1865,7 @@ export const skills = {
       "Ammo",
       "Damagereference"
     ],
-    "text": "Your items have +0 damage for each ammo you have on your items in play. [0]"
+    "text": "Your Weapons have +0 damage for each ammo you have on your items in play. [0]"
   },
   "Long Strides": {
     "icon": "images/skills/LongStrides.avif",
@@ -1987,7 +1981,7 @@ export const skills = {
       "Poisonreference",
       "Slowreference"
     ],
-    "text": "The first time you freeze, burn, slow, poison, and haste each fight, charge an item (  2  » 4   ) second(s)."
+    "text": "The first time you freeze, burn, slow, poison, and haste each fight, charge 1 item (  2  » 4   ) second(s)."
   },
   "Net Launcher": {
     "icon": "images/skills/NetLauncher.avif",
@@ -2088,7 +2082,7 @@ export const skills = {
       "Freeze",
       "Poisonreference"
     ],
-    "text": "The first time you Poison each fight, Freeze an item for (  3  » 4  » 5   ) second(s)."
+    "text": "The first time you Poison each fight, Freeze 1 item for (  3  » 4  » 5   ) second(s)."
   },
   "Paralyzing Rush": {
     "icon": "images/skills/ParalyzingRush.avif",
@@ -2109,7 +2103,7 @@ export const skills = {
       "Ammoreference",
       "Crit"
     ],
-    "text": "When you use an item with Ammo, give it (  +5%  » +10%   ) Crit Chance for the fight."
+    "text": "When you use an item with Ammo, it gains (  +5%  » +10%   ) Crit Chance for the fight."
   },
   "Party Like it's 011111001111": {
     "icon": "images/skills/PartyLikeits011111001111.avif",
@@ -2216,7 +2210,7 @@ export const skills = {
       "Health",
       "Property"
     ],
-    "text": "When you buy a Property, gain (  50  » 100  » 150   ) Max Health."
+    "text": "When you buy a Property, permanently gain (  50  » 100  » 150   ) Max Health."
   },
   "Prosperity": {
     "icon": "images/skills/Prosperity.avif",
@@ -2271,7 +2265,7 @@ export const skills = {
       "Freeze",
       "Hastereference"
     ],
-    "text": "The first time you Haste each fight, Freeze an item for (  3  » 4  » 5   ) second(s)."
+    "text": "The first time you Haste each fight, Freeze 1 item for (  3  » 4  » 5   ) second(s)."
   },
   "Quick Ignition": {
     "icon": "images/skills/QuickIgnition.avif",
@@ -2295,7 +2289,7 @@ export const skills = {
       "Cooldown",
       "Healreference"
     ],
-    "text": "While your enemy has more health than you, your Heal items have their cooldowns reduced by (  5%  » 10%   )."
+    "text": "While your enemy has more health than you, your Heal items have their cooldowns reduced by (  5%  » 10%  » 15%   )."
   },
   "Ravenous": {
     "icon": "images/skills/Ravenous.avif",
@@ -2390,6 +2384,17 @@ export const skills = {
       "Shieldreference"
     ],
     "text": "When you use a Property, your Weapons gain (  +5  » +10  » +15   ) damage and your Shield items gain (  +5  » +10  » +15   ) shield for the fight."
+  },
+  "Relax Bro": {
+    "icon": "images/skills/RelaxBro.avif",
+    "name": "Relax Bro",
+    "tags": [
+      "Common",
+      "Haste",
+      "Slowreference",
+      "Weapon"
+    ],
+    "text": "When you Slow, gain (  2  » 4   ) Regeneration for the fight."
   },
   "Renovation": {
     "icon": "images/skills/Renovation.avif",
@@ -2499,7 +2504,7 @@ export const skills = {
       "Common",
       "Slow"
     ],
-    "text": "At the start of each fight, slow an item for (  3  » 5  » 7  » 9   ) second(s)."
+    "text": "At the start of each fight, slow 1 item for (  3  » 5  » 7  » 9   ) second(s)."
   },
   "Sabotage": {
     "icon": "images/skills/Sabotage.avif",
@@ -2561,6 +2566,16 @@ export const skills = {
     ],
     "text": "When you use a Weapon, Adjacent items gain (  4%  » 8%  » 12%   ) Crit Chance for the fight."
   },
+  "Sharpshooter": {
+    "icon": "images/skills/Sharpshooter.avif",
+    "name": "Sharpshooter",
+    "tags": [
+      "Vanessa",
+      "Mak",
+      "Ammoreference"
+    ],
+    "text": "Your Ammo items have (  +3%  » +6%  » +9%  » +12%   ) Crit chance."
+  },
   "Shatter": {
     "icon": "images/skills/Shatter.avif",
     "name": "Shatter",
@@ -2576,15 +2591,6 @@ export const skills = {
       "Weapon"
     ],
     "text": "When you freeze, your Weapons gain (  +10  » +15  » +20   ) damage for the fight."
-  },
-  "Shellshock": {
-    "icon": "images/skills/Shellshock.avif",
-    "name": "Shellshock",
-    "tags": [
-      "Common",
-      "Charge"
-    ],
-    "text": "Your items have +1 damage for each ammo you have on your items in play. [0]"
   },
   "Shield Bash": {
     "icon": "images/skills/ShieldBash.avif",
@@ -2606,7 +2612,7 @@ export const skills = {
       "Healreference",
       "Shieldreference"
     ],
-    "text": "When you Heal, charge a Shield item 1 second."
+    "text": "When you Heal, charge a Shield item 1 second(s)."
   },
   "Sick Burn": {
     "icon": "images/skills/SickBurn.avif",
@@ -2658,21 +2664,6 @@ export const skills = {
     ],
     "text": "When you Slow, your items gain (  +1%  » +2%  » +3%   ) Crit Chance for the fight."
   },
-  "Small Weaponry": {
-    "icon": "images/skills/SmallWeaponry.avif",
-    "name": "Small Weaponry",
-    "tags": [
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Dooley",
-      "Vanessa",
-      "Pygmalien",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "Your Small Weapons deal (  +3  » +9  » +18  » +30   ) Damage."
-  },
   "Snowstorm": {
     "icon": "images/skills/Snowstorm.avif",
     "name": "Snowstorm",
@@ -2702,21 +2693,6 @@ export const skills = {
       "Weapon"
     ],
     "text": "If you have exactly 1 weapon, your Shield items have (  +10  » +20  » +30   ) shield."
-  },
-  "Standard Ordnance": {
-    "icon": "images/skills/StandardOrdnance.avif",
-    "name": "Standard Ordnance",
-    "tags": [
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Dooley",
-      "Vanessa",
-      "Pygmalien",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "Your Medium Weapons deal (  +6  » +18  » +36  » +60   ) Damage."
   },
   "Standardized Care": {
     "icon": "images/skills/StandardizedCare.avif",
@@ -2781,7 +2757,7 @@ export const skills = {
       "Mak",
       "Slow"
     ],
-    "text": "The first time you fall below half health each fight, slow (  2  » 4  » 4   ) items for (  2  » 2  » 6   ) second(s)."
+    "text": "The first time you fall below half health each fight, slow (  2  » 4  » 6   ) items for 2 second(s)."
   },
   "Strength": {
     "icon": "images/skills/Strength.avif",
@@ -2817,7 +2793,7 @@ export const skills = {
       "Critreference",
       "Freeze"
     ],
-    "text": "The first time you Crit each fight, Freeze an item for (  3  » 4  » 5   ) second(s)."
+    "text": "The first time you Crit each fight, Freeze 1 item for (  3  » 4  » 5   ) second(s)."
   },
   "Submerged": {
     "icon": "images/skills/Submerged.avif",
@@ -2849,7 +2825,7 @@ export const skills = {
       "Jules",
       "Damage"
     ],
-    "text": "When you use a weapon, give it (  +3  » +6  » +9   ) damage for the fight."
+    "text": "When you use a weapon, it gains (  +3  » +6  » +9   ) damage for the fight."
   },
   "Temporal Strike": {
     "icon": "images/skills/TemporalStrike.avif",
@@ -2871,7 +2847,7 @@ export const skills = {
       "Damagereference",
       "Weapon"
     ],
-    "text": "When you use a weapon, give weapons adjacent to it (  +3  » +6  » +9   ) damage for the fight."
+    "text": "When you use a weapon, Weapons adjacent to it gain (  +3  » +6  » +9   ) damage for the fight."
   },
   "The Right Tool": {
     "icon": "images/skills/TheRightTool.avif",
@@ -2891,7 +2867,7 @@ export const skills = {
       "Charge",
       "Slowreference"
     ],
-    "text": "When you slow, charge an item 1 second(s)."
+    "text": "When you slow, charge 1 item 1 second(s)."
   },
   "Third Degree Burns": {
     "icon": "images/skills/ThirdDegreeBurns.avif",
@@ -3076,7 +3052,7 @@ export const skills = {
       "Common",
       "Haste"
     ],
-    "text": "When you use a large item, haste an item for (  3  » 4   ) second(s)."
+    "text": "When you use a large item, haste another item for (  3  » 4   ) second(s)."
   },
   "Unwavering": {
     "icon": "images/skills/Unwavering.avif",
@@ -3127,7 +3103,7 @@ export const skills = {
       "Burnreference",
       "Shieldreference"
     ],
-    "text": "When you Burn, charge a Shield item 1 second."
+    "text": "When you Burn, charge a Shield item 1 second(s)."
   },
   "Void Rage": {
     "icon": "images/skills/VoidRage.avif",
@@ -3164,7 +3140,7 @@ export const skills = {
       "Common",
       "Regen"
     ],
-    "text": "You have (  +8  » +12  » +16   ) Regeneration."
+    "text": "You have (  +10  » +15  » +20   ) Regeneration for each non-weapon item you have in play. [0]"
   },
   "Well-Oiled Machine": {
     "icon": "images/skills/WellOiledMachine.avif",

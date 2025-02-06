@@ -102,7 +102,7 @@ def parse_skill_html(html_content):
                         skill['icon'] = icon_path
                         
                         # Check if image exists locally and download if it doesn't
-                        local_path = f"./{icon_path}"
+                        local_path = f"./public/{icon_path}"
                         if not os.path.exists(local_path):
                             print(f"Downloading missing icon: {icon_path}")
                             if download_image(icon_path, local_path):

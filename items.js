@@ -18,14 +18,15 @@ export const items = {
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
       "Golden": "Adjacent items have +50% Value.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "This has double Shield.",
-      "Restorative": "Heal equal to the value of adjacent items.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Restorative": "Heal equal to this item's Shield.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Agility Boots": {
@@ -35,6 +36,7 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Apparel",
       "Crit"
     ],
     "cooldown": null,
@@ -44,7 +46,8 @@ export const items = {
       "When you sell this, your items gain ( +1% » +2% » +3% » +4% ) Crit Chance."
     ],
     "enchants": {
-      "Shiny": "This gives double + Crit Chance."
+      "Shiny": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Alpha Ray": {
@@ -61,19 +64,20 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Deal ( 5 » 10 » 20 » 40 ) damage.",
-      "When you use the Core or another Ray, your Weapons gain ( +3 » +6 » +9 » +12 ) Damage for the fight."
+      "Deal ( 8 » 12 » 16 » 20 ) damage.",
+      "When you use the Core or another Ray, your Weapons gain ( +2 » +3 » +4 » +5 ) Damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -94,13 +98,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 25.",
       "Restorative": "Heal 40.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 4.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Ambergris": {
@@ -123,15 +128,16 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Golden": "Double Value",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Golden": "This has double Value.",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison equal to this item's value.",
-      "Fiery": "Burn equal to this item's value.",
+      "Toxic": "Poison equal to half of this item's value.",
+      "Fiery": "Burn equal to half of this item's value.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Anchor": {
@@ -154,14 +160,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 4 second(s).",
-      "Icy": "Freeze 1 item for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 4 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 12.",
-      "Fiery": "Burn 18.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -185,14 +192,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -218,7 +226,8 @@ export const items = {
       "Restorative": "Heal 225.",
       "Toxic": "Poison 15.",
       "Fiery": "Burn 22.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Apropos Chapeau": {
@@ -228,25 +237,29 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Medium",
+      "Apparel",
       "DamageReference",
       "Shield"
     ],
-    "cooldown": 5,
+    "cooldown": 6,
     "ammo": null,
     "text": [
-      "Shield ( 25 » 50 » 100 ).",
-      "Adjacent weapons gain ( 10 » 20 » 30 ) damage for the fight."
+      "Your weapons gain ( 6 » 9 » 12 ) Damage for the fight.",
+      "Your Heal items gain ( 6 » 9 » 12 ) Heal for the fight.",
+      "Your Shield items gain ( 6 » 9 » 12 ) Shield for the fight.",
+      "If you have another Tool, Weapon, Property or Apparel this has +1 Multicast for each."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
-      "Turbo": "Haste 2 items for 2 second(s).",
-      "Shielded": "This has double Shield.",
-      "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 5.",
-      "Fiery": "Burn 7.",
+      "Heavy": "Slow 1 items for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
+      "Turbo": "Haste 1 items for 1 second(s).",
+      "Shielded": "Shield 30.",
+      "Restorative": "Heal 45.",
+      "Toxic": "Your Poison items gain +1 poison for the fight.",
+      "Fiery": "Your Burn items gain +1 burn for the fight.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "Your items gain 3% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Arbalest": {
@@ -256,6 +269,7 @@ export const items = {
     "tags": [
       "Vanessa",
       "Medium",
+      "Ammo",
       "Damage",
       "HasteReference",
       "Weapon"
@@ -263,19 +277,20 @@ export const items = {
     "cooldown": 8,
     "ammo": 1,
     "text": [
-      "Deal ( 50 » 100 » 200 ) damage.",
-      "When you Haste, this gains ( 25 » 50 » 75 ) damage for the fight."
+      "Deal 100 damage.",
+      "When you Haste, this gains ( 60 » 80 » 100 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -287,24 +302,26 @@ export const items = {
       "Dooley",
       "Small",
       "Damage",
+      "Tech",
       "Weapon"
     ],
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Deal ( 40 » 60 » 80 » 100 ) damage.",
+      "Deal ( 20 » 40 » 60 » 80 ) damage.",
       "When you use a Tech, charge this 1 second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
+      "Heavy": "Slow 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
+      "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -339,19 +356,20 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Shield ( 15 » 30 » 60 » 120 ).",
-      "Give Shield items to the right of this ( +5 » +10 » +20 » +40 ) Shield for the fight.",
+      "Shield ( 20 » 30 » 40 » 50 ).",
+      "Shield items to the right of this gain ( +10 » +15 » +20 » +25 ) Shield for the fight.",
       "When you use any item to the left of this, Charge this 1 second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
-      "Turbo": "Haste 2 items for 3 second(s).",
+      "Heavy": "Slow 1 item for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
+      "Turbo": "Haste 1 item for 4 second(s).",
       "Shielded": "This has double Shield.",
-      "Restorative": "Heal 120.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
+      "Restorative": "Heal equal to this item's Shield.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -373,13 +391,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
-      "Shielded": "Shield 20.",
-      "Restorative": "Heal 45.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 4.",
+      "Shielded": "Shield 8 for each non-Weapon item you have.",
+      "Restorative": "Heal 12 for each non-Weapon item you have.",
+      "Toxic": "Poison 1 for each non-Weapon item you have.",
+      "Fiery": "Burn 1 for each non-Weapon item you have.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "Your non-Weapon items gain +10% Crit Chance for the fight."
     }
   },
@@ -411,7 +430,8 @@ export const items = {
       "Toxic": "This has double Poison.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Atlas Stone": {
@@ -432,14 +452,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
-      "Shielded": "Shield 1 double this item's shield for the fight",
-      "Restorative": "Heal 1 double this item's healing for the fight",
-      "Toxic": "Poison 1 double this item's poison for the fight",
-      "Fiery": "Burn 1 double this item's burn for the fight",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -462,14 +483,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -483,25 +505,27 @@ export const items = {
       "Economy",
       "Income",
       "Property",
-      "Shield"
+      "Shield",
+      "Tech"
     ],
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Shield equal to ( 1 » 2 » 3 » 4 ) time(s) your Income.",
+      "Shield equal to ( 1 » 2 » 3 » 4 ) times your Income.",
       "When you buy this, gain ( +1 » +2 » +3 » +5 ) Income."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
       "Golden": "This has double income bonus.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Atomic Clock": {
@@ -514,20 +538,21 @@ export const items = {
       "Ammo",
       "Tech"
     ],
-    "cooldown": 1,
+    "cooldown": 2,
     "ammo": 3,
     "text": [
-      "Increase an enemy item's cooldown by ( 1 » 2 » 3 ) seconds for the fight."
+      "Increase an enemy item's cooldown by ( 1 » 2 » 3 ) second(s) for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield 60.",
       "Restorative": "Heal 90.",
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Bag of Jewels": {
@@ -567,14 +592,15 @@ export const items = {
     "enchants": {
       "Golden": "The Property to the left of this has triple value.",
       "Heavy": "When you use the property to the left of this, Slow 2 item for 2 second(s).",
-      "Icy": "When you use the property to the left of this, Freeze 1 item for 2 second(s).",
+      "Icy": "When you use the property to the left of this, Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "When you use the property to the left of this, Haste 2 items for 2 second(s).",
       "Shielded": "When you use the property to the left of this, shield 20.",
       "Restorative": "When you use the property to the left of this, heal 30.",
       "Toxic": "When you use the property to the left of this, poison 2.",
       "Fiery": "When you use the property to the left of this, burn 3.",
       "Shiny": "The Property to the left has +1 Multicast.",
-      "Deadly": "The Property to the left has +50% Crit Chance."
+      "Deadly": "The Property to the left has +50% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Ballista": {
@@ -591,8 +617,8 @@ export const items = {
     "cooldown": 10,
     "ammo": 2,
     "text": [
-      "Deal ( 100 » 200 ) damage.",
-      "When you use another item with Ammo, this gains 1 Multicast for the fight."
+      "Deal ( 150 » 200 ) damage.",
+      "When you use another Ammo item, this gains 1 Multicast for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
@@ -600,10 +626,11 @@ export const items = {
       "Turbo": "Haste 3 items for 3 second(s).",
       "Shielded": "Shield equal to this item's Damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 15.",
-      "Fiery": "Burn 22.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -625,14 +652,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Bandages": {
@@ -653,14 +681,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Bar of Gold": {
@@ -694,19 +723,20 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Deal ( 5 » 10 » 20 ) damage.",
-      "When you Shield, this gains ( 5 » 10 » 20 ) Damage for the fight."
+      "Deal 10 damage.",
+      "When you Shield, this gains ( 5 » 10 » 15 ) Damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
-      "Shielded": "Shield equal to this item's Damage.",
+      "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -719,21 +749,22 @@ export const items = {
       "Medium",
       "Shield"
     ],
-    "cooldown": 4,
+    "cooldown": 5,
     "ammo": null,
     "text": [
-      "Shield 10.",
-      "When you use a non-weapon item, this gains ( 5 » 10 » 15 » 20 ) Shield for the fight."
+      "Shield 20.",
+      "When you use an adjacent non-weapon item, this gains ( 10 » 15 » 20 » 25 ) Shield for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -753,18 +784,20 @@ export const items = {
     "text": [
       "Lifesteal 100",
       "Deal ( 10 » 20 ) damage.",
-      "While your enemy has Poison, this has ( +25% » +50% ) Crit Chance for the fight."
+      "While your enemy has Poison, this has ( +50% » +100% ) Crit Chance."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 1.",
-      "Fiery": "Burn 2.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "This has Lifesteal."
     }
   },
   "Battery": {
@@ -785,14 +818,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 30.",
       "Restorative": "Heal 45.",
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "The item to the left gains +25% Crit Chance for the fight."
+      "Deadly": "The item to the left gains +25% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Bayonet": {
@@ -808,19 +842,20 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you use the Weapon to the left of this, deal ( 5 » 10 » 20 » 40 ) damage."
+      "When you use the Weapon to the left of this, deal ( 10 » 15 » 20 » 25 ) damage."
     ],
     "enchants": {
       "Heavy": "When you use the weapon to the left of this, slow 1 items for 2 second(s).",
-      "Icy": "When you use the weapon to the left of this, Freeze 1 item for 1 second(s).",
+      "Icy": "When you use the weapon to the left of this, Freeze 1 small item for 1 second(s).",
       "Turbo": "When you use the weapon to the left of this, Haste it for 2 second(s).",
-      "Shielded": "When you use the weapon to the left of this, Shield 15.",
-      "Restorative": "When you use the weapon to the left of this, Heal 20.",
-      "Toxic": "When you use the weapon to the left of this, Poison 1.",
-      "Fiery": "When you use the weapon to the left of this, burn 2.",
+      "Shielded": "When you use the weapon to the left of this, Shield equal to this item's Damage.",
+      "Restorative": "When you use the weapon to the left of this, Heal equal to this item's Damage.",
+      "Toxic": "When you use the weapon to the left of this, Poison equal to 10% of this item's Damage.",
+      "Fiery": "When you use the weapon to the left of this, burn equal to 10% of this item's Damage.",
       "Shiny": "Double Damage",
       "Obsidian": "This has Lifesteal.",
-      "Deadly": "The weapon to the left has +50% Crit Chance."
+      "Deadly": "The weapon to the left has +50% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Beach Ball": {
@@ -831,23 +866,25 @@ export const items = {
       "Vanessa",
       "Medium",
       "Aquatic",
-      "Haste"
+      "Haste",
+      "Toy"
     ],
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Haste ( 1 » 2 » 3 » 4 ) Aquatic item(s) for 2 second(s)."
+      "Haste ( 1 » 2 » 3 » 4 ) Aquatic or Toy item(s) for 2 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
-      "Shielded": "Shield 40.",
-      "Restorative": "Heal 60.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Shielded": "Shield 10 for each Aquatic or Toy item you have.",
+      "Restorative": "Heal 15 for each Aquatic or Toy item you have.",
+      "Toxic": "Poison 1 for each Aquatic or Toy item you have.",
+      "Fiery": "Burn 1 for each Aquatic or Toy item you have.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your Aquatic items gain +10% Crit Chance for the fight."
+      "Deadly": "Your Aquatic and Toy items gain +10% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Beast of Burden": {
@@ -865,8 +902,9 @@ export const items = {
     "cooldown": 10,
     "ammo": null,
     "text": [
-      "Deal ( 20 » 40 » 80 » 160 ) damage.",
-      "When you buy another item, this gains ( 10 » 20 » 30 » 40 ) damage."
+      "Deal ( 40 » 60 » 80 » 100 ) damage.",
+      "When you buy another item, this gains that item's Types.",
+      "This has +1 Multicast for each of its Types."
     ],
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
@@ -875,10 +913,11 @@ export const items = {
       "Turbo": "Haste 3 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 15.",
-      "Fiery": "Burn 22.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -897,10 +936,11 @@ export const items = {
     "ammo": null,
     "text": [
       "When your enemy uses a weapon, charge your Busy Bees 2 second(s).",
-      "When you buy a Property, get a Busy Bee and give your Busy Bees ( +5 » +10 » +15 ) damage."
+      "When you buy a Property, get a Busy Bee and your Busy Bees gain ( +5 » +10 » +15 ) damage."
     ],
     "enchants": {
-      "Golden": "When you buy a property, gain 1 Gold."
+      "Golden": "When you buy a property, gain 1 Gold.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Bellelista": {
@@ -923,15 +963,16 @@ export const items = {
       "When this gains Haste, charge it 2 second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield equal to this item's Damage.",
+      "Heavy": "Slow 1 items for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "Haste 1 items for 2 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -942,6 +983,7 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Medium",
+      "Apparel",
       "Health"
     ],
     "cooldown": null,
@@ -965,7 +1007,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Freeze 1 small item for ( 1 » 2 ) second(s).",
-      "When you use the Core or another Ray, charge this 1 second."
+      "When you use the Core or another Ray, charge this 1 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -975,7 +1017,8 @@ export const items = {
       "Restorative": "Heal 45.",
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Bill Dozer": {
@@ -1004,10 +1047,11 @@ export const items = {
       "Turbo": "Haste 3 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 7.",
-      "Fiery": "Burn 11.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -1030,9 +1074,10 @@ export const items = {
       "At the start of each day, your items gain ( 1 » 2 ) value."
     ],
     "enchants": {
-      "Golden": "Double Value",
-      "Deadly": "This gives double + Crit Chance.",
-      "Shiny": "This has double value gain."
+      "Golden": "This has double value bonus.",
+      "Deadly": "This has double Crit Chance bonus.",
+      "Shiny": "This has double value gain.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Black Ice": {
@@ -1053,14 +1098,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
       "Toxic": "This has double Poison",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Black Pepper": {
@@ -1083,14 +1129,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 15.",
       "Restorative": "Heal 20.",
       "Toxic": "Poison 1.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Black Rose": {
@@ -1111,13 +1158,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -1133,20 +1181,21 @@ export const items = {
     "cooldown": 20,
     "ammo": null,
     "text": [
-      "Shield ( 150 » 300 » 450 » 600 ).",
+      "Shield ( 100 » 200 » 300 » 400 ).",
       "When your opponent uses a Weapon or Burn item, Charge this 2 second(s).",
       "The first time you fall below half health each fight, use this."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 10.",
-      "Fiery": "Burn 15.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Blow Torch": {
@@ -1166,14 +1215,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 30.",
       "Restorative": "Heal 45.",
-      "Toxic": "Poison 3.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Blowgun": {
@@ -1195,7 +1245,7 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to triple this item's damage.",
       "Restorative": "Heal equal to triple this item's damage.",
@@ -1203,6 +1253,7 @@ export const items = {
       "Fiery": "Burn equal to this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -1221,8 +1272,8 @@ export const items = {
       "When you sell this, your items gain ( +1% » +2% » +3% » +4% ) Crit Chance."
     ],
     "enchants": {
-      "Shiny": "This gives double + Crit Chance.",
-      "Deadly": "This gives double + Crit Chance."
+      "Shiny": "This has double Crit Chance bonus.",
+      "Deadly": "This has double Crit Chance bonus."
     }
   },
   "Blue Piggles A": {
@@ -1232,7 +1283,8 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
-      "CritReference"
+      "CritReference",
+      "Toy"
     ],
     "cooldown": 3,
     "ammo": null,
@@ -1248,7 +1300,8 @@ export const items = {
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "This gives double + Crit Chance."
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Blue Piggles L": {
@@ -1258,7 +1311,8 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
-      "CritReference"
+      "CritReference",
+      "Toy"
     ],
     "cooldown": 3,
     "ammo": null,
@@ -1274,7 +1328,8 @@ export const items = {
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "This gives double + Crit Chance."
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Blue Piggles R": {
@@ -1284,7 +1339,8 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
-      "CritReference"
+      "CritReference",
+      "Toy"
     ],
     "cooldown": 3,
     "ammo": null,
@@ -1300,7 +1356,8 @@ export const items = {
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "This gives double + Crit Chance."
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Blue Piggles X": {
@@ -1310,7 +1367,8 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
-      "CritReference"
+      "CritReference",
+      "Toy"
     ],
     "cooldown": 3,
     "ammo": null,
@@ -1326,7 +1384,8 @@ export const items = {
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "This gives double + Crit Chance."
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Bluenanas": {
@@ -1344,18 +1403,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Heal ( 10 » 20 » 40 » 80 ).",
-      "When you sell this, gain ( 20 » 60 » 120 » 200 ) Max Health."
+      "When you sell this, permanently gain ( 20 » 60 » 120 » 200 ) Max Health."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 3 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
       "Toxic": "Poison 4.",
       "Fiery": "Burn 7.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Blunderbuss": {
@@ -1378,14 +1438,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's Damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -1404,19 +1465,20 @@ export const items = {
     "cooldown": 4,
     "ammo": 2,
     "text": [
-      "Deal ( 20 » 40 » 80 » 160 ) damage.",
+      "Deal ( 40 » 60 » 80 » 100 ) damage.",
       "Slow 1 item for ( 2 » 3 » 4 » 5 ) second(s)."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's Damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -1438,14 +1500,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
-      "Shielded": "Shield 10.",
-      "Restorative": "Heal 20.",
-      "Toxic": "Poison 1.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Booby Trap": {
@@ -1455,12 +1518,13 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Medium",
-      "Freeze"
+      "Freeze",
+      "Toy"
     ],
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Freeze an item for ( 1 » 2 » 3 ) second(s).",
+      "Freeze 1 item for ( 1 » 2 » 3 ) second(s).",
       "When you use a Property, Charge this 1 second(s)."
     ],
     "enchants": {
@@ -1472,7 +1536,41 @@ export const items = {
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
       "Shiny": "This has +1 Multicast",
-      "Deadly": "When you use a Property, your items gain +20% Crit Chance for the fight."
+      "Deadly": "When you use a Property, your items gain +20% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
+    }
+  },
+  "Boomerang": {
+    "name": "Boomerang",
+    "icon": "images/items/Boomerang.avif",
+    "tier": "Bronze",
+    "tags": [
+      "Pygmalien",
+      "Medium",
+      "Damage",
+      "Economy",
+      "Toy",
+      "Weapon"
+    ],
+    "cooldown": 4,
+    "ammo": null,
+    "text": [
+      "Deal ( 20 » 30 » 40 » 50 ) damage.",
+      "When you win a fight against a Monster with this, get a random Loot item."
+    ],
+    "enchants": {
+      "Golden": "Get an additional Loot item.",
+      "Heavy": "Slow 2 items for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "Haste 2 items for 1 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "This has Lifesteal."
     }
   },
   "Bootstraps": {
@@ -1481,7 +1579,8 @@ export const items = {
     "tier": "Silver",
     "tags": [
       "Pygmalien",
-      "Medium"
+      "Medium",
+      "Apparel"
     ],
     "cooldown": null,
     "ammo": null,
@@ -1489,6 +1588,7 @@ export const items = {
       "Every 50 you spend, upgrade an item of a lower tier. [Gold Spent: 0]"
     ],
     "enchants": {
+      "Golden": "...and Enchant the item with Golden if able.",
       "Heavy": "...and Enchant the item with Heavy if able.",
       "Icy": "...and Enchant the item with Icy if able.",
       "Turbo": "...and Enchant the item with Turbo if able.",
@@ -1499,7 +1599,7 @@ export const items = {
       "Shiny": "...and Enchant the item with Shiny if able.",
       "Deadly": "...and Enchant the item with Deadly if able.",
       "Radiant": "...and Enchant the item with Radiant if able.",
-      "Obsidian": "...and Enchant the item with Radiant if able."
+      "Obsidian": "...and Enchant the item with Obsidian if able."
     }
   },
   "Bottled Lightning": {
@@ -1523,7 +1623,7 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
@@ -1531,6 +1631,7 @@ export const items = {
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -1547,19 +1648,20 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Deal ( 5 » 10 » 20 » 40 ) damage.",
+      "Deal ( 8 » 16 » 24 » 32 ) damage.",
       "This has double damage."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -1577,19 +1679,20 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Shield 30.",
+      "Shield 20.",
       "When you use an adjacent Friend, this gains ( 10 » 15 » 20 » 25 ) Shield for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 5.",
-      "Fiery": "Burn 7.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Briefcase": {
@@ -1606,20 +1709,21 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Deal ( 10 » 20 » 40 » 80 ) damage.",
+      "Deal ( 20 » 40 » 60 » 80 ) damage.",
       "When you sell this, get 2 Spare Change."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
       "Golden": "When you sell this, fill your board and stash with spare change instead.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -1641,14 +1745,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 3.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your weapons gain 10% Crit Chance for the fight."
+      "Deadly": "Your weapons gain 10% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Bulky Package": {
@@ -1676,22 +1781,23 @@ export const items = {
     "tags": [
       "Dooley",
       "Large",
-      "Property",
-      "Shield"
+      "Property"
     ],
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you take damage from an item, Shield equal to ( 30% » 40% » 50% ) of the damage dealt."
+      "You take ( 20% » 30% » 40% ) less damage."
     ],
     "enchants": {
-      "Heavy": "At the start of each fight, Slow 4 enemy items for 4 second(s).",
-      "Icy": "At the start of each fight, Freeze 2 item for 4 second(s).",
-      "Turbo": "At the start of each fight, Haste 4 items for 4 second(s).",
-      "Shielded": "At the start of each fight, shield 180.",
-      "Restorative": "You have +18 Regeneration.",
-      "Toxic": "At the start of each fight, poison 18.",
-      "Fiery": "At the start of each fight, burn 24."
+      "Heavy": "The first time you fall below half health each fight, Slow all enemy items for 4 second(s).",
+      "Icy": "The first time you fall below half health each fight, Freeze all enemy items for 4 second(s).",
+      "Turbo": "The first time you fall below half health each fight, Haste your items for 4 second(s).",
+      "Shielded": "The first time you fall below half health each fight, Shield 300.",
+      "Restorative": "The first time you fall below half health each fight, Heal 500.",
+      "Toxic": "The first time you fall below half health each fight, Poison 30.",
+      "Fiery": "The first time you fall below half health each fight, Burn 30.",
+      "Deadly": "Your items have +25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Bushel": {
@@ -1708,18 +1814,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Heal ( 40 » 80 » 120 » 160 ).",
-      "When you Shield, charge this 1 second."
+      "When you Shield, charge this 1 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 5.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Business Card": {
@@ -1738,7 +1845,7 @@ export const items = {
       "For every 5 Merchants you visit, upgrade this. [Merchants Visited: 0]"
     ],
     "enchants": {
-      "Golden": "Double Value",
+      "Golden": "This has double income bonus.",
       "Shiny": "This has +2 value gain."
     }
   },
@@ -1768,6 +1875,7 @@ export const items = {
       "Fiery": "Burn 2.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -1789,14 +1897,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 30.",
       "Restorative": "Heal 45.",
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Adjacent Tools and Food items have +25% Crit Chance."
+      "Deadly": "Adjacent Tools and Food items have +25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Butterfly Swords": {
@@ -1817,14 +1926,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's Damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 1.",
-      "Fiery": "Burn 1.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -1836,6 +1946,7 @@ export const items = {
       "Pygmalien",
       "Medium",
       "Damage",
+      "Toy",
       "Weapon"
     ],
     "cooldown": null,
@@ -1845,13 +1956,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "When your enemy uses an item, Slow 1 item for 2 second(s).",
-      "Icy": "When your enemy uses an item, Freeze 1 item for 1 second(s).",
+      "Icy": "When your enemy uses an item, Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "When your enemy uses an item, Haste 1 item for 2 second(s).",
-      "Shielded": "When your enemy uses an item, Shield 15.",
-      "Restorative": "When your enemy uses an item, Heal 20.",
-      "Toxic": "When your enemy uses an item, Poison 1.",
-      "Fiery": "When your enemy uses an item, Burn 2.",
+      "Shielded": "When your enemy uses an item, Shield equal to this item's damage.",
+      "Restorative": "When your enemy uses an item, Heal equal to this item's Damage.",
+      "Toxic": "When your enemy uses an item, Poison equal to 10% of this item's damage.",
+      "Fiery": "When your enemy uses an item, Burn equal to 10% of this item's damage.",
       "Deadly": "When your enemy uses an item, your items gain 5% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -1894,14 +2006,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 6 second(s).",
-      "Icy": "Freeze 1 item for 6 second(s).",
+      "Icy": "Freeze 1 medium or small item for 6 second(s).",
       "Turbo": "Haste 2 items for 6 second(s).",
       "Shielded": "Shield equal to this item's Damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 10.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -1918,7 +2031,7 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Deal ( 100 » 200 ) Damage.",
+      "Deal ( 160 » 200 ) Damage.",
       "When you use another Weapon, Charge this 2 second(s)."
     ],
     "enchants": {
@@ -1927,11 +2040,12 @@ export const items = {
       "Turbo": "Haste 1 item for 3 second(s).",
       "Shielded": "Shield equal to this item's Damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Obsidian": "This has Lifesteal.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Cannonball": {
@@ -1950,14 +2064,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "At the start of each fight, Slow 2 items for 4 second(s).",
-      "Icy": "At the start of each fight, Freeze 1 item for 4 second(s).",
+      "Icy": "At the start of each fight, Freeze 1 small item for 4 second(s).",
       "Turbo": "At the start of each fight, Haste adjacent items for 3 second(s).",
       "Shielded": "Adjacent Shield items have +20 Shield.",
       "Restorative": "Adjacent items have +30 Heal.",
       "Toxic": "Adjacent Poison items have +3 Poison.",
       "Fiery": "Adjacent Burn items have +2 Burn.",
-      "Shiny": "This gives double + Max Ammo.",
-      "Deadly": "Adjacent items with Ammo have +25% Crit Chance."
+      "Shiny": "This has double Max Ammo bonus.",
+      "Deadly": "Adjacent Ammo items have +25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Capacitor": {
@@ -1977,14 +2092,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 3 second(s).",
       "Shielded": "Shield 45.",
       "Restorative": "Heal 70.",
       "Toxic": "Poison 4.",
       "Fiery": "Burn 7.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Adjacent items have +25% Crit Chance."
+      "Deadly": "Adjacent items have +25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Captain's Wheel": {
@@ -2006,13 +2122,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 40.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 4.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Cargo Shorts": {
@@ -2022,6 +2139,7 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Medium",
+      "Apparel",
       "Economy"
     ],
     "cooldown": null,
@@ -2031,7 +2149,8 @@ export const items = {
     ],
     "enchants": {
       "Golden": "Get 2 Gumballs and Spare Change instead.",
-      "Shiny": "Get 2 Gumballs and Spare Change instead."
+      "Shiny": "Get 2 Gumballs and Spare Change instead.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Cash Cannon": {
@@ -2054,14 +2173,15 @@ export const items = {
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
       "Golden": "This gains additional damage equal equal to value of the gold gained.",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's damage.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -2082,7 +2202,8 @@ export const items = {
     ],
     "enchants": {
       "Golden": "You have +3 Income.",
-      "Shiny": "At the start of each hour, get an additional 2 Spare Change."
+      "Shiny": "At the start of each hour, get an additional 2 Spare Change.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Catalyst": {
@@ -2101,7 +2222,7 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "When you use the item to the left of this, Slow 1 item for 2 second(s).",
-      "Icy": "When you use the item to the left of this, Freeze 1 item for 1 second(s).",
+      "Icy": "When you use the item to the left of this, Freeze 1 small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "When you use the item to the left of this, Shield 15.",
       "Restorative": "When you use the item to the left of this, Heal 20.",
@@ -2130,14 +2251,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield 30. When this gains Haste, this gains +30 Shield for the fight.",
-      "Restorative": "Heal 45. When this gains Haste, this gains +45 Heal for the fight.",
+      "Shielded": "Shield equal to 10 times this item's Poison.",
+      "Restorative": "Heal equal to 10 times this item's Poison.",
       "Toxic": "This has double Poison.",
-      "Fiery": "Burn 4. When this gains Haste, this gains +4 Burn for the fight.",
+      "Fiery": "Burn equal to this item's Poison.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Cauldron": {
@@ -2159,14 +2281,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield 40.",
       "Restorative": "Heal 60.",
       "Toxic": "This has double Poison.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Char Cole": {
@@ -2187,14 +2310,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield 40.",
-      "Restorative": "Heal 60.",
-      "Toxic": "Poison 4.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Charging Station": {
@@ -2212,17 +2336,18 @@ export const items = {
     "ammo": null,
     "text": [
       "When you use the item to the left of this, charge the item to the right for ( 1 » 2 ) second(s).",
-      "When you use the Core, give it ( +20 » +40 ) damage for the fight."
+      "When you use the Core, it gains ( +20 » +40 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "When you use the Core, slow 1 item for 4 second(s).",
-      "Icy": "When you use the core, Freeze 1 item for 2 second(s).",
+      "Icy": "When you use the core, Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "When you use the core, Haste 1 item for 4 second(s).",
       "Shielded": "When you use the core, shield 40.",
       "Restorative": "When you use the core, heal 60.",
       "Toxic": "When you use the core, poison 4.",
       "Fiery": "When you use the core, burn 6.",
-      "Shiny": "This gives double + Damage."
+      "Shiny": "This has double damage bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Chemsnail": {
@@ -2244,14 +2369,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 item for 1 second(s).",
       "Shielded": "Shield equal to this item's Poison.",
       "Restorative": "Heal equal to this item's Poison.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 6.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Chocolate Bar": {
@@ -2267,10 +2393,10 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you sell this, gain ( 10 » 20 » 30 » 40 ) Max Health."
+      "When you sell this, permanently gain ( 10 » 20 » 30 » 40 ) Max Health."
     ],
     "enchants": {
-      "Shiny": "This gives double Max Health."
+      "Shiny": "This has double Max Health bonus."
     }
   },
   "Chris Army Knife": {
@@ -2289,19 +2415,20 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Deal ( 5 » 10 » 20 » 40 ) damage.",
-      "Shield ( 5 » 10 » 20 » 40 )."
+      "Deal ( 6 » 12 » 18 » 24 ) damage.",
+      "Shield ( 6 » 12 » 18 » 24 )."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "This has double Shield.",
+      "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -2319,19 +2446,20 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Shield ( 50 » 100 ).",
-      "Enemy item cooldowns are increased by ( 1 » 2 )."
+      "Shield ( 75 » 100 ).",
+      "Non-tech item cooldowns are increased by ( 1 » 2 ) second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Chum": {
@@ -2352,14 +2480,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 3.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "This gives double + Crit Chance."
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Cinders": {
@@ -2379,7 +2508,7 @@ export const items = {
     ],
     "enchants": {
       "Fiery": "...and Enchant the item with Fiery if able.",
-      "Shiny": "This gives double + Burn."
+      "Shiny": "This has double Burn bonus."
     }
   },
   "Citrus": {
@@ -2394,10 +2523,10 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you sell this, gain ( 1 » 2 » 3 » 4 ) Regeneration."
+      "When you sell this, permanently gain ( 1 » 2 » 3 » 4 ) Regeneration."
     ],
     "enchants": {
-      "Shiny": "This gives double Regeneration."
+      "Shiny": "This has double Regeneration bonus."
     }
   },
   "Clamera": {
@@ -2418,13 +2547,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 30.",
       "Restorative": "Heal 45.",
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Claw Arm": {
@@ -2442,19 +2572,20 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Deal 25 damage.",
-      "When this gains Haste, this and the weapon to the left gains ( 5 » 10 ) damage for the fight."
+      "Deal 40 damage.",
+      "When this gains Haste, this and the weapon to the left gains ( 20 » 25 ) damage for the fight."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
-      "Turbo": "Haste 2 items for 1 second(s).",
+      "Heavy": "Slow 2 items for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
+      "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -2472,19 +2603,20 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Deal ( 10 » 20 » 40 ) damage.",
-      "When you use a Friend, this gains ( 10 » 20 » 30 ) damage for the fight."
+      "Deal ( 30 » 20 » 40 ) damage.",
+      "When you use a Friend, this gains ( 15 » 20 » 25 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 5.",
-      "Fiery": "Burn 7.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -2505,15 +2637,16 @@ export const items = {
       "This deals double Crit damage."
     ],
     "enchants": {
-      "Heavy": "Slow 1 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
-      "Turbo": "Haste 1 items for 1 second(s).",
-      "Shielded": "Shield 20.",
-      "Restorative": "Heal 30.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Heavy": "Slow 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
+      "Turbo": "Haste 1 item for 1 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -2536,14 +2669,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -2565,7 +2699,8 @@ export const items = {
     "enchants": {
       "Golden": "You have +3 Income.",
       "Shiny": "You have additional Regeneration equal to the value of adjacent properties.",
-      "Deadly": "Adjacent properties have +50% Crit Chance."
+      "Deadly": "Adjacent properties have +50% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Coconut": {
@@ -2580,10 +2715,10 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you sell this, gain ( 10 » 20 » 30 » 40 ) Max Health."
+      "When you sell this, permanently gain ( 10 » 20 » 30 » 40 ) Max Health."
     ],
     "enchants": {
-      "Shiny": "This gives double Max Health."
+      "Shiny": "This has double Max Health bonus."
     }
   },
   "Cog": {
@@ -2598,17 +2733,18 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Haste an adjacent item for ( 1 » 2 » 3 ) second(s)."
+      "Haste 1 adjacent item for ( 1 » 2 » 3 ) second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 3.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "An adjacent item gains 20% Crit Chance for the fight."
     }
   },
@@ -2641,6 +2777,7 @@ export const items = {
       "Fiery": "Burn 18.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -2658,11 +2795,11 @@ export const items = {
       "Vehicle",
       "Weapon"
     ],
-    "cooldown": 4,
+    "cooldown": 5,
     "ammo": null,
     "text": [
-      "Deal ( 20 » 40 » 80 ) damage.",
-      "Shield ( 20 » 40 » 80 ).",
+      "Deal 30 damage.",
+      "Shield 30.",
       "When you use any item to the left of this, this gains ( 10 » 20 » 30 ) Damage for the fight.",
       "When you use any item to the right of this, this gains ( 10 » 20 » 30 ) Shield for the fight."
     ],
@@ -2672,10 +2809,11 @@ export const items = {
       "Turbo": "Haste 3 item for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -2700,14 +2838,15 @@ export const items = {
       "When you use another Friend, Charge this 1 second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Heavy": "Slow 1 item for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 80.",
       "Restorative": "Heal 120.",
       "Toxic": "Poison 8.",
       "Fiery": "Burn 12.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "Your friends gain +10% Crit Chance for the fight."
     }
   },
@@ -2725,20 +2864,21 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Deal ( 12 » 24 » 48 ) damage.",
+      "Deal ( 30 » 40 » 50 ) damage.",
       "Gain ( 1 » 2 » 3 ) gold."
     ],
     "enchants": {
-      "Golden": "Double Gold",
+      "Golden": "This has double value gain.",
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 5.",
+      "Toxic": "Poison equal to 10% 0f this item's Damage.",
+      "Fiery": "Burn equal to 10% of this item's Damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -2755,10 +2895,10 @@ export const items = {
     "ammo": null,
     "text": [
       "When you sell this, you lose ( 10 » 20 » 30 » 40 ) Max Health.",
-      "When you sell this, gain ( 1 » 2 » 3 » 4 ) Regeneration."
+      "When you sell this, permanently gain ( 1 » 2 » 3 » 4 ) Regeneration."
     ],
     "enchants": {
-      "Shiny": "This takes double Max Health and gives double Regeneration."
+      "Shiny": "This takes double Max Health and has double Regeneration bonus."
     }
   },
   "Cool LEDs": {
@@ -2771,7 +2911,7 @@ export const items = {
       "Slow",
       "Tech"
     ],
-    "cooldown": 4,
+    "cooldown": 5,
     "ammo": null,
     "text": [
       "Slow 1 item for ( 2 » 3 » 4 ) second(s).",
@@ -2779,13 +2919,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 3.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Coolant": {
@@ -2811,7 +2952,8 @@ export const items = {
       "Restorative": "Heal 45.",
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Cooling Fan": {
@@ -2828,19 +2970,20 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Give the Core ( +5% » +10% » +15% ) Crit Chance for the fight.",
+      "The Core gains ( +5% » +10% » +15% ) Crit Chance for the fight.",
       "While either player has Burn, reduce this item's cooldown by 50%."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 25.",
       "Restorative": "Heal 40.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "An item gains +20% Crit Chance for the fight."
+      "Deadly": "An item gains +20% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Copper Ed": {
@@ -2862,14 +3005,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal 45.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Coral": {
@@ -2885,18 +3029,19 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Heal ( 5 » 10 » 20 » 40 ).",
+      "Heal 20.",
       "When you buy an Aquatic item, this gains Heal ( 3 » 6 » 9 » 12 )."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -2907,24 +3052,26 @@ export const items = {
     "tags": [
       "Vanessa",
       "Medium",
+      "Apparel",
       "Aquatic",
       "Shield"
     ],
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Shield ( 10 » 20 » 40 » 80 ).",
+      "Shield 50.",
       "When you buy another Aquatic item, this gains ( 5 » 10 » 15 » 20 ) Shield."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -2947,14 +3094,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Cosmic Plumage": {
@@ -2976,14 +3124,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield 60.",
       "Restorative": "Heal 90.",
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your Shield items and Weapons gain +10% Crit Chance for the fight."
+      "Deadly": "Your Shield items and Weapons gain +10% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Cove": {
@@ -3006,15 +3155,16 @@ export const items = {
       "When you sell an item, this gains ( 1 » 1 » 1 » 2 ) value."
     ],
     "enchants": {
-      "Golden": "Double Value",
+      "Golden": "This has double value.",
       "Heavy": "Slow 3 items for 1 second(s).",
       "Icy": "Freeze 1 item for 2 second(s).",
       "Turbo": "Haste 3 items for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 7.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -3043,10 +3193,11 @@ export const items = {
       "Turbo": "Haste 3 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 15.",
-      "Fiery": "Burn 22.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -3067,21 +3218,22 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Deal ( 10 » 20 » 40 » 80 ) damage.",
+      "Deal ( 20 » 30 » 40 » 50 ) damage.",
       "This and items to the right of this have ( +15% » +20% » +25% » +30% ) Crit Chance.",
       "When you use any item to the left of this, Charge this 1 second(s).",
       "When you Crit with any item, Charge this 1 second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
-      "Turbo": "Haste 2 items for 3 second(s).",
-      "Shielded": "Shield 80.",
-      "Restorative": "Heal 120.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
+      "Heavy": "Slow 1 item for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
+      "Turbo": "Haste 1 item for 4 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -3104,14 +3256,16 @@ export const items = {
       "Your Medium Weapons have ( +8 » +16 » +24 ) Damage for each Medium item you have. [0]"
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Your Shield items have +10 Shield for each Medium item you have.",
-      "Restorative": "Your Heal items have +15 Heal for each Medium item you have.",
-      "Toxic": "Your Poison items have +2 Poison for each Medium item you have.",
-      "Fiery": "Your Burn items have +3 Burn for each Medium item you have.",
+      "Heavy": "Slow 2 items for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "Haste 2 items for 1 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
+      "Shiny": "This has +1 Multicast.",
       "Deadly": "Your items have +10% Crit Chance for each Medium item you have.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -3134,14 +3288,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "When you crit with a Weapon, slow 1 item for 4 second(s).",
-      "Icy": "When you crit with a weapon, Freeze 1 item for 2 second(s).",
+      "Icy": "When you crit with a weapon, Freeze 1 small item for 2 second(s).",
       "Turbo": "When you crit with a weapon, haste 1 item for 4 second(s).",
       "Shielded": "When you crit with a weapon, shield 40.",
       "Restorative": "When you crit with a Weapon, Heal 60.",
       "Toxic": "When you crit with a weapon, poison 4",
       "Fiery": "When you crit with a weapon, burn 6",
       "Deadly": "Your Weapons have double Crit damage.",
-      "Shiny": "If you have two or fewer weapons, they have Lifesteal."
+      "Shiny": "If you have two or fewer weapons, they have Lifesteal.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Crusher Claw": {
@@ -3163,15 +3318,16 @@ export const items = {
       "Your Shield items gain ( +2 » +4 » +6 » +8 ) Shield for the fight."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
-      "Turbo": "Haste 2 items for 3 second(s).",
-      "Shielded": "Shield 80.",
-      "Restorative": "Heal equal to this item's damage.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
+      "Heavy": "Slow 2 items for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
+      "Turbo": "Haste 2 items for 2 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -3195,13 +3351,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 1 items for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Cryosphere": {
@@ -3227,7 +3384,8 @@ export const items = {
       "Restorative": "Heal 150.",
       "Toxic": "Poison 10.",
       "Fiery": "Burn 15.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Crypto": {
@@ -3246,8 +3404,9 @@ export const items = {
       "At the start of each hour, set this item's value to a number between 0 and ( 5 » 10 » 20 » 40 )."
     ],
     "enchants": {
-      "Golden": "Double Value",
-      "Shiny": "Double Value"
+      "Golden": "This has double value.",
+      "Shiny": "This has double value.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Crystal Bonsai": {
@@ -3270,15 +3429,16 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Golden": "Double Value",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Golden": "This has double value.",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Curry": {
@@ -3300,14 +3460,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 40.",
       "Restorative": "Heal 60.",
       "Toxic": "Poison 4.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Cutlass": {
@@ -3325,19 +3486,20 @@ export const items = {
     "ammo": null,
     "text": [
       "Multicast 2",
-      "Deal ( 6 » 12 » 24 » 48 ) damage.",
+      "Deal ( 10 » 20 » 30 » 40 ) damage.",
       "This deals double Crit damage."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's Damage.",
+      "Fiery": "Burn equal to 10% of this item's Damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -3355,19 +3517,20 @@ export const items = {
     "cooldown": 10,
     "ammo": null,
     "text": [
-      "Deal ( 15 » 30 » 60 ) damage for each Weapon you have.",
-      "This deals ( 2 » 3 » 4 ) time(s) damage if it is your only friend."
+      "Deal ( 15 » 30 » 60 ) damage for each Weapon or Tech item you have.",
+      "This deals ( 2 » 3 » 4 ) times damage if it is your only friend."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 4 second(s).",
-      "Icy": "Freeze 1 item for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 4 second(s).",
       "Turbo": "Haste 2 items for 4 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 12.",
-      "Fiery": "Burn 18.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -3388,14 +3551,16 @@ export const items = {
       "When you use another Aquatic item, charge this ( 1 » 2 ) second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 3 items for 8 second(s).",
-      "Icy": "Freeze 1 item for 12 second(s).",
-      "Turbo": "Haste 3 items for 8 second(s).",
-      "Shielded": "Shield 300.",
-      "Restorative": "Heal 450.",
-      "Toxic": "Poison 30.",
-      "Fiery": "Burn 45.",
-      "Shiny": "Double Charge"
+      "Heavy": "Slow all enemy items for 3 second(s).",
+      "Icy": "Freeze all enemy items for 1 second(s).",
+      "Turbo": "Haste your items for 3 second(s).",
+      "Shielded": "When you use an aquatic item, Shield 20.",
+      "Restorative": "When you use an aquatic item, Heal 30.",
+      "Toxic": "When you use an aquatic item, Poison 2.",
+      "Fiery": "When you use an aquatic item, Burn 3.",
+      "Shiny": "This has double Charge.",
+      "Deadly": "Your Aquatic items have +25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Death Caps": {
@@ -3416,14 +3581,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield 50.",
       "Restorative": "Heal 75.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 7.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Deed": {
@@ -3443,7 +3609,8 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Shiny": "Double Value"
+      "Shiny": "Double Value",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Diana-Saur": {
@@ -3461,20 +3628,21 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Deal ( 40 » 80 » 160 ) damage.",
+      "Deal 80 damage.",
       "If your enemy has at least ( 6 » 5 » 4 ) items, destroy a small enemy item for the fight.",
       "When you destroy an item during combat, your Dinosaurs permanently gain ( 10 » 15 » 20 ) damage."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -3485,6 +3653,7 @@ export const items = {
     "tags": [
       "Vanessa",
       "Medium",
+      "Apparel",
       "Crit"
     ],
     "cooldown": null,
@@ -3495,13 +3664,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "When you use an item from another hero, Slow 1 item for 3 second(s).",
-      "Icy": "When you use an item from another hero, Freeze 1 item for 1 second(s).",
+      "Icy": "When you use an item from another hero, Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "When you use an item from another hero, haste it for 3 second(s).",
       "Shielded": "When you use an item from another hero, shield 20.",
       "Restorative": "When you use an item from another hero, heal 30.",
       "Toxic": "When you use an item from another hero, poison 2.",
       "Fiery": "When you use an item from another hero, burn 3.",
-      "Deadly": "This gives double + Crit Chance."
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Dishwasher": {
@@ -3530,7 +3700,8 @@ export const items = {
       "Toxic": "Poison 12.",
       "Fiery": "Burn 18.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your weapons and tools gain 25% Crit Chance for the fight."
+      "Deadly": "Your weapons and tools gain 25% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "DJ Rob0t": {
@@ -3551,13 +3722,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 100.",
       "Restorative": "Heal 150.",
       "Toxic": "Poison 10.",
       "Fiery": "Burn 15.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Dock Lines": {
@@ -3578,13 +3750,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield 40.",
       "Restorative": "Heal 60.",
       "Toxic": "Poison 4.",
       "Fiery": "Burn 6.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Dog": {
@@ -3607,14 +3780,15 @@ export const items = {
     "enchants": {
       "Golden": "Your Small items have +1 value.",
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -3625,25 +3799,27 @@ export const items = {
     "tags": [
       "Dooley",
       "Medium",
+      "Apparel",
       "FreezeReference",
       "Shield"
     ],
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Shield ( 40 » 80 » 160 ).",
+      "Shield ( 75 » 100 » 125 ).",
       "When this or an adjacent item gains Freeze, remove it."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Double Barrel": {
@@ -3661,18 +3837,19 @@ export const items = {
     "ammo": 2,
     "text": [
       "Multicast 2",
-      "Deal ( 20 » 40 » 80 » 160 ) damage."
+      "Deal ( 25 » 50 » 75 » 100 ) damage."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's Damage.",
+      "Fiery": "Burn equal to 10% of this item's Damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -3699,10 +3876,11 @@ export const items = {
       "Turbo": "Haste 3 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 9.",
-      "Fiery": "Burn 13.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -3728,14 +3906,15 @@ export const items = {
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
       "Golden": "The damage buff has its Gold cost reduced by 2.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -3752,10 +3931,10 @@ export const items = {
       "Friend",
       "Weapon"
     ],
-    "cooldown": 9,
+    "cooldown": "( 9 » 8 » 7 )",
     "ammo": null,
     "text": [
-      "Deal ( 1 » 2 » 3 ) damage.",
+      "Deal 1 damage.",
       "Burn equal to this item's damage."
     ],
     "enchants": {
@@ -3768,6 +3947,7 @@ export const items = {
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -3786,17 +3966,18 @@ export const items = {
     "ammo": null,
     "text": [
       "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you use an adjacent item, Shield ( 5 » 10 » 20 » 40 )."
+      "When you use an adjacent item, Shield ( 4 » 8 » 12 » 16 )."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Eagle Talisman": {
@@ -3815,7 +3996,7 @@ export const items = {
       "When you sell this, your leftmost item gains ( 5% » 10% » 15% » 20% ) Crit Chance."
     ],
     "enchants": {
-      "Shiny": "This gives double + Crit Chance.",
+      "Shiny": "This has double Crit Chance bonus.",
       "Deadly": "...and Enchant the item with Deadly if able."
     }
   },
@@ -3833,18 +4014,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Gain ( 20 » 30 » 40 ) Max Health for the fight.",
-      "When you Slow, Charge this 1 second."
+      "When you Slow, Charge this 1 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
       "Toxic": "Poison 2.",
       "Fiery": "When you Slow, Burn 3.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your items gain 10% Crit Chance for the fight."
+      "Deadly": "Your items gain 10% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Ectoplasm": {
@@ -3865,14 +4047,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield equal to your opponent's Poison.",
+      "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
       "Toxic": "This has double Poison.",
-      "Fiery": "Burn 4.",
+      "Fiery": "Burn equal to this item's Poison.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Electric Eels": {
@@ -3901,11 +4084,12 @@ export const items = {
       "Turbo": "Haste 1 item for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's Damage.",
+      "Fiery": "Burn equal to 10% of this item's Damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
-      "Obsidian": "This has Lifesteal."
+      "Obsidian": "This has Lifesteal.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Emerald": {
@@ -3926,14 +4110,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 30.",
       "Restorative": "Heal 45.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Energy Potion": {
@@ -3960,7 +4145,8 @@ export const items = {
       "Restorative": "Heal 60.",
       "Toxic": "Poison 4.",
       "Fiery": "Burn 6.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Epicurean Chocolate": {
@@ -3989,6 +4175,7 @@ export const items = {
     "tags": [
       "Common",
       "Medium",
+      "Apparel",
       "DamageReference"
     ],
     "cooldown": null,
@@ -3998,8 +4185,9 @@ export const items = {
       "When you sell this, your weapons gain ( 2 » 4 » 6 » 8 ) damage."
     ],
     "enchants": {
-      "Shiny": "DamageAmount0",
-      "Deadly": "+50% Crit Chance"
+      "Shiny": "This has double damage bonus.",
+      "Deadly": "Adjacent Weapons have +20% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Extract": {
@@ -4019,7 +4207,7 @@ export const items = {
     ],
     "enchants": {
       "Toxic": "...and Enchant the item with Toxic if able.",
-      "Shiny": "This gives double + Poison."
+      "Shiny": "This has double Poison bonus."
     }
   },
   "Eye of the Colossus": {
@@ -4046,7 +4234,8 @@ export const items = {
       "Restorative": "When you use an adjacent item, Heal 45.",
       "Toxic": "When you use an adjacent item, Poison 3.",
       "Fiery": "When you use an adjacent item, Burn 4.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Fang": {
@@ -4066,14 +4255,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -4093,7 +4283,7 @@ export const items = {
       "When you sell this, reduce your items' cooldowns by ( 2% » 4% » 6% » 8% )."
     ],
     "enchants": {
-      "Shiny": "This gives double cooldown reduction."
+      "Shiny": "This has double cooldown reduction bonus."
     }
   },
   "Fiber Optics": {
@@ -4120,7 +4310,8 @@ export const items = {
       "Toxic": "When you use your leftmost item, Poison 1.",
       "Fiery": "When you use your leftmost item, Burn 2.",
       "Shiny": "This has double Charge amount.",
-      "Deadly": "When you use the leftmost item, the rightmost item gains +25% Crit Chance for the fight."
+      "Deadly": "When you use the leftmost item, the rightmost item gains +25% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Figurehead": {
@@ -4142,14 +4333,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "When you use an adjacent item, slow 1 item for 3 second(s).",
-      "Icy": "When you use an adjacent item, freeze 1 item for 1 second(s).",
+      "Icy": "When you use an adjacent item, freeze 1 small item for 1 second(s).",
       "Turbo": "When you use an adjacent item, haste 1 item for 3 second(s).",
       "Shielded": "When you use an adjacent item, shield 20.",
       "Restorative": "When you use an adjacent item, heal 30.",
       "Toxic": "When you use an adjacent item, poison 2.",
       "Fiery": "When you use an adjacent item, burn 3.",
-      "Shiny": "This gives + double Damage and double Cooldown Reduction.",
-      "Deadly": "Your items have +25% Crit Chance."
+      "Shiny": "This has double Damage bonus and double Cooldown Reduction.",
+      "Deadly": "Your items have +25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Fire Claw": {
@@ -4169,14 +4361,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield 60.",
       "Restorative": "Heal 90.",
       "Toxic": "Poison 6.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Fire Potion": {
@@ -4197,14 +4390,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 3 second(s).",
       "Shielded": "Shield 50.",
       "Restorative": "Heal 75.",
       "Toxic": "Poison 5.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "First Aiden": {
@@ -4218,22 +4412,23 @@ export const items = {
       "Haste",
       "Heal"
     ],
-    "cooldown": 3,
+    "cooldown": 4,
     "ammo": null,
     "text": [
-      "Heal ( 10 » 20 » 40 » 80 ).",
+      "Heal ( 20 » 30 » 40 » 50 ).",
       "Haste 1 item for ( 1 » 2 » 3 » 4 ) second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 1.",
-      "Fiery": "Burn 2.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Fishing Net": {
@@ -4255,14 +4450,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield 80.",
       "Restorative": "Heal 120.",
       "Toxic": "Poison 8.",
       "Fiery": "Burn 12.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your Piranhas have +50% Crit Chance."
+      "Deadly": "Your Piranhas have +50% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Fishing Rod": {
@@ -4284,14 +4480,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 80.",
       "Restorative": "Heal 120.",
       "Toxic": "Poison 8.",
       "Fiery": "Burn 12.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your Aquatic items have +25% Crit Chance."
+      "Deadly": "Your Aquatic items have +25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Fixer Upper": {
@@ -4308,20 +4505,21 @@ export const items = {
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Shield equal to ( 1x » 2x » 3x » 4x ) this item's value.",
+      "Shield equal to ( 1 » 2 » 3 » 4 ) times this item's value.",
       "At the start of each day, upgrade this."
     ],
     "enchants": {
       "Heavy": "Slow 3 items for 1 second(s).",
-      "Golden": "Double Value",
+      "Golden": "This has double value.",
       "Icy": "Freeze 1 item for 1 second(s).",
       "Turbo": "Haste 3 items for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 7.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Flagship": {
@@ -4340,7 +4538,7 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Deal ( 25 » 50 » 100 ) damage.",
+      "Deal ( 50 » 75 » 100 ) damage.",
       "If you have another Tool, Ammo, Property or Friend this has +1 Multicast for each."
     ],
     "enchants": {
@@ -4349,10 +4547,11 @@ export const items = {
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 5.",
+      "Toxic": "Poison equal to 10% of this item's Damage.",
+      "Fiery": "Burn equal to 10% of this item's Damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -4370,18 +4569,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Multicast 3",
-      "Deal ( 5 » 10 » 20 » 40 ) damage."
+      "Deal ( 8 » 16 » 24 » 32 ) damage."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -4405,12 +4605,13 @@ export const items = {
       "Heavy": "Slow 3 items for 3 second(s).",
       "Icy": "Freeze 1 item for 4 second(s).",
       "Turbo": "Haste 3 items for 3 second(s).",
-      "Shielded": "Shield 120.",
-      "Restorative": "Heal 180.",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
       "Toxic": "Poison 12.",
       "Fiery": "Burn 18.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -4430,18 +4631,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Deal ( 2 » 4 ) damage.",
-      "Burn equal to ( 1 » 2 ) time(s) this item's damage."
+      "Burn equal to ( 1 » 2 ) times this item's damage."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
-      "Shielded": "Shield 60.",
-      "Restorative": "Heal 90.",
-      "Toxic": "Poison equal to 2 time(s) this item's damage.",
-      "Fiery": "This has double Burn.",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "This has double burn.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -4462,13 +4664,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 3 second(s).",
       "Shielded": "Shield 45.",
       "Restorative": "Heal 70.",
       "Toxic": "Poison 4.",
       "Fiery": "Burn 7.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Force Field": {
@@ -4494,11 +4697,12 @@ export const items = {
       "Icy": "Freeze 1 item for 2 second(s).",
       "Turbo": "Haste 3 items for 1 second(s).",
       "Shielded": "This has double Shield.",
-      "Restorative": "Heal equal to your shield.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Restorative": "Heal equal to your Shield.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -4525,12 +4729,13 @@ export const items = {
       "Heavy": "Slow 3 items for 3 second(s).",
       "Icy": "Freeze 1 item for 4 second(s).",
       "Turbo": "This has double Haste duration.",
-      "Shielded": "+0 MISSING",
-      "Restorative": "+0 MISSING",
-      "Toxic": "+0 MISSING",
-      "Fiery": "+0 MISSING",
+      "Shielded": "Shield 50 for each item to the left of this.",
+      "Restorative": "Heal 75 for each item to the left of this.",
+      "Toxic": "Poison 5 for each item to the left of this.",
+      "Fiery": "Burn 7 for each item to the left of this.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -4547,7 +4752,7 @@ export const items = {
     "cooldown": 7,
     "ammo": null,
     "text": [
-      "Shield ( 50 » 100 ).",
+      "Shield ( 100 » 150 ).",
       "All item cooldowns are increased by ( 1 » 2 ) second(s).",
       "Your items with a cooldown of 8 seconds or greater have +1 Multicast."
     ],
@@ -4557,10 +4762,11 @@ export const items = {
       "Turbo": "Haste 1 item for 4 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 10",
-      "Fiery": "Burn 15",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Enemy items have -100% Crit Chance."
+      "Deadly": "Enemy items have -100% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Fossilized Femur": {
@@ -4590,6 +4796,7 @@ export const items = {
       "Fiery": "Burn 9.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -4617,7 +4824,8 @@ export const items = {
       "Restorative": "Heal 75.",
       "Toxic": "Poison 5.",
       "Fiery": "Burn 7.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Frozen Bludgeon": {
@@ -4644,10 +4852,11 @@ export const items = {
       "Turbo": "Haste 3 items for 4 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal 0.",
-      "Toxic": "Poison 18.",
-      "Fiery": "Burn 27.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -4671,14 +4880,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 90.",
       "Restorative": "Heal 120.",
       "Toxic": "Poison 9.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Gamma Ray": {
@@ -4699,14 +4909,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 3.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Ganjo": {
@@ -4723,20 +4934,21 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Adjacent weapons gain ( 5 » 10 » 15 » 20 ) Damage for the fight.",
-      "Adjacent Heal items gain ( 5 » 10 » 15 » 20 ) Heal for the fight.",
-      "Adjacent Shield items gain ( 5 » 10 » 15 » 20 ) Shield for the fight."
+      "Adjacent weapons gain ( 10 » 15 » 20 » 25 ) Damage for the fight.",
+      "Adjacent Heal items gain ( 10 » 15 » 20 » 25 ) Heal for the fight.",
+      "Adjacent Shield items gain ( 10 » 15 » 20 » 25 ) Shield for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
-      "Shielded": "This gives double + Shield.",
-      "Restorative": "This gives double + Heal.",
+      "Shielded": "This has double Shield bonus.",
+      "Restorative": "This has double Heal bonus.",
       "Toxic": "Adjacent Poison items gain 1 Poison for the fight.",
       "Fiery": "Adjacent Burn items gain 1 burn for the fight.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Adjacent items gain 10% Crit Chance for the fight."
+      "Deadly": "Adjacent items gain 10% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Gatling Gun": {
@@ -4756,15 +4968,16 @@ export const items = {
       "Reduce this item's cooldown by ( 10% » 20% ) for the fight."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
+      "Heavy": "Slow 2 items for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -4786,7 +4999,7 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 500 to the player with the most health.",
       "Restorative": "Heal 500 to the player with the most health.",
@@ -4794,6 +5007,7 @@ export const items = {
       "Fiery": "Burn 50 to the player with the lowest health.",
       "Deadly": "+50% Crit Chance",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -4810,19 +5024,20 @@ export const items = {
     "cooldown": 4,
     "ammo": 2,
     "text": [
-      "Shield ( 20 » 40 » 80 » 120 ).",
+      "Shield ( 30 » 60 » 90 » 120 ).",
       "When you sell a Tool, this gains +1 Max Ammo."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Genie Lamp": {
@@ -4866,10 +5081,11 @@ export const items = {
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's damage.",
-      "Toxic": "Poison 10.",
-      "Fiery": "Burn 15.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -4886,10 +5102,10 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you sell this, gain ( 1 » 2 » 3 » 4 ) Regeneration."
+      "When you sell this, permanently gain ( 1 » 2 » 3 » 4 ) Regeneration."
     ],
     "enchants": {
-      "Shiny": "This gives double Regeneration."
+      "Shiny": "This has double Regeneration bonus."
     }
   },
   "Globe": {
@@ -4905,18 +5121,19 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "At the start of each day, gain ( 100 » 200 » 300 ) Max Health."
+      "At the start of each day, permanently gain ( 100 » 200 » 300 ) Max Health."
     ],
     "enchants": {
       "Heavy": "At the start of each fight, Slow 3 items for 5 second(s).",
-      "Icy": "At the start of each fight, Freeze 2 item for 4 second(s).",
+      "Icy": "At the start of each fight, Freeze 2 medium or small items for 4 second(s).",
       "Turbo": "At the start of each fight, Haste 3 items for 5 second(s).",
       "Shielded": "At the start of each fight, Shield 120.",
       "Restorative": "You have +12 Regeneration.",
       "Toxic": "At the start of each fight, poison 12.",
       "Fiery": "At the start of each fight, burn 16.",
       "Shiny": "This has double Max Health gain.",
-      "Deadly": "At the start of each day, your items gain 10% Crit Chance."
+      "Deadly": "At the start of each day, your items gain 10% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Goggles": {
@@ -4926,6 +5143,7 @@ export const items = {
     "tags": [
       "Stelle",
       "Small",
+      "Apparel",
       "Crit",
       "HasteReference",
       "Shield",
@@ -4939,14 +5157,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "This has double Shield.",
-      "Restorative": "Heal 60.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Restorative": "Heal equal to this item's Shield.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Golf Clubs": {
@@ -4968,14 +5187,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -4996,13 +5216,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 3.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Grapeshot": {
@@ -5020,25 +5241,26 @@ export const items = {
     "ammo": 2,
     "text": [
       "Deal ( 15 » 30 » 60 ) damage.",
-      "When you use another item with Ammo, this reloads 1 ammo."
+      "When you use another Ammo item, this reloads 1 ammo."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
   "Grappling Hook": {
     "name": "Grappling Hook",
     "icon": "images/items/GrapplingHook.avif",
-    "tier": "Silver",
+    "tier": "Bronze",
     "tags": [
       "Vanessa",
       "Small",
@@ -5050,19 +5272,20 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Deal ( 10 » 20 » 40 ) damage.",
-      "Slow 1 item for ( 3 » 4 » 5 ) second(s)."
+      "Deal ( 12 » 18 » 24 » 32 ) damage.",
+      "Slow 1 item for ( 2 » 3 » 4 » 5 ) second(s)."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 5.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -5078,10 +5301,10 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you sell this, gain ( 10 » 20 » 30 » 40 ) Max Health."
+      "When you sell this, permanently gain ( 10 » 20 » 30 » 40 ) Max Health."
     ],
     "enchants": {
-      "Shiny": "This gives double Max Health."
+      "Shiny": "This has double Max Health bonus."
     }
   },
   "Grenade": {
@@ -5099,18 +5322,19 @@ export const items = {
     "ammo": 1,
     "text": [
       "Crit Chance 25%",
-      "Deal ( 30 » 60 » 120 » 240 ) damage."
+      "Deal ( 50 » 100 » 150 » 200 ) damage."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 6 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
+      "Icy": "Freeze 1 small item for 3 second(s).",
+      "Turbo": "Haste 1 item for 6 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 16.",
-      "Fiery": "Burn 24.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "This has double Crit Damage.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -5127,18 +5351,19 @@ export const items = {
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Give the weapon to the left of this ( +10 » +20 » +30 ) damage for the fight."
+      "The weapon to the left of this gains ( +10 » +20 » +30 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "The Shield item to the left of this gains 20 Shield for the fight.",
       "Restorative": "The Heal item to the left of this gains 30 Heal for the fight.",
       "Toxic": "The Poison item to the left of this gains 2 Poison for the fight.",
       "Fiery": "The Burn item to the left of this gains 3 burn for the fight.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "The item to the left of this gains +20% Crit Chance for the fight."
+      "Deadly": "The item to the left of this gains +20% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Gumball Machine": {
@@ -5152,7 +5377,7 @@ export const items = {
       "Shield",
       "Toy"
     ],
-    "cooldown": 5,
+    "cooldown": 4,
     "ammo": null,
     "text": [
       "Shield ( 10 » 20 » 30 ).",
@@ -5161,14 +5386,15 @@ export const items = {
     "enchants": {
       "Golden": "The Gumball is now free!",
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Gunpowder": {
@@ -5184,10 +5410,10 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you sell this, your leftmost item with Ammo gains ( 1 » 2 » 3 ) Max Ammo."
+      "When you sell this, your leftmost Ammo item gains ( 1 » 2 » 3 ) Max Ammo."
     ],
     "enchants": {
-      "Shiny": "This gives double + Max Ammo."
+      "Shiny": "This has double Max Ammo bonus."
     }
   },
   "Hacksaw": {
@@ -5209,14 +5435,16 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
-      "Shielded": "Shield equal to this item's Damage.",
+      "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "This has Lifesteal."
     }
   },
   "Hakurvian Launcher": {
@@ -5247,6 +5475,7 @@ export const items = {
       "Fiery": "Burn 27.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -5268,14 +5497,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 1.",
-      "Fiery": "Burn 2.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -5297,6 +5527,7 @@ export const items = {
       "When you Level Up, if you have at least 3 tools, upgrade an item of a lower tier."
     ],
     "enchants": {
+      "Golden": "...and Enchant the item with Golden if able.",
       "Heavy": "...and Enchant the item with Heavy if able.",
       "Icy": "...and Enchant the item with Icy if able.",
       "Turbo": "...and Enchant the item with Turbo if able.",
@@ -5307,7 +5538,7 @@ export const items = {
       "Shiny": "...and Enchant the item with Shiny if able.",
       "Deadly": "...and Enchant the item with Deadly if able.",
       "Radiant": "...and Enchant the item with Radiant if able.",
-      "Obsidian": "...and Enchant the item with Radiant if able."
+      "Obsidian": "...and Enchant the item with Obsidian if able."
     }
   },
   "Hammlet": {
@@ -5331,14 +5562,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
-      "Shielded": "Shield equal to this item's Damage.",
+      "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -5360,14 +5592,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Handaxe": {
@@ -5384,19 +5617,20 @@ export const items = {
     "cooldown": 7,
     "ammo": null,
     "text": [
-      "Deal ( 5 » 10 » 20 » 40 ) damage.",
-      "Your weapons have ( +3 » +6 » +9 » +15 ) damage."
+      "Deal ( 10 » 15 » 20 » 25 ) damage.",
+      "Your weapons have ( +6 » +9 » +12 » +15 ) damage."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage. Your other Shield items gain +9 Shield for the fight.",
       "Restorative": "Heal equal to this item's damage. Your other Heal items gain +9 Heal for the fight.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 5.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -5412,22 +5646,23 @@ export const items = {
       "ShieldReference",
       "Weapon"
     ],
-    "cooldown": 6,
+    "cooldown": 8,
     "ammo": null,
     "text": [
       "Deal ( 50 » 75 » 100 » 125 ) damage.",
-      "When you Shield, Charge this 2 second."
+      "When you Shield, Charge this 2 second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield equal to this item's Damage.",
+      "Heavy": "Slow 1 items for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "Haste 1 items for 2 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -5448,13 +5683,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 4 second(s).",
-      "Icy": "Freeze 1 item for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 4 second(s).",
       "Turbo": "Haste 2 items for 4 second(s).",
       "Shielded": "Shield 60.",
       "Restorative": "Heal 90.",
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Hatchet": {
@@ -5477,14 +5713,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 5.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -5504,14 +5741,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 30.",
       "Restorative": "Heal 45.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Hogwash": {
@@ -5528,7 +5766,7 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Heal equal to ( 5% » 10% » 15% ) of your Max Health.",
+      "Heal equal to ( 4% » 8% » 12% ) of your Max Health.",
       "When you Heal, gain ( 10 » 20 » 40 ) Max Health for the fight."
     ],
     "enchants": {
@@ -5537,10 +5775,11 @@ export const items = {
       "Turbo": "When you Heal, Haste 1 items for 3 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "When you Heal, Poison 3.",
-      "Fiery": "When you Heal, Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "When you Heal, your items gain +10% Crit Chance for the fight."
+      "Deadly": "When you Heal, your items gain +10% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Holsters": {
@@ -5559,12 +5798,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "At the start of each fight, Slow small enemy items for 2 second(s).",
-      "Icy": "At the start of each fight, Freeze 1 item for 4 second(s).",
+      "Icy": "At the start of each fight, Freeze 1 small item for 4 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "At the start of each fight, Shield 60.",
-      "Toxic": "At the start of each fight, poison 3.",
-      "Fiery": "At the start of each fight, burn 3.",
-      "Deadly": "Your Small items have +20% Crit Chance."
+      "Restorative": "You have +8 Regeneration.",
+      "Toxic": "At the start of each fight, poison 4.",
+      "Fiery": "At the start of each fight, burn 8.",
+      "Deadly": "Your Small items have +20% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Honing Steel": {
@@ -5580,18 +5821,19 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Give the weapon to the right of this ( +5 » +10 » +15 » +20 ) damage for the fight."
+      "The weapon to the right of this gains ( +8 » +12 » +16 » +20 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste the Weapon to the right for 1 second(s).",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 3.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Give the Weapon to the right of this +20% Crit Chance for the fight."
+      "Deadly": "The Weapon to the right of this gains +20% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Hot Springs": {
@@ -5618,7 +5860,8 @@ export const items = {
       "Toxic": "Poison 7.",
       "Fiery": "Burn 11.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Hydraulic Squeezer": {
@@ -5641,14 +5884,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 12.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -5679,7 +5923,8 @@ export const items = {
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 12.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Ice Cream Truck": {
@@ -5707,7 +5952,8 @@ export const items = {
       "Restorative": "Heal 135.",
       "Toxic": "Poison 9.",
       "Fiery": "Burn 13.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Ice Cubes": {
@@ -5733,7 +5979,8 @@ export const items = {
       "Restorative": "Heal 90.",
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Ice Pick": {
@@ -5751,9 +5998,9 @@ export const items = {
     "cooldown": 7,
     "ammo": null,
     "text": [
-      "Deal ( 20 » 40 » 80 ) damage.",
-      "Freeze 1 item for ( 1 » 2 » 3 ) second(s).",
-      "When you Freeze, this gains ( 5 » 10 » 15 ) damage for the fight."
+      "Deal ( 36 » 48 » 60 ) damage.",
+      "Freeze 1 small item for ( 1 » 2 » 3 ) second(s).",
+      "When you Freeze, this gains ( 10 » 15 » 20 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -5761,10 +6008,11 @@ export const items = {
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 5.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -5791,7 +6039,8 @@ export const items = {
       "Shielded": "When your enemy uses an item, shield 30.",
       "Restorative": "When your enemy uses an item, heal 45.",
       "Toxic": "When your enemy uses an item, poison 3.",
-      "Fiery": "When your enemy uses an item, burn 4."
+      "Fiery": "When your enemy uses an item, burn 4.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Icebreaker": {
@@ -5823,6 +6072,7 @@ export const items = {
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -5875,10 +6125,11 @@ export const items = {
       "Turbo": "Haste 1 item for 4 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Ignition Core": {
@@ -5897,19 +6148,20 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Burn ( 6 » 9 » 12 » 15 ).",
+      "Burn ( 4 » 7 » 10 » 13 ).",
       "Burn items to the right of this gain ( 1 » 2 » 3 » 4 ) Burn for the fight.",
       "When you use any item to the left of this, Charge this 1 second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
-      "Turbo": "Haste 2 items for 3 second(s).",
-      "Shielded": "Shield 80.",
-      "Restorative": "Heal 120.",
-      "Toxic": "Poison 8.",
+      "Heavy": "Slow 1 item for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
+      "Turbo": "Haste 1 item for 4 second(s).",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -5933,14 +6185,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 35.",
       "Restorative": "Heal 50.",
       "Toxic": "Poison 3.",
       "Fiery": "Burn 5.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Adjacent Friends have +25% Crit Chance."
+      "Deadly": "Adjacent Friends have +25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Improvised Bludgeon": {
@@ -5963,14 +6216,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 7.",
-      "Fiery": "Burn 10.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -5981,7 +6235,7 @@ export const items = {
     "tags": [
       "Vanessa",
       "Small",
-      "Ammo",
+      "AmmoReference",
       "Burn"
     ],
     "cooldown": null,
@@ -5996,10 +6250,11 @@ export const items = {
       "Turbo": "When you use an adjacent item, haste it for 1 second(s).",
       "Shielded": "When you use an adjacent item, shield 10.",
       "Restorative": "When you use an adjacent item, heal 15.",
-      "Toxic": "When you use an adjacent item, poison 1.",
+      "Toxic": "When you use an adjacent item, Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
-      "Shiny": "This gives double + Max Ammo.",
-      "Deadly": "Adjacent items have +25% Crit Chance."
+      "Shiny": "This has double Max Ammo bonus.",
+      "Deadly": "Adjacent items have +25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Incense": {
@@ -6020,14 +6275,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 20.",
       "Restorative": "This has double Heal.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your items gain 5% Crit Chance for the fight."
+      "Deadly": "Your items gain 5% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Induction Aegis": {
@@ -6041,22 +6297,23 @@ export const items = {
       "Shield",
       "Tech"
     ],
-    "cooldown": 4,
+    "cooldown": 5,
     "ammo": null,
     "text": [
-      "Shield ( 5 » 10 » 20 » 40 ).",
-      "Burn ( 1 » 2 » 3 » 5 )."
+      "Shield ( 10 » 15 » 20 » 25 ).",
+      "Burn ( 1 » 2 » 3 » 4 )."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "This has double Shield.",
-      "Restorative": "Heal 45.",
-      "Toxic": "Poison 3.",
+      "Restorative": "Heal equal to this item's Shield.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Infernal Greatsword": {
@@ -6087,6 +6344,7 @@ export const items = {
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6107,7 +6365,7 @@ export const items = {
     ],
     "enchants": {
       "Turbo": "...and Enchant the item with Turbo if able.",
-      "Shiny": "This gives double cooldown reduction."
+      "Shiny": "This has double cooldown reduction."
     }
   },
   "Isochoric Freezer": {
@@ -6132,7 +6390,8 @@ export const items = {
       "Restorative": "Heal 50.",
       "Toxic": "Poison 3.",
       "Fiery": "Burn 5.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Jaballian Drum": {
@@ -6160,7 +6419,8 @@ export const items = {
       "Toxic": "When you use a weapon, poison 3.",
       "Fiery": "When you use a weapon, burn 4.",
       "Shiny": "This has double Haste duration.",
-      "Deadly": "When your enemy uses an item, your items gain +10% Crit Chance for the fight."
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Deadly": "When you use a Weapon, it gains +10% Crit Chance for the fight."
     }
   },
   "Jaballian Longbow": {
@@ -6183,14 +6443,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6209,19 +6470,20 @@ export const items = {
     "cooldown": 4,
     "ammo": 2,
     "text": [
-      "Deal ( 75 » 150 » 300 ) damage.",
+      "Deal ( 120 » 180 » 240 ) damage.",
       "When you Haste, Reload this 1 Ammo."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6245,14 +6507,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
-      "Shielded": "Shield 40.",
-      "Restorative": "Heal 60.",
+      "Shielded": "Shield equal to 10 times this item's Poison.",
+      "Restorative": "Heal equal to 10 times this item's Poison.",
       "Toxic": "This has double Poison.",
-      "Fiery": "Burn 5.",
+      "Fiery": "Burn equal to this item's Poison.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Jewelry": {
@@ -6271,16 +6534,17 @@ export const items = {
       "Shield equal to ( 1x » 2x » 3x » 4x ) this item's value."
     ],
     "enchants": {
-      "Golden": "Double Value",
+      "Golden": "This has double income bonus.",
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Jitte": {
@@ -6303,14 +6567,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6343,6 +6608,7 @@ export const items = {
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6365,14 +6631,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 10.",
-      "Fiery": "Burn 15.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6401,6 +6668,7 @@ export const items = {
       "Fiery": "Burn 22.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6412,7 +6680,8 @@ export const items = {
       "Common",
       "Medium",
       "Friend",
-      "Heal"
+      "Heal",
+      "Tech"
     ],
     "cooldown": 7,
     "ammo": null,
@@ -6422,14 +6691,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
       "Toxic": "Poison 7.",
       "Fiery": "Burn 11.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Katana": {
@@ -6445,18 +6715,19 @@ export const items = {
     "cooldown": 2,
     "ammo": null,
     "text": [
-      "Deal ( 4 » 8 » 16 » 32 ) damage."
+      "Deal ( 6 » 12 » 18 » 24 ) damage."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6481,7 +6752,8 @@ export const items = {
       "Restorative": "Use a Heal item.",
       "Toxic": "Use a Poison item.",
       "Fiery": "Use a Burn item.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Kinetic Cannon": {
@@ -6506,10 +6778,11 @@ export const items = {
       "Turbo": "Haste 3 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 15.",
-      "Fiery": "Burn 22.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6520,15 +6793,16 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Apparel",
       "Health"
     ],
     "cooldown": null,
     "ammo": null,
     "text": [
-      "After you fight a player with this in play, gain ( 100 » 200 » 300 » 400 ) Max Health."
+      "After you fight a player with this in play, permanently gain ( 100 » 200 » 300 » 400 ) Max Health."
     ],
     "enchants": {
-      "Shiny": "This gives double Max Health."
+      "Shiny": "This has double Max Health bonus."
     }
   },
   "Knife Set": {
@@ -6549,15 +6823,16 @@ export const items = {
       "When you use a weapon, charge this 2 second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield 20.",
-      "Restorative": "Heal 30.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Heavy": "Slow 1 items for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "Haste 1 items for 2 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6580,14 +6855,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's Damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6607,7 +6883,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Shield equal to this item's value.",
-      "When you use another item, this gains Shield equal to the value of that item for the fight.",
+      "When you use another item, this gains +Shield equal to the value of that item for the fight.",
       "At the start of each hour, this gains ( +1 » +2 » +3 ) value."
     ],
     "enchants": {
@@ -6616,9 +6892,10 @@ export const items = {
       "Turbo": "Haste 3 items for 3 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 12.",
-      "Fiery": "Burn 18.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -6635,19 +6912,20 @@ export const items = {
     "cooldown": 10,
     "ammo": null,
     "text": [
-      "Deal ( 25 » 50 » 100 » 200 ) damage.",
-      "When you win a fight with Langxian in play, this gains ( 25 » 50 » 75 » 100 ) damage."
+      "Deal 40 damage.",
+      "When you win a fight with Langxian in play, this gains ( 40 » 60 » 80 » 100 ) damage."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 10.",
-      "Fiery": "Burn 15.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6664,18 +6942,19 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Deal ( 6 » 12 » 24 » 48 ) damage."
+      "Deal ( 8 » 16 » 24 » 32 ) damage."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6697,14 +6976,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6729,14 +7009,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Lemonade Stand": {
@@ -6754,19 +7035,20 @@ export const items = {
     "ammo": null,
     "text": [
       "Heal equal to ( 5% » 10% » 15% ) of your Max Health.",
-      "When you sell a Small item, gain ( +10 » +20 » +40 ) Max Health."
+      "When you sell a Small item, permanently gain ( +10 » +20 » +40 ) Max Health."
     ],
     "enchants": {
       "Golden": "Your small items have +1 value",
       "Heavy": "Slow 3 items for 2 second(s).",
       "Icy": "Freeze 1 item for 3 second(s).",
       "Turbo": "Haste 3 items for 2 second(s).",
-      "Shielded": "Shield equal to 10% of your Max Health.",
+      "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "When you sell a small item, your leftmost Poison item gains +1 Poison.",
-      "Fiery": "When you sell a small item, your leftmost Burn item gains +1 Burn.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Lens": {
@@ -6784,18 +7066,19 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Give the core ( +5 » +10 ) damage for the fight.",
+      "The Core gains ( +5 » +10 ) damage for the fight.",
       "When this gains haste, charge it ( 1 » 2 ) second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 30.",
       "Restorative": "Heal 45.",
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Life Preserver": {
@@ -6817,13 +7100,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -6834,6 +7118,7 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Apparel",
       "DamageReference",
       "Tool"
     ],
@@ -6845,13 +7130,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 3.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Lightbulb": {
@@ -6871,14 +7157,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 15.",
       "Restorative": "Heal 20.",
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "This gives double + Crit Chance."
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Lighter": {
@@ -6898,14 +7185,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
-      "Shielded": "Shield 15.",
-      "Restorative": "Heal 20.",
-      "Toxic": "Poison 1.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Lighthouse": {
@@ -6930,12 +7218,13 @@ export const items = {
       "Heavy": "Slow 1 item for 3 second(s).",
       "Icy": "Freeze 1 item for 2 second(s).",
       "Turbo": "Haste 1 items for 3 second(s).",
-      "Shielded": "Shield 45.",
-      "Restorative": "Heal 60.",
-      "Toxic": "Poison 3.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Lightning Rod": {
@@ -6966,6 +7255,7 @@ export const items = {
       "Fiery": "Burn 22.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -6984,18 +7274,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Deal damage equal to ( 10% » 20% ) of your Max Health.",
-      "When you Level Up, gain ( 100 » 200 ) Max Health."
+      "When you Level Up, permanently gain ( 100 » 200 ) Max Health."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 4 second(s).",
-      "Icy": "Freeze 1 item for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 4 second(s).",
       "Turbo": "Haste 2 items for 4 second(s).",
-      "Shielded": "Shield 120.",
-      "Restorative": "Heal 180.",
-      "Toxic": "Poison 12.",
-      "Fiery": "Burn 18.",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -7017,16 +7308,17 @@ export const items = {
       "Your weapons have + damage equal to this item's value. ( [4] » [8] » [16] )"
     ],
     "enchants": {
-      "Golden": "Double Value",
-      "Heavy": "At the start of each fight, Slow 3 items for 4 second(s).",
-      "Icy": "At the start of each fight, Freeze 2 item for 4 second(s).",
-      "Turbo": "At the start of each fight, Haste 3 items for 4 second(s).",
+      "Golden": "This has double Value gain.",
+      "Heavy": "The first time you fall below half health each fight, Slow 2 items for 4 second(s).",
+      "Icy": "The first time you fall below half health each fight, Freeze 2 medium or small items for 2 second(s).",
+      "Turbo": "The first time you fall below half health each fight, Haste 2 items for 4 second(s).",
       "Shielded": "Your Shield items have + Shield equal to this item's value.",
-      "Restorative": "You have +Regeneration equal to this item's value.",
-      "Toxic": "At the start of each fight, poison 12.",
-      "Fiery": "At the start of each fight, burn 16.",
+      "Restorative": "Your Heal items have + Heal equal to this item's value.",
+      "Toxic": "Your Poison items have + Poison equal to 10% of this item's value.",
+      "Fiery": "Your Burn items have + Burn equal to 10% of this item's value.",
       "Shiny": "This has double Value gain.",
-      "Deadly": "Your weapons have + Crit Chance % equal to this item's value."
+      "Deadly": "Your weapons have + Crit Chance % equal to this item's value.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Loupe": {
@@ -7042,11 +7334,10 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "At the start of each day, your Small items gain ( 1 » 2 ) value."
+      "Your Small items have ( +1 » +2 ) value."
     ],
     "enchants": {
-      "Golden": "Your small items have +1 value.",
-      "Shiny": "This has double value gain."
+      "Golden": "Your small items have an additional +1 value."
     }
   },
   "Lumboars": {
@@ -7067,15 +7358,16 @@ export const items = {
       "Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
-      "Turbo": "Haste 2 items for 3 second(s).",
-      "Shielded": "Your Shield items gain +3 Shield for the fight.",
-      "Restorative": "Your Heal items gain +4 Heal for the fight.",
-      "Toxic": "Your Poison items gain +1 Poison for the fight.",
-      "Fiery": "Your Burn items gain +1 Burn for the fight.",
+      "Heavy": "Slow 2 items for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "Haste 2 items for 1 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -7101,11 +7393,12 @@ export const items = {
       "Icy": "The first time you would die each fight, freeze all enemy items for 3 second(s).",
       "Turbo": "The first time you would die each fight, haste all your items for 6 second(s).",
       "Shielded": "The first time you would die each fight, shield equal to 25% of your max health.",
-      "Restorative": "The first time you would die each fight, cleanse all Burn and Poison and gain 20 Regeneration for the fight.",
+      "Restorative": "This has double Heal.",
       "Toxic": "The first time you would die each fight, poison equal to 2% of your max health.",
       "Fiery": "The first time you would die each fight, burn equal to 2% of your max health.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Magic Carpet": {
@@ -7129,14 +7422,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -7146,7 +7440,8 @@ export const items = {
     "tier": "Diamond",
     "tags": [
       "Common",
-      "Medium"
+      "Medium",
+      "Apparel"
     ],
     "cooldown": null,
     "ammo": null,
@@ -7154,7 +7449,8 @@ export const items = {
       "When you sell this, upgrade your leftmost item."
     ],
     "enchants": {
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Magma Core": {
@@ -7173,9 +7469,9 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "At the start of each fight, slow 2 item for 4 second(s).",
-      "Icy": "At the start of each fight, Freeze 2 items for 2 second(s).",
+      "Icy": "At the start of each fight, Freeze 2 small items for 2 second(s).",
       "Turbo": "At the start of each fight, haste 2 item for 4 second(s).",
-      "Shielded": "At the start of each fight, shield 60%.",
+      "Shielded": "At the start of each fight, Shield 60.",
       "Restorative": "At the start of each fight, gain 6 Regeneration for the fight.",
       "Toxic": "At the start of each fight, poison 6",
       "Fiery": "This has double Burn."
@@ -7200,7 +7496,7 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 2 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's Damage.",
       "Restorative": "Heal equal to this item's Damage.",
@@ -7208,6 +7504,7 @@ export const items = {
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -7228,13 +7525,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 item for 2 second(s).",
       "Shielded": "Shield 60.",
       "Restorative": "Heal 90.",
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Marble Scalemail": {
@@ -7244,6 +7542,7 @@ export const items = {
     "tags": [
       "Common",
       "Medium",
+      "Apparel",
       "Shield"
     ],
     "cooldown": 8,
@@ -7254,14 +7553,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
       "Toxic": "Poison 8.",
       "Fiery": "Burn 12.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Marbles": {
@@ -7278,7 +7578,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Slow 1 item for ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you use an adjacent item, charge this 1 second."
+      "When you use an adjacent item, charge this 1 second(s)."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
@@ -7288,7 +7588,8 @@ export const items = {
       "Restorative": "Heal 15.",
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Masterpiece": {
@@ -7327,14 +7628,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
-      "Shielded": "Shield 15.",
-      "Restorative": "Heal 20.",
-      "Toxic": "Poison 1.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Mech-Moles": {
@@ -7353,20 +7655,21 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Deal ( 25 » 50 » 100 ) damage.",
-      "When this gains Haste, your weapons gain ( 2 » 3 » 4 ) damage for the fight.",
-      "When this gains Haste, your Shield items gain ( 2 » 3 » 4 ) shield for the fight."
+      "Deal ( 50 » 75 » 100 ) damage.",
+      "When this gains Haste, your weapons gain ( 4 » 6 » 8 ) damage for the fight.",
+      "When this gains Haste, your Shield items gain ( 4 » 6 » 8 ) shield for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
-      "Shielded": "This gives double + Shield.",
+      "Shielded": "This has double Shield bonus.",
       "Restorative": "When this gains Haste, your Heal items gain 5 Heal for the fight.",
       "Toxic": "When this gains Haste, your Poison items gain 1 Poison for the fight.",
       "Fiery": "When this gains Haste, your Burn items gain 1 Burn for the fight.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -7387,7 +7690,7 @@ export const items = {
     ],
     "enchants": {
       "Restorative": "...and Enchant the item with Restorative if able.",
-      "Shiny": "This gives double + Heal."
+      "Shiny": "This has double Heal bonus."
     }
   },
   "Memory Card": {
@@ -7405,19 +7708,20 @@ export const items = {
     "ammo": null,
     "text": [
       "This gains 1 Value.",
-      "When you sell this, give The Core + Damage equal to ( 1x » 2x » 3x » 4x ) this item's value. ( 1 » 4 » 12 » 32 )"
+      "When you sell this, The Core gains + Damage equal to ( 1x » 2x » 3x » 4x ) this item's value. ( 1 » 4 » 12 » 32 )"
     ],
     "enchants": {
       "Golden": "This has double value.",
       "Heavy": "Slow 1 item for 4 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 small item for 2 second(s).",
       "Turbo": "Haste 1 item for 4 second(s).",
       "Shielded": "Shield 60.",
       "Restorative": "Heal 90.",
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "When you sell this, the Core gains Crit Chance equal to this item's value. 1"
+      "Deadly": "When you sell this, the Core gains Crit Chance equal to this item's value. 1",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Metronome": {
@@ -7432,18 +7736,19 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you use an adjacent item, give the other adjacent item haste for ( 1 » 2 » 3 ) second(s)."
+      "When you use an adjacent item, Haste the other adjacent item for ( 1 » 2 » 3 ) second(s)."
     ],
     "enchants": {
       "Heavy": "When you use an adjacent item, Slow 1 item for 1 second(s).",
-      "Icy": "When you use an adjacent item, Freeze 1 item for 1 second(s).",
+      "Icy": "When you use an adjacent item, Freeze 1 small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "When you use an adjacent item, Shield 10.",
       "Restorative": "When you use an adjacent item, Heal 15.",
       "Toxic": "When you use an adjacent item, Poison 1.",
       "Fiery": "When you use an adjacent item, Burn 1.",
       "Shiny": "This has double Haste duration.",
-      "Deadly": "When you use an adjacent item, the other adjacent item gains 25% Crit Chance."
+      "Deadly": "When you use an adjacent item, the other adjacent item gains 25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Micro Dave": {
@@ -7464,14 +7769,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield 30.",
-      "Restorative": "Heal 50.",
-      "Toxic": "Poison 2.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Miss Isles": {
@@ -7486,23 +7792,24 @@ export const items = {
       "Friend",
       "Weapon"
     ],
-    "cooldown": 3,
+    "cooldown": 4,
     "ammo": 1,
     "text": [
       "Multicast 2",
-      "Deal ( 10 » 20 » 40 ) damage.",
+      "Deal ( 20 » 30 » 40 ) damage.",
       "When you use the Core, reload this."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "When you Haste, your items gain +6% Crit Chance for the fight.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -7515,24 +7822,26 @@ export const items = {
       "Medium",
       "Aquatic",
       "Shield",
+      "Toy",
       "Vehicle"
     ],
     "cooldown": 4,
     "ammo": null,
     "text": [
       "Shield ( 30 » 40 » 50 ).",
-      "When you use an adjacent item, charge this 1 seconds."
+      "Adjacent Toys have +1 Multicast."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 1.",
-      "Fiery": "Burn 2.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Momma-Saur": {
@@ -7550,9 +7859,9 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Deal ( 200 » 400 ) damage.",
+      "Deal 200 damage.",
       "If your enemy has at least ( 5 » 4 ) items, destroy a small or medium enemy item for the fight.",
-      "When you destroy an item during combat, your Dinosaurs permanently gain ( 25 » 50 ) damage."
+      "When you destroy an item during combat, your Dinosaurs permanently gain ( 30 » 40 ) damage."
     ],
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
@@ -7560,10 +7869,11 @@ export const items = {
       "Turbo": "Haste 3 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 12.",
-      "Fiery": "Burn 18.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -7581,9 +7891,9 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Heal ( 10 » 20 » 30 » 40 ).",
+      "Heal 40.",
       "When you Level Up, get a Spare Change.",
-      "When you sell a Spare Change, this gains ( 10 » 20 » 30 » 40 ) Heal."
+      "When you sell a Spare Change, this gains ( +10 » +20 » +30 » +40 ) Heal."
     ],
     "enchants": {
       "Golden": "Your Spare Change(s) have +1 value.",
@@ -7592,10 +7902,11 @@ export const items = {
       "Turbo": "Haste 3 items for 2 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 7.",
-      "Fiery": "Burn 11.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Monitor Lizard": {
@@ -7617,13 +7928,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield 80. When you Haste, this gains +20 Shield for the fight.",
       "Restorative": "Heal 120. When you Haste, this gains +30 Heal for the fight.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 12. When you Haste, this gains +4 Burn for the fight.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Monocle": {
@@ -7633,6 +7945,7 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
+      "Apparel",
       "Economy",
       "Shield",
       "Tool"
@@ -7645,14 +7958,15 @@ export const items = {
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
       "Golden": "You have +3 Income.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Mortal Coil": {
@@ -7676,14 +7990,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Mortar & Pestle": {
@@ -7699,19 +8014,20 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Give your Lifesteal Weapons ( +5 » +10 » +15 » +20 ) damage for the fight.",
+      "Your Lifesteal Weapons gain ( +5 » +10 » +15 » +20 ) damage for the fight.",
       "The weapon on the right has Lifesteal."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield 80.",
       "Restorative": "Heal 120.",
       "Toxic": "Poison 8.",
       "Fiery": "Burn 12.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your Lifesteal Weapons have +50% Crit Chance."
+      "Deadly": "Your Lifesteal Weapons have +50% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Motherboard": {
@@ -7729,18 +8045,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Haste the Core for ( 2 » 3 » 4 ) second(s).",
-      "When the Core gains Haste, give it ( +10 » +20 » +30 ) damage for the fight."
+      "When the Core gains Haste, it gains ( +10 » +20 » +30 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 50.",
       "Restorative": "Heal 75.",
       "Toxic": "Poison 5.",
       "Fiery": "Burn 7.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your Core has +50% Crit Chance."
+      "Deadly": "Your Core has +50% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Multitool": {
@@ -7762,14 +8079,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 6.",
       "Restorative": "Heal 8.",
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your items gain +10% Crit Chance for the fight."
+      "Deadly": "Your items gain +10% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Musket": {
@@ -7793,14 +8111,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 6 second(s).",
-      "Icy": "Freeze 1 item for 6 second(s).",
+      "Icy": "Freeze 1 medium or small item for 6 second(s).",
       "Turbo": "Haste 2 items for 6 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 18.",
-      "Fiery": "Burn 24.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "This has double Crit Damage.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -7821,14 +8140,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Nanobots": {
@@ -7857,7 +8177,38 @@ export const items = {
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
+    }
+  },
+  "Nargile": {
+    "name": "Nargile",
+    "icon": "images/items/Nargile.avif",
+    "tier": "Gold",
+    "tags": [
+      "Common",
+      "Medium",
+      "Crit",
+      "Slow"
+    ],
+    "cooldown": 8,
+    "ammo": null,
+    "text": [
+      "Slow 2 items for ( 2 » 3 ) second(s).",
+      "Adjacent items have ( +25% » +50% ) Crit Chance.",
+      "When you Crit, Charge this 2 second(s)."
+    ],
+    "enchants": {
+      "Heavy": "This has double Slow duration.",
+      "Icy": "When you Crit, Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "When you Crit, Haste 1 items for 2 second(s).",
+      "Shielded": "When you Crit, Shield 40.",
+      "Restorative": "When you Crit, Heal 20.",
+      "Toxic": "When you Crit, Poison 1.",
+      "Fiery": "When you Crit, Burn 2.",
+      "Shiny": "+1 Multicast",
+      "Deadly": "Adjacent items have an additional +25% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Narwhal": {
@@ -7879,7 +8230,7 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
@@ -7887,6 +8238,7 @@ export const items = {
       "Fiery": "Burn 3.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -7909,14 +8261,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "shield 40.",
       "Restorative": "heal 60.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 6.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Nesting Doll": {
@@ -7927,7 +8280,8 @@ export const items = {
       "Vanessa",
       "Small",
       "Ammo",
-      "Shield"
+      "Shield",
+      "Toy"
     ],
     "cooldown": 2,
     "ammo": 8,
@@ -7937,13 +8291,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Ammo.",
-      "Toxic": "Poison 1.",
-      "Fiery": "Burn 1.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -7969,7 +8324,8 @@ export const items = {
       "Restorative": "When you use an adjacent Weapon, Heal 15.",
       "Toxic": "When you use an adjacent Weapon, poison 1.",
       "Fiery": "When you use an adjacent Weapon, Burn 1.",
-      "Shiny": "This has double Slow duration."
+      "Shiny": "This has double Slow duration.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Nightshade": {
@@ -7990,14 +8346,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's Poison.",
       "Restorative": "Heal equal to this item's Poison.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn equal to this item's Poison.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Nitro": {
@@ -8015,18 +8372,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Burn both players ( 4 » 6 » 8 ).",
-      "Charge an item ( 1 » 2 » 3 ) second(s)."
+      "Charge 1 item ( 1 » 2 » 3 ) second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
-      "Shielded": "Shield 20.",
-      "Restorative": "Heal 30.",
-      "Toxic": "Poison 2.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Nitrogen Hammer": {
@@ -8043,9 +8401,9 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Deal ( 25 » 50 ) damage.",
-      "Freeze 1 item for ( 1 » 2 ) second(s).",
-      "When you freeze, this gains ( 25 » 50 ) damage for the fight."
+      "Deal 50 damage.",
+      "Freeze 1 medium or small item for ( 1 » 2 ) second(s).",
+      "When you freeze, this gains ( 40 » 50 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -8053,10 +8411,11 @@ export const items = {
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -8078,14 +8437,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 30.",
       "Restorative": "Heal 45.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Octopus": {
@@ -8107,15 +8467,16 @@ export const items = {
       "Deal 8 damage."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second",
-      "Turbo": "Haste 1 item for 1 second(s).",
+      "Heavy": "Slow 1 items for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
+      "Turbo": "Haste 1 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 1.",
-      "Fiery": "Burn 1.",
-      "Shiny": "This has +8 Multicast.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
+      "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -8132,18 +8493,19 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Heal equal to ( 1x » 2x » 3x ) your gold."
+      "Heal equal to ( 1 » 2 » 3 ) times your gold."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Old Sword": {
@@ -8165,14 +8527,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -8190,18 +8553,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Burn ( 4 » 6 » 8 ).",
-      "When you use the Core or another Ray, this and adjacent Burn items gain ( 1 » 2 » 3 ) Burn for the fight."
+      "When you use the Core or another Ray, this and adjacent Burn items gain ( 2 » 3 » 4 ) Burn for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield 30.",
-      "Restorative": "Heal 45.",
-      "Toxic": "Poison 3.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Open Sign": {
@@ -8224,7 +8588,8 @@ export const items = {
     "enchants": {
       "Golden": "Adjacent properties have double value.",
       "Shiny": "This has double Damage and Shield bonus.",
-      "Deadly": "Shield Properties adjacent to this have + Crit Chance equal to the value of your highest value item. [0]"
+      "Deadly": "Shield Properties adjacent to this have + Crit Chance equal to the value of your highest value item. [0]",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Orbital Polisher": {
@@ -8246,13 +8611,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 35.",
       "Restorative": "Heal 50.",
       "Toxic": "Poison 3.",
       "Fiery": "Burn 5.",
-      "Deadly": "Adjacent items gain 10% Crit Chance for the fight."
+      "Deadly": "Adjacent items gain 10% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Ouroboros Statue": {
@@ -8273,14 +8639,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 1 item for 3 second(s).",
       "Shielded": "Shield 40.",
       "Restorative": "Heal 60.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 6.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Oven Mitts": {
@@ -8290,6 +8657,7 @@ export const items = {
     "tags": [
       "Jules",
       "Medium",
+      "Apparel",
       "BurnReference",
       "Haste",
       "Shield"
@@ -8303,13 +8671,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -8328,7 +8697,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Your items have ( +20% » +40% ) Crit Chance.",
-      "When you Crit with an item, reduce their cooldown by 10% for the fight."
+      "When you Crit with an item, reduce its cooldown by 10% for the fight."
     ],
     "enchants": {
       "Heavy": "When you Crit, Slow 1 items for 3 second(s).",
@@ -8339,7 +8708,8 @@ export const items = {
       "Toxic": "When you Crit, Poison 3.",
       "Fiery": "When you Crit, Burn 4.",
       "Obsidian": "This has Lifesteal.",
-      "Deadly": "This gives double + Crit Chance."
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Pawn Shop": {
@@ -8361,13 +8731,14 @@ export const items = {
       "You have increased max health equal to ( 10 » 15 » 20 ) times this item's value. ( [60] » [180] » [480] )"
     ],
     "enchants": {
-      "Golden": "Double Value",
+      "Golden": "This has double value.",
       "Shielded": "Your Shield items have + Shield equal to this item's value.",
       "Restorative": "Your Heal items have + Heal equal to this item's value.",
       "Toxic": "Your Poison items have + Poison equal to 10% of this item's value.",
       "Fiery": "Your Burn items have + Burn equal to 15% of this item's value.",
       "Shiny": "Double Health Max",
-      "Deadly": "Your items have Crit Chance equal to this item's value."
+      "Deadly": "Your items have Crit Chance equal to this item's value.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Pearl": {
@@ -8392,9 +8763,10 @@ export const items = {
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 1.",
-      "Fiery": "Burn 2.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -8436,14 +8808,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "This has double Crit Chance bonus."
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Pepper Spray": {
@@ -8465,14 +8838,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "The first time you fall below half health each fight, Freeze 1 item for 4 second(s).",
-      "Turbo": "The time you fall below half health, Haste 2 items for 4 second(s).",
+      "Icy": "The first time you fall below half health each fight, Freeze 1 small item for 4 second(s).",
+      "Turbo": "The time you fall below half health each fight, Haste 2 items for 4 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "The first time you fall below half health each fight, Poison 6.",
-      "Fiery": "The first time you fall below half health each fight, Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "The first time you fall below half health each fight, your items gain 25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -8494,14 +8868,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield 30.",
-      "Restorative": "Heal 45.",
-      "Toxic": "Poison 3.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Pet Rock": {
@@ -8514,24 +8889,26 @@ export const items = {
       "Crit",
       "Damage",
       "Friend",
+      "Toy",
       "Weapon"
     ],
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Deal ( 5 » 10 » 20 » 40 ) damage.",
-      "If this is your only friend, your items have ( +5% » +10% » +15% » +20% ) Crit Chance."
+      "Deal ( 8 » 16 » 24 » 32 ) damage.",
+      "If this is your only friend, your items have ( +10% » +15% » +20% » +25% ) Crit Chance."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "This gives double + Crit Chance.",
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -8551,14 +8928,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "When you use the item to the left of this, slow 1 item for 3 second(s).",
-      "Icy": "When you use the item to the left of this, Freeze 1 item for 1 second(s).",
+      "Icy": "When you use the item to the left of this, Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "When you use the item to the left of this, haste 1 item for 3 second(s).",
       "Shielded": "When you use the item to the left of this, shield 20",
       "Restorative": "When you use the item to the left of this, heal 30",
       "Toxic": "When you use the item to the left of this, poison 2",
       "Fiery": "When you use the item to the left of this, burn 3",
       "Shiny": "The item to the Right of this has its cooldown reduced by 25%.",
-      "Deadly": "The item to the left of this has +50% Crit Chance."
+      "Deadly": "The item to the left of this has +50% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Pickled Peppers": {
@@ -8579,14 +8957,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield 100.",
       "Restorative": "Heal 150.",
       "Toxic": "Poison 10.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Pierre Conditioner": {
@@ -8602,8 +8981,8 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Freeze 1 item for 1 second(s).",
-      "When you use the Core, Freeze an item for 1 second(s)."
+      "Freeze 1 medium or small item for 1 second(s).",
+      "When you use the Core, Freeze 1 item for 1 second(s)."
     ],
     "enchants": {
       "Heavy": "When you use the Core, Slow 1 items for 3 second(s).",
@@ -8613,7 +8992,8 @@ export const items = {
       "Restorative": "When you use the Core, Heal 30.",
       "Toxic": "When you use the Core, Poison 2.",
       "Fiery": "When you use the Core, Burn 3.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Piggles": {
@@ -8623,7 +9003,8 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
-      "Charge"
+      "Charge",
+      "Toy"
     ],
     "cooldown": 7,
     "ammo": null,
@@ -8633,14 +9014,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 35.",
       "Restorative": "Heal 50.",
       "Toxic": "Poison 3.",
       "Fiery": "Burn 5.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your Piggles have -1 cooldown."
+      "Deadly": "Your Piggles have -1 cooldown.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Piggy Bank": {
@@ -8651,6 +9033,7 @@ export const items = {
       "Pygmalien",
       "Small",
       "Economy",
+      "Toy",
       "Value"
     ],
     "cooldown": null,
@@ -8660,8 +9043,9 @@ export const items = {
       "At the start of each hour, spend 2 gold to gain 1 value."
     ],
     "enchants": {
-      "Golden": "Double Value",
-      "Shiny": "Double Value"
+      "Golden": "This has double value.",
+      "Shiny": "This has double value gain.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Pinata": {
@@ -8670,14 +9054,17 @@ export const items = {
     "tier": "Bronze",
     "tags": [
       "Pygmalien",
-      "Medium"
+      "Medium",
+      "Toy"
     ],
     "cooldown": null,
     "ammo": null,
     "text": [
       "When you sell this, get 3 Chocolate Bars."
     ],
-    "enchants": {}
+    "enchants": {
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
+    }
   },
   "Piranha": {
     "name": "Piranha",
@@ -8694,19 +9081,21 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Deal ( 5 » 10 » 20 » 40 ) damage.",
+      "Crit Chance 20%",
+      "Deal ( 6 » 12 » 18 » 24 ) damage.",
       "This deals double Crit damage."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -8724,19 +9113,20 @@ export const items = {
     "cooldown": 3,
     "ammo": 3,
     "text": [
-      "Deal ( 15 » 30 ) damage.",
-      "When you use an item with Ammo, deal ( 15 » 30 ) damage."
+      "Deal ( 24 » 32 ) damage.",
+      "When you use an Ammo item, deal ( 24 » 32 ) damage."
     ],
     "enchants": {
-      "Heavy": "When you use an item with Ammo, Slow 1 item for 2 second(s).",
-      "Icy": "When you use an item with Ammo, Freeze 1 item for 1 second(s).",
-      "Turbo": "When you use an item with Ammo, Haste 1 items for 2 second(s).",
-      "Shielded": "When you use an item with Ammo, Shield 15.",
-      "Restorative": "When you use an item with Ammo, Heal 20.",
-      "Toxic": "When you use an item with Ammo, Poison 1.",
-      "Fiery": "When you use an item with Ammo, Burn 2.",
+      "Heavy": "When you use an Ammo item, Slow 1 item for 2 second(s).",
+      "Icy": "When you use an Ammo item, Freeze 1 small item for 1 second(s).",
+      "Turbo": "When you use an Ammo item, Haste 1 items for 2 second(s).",
+      "Shielded": "When you use an Ammo item, Shield 15.",
+      "Restorative": "When you use an Ammo item, Heal 20.",
+      "Toxic": "When you use an Ammo item, Poison 1.",
+      "Fiery": "When you use an Ammo item, Burn 2.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "When you use an item with Ammo, your items gain +5% Crit Chance for the fight.",
+      "Deadly": "When you use an Ammo item, your items gain +5% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -8759,14 +9149,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze all enemy items for 1 second(s).",
+      "Icy": "Freeze all enemy small items for 2 second(s).",
       "Turbo": "Haste your items for 5 second(s).",
       "Shielded": "Shield 160.",
       "Restorative": "Heal 240.",
       "Toxic": "Poison 16.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your items gain +25% Crit Chance for the fight."
+      "Deadly": "Your items gain +25% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Plasma Rifle": {
@@ -8787,15 +9178,16 @@ export const items = {
       "When you Burn, this gains ( 25 » 50 » 75 ) damage for the fight."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
+      "Heavy": "Slow 1 items for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "Haste 1 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
-      "Restorative": "Shield equal to this item's damage.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -8816,14 +9208,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
-      "Shielded": "Shield 15.",
-      "Restorative": "Heal 20.",
-      "Toxic": "Poison 1.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Poppy Field": {
@@ -8852,7 +9245,8 @@ export const items = {
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 20.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Port": {
@@ -8869,19 +9263,20 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Reload all your items ( 1 » 2 » 3 ) Ammo and charge them 1 second.",
-      "At the start of each day, get a Small item with Ammo from any hero."
+      "Reload all your items ( 1 » 2 » 3 ) Ammo and charge them 1 second(s).",
+      "At the start of each day, get a Small Ammo item from any hero."
     ],
     "enchants": {
       "Heavy": "Slow 3 items for 2 second(s).",
       "Icy": "Freeze 1 item for 3 second(s).",
       "Turbo": "Haste 3 items for 2 second(s).",
-      "Shielded": "Shield 90.",
-      "Restorative": "Heal 135.",
-      "Toxic": "Poison 9.",
-      "Fiery": "Burn 13.",
-      "Shiny": "This Reloads +2 items and gives +3 Max Ammo.",
-      "Deadly": "Your items with Ammo have +20% Crit Chance."
+      "Shielded": "When you use an Ammo item, Shield 15.",
+      "Restorative": "When you use an Ammo item, Heal 20.",
+      "Toxic": "When you use an Ammo item, Poison 1.",
+      "Fiery": "When you use an Ammo item, Burn 2.",
+      "Shiny": "This Reloads +2 items and has +3 Max Ammo bonus.",
+      "Deadly": "Your Ammo items have +20% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Powder Flask": {
@@ -8901,14 +9296,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
-      "Shielded": "Shield 20.",
-      "Restorative": "Heal 30.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Shielded": "When you use the Ammo item to the right of this, Shield 10.",
+      "Restorative": "When you use the Ammo item to the right of this, Heal 15.",
+      "Toxic": "When you use the Ammo item to the right of this, Poison 1.",
+      "Fiery": "When you use the Ammo item to the right of this, Burn 2.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Give the item with Ammo to the right of this +20% Crit Chance for the fight."
+      "Deadly": "The Ammo item to the right of this gains +20% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Powder Keg": {
@@ -8930,14 +9326,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 10 second(s).",
-      "Icy": "Freeze 1 item for 10 second(s).",
+      "Icy": "Freeze 1 medium or small item for 10 second(s).",
       "Turbo": "Haste 2 items for 10 second(s).",
       "Shielded": "Shield 500.",
       "Restorative": "Heal 750.",
-      "Toxic": "Poison 50.",
-      "Fiery": "Burn 75.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This deals double Damage.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -8964,15 +9361,16 @@ export const items = {
       "When you Haste, Slow, Freeze, Burn or Poison, charge this 2 second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
+      "Heavy": "Slow 1 items for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "Haste 1 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
-      "Restorative": "Heal equal to this item's damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -8995,14 +9393,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 3.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Adjacent items gain 10% Crit chance for the fight."
+      "Deadly": "Adjacent items gain 10% Crit chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Proboscis": {
@@ -9026,9 +9425,10 @@ export const items = {
       "Turbo": "When you Slow, Haste 1 item for 1 second(s).",
       "Shielded": "When you Slow, Shield equal to this item's damage.",
       "Restorative": "When you Slow, Heal equal to this item's damage.",
-      "Toxic": "When you Slow, Poison 1.",
-      "Fiery": "When you Slow, Burn 2.",
+      "Toxic": "When you Slow, Poison equal to 10% of this item's damage.",
+      "Fiery": "When you Slow, Burn equal to 10% of this item's damage.",
       "Shiny": "This has double Damage.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -9052,14 +9452,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 60.",
       "Restorative": "Heal 90.",
       "Toxic": "Poison 6.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your Vehicles have +50% Crit Chance."
+      "Deadly": "Your Vehicles have +50% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Pufferfish": {
@@ -9074,7 +9475,7 @@ export const items = {
       "HasteReference",
       "Poison"
     ],
-    "cooldown": 6,
+    "cooldown": 8,
     "ammo": null,
     "text": [
       "Poison ( 4 » 6 » 8 » 10 ).",
@@ -9082,14 +9483,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield 30.",
-      "Restorative": "Heal 40.",
+      "Shielded": "Shield equal to 10 times this item's Poison.",
+      "Restorative": "Heal equal to 10 times this item's Poison.",
       "Toxic": "This has double Poison.",
-      "Fiery": "Burn 5.",
+      "Fiery": "Burn equal to this item's Poison.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Pulse Rifle": {
@@ -9105,19 +9507,20 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Deal ( 10 » 20 » 40 » 80 ) damage.",
+      "Deal ( 10 » 20 » 30 » 40 ) damage.",
       "This has +1 Multicast if it is adjacent to a Friend. Double this if it is your only Friend."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -9150,7 +9553,8 @@ export const items = {
       "Toxic": "Your Poison items gain Poison equal to 10% of this item's value for the fight.",
       "Fiery": "Your Burn items gain Burn equal to 15% of this item's value for the fight.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your items gain Crit Chance equal to this item's value for the fight."
+      "Deadly": "Your items gain Crit Chance equal to this item's value for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Pygmalien's Dagger": {
@@ -9172,16 +9576,17 @@ export const items = {
       "When you sell an item, this gains ( 1 » 2 ) value."
     ],
     "enchants": {
-      "Golden": "Double Value",
+      "Golden": "This has double value gain.",
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -9200,7 +9605,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Slow 1 item for ( 1 » 2 » 3 ) second(s).",
-      "When you Slow, Haste an item for ( 1 » 2 » 3 ) second(s)."
+      "When you Slow, Haste 1 item for ( 1 » 2 » 3 ) second(s)."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
@@ -9211,7 +9616,8 @@ export const items = {
       "Toxic": "When you Slow, Poison 3.",
       "Fiery": "When you Slow, Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "When you Slow, your items gain +10% Crit Chance for the fight."
+      "Deadly": "When you Slow, your items gain +10% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Pyrocarbon": {
@@ -9233,14 +9639,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Race Carl": {
@@ -9259,19 +9666,20 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Deal ( 80 » 120 » 160 ) damage",
+      "Deal ( 90 » 120 » 150 ) damage",
       "When you Haste, charge this 2 seconds."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
+      "Heavy": "Slow 1 items for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "Haste 1 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 5.",
-      "Fiery": "Burn 7.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -9283,6 +9691,7 @@ export const items = {
       "Dooley",
       "Large",
       "Damage",
+      "Tech",
       "Weapon"
     ],
     "cooldown": 10,
@@ -9290,7 +9699,7 @@ export const items = {
     "text": [
       "Multicast 2",
       "Deal ( 200 » 300 » 400 ) damage.",
-      "When you use a Tech, charge this 2 second(s)."
+      "When you use another Tech, charge this 2 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 3 items for 2 second(s).",
@@ -9298,10 +9707,11 @@ export const items = {
       "Turbo": "Haste 3 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 7.",
-      "Fiery": "Burn 11.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -9335,7 +9745,8 @@ export const items = {
       "Toxic": "This has double Poison.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Ramrod": {
@@ -9353,18 +9764,19 @@ export const items = {
     "text": [
       "Reload adjacent Ammo items ( 1 » 2 » 3 ) Ammo.",
       "Your Ammo items have ( +20% » +30% » +40% ) Crit Chance.",
-      "When one of your items run out of ammo, Charge this 1 second."
+      "When one of your items run out of ammo, Charge this 1 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield 20.",
-      "Restorative": "Heal 30.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Shielded": "When you use an Ammo item, Shield 10.",
+      "Restorative": "When you use an Ammo item, Heal 15.",
+      "Toxic": "When you use an Ammo item, Poison 1.",
+      "Fiery": "When you use an Ammo item, Burn 1.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Adjacent items with Ammo have +25% Crit Chance."
+      "Deadly": "Adjacent Ammo items have +25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Red Button": {
@@ -9384,14 +9796,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 30.",
       "Restorative": "Heal 45.",
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Adjacent items gain +10% Crit Chance for the fight."
+      "Deadly": "Adjacent items gain +10% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Red Gumball": {
@@ -9409,7 +9822,7 @@ export const items = {
       "When you sell this, your weapons gain ( 1 » 2 » 3 » 4 ) damage."
     ],
     "enchants": {
-      "Shiny": "This gives double + Damage."
+      "Shiny": "This has double damage bonus."
     }
   },
   "Red Piggles A": {
@@ -9419,12 +9832,13 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
-      "DamageReference"
+      "DamageReference",
+      "Toy"
     ],
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Give your adjacent weapons ( +3 » +6 » +9 » +12 ) damage for the fight."
+      "Your adjacent weapons ( +3 » +6 » +9 » +12 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -9434,7 +9848,8 @@ export const items = {
       "Restorative": "Heal 20.",
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Red Piggles L": {
@@ -9444,12 +9859,13 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
-      "DamageReference"
+      "DamageReference",
+      "Toy"
     ],
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Give your weapon to the left of this ( +4 » +8 » +12 » +16 ) damage for the fight."
+      "The weapon to the left of this gains ( +4 » +8 » +12 » +16 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -9459,7 +9875,8 @@ export const items = {
       "Restorative": "Heal 20.",
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Red Piggles R": {
@@ -9469,12 +9886,13 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
-      "DamageReference"
+      "DamageReference",
+      "Toy"
     ],
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Give your weapon to the right of this ( +4 » +8 » +12 » +16 ) damage for the fight."
+      "The weapon to the right of this gains ( +4 » +8 » +12 » +16 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -9484,7 +9902,8 @@ export const items = {
       "Restorative": "Heal 20.",
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Red Piggles X": {
@@ -9494,7 +9913,8 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
-      "DamageReference"
+      "DamageReference",
+      "Toy"
     ],
     "cooldown": 3,
     "ammo": null,
@@ -9509,7 +9929,8 @@ export const items = {
       "Restorative": "Heal 20.",
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Refractor": {
@@ -9534,14 +9955,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 7.",
-      "Fiery": "Burn 10.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -9564,14 +9986,15 @@ export const items = {
     "enchants": {
       "Golden": "Your weapons have +1 value.",
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -9591,14 +10014,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 40.",
       "Restorative": "Heal 60.",
       "Toxic": "Poison 4.",
       "Fiery": "Burn 6.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "The Core has +50% Crit Chance."
+      "Deadly": "The Core has +50% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Repeater": {
@@ -9616,18 +10040,19 @@ export const items = {
     "ammo": 6,
     "text": [
       "Deal 60 damage.",
-      "When you use another item with Ammo, charge this ( 1 » 2 » 3 ) second(s)."
+      "When you use another Ammo item, charge this ( 1 » 2 » 3 ) second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 1 item for 3 second(s).",
       "Shielded": "Shield equal to this item's Damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -9647,19 +10072,20 @@ export const items = {
     "ammo": 6,
     "text": [
       "Crit Chance 20%",
-      "Deal ( 5 » 10 » 20 » 40 ) damage.",
+      "Deal ( 8 » 16 » 24 » 32 ) damage.",
       "When you Crit, reload 2 Ammo."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -9678,8 +10104,9 @@ export const items = {
       "When you visit a Merchant, this and the item to the left of this gains ( 1 » 2 » 3 » 4 ) value."
     ],
     "enchants": {
-      "Golden": "Double Value",
-      "Shiny": "Double Value"
+      "Golden": "This has double value.",
+      "Shiny": "Double Value",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Rifle": {
@@ -9696,19 +10123,20 @@ export const items = {
     "cooldown": 2,
     "ammo": 1,
     "text": [
-      "Deal ( 5 » 10 » 20 » 40 ) damage.",
+      "Deal ( 6 » 12 » 18 » 24 ) damage.",
       "When you use this, reload this 1 Ammo if it is your only weapon."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -9730,15 +10158,16 @@ export const items = {
       "Deal ( 14 » 20 » 28 » 40 ) damage."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield 9.",
-      "Restorative": "Heal 12.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Heavy": "Slow 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
+      "Turbo": "Haste 1 item for 1 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Rivet Gun": {
@@ -9760,15 +10189,16 @@ export const items = {
       "When you use the item to the right of this, Charge the item to the left of this ( 1 » 2 ) second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
-      "Turbo": "Haste 2 items for 2 second(s).",
+      "Heavy": "Slow 1 item for 2 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
+      "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -9779,24 +10209,26 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Medium",
+      "Apparel",
       "Shield"
     ],
-    "cooldown": 6,
+    "cooldown": 5,
     "ammo": null,
     "text": [
-      "Shield ( 5 » 10 » 15 ).",
-      "When you Shield, your Shield items gain ( 1 » 2 » 3 ) Shield for the fight."
+      "Shield 20.",
+      "Your Shield items gain ( 5 » 10 » 15 ) Shield for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
-      "Shielded": "This has double Shield.",
-      "Restorative": "When you Shield, your Heal items gain 2 Heal for the fight.",
-      "Toxic": "When you Shield, your Poison items gain 1 Poison for the fight.",
-      "Fiery": "When you Shield, your Burn items gain 1 Burn for the fight.",
+      "Shielded": "This has double Shield bonus.",
+      "Restorative": "Heal equal to this item's Shield.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "When you Shield, your items gain +6% Crit Chance for the fight."
+      "Deadly": "Your Shield items gain +10% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Robotic Factory": {
@@ -9815,7 +10247,8 @@ export const items = {
       "Your Friends have +1 Multicast."
     ],
     "enchants": {
-      "Shiny": "+1 Multicast"
+      "Shiny": "+1 Multicast",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Rocket Boots": {
@@ -9825,6 +10258,7 @@ export const items = {
     "tags": [
       "Common",
       "Medium",
+      "Apparel",
       "Haste",
       "Tool"
     ],
@@ -9832,24 +10266,24 @@ export const items = {
     "ammo": null,
     "text": [
       "Haste adjacent items for ( 1 » 2 » 3 » 4 ) second(s).",
-      "When you sell this, give your leftmost Haste item ( +1 » +2 » +3 » +4 ) Haste."
+      "When you sell this, your leftmost Haste item gains ( +1 » +2 » +3 » +4 ) Haste."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 40.",
       "Restorative": "Heal 60.",
       "Toxic": "Poison 4.",
       "Fiery": "Burn 6.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Rocket Launcher": {
     "name": "Rocket Launcher",
     "icon": "images/items/RocketLauncher.avif",
-    "tier": "Silver",
+    "tier": "Bronze",
     "tags": [
       "Dooley",
       "Medium",
@@ -9862,19 +10296,20 @@ export const items = {
     "ammo": null,
     "text": [
       "Multicast 3",
-      "Deal ( 10 » 20 » 40 ) damage.",
-      "Burn ( 2 » 4 » 6 )."
+      "Deal ( 8 » 12 » 16 » 20 ) damage.",
+      "Burn ( 2 » 3 » 4 » 5 )."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "This has double Burn.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -9894,25 +10329,26 @@ export const items = {
     "ammo": null,
     "text": [
       "Deal ( 10 » 20 » 40 » 80 ) Damage",
-      "When this gains haste, give it ( +10 » +20 » +40 » +80 ) damage for the fight."
+      "When this gains haste, it gains ( +10 » +20 » +40 » +80 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 10.",
-      "Fiery": "Burn 15.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
   "Rowboat": {
     "name": "Rowboat",
     "icon": "images/items/Rowboat.avif",
-    "tier": "Gold",
+    "tier": "Silver",
     "tags": [
       "Vanessa",
       "Medium",
@@ -9920,22 +10356,23 @@ export const items = {
       "Haste",
       "Vehicle"
     ],
-    "cooldown": 10,
+    "cooldown": 8,
     "ammo": null,
     "text": [
-      "Haste your Small items for ( 1 » 2 ) second(s).",
-      "When you use an adjacent Aquatic item, Haste this ( 1 » 2 ) second(s)."
+      "Charge adjacent items ( 1 » 2 » 3 ) second(s).",
+      "If you have 5 or more unique Types, reduce this item's cooldown by 50%."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
-      "Turbo": "This has double Haste duration.",
-      "Shielded": "Shield 100.",
-      "Restorative": "Heal 150.",
-      "Toxic": "Poison 10.",
-      "Fiery": "Burn 15.",
+      "Heavy": "Slow 2 items for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
+      "Turbo": "Haste 2 items for 2 second(s).",
+      "Shielded": "Shield 10 for each Unique type you have.",
+      "Restorative": "Heal 15 for each Unique type you have.",
+      "Toxic": "Poison 1 for each Unique type you have.",
+      "Fiery": "Burn 2 for each Unique type you have.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your small items have +20% Crit Chance."
+      "Deadly": "Your items have +10% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Ruby": {
@@ -9955,14 +10392,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 3 second(s).",
       "Shielded": "Shield 50.",
       "Restorative": "Heal 75.",
       "Toxic": "Poison 5.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Rune Axe": {
@@ -9984,14 +10422,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 5.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -10016,14 +10455,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Runic Great Axe": {
@@ -10052,7 +10492,8 @@ export const items = {
       "Toxic": "Poison 15.",
       "Fiery": "Burn 22.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Safe": {
@@ -10069,7 +10510,9 @@ export const items = {
     "text": [
       "When you sell this, get 3 Spare Change."
     ],
-    "enchants": {}
+    "enchants": {
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
+    }
   },
   "Salamander Pup": {
     "name": "Salamander Pup",
@@ -10089,14 +10532,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield 80.",
       "Restorative": "Heal 120.",
       "Toxic": "Poison 8.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Sapphire": {
@@ -10122,7 +10566,8 @@ export const items = {
       "Restorative": "Heal 60.",
       "Toxic": "Poison 4.",
       "Fiery": "Burn 6.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Satchel": {
@@ -10141,24 +10586,25 @@ export const items = {
     "text": [
       "Reload a potion.",
       "You have ( 4 » 8 » 12 ) Regeneration.",
-      "When you buy a Potion, increase the Regeneration this item gives by ( 1 » 2 » 3 )."
+      "When you buy a Potion, increase this item's +Regeneration by ( +1 » +2 » +3 )."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield 70.",
       "Restorative": "Heal 105.",
       "Toxic": "Poison 7.",
       "Fiery": "Burn 10.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Schematics": {
     "name": "Schematics",
     "icon": "images/items/Schematics.avif",
-    "tier": "Gold",
+    "tier": "Silver",
     "tags": [
       "Dooley",
       "Medium",
@@ -10168,13 +10614,9 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "Your tools and vehicles have ( 25% » 50% ) Crit Chance.",
-      "When you use a Tool, Charge a Vehicle ( 1 » 2 ) second(s)."
+      "When you Level Up, get a Tech item."
     ],
-    "enchants": {
-      "Shiny": "This has double Charge amount.",
-      "Deadly": "This gives double Crit Chance."
-    }
+    "enchants": {}
   },
   "Scrap": {
     "name": "Scrap",
@@ -10189,11 +10631,11 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you sell this, give your leftmost Shield item ( +3 » +6 » +12 » +24 ) Shield."
+      "When you sell this, your leftmost Shield item gains ( +3 » +6 » +12 » +24 ) Shield."
     ],
     "enchants": {
       "Shielded": "...and Enchant the item with Shielded if able.",
-      "Shiny": "This gives double + Shield."
+      "Shiny": "This has double Shield bonus."
     }
   },
   "Scrap Metal": {
@@ -10241,7 +10683,7 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to a third of your enemy's max health..",
       "Restorative": "Heal equal to a third of your enemy's max health.",
@@ -10249,6 +10691,7 @@ export const items = {
       "Fiery": "Burn 9.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -10269,13 +10712,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
       "Toxic": "Poison 1 for each Aquatic item you have.",
       "Fiery": "Burn 2 for each Aquatic item you have.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -10292,18 +10736,19 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Heal ( 10 » 20 » 40 » 80 ).",
+      "Heal 20.",
       "When you use an Aquatic item, this gains ( +5 » +10 » +15 » +20 ) Heal for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 3. When you use an Aquatic item, this gains +1 Poison for the fight.",
-      "Fiery": "Burn 4. When you use an Aquatic item, this gains +2 Burn for the fight.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -10321,19 +10766,20 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Shield ( 20 » 40 » 80 » 160 ).",
+      "Shield ( 50 » 75 » 100 » 125 ).",
       "Your Shield items have ( +20% » +30% » +40% » +50% ) Crit Chance."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Sextant": {
@@ -10356,14 +10802,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "When you Crit, Slow 1 item for 2 second(s).",
-      "Icy": "When you Crit, Freeze 1 item for 1 second(s).",
-      "Turbo": "When you Crit, This has double Haste duration.",
+      "Icy": "When you Crit, Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "This has double Haste duration.",
       "Shielded": "When you Crit, Shield 40.",
       "Restorative": "When you Crit, Heal 20.",
       "Toxic": "When you Crit, Poison 1.",
       "Fiery": "When you Crit, Burn 2.",
-      "Shiny": "+1 Multicast",
-      "Deadly": "Adjacent items have an additional +25% Crit Chance"
+      "Shiny": "This has double Crit Chance bonus.",
+      "Deadly": "Your items have +10% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Shadowed Cloak": {
@@ -10373,6 +10820,7 @@ export const items = {
     "tags": [
       "Common",
       "Medium",
+      "Apparel",
       "DamageReference",
       "Haste"
     ],
@@ -10383,12 +10831,13 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "When you use the item to the right of this, Slow 1 item for 3 second(s).",
-      "Icy": "When you use the item to the right of this, Freeze 1 item for 1 second(s).",
+      "Icy": "When you use the item to the right of this, Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "When you use the item to the right of this, shield 20.",
       "Restorative": "When you use the item to the right of this, heal 30.",
       "Toxic": "When you use the item to the right of this, poison 2.",
-      "Fiery": "When you use the item to the right of this, burn 3."
+      "Fiery": "When you use the item to the right of this, burn 3.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Sharkclaws": {
@@ -10405,19 +10854,20 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Deal ( 5 » 10 » 20 » 40 ) damage.",
+      "Deal ( 12 » 18 » 24 » 30 ) damage.",
       "Your Weapons gain ( +3 » +6 » +9 » +12 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
-      "Shielded": "Shield equal to this item's damage. Your other Shield items gain +9 Shield for the fight.",
-      "Restorative": "Heal equal to this item's damage. Your other Heal items gain +9 Heal for the fight.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's damage.",
+      "Toxic": "Poison equal to this 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -10435,22 +10885,23 @@ export const items = {
       "Ray",
       "Weapon"
     ],
-    "cooldown": 7,
+    "cooldown": 6,
     "ammo": null,
     "text": [
-      "Deal ( 10 » 20 » 40 ) damage.",
-      "When you Haste, this gains ( 10 » 20 » 40 ) damage for the fight."
+      "Deal 30 damage.",
+      "When you Haste, this gains ( 20 » 30 » 40 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's Damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 7.",
-      "Fiery": "Burn 10.",
+      "Toxic": "Poison equal to 10% of this item's Damage.",
+      "Fiery": "Burn equal to 10% of this item's Damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -10470,7 +10921,7 @@ export const items = {
       "When you sell this, your leftmost Weapon gains ( 5 » 10 » 15 ) Damage."
     ],
     "enchants": {
-      "Shiny": "This gives double + Damage.",
+      "Shiny": "This has double damage bonus.",
       "Deadly": "...and Enchant the Weapon with Deadly if able."
     }
   },
@@ -10492,14 +10943,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
       "Toxic": "Poison 4.",
       "Fiery": "Burn 6.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Shipment": {
@@ -10516,7 +10968,9 @@ export const items = {
     "text": [
       "When you sell this, get 3 Small items from any hero."
     ],
-    "enchants": {}
+    "enchants": {
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
+    }
   },
   "Shipwreck": {
     "name": "Shipwreck",
@@ -10535,7 +10989,7 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "When you use an aquatic item, slow 1 item for 3 second(s).",
-      "Icy": "When you use an aquatic item, freeze 1 item for 1 second(s).",
+      "Icy": "When you use an aquatic item, freeze 1 small item for 1 second(s).",
       "Turbo": "When you use an aquatic item, Haste 1 for 3 second(s).",
       "Shielded": "When you use an aquatic item, shield 20.",
       "Restorative": "When you use an aquatic item, heal 30.",
@@ -10543,7 +10997,7 @@ export const items = {
       "Fiery": "When you use an aquatic item, burn 3.",
       "Shiny": "+1 Multicast",
       "Deadly": "Your Aquatic items have +10% Crit Chance.",
-      "Radiant": "-1000 Freeze"
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Shoe Blade": {
@@ -10553,6 +11007,7 @@ export const items = {
     "tags": [
       "Vanessa",
       "Small",
+      "Apparel",
       "Damage",
       "Weapon"
     ],
@@ -10560,18 +11015,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Crit Chance ( 15% » 30% » 50% » 100% )",
-      "Deal ( 10 » 20 » 40 » 80 ) damage."
+      "Deal ( 20 » 40 » 60 » 80 ) damage."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's Damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "This has double Crit damage.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -10589,19 +11045,20 @@ export const items = {
     "cooldown": 10,
     "ammo": null,
     "text": [
-      "Deal ( 20 » 40 » 80 » 160 ) damage.",
+      "Deal ( 50 » 75 » 100 » 125 ) damage.",
       "At the start of each day, get a small item from any hero."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 10.",
-      "Fiery": "Burn 15.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -10618,12 +11075,13 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "At the start of each hour, gain ( 10 » 20 » 30 ) Max Health.",
+      "At the start of each hour, permanently gain ( 10 » 20 » 30 ) Max Health.",
       "You have ( +1 » +2 » +3 ) Income."
     ],
     "enchants": {
-      "Golden": "Double Income",
-      "Shiny": "Double Health Max"
+      "Golden": "This has double income bonus.",
+      "Shiny": "Double Health Max",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Silencer": {
@@ -10645,23 +11103,25 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "When you use the weapon to the left, Slow 1 item for 1 second(s).",
-      "Icy": "When you use the weapon to the left, Freeze 1 item for 1 second(s).",
+      "Icy": "When you use the weapon to the left, Freeze 1 small item for 1 second(s).",
       "Turbo": "When you use the weapon to the left, haste it for 2 second(s).",
       "Shielded": "When you use the weapon to the left, shield 8.",
       "Restorative": "When you use the weapon to the left, heal 10.",
       "Toxic": "When you use the weapon to the left, poison 1.",
       "Fiery": "When you use the weapon to the left, burn 2.",
-      "Shiny": "This gives double bonus damage and reduces cooldown by an additional 25%.",
-      "Deadly": "The Weapon to the left of this has +50% Crit Chance."
+      "Shiny": "This has double bonus damage and reduces cooldown by an additional 25%.",
+      "Deadly": "The Weapon to the left of this has +50% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
-  "Silk": {
-    "name": "Silk",
-    "icon": "images/items/Silk.avif",
+  "Silk Scarf": {
+    "name": "Silk Scarf",
+    "icon": "images/items/SilkScarf.avif",
     "tier": "Bronze",
     "tags": [
       "Pygmalien",
       "Medium",
+      "Apparel",
       "Shield"
     ],
     "cooldown": 7,
@@ -10673,14 +11133,15 @@ export const items = {
     "enchants": {
       "Golden": "Your non-weapon items have +1 value.",
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 4 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 7.",
-      "Fiery": "Burn 10.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Singularity": {
@@ -10689,7 +11150,8 @@ export const items = {
     "tier": "Legendary",
     "tags": [
       "Common",
-      "Small"
+      "Small",
+      "Tech"
     ],
     "cooldown": 9,
     "ammo": null,
@@ -10698,13 +11160,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 4 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 small item for 2 second(s).",
       "Turbo": "Haste 1 item for 4 second(s).",
       "Shielded": "Shield 60.",
       "Restorative": "Heal 90.",
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Sirens": {
@@ -10726,14 +11189,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 70.",
       "Restorative": "Heal 105.",
       "Toxic": "Poison 4.",
       "Fiery": "Burn 8.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your Vehicles have +50% Crit Chance."
+      "Deadly": "Your Vehicles have +50% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Skyscraper": {
@@ -10752,7 +11216,7 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Deal damage equal to 3 time(s) the value of your items.",
+      "Deal damage equal to 3 times the value of your items.",
       "This has double value in combat.",
       "If you have 4 or fewer items in play, this has +1 Multicast."
     ],
@@ -10762,10 +11226,11 @@ export const items = {
       "Turbo": "Haste 3 items for 2 second(s).",
       "Shielded": "Shield equal to this item's Damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 7.",
-      "Fiery": "Burn 11.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -10787,13 +11252,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 3 second(s).",
       "Shielded": "Shield 50.",
       "Restorative": "Heal 75.",
       "Toxic": "Poison 5.",
       "Fiery": "Burn 7.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Slingshot": {
@@ -10805,6 +11271,7 @@ export const items = {
       "Small",
       "Ammo",
       "Damage",
+      "Toy",
       "Weapon"
     ],
     "cooldown": 3,
@@ -10816,14 +11283,15 @@ export const items = {
     "enchants": {
       "Golden": "This has double value.",
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -10845,14 +11313,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 10.",
-      "Fiery": "Burn 15.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -10864,12 +11333,13 @@ export const items = {
       "Pygmalien",
       "Medium",
       "Freeze",
-      "Property"
+      "Property",
+      "Toy"
     ],
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Freeze 1 item for ( 1 » 2 » 3 ) second(s).",
+      "Freeze 1 medium or small item for ( 1 » 2 » 3 ) second(s).",
       "This has +1 Multicast for each adjacent Property."
     ],
     "enchants": {
@@ -10881,7 +11351,8 @@ export const items = {
       "Toxic": "Poison 3.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Adjacent properties have +25% Crit Chance."
+      "Deadly": "Adjacent properties have +25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Snowflake": {
@@ -10896,7 +11367,7 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you sell this, give your leftmost Freeze item +1 second to Freeze."
+      "When you sell this, Your leftmost Freeze item gains +1 second to Freeze."
     ],
     "enchants": {
       "Shiny": "...and spawn another Snowflake."
@@ -10931,7 +11402,8 @@ export const items = {
       "Toxic": "Poison 3.",
       "Fiery": "Burn 6.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your items gain 10% Crit Chance for the fight."
+      "Deadly": "Your items gain 10% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Soldering Gun": {
@@ -10953,14 +11425,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
-      "Shielded": "Shield 15.",
-      "Restorative": "Heal 20.",
-      "Toxic": "Poison 1.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Soul of the District": {
@@ -10982,7 +11455,7 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 4 second(s).",
-      "Icy": "Freeze 1 item for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 4 second(s).",
       "Turbo": "Haste 2 items for 4 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to your current Shield.",
@@ -10990,6 +11463,7 @@ export const items = {
       "Fiery": "Burn 18.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11011,14 +11485,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 40.",
       "Restorative": "Heal 60.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn equal to your Regeneration.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Spacescraper": {
@@ -11036,7 +11511,7 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Shield equal to ( 2 » 3 ) time(s) the value of your items.",
+      "Shield equal to ( 2 » 3 ) times the value of your items.",
       "This has triple value in combat."
     ],
     "enchants": {
@@ -11045,10 +11520,11 @@ export const items = {
       "Turbo": "Haste 3 items for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Spare Change": {
@@ -11086,14 +11562,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 item for 6 second(s).",
-      "Icy": "Freeze 1 item for 6 second(s).",
+      "Icy": "Freeze 1 small item for 6 second(s).",
       "Turbo": "Haste 2 items for 6 second(s).",
       "Shielded": "Your Shield items gain shield equal to your weakest Shield item's Shield for the fight.",
       "Restorative": "Your Heal items gain Heal equal to your weakest Heal item's Heal for the fight.",
       "Toxic": "Your Poison items gain Poison equal to your weakest Poison item's Poison for the fight.",
       "Fiery": "Your Burn items gain damage equal to your weakest Burn item's Burn for the fight.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your items gain +25% Crit Chance for the fight."
+      "Deadly": "Your items gain +25% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Spiked Buckler": {
@@ -11116,7 +11593,7 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Damage.",
@@ -11124,6 +11601,7 @@ export const items = {
       "Fiery": "Burn 12.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11146,14 +11624,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
+      "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to your Shield.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11176,14 +11655,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "When you crit with an adjacent item, Slow 1 item for 3 second(s).",
-      "Icy": "When you crit with an adjacent item, Freeze 1 item for 1 second(s).",
+      "Icy": "When you crit with an adjacent item, Freeze 1 small item for 1 second(s).",
       "Turbo": "When you crit with an adjacent item, haste 1 item for 3 second(s).",
       "Shielded": "When you crit with an adjacent item, shield 20.",
       "Restorative": "When you crit with an adjacent item, heal 30.",
       "Toxic": "When you crit with an adjacent item, poison 2.",
       "Fiery": "When you crit with an adjacent item, burn 3.",
-      "Shiny": "This gives double + Crit Chance.",
-      "Deadly": "This gives double + Crit Chance."
+      "Shiny": "This has double Crit Chance bonus.",
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Stained Glass Window": {
@@ -11204,8 +11684,9 @@ export const items = {
       "If you have 4 or fewer items in play, their cooldowns are reduced by ( 10% » 20% )."
     ],
     "enchants": {
-      "Golden": "Double Value",
-      "Shiny": "Double Value"
+      "Golden": "This has double value bonus.",
+      "Shiny": "Double Value",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Star Chart": {
@@ -11226,15 +11707,16 @@ export const items = {
       "Adjacent items have their cooldown reduced by ( 10% » 15% » 20% » 25% )."
     ],
     "enchants": {
-      "Heavy": "At the start of each fight, Slow 3 items for 4 second(s).",
-      "Icy": "At the start of each fight, Freeze 2 items for 4 second(s).",
-      "Turbo": "At the start of each fight, Haste 3 items for 4 second(s).",
-      "Shielded": "At the start of each fight, Shield 120.",
-      "Restorative": "You have +12 Regeneration.",
-      "Toxic": "At the start of each fight, poison 12.",
-      "Fiery": "At the start of each fight, burn 16.",
-      "Shiny": "This gives double + Crit Chance and cooldown reduction.",
-      "Deadly": "This gives double + Crit Chance."
+      "Heavy": "The first time you fall below half health each fight, Slow 3 items for 4 second(s).",
+      "Icy": "The first time you fall below half health each fight, Freeze 2 items for 4 second(s).",
+      "Turbo": "The first time you fall below half health each fight, Haste 3 items for 4 second(s).",
+      "Shielded": "The first time you fall below half health each fight, Shield 120.",
+      "Restorative": "The first time you fall below half health each fight, Heal 180.",
+      "Toxic": "The first time you fall below half health each fight, poison 12.",
+      "Fiery": "The first time you fall below half health each fight, burn 18.",
+      "Shiny": "This has double Crit Chance bonus and cooldown reduction.",
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Stinger": {
@@ -11257,14 +11739,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Stopwatch": {
@@ -11274,6 +11757,7 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
+      "Apparel",
       "Freeze",
       "Tool"
     ],
@@ -11290,7 +11774,8 @@ export const items = {
       "Restorative": "Heal 75.",
       "Toxic": "Poison 5.",
       "Fiery": "Burn 7.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Submarine": {
@@ -11310,7 +11795,7 @@ export const items = {
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Deal ( 25 » 50 » 100 ) damage.",
+      "Deal ( 50 » 75 » 100 ) damage.",
       "Gain Shield equal to this item's damage."
     ],
     "enchants": {
@@ -11319,10 +11804,11 @@ export const items = {
       "Turbo": "Haste 3 items for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's damage.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 5.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11341,20 +11827,21 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Heal equal to ( 4 » 6 ) time(s) the value of your items.",
-      "Your other items gain +value equal to this item's value in combat."
+      "Heal equal to 0 times the value of your items.",
+      "At the start of each fight, your other items gain Value equal to this item's Value for the fight."
     ],
     "enchants": {
-      "Golden": "Double Value",
+      "Golden": "This has double value.",
       "Heavy": "Slow 3 items for 4 second(s).",
       "Icy": "Freeze 1 item for 6 second(s).",
       "Turbo": "Haste 3 items for 4 second(s).",
-      "Shielded": "Shield equal the value of your items.",
+      "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Succulents": {
@@ -11370,18 +11857,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Heal ( 1 » 2 » 3 » 4 ).",
-      "This permanently gains ( 1 » 2 » 3 » 4 ) Heal."
+      "This permanently gains ( +1 » +2 » +3 » +4 ) Heal."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Sunderer": {
@@ -11402,14 +11890,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
-      "Shielded": "Shield 20.",
-      "Restorative": "Heal 30.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11432,14 +11921,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield 50.",
       "Restorative": "This has double Heal.",
       "Toxic": "Poison 5.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Super Syrup": {
@@ -11468,6 +11958,7 @@ export const items = {
     "tags": [
       "Vanessa",
       "Medium",
+      "Apparel",
       "Crit",
       "DamageReference",
       "HealReference",
@@ -11481,7 +11972,8 @@ export const items = {
     ],
     "enchants": {
       "Shiny": "This has double damage, shield and heal bonus.",
-      "Deadly": "This gives double + Crit Chance."
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Switchblade": {
@@ -11497,19 +11989,20 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Deal ( 15 » 30 » 60 » 120 ) damage.",
-      "When you use an adjacent Weapon, give it ( +3 » +6 » +9 » +12 ) damage for the fight."
+      "Deal ( 30 » 45 » 60 » 75 ) damage.",
+      "When you use an adjacent Weapon, it gains ( +3 » +6 » +9 » +12 ) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield 40.",
-      "Restorative": "Heal 60.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 5.",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11532,14 +12025,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 3.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11556,19 +12050,20 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Heal equal to ( 4% » 8% ) of your Max Health.",
-      "When you use a non-weapon item, permanently gain ( +2 » +4 ) Max Health."
+      "Heal equal to ( 5% » 10% ) of your Max Health.",
+      "Permanently gain ( 5 » 10 ) Max Health."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 4 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 1 item for 4 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 9.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Teddy": {
@@ -11588,9 +12083,9 @@ export const items = {
     "ammo": null,
     "text": [
       "Multicast 2",
+      "Crit Chance 25%",
       "Deal 100 damage.",
-      "When you use an adjacent Friend or item with Ammo, charge this 1 second(s).",
-      "When you take damage or lose shield, this gains 5% Crit Chance for the fight."
+      "When you use another Toy, Friend or Ammo item, charge this 1 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -11602,6 +12097,7 @@ export const items = {
       "Fiery": "Burn 15.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11630,7 +12126,8 @@ export const items = {
       "Toxic": "Poison 9.",
       "Fiery": "Burn 13.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Tesla Coil": {
@@ -11648,18 +12145,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Deal ( 60 » 90 » 120 ) damage.",
-      "When you use an adjacent Tech, charge an item 1 second."
+      "When you use an adjacent Tech, charge 1 item 1 second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield equal to this item's Damage.",
+      "Heavy": "Slow 1 items for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "Haste 1 items for 2 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11681,14 +12179,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 5.",
-      "Fiery": "Burn 7.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "The Boulder": {
@@ -11711,12 +12210,13 @@ export const items = {
       "Heavy": "Slow 3 items for 10 second(s).",
       "Icy": "Freeze 1 item for 15 second(s).",
       "Turbo": "Haste 3 items for 10 second(s).",
-      "Shielded": "Shield equal to your Max Health.",
-      "Restorative": "Heal equal to your Max Health.",
-      "Toxic": "Poison 100.",
-      "Fiery": "Burn 50.",
+      "Shielded": "Shield equal to this item's Damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11737,20 +12237,21 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Deal ( 10 » 20 » 40 » 80 ) damage.",
+      "Deal ( 30 » 45 » 60 » 75 ) damage.",
       "Charge all items to the right of this 1 second(s).",
       "When you use any item to the left of this, Charge this 1 second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
-      "Turbo": "Haste 2 items for 3 second(s).",
-      "Shielded": "Shield 80.",
-      "Restorative": "Heal 120.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
+      "Heavy": "Slow 1 item for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
+      "Turbo": "Haste 1 item for 4 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11762,6 +12263,7 @@ export const items = {
       "Common",
       "Large",
       "Damage",
+      "Tech",
       "Vehicle",
       "Weapon"
     ],
@@ -11781,6 +12283,7 @@ export const items = {
       "Toxic": "Poison 24.",
       "Fiery": "Burn 36.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11802,14 +12305,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
-      "Shielded": "Shield 70.",
-      "Restorative": "Heal 105.",
-      "Toxic": "Poison 7.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Thieves Guild Medallion": {
@@ -11847,14 +12351,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's damage.",
-      "Toxic": "Poison 2.",
-      "Fiery": "Burn 4.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11876,14 +12381,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 5.",
-      "Fiery": "Burn 7.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11906,14 +12412,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield 30.",
-      "Restorative": "Heal 45.",
-      "Toxic": "Poison 3.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Thurible": {
@@ -11935,14 +12442,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 40.",
       "Restorative": "Heal 60.",
       "Toxic": "Poison 4.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Tiny Cutlass": {
@@ -11973,6 +12481,7 @@ export const items = {
       "Fiery": "Burn 3.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -11994,14 +12503,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
-      "Shielded": "Shield equal to this item's ammo.",
-      "Restorative": "Heal equal to this item's ammo.",
-      "Toxic": "Poison 1.",
-      "Fiery": "Burn 1.",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -12024,14 +12534,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal 90.",
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your Tools have +20% Crit Chance."
+      "Deadly": "Your Tools have +20% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Torpedo": {
@@ -12047,23 +12558,24 @@ export const items = {
       "Tech",
       "Weapon"
     ],
-    "cooldown": 10,
+    "cooldown": 8,
     "ammo": 1,
     "text": [
-      "Deal ( 50 » 100 » 200 ) damage.",
-      "When you use another Aquatic or item with Ammo, this gains ( 20 » 40 » 60 ) damage for the fight.",
+      "Deal 100 damage.",
+      "When you use another Aquatic or Ammo item, this gains ( 25 » 50 » 75 ) damage for the fight.",
       "If the item is Large, Reload 1 Ammo."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 6 second(s).",
-      "Icy": "Freeze 1 item for 6 second(s).",
-      "Turbo": "Haste 2 items for 6 second(s).",
+      "Heavy": "Slow 2 items for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 4 second(s).",
+      "Turbo": "Haste 2 items for 4 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 12.",
-      "Fiery": "Burn 18.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -12093,7 +12605,8 @@ export const items = {
       "Toxic": "Poison 6.",
       "Fiery": "Burn 9.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Trained Spider": {
@@ -12114,14 +12627,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 25.",
       "Restorative": "Heal 40.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Trebuchet": {
@@ -12139,7 +12653,7 @@ export const items = {
     "cooldown": 10,
     "ammo": null,
     "text": [
-      "Deal ( 25 » 50 » 75 » 100 ) damage.",
+      "Deal ( 40 » 60 » 80 » 100 ) damage.",
       "Burn ( 4 » 6 » 8 » 10 ).",
       "When you use another Weapon or Haste, charge this 2 second(s)."
     ],
@@ -12149,10 +12663,11 @@ export const items = {
       "Turbo": "Haste 1 item for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's damage.",
-      "Toxic": "Poison 5.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -12172,13 +12687,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "When your enemy uses an item of equal or smaller size, Freeze it for 1 second(s).",
+      "Icy": "When your enemy uses a small or medium item, Freeze it for 1 second(s).",
       "Turbo": "When your enemy uses an item, haste 1 item for 2 second(s).",
       "Shielded": "When your enemy uses an item, shield 20.",
       "Restorative": "When your enemy uses an item, heal 40.",
       "Toxic": "When your enemy uses an item, poison 2.",
       "Fiery": "When your enemy uses an item, Burn 4.",
-      "Shiny": "This has double Slow duration."
+      "Shiny": "This has double Slow duration.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Tropical Island": {
@@ -12201,13 +12717,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "At the start of each fight, Slow 2 items for 4 second(s).",
-      "Icy": "When you slow, freeze 1 item for 1 second(s).",
+      "Icy": "When you slow, freeze 1 small item for 1 second(s).",
       "Turbo": "When you slow, haste 1 item for 1 second(s).",
       "Shielded": "When you slow, shield 30.",
       "Restorative": "When you slow, heal 45.",
       "Toxic": "When you slow, poison 3.",
       "Fiery": "When you slow, burn 5.",
-      "Shiny": "This has double Regeneration gain."
+      "Shiny": "This has double Regeneration gain.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Truffles": {
@@ -12225,26 +12742,27 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Heal equal to ( 1x » 2x » 3x ) the value of your highest value item.",
+      "Heal equal to 0 times the value of your highest value item.",
       "When you sell this, your leftmost item gains value equal to this item's value."
     ],
     "enchants": {
       "Golden": "This has double Value bonus.",
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield equal to double the value of your highest value item.",
+      "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 3.",
-      "Fiery": "Burn 5.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Turtle Shell": {
     "name": "Turtle Shell",
     "icon": "images/items/TurtleShell.avif",
-    "tier": "Silver",
+    "tier": "Gold",
     "tags": [
       "Vanessa",
       "Medium",
@@ -12255,19 +12773,20 @@ export const items = {
     "ammo": null,
     "text": [
       "Shield 25.",
-      "Your Shield items gain ( +10 » +15 » +20 ) Shield for the fight.",
+      "Your Shield items gain ( +10 » +15 ) Shield for the fight.",
       "When you use another non-weapon item, charge this 1 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 6.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Tusked Helm": {
@@ -12277,6 +12796,7 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
+      "Apparel",
       "Damage",
       "Shield",
       "Weapon"
@@ -12285,19 +12805,20 @@ export const items = {
     "ammo": null,
     "text": [
       "Multicast 2",
-      "Deal ( 5 » 10 » 20 » 40 ) damage.",
-      "Shield ( 5 » 10 » 20 » 40 )."
+      "Deal ( 10 » 15 » 20 » 25 ) damage.",
+      "Shield ( 10 » 15 » 20 » 25 )."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 3 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 5.",
-      "Fiery": "Burn 7.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -12343,18 +12864,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Heal ( 10 » 20 » 40 » 80 ).",
-      "This has +1 Multicast for each Property you have."
+      "This has +1 Multicast for each Property you have. [0]"
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 1.",
-      "Fiery": "Burn 1.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast for each Property you have.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Uzi": {
@@ -12375,14 +12897,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 1.",
-      "Fiery": "Burn 1.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -12401,15 +12924,15 @@ export const items = {
       "Your items have ( +10% » +20% » +30% » +40% ) Crit Chance."
     ],
     "enchants": {
-      "Heavy": "At the start of each fight, Slow 2 items for 4 second(s).",
-      "Icy": "At the start of each fight, Freeze 1 item for 4 second(s).",
-      "Turbo": "At the start of each fight, Haste 2 items for 4 second(s).",
-      "Shielded": "At the start of each fight, Shield 60.",
-      "Restorative": "You have +6 Regeneration.",
-      "Toxic": "At the start of each fight, poison 6.",
-      "Fiery": "At the start of each fight, burn 8.",
-      "Shiny": "Double Crit Chance",
-      "Deadly": "This gives double + Crit Chance."
+      "Heavy": "When you Crit, Slow 1 items for 1 second(s).",
+      "Icy": "When you Crit, Freeze 1 small item for 1 second(s).",
+      "Turbo": "When you Crit, Haste 1 items for 1 second(s).",
+      "Shielded": "When you Crit, Shield 10.",
+      "Restorative": "When you Crit, Heal 0.",
+      "Toxic": "When you Crit, poison 1.",
+      "Fiery": "When you Crit, burn 2.",
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Vending Machine": {
@@ -12447,14 +12970,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 10.",
       "Restorative": "Heal 15.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 1.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Venomander": {
@@ -12476,14 +13000,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 30.",
       "Restorative": "Heal 45.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn 4.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Vial of Blood": {
@@ -12502,7 +13027,7 @@ export const items = {
       "When you sell this, gain ( 1 » 2 » 3 ) XP."
     ],
     "enchants": {
-      "Shiny": "This gives double experience."
+      "Shiny": "This has double experience bonus."
     }
   },
   "Vineyard": {
@@ -12530,10 +13055,11 @@ export const items = {
       "Turbo": "Haste 3 item for 3 second(s).",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison 12.",
-      "Fiery": "Burn 18.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Virus": {
@@ -12555,14 +13081,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 4 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 small item for 2 second(s).",
       "Turbo": "Haste 1 item for 4 second(s).",
       "Shielded": "Shield 60.",
       "Restorative": "Heal 90.",
       "Toxic": "This has double Poison.",
-      "Fiery": "Burn 9.",
+      "Fiery": "Burn equal to this item's Poison.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Void Ray": {
@@ -12585,14 +13112,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Shield 60.",
       "Restorative": "Heal 90.",
       "Toxic": "Poison 6.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Void Shield": {
@@ -12613,14 +13141,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to your enemy's Burn.",
       "Toxic": "Poison 7.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Wallace": {
@@ -12636,46 +13165,48 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Shield ( 5 » 10 » 15 » 20 ).",
-      "This gains ( 5 » 10 » 15 » 20 ) Shield for the fight."
+      "Shield 10.",
+      "This gains ( 10 » 15 » 20 » 25 ) Shield for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 3. This item gains +1 Poison for the fight.",
-      "Fiery": "Burn 4. This item gains +2 Burn for the fight.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Walter Cooler": {
     "name": "Walter Cooler",
     "icon": "images/items/WalterCooler.avif",
-    "tier": "Bronze",
+    "tier": "Silver",
     "tags": [
       "Dooley",
       "Small",
       "Friend",
       "Health"
     ],
-    "cooldown": 10,
+    "cooldown": "( 10 » 9 » 8 )",
     "ammo": null,
     "text": [
-      "Permanently gain ( 5 » 10 » 15 » 20 ) Max Health.",
+      "Permanently gain ( 10 » 15 » 20 ) Max Health.",
       "When you use an adjacent friend, charge this 1 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 3 second(s).",
       "Shielded": "Shield 50.",
       "Restorative": "Heal 75.",
       "Toxic": "Poison 5.",
       "Fiery": "Burn 7.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Wand": {
@@ -12685,7 +13216,8 @@ export const items = {
     "tags": [
       "Common",
       "Small",
-      "Charge"
+      "Charge",
+      "Toy"
     ],
     "cooldown": 5,
     "ammo": null,
@@ -12694,13 +13226,14 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield 25.",
       "Restorative": "Heal 40.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 4.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Wanted Poster": {
@@ -12720,15 +13253,16 @@ export const items = {
       "Your items have ( 10% » 20% » 30% ) Crit Chance."
     ],
     "enchants": {
-      "Heavy": "At the start of each fight, Slow 3 items for 4 second(s).",
-      "Icy": "At the start of each fight, Freeze 2 item for 4 second(s).",
-      "Turbo": "At the start of each fight, Haste 3 items for 4 second(s).",
-      "Shielded": "At the start of each fight, Shield 120.",
-      "Restorative": "You have +12 Regeneration.",
-      "Toxic": "At the start of each fight, poison 12.",
-      "Fiery": "At the start of each fight, burn 16.",
-      "Shiny": "This gives double experience.",
-      "Deadly": "This gives double + Crit Chance."
+      "Heavy": "The first time you fall below half health each fight, Slow 3 items for 4 second(s).",
+      "Icy": "The first time you fall below half health each fight, Freeze 2 items for 4 second(s).",
+      "Turbo": "The first time you fall below half health each fight, Haste 3 items for 4 second(s).",
+      "Shielded": "The first time you fall below half health each fight, Shield 120.",
+      "Restorative": "The first time you fall below half health each fight, Heal 180.",
+      "Toxic": "The first time you fall below half health each fight, poison 12.",
+      "Fiery": "The first time you fall below half health each fight, burn 18.",
+      "Shiny": "This has double Experience bonus.",
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Water Wheel": {
@@ -12752,12 +13286,13 @@ export const items = {
       "Heavy": "Slow 1 item for 3 second(s).",
       "Icy": "Freeze 1 item for 2 second(s).",
       "Turbo": "This has double Haste duration.",
-      "Shielded": "Shield 50.",
-      "Restorative": "Heal 70.",
-      "Toxic": "Poison 4.",
-      "Fiery": "Burn 8.",
+      "Shielded": "When you use an adjacent item, Shield 20.",
+      "Restorative": "When you use an adjacent item, Heal 30.",
+      "Toxic": "When you use an adjacent item, Poison 2.",
+      "Fiery": "When you use an adjacent item, Burn 2.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your items have +10% Crit Chance."
+      "Deadly": "Your items have +10% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Weakpoint Detector": {
@@ -12780,14 +13315,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Your Shield items gain +9 Shield for the fight.",
       "Restorative": "Your Heal items gain +9 Heal for the fight.",
       "Toxic": "Your Poison items gain +2 Poison for the fight.",
       "Fiery": "Your Burn items gain +4 Burn for the fight.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your items gain 10% Crit Chance for the fight."
+      "Deadly": "Your Weapons gain 10% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Weaponized Core": {
@@ -12807,20 +13343,21 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Deal ( 10 » 20 » 40 » 80 ) damage.",
-      "Give Weapons to the right of this ( +5 » +10 » +15 » +20 ) damage for the fight.",
+      "Deal ( 20 » 30 » 40 » 50 ) damage.",
+      "Weapons to the right of this gain ( +10 » +15 » +20 » +25 ) damage for the fight.",
       "When you use any item to the left of this, Charge this 1 second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 3 second(s).",
-      "Turbo": "Haste 2 items for 3 second(s).",
-      "Shielded": "Shield 80.",
-      "Restorative": "Heal 120.",
-      "Toxic": "Poison 8.",
-      "Fiery": "Burn 12.",
+      "Heavy": "Slow 1 item for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
+      "Turbo": "Haste 1 item for 4 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "this weapon deals double damage on critical hits.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   },
@@ -12846,14 +13383,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
-      "Shielded": "Shield 20.",
-      "Restorative": "Heal 30.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
       "Toxic": "This has double Poison.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Weather Machine": {
@@ -12886,6 +13424,7 @@ export const items = {
       "Toxic": "Poison 9.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance"
     }
   },
@@ -12900,22 +13439,23 @@ export const items = {
       "HealReference",
       "Tool"
     ],
-    "cooldown": 5,
+    "cooldown": 6,
     "ammo": null,
     "text": [
-      "Your weapons gain ( +5 » +10 » +15 » +20 ) Damage and your Heal items gain ( +5 » +10 » +15 » +20 ) Heal for the fight.",
-      "When you heal while at max health, charge this 2 second(s)."
+      "Your weapons gain ( +10 » +15 » +20 » +25 ) Damage and your Heal items gain ( +10 » +15 » +20 » +25 ) Heal for the fight.",
+      "When you Over-heal, charge this 1 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 4 second(s).",
+      "Icy": "Freeze 1 medium or small item for 4 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "Your Shield items gain +15 shield for the fight.",
-      "Restorative": "This gives double + Heal.",
+      "Restorative": "This has double Heal bonus.",
       "Toxic": "Your Poison items gain +2 poison for the fight.",
       "Fiery": "Your Burn items gain +3 burn for the fight.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your items gain +20% Crit Chance for the fight."
+      "Deadly": "Your items gain +20% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Welding Helmet": {
@@ -12931,19 +13471,20 @@ export const items = {
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Shield ( 6 » 12 » 24 » 48 ).",
+      "Shield ( 10 » 15 » 20 » 25 ).",
       "Burn ( 1 » 2 » 3 » 5 )."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
       "Turbo": "Haste 2 items for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
-      "Toxic": "Poison 3.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Welding Torch": {
@@ -12965,14 +13506,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
-      "Icy": "Freeze 1 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
-      "Shielded": "Shield 50.",
-      "Restorative": "Heal 75.",
-      "Toxic": "Poison 5.",
+      "Shielded": "Shield equal to 10 times this item's Burn.",
+      "Restorative": "Heal equal to 10 times this item's Burn.",
+      "Toxic": "Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance"
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Windmill": {
@@ -12988,8 +13530,8 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Charge adjacent items 1 second.",
-      "When you use another item, Charge this 1 second."
+      "Charge adjacent items 1 second(s).",
+      "When you use another item, Charge this 1 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
@@ -13000,7 +13542,8 @@ export const items = {
       "Toxic": "Poison 3.",
       "Fiery": "Burn 6.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Adjacent items have +25% Crit Chance."
+      "Deadly": "Adjacent items have +25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Wrench": {
@@ -13021,6 +13564,7 @@ export const items = {
       "At the start of each day, upgrade a Tool of a lower tier."
     ],
     "enchants": {
+      "Golden": "...and Enchant the item with Golden if able.",
       "Heavy": "...and Enchant the item with Heavy if able.",
       "Icy": "...and Enchant the item with Icy if able.",
       "Turbo": "...and Enchant the item with Turbo if able.",
@@ -13031,7 +13575,7 @@ export const items = {
       "Shiny": "...and Enchant the item with Shiny if able.",
       "Deadly": "...and Enchant the item with Deadly if able.",
       "Radiant": "...and Enchant the item with Radiant if able.",
-      "Obsidian": "...and Enchant the item with Radiant if able."
+      "Obsidian": "...and Enchant the item with Obsidian if able."
     }
   },
   "Yellow Gumball": {
@@ -13049,8 +13593,8 @@ export const items = {
       "When you sell this, your Shield items gain ( 1 » 2 » 3 » 4 ) Shield."
     ],
     "enchants": {
-      "Shielded": "This gives double + Shield.",
-      "Shiny": "This gives double + Shield."
+      "Shielded": "This has double Shield bonus.",
+      "Shiny": "This has double Shield bonus."
     }
   },
   "Yellow Piggles A": {
@@ -13060,12 +13604,13 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
-      "ShieldReference"
+      "ShieldReference",
+      "Toy"
     ],
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Give your adjacent Shield items ( +2 » +4 » +6 » +8 ) Shield for the fight."
+      "Your adjacent Shield items ( +2 » +4 » +6 » +8 ) Shield for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -13075,7 +13620,8 @@ export const items = {
       "Restorative": "Heal 20.",
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Yellow Piggles L": {
@@ -13085,12 +13631,13 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
-      "ShieldReference"
+      "ShieldReference",
+      "Toy"
     ],
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Give your Shield item to the left of this ( +4 » +8 » +12 » +16 ) Shield for the fight."
+      "Your Shield item to the left of this gains ( +4 » +8 » +12 » +16 ) Shield for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -13100,7 +13647,8 @@ export const items = {
       "Restorative": "Heal 20.",
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Yellow Piggles R": {
@@ -13110,12 +13658,13 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
-      "ShieldReference"
+      "ShieldReference",
+      "Toy"
     ],
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Give your Shield item to the right of this ( +4 » +8 » +12 » +16 ) Shield for the fight."
+      "Your Shield item to the right of this gains ( +4 » +8 » +12 » +16 ) Shield for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -13125,7 +13674,8 @@ export const items = {
       "Restorative": "Heal 20.",
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Yellow Piggles X": {
@@ -13135,7 +13685,8 @@ export const items = {
     "tags": [
       "Pygmalien",
       "Small",
-      "ShieldReference"
+      "ShieldReference",
+      "Toy"
     ],
     "cooldown": 3,
     "ammo": null,
@@ -13150,7 +13701,8 @@ export const items = {
       "Restorative": "Heal 20.",
       "Toxic": "Poison 1.",
       "Fiery": "Burn 2.",
-      "Shiny": "This has +1 Multicast."
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
   "Yo-Yo": {
@@ -13161,6 +13713,7 @@ export const items = {
       "Pygmalien",
       "Small",
       "Damage",
+      "Toy",
       "Weapon"
     ],
     "cooldown": 4,
@@ -13171,14 +13724,15 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison 1.",
-      "Fiery": "Burn 1.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has Lifesteal."
     }
   }

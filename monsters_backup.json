@@ -148,7 +148,7 @@
         "tier": 0
       },
       {
-        "name": "Silk",
+        "name": "Silk Scarf",
         "tier": 0
       },
       {
@@ -449,10 +449,6 @@
     "skills": [
       {
         "name": "Gunner",
-        "tier": 1
-      },
-      {
-        "name": "Small Weaponry",
         "tier": 1
       }
     ],
@@ -884,10 +880,6 @@
       {
         "name": "Diamond Fangs",
         "tier": 0
-      },
-      {
-        "name": "Small Weaponry",
-        "tier": 0
       }
     ],
     "items": [
@@ -976,10 +968,6 @@
       {
         "name": "Flashy Reload",
         "tier": 3
-      },
-      {
-        "name": "Heavy Weaponry",
-        "tier": 1
       },
       {
         "name": "Keen Eye",
@@ -2254,10 +2242,6 @@
         "tier": 3
       },
       {
-        "name": "Small Weaponry",
-        "tier": 2
-      },
-      {
         "name": "Strength",
         "tier": 1
       }
@@ -3113,7 +3097,7 @@
     "health": 2325,
     "skills": [
       {
-        "name": "Shellshock",
+        "name": "Dual Wield",
         "tier": 3
       }
     ],
