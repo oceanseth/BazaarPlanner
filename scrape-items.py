@@ -216,7 +216,7 @@ def parse_items():
                 icon_url = full_icon_url.replace("https://www.howbazaar.gg/", "").lstrip("/")
                 
                 # Check if icon exists locally with any casing
-                icon_path = Path(f"./{icon_url}")
+                icon_path = Path(f"./public/{icon_url}")
                 icon_dir = icon_path.parent
                 icon_filename = icon_path.name.lower()  # Convert to lowercase for comparison
                 
