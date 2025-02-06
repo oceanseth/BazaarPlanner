@@ -162,7 +162,7 @@ window.onload = () => {
 
      window.firebaseConfig = {
         apiKey: "AIzaSyCrDTf9_S8PURED8DZBDbbEsJuMA1poduw",
-        authDomain: "bazaarplanner.firebaseapp.com",
+        authDomain: window.location.hostname=="localhost"?"bazaarplanner.firebaseapp.com":"www.bazaarplanner.com",
         databaseURL: "https://bazaarplanner-default-rtdb.firebaseio.com",
         projectId: "bazaarplanner",
         storageBucket: "bazaarplanner.firebasestorage.app",
@@ -457,14 +457,7 @@ function battleFunction() {
     topPlayer.takeDamage(sandstormDmg);
     bottomPlayer.takeDamage(sandstormDmg);
     sandstormValue+=sandstormIncrement;
-
   }
-  
-  [topPlayer,bottomPlayer].forEach(player => {
-    if(player.health <= 0) {
-        player.dieTriggers.forEach(func => func());
-    } 
-  });
 
   updateCombatLogDisplay();
 }
@@ -475,7 +468,8 @@ function resetBattle() {
     isPaused=0;
     sandstormValue=1;
     battleInterval = null; // Clear the interval reference
-    Board.resetBoards();
+    topPlayer.reset();
+    bottomPlayer.reset();
     // Reset button
     battleButton.textContent = 'Start Battle';
     battleButton.classList.remove('pause-battle');

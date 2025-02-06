@@ -326,8 +326,8 @@ export class Item {
         // Sort the board's items array after changing an index
         if (this.board) {
             this.board.sortItems();
-            Board.resetBoards(); //need to rerun the text functions for new position of item and reset player regen/life/etc
-            updateUrlState();
+//            Board.resetBoards(); //need to rerun the text functions for new position of item and reset player regen/life/etc
+  //          updateUrlState();
 
         }
     }
@@ -985,8 +985,12 @@ export class Item {
             case 'damagemultiplier':
                 this.damageMultiplier += amount;
                 break;
+            case 'critmultiplier':
+                this.critMultiplier += amount;
+                break;
         }
     }
+
 
 
 
@@ -1536,9 +1540,16 @@ export class Item {
                         useASmallItemFunction(item);
                     });
                     return;
+                case "use a large item":
+                    const useALargeItemFunction = this.getTriggerFunctionFromText(match[2]);
+                    this.whenItemTagTriggers("Large", (item) => {
+                        useALargeItemFunction(item);
+                    });
+                    return;
                 case "crit with any item":
                     this.board.critTriggers.set(this.id, this.getTriggerFunctionFromText(match[2]));
                     return;
+
                 case "sell this": //do nothing
                 case "buy this":
                 case "buy another aquatic item":
@@ -1564,48 +1575,65 @@ export class Item {
             const ntimesFunction = this.getTriggerFunctionFromText(match[4]);
             switch(match[3].toLowerCase()) {
                 case "you shield":
-                    this.shieldCount = 0;
+                    let shieldCount = 0;
                     this.board.shieldTriggers.set(this.id,()=>{
-                        this.shieldCount++;
-                        if(this.shieldCount <= numTimes) {
+                        shieldCount++;
+                        if(shieldCount <= numTimes) {
                             ntimesFunction(this);
-                        }
-                    });
-                    return;
-                case "you use the core":
-                    this.coreUsedCount = 0;
-                    this.board.itemTriggers.set(this.id,(item)=>{
-                        if(item.tags.includes("Core")&&this.coreUsedCount++<=numTimes) {
-                            ntimesFunction(item);
-                        }
-                    });
-
-                case "you crit":
-                    this.critCount = 0;
-                    this.board.critTriggers.set(this.id,(item)=>{
-                        if(this.critCount++<=numTimes) {
-                            ntimesFunction(item);
-                        }
-                    });
-                    return;
-                case "your enemy uses a non-weapon item":
-                    this.nonWeaponCount = 0;
-
-
-                    this.board.player.hostileTarget.board.itemTriggers.set(this.id,(item)=>{
-                        if(!item.tags.includes("Weapon")) {
-                            this.nonWeaponCount++;
-                            if(this.nonWeaponCount <= numTimes) {
-                                ntimesFunction(item);
+                            if(shieldCount==numTimes) {
+                                this.board.shieldTriggers.delete(this.id);
                             }
                         }
                     });
                     return;
-                case "you use an ammo item":
-                    this.ammoUsedCount = 0;
+
+                case "you use the core":
+                    let coreUsedCount = 0;
                     this.board.itemTriggers.set(this.id,(item)=>{
-                        if(item.tags.includes("Ammo")&&this.ammoUsedCount++<=numTimes) {
+                        if(item.tags.includes("Core")&&coreUsedCount++ <= numTimes) {
                             ntimesFunction(item);
+                            if(coreUsedCount==numTimes) {
+                                this.board.itemTriggers.delete(this.id);
+                            }
+                        }
+                    });
+
+
+                case "you crit":
+                    let critCount = 0;
+                    this.board.critTriggers.set(this.id,(item)=>{
+                        if(critCount++<=numTimes) {
+                            ntimesFunction(item);
+                            if(critCount==numTimes) {
+                                this.board.critTriggers.delete(this.id);
+                            }
+                        }
+                    });
+
+                    return;
+                case "your enemy uses a non-weapon item":
+                    let nonWeaponCount = 0;
+                    this.board.player.hostileTarget.board.itemTriggers.set(this.id,(item)=>{
+                        if(!item.tags.includes("Weapon")) {
+                            if(nonWeaponCount++ <= numTimes) {
+                                ntimesFunction(item);
+                                if(nonWeaponCount==numTimes) {
+                                    this.board.player.hostileTarget.board.itemTriggers.delete(this.id);
+                                }
+                            }
+                        }
+                    });
+
+                    return;
+                case "you use an ammo item":
+                    let ammoUsedCount = 0;
+                    this.board.itemTriggers.set(this.id,(item)=>{
+                        if(item.tags.includes("Ammo") && ammoUsedCount<=numTimes) {
+                            ammoUsedCount++;
+                            ntimesFunction(item);
+                            if(ammoUsedCount==numTimes) {
+                                this.board.itemTriggers.delete(this.id);
+                            }
                         }
                     });
                     return;
@@ -1855,7 +1883,7 @@ export class Item {
         regex = /^\s*This deals double Crit damage/i;
         match = text.match(regex);
         if(match) {
-            this.critMultiplier*=2;
+            this.gain(100,'critMultiplier');
             return () => {};
         }
         //Reload this
@@ -1981,7 +2009,6 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const tagToMatch = Item.getTagFromText(match[2]);
-            this.multicast = this.startItemData.multicast||1;
             this.board.items.forEach(item => {
                 if(item.tags.includes(tagToMatch)) {
                     this.multicast+=parseInt(match[1]);
@@ -2176,7 +2203,7 @@ export class Item {
             const tagToMatch = Item.getTagFromText(match[1]);
             return () => {
                 this.board.items.filter(item => item.startIndex>this.startIndex && item.tags.includes(tagToMatch)).forEach(item => {
-                    item[match[4].toLowerCase()] += gainAmount;
+                    item.gain(gainAmount,match[4].toLowerCase());
                     log(this.name + " gave " + item.name + " " + gainAmount + " " + match[4]);
                 });
             };
@@ -2191,7 +2218,7 @@ export class Item {
             const itemsToGive = this.board.items.filter(item => item.startIndex>this.startIndex && (tagToMatch ? item.tags.includes(tagToMatch) : true));
             return () => {
                 itemsToGive.forEach(item => {
-                    item[match[4].toLowerCase()] += gainAmount;
+                    item.gain(gainAmount,match[4].toLowerCase());
                     log(this.name + " gave " + item.name + " " + gainAmount + " " + match[4]);
                 });
             };
@@ -2209,8 +2236,9 @@ export class Item {
                 this.getAdjacentItems().forEach(item => {
 
                     if(item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2)) {
-                        item[match[4].toLowerCase()] += gainAmount;
+                        item.gain(gainAmount,match[4].toLowerCase());
                     }
+
                 });
             }
         }

@@ -488,8 +488,8 @@ class Board {
         this.items.push(item);
         this.element.appendChild(item.element);
         this.sortItems();
-        Board.resetBoards();
-        updateUrlState();
+//        Board.resetBoards();
+ //       updateUrlState();
     }
     sortItems() {
         this.items.sort(Item.compareByIndex);
