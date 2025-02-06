@@ -14,7 +14,6 @@ ItemFunction.items.set("Flagship",(item)=>{
             if(i.id!=item.id && i.tags.some(tag => ["Tool", "Friend", "Property","Ammo"].includes(tag))) multicast++;
         });
         item.multicast = multicast;
-        item.updateTriggerValuesElement();
         if(multicast>0) item.multicastElement.style.display = 'block';
 
         item.setupTextFunctions(item.text[0]);
@@ -271,5 +270,24 @@ ItemFunction.items.set("Big Guns",(item)=>{
         }
     });
 });
+ItemFunction.items.set("Prosperity",(item)=>{
+    //Your Shield items have + Shield equal to the value of your Items.
+    const amount = item.board.items.reduce((acc,i)=>acc+i.value,0);
+    item.oldValueTotel = amount;
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Shield")) {
+            i.gain(amount,'shield');
+        }
+    });
+    item.board.itemValuesChangedTriggers.set(item.id,()=>{
+        const amount = item.board.items.reduce((acc,i)=>acc+i.value,0);
+        if(amount!=item.oldValueTotel) {
+            item.gain(amount-item.oldValueTotel,'shield');
+            item.oldValueTotel = amount;
+        }
+    });
+});
+
+
 
 ItemFunction.setupItems();
