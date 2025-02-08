@@ -8,20 +8,25 @@ export class Item {
     static possibleEnchants = ['Radiant', 'Icy', 'Heavy', 'Turbo', 'Toxic','Shiny','Deadly','Obsidian', 'Restorative', 'Shielded', 'Fiery'];
     static itemID = 0;
     
+    pickRandom(...args) {
+        return this.board.player.battle.pickRandom(...args);
+    }
+
+    battleRandom(...args) {
+        return this.board.player.battle.battleRandom(...args);
+    }
+
+
+
     constructor(itemData, board) {
         if(!itemData) {
+
             console.log("Item data is undefined");
             return;
         }
         this.id = Item.itemID++;
         this.startItemData = itemData;
         this.board = board;
-        if(this.board) {
-            this.battleRandom = this.board.player.battle.battleRandom;
-            this.pickRandom = this.board.player.battle.pickRandom;
-        } else {
-            console.log("No board found for item constructor");
-        }
         Object.assign(this, this.startItemData);
         
         // Ensure text is always an array
@@ -1697,9 +1702,10 @@ export class Item {
                 case "buy a weapon":
                 case "visit a merchant":
                 case "sell a small item":
+                case "sell another non-weapon item":
                     return;
             }
-            console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + match[1]+"'");
+            console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"'");
 
             return;
         }
@@ -2379,16 +2385,18 @@ export class Item {
             };
         }
         //Charge adjacent Small items ( 1 » 2 » 3 » 4 ) second(s).
-        regex = /^Charge adjacent ([^\s]+) items (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
+        regex = /^Charge adjacent\s*([^\s]+)? items (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
             const seconds = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
             const tagToMatch = Item.getTagFromText(match[1]);
+            const itemsToCharge = tagToMatch ? this.getAdjacentItems().filter(item => item.tags.includes(tagToMatch)) : this.getAdjacentItems();
             return () => {
-                this.getAdjacentItems().filter(item => item.tags.includes(tagToMatch)).forEach(item => {
+                itemsToCharge.forEach(item => {
                     item.chargeBy(seconds);
                 });
             };
+
 
         }
 
@@ -2622,6 +2630,21 @@ export class Item {
             this.hasDoubleHasteDuration = true;
             return ()=>{};
         }
+
+        //Haste a weapon (  3  » 5  » 7  » 9   ) second(s).
+        regex = /^Haste an? ([^\s]+)(?: item)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const hasteAmount = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
+            const itemsToHaste = tagToMatch ? this.board.items.filter(item => item.tags.includes(tagToMatch)) : this.board.items;
+            return ()=>{
+                this.pickRandom(itemsToHaste).applyHaste(hasteAmount,this);
+            };
+
+        }
+
+
 
         //You have (  2  » 4  » 6   ) Regeneration for each item with Ammo you have.
         regex = /^You have (?:\(([^)]+)\)|(\d+)) Regeneration for each ([^\s]+) item you have.*$/i;

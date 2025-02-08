@@ -363,4 +363,34 @@ ItemFunction.items.set("Sapphire",(item)=>{
     });
 });
 
+//Shield (100 >> 150 ).
+//All item cooldowns are increased by ( 1 » 2 ) second(s). from Fort
+// Your items with a cooldown of 8 seconds or greater have +1 Multicast.
+ItemFunction.items.set("Fort",(item)=>{
+    item.gain( getRarityValue("100 >> 150",item.rarity),'shield');
+    item.board.items.forEach(i=>{
+
+        i.gain( 1000*getRarityValue("1 >> 2",item.rarity),'cooldown');
+    });
+    item.board.items.forEach(i=>{
+        if(i.cooldown>=8000) {
+            i.multicast++;  
+        }
+    });
+    return () => {
+        this.applyShield(this.shield);
+    }
+});
+
+//You have (  +1  » +2  » +3   ) income for each Property you have (including Stash). from Open for Business
+ItemFunction.items.set("Open for Business",(item)=>{
+    const amount = getRarityValue("1 >> 2 >> 3",item.rarity);
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Property")) {
+            item.board.player.income += amount;
+        }
+
+    });
+});
+
 ItemFunction.setupItems();
