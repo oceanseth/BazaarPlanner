@@ -12,13 +12,6 @@ export function getRarityValue(valueString, rarity) {
     return values[rarityIndex-(4-values.length)] || values[0];
 }
 
-export function battleRandom() {
-    if (!window.battleRNG) {
-        console.error('Battle RNG not initialized!');
-        return Math.random(); // Fallback to regular random
-    }
-    return window.battleRNG();
-} 
 export function updateUrlState() {        
     if(window.isLoadingFromUrl) { return; }
     const boardState = Array.from(Board.boards.values())
@@ -133,20 +126,39 @@ export function loadFromUrl() {
     window.isLoadingFromUrl = false;
 }
 
-export function pickRandom(array, count=1) {
-    if (array.length === 0) return null;
-    if (count > array.length) count = array.length;
-
-    const used = new Set();
-    const toReturn = [];
-    
-    while (toReturn.length < count) {
-        const randomIndex = Math.floor(battleRandom() * array.length);
-        if (!used.has(randomIndex)) {
-            used.add(randomIndex);
-            toReturn.push(array[randomIndex]);
+export function setupChangeListeners(obj,arr) {
+    arr.forEach(key=>{
+        if(obj[key] != undefined) {
+            obj[key+"_changedMap"] = new Map();
+            obj[key+"_changedArray"] = [];
+            obj[key] = 0;
+            return;
         }
-    }
-    if(count==1) return toReturn[0];
-    return toReturn;
-}   
+        var value = 0;
+        obj[key+"_changedMap"] = new Map();
+        obj[key+"_changedArray"] = [];
+        obj[key+"Changed"] = (f, source)=>{
+            if(source) {
+                obj[key+"_changedMap"].set(source,f);
+            } else {
+                obj[key+"_changedArray"].push(f);
+            }
+        }
+
+        obj[key+"CancelChanged"] = (source)=>{
+            obj[key+"_changedMap"].delete(source);
+        }
+
+
+        Object.defineProperty(obj, key, {
+        get: function () { return value; },
+        set: function (v) {
+            const oldValue = value;
+            value = v;
+            obj[key+"_changedMap"].forEach(f=>f(v, oldValue));
+            obj[key+"_changedArray"].forEach(f=>f(v, oldValue));
+        }
+
+        });
+    });
+}

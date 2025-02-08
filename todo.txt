@@ -1,0 +1,4 @@
+todo:
+make it so importing will save the json to firebase, so we have our own copy of it forever for the server to sift through
+
+show dps/hps/sps for each board
