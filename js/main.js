@@ -184,6 +184,7 @@ window.onload = () => {
                     // User successfully signed in.
                     // Return type determines whether we continue the redirect automatically
                     // or whether we leave that to developer to handle.
+                    
                     return false;
                 }
             },
@@ -251,7 +252,7 @@ window.onload = () => {
             document.getElementById('firebaseui-auth-container').style.display = 'block';
             initAuth();
         }
-
+    initAuth();
     initApp();
 
     } catch (error) {
