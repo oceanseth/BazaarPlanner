@@ -746,11 +746,13 @@ export class Item {
                     }
                     const selectedItems = this.pickRandom(items,numItemsToSlow);
                     
+                    if(selectedItems && selectedItems.length>0) {
+                        selectedItems.forEach(i => {
+                            i.applySlow(duration);
+                            log(this.name + " slowed " + i.name + " for " + duration + " seconds");
+                        });
+                    }
 
-                    selectedItems.forEach(i => {
-                        i.applySlow(duration);
-                        log(this.name + " slowed " + i.name + " for " + duration + " seconds");
-                });
             };
         }
         //slow it for (  2  » 4   ) second(s).
@@ -1171,13 +1173,11 @@ export class Item {
         regex = /Deal damage equal to your shield/i;
         match = text.match(regex);
         if (match) {
-            this.board.player.shieldChangedTriggers.set(this.id,()=>{
-                this.damage = this.board.player.shield;
-            });
+            this.board.player.shieldChanged((newShield,oldShield)=>{
+                this.damage = newShield;
+            }, this.id);
             return () => {
                 this.dealDamage(this.board.player.shield);
-                //log(this.name + " dealt " + this.shield + " damage");
-
             };
         }
         //Shield equal to this item's damage.
@@ -1450,15 +1450,13 @@ export class Item {
                     break;                
                 }
             }
-            const whenmatch = conditionalMatch.match(/^uses? an? ([^\s]+)(?: item)?$/i);
-            if(whenmatch) {
-                const tagToMatch = Item.getTagFromText(whenmatch[1]);
-                this.whenItemTagTriggers(tagToMatch, this.getTriggerFunctionFromText(textAfterComma), targetBoard);
-                return;
-            }
+
             const useAdjacentTagItem = conditionalMatch.match(/^use an adjacent ([^\s]+)?(?: item)?$/i);
             if(useAdjacentTagItem) {
-                const tagToMatch2 = Item.getTagFromText(useAdjacentTagItem[1]);
+                let tagToMatch2 = Item.getTagFromText(useAdjacentTagItem[1]);
+                if(tagToMatch2.toLowerCase()=='item') {
+                    tagToMatch2 = null;
+                }
                 const adjacentItems = this.getAdjacentItems();
                 const triggerfunction = this.getTriggerFunctionFromText(textAfterComma);
                 targetBoard.itemTriggers.set(this.id, (item) => {
@@ -1477,7 +1475,12 @@ export class Item {
 
                 return;
             }
-
+            const whenmatch = conditionalMatch.match(/^uses? an? ([^\s]+)(?: item)?$/i);
+            if(whenmatch) {
+                const tagToMatch = Item.getTagFromText(whenmatch[1]);
+                this.whenItemTagTriggers(tagToMatch, this.getTriggerFunctionFromText(textAfterComma), targetBoard);
+                return;
+            }
 
 
             switch(conditionalMatch.toLowerCase()) {

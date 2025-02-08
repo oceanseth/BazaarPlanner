@@ -1224,3 +1224,15 @@ background-color: rgba(255, 0, 0, 0.2);
 .faq-list li {
     margin-bottom: 10px;
 }
+.dps-element {
+    position: absolute;
+    bottom: -50px;
+    right: 320px;
+    color: black;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    padding: 2px 4px;
+    width:200px;
+    text-align: center;
+}
