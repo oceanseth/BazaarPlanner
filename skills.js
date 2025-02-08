@@ -542,6 +542,16 @@ export const skills = {
     ],
     "text": "When you Crit, Haste 1 item for (  1  » 2  » 3   ) second(s)."
   },
+  "Counterstrike": {
+    "icon": "images/skills/Counterstrike.avif",
+    "name": "Counterstrike",
+    "tags": [
+      "Common",
+      "Charge",
+      "Weapon"
+    ],
+    "text": "The first 5 times your enemy uses a weapon, Charge (  1  » 2  » 3   ) item(s) 1 second(s)."
+  },
   "CPU Throttling": {
     "icon": "images/skills/CPUThrottling.avif",
     "name": "CPU Throttling",
@@ -2663,6 +2673,15 @@ export const skills = {
       "Slowreference"
     ],
     "text": "When you Slow, your items gain (  +1%  » +2%  » +3%   ) Crit Chance for the fight."
+  },
+  "Small Refresh": {
+    "icon": "images/skills/SmallRefresh.avif",
+    "name": "Small Refresh",
+    "tags": [
+      "Common",
+      "Heal"
+    ],
+    "text": "When you use a small item, heal (  5  » 10  » 15  » 20   )."
   },
   "Snowstorm": {
     "icon": "images/skills/Snowstorm.avif",
