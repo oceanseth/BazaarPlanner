@@ -156,11 +156,10 @@ export class Item {
         this.burn = 0;
         this.poison = 0;
         this.heal = 0;
-        this.shield = 0;
         this.critMultiplier = 100; //default crit multiplier is 100% more damage
         this.damageMultiplier = 0; //100 gives double dmg. 200 gives triple dmg. etc.
         this.freezeBonus = 0;
-        setupChangeListeners(this,['damage']);
+        setupChangeListeners(this,['damage','shield']);
 
         this.crit = this.calculateCrit()+(this.startItemData.crit||0);
         this.freezeDurationRemaining = 0;
@@ -173,6 +172,8 @@ export class Item {
     
         this.value = this.startItemData.value || this.getInitialValue();
         this.damage = this.startItemData.damage||0;
+        this.shield = this.startItemData.shield||0;
+
         this.multicast = 0;
         this.ammoRemaining = this.ammo;
 
@@ -1075,7 +1076,7 @@ export class Item {
                 }
             });
             return () => {
-                this.applyShield(shieldAmount);
+                this.applyShield(this.shield);
             };
 
         }
@@ -1087,7 +1088,7 @@ export class Item {
             const [_, minMultiplier, maxMultiplier] = match;
             const multiplier = getRarityValue(`${minMultiplier}»${maxMultiplier}`, this.rarity);
             const shieldAmount = this.board.items.reduce((sum, item) => sum + item.value, 0) * multiplier;
-            this.shield = shieldAmount;
+            this.gain(shieldAmount,'shield');
             this.board.itemValuesChangedTriggers.set(this.id,()=>{
                 const newShield = this.board.items.reduce((sum, item) => sum + item.value, 0) * multiplier;
                 if(newShield != this.shield) {
@@ -1107,13 +1108,17 @@ export class Item {
         regex = /Shield equal to your current Health/i;
         match = text.match(regex);
         if (match) {
-            this.shield = this.board.player.maxHealth;
+            const shieldAmount = this.board.player.health;
+            this.gain(shieldAmount,'shield');
+            this.board.player.healthChanged((newHealth,oldHealth)=>{
+                this.gain(newHealth-oldHealth,'shield');
+            }, this.id);
             return () => {
-                const shieldAmount = this.board.player.health;
-                this.shield = shieldAmount;
-                this.applyShield(shieldAmount);
+                this.applyShield(this.shield);
             };
+
         }
+
 
         //Shield equal to this item's value
         regex = /^Shield equal to this item's value\.?$/i;
@@ -1141,9 +1146,8 @@ export class Item {
         match = text.match(regex);
         if (match) {
             const multiplier = getRarityValue(`${match[1]}»${match[2]}»${match[3]}`, this.rarity);
-            this.shield = this.value * multiplier;
+            this.gain(this.value * multiplier,'shield');
             return (item) => {
-                this.shield = this.value * multiplier;
                 log((item?.name||"unknown item") + " was used, causing: ");
                 this.applyShield(this.shield);                
             };
@@ -1211,8 +1215,7 @@ export class Item {
         match = text.match(regex);
         if (match) {
             const shieldAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            this.shield = shieldAmount;
-            this.board.shieldValuesChangedTriggers.forEach(func => func(this));
+            this.gain(shieldAmount,'shield');
             return () => {
                 this.applyShield(this.shield);
             };            
@@ -1315,7 +1318,15 @@ export class Item {
                     <input type="number" id="edit-damage" value="${this.startItemData.damage || this.calculateDamage()}">
                 </div>`;
         }
+        if(this.tags.includes("Shield")) {
+            popupHTML += `
+                <div class="form-group">
+                    <label>Shield:</label>
+                    <input type="number" id="edit-shield" value="${this.startItemData.shield || this.calculateShield()}">
+                </div>`;
+        }
         
+
         // Add cooldown field only if item has cooldown
         if (this.cooldown !== undefined && this.cooldown>0) {
             popupHTML += `
@@ -1390,11 +1401,15 @@ export class Item {
             if(popup.querySelector('#edit-lifesteal')) {
                 this.lifesteal = popup.querySelector('#edit-lifesteal').value == '1';
             }
-            this.startItemData = itemData;
+            if(popup.querySelector('#edit-shield')) {
+                this.shield = parseFloat(popup.querySelector('#edit-shield').value);
+                this.startItemData.shield = this.shield - this.calculateShield();
+            }
             popup.remove();
             //this.updateStatusIndicators();
             //this.updateTriggerValuesElement();
             Board.resetBoards();
+
 
 
             updateUrlState();
