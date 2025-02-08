@@ -153,9 +153,13 @@ export class Player {
             this.fellBelowHalfHealth = true;
             this.healthBelowHalfTriggers.forEach(func => func());
         }
+        if(this.health <= 0) {
+            this.dieTriggers.forEach(func => func());
+        }
         this.board.updateHealthElement();
         this.board.updateDPSElement();
     }
+
 
 
 
