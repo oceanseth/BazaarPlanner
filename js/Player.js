@@ -1,5 +1,6 @@
 import { Board } from './Board.js';
-import { updateUrlState } from './utils.js';
+import { updateUrlState, setupChangeListeners } from './utils.js';
+
 export class Player {
     hostileTarget = null;
     constructor(name) {
@@ -13,7 +14,6 @@ export class Player {
 
     initialize(boardId, skillsContainer, maxHealth) {
         this.maxHealth = maxHealth;
-        this.health = maxHealth;
         
         const board = new Board(boardId);
         board.player = this;
@@ -34,6 +34,7 @@ export class Player {
     heal(healAmount) {
         this.health += healAmount;
         if(this.poison > 0) this.poison--; //cleanse 1 poison when a heal occurs
+        if(this.burn > 0) this.burn--; //cleanse 1 burn when a heal occurs
         if(this.health > this.maxHealth) this.health = this.maxHealth;
     }
     openEditor() {
@@ -81,7 +82,7 @@ export class Player {
             this.gold = parseInt(this.editorElement.querySelector("#player-gold").value);
             
             this.editorElement.style.display = "none";
-            this.board.player.reset();
+            Board.resetBoards();
             updateUrlState();
         });
     }
@@ -110,7 +111,9 @@ export class Player {
 
     applyShield(shieldAmount) {
         this.shield += shieldAmount;
+        this.shieldChangedTriggers.forEach(func => func(shieldAmount));
     }
+
     applyBurn(burnAmount) {
         this.burn += burnAmount;
     }   
@@ -121,11 +124,9 @@ export class Player {
         this.regen += regenAmount;
     }
 
-
-
-    updateCombat(timeDiff) {
+    updateBattle(timeDiff) {
         this.combatTime += timeDiff;
-        this.board.updateCombat(timeDiff);
+        //this.board.updateCombat(timeDiff);
         let dmg = 0;
         if(this.combatTime%500==0 && this.burn > 0) { // Burn damage every 500ms
             dmg = this.takeDamage(this.burn, .5, true);
@@ -157,11 +158,12 @@ export class Player {
         this.burn = 0;
         this.poison = 0;
         this.shield = 0;
-        this.health = this.maxHealth;
         this.burn = 0;
         this.poison = 0;
         this.shield = 0;
         this.regen = 0;
+        setupChangeListeners(this, ['health']);
+        this.health = this.maxHealth;
         if(this.gold==undefined) this.gold = 0;
         if(this.income==undefined) this.income = 5;
         this.fellBelowHalfHealth = false;
@@ -171,6 +173,7 @@ export class Player {
         this.lostShieldTriggers = new Map();
         this.healthBelowHalfTriggers = new Map();
         this.healthAboveHalfTriggers = new Map();
+        this.shieldChangedTriggers = new Map();
         this.dieTriggers = new Map();
 
 

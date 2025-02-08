@@ -1,4 +1,3 @@
-import { pickRandom } from "./utils.js";
 export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold"];
@@ -23,7 +22,7 @@ ItemFunction.items.set("Antimatter Chamber",(item)=>{
         item.triggerFunctions.push(()=>{
             let smallEnemyItems = item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes("Small"));
             let numItemsToDestroy = Math.min(3,smallEnemyItems.length);
-            smallEnemyItems.sort(() => battleRandom() - 0.5).slice(0,numItemsToDestroy).forEach(i=>i.destroy(item));
+            smallEnemyItems.sort(() => item.battleRandom() - 0.5).slice(0,numItemsToDestroy).forEach(i=>i.destroy(item));
             item.destroy(item);
         });
 });
@@ -165,12 +164,13 @@ ItemFunction.items.set("Atomic Clock",(item)=>{
 //Increase an enemy item's cooldown by ( 1 » 2 » 3 ) seconds for the fight.
     const cooldownIncrease = parseInt(getRarityValue("1 >> 2 >> 3",item.rarity));
     item.triggerFunctions.push(()=>{
-        const itemToIncreaseCooldown = pickRandom(item.board.player.hostileTarget.board.items);
+        const itemToIncreaseCooldown = item.pickRandom(item.board.player.hostileTarget.board.items);
         if(itemToIncreaseCooldown) {
             itemToIncreaseCooldown.cooldown += 1000*cooldownIncrease;
             log(item.name + " increased " + itemToIncreaseCooldown.name + " cooldown by " + cooldownIncrease + " seconds");
         }
     });
+
 
 });
 
@@ -287,7 +287,80 @@ ItemFunction.items.set("Prosperity",(item)=>{
         }
     });
 });
+ItemFunction.items.set("Full Arsenal",(item)=>{
+    //Your item's cooldowns are reduced by (  5%  » 10%   ) if you have a Vehicle, reduced by (  5%  » 10%   ) if you have a Weapon, and reduced by (  5%  » 10%   ) if you have a Tool.
+    const amount = getRarityValue("5 >> 10",item.rarity);
+    let count =0;
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Vehicle")) count++;
+        if(i.tags.includes("Weapon")) count++;
+        if(i.tags.includes("Tool")) count++;
+    });
+    item.board.items.forEach((i)=>{
+        i.gain(i.cooldown * (1-(amount*count)/100)-i.cooldown,'cooldown');
+    })
+});
+ItemFunction.items.set("Hypnotic Drain",(item)=>{
+    //When you use a weapon with Lifesteal, Freeze a smaller item for 2 second(s).
+    item.board.itemTriggers.set(item.id,(i)=>{
+        if(i.tags.includes("Weapon") && i.lifesteal) {
+            const smallerItems = item.board.player.hostileTarget.board.items.filter(i=>i.size<item.size);
+            if(smallerItems.length>0) {
+                const smallerItem = item.pickRandom(smallerItems);
+                smallerItem.applyFreeze(2,item);
+                log(item.name + " used " + i.name + " with Lifesteal to Freeze " + smallerItem.name + " for 2 seconds");
+            }
 
 
+        }
+    });
+});
+
+ItemFunction.items.set("Mortal Coil",(item)=>{
+    // The weapon to the left of this has lifesteal
+    const weapon = item.getItemToTheLeft();
+    if(weapon && weapon.tags.includes("Weapon")) {
+        weapon.lifesteal = true;
+    }
+    item.lifesteal = true;
+    const dmg = getRarityValue("50 >> 100",item.rarity);
+    item.gain(dmg,'damage');
+    return () => {
+        item.dealDamage(item.damage);
+    };
+});
+ItemFunction.items.set("Scythe",(item)=>{
+    //Deal damage equal to a third of your enemy's max health.
+    const dmg = item.board.player.hostileTarget.maxHealth/3;
+    item.gain(dmg,'damage');
+    return () => {
+        item.dealDamage(item.damage);
+    };
+});
+ItemFunction.items.set("Runic Great Axe",(item)=>{
+    //Your Weapons with lifesteal gain ( +20 » +40 » +60 » +80 ) damage for the fight. from Runic Great Axe
+    const amount = getRarityValue("20 >> 40 >> 60 >> 80",item.rarity);
+    const dmg = getRarityValue("20 >> 40 >> 60 >> 80", item.rarity);
+    item.gain(dmg,'damage');
+    return () => {
+        item.dealDamage(item.damage);
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Weapon") && i.lifesteal) {
+                i.gain(amount,'damage');
+            }
+        });
+    };
+    item.lifesteal = true;
+
+});
+
+//Increase your other items' Freeze by 1 second(s). from Sapphire
+ItemFunction.items.set("Sapphire",(item)=>{
+    item.board.items.forEach(i=>{
+        if(i.id!=item.id) {
+            i.gain(1,'freezeBonus');
+        }
+    });
+});
 
 ItemFunction.setupItems();

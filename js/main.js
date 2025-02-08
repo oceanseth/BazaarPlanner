@@ -6,30 +6,38 @@ import { Player } from './Player.js';
 import { Skill } from './Skill.js';
 import { Item } from './Item.js';
 import { ItemFunction } from './ItemFunction.js';
-import { getRarityValue, battleRandom, loadFromUrl } from './utils.js';
+import { getRarityValue, loadFromUrl, updateUrlState } from './utils.js';
+import { Battle } from './Battle.js';
 
 // Make necessary functions/classes available globally
-window.Board = Board;
-window.Player = Player;
-window.Item = Item;
+
 window.getSizeValue = getSizeValue;
 window.getRarityValue = getRarityValue;
-window.battleRandom = battleRandom;
-window.startBattle = startBattle;
-window.resetBattle = resetBattle;
 window.loadMonsterBoard = loadMonsterBoard;
 window.searchMonsters = searchMonsters;
 window.search = search;
-window.pauseBattle = pauseBattle;
-window.unpauseBattle = unpauseBattle;
 window.monsters = monsters;
 window.skills = skills;
 window.items = items;
-window.log = log;
-window.updateCombatLogDisplay = updateCombatLogDisplay;
+window.Board = Board;
 window.createListItem = createListItem;
 window.search = search;
 window.populateSearchSuggestions = populateSearchSuggestions;
+window.topPlayer = new Player("Top Player");
+window.bottomPlayer = new Player("Bottom Player");
+topPlayer.hostileTarget = bottomPlayer;
+bottomPlayer.hostileTarget = topPlayer;
+
+topPlayer.initialize('inventory-board', 'topPlayerSkills', 1000);
+bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', 1000);
+//      initializeMonsterSearch();
+window.mainBattle = new Battle([topPlayer, bottomPlayer], (winner) => {
+    console.log(winner.name + " wins!");
+    alert(winner.name + " wins!");
+}, $("#combat-log"));
+window.log = (s) => { mainBattle.log(s) };
+
+
 window.poll = (answer) => {
     if(!window.user) {
         alert("You must be logged in to poll, please click login on top right of the page.");
@@ -103,24 +111,13 @@ deleteZone.className = 'delete-zone';
 deleteZone.textContent = ' Drop here to delete';
 document.querySelector('.board-container:last-child').appendChild(deleteZone);
 window.deleteZone = deleteZone;
+    // Initialize players
 
 
 window.onload = () => {
-     /*   const monstersList = document.getElementById('monstersList');
-        monstersList.innerHTML = '';
-        Object.entries(monsters).forEach(([id, monster]) => {
-            const item = createListItem(monster);
-            monstersList.appendChild(item);
-        });
-    
-        const skillsList = document.getElementById('skillsList');
-        skillsList.innerHTML = '';
-        Object.entries(skills).forEach(([id, skill]) => {
-            const item = createListItem(skill);
-            skillsList.appendChild(item);
-        });
-        const itemsList = document.getElementById('itemsList');
-        */
+     
+
+
     const simulatorItemsList = document.getElementById('simulator-itemsList');
         
          // Populate monster selector dropdown
@@ -141,7 +138,6 @@ window.onload = () => {
         }
     });
 
-
     
     Object.entries(items).forEach(([id, item]) => {
         const listItem = createListItem(item);
@@ -149,15 +145,6 @@ window.onload = () => {
         simulatorItemsList.appendChild(listItem);
     });
 
-    // Initialize players
-    window.topPlayer = new Player("Top Player");
-    window.bottomPlayer = new Player("Bottom Player");
-    topPlayer.hostileTarget = bottomPlayer;
-    bottomPlayer.hostileTarget = topPlayer;
-    
-    topPlayer.initialize('inventory-board', 'topPlayerSkills', 1000);
-    bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', 1000);
-//      initializeMonsterSearch();
 
 
      window.firebaseConfig = {
@@ -300,8 +287,6 @@ emptyDragImage.style.position = 'absolute';
 emptyDragImage.style.top = '-9999px';
 emptyDragImage.style.opacity = '0';
 document.body.appendChild(emptyDragImage);
-var sandstormValue = 1;
-var sandstormIncrement= .25;
 
 window.showSection = function(sectionId) {
     document.querySelectorAll('.section').forEach(section => {
@@ -418,114 +403,7 @@ function populateSearchSuggestions(data) {
     });
 }
 
-const battleButton = document.querySelector('.battle-button');
-
-var battleInterval = undefined;
-var startBattleTime;
-var battleIntervalSpeed = 100;
-function log(s) {
-    combatLogEntries.push(s);
-}
-function updateCombatLogDisplay() {
-    combatLog.val(combatLogEntries.join("\n"));
-    combatLog[0].scrollTop = combatLog[0].scrollHeight;
-}
-function battleFunction() {
-    if(topPlayer.health<=0) {
-        clearInterval(battleInterval);
-        alert("you win");
-        return;
-    }
-    if(bottomPlayer.health <=0) {
-        clearInterval(battleInterval);
-        alert("you lose");
-        return;
-    }
-    battleTimeDiff += battleIntervalSpeed;
-
-    if(battleRandom()>.5) {
-        topPlayer.updateCombat(battleIntervalSpeed);
-        bottomPlayer.updateCombat(battleIntervalSpeed);
-    } else {
-        bottomPlayer.updateCombat(battleIntervalSpeed);
-        topPlayer.updateCombat(battleIntervalSpeed);
-    }
-
-  if(battleTimeDiff>30000) {
-    let sandstormDmg = Math.floor(sandstormValue);
-    log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
-    topPlayer.takeDamage(sandstormDmg);
-    bottomPlayer.takeDamage(sandstormDmg);
-    sandstormValue+=sandstormIncrement;
-  }
-
-  updateCombatLogDisplay();
-}
-
-function resetBattle() {
-    if(battleInterval)
-    clearInterval(battleInterval);
-    isPaused=0;
-    sandstormValue=1;
-    battleInterval = null; // Clear the interval reference
-    topPlayer.reset();
-    bottomPlayer.reset();
-    // Reset button
-    battleButton.textContent = 'Start Battle';
-    battleButton.classList.remove('pause-battle');
-}
-
-function pauseBattle() {    
-    clearInterval(battleInterval);
-    isPaused=1;
-    battleButton.textContent = 'Unpause Battle';
-    battleButton.classList.remove('pause-battle');
-}
-
-function unpauseBattle() {
-    isPaused = 0;
-    battleInterval = setInterval(battleFunction, battleIntervalSpeed);
-    // Update button
-    battleButton.textContent = 'Pause Battle';
-    battleButton.classList.add('pause-battle');
-}
-var combatLog = $("#combat-log");
-var isPaused = 0;
-var pauseTime = 0;
-var combatLogEntries = [];
-
 window.battleRNG = null;
-
-function startBattle() {
-    if(isPaused) {
-        unpauseBattle();
-        return;
-    } else if (battleInterval && !isPaused) {
-        pauseBattle();
-        return;
-    }
-    resetBattle();
-    // Generate a random seed (32 characters)
-    // Using ASCII printable characters (33-126)
-    const battleSeed = [...crypto.getRandomValues(new Uint8Array(32))]
-        .reduce((acc, x) => acc + String.fromCharCode(33 + (x % 94)), '');
-    
-    // Initialize the RNG with the seed
-    window.battleRNG = new Math.seedrandom(battleSeed);
-    combatLogEntries = [];
-    log("Battle Started\nBattle Seed: " + battleSeed);
-    
-    topPlayer.board.startBattle();
-    bottomPlayer.board.startBattle();
-    
-    window.battleTimeDiff = 0;
-
-    battleInterval = setInterval(battleFunction, battleIntervalSpeed);
-
-    // Update button
-    battleButton.textContent = 'Pause Battle';
-    battleButton.classList.add('pause-battle');
-}
 
 // Add dragover and drop handlers for delete zone
 deleteZone.addEventListener('dragover', (e) => {
@@ -559,6 +437,8 @@ deleteZone.addEventListener('drop', (e) => {
     }
     deleteZone.classList.remove('active');
     deleteZone.style.display = 'none';
+    Board.resetBoards();
+    updateUrlState();
 }); 
 
 
