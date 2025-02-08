@@ -27,6 +27,7 @@
             <!--<button onclick="showSection('library')" class="selected">Library</button>-->
             <button onclick="showSection('simulator')">Simulator</button>
             <button onclick="showSection('about')">About</button>
+            <button onclick="showSection('faq')">FAQ</button>
             
            
             <div id="firebaseui-auth-container" style="margin-left: auto;"></div>
@@ -34,26 +35,71 @@
             <div id="account-details" style="margin-left: auto; display:none;"></div>
             <button onclick="login()" style="margin-left: auto;">Login</button>
         </div>
+        <!-- FAQ Section -->
+        <div id="faq" class="section" style="display: none;">
+            <h1>FAQ</h1><ul class="faq-list">
+                <li>
+                <b>How do I use BazaarPlanner?</b><br>
+                I enjoy importing a run from <a href="https://bazaartracker.gg/">BazaarTracker</a>, which will bring all items/skills from the most recent battle in your current run.
+                <br>You can then use the simulator to test out different positioning of items and see how they perform.
+                <br>
+                One great use would be someone sharing their build on youtube, and you want to try it out for yourself or tweak positioning of items, and learn why it works best one way over another.
+                After moving items around, run a battle and see if the dps is higher or lower than the original build.<br>
+                Remember, you can always add 'sparring partner' to the top board to test against a monster that will never die! How long can you survive the sandstorm?!
+            </li>
+            <li>
+                <b>What is DPS/HPS/SPS?</b><br>
 
+                DPS is damage per second, HPS is healing per second, and SPS is shield per second.<br>
+                You can pause battle at any time to see the current DPS/HPS/SPS for each board.
+            </li>
+            <li>
+                <b>How do I save my build?</b><br>
+                You can save your build by clicking the "Save" button on the bottom board, which saves a json file you can load later. 
+            </li>
+            <li>
+                <b>Why is the url changing?</b><br>
+                The url changes whenever you change the boards, skills, or player data. It allows you to share the current state of the boards with others. I recommend creating a url from <a href="http://tinyurl.com">tinyurl.com</a> to make a nice short url that you can share on youtube video descriptions, blogs, etc.
+            </li>
+            <li>
+                <b>Where can I get support/report bugs/ask questions?</b><br>
+                Strong's discord is the best place to get support. <a href="https://discord.gg/AfYdzr2C">https://discord.gg/AfYdzr2C</a>
+            </li>
+            <li><b>Why isn't it working on my mobile device?</b><br>
+                I have no plans to support mobile devices. 
+            </li>
+            <li>
+                <b>Can I run the battle 100 times to see the avg number of wins? Or avg dps across all battles?</b><br>
+                No, the simulator is designed to simulate a single battle. We don't want to affect the game negatively by, for example, identifying the optimal positioning by running such tasks in the background. This is up to you to discover/learn!
+            </li>
+            <li><b>Can you speed up the battle please? Or just give me a button to see the result?</b><br/>
+                No, the simulator is designed to simulate a single battle. We don't want to affect the game negatively by, for example, identifying the optimal positioning by running such tasks in the background. This is up to you to discover/learn!
+            </li>
+            </ul>
+
+
+        </div>
         <!-- About Section -->
+
+
+
         <div id="about" class="section" style="display: none;">
+
             <h1>About</h1>
             <p style="width:400px;">
-                BazaarPlanner is a simulator for build theory crafting/testing
+                BazaarPlanner is a simulator for <A href="http://www.playthebazaar.com">The Bazaar</A>.
                 It started as a way for "Strong" to teach "simply Noah" javascript (our discord names on the <a href="https://discord.gg/AD9G7FtQ">Bazaar discord</a>).
                 Any donations will support his ongoing education, and the continued development of this tool. 
                 If you've donated at least $1, (and logged in with google or the same email you used to donate) you will not be served google ads.
-            </p>
-            <h1>Kickstarter</h1>
-            <p style="width:400px;">
+                <br/><br/>
                 This project is currently in development. Many items and skills have yet to be coded. We'd like to enable some features to make it more useful.
-                If the kickstarter is successful, we'll add the following features:
+            </p>
+            <h1>Coming Soon</h1>
+            <p style="width:400px;">
                 <ul>
-                    <li><s>1. Import from Bazaar Insights - after finishing a run in the game, with bazaar insights running, it gives a url. We'll be able to import the build from that url.</s></li>
-                    <li>2. We would like to parse all runs submitted to bazaar tracker and show a leaderboard of the best builds, by simulating battles against all other builds submitted in the past month.</li>
-                    <li><s>3. Deep linking - after setting up a board, not only can you save it to load it again later, but you can share it with others with a unique url that will bring someone to this site with that board loaded.</s></li>
-                    <li>4. Community items/skills - enable a creator tool for community items/skills which you can test out in the sim and thumbs up/down, and show a ranking of all the items.</li>
-                    <li>5. Linking your bazaar planner account to your bazaar account - this can enable other features in the future, but primarily it will allow bazaar tracker runIds to automatically be pulled into a list without you having to import them.</li>
+                    <li>Parse all runs submitted to bazaar tracker and show a leaderboard of the top 100 builds seen on each day, by simulating battles against all other builds on that day submitted in the past month.</li>
+                    <li>Community items/skills - enable a creator tool for community items/skills which you can test out in the sim and thumbs up/down, and show a ranking of all the items.</li>
+                    <li>Showing a 'feed' section of 10 win build runs that have happened recently, so you can import them, and battle against them with your favorite builds.</li>
                 </ul>
                 <b>Send other ideas and thinks you might want to see to @Strong on the official bazaar discord!</b>
             </p>
@@ -147,10 +193,11 @@
                 </div>
                 
             </div>
-            <button onclick="startBattle()" class="battle-button">Start Battle</button>
-            <button onclick="resetBattle()" class="battle-button">Reset Battle</button>
+            <button onclick="mainBattle.startBattle()" class="battle-button">Start Battle</button>
+            <button onclick="mainBattle.resetBattle()" class="battle-button">Reset Battle</button>
             <div id="combat-log-div"><textarea id="combat-log"></textarea></div>
         </div>
+
         <!-- Library Section 
         <div id="library" class="section">
             <h2>Library</h2>

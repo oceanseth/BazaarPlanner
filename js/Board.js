@@ -297,7 +297,7 @@ class Board {
     removeSkill(skill) {
         this.skills = this.skills.filter(s => s !== skill);
         this.skillsElement.removeChild(skill.element);
-        this.player.reset();
+        Board.resetBoards();
         updateUrlState();
     }
 
@@ -352,13 +352,6 @@ class Board {
     startBattle() {
         this.items.forEach(item => {if(item.progressBar) item.progressBar.style.display = 'block'});
         this.startOfFightTriggers.forEach(func => func());
-    }
-
-    updateCombat(timeDiff) {
-        this.items.forEach(item => item.updateCombat(timeDiff));
-        this.items.forEach(item => item.updateTriggerValuesElement());
-        this.updateHealthElement();
-        this.player.hostileTarget.board.updateHealthElement();
     }
 
     isValidPlacement(startIndex, draggingElement) {
@@ -617,11 +610,9 @@ class Board {
         });
 
         this.player.maxHealth = monsterData.health;
-        this.player.health = this.player.maxHealth;
         this.player.name = monsterData.name;
-        this.updateHealthElement();
-        this.resetItems();
-        this.player.hostileTarget.board.resetItems();
+        Board.resetBoards();
+        updateUrlState();
     }
     itemTriggered(item) {    
         this.itemTriggers.forEach(func => func(item));
