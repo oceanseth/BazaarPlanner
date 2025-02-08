@@ -2212,7 +2212,14 @@ export class Item {
             });
             return () => {};
         }
-    
+        //This has +1 Multicast. (from shiny)
+        regex = /^\s*This has \+1 Multicast\.?/i;
+        match = text.match(regex);
+        if(match) {
+            this.multicast++;
+            return () => {};
+        }
+
 
         //This has +1 Multicast for each Property you have.
         regex = /^\s*This has \+(\d+) Multicast for each ([^\s^\.]+) you have\.?/i;
