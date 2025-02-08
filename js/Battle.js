@@ -155,18 +155,23 @@ export class Battle {
             if(count === undefined) return null;
             return [];
         }
-        if (count > array.length) count = array.length;    
+        let theCount;
+        if(count === undefined) theCount = 1;
+        else if (count > array.length) theCount = array.length;   
+        else theCount = count;
+
 
         // Create array of indices
         const indices = Array.from({ length: array.length }, (_, i) => i);
         const toReturn = [];
         
         // Select 'count' number of items
-        for (let i = 0; i < count; i++) {
+        for (let i = 0; i < theCount; i++) {
             const randomIndex = Math.floor(this.battleRandom() * indices.length);
             const selectedIndex = indices.splice(randomIndex, 1)[0];
             toReturn.push(array[selectedIndex]);
         }
+
         
         if (count === undefined) return toReturn[0];
         return toReturn;
