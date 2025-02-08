@@ -325,32 +325,34 @@ ItemFunction.items.set("Mortal Coil",(item)=>{
     item.lifesteal = true;
     const dmg = getRarityValue("50 >> 100",item.rarity);
     item.gain(dmg,'damage');
-    return () => {
+    item.triggerFunctions.push(()=>{
         item.dealDamage(item.damage);
-    };
+    });
 });
 ItemFunction.items.set("Scythe",(item)=>{
     //Deal damage equal to a third of your enemy's max health.
     const dmg = item.board.player.hostileTarget.maxHealth/3;
     item.gain(dmg,'damage');
-    return () => {
+    item.triggerFunctions.push(()=>{
         item.dealDamage(item.damage);
-    };
+    });
+
 });
 ItemFunction.items.set("Runic Great Axe",(item)=>{
     //Your Weapons with lifesteal gain ( +20 » +40 » +60 » +80 ) damage for the fight. from Runic Great Axe
     const amount = getRarityValue("20 >> 40 >> 60 >> 80",item.rarity);
     const dmg = getRarityValue("20 >> 40 >> 60 >> 80", item.rarity);
     item.gain(dmg,'damage');
-    return () => {
-        item.dealDamage(item.damage);
+    item.triggerFunctions.push(()=>{
         item.board.items.forEach(i=>{
             if(i.tags.includes("Weapon") && i.lifesteal) {
+
                 i.gain(amount,'damage');
             }
         });
-    };
+    });
     item.lifesteal = true;
+
 
 });
 
@@ -377,10 +379,9 @@ ItemFunction.items.set("Fort",(item)=>{
             i.multicast++;  
         }
     });
-    return () => {
+    item.triggerFunctions.push(()=> {
         item.applyShield(item.shield);
-    }
-
+    });
 });
 
 //You have (  +1  » +2  » +3   ) income for each Property you have (including Stash). from Open for Business
