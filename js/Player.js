@@ -5,18 +5,19 @@ export class Player {
     hostileTarget = null;
     constructor(name) {
         this.name = name;
-        this.combatTime = 0;
+        this.battleTime = 0;
         this.skills = [];
         this.maxHealth = 1000;
         this.income = 5;
         this.level = 1;
+        setupChangeListeners(this, ['health','shield']);
+
     }
 
     initialize(boardId, skillsContainer, maxHealth) {
         this.maxHealth = maxHealth;
         
-        const board = new Board(boardId);
-        board.player = this;
+        const board = new Board(boardId, this);
         this.board = board;
         
         // Get skills from skills container
@@ -32,11 +33,14 @@ export class Player {
     }
 
     heal(healAmount) {
+        if(this.health+healAmount>this.maxHealth) {
+            healAmount = this.maxHealth-this.health;
+        }
         this.health += healAmount;
         if(this.poison > 0) this.poison--; //cleanse 1 poison when a heal occurs
         if(this.burn > 0) this.burn--; //cleanse 1 burn when a heal occurs
-        if(this.health > this.maxHealth) this.health = this.maxHealth;
     }
+
     openEditor() {
         if(this.editorElement) {
             this.editorElement.style.display = "block";
@@ -111,7 +115,6 @@ export class Player {
 
     applyShield(shieldAmount) {
         this.shield += shieldAmount;
-        this.shieldChangedTriggers.forEach(func => func(shieldAmount));
     }
 
     applyBurn(burnAmount) {
@@ -125,22 +128,24 @@ export class Player {
     }
 
     updateBattle(timeDiff) {
-        this.combatTime += timeDiff;
-        //this.board.updateCombat(timeDiff);
+        this.battleTime += timeDiff;
         let dmg = 0;
-        if(this.combatTime%500==0 && this.burn > 0) { // Burn damage every 500ms
+        if(this.battleTime%500==0 && this.burn > 0) { // Burn damage every 500ms
+
             dmg = this.takeDamage(this.burn, .5, true);
             log( this.name + " has "+this.burn+" burn and burns for " + dmg);
             this.burn--;
         }
-        if(this.combatTime%1000==0 && this.poison > 0) { // Poison damage every 1000ms  
+        if(this.battleTime%1000==0 && this.poison > 0) { // Poison damage every 1000ms  
             this.takeDamage(this.poison, 1, true);
             log( this.name + " takes " + this.poison + " damage from poison.");
         }
-        if(this.combatTime%1000==0 && this.regen > 0) { // Regen health every 1000ms
+
+        if(this.battleTime%1000==0 && this.regen > 0) { // Regen health every 1000ms
             this.health += this.regen;
             log( this.name + " regens " + this.regen + " health.");
         }
+
         if(this.fellBelowHalfHealth && this.health >= this.maxHealth/2) {            
             this.healthAboveHalfTriggers.forEach(func => func());
             this.fellBelowHalfHealth = false;
@@ -149,20 +154,19 @@ export class Player {
             this.healthBelowHalfTriggers.forEach(func => func());
         }
         this.board.updateHealthElement();
+        this.board.updateDPSElement();
     }
 
 
 
     reset() {
-        this.combatTime = 0;
+        this.battleTime = 0;
         this.burn = 0;
         this.poison = 0;
-        this.shield = 0;
         this.burn = 0;
         this.poison = 0;
-        this.shield = 0;
         this.regen = 0;
-        setupChangeListeners(this, ['health']);
+        setupChangeListeners(this, ['health','shield']);
         this.health = this.maxHealth;
         if(this.gold==undefined) this.gold = 0;
         if(this.income==undefined) this.income = 5;
@@ -173,9 +177,7 @@ export class Player {
         this.lostShieldTriggers = new Map();
         this.healthBelowHalfTriggers = new Map();
         this.healthAboveHalfTriggers = new Map();
-        this.shieldChangedTriggers = new Map();
         this.dieTriggers = new Map();
-
 
         this.board.reset();
     }

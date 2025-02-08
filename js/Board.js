@@ -21,8 +21,9 @@ class Board {
     }
 
 
-    constructor(boardId) {
+    constructor(boardId, player) {
         this.boardId = boardId;
+        this.player = player;
         this.element = document.getElementById(boardId);
         this.initialize();
         Board.boards.set(boardId,this);
@@ -61,6 +62,7 @@ class Board {
         this.createSkillsElement();
         this.createGoldElement();
         this.createIncomeElement();
+        this.createDPSElement();
         this.reset();
 
     }
@@ -81,6 +83,7 @@ class Board {
     }
 
     reset() {
+        this.damageDealt = 0;
         this.itemTriggers = new Map(); //functions to call when any item on this board is triggered
         this.freezeTriggers = new Map(); //functions to call when any item on this board is frozen
 
@@ -101,9 +104,16 @@ class Board {
         this.smallItemTriggers = [];
         
         this.resetItems();
-        this.updateHealthElement();
+        if(this.player?.battle) {
+            this.player.battle.battleTimeDiff = 0;
+            this.updateHealthElement();
+            this.updateDPSElement();
+        }
+
         this.updateGoldElement();
         this.updateIncomeElement();
+
+
     }
     
     setup() {
@@ -202,9 +212,22 @@ class Board {
     itemValuesChanged(item) {
         this.itemValuesChangedTriggers.forEach(func => func(item));
     }
+    updateDPSElement() {
+        if(!this.player.battle) return;
+        if(this.player.battle.battleTimeDiff==0) {
+            this.dpsElement.innerHTML = "";
+            return;
+        }
+        this.dpsElement.innerHTML = ""+
+        "   DPS: " + (this.damageApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0)+
+        " / HPS: "+(this.healingApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0)+
+
+        " / SPS: "+(this.shieldApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0);
+    }
     updateHealthElement() {
         const healthPercent = (this.player?.health || 0) / (this.player?.maxHealth || 1000) * 100;
         this.healthElement.style.background = `linear-gradient(to right, 
+
             #44ff44 ${healthPercent}%, 
             #999999 ${healthPercent}%
         )`;
@@ -334,12 +357,19 @@ class Board {
         this.goldElement.title = "Gold";
         this.element.appendChild(this.goldElement);
     }
+    createDPSElement() {
+        this.dpsElement = document.createElement('div');
+        this.dpsElement.className = 'dps-element';
+        this.dpsElement.title = "DPS";
+        this.element.appendChild(this.dpsElement);
+    }
     createIncomeElement() {
         this.incomeElement = document.createElement('div');
         this.incomeElement.className = 'income-element';
         this.incomeElement.title = "Income";
         this.element.appendChild(this.incomeElement);
     }
+
 
 
     createSkillsElement() {
@@ -350,8 +380,26 @@ class Board {
 
 
     startBattle() {
+        this.damageApplied = 0;
+        this.healingApplied = 0;
+        this.shieldApplied = 0;
         this.items.forEach(item => {if(item.progressBar) item.progressBar.style.display = 'block'});
         this.startOfFightTriggers.forEach(func => func());
+        this.player.hostileTarget.healthChanged((newHealth,oldHealth) => {
+            if(newHealth<oldHealth) {
+                this.damageApplied += oldHealth-newHealth;
+            }
+        });
+        this.player.healthChanged((newHealth,oldHealth) => {
+            if(newHealth>oldHealth) {
+                this.healingApplied += newHealth-oldHealth;
+            }
+        });
+        this.player.shieldChanged((newShield,oldShield) => {
+            if(newShield>oldShield) {
+                this.shieldApplied += newShield-oldShield;
+            }
+        });        
     }
 
     isValidPlacement(startIndex, draggingElement) {
