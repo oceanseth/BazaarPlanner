@@ -1339,8 +1339,8 @@ export class Item {
         }
         
 
-        // Add crit chance field only if item has damage
-        if (this.tags.includes("Weapon")) {
+        // Add crit chance field only if item has damage, shield, burn, poison, or heal, or is a weapon
+        if (this.damage>0 || this.shield > 0 || this.burn > 0 || this.poison > 0 || this.heal > 0 || this.tags.includes("Weapon")) {
             popupHTML += `
                 <div class="form-group">
                     <label>Crit Chance (0-100):</label>
