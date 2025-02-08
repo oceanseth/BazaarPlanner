@@ -3951,6 +3951,66 @@ export const items = {
       "Obsidian": "This has Lifesteal."
     }
   },
+  "Dragon Wing": {
+    "name": "Dragon Wing",
+    "icon": "images/items/DragonWing.avif",
+    "tier": "Silver",
+    "tags": [
+      "Common",
+      "Medium",
+      "BurnReference",
+      "Charge",
+      "Dragon",
+      "Shield"
+    ],
+    "cooldown": 6,
+    "ammo": null,
+    "text": [
+      "Shield ( 40 » 60 » 80 ).",
+      "When you Burn, charge this 2 second(s)."
+    ],
+    "enchants": {
+      "Heavy": "Slow 2 item for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 1 second(s).",
+      "Turbo": "Haste 2 item for 1 second(s).",
+      "Shielded": "This has double Shield.",
+      "Restorative": "Heal equal to this item's Shield.",
+      "Toxic": "Poison 4.",
+      "Fiery": "Burn 6.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
+    }
+  },
+  "Dragon's Breath": {
+    "name": "Dragon's Breath",
+    "icon": "images/items/DragonsBreath.avif",
+    "tier": "Silver",
+    "tags": [
+      "Mak",
+      "Medium",
+      "Burn",
+      "Dragon"
+    ],
+    "cooldown": 8,
+    "ammo": null,
+    "text": [
+      "Burn 8.",
+      "When you use an adjacent or Dragon item, this gains ( +2 » +3 » +4 ) Burn for the fight."
+    ],
+    "enchants": {
+      "Heavy": "Slow 2 items for 3 second(s).",
+      "Icy": "Freeze 1 item for 3 second(s).",
+      "Turbo": "Haste 2 items for 3 second(s).",
+      "Shielded": "Shield 80.",
+      "Restorative": "Heal 120.",
+      "Toxic": "Poison 8.",
+      "Fiery": "This has double Burn.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
+    }
+  },
   "Duct Tape": {
     "name": "Duct Tape",
     "icon": "images/items/DuctTape.avif",
@@ -10539,6 +10599,35 @@ export const items = {
       "Toxic": "Poison 8.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has +1 Multicast.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
+    }
+  },
+  "Salt": {
+    "name": "Salt",
+    "icon": "images/items/Salt.avif",
+    "tier": "Silver",
+    "tags": [
+      "Jules",
+      "Small",
+      "Active",
+      "Crit",
+      "Food",
+      "NonWeapon"
+    ],
+    "cooldown": 2,
+    "ammo": null,
+    "text": [
+      "Adjacent items gain ( +1 » +2 » +3 ) crit chance for the fight."
+    ],
+    "enchants": {
+      "Heavy": "Slow 1 item for 1 second(s).",
+      "Icy": "Freeze 1 item for 1 second(s).",
+      "Turbo": "Haste 1 item for 1 second(s).",
+      "Shielded": "Shield 3.",
+      "Restorative": "Heal 4.",
+      "Toxic": "Poison 1.",
+      "Fiery": "Burn 1.",
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }

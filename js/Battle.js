@@ -150,10 +150,13 @@ export class Battle {
         }
         return this.battleRNG();
     } 
-    pickRandom(array, count=1) {
-        if (array.length === 0) return null;
-        if (count > array.length) count = array.length;
-    
+    pickRandom = (array, count) => {
+        if (array.length === 0) {
+            if(count === undefined) return null;
+            return [];
+        }
+        if (count > array.length) count = array.length;    
+
         // Create array of indices
         const indices = Array.from({ length: array.length }, (_, i) => i);
         const toReturn = [];
@@ -165,7 +168,7 @@ export class Battle {
             toReturn.push(array[selectedIndex]);
         }
         
-        if (count === 1) return toReturn[0];
+        if (count === undefined) return toReturn[0];
         return toReturn;
     }   
 }
