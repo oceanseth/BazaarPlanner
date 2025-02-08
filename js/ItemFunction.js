@@ -378,8 +378,9 @@ ItemFunction.items.set("Fort",(item)=>{
         }
     });
     return () => {
-        this.applyShield(this.shield);
+        item.applyShield(item.shield);
     }
+
 });
 
 //You have (  +1  » +2  » +3   ) income for each Property you have (including Stash). from Open for Business
