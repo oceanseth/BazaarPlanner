@@ -113,6 +113,9 @@ document.querySelector('.board-container:last-child').appendChild(deleteZone);
 window.deleteZone = deleteZone;
     // Initialize players
 
+    function isMobileDevice() {
+        return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+      }
 
 window.onload = () => {
      
@@ -184,7 +187,7 @@ window.onload = () => {
                     return false;
                 }
             },
-            signInFlow: 'popup'
+            signInFlow: isMobileDevice()?'redirect':'popup'
         };
 
         // Initialize the auth UI

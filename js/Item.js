@@ -1310,7 +1310,7 @@ export class Item {
             </div>`;
         // Add damage field only if item has damage
 
-        if (this.damage !== undefined) {
+        if (this.tags.includes("Weapon")) {
             popupHTML += `
 
                 <div class="form-group">
@@ -1340,10 +1340,11 @@ export class Item {
         
 
         // Add crit chance field only if item has damage
-        if (itemData.tags.indexOf('Weapon') !== -1) {
+        if (this.tags.includes("Weapon")) {
             popupHTML += `
                 <div class="form-group">
                     <label>Crit Chance (0-100):</label>
+
                     <input type="number" min="0" max="100" id="edit-crit" value="${this.crit || 0}">
                 </div>
                 <div class="form-group">
