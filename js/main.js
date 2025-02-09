@@ -117,6 +117,25 @@ window.deleteZone = deleteZone;
         return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
       }
 
+window.getTinyUrl = function() {
+    const url = window.location.href.split('#')[1];
+
+    let count;
+    firebase.database().ref('tinyurls/count').once('value').then(snapshot => {
+        count = snapshot.val() || 0;
+        const updates = {};
+        count++;
+        updates[""+count] = {url:url, uid:window.user.uid};
+        updates['count'] = count;
+        return firebase.database().ref('/tinyurls').update(updates);
+    }).then(() => {
+        navigator.clipboard.writeText('https://bazaarplanner.com/#'+count.toString(36));
+        alert('Tiny URL copied to clipboard: https://bazaarplanner.com/#'+(count.toString(36)));        
+    });
+}
+
+
+
 window.onload = () => {
      
 

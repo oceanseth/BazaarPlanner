@@ -1756,6 +1756,7 @@ export class Item {
                 case "visit a merchant":
                 case "sell a small item":
                 case "sell another non-weapon item":
+                case "win a fight against a Monster with this":
                     return;
             }
             console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"'");
@@ -2592,7 +2593,13 @@ export class Item {
             }
 
         }
-        
+        //This deals quadruple crit damage.
+        regex = /^This deals quadruple crit damage\.?$/i;
+        match = text.match(regex);
+        if(match) {            
+                this.gain(300,'critMultiplier');
+                return () => {}
+        }
         //Your Weapons have (  +5%  » +10%  » +15%  » +20%   ) Crit chance. 
         //Your Shield items have +1 Shield 
         regex = /^Your ([^\s]+)(?:s)? (?:items)?\s*have (?:\(([^)]+)\)|(\+?\d+%?)) ([^\s^\.]+)(?: chance)?\.?$/i;
