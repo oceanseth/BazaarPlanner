@@ -86,6 +86,16 @@ export function loadFromUrl() {
     if (!hash) return;
     window.isLoadingFromUrl = true;
     try {
+        if(hash.length < 10) {
+            firebase.database().ref('tinyurls/'+parseInt(hash, 36)).once('value').then(snapshot => {
+                const url = snapshot.val().url;
+                window.location.href = "#"+url;
+                loadFromUrl();
+                return;
+            });
+            return;
+        }
+
 
         // Decompress the state string
         const boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(hash));

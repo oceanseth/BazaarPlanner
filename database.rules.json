@@ -1,10 +1,29 @@
 {
   "rules": {
+    "tinyurls": {
+        "count": {
+            ".read": true,
+            ".write": "auth != null",
+            ".validate": "newData.isNumber() && 
+                        newData.val() === data.val() + 1",
+        },
+        "$count": {
+            ".read": true,
+            ".validate": "newData.child('url').exists() && 
+                        newData.child('uid').exists() &&
+                        $count == (data.parent().child('count').val()+1)+'' &&
+                        newData.child('uid').val() === auth.uid",
+            ".write": "auth != null"
+        }
+    },
+
     "polls": {
       "harmpoll": {
         "$voteType": {
+
           "$uid": {
             ".write": "$uid === auth.uid",
+
             ".validate": "!data.exists() && 
                          !root.child('polls/harmpoll/yes').child($uid).exists() && 
                          !root.child('polls/harmpoll/no').child($uid).exists() &&
