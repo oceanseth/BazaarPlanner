@@ -129,8 +129,8 @@ window.getTinyUrl = function() {
         updates['count'] = count;
         return firebase.database().ref('/tinyurls').update(updates);
     }).then(() => {
-        navigator.clipboard.writeText('https://bazaarplanner.com/#'+count.toString(36));
-        alert('Tiny URL copied to clipboard: https://bazaarplanner.com/#'+(count.toString(36)));        
+        navigator.clipboard.writeText('https://www.bazaarplanner.com/#'+count.toString(36));
+        alert('Tiny URL copied to clipboard: https://www.bazaarplanner.com/#'+(count.toString(36)));        
     });
 }
 
