@@ -146,7 +146,7 @@ export class Battle {
             return Math.random(); // Fallback to regular random
         }
         if(evaluateMe) {
-            return this.battleRNG() >= evaluateMe;
+            return this.battleRNG() < evaluateMe;
         }
         return this.battleRNG();
     } 

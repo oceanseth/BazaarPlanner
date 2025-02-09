@@ -29,8 +29,7 @@
             <button onclick="showSection('about')">About</button>
             <button onclick="showSection('faq')">FAQ</button>
             
-           
-            <div id="firebaseui-auth-container" style="margin-left: auto;"></div>
+    
             <div id="sign-in-status" style="margin-left: auto;"></div>
             <div id="account-details" style="margin-left: auto; display:none;"></div>
             <button onclick="login()" style="margin-left: auto;">Login</button>
@@ -134,7 +133,9 @@
                 <br/><br/>
                 Will this <b>current</b> site harm gameplay/your enjoyment of the game?
                 <br/><br/><br/>   
-                <div class="poll-login"><button onclick="login()">Login to Vote</button></div>             
+                <div class="poll-login">
+                    <div id="firebaseui-auth-container"></div>
+                </div>             
                 <div class="poll-button-group">
                     <button onclick="poll(true)">Yes</button>
                     <button onclick="poll(false)">No</button>          
