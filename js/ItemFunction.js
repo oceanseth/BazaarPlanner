@@ -459,6 +459,22 @@ ItemFunction.items.set("Apropos Chapeau",(item)=>{
     });
 });
 
+// When any player uses an item, all items gain (  2%  » 4%   ) Crit Chance for the fight.
+ItemFunction.items.set("Foreboding Winds",(item)=>{
+    const critGain = getRarityValue("2 >> 4",item.rarity);
+    const critGainTriggerFunction = (i)=>{
+        item.board.items.forEach(i=>{
+            i.gain(critGain,'crit');
+        });
+        item.board.player.hostileTarget.board.items.forEach(i=>{
+            i.gain(critGain,'crit');
+        });
+    };
+    item.board.itemTriggers.set(item.id,critGainTriggerFunction);
+    item.board.player.hostileTarget.board.itemTriggers.set(item.id,critGainTriggerFunction);
+});
+
+
 
 
 ItemFunction.setupItems();

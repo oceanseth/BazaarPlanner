@@ -287,11 +287,19 @@ class Board {
 
             data.hand.forEach(item => {
                 let itemData = items[item.name];
-                itemData.attributes = item.attributes;
+                if(!itemData) {
+                    console.log("Item not found: " + item.name);
+                    return;
+                }
+                if(item.attributes) {
+                    itemData.attributes = item.attributes;
+                }
+
                 itemData.rarity = ["Bronze","Silver","Gold","Diamond","Legendary"][parseInt(item.tier)];
                 itemData.enchant = Item.possibleEnchants[parseInt(item.enchantment)];
                 let newItem = new Item(items[item.name], this);
                 //this.addItem(newItem);
+
                 newItem.setIndex(currentIndex);
                 if(item.attributes.DamageAmount) {
                     newItem.startItemData.damage = item.attributes.DamageAmount;
@@ -310,9 +318,10 @@ class Board {
 
 
         }
+        
         Board.resetBoards();
         updateUrlState();
-        window.isLoadingFromUrl = false;        
+        window.isLoadingFromUrl = false;
     }
     importFromBazaarTracker() {        
         if(!window.isDoner) {
@@ -559,10 +568,12 @@ class Board {
                 newItem.setIndex(startIndex);
             }
             Board.resetBoards();
+            updateUrlState();
         }
         document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
             element.classList.remove('valid-drop', 'invalid-drop', 'dragging');
         });
+
     
         deleteZone.style.display = 'none';
     }
