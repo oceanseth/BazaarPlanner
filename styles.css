@@ -1035,9 +1035,6 @@ button:active {
 }
 
 #firebaseui-auth-container {
-    position: absolute;
-    top: 60px;
-    right: 10px;
     z-index: 9000;
 }
 .Toxic:before,

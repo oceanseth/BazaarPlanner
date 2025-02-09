@@ -394,5 +394,28 @@ ItemFunction.items.set("Open for Business",(item)=>{
 
     });
 });
+ItemFunction.items.set("Atlatl",(item)=>{
+    //This item's cooldown is reduced by 1% for every 2 damage it has. from Atlatl
+    item.damageChanged((oldDamage,newDamage)=>{
+        item.gain(item.cooldown*((newDamage-oldDamage)/2/100) - item.cooldown,'cooldown');
+    })
+});
+ItemFunction.items.set("Weights",(item)=>{
+    ////Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
+    //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
+    const amount = getRarityValue("2 >> 4 >> 6 >> 8",item.rarity);
+    const shieldAmount = getRarityValue("5 >> 10 >> 15",item.rarity);
+    item.triggerFunctions.push(()=>{
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Weapon")) {
+            i.gain(amount,'damage');
+        }
+        if(i.tags.includes("Shield")) {
+                i.gain(shieldAmount,'shield');
+            }
+        });
+    });
+});
+
 
 ItemFunction.setupItems();
