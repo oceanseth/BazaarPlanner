@@ -184,12 +184,14 @@ window.onload = () => {
                     // User successfully signed in.
                     // Return type determines whether we continue the redirect automatically
                     // or whether we leave that to developer to handle.
-                    
-                    return false;
+
+                    return true;
                 }
             },
-            signInFlow: isMobileDevice()?'redirect':'popup'
+            signInFlow: isMobileDevice()?'redirect':'popup',
+            signInSuccessUrl: window.location.href
         };
+
 
         // Initialize the auth UI
         function initAuth() {
@@ -250,7 +252,6 @@ window.onload = () => {
         window.login = function() {
             // Show the auth UI when signed out
             document.getElementById('firebaseui-auth-container').style.display = 'block';
-            initAuth();
         }
     initAuth();
     initApp();

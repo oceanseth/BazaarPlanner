@@ -252,32 +252,44 @@ class Board {
 
         const runId = prompt("Enter the bazaar tracker run ID:");
         if(runId) {
+            if(runId.indexOf("=")!=-1) {
+                runId = runId.split("=")[1];
+            }
+            console.log("Importing from run ID: " + runId);
             fetch(`https://www.bazaarplanner.com/import?runId=${runId}`)
                 .then(response => response.json())
                 .then(data => {
+
                     window.isLoadingFromUrl = true;
                     if(data.error) {
                         alert(data.error);
                     } else {
-                        this.player.gold = data.gold;
-                        this.player.level = data.level;
-                        this.player.name = data.heroName;
+                        this.player.startData = {};
+                        this.player.startData.gold = data.gold;
+                        this.player.startData.level = data.level;
+                        this.player.startData.name = data.heroName;
+                        this.player.startData.maxHealth = data.maxHealth;
+                        this.player.startData.health = data.maxHealth;
                         this.clear();
                         let currentIndex=0;
+
+
                         data.hand.forEach(item => {
                             let itemData = items[item.name];
+                            itemData.attributes = item.attributes;
                             itemData.rarity = ["Bronze","Silver","Gold","Diamond","Legendary"][parseInt(item.tier)];
+                            itemData.enchant = Item.possibleEnchants[parseInt(item.enchantment)];
                             let newItem = new Item(items[item.name], this);
                             //this.addItem(newItem);
                             newItem.setIndex(currentIndex);
                             if(item.attributes.DamageAmount) {
-                                newItem.damage = item.attributes.DamageAmount;
+                                newItem.startItemData.damage = item.attributes.DamageAmount;
                             }
                             if(item.attributes.Cooldown) {
                                 newItem.startItemData.cooldown = item.attributes.Cooldown/1000; //might have to do after all items are added, because other items affect it's cooldown
                             }
                             if(item.attributes.CritChance) {
-                                newItem.startItemData.text.push("Crit Chance "+item.attributes.CritChance+"%");
+                                newItem.startItemData.crit = parseInt(item.attributes.CritChance);
                             }                            
                             currentIndex += newItem.size;
                         });
@@ -291,6 +303,7 @@ class Board {
                 })
                 .finally(() => {
                     window.isLoadingFromUrl = false;
+                    Board.resetBoards();
                     updateUrlState();
                 })
 

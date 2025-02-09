@@ -5,7 +5,8 @@ import { ItemFunction } from './ItemFunction.js';
 export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
-    static possibleEnchants = ['Radiant', 'Icy', 'Heavy', 'Turbo', 'Toxic','Shiny','Deadly','Obsidian', 'Restorative', 'Shielded', 'Fiery'];
+    static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny', 'Tiny', 'Toxic', 'Turbo' ];
+
     static itemID = 0;
     
     pickRandom(...args) {
@@ -28,6 +29,7 @@ export class Item {
         this.startItemData = itemData;
         this.board = board;
         Object.assign(this, this.startItemData);
+        setupChangeListeners(this,['damage','shield']);
         
         // Ensure text is always an array
         this.text = Array.isArray(this.text) ? this.text : [this.text].filter(Boolean);
@@ -957,8 +959,22 @@ export class Item {
                 this.applyHeal(this.heal);
             };
         }
+        //Heal equal to your Shield.
+        regex = /Heal equal to your Shield\.?/i;
+        match = text.match(regex);
+
+        if(match) {
+            this.board.player.shieldChanged((oldShield,newShield)=>{
+                this.gain(newShield-oldShield,'heal');
+            });
+            return () => {
+                this.applyHeal(this.heal);
+            };
+        }
+
         return null;
     }   
+
 
     getItemToTheLeft() {
         const itemIndex = this.board.items.indexOf(this);
@@ -985,9 +1001,9 @@ export class Item {
         return [this.getItemToTheLeft(), this.getItemToTheRight()].filter(item => item !== null);
     }
 
-    gain(amount,type) {
+    gain(amount,type,source) {
         if(!["cooldown"].includes(type)) {
-            log(this.name + " gained " + amount + " " + type);
+            log(this.name + " gained " + amount + " " + type + (source?(" from "+source.name):""));
         }
         
         switch(type.toLowerCase()) {
@@ -1210,6 +1226,20 @@ export class Item {
                 this.applyShield(this.shield);
             };
         }
+        //Your Shield items have +1 Shield for every (  4  » 3  » 2   ) gold you have.
+        regex = /Your Shield items have \+([\d]+) Shield for every (?:\(([^)]+)\)|(\d+)) gold you have\.?/i;
+        match = text.match(regex);
+        if (match) {
+            const multiplier = parseInt( match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
+            const shieldAmount = parseInt(match[1]) * multiplier;
+            this.board.items.forEach(item => {
+                if(item.tags.includes("Shield")) {
+                    item.gain(shieldAmount,'shield');
+                }
+            });
+            return () => {};
+        }
+
         //Shield ( 1 » 2 » 3 » 4 ).
         regex = /Shield (?:\(([^)]+)\)|(\d+))/i;
         match = text.match(regex);
@@ -1518,8 +1548,12 @@ export class Item {
                         }
                     });
                     return;
+                case "over-heal":
+                    this.board.player.overhealTriggers.set(this.id, this.getTriggerFunctionFromText(textAfterComma));
+                    return;
                 case "use a friend":
                     const useAFriendFunction = this.getTriggerFunctionFromText(textAfterComma);
+
 
                     this.board.itemTriggers.set(this.id, (item) =>  {                        
                         if(item.tags.includes("Friend")) {
@@ -1727,10 +1761,10 @@ export class Item {
         }
         //The first (  4  » 8   ) times you Shield each fight, Charge 1 item 1 second(s).
         //The first (  4  » 8   ) times your enemy uses a non-weapon item each fight, Charge 1 Weapon 1 second(s).
-        regex = /^The first (?:\(([^)]+)\)|(\d+)) times (.+) each fight, (.*)/i;
+        regex = /^The first (?:\(([^)]+)\)|(\d+))?\s?times? (.+) each fight, (.*)/i;
         match = text.match(regex);
         if(match) {
-            const numTimes = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            const numTimes = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]||"1");
             const ntimesFunction = this.getTriggerFunctionFromText(match[4]);
             switch(match[3].toLowerCase()) {
                 case "you shield":
@@ -1745,8 +1779,20 @@ export class Item {
                         }
                     });
                     return;
-
+                case "you use your rightmost item":
+                    let rightmostItemCount = 0;
+                    const rightmostItem = this.board.items[this.board.items.length-1];
+                    this.board.itemTriggers.set(this.id,(item)=>{
+                        if(item.id==rightmostItem.id) {
+                            ntimesFunction(item);
+                            if(rightmostItemCount++ == numTimes) {
+                                this.board.itemTriggers.delete(this.id);
+                            }
+                        }
+                    });
+                    return;
                 case "you use the core":
+
                     let coreUsedCount = 0;
                     this.board.itemTriggers.set(this.id,(item)=>{
                         if(item.tags.includes("Core")&&coreUsedCount++ <= numTimes) {
@@ -1756,10 +1802,21 @@ export class Item {
                             }
                         }
                     });
+                case "you freeze":
+                    let freezeCount = 0;
+                    this.board.player.hostileTarget.board.freezeTriggers.set(this.id,(item)=>{
+                        if(freezeCount++<=numTimes) {
+                            ntimesFunction(item);
+                            if(freezeCount==numTimes) {
+                                this.board.player.hostileTarget.board.freezeTriggers.delete(this.id);
+                            }
+                        }
+                    });
 
 
                 case "you crit":
                     let critCount = 0;
+
                     this.board.critTriggers.set(this.id,(item)=>{
                         if(critCount++<=numTimes) {
                             ntimesFunction(item);
@@ -2595,9 +2652,9 @@ export class Item {
 
         }
 
-
+        //Your leftmost Weapon deals (  +20  » +30  » +40  » +50   ) Damage.
         //Your leftmost Poison item has (  +3  » +6  » +9  » +12   ) Poison.
-        regex = /^Your (leftmost|rightmost) ([^\s]+) item has\s*\(\s*\+?(\d+(?:\s*»\s*\+?\d+)*)\s*\)\s*([^\s^\.]+)\.?.*/i;
+        regex = /^Your (leftmost|rightmost) ([^\s]+)(?: item)? (?:has|deals)\s*\(\s*\+?(\d+(?:\s*»\s*\+?\d+)*)\s*\)\s*([^\s^\.]+)\.?.*/i;
         match = text.match(regex);
         if(match) {
             const gainAmount = match[3] ? getRarityValue(match[3], this.rarity) : parseInt(match[4]);
@@ -2621,8 +2678,7 @@ export class Item {
             const gainAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             const whatToGain = match[3].toLowerCase();
             return (item) => {
-                item.gain(gainAmount, whatToGain);
-                log(this.name + " gave " + item.name + " " + gainAmount + " " + whatToGain);
+                item.gain(gainAmount, whatToGain, this);
             }
 
         }
@@ -2666,6 +2722,22 @@ export class Item {
             };
 
         }
+
+        //Your Weapons have + Damage equal to (  1x  » 2x  » 3x   ) your income.
+        regex = /^Your ([^\s]+)(?: items)? have \+ ([^\s]+) equal to (?:\(([^)]+)\)|(\d+)x) your income\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const whatToGain = match[2].toLowerCase();
+            const gainAmount = parseInt(match[3] ? getRarityValue(match[3], this.rarity) : match[4]);
+            this.board.items.forEach(item => {
+                if(item.tags.includes(tagToMatch)) {
+                    item.gain(gainAmount,whatToGain);
+                }
+            });
+            return ()=>{};
+        }
+
 
 
 
@@ -2748,7 +2820,7 @@ export class Item {
 
         }   
         //your Weapons have their cooldowns reduced by (  5%  » 10%  » 20%   ).
-        regex = /^your ([^\s]+)s? have their cooldowns reduced by (?:\(([^)]+)\)|(\d+)%?)\.?$/i;    
+        regex = /^your ([^\s]+)s?(?: items)? have their cooldowns reduced by (?:\(([^)]+)\)|(\d+)%?)\.?$/i;    
         match = text.match(regex);
         if(match) {
             const cooldownReduction = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
