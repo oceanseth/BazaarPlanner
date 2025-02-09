@@ -37,6 +37,7 @@ export class Player {
             healAmount = this.maxHealth-this.health;
             this.overhealTriggers.forEach(func => func(healAmount));
         }
+        this.healTriggers.forEach(func => func(healAmount));
         this.health += healAmount;
         if(this.poison > 0) this.poison--; //cleanse 1 poison when a heal occurs
         if(this.burn > 0) this.burn--; //cleanse 1 burn when a heal occurs
@@ -188,6 +189,7 @@ export class Player {
         this.healthAboveHalfTriggers = new Map();
         this.dieTriggers = new Map();
         this.overhealTriggers = new Map();
+        this.healTriggers = new Map();
 
         this.board.reset();
     }

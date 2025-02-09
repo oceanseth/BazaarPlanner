@@ -417,5 +417,48 @@ ItemFunction.items.set("Weights",(item)=>{
     });
 });
 
+ItemFunction.items.set("Pet Rock",(item)=>{
+    //"Deal ( 8 » 16 » 24 » 32 ) damage.",
+    //"If this is your only friend, your items have ( +10% » +15% » +20% » +25% ) Crit Chance."
+    const damage = getRarityValue("8 >> 16 >> 24 >> 32",item.rarity);
+    const critChance = getRarityValue("10 >> 15 >> 20 >> 25",item.rarity);
+    item.gain(damage,'damage');
+    item.triggerFunctions.push(()=>{
+        item.dealDamage(item.damage);
+    });
+    const comparisonFunction = () => {
+        return item.board.items.filter(i=>i.tags.includes("Friend")).length==1;
+    }
+    const undoableFunction = item.getUndoableFunctionFromText("your items have ( +10% » +15% » +20% » +25% ) Crit Chance.",comparisonFunction);
+    item.board.itemDestroyedTriggers.set(item.id,undoableFunction);
+});
+
+/*    "Your weapons gain ( 6 » 9 » 12 ) Damage for the fight.",
+      "Your Heal items gain ( 6 » 9 » 12 ) Heal for the fight.",
+      "Your Shield items gain ( 6 » 9 » 12 ) Shield for the fight.",
+      "If you have another Tool, Weapon, Property or Apparel this has +1 Multicast for each."
+    */
+ItemFunction.items.set("Apropos Chapeau",(item)=>{
+    const dmgGain = getRarityValue("6 >> 9 >> 12",item.rarity);
+    const healGain = getRarityValue("6 >> 9 >> 12",item.rarity);
+    const shieldGain = getRarityValue("6 >> 9 >> 12",item.rarity);
+    const amount = item.board.items.filter(i=>i.tags.includes("Tool") || i.tags.includes("Weapon") || i.tags.includes("Property") || i.tags.includes("Apparel")).length;
+    item.gain(amount,'multicast');
+    item.triggerFunctions.push(()=>{
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Weapon")) {
+                i.gain(dmgGain,'damage');
+            }
+            if(i.tags.includes("Heal")) {
+                i.gain(healGain,'heal');
+            }
+            if(i.tags.includes("Shield")) {
+                i.gain(shieldGain,'shield');
+            }
+        });
+    });
+});
+
+
 
 ItemFunction.setupItems();

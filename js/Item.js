@@ -1552,6 +1552,8 @@ export class Item {
                 case "over-heal":
                     this.board.player.overhealTriggers.set(this.id, this.getTriggerFunctionFromText(textAfterComma));
                     return;
+                case "heal":
+                    this.board.player.healTriggers.set(this.id, this.getTriggerFunctionFromText(textAfterComma));
                 case "use a friend":
                     const useAFriendFunction = this.getTriggerFunctionFromText(textAfterComma);
 
@@ -2739,7 +2741,17 @@ export class Item {
             return ()=>{};
         }
 
+        //gain ( 2 » 4 ) Regeneration for the fight.
+        regex = /^gain (?:\(([^)]+)\)|(\d+)) Regeneration for the fight\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const gainAmount = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
+           return ()=>{
+            this.board.player.gainRegen(gainAmount);
+            log(this.name + " added " + gainAmount + " Regeneration");
+           }
 
+        }
 
 
         //You have (  2  » 4  » 6   ) Regeneration for each item with Ammo you have.
