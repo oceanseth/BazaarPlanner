@@ -28,8 +28,9 @@ export class Item {
         this.id = Item.itemID++;
         this.startItemData = itemData;
         this.board = board;
-        Object.assign(this, this.startItemData);
         setupChangeListeners(this,['damage','shield']);
+        
+        Object.assign(this, this.startItemData);
         
         // Ensure text is always an array
         this.text = Array.isArray(this.text) ? this.text : [this.text].filter(Boolean);

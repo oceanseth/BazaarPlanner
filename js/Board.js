@@ -56,14 +56,17 @@ class Board {
             this.showSkillSelector();
         };
         this.element.appendChild(addSkillButton);
-
+        this.importElement = document.createElement('div');
+        this.importElement.className = 'import-element';
+        this.element.appendChild(this.importElement);
 
         this.createHealthElement();
         this.createSkillsElement();
         this.createGoldElement();
-        this.createIncomeElement();
         this.createDPSElement();
+        this.createIncomeElement();
         this.reset();
+
 
     }
     clear() {
@@ -112,8 +115,6 @@ class Board {
 
         this.updateGoldElement();
         this.updateIncomeElement();
-
-
     }
     
     setup() {
@@ -244,6 +245,75 @@ class Board {
     updateIncomeElement() {
         this.incomeElement.textContent = "+" +this.player?.income;
     }
+    updateImportElement() {
+        if(!this.importedData) {return;}
+        let encounterIndex=-1;
+        this.importElement.innerHTML = `
+            <select id="import-select">
+                ${this.importedData.encounters.map( e=> {
+                    encounterIndex++;
+                    return `
+                    <option value="${encounterIndex}-player">Day ${e.day} Player Board</option>
+                    <option value="${encounterIndex}-opponent">Day ${e.day}-${e.opponent.name}</option>
+                    `;
+
+                }).join('')}
+
+            </select>
+        `;
+        this.importElement.querySelector('#import-select').onchange = (e) => {      
+            const encounterIndex = parseInt(e.target.value.split('-')[0]);
+            const isPlayerBoard = e.target.value.split('-')[1] == 'player';
+            const encounter = this.importedData.encounters[encounterIndex];
+            this.importFromDayData(isPlayerBoard?encounter.player:encounter.opponent);
+            return true;
+        }
+
+    }
+    importFromDayData(data,isPlayerBoard) {
+        window.isLoadingFromUrl = true;
+        if(data.error) {
+            alert(data.error);
+        } else {
+            this.player.startData = {};
+            this.player.startData.gold = data.gold;
+            this.player.startData.level = data.level;
+            this.player.startData.name = data.heroName;
+            this.player.startData.maxHealth = data.maxHealth;
+            this.player.startData.health = data.maxHealth;
+            this.clear();
+            let currentIndex=0;
+
+
+            data.hand.forEach(item => {
+                let itemData = items[item.name];
+                itemData.attributes = item.attributes;
+                itemData.rarity = ["Bronze","Silver","Gold","Diamond","Legendary"][parseInt(item.tier)];
+                itemData.enchant = Item.possibleEnchants[parseInt(item.enchantment)];
+                let newItem = new Item(items[item.name], this);
+                //this.addItem(newItem);
+                newItem.setIndex(currentIndex);
+                if(item.attributes.DamageAmount) {
+                    newItem.startItemData.damage = item.attributes.DamageAmount;
+                }
+                if(item.attributes.Cooldown) {
+                    newItem.startItemData.cooldown = item.attributes.Cooldown/1000; //might have to do after all items are added, because other items affect it's cooldown
+                }
+                if(item.attributes.CritChance) {
+                    newItem.startItemData.crit = parseInt(item.attributes.CritChance);
+                }                            
+                currentIndex += newItem.size;
+            });
+            data.skills.forEach(skill => {
+                this.addSkill(skill.name,{rarity:Item.rarityLevels[parseInt(skill.tier)]});
+            });
+
+
+        }
+        Board.resetBoards();
+        updateUrlState();
+        window.isLoadingFromUrl = false;        
+    }
     importFromBazaarTracker() {        
         if(!window.isDoner) {
             alert("This feature is only available for doners or kickstarter backers");
@@ -259,58 +329,17 @@ class Board {
             fetch(`https://www.bazaarplanner.com/import?runId=${runId}`)
                 .then(response => response.json())
                 .then(data => {
-
-                    window.isLoadingFromUrl = true;
-                    if(data.error) {
-                        alert(data.error);
-                    } else {
-                        this.player.startData = {};
-                        this.player.startData.gold = data.gold;
-                        this.player.startData.level = data.level;
-                        this.player.startData.name = data.heroName;
-                        this.player.startData.maxHealth = data.maxHealth;
-                        this.player.startData.health = data.maxHealth;
-                        this.clear();
-                        let currentIndex=0;
-
-
-                        data.hand.forEach(item => {
-                            let itemData = items[item.name];
-                            itemData.attributes = item.attributes;
-                            itemData.rarity = ["Bronze","Silver","Gold","Diamond","Legendary"][parseInt(item.tier)];
-                            itemData.enchant = Item.possibleEnchants[parseInt(item.enchantment)];
-                            let newItem = new Item(items[item.name], this);
-                            //this.addItem(newItem);
-                            newItem.setIndex(currentIndex);
-                            if(item.attributes.DamageAmount) {
-                                newItem.startItemData.damage = item.attributes.DamageAmount;
-                            }
-                            if(item.attributes.Cooldown) {
-                                newItem.startItemData.cooldown = item.attributes.Cooldown/1000; //might have to do after all items are added, because other items affect it's cooldown
-                            }
-                            if(item.attributes.CritChance) {
-                                newItem.startItemData.crit = parseInt(item.attributes.CritChance);
-                            }                            
-                            currentIndex += newItem.size;
-                        });
-                        data.skills.forEach(skill => {
-                            this.addSkill(skill.name,{rarity:Item.rarityLevels[parseInt(skill.tier)]});
-                        });
-
-
-                    }
-
+                    this.importedData = data;
+                    this.updateImportElement();
+                    this.importFromDayData(data);                    
                 })
                 .finally(() => {
                     window.isLoadingFromUrl = false;
-                    Board.resetBoards();
-                    updateUrlState();
                 })
 
                 .catch(error => {
                     console.error('Error:', error);
                 });
-
 
         }
         
