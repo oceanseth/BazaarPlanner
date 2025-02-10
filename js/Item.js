@@ -26,10 +26,9 @@ export class Item {
             return;
         }
         this.id = Item.itemID++;
-        this.startItemData = itemData;
-        this.board = board;
         setupChangeListeners(this,Item.possibleChangeAttributes);
-        
+        this.startItemData = itemData;
+        this.board = board;        
         Object.assign(this, this.startItemData);
         
         // Ensure text is always an array
