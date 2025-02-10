@@ -84,7 +84,7 @@ export class Item {
         return !this.isDestroyed && this.cooldown > 0 && this.freezeDurationRemaining <= 0;
     }
     updateTriggerValuesElement() {
-        const formatNumber = num => Number.isInteger(num) ? num.toString() : num.toFixed(1);
+        const formatNumber = num => Number.isInteger(num) ? num.toString() : num.toFixed(0);
       
 
         if(this.heal>0) {
@@ -158,7 +158,7 @@ export class Item {
         this.pendingMulticasts = 0;
         this.burn = 0;
         this.poison = 0;
-        this.heal = 0;
+        this.heal = this.startItemData.heal||0;
         this.critMultiplier = 100; //default crit multiplier is 100% more damage
         this.damageMultiplier = 0; //100 gives double dmg. 200 gives triple dmg. etc.
         this.freezeBonus = 0;
@@ -337,12 +337,16 @@ export class Item {
         let itemData = Item.getDataFromName(itemName);
         return new Item(itemData, board);
     }
+    updateElementPosition() {
+        this.element.style.left = `${(this.startIndex * 84)}px`;
+    }
     setIndex(index) {
         this.startIndex = index;
-        this.element.style.left = `${(index * 84)}px`;
+        this.updateElementPosition();
         // Sort the board's items array after changing an index
         if (this.board) {
             this.board.sortItems();
+
 //            Board.resetBoards(); //need to rerun the text functions for new position of item and reset player regen/life/etc
   //          updateUrlState();
 
@@ -550,8 +554,6 @@ export class Item {
     }
     applyHeal(healAmount) {
         let doesCrit = this.doICrit();
-
-
         if(doesCrit) {
             healAmount *= (1+this.critMultiplier/100);
         }
@@ -605,22 +607,29 @@ export class Item {
     getWeaponTriggerFunction(text) {
         let match;
 
-
+        //Deal damage equal to your enemy's max health
         //Deal damage equal to ( 20% » 30% ) of your enemy's Max Health.
-        let damageRegex = /Deal damage equal to \(([^)]+)\) of (your|your enemy's|the enemy's) Max Health/i;
+        let damageRegex = /Deal damage equal to \(?([^)]+)?\)?(?: of )?(your|your enemy's|the enemy's) Max Health\.?/i;
         match = text.match(damageRegex);
 
         if(match) {
-            const dmgMultiplier = getRarityValue(match[1], this.rarity);
-            const updateDamage = match[2]=='your'?() => {
-                    this.damage = this.board.player.maxHealth*dmgMultiplier/100;         
-                }:()=>{
-                    this.damage = this.board.player.hostileTarget.maxHealth*dmgMultiplier/100;     
-                };
-            updateDamage();
+            const dmgMultiplier = match[1]?getRarityValue(match[1], this.rarity):100;
+            if(match[2]=='your') {
+                this.gain(this.board.player.maxHealth*dmgMultiplier/100,'damage');
+                this.board.player.maxHealthChanged((newMaxHealth,oldMaxHealth)=>{
+                    this.gain(newMaxHealth*dmgMultiplier/100 - oldMaxHealth*dmgMultiplier/100,'damage');
+                });
+
+
+            } else {
+                this.gain(this.board.player.hostileTarget.maxHealth*dmgMultiplier/100,'damage');
+                this.board.player.hostileTarget.maxHealthChanged((newMaxHealth,oldMaxHealth)=>{
+                    this.gain(newMaxHealth*dmgMultiplier/100 - oldMaxHealth*dmgMultiplier/100,'damage');
+                });
+            }            
+
 
             return () => {
-                updateDamage();
                 this.dealDamage(this.damage);
             };
 
@@ -934,9 +943,10 @@ export class Item {
         let match = text.match(regex);
         if(match) {
             const healAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            this.heal = healAmount;
+            this.gain(healAmount,'heal');
             return () => {                
                 this.board.player.heal(this.heal);
+
                 log(this.name + " healed " + this.board.player.name + " for " + healAmount);
             };
         }
@@ -944,12 +954,18 @@ export class Item {
         regex = /Heal equal to this item's Damage/i;
         match = text.match(regex);
         if(match) {
-            this.heal = this.damage;
+            this.gain(this.damage,'heal');
+            this.damageChanged((newDamage,oldDamage)=>{
+                if(newDamage != oldDamage) {
+                    this.gain((newDamage-oldDamage),'heal');
+                }
+            });
             return () => {
-                this.heal = this.damage;
                 this.applyHeal(this.heal);
             };
+
         }
+
         //Heal equal to ( 1x » 2x » 3x » 4x ) this item's value
         regex = /Heal equal to \(\s*(\d+)x\s*»\s*(\d+)x\s*»\s*(\d+)x\s*»\s*(\d+)x\s*\) this item's value/i;
         match = text.match(regex);
@@ -1072,7 +1088,19 @@ export class Item {
 
 
 
+    getFreezeTriggerFunctionFromText(text) {
+        //Freeze all enemy items for (  1  » 2  » 3   ) second(s).
+        let regex = /Freeze all enemy items for (?:\(([^)]+)\)|(\d+)) second\(?s\)?\.?/i;
+        let match = text.match(regex);
+        if(match) {
+            const freezeDuration = (this.freezeBonus||0) + (match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]));
+            return () => {
+                this.board.player.hostileTarget.items.forEach(item => item.applyFreeze(freezeDuration,this));
+            };
+        }
 
+
+    }
 
 
     getShieldTriggerFunctionFromText(text) {        
@@ -1839,6 +1867,15 @@ export class Item {
                             }
                         }
                     });
+                case "you fall below half health":
+                    let healthBelowHalfCount = 0;
+                    this.board.player.healthBelowHalfTriggers.set(this.id,(item)=>{
+                        if(healthBelowHalfCount++<=numTimes) {
+                            ntimesFunction(item);
+                        } else {
+                            this.board.player.healthBelowHalfTriggers.delete(this.id);
+                        }
+                    });
 
 
                     return;
@@ -1857,7 +1894,18 @@ export class Item {
                     });
 
                     return;
+                case "you would die":
+                    let dieCount = 0;
+                    this.board.player.dieTriggers.set(this.id,(item)=>{
+                        if(dieCount++<=numTimes) {
+                            ntimesFunction(item);
+                        } else {
+                            this.board.player.dieTriggers.delete(this.id);
+                        }
+                    });
+                    return;
                 case "you use an ammo item":
+
                     let ammoUsedCount = 0;
                     this.board.itemTriggers.set(this.id,(item)=>{
                         if(item.tags.includes("Ammo") && ammoUsedCount<=numTimes) {
@@ -1870,7 +1918,7 @@ export class Item {
                     });
                     return;
             }
-            console.log("matched the first "+numTimes+" times but not '"+match[3]+"'");
+            console.log("matched the first "+numTimes+" times but not '"+match[3]+"' from "+this.name);
             
 
         }
@@ -2050,6 +2098,21 @@ export class Item {
             }
 
         }
+        //+50% Crit Chance
+        regex = /^(The Weapon to the left of this has)?\s*\+50% Crit Chance/i;
+        match = text.match(regex);
+        if(match) {
+            if(match[1]) {
+                const leftWeapon = this.getItemToTheLeft();
+                if(leftWeapon) {
+                    leftWeapon.gain(50,'crit');
+                }
+            } else {
+                this.gain(50,'crit');
+            }
+            return () => {};
+        }
+
         //Charge 1 item 1 second(s). into a trigger function.
         //Charge 1 Weapon 1 second(s). into a trigger function.
         regex = /^\s*Charge (\d+|a) ([^\s]+) (?:item)?\s*(?:for)?\s*(?:by)?\s*(\d+) second\(?s?\)?\.?/i;
@@ -2067,6 +2130,38 @@ export class Item {
                 }
             }
         }
+        //double the damage of your leftmost Weapon for the fight.
+        regex = /^\s*double the damage of your leftmost Weapon for the fight\.?/i;
+        match = text.match(regex);
+        if(match) {
+            let leftmostWeapon = null;
+            for(let i=0; i<this.board.items.length; i++) {
+                if(this.board.items[i].tags.includes("Weapon")) {
+                    leftmostWeapon = this.board.items[i];
+                    break;
+
+                }
+            }
+            return () => {
+                leftmostWeapon.gain(leftmostWeapon.damage,'damage');
+            }
+        }
+        //Burn equal to 10% of this item's damage.
+        regex = /^\s*(Burn|Poison|Heal) equal to 10% of this item's damage\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const whatToGain = match[1];
+            const whatToGainLowercase = whatToGain.toLowerCase();
+            this.gain(this.damage*0.1,whatToGainLowercase);
+            this.damageChanged((newDamage,oldDamage)=>{
+                this.gain((newDamage - oldDamage) *.1,whatToGainLowercase);
+            });
+            return () => {
+                this["apply"+whatToGain](this[whatToGainLowercase]);
+            };
+        }
+
+
         //remove Freeze and Slow from your items and Cleanse half your Burn and Poison.
         regex = /^\s*remove Freeze and Slow from your items and Cleanse half your Burn and Poison\.?/i;
         match = text.match(regex);
@@ -2582,7 +2677,7 @@ export class Item {
             }
         }
         //this gains ( 1 » 2 » 3 » 4 ) (tag)
-        regex = /^\s*this gains (?:\(([^)]+)\)|(\d+)) ([^\s]+)\.?/i;
+        regex = /^\s*this (?:permanently )?gains (?:\(([^)]+)\)|(\d+)) ([^\s]+)\.?/i;
         match = text.match(regex);
         if(match) {
             const gainAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
@@ -2794,6 +2889,7 @@ export class Item {
         this.getHasteTriggerFunctionFromText(text) ||
         this.getPoisonTriggerFunctionFromText(text) ||
         this.getHealTriggerFunctionFromText(text) ||
+        this.getFreezeTriggerFunctionFromText(text) ||
     //    this.getCritTriggerFunctionFromText(text) ||
    //     this.getAmmoTriggerFunctionFromText(text) ||
         this.getAnonymousTriggerFunctionFromText(text) ||

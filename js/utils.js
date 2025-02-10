@@ -81,16 +81,15 @@ export function colorTextArray(textArray, rarityIndex) {
 
         (textArray || '');
 }
-export function loadFromUrl() {
-    const hash = window.location.hash.slice(1); // Remove the # symbol
+export function loadFromUrl(hash) {
+    if(!hash) hash = window.location.hash.slice(1); // Remove the # symbol
     if (!hash) return;
     window.isLoadingFromUrl = true;
     try {
         if(hash.length < 10) {
             firebase.database().ref('tinyurls/'+parseInt(hash, 36)).once('value').then(snapshot => {
                 const url = snapshot.val().url;
-                window.location.href = "#"+url;
-                loadFromUrl();
+                loadFromUrl(url);
                 return;
             });
             return;
