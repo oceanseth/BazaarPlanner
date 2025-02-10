@@ -43,6 +43,12 @@ export function updateUrlState() {
                 toReturn[key] = item[key];
             }
         }
+        Item.possibleChangeAttributes.forEach(attribute=>{
+            if(item[attribute] != undefined && item[attribute] != 0) {
+                toReturn[attribute] = item[attribute];
+            }
+        });
+
         if(parseInt(item.getStartingCooldownFromText(baseItem.cooldown)) == parseInt(item.getStartingCooldownFromText(item.startItemData.cooldown)))
             delete toReturn.cooldown;
         else {
@@ -95,7 +101,7 @@ export function loadFromUrl(hash) {
             return;
         }
 
-
+        let newItems = [];
         // Decompress the state string
         const boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(hash));
         // Add items from URL state
@@ -109,8 +115,6 @@ export function loadFromUrl(hash) {
                     board.addSkill(skill.name,{rarity:Item.rarityLevels[parseInt(skill.tier)]});
                 });
 
-
-
                 board.updateHealthElement();
                 return;
 
@@ -120,13 +124,36 @@ export function loadFromUrl(hash) {
             const [baseName, enchant] = Item.stripEnchantFromName(name);
 
             const newItemData = structuredClone(items[baseName]);
-            Object.assign(newItemData, itemWithoutBoardAndStartIndex);   
+              
             const newItem = new Item(newItemData, Board.getBoardFromId(board));
-
+            newItem.pendingItemData = itemWithoutBoardAndStartIndex;
             newItem.enchant = enchant;
             newItem.name = name;
             newItem.setIndex(startIndex);
+            newItems.push(newItem);
         });
+        Board.resetBoards();
+        newItems.forEach(item=>{
+            Object.assign(item.startItemData, item.pendingItemData);
+            for(const key in item.pendingItemData) {
+                console.log("evaluating "+key+ "from "+item.name+ " with value "+item[key]+" and pending value "+item.pendingItemData[key]);
+                if(item[key] != undefined) {
+                    if(item.pendingItemData[key]=='burn') {
+                        console.log(item.pendingItemData[key]+" ---- "+item[key]);
+                    }
+
+                    if(parseFloat(item.pendingItemData[key]) == parseFloat(item[key])) {
+                        item.startItemData[key] = parseFloat(item.pendingItemData[key])-parseFloat(item[key]);
+                    } else {
+
+                        item.startItemData[key] = item.pendingItemData[key];
+                    }
+                    
+                }
+            }
+            delete item.pendingItemData;
+        });
+
         Board.resetBoards();
     } catch (error) {
         console.error('Error loading board state from URL:', error);
