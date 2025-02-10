@@ -473,8 +473,36 @@ ItemFunction.items.set("Foreboding Winds",(item)=>{
     item.board.itemTriggers.set(item.id,critGainTriggerFunction);
     item.board.player.hostileTarget.board.itemTriggers.set(item.id,critGainTriggerFunction);
 });
+//You have (  +35  » +100  » +200  » +300   ) Max Health for each Non-Weapon item you have. from Healthy Hoarder
+ItemFunction.items.set("Healthy Hoarder",(item)=>{
+    const amount = getRarityValue("35 >> 100 >> 200 >> 300",item.rarity);
+    const nonWeaponCount = item.board.items.filter(i=>!i.tags.includes("Weapon")).length;
+    item.board.player.maxHealth += amount*nonWeaponCount;
+});
 
-
+// You have (  +100  » +200  » +300   ) Max Health for each Weapon you have. from Brawler
+ItemFunction.items.set("Brawler",(item)=>{
+    const amount = getRarityValue("100 >> 200 >> 300",item.rarity);
+    const weaponCount = item.board.items.filter(i=>i.tags.includes("Weapon")).length;
+    item.board.player.maxHealth += amount*weaponCount;
+});
+//The weapon to the left of this has ( +10 » +20 » +30 » +50 ) damage. from Silencer
+//If you have exactly one weapon, reduce its cooldown by ( 15% » 20% » 25% » 30% ). from Silencer
+ItemFunction.items.set("Silencer",(item)=>{
+    const dmgGain = getRarityValue("10 >> 20 >> 30 >> 50",item.rarity);
+    const cooldownReduction = getRarityValue("15 >> 20 >> 25 >> 30",item.rarity);
+    const weapons = item.board.items.filter(i=>i.tags.includes("Weapon"));
+    if(weapons.length==1) {
+        weapons[0].gain(weapons[0].cooldown*(100-cooldownReduction)/100 - weapons[0].cooldown,'cooldown');
+    }
+    if(weapons.length>0 && weapons[0].startIndex < item.startIndex) {
+        let leftWeapon=weapons[0];
+        for(let i=0;i<weapons.length&&weapons[i].startIndex < item.startIndex;i++) {
+            leftWeapon=weapons[i];                        
+        }
+        leftWeapon.gain(dmgGain,'damage');
+    }    
+});
 
 
 ItemFunction.setupItems();

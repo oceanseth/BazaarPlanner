@@ -36,6 +36,16 @@ window.mainBattle = new Battle([topPlayer, bottomPlayer], (winner) => {
     alert(winner.name + " wins!");
 }, $("#combat-log"));
 window.log = (s) => { mainBattle.log(s) };
+window.lastLogTimes = new Map();
+window.delayedLog = (s,id) => {
+    if(window.lastLogTimes.get(id) && Date.now() - window.lastLogTimes.get(id) < 1000) {
+        return;
+    }
+    window.lastLogTimes.set(id,Date.now());
+
+
+    console.log(s);
+}
 
 
 window.poll = (answer) => {
