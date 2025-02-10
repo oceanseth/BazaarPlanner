@@ -136,7 +136,7 @@ export function loadFromUrl(hash) {
         newItems.forEach(item=>{
             Object.assign(item.startItemData, item.pendingItemData);
             for(const key in item.pendingItemData) {
-                console.log("evaluating "+key+ "from "+item.name+ " with value "+item[key]+" and pending value "+item.pendingItemData[key]);
+              //  console.log("evaluating "+key+ "from "+item.name+ " with value "+item[key]+" and pending value "+item.pendingItemData[key]);
                 if(item[key] != undefined) {
                     if(item.pendingItemData[key]=='burn') {
                         console.log(item.pendingItemData[key]+" ---- "+item[key]);
@@ -164,7 +164,7 @@ export function loadFromUrl(hash) {
 
 export function setupChangeListeners(obj,arr) {
     arr.forEach(key=>{
-        if(obj[key] != undefined) {
+        if(obj[key] !== undefined) {
             obj[key+"_changedMap"] = new Map();
             obj[key+"_changedArray"] = [];
             obj[key] = 0;
