@@ -506,7 +506,7 @@ class Board {
     }
 
     shiftItemsToTheLeft(item,shiftAmount,ignoreItem) {     
-        console.log("Shifting items from "+item.startIndex+" to the left "+shiftAmount);
+        //console.log("Shifting items from "+item.startIndex+" to the left "+shiftAmount);
         let itemIndex = this.items.indexOf(item);
         let overlapCheckPosition=0;
         do {
@@ -529,7 +529,7 @@ class Board {
 
 
     shiftItemsToTheRight(item,shiftAmount,ignoreItem) {
-        console.log("Shifting items from "+item.startIndex+" to the right "+shiftAmount);
+        //console.log("Shifting items from "+item.startIndex+" to the right "+shiftAmount);
         let itemIndex = this.items.indexOf(item);
         let overlapCheckPosition=0;
         do {
