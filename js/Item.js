@@ -28,7 +28,7 @@ export class Item {
         this.id = Item.itemID++;
         this.startItemData = itemData;
         this.board = board;
-        setupChangeListeners(this,['damage','shield']);
+        setupChangeListeners(this,['damage','shield','burn']);
         
         Object.assign(this, this.startItemData);
         
@@ -156,13 +156,12 @@ export class Item {
         this.numTriggers = 0;
         this.effectiveBattleTime = 0;
         this.pendingMulticasts = 0;
-        this.burn = 0;
         this.poison = 0;
         this.heal = this.startItemData.heal||0;
         this.critMultiplier = 100; //default crit multiplier is 100% more damage
         this.damageMultiplier = 0; //100 gives double dmg. 200 gives triple dmg. etc.
         this.freezeBonus = 0;
-        setupChangeListeners(this,['damage','shield']);
+        setupChangeListeners(this,['damage','shield', 'burn']);
 
         this.crit = this.calculateCrit()+(this.startItemData.crit||0);
         this.freezeDurationRemaining = 0;
@@ -176,6 +175,7 @@ export class Item {
         this.value = this.startItemData.value || this.getInitialValue();
         this.damage = this.startItemData.damage||0;
         this.shield = this.startItemData.shield||0;
+        this.burn = this.startItemData.burn||0;
 
         this.multicast = 0;
         this.ammoRemaining = this.ammo;
@@ -911,22 +911,24 @@ export class Item {
         if(match) {
             const burnAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
 
-            this.burn = burnAmount;
+            this.gain(burnAmount,'burn');
             return () => {                
                 this.applyBurn(this.burn);
             };
+
         }
         //Burn equal to ( 1 » 2 ) times this item's damage.
         regex = /^Burn equal to (?:\(([^)]+)\)|(\d+)) times this item's damage/i;
         match = text.match(regex);
         if(match) {
             const burnMultiplier = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
-            this.burn = this.damage * burnMultiplier;
+            this.gain(this.damage * burnMultiplier,'burn');
             this.damageChanged((newDamage,oldDamage)=>{
                 if(newDamage != oldDamage) {
                     this.gain((newDamage-oldDamage)*burnMultiplier,'burn');
                 }
             });
+
 
             return () => {          
                 this.applyBurn(this.burn);
@@ -934,6 +936,22 @@ export class Item {
 
 
         }
+        //Increase your other items' Burn by 2. from Ruby
+        regex = /^Increase your other items' ([^\s]+)(?: chance)? by (?:\(([^)]+)\)|(\d+))\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const gainAmount = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
+            const whatToGain = match[1].toLowerCase();
+            return () => { 
+                this.board.items.forEach(item => {
+                    if(item.id != this.id) {
+                        item.gain(gainAmount,whatToGain);
+                    }
+                });
+            };
+        }
+
+
         return null;
 
     }
@@ -2354,6 +2372,25 @@ export class Item {
            this.lifesteal = parseInt(match[1]);           
            return () => {};
         }
+        //This and items to the right of this have ( +15% » +20% » +25% » +30% ) Crit Chance. from Critical Core
+        regex = /^\s*This and items to the right of this have (?:\(([^)]+)\)|\+?(\d+)%?) ([^\s]+)(?: chance)?\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const gainAmount = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
+            const whatToGain = match[3].toLowerCase();
+            for(let i=this.board.items.indexOf(this);i<this.board.items.length;i++) {
+                    this.board.items[i].gain(gainAmount,whatToGain.toLowerCase());
+            }
+            return () => {};
+        }
+        //Heal to full.
+        regex = /^\s*Heal to full\.?/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                this.board.player.heal(this.board.player.maxHealth-this.board.player.health);
+            }
+        }
 
         //This has +1 Multicast for each adjacent Property.
         //For each adjacent Vehicle, this has +1 Multicast. 
@@ -2469,16 +2506,13 @@ export class Item {
                             break;
                         case "Haste":
                             item.haste += value;
-                            break;
-                        case "Shield":
-                            item.shield += value;
-                            break;
-                        case "Burn":
-                            item.burn += value;
-                            break;
+                            break;                            
+                        default:
+                            item.gain(value,match[3].toLowerCase());
                     }
                 }
             });
+
             return () => {};            
         }
         //Freeze 1 small? item for ( 1 » 2 ) second(s)

@@ -504,5 +504,33 @@ ItemFunction.items.set("Silencer",(item)=>{
     }    
 });
 
+//Infernal Greatsword
+//Deal 2 damage.
+//Burn equal to this item's damage.
+//This gains Damage equal to your enemy's Burn for the fight.
+    ItemFunction.items.set("Infernal Greatsword",(item)=>{
+        item.damageChanged((newDamage,oldDamage)=>{
+            item.gain(newDamage-oldDamage,'burn');
+        });
+        item.gain(2,'damage');
+        item.triggerFunctions.push(()=>{
+            item.gain(item.board.player.hostileTarget.burn,'damage');
+        });
+    });
+
+    //Burn (3 >> 6 >> 9 >> 12)
+//This has + Burn equal to the Burn of your non-Fire Claw items. [0] from Fire Claw
+ItemFunction.items.set("Fire Claw",(item)=>{
+    const burnAmount = getRarityValue("3 >> 6 >> 9 >> 12",item.rarity);
+    const nonFireClawItems = item.board.items.filter(i=>!i.name.includes("Fire Claw"));
+    item.gain(burnAmount,'burn');
+    item.gain(nonFireClawItems.reduce((acc,i)=>acc+i.burn,0),'burn');
+    nonFireClawItems.forEach(i=>{
+        i.burnChanged((newBurn,oldBurn)=>{
+            item.gain(newBurn-oldBurn,'burn');
+        });
+    });
+});
+
 
 ItemFunction.setupItems();
