@@ -150,8 +150,6 @@ export function loadFromUrl(hash) {
                     }
                     
                 }
-                Board.resetBoards();
-                
             }
             delete item.pendingItemData;
         });
