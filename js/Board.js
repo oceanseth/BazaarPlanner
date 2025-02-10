@@ -301,7 +301,7 @@ class Board {
             this.player.startData = {};
             this.player.startData.gold = data.gold;
             this.player.startData.level = data.level;
-            this.player.startData.name = data.heroName;
+            this.player.startData.name = data.heroName || data.name;
             this.player.startData.maxHealth = data.maxHealth;
             this.player.startData.health = data.maxHealth;
             this.clear();
@@ -578,15 +578,12 @@ class Board {
                     if (i >= slotStart && i <= itemEnd) { //we found the item that overlaps with the new item
                         //check if we can push the item to the left
                         const openSpacesToTheLeft = this.getOpenSpacesToTheLeft(someItem,foundItem);
-                        delayedLog("Open spaces to the left: " + openSpacesToTheLeft,'openSpacesToTheLeft');
-
                         //check if we can push the item to the right
                         const openSpacesToTheRight =this.getOpenSpacesToTheRight(someItem,foundItem);
-   
+                    //    delayedLog("Open spaces to the right: " + openSpacesToTheRight,'openSpacesToTheRight');
+                    //    delayedLog("Open spaces to the left: " + openSpacesToTheLeft,'openSpacesToTheLeft');
+                        
 
-                        delayedLog("Open spaces to the right: " + openSpacesToTheRight,'openSpacesToTheRight');
-                        
-                        
                         //how much is the left side of the dragging item over the right side of someItem
                         const rightOverlap = someItem.startIndex+someItem.size - startIndex;
                         
@@ -614,17 +611,7 @@ class Board {
                             return true;
                         }
 
-
-                     
-                        
-                        
-                        
-
                         return false;
-
-
-
-
                     }
                 }
             }
