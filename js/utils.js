@@ -164,6 +164,7 @@ export function setupChangeListeners(obj,arr) {
         set: function (v) {
             const oldValue = value;
             value = v;
+            if(obj[key+"_pauseChanged"]) return;
             obj[key+"_changedMap"].forEach(f=>f(v, oldValue));
             obj[key+"_changedArray"].forEach(f=>f(v, oldValue));
         }
