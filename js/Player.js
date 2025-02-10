@@ -4,14 +4,13 @@ import { updateUrlState, setupChangeListeners } from './utils.js';
 export class Player {
     hostileTarget = null;
     constructor(name) {
+        setupChangeListeners(this, ['health','shield','maxHealth']);
         this.name = name;
         this.battleTime = 0;
         this.skills = [];
         this.maxHealth = 1000;
         this.income = 5;
         this.level = 1;
-        setupChangeListeners(this, ['health','shield']);
-
     }
 
     initialize(boardId, skillsContainer, maxHealth) {

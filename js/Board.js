@@ -183,6 +183,29 @@ class Board {
                 Board.resetBoards();
                 updateUrlState();
             };
+            skillItem.onmouseenter = (e) => {
+                const skillSelectorTooltip = document.createElement('div');
+                skillSelectorTooltip.className = 'skill-selector-tooltip';
+                const skillName = e.target.querySelector('span').textContent;
+                const skill = skills[skillName];
+                const selectedRarity = this.skillSelector.querySelector('#skill-selector-rarity').value;
+                if(skill) {
+                    skillSelectorTooltip.innerHTML = `
+                    <div class='skill-icon ${selectedRarity}' style='position:absolute; top:0px; left:-120px; width: 120px; height: 120px;'>
+                    <img src="${skill.icon}" style='box-shadow: 1px 1px 10px 1px rgba(14,14, 14, 1);'>
+                    </div>
+                    <h1>${skill.name}</h1>
+                    <p>${skill.text.split('\n').map(line => `<span>${line}</span>`).join('')}</p>
+                    `;
+                }
+
+                this.skillSelector.appendChild(skillSelectorTooltip);
+            }
+
+            skillItem.onmouseleave = (e) => {
+                this.skillSelector.querySelector('.skill-selector-tooltip').remove();
+            }
+
 
 
 
@@ -299,29 +322,36 @@ class Board {
                 itemData.enchant = Item.possibleEnchants[parseInt(item.enchantment)];
                 let newItem = new Item(items[item.name], this);
                 //this.addItem(newItem);
+                item.itemAdded = newItem;
 
-                newItem.setIndex(currentIndex);
-                if(item.attributes.DamageAmount) {
-                    newItem.startItemData.damage = item.attributes.DamageAmount;
-                }
-                if(item.attributes.Cooldown) {
-                    newItem.startItemData.cooldown = item.attributes.Cooldown/1000; //might have to do after all items are added, because other items affect it's cooldown
-                }
-                if(item.attributes.CritChance) {
-                    newItem.startItemData.crit = parseInt(item.attributes.CritChance);
-                }                            
+                newItem.setIndex(currentIndex);           
                 currentIndex += newItem.size;
             });
             data.skills.forEach(skill => {
                 this.addSkill(skill.name,{rarity:Item.rarityLevels[parseInt(skill.tier)]});
             });
+            Board.resetBoards();
+            data.hand.forEach(item => {
+                if(item.attributes.DamageAmount) {
+                    item.itemAdded.startItemData.damage = parseInt(item.attributes.DamageAmount) - item.itemAdded.damage;
+                }
+                if(item.attributes.Cooldown) {
+                    item.itemAdded.startItemData.cooldown += item.attributes.Cooldown/1000 - item.itemAdded.cooldown/1000; 
 
-
+                }
+                if(item.attributes.CritChance) {
+                    item.itemAdded.startItemData.crit = parseInt(item.attributes.CritChance) - item.itemAdded.crit;
+                }               
+                if(item.attributes.HealAmount) {
+                    item.itemAdded.startItemData.heal = parseInt(item.attributes.HealAmount) - item.itemAdded.heal;
+                }  
+                delete item.itemAdded;           
+            });
         }
         
         Board.resetBoards();
-        updateUrlState();
         window.isLoadingFromUrl = false;
+        updateUrlState();
     }
     importFromBazaarTracker() {        
         if(!window.isDoner) {
@@ -452,18 +482,91 @@ class Board {
             }
         });        
     }
+    getOpenSpacesToTheLeft(someItem,skipItem) {        
+        let openSpaces = someItem.startIndex;
+        for(let itemIndex = this.items.indexOf(someItem)-1;itemIndex>=0;itemIndex--) {
+            let itemToTheLeft = this.items[itemIndex];
+            if(itemToTheLeft!=skipItem) {
+                openSpaces -= itemToTheLeft.size;
+            }
+        }
+        return openSpaces;
+    }
+
+    getOpenSpacesToTheRight(someItem,skipItem) {
+        let openSpaces = 10 - (someItem.startIndex + someItem.size);
+        for(let itemIndex = this.items.indexOf(someItem)+1;itemIndex<this.items.length;itemIndex++) {
+            let itemToTheRight = this.items[itemIndex];
+            if(itemToTheRight!=skipItem) {                
+                openSpaces -= itemToTheRight.size;
+            }
+        }   
+        return openSpaces;
+    }
+
+    shiftItemsToTheLeft(item,shiftAmount,ignoreItem) {     
+        console.log("Shifting items from "+item.startIndex+" to the left "+shiftAmount);
+        let itemIndex = this.items.indexOf(item);
+        let overlapCheckPosition=0;
+        do {
+
+            item.startIndex -= shiftAmount;
+            item.updateElementPosition();
+            overlapCheckPosition = item.startIndex;
+            itemIndex--;
+            if(itemIndex<0) return;
+            item = this.items[itemIndex];
+            if(item==ignoreItem) {
+                itemIndex--;
+                if(itemIndex<0) return;
+                item = this.items[itemIndex];
+            }
+            shiftAmount = item.startIndex+item.size-overlapCheckPosition;
+        } while(shiftAmount>0);
+    }
+
+
+
+    shiftItemsToTheRight(item,shiftAmount,ignoreItem) {
+        console.log("Shifting items from "+item.startIndex+" to the right "+shiftAmount);
+        let itemIndex = this.items.indexOf(item);
+        let overlapCheckPosition=0;
+        do {
+
+            item.startIndex += shiftAmount;
+            item.updateElementPosition();
+            overlapCheckPosition = item.startIndex+item.size;
+            itemIndex++; 
+            if(itemIndex>=this.items.length) return;
+            item = this.items[itemIndex];     
+            if(item==ignoreItem) {
+                itemIndex++; 
+                if(itemIndex>=this.items.length) return;
+                item = this.items[itemIndex];     
+            }
+            shiftAmount = overlapCheckPosition-item.startIndex;
+        } while (shiftAmount>0);
+
+    }
+
+
 
     isValidPlacement(startIndex, draggingElement) {
+
         if (startIndex + parseInt(draggingElement.dataset.size) > 10 || startIndex < 0) return false;
         
         const existingItems = this.items;
-        
+        let foundItem = null;
         const itemsToCheck = existingItems.filter(someItem => {
+            if(someItem.element==draggingElement) {
+                foundItem = someItem;
+            }
             return someItem.element !== draggingElement;
         });
-        
+        const draggingElementSize = parseInt(draggingElement.dataset.size);
+
         // Check each slot that would be occupied by the new item
-        for (let i = startIndex; i < startIndex + parseInt(draggingElement.dataset.size); i++) {
+        for (let i = startIndex; i < startIndex + draggingElementSize; i++) {
             // Check if any existing item overlaps with this slot
             for (const someItem of itemsToCheck) {
                 const slotStart = someItem.startIndex;
@@ -472,8 +575,56 @@ class Board {
                 if (!isNaN(slotStart) && !isNaN(slotSize)) {
                     // Check if there's any overlap between the existing item and the slot we're checking
                     const itemEnd = slotStart + slotSize - 1;
-                    if (i >= slotStart && i <= itemEnd) {
+                    if (i >= slotStart && i <= itemEnd) { //we found the item that overlaps with the new item
+                        //check if we can push the item to the left
+                        const openSpacesToTheLeft = this.getOpenSpacesToTheLeft(someItem,foundItem);
+                        delayedLog("Open spaces to the left: " + openSpacesToTheLeft,'openSpacesToTheLeft');
+
+                        //check if we can push the item to the right
+                        const openSpacesToTheRight =this.getOpenSpacesToTheRight(someItem,foundItem);
+   
+
+                        delayedLog("Open spaces to the right: " + openSpacesToTheRight,'openSpacesToTheRight');
+                        
+                        
+                        //how much is the left side of the dragging item over the right side of someItem
+                        const rightOverlap = someItem.startIndex+someItem.size - startIndex;
+                        
+                        //how much is the right side of the dragging item over the left side of someItem
+                        const leftOverlap = startIndex+draggingElementSize-(someItem.startIndex);
+                        if(rightOverlap<leftOverlap && openSpacesToTheLeft>=rightOverlap) {
+                            //we can push the item to the left) {
+                                this.shiftItemsToTheLeft(someItem,rightOverlap,foundItem);
+                                return true;
+                        } else {
+                            //we can push the item to the right
+                            if(openSpacesToTheRight>=draggingElementSize + (startIndex-someItem.startIndex)) {
+                                this.shiftItemsToTheRight(someItem, leftOverlap,foundItem);
+                                return true;
+                            }
+                        }
+
+                        if(openSpacesToTheLeft>=rightOverlap) {
+                            this.shiftItemsToTheLeft(someItem, rightOverlap,foundItem);
+                            return true;
+                        }
+  
+                        if(openSpacesToTheRight>=leftOverlap) {
+                            this.shiftItemsToTheRight(someItem,rightOverlap,foundItem);
+                            return true;
+                        }
+
+
+                     
+                        
+                        
+                        
+
                         return false;
+
+
+
+
                     }
                 }
             }
@@ -567,6 +718,7 @@ class Board {
                let newItem = new Item(itemData, targetBoard);
                 newItem.setIndex(startIndex);
             }
+            targetBoard.sortItems();
             Board.resetBoards();
             updateUrlState();
         }
@@ -641,8 +793,11 @@ class Board {
         const draggedElement = e.currentTarget;
         e.dataTransfer.setDragImage(draggedElement, 0, draggedElement.offsetHeight / 2);
         draggedElement.classList.add('dragging');
-        
+        document.querySelectorAll('.board-slot').forEach(slot => {
+            slot.classList.add('dragtarget');
+        });
         // Use requestAnimationFrame to modify the element after the drag has started
+
         requestAnimationFrame(() => {
             draggedElement.style.opacity = '0';
             draggedElement.style.pointerEvents = 'none';
@@ -664,10 +819,11 @@ class Board {
         draggedElement.style.pointerEvents = '';  // Reset to default
         draggedElement.style.zIndex = '';  // Reset to default
         
-        document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
-            element.classList.remove('valid-drop', 'invalid-drop', 'dragging');
+        document.querySelectorAll('.valid-drop, .invalid-drop, .dragging, .dragtarget').forEach(element => {
+            element.classList.remove('valid-drop', 'invalid-drop', 'dragging', 'dragtarget');
         });
     
+
         
         deleteZone.style.display = 'none';
 
