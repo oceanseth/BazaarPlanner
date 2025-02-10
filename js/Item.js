@@ -1181,6 +1181,19 @@ export class Item {
             };
 
         }
+        //Your Shield items gain Shield equal to this item's value for the fight.
+        regex = /^Your Shield items gain Shield equal to this item's value for the fight\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return ()=>{
+                this.board.items.forEach(item => {
+                    if(item.tags.includes("Shield") || item.enchant=='Shielded') {
+                        item.gain(this.value,'shield');
+                    }
+                });
+            };
+        }
+
 
 
         //Shield equal to this item's value
@@ -1806,6 +1819,7 @@ export class Item {
                 case "sell another non-weapon item":
                 case "sell a large item":
                 case "win a fight against a Monster with this":
+                case "gain gold":
                     return;
 
             }

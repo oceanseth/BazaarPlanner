@@ -531,6 +531,13 @@ ItemFunction.items.set("Fire Claw",(item)=>{
         });
     });
 });
+//You have ( +50% » +75% » +100% ) Max Health. from Belt
+ItemFunction.items.set("Belt",(item)=>{
+    const amount = getRarityValue("50 >> 75 >> 100",item.rarity);
+    //item.board.player.maxHealth += item.board.player.maxHealth*amount/100;
+    //need to make some way to undo this between resets of it
+    
+});
 
 
 ItemFunction.setupItems();
