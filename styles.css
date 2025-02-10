@@ -1197,10 +1197,9 @@ background-color: rgba(255, 0, 0, 0.2);
 
 
 #poll {
-    position: fixed;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 5%;
+    top: 100px;
     z-index: 1000;
     background-color: white;
     padding: 20px;
