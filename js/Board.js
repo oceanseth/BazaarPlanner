@@ -314,9 +314,6 @@ class Board {
                     console.log("Item not found: " + item.name);
                     return;
                 }
-                if(item.attributes) {
-                    itemData.attributes = item.attributes;
-                }
 
                 itemData.rarity = ["Bronze","Silver","Gold","Diamond","Legendary"][parseInt(item.tier)];
                 itemData.enchant = Item.possibleEnchants[parseInt(item.enchantment)];
@@ -344,10 +341,14 @@ class Board {
                 }               
                 if(item.attributes.HealAmount) {
                     item.itemAdded.startItemData.heal = parseInt(item.attributes.HealAmount) - item.itemAdded.heal;
-                }  
+                }
+                if(item.attributes.ShieldApplyAmount) {
+                    item.itemAdded.startItemData.shield = parseInt(item.attributes.ShieldApplyAmount) - item.itemAdded.shield;
+                }
                 delete item.itemAdded;           
             });
         }
+
         
         Board.resetBoards();
         window.isLoadingFromUrl = false;
