@@ -134,17 +134,17 @@ export class Player {
         if(this.battleTime%500==0 && this.burn > 0) { // Burn damage every 500ms
 
             dmg = this.takeDamage(this.burn, .5, true);
-            log( this.name + " has "+this.burn+" burn and burns for " + dmg);
+            log( this.name + " has "+this.burn.toFixed(0)+" burn and burns for " + dmg.toFixed(0));
             this.burn--;
         }
         if(this.battleTime%1000==0 && this.poison > 0) { // Poison damage every 1000ms  
             this.takeDamage(this.poison, 1, true);
-            log( this.name + " takes " + this.poison + " damage from poison.");
+            log( this.name + " takes " + this.poison.toFixed(0) + " damage from poison.");
         }
 
         if(this.battleTime%1000==0 && this.regen > 0) { // Regen health every 1000ms
             this.health += this.regen;
-            log( this.name + " regens " + this.regen + " health.");
+            log( this.name + " regens " + this.regen.toFixed(0) + " health.");
         }
 
         if(this.fellBelowHalfHealth && this.health >= this.maxHealth/2) {            

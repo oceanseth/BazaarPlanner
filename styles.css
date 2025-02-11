@@ -54,8 +54,8 @@ body {
 .list-item {
     display: flex;
     align-items: center;
-    padding: 10px;
-    margin: 5px 0;
+    padding: 0px;
+    margin: 1px 0;
     background: #f8f8f8;
     border-radius: 4px;
     cursor: pointer;
@@ -69,7 +69,18 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-
+.list-item img {
+    width: 20px;
+    height: 32px;
+    vertical-align: middle;
+    border-radius: 5px;
+}
+.list-item img.Medium {
+    width: 40px;
+}
+.list-item img.Large {
+    width: 60px;
+}
 
 .board {
     position: relative;
@@ -92,6 +103,7 @@ body {
     top: 2px;
     z-index:1000;
     pointer-events: none;
+    touch-action: none;
    /* border-right: 1px solid #ddd;
    */
     box-sizing: border-box;
@@ -277,13 +289,6 @@ button:active {
 #simulator-itemsList {
     height: 100%;
     overflow-y: scroll;
-}
-
-.list-item img {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-    vertical-align: middle;
 }
 
 @keyframes tooltip-slide-down {

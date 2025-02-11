@@ -22,6 +22,9 @@ export function colorTextArray(textArray, rarityIndex) {
 }
 
 export function getRarityValue(valueString, rarity) {
+    if(valueString[0]=='(') {
+        valueString = valueString.slice(1,-1);
+    }
     // Parse values (e.g., "1 » 2 » 3 » 4" or "1 >> 2" into [1, 2, 3, 4] or [1, 2] )
     const values = valueString.split(/[»>]+/).map(v => parseFloat(v.trim()));
     

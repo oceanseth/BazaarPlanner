@@ -119,10 +119,17 @@ export class Battle {
 
     battleFunction = () => {
         const playersWithPositiveHealth = this.players.filter(player => player.health > 0);
-        if(playersWithPositiveHealth.length == 1) {
+        if(playersWithPositiveHealth.length <= 1) {
             clearInterval(this.battleInterval);
-
-            this.battleOverFunction(playersWithPositiveHealth[0]);
+            if(playersWithPositiveHealth.length == 0) {
+                this.log("Battle ended in a draw.");
+                this.updateCombatLogDisplay();
+                this.battleOverFunction(null);
+            } else {
+                this.log(playersWithPositiveHealth[0].name + " wins!");
+                this.updateCombatLogDisplay();
+                this.battleOverFunction(playersWithPositiveHealth[0]);
+            }
             return;
         }
         this.battleTimeDiff += this.battleIntervalSpeed;

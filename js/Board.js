@@ -43,6 +43,8 @@ class Board {
             
             slot.addEventListener('dragover', (e) => this.handleSlotDragOver(e, this));
             slot.addEventListener('drop', (e) => this.handleSlotDrop(e, this));
+            slot.addEventListener('touchmove', (e) => this.handleTouchMove(e, this));
+            slot.addEventListener('touchend', (e) => this.handleTouchEnd(e, this));
             
             this.element.appendChild(slot);
             this.slots.push(slot);
@@ -636,6 +638,40 @@ class Board {
         // Get the correct board instance for the slot being hovered over        
         board.updateDropPreview(slot, startIndex, draggingElement);
     }
+    
+    handleTouchMove(touchEvent, board) {
+        touchEvent.preventDefault(); // Prevent scrolling
+        const touch = touchEvent.touches[0];
+        const element = document.elementFromPoint(touch.clientX, touch.clientY);
+        
+        // Create synthetic dragover event
+        const syntheticEvent = {
+            preventDefault: () => {},
+            target: element,
+            dataTransfer: {
+                dropEffect: 'move'
+            }
+        };
+        
+        this.handleSlotDragOver(syntheticEvent, board);
+    }
+
+    handleTouchEnd(touchEvent, board) {
+        touchEvent.preventDefault();
+        const touch = touchEvent.changedTouches[0];
+        const element = document.elementFromPoint(touch.clientX, touch.clientY);
+        
+        // Create synthetic drop event
+        const syntheticEvent = {
+            preventDefault: () => {},
+            target: element,
+            dataTransfer: {
+                dropEffect: 'move'
+            }
+        };
+        
+        this.handleSlotDrop(syntheticEvent, board);
+    }
 
     updateDropPreview(slot, startIndex, draggingElement) {
         // Clear all preview classes first
@@ -799,7 +835,29 @@ class Board {
         
         deleteZone.style.display = 'block';
     }
+    static handleTouchStart(touchEvent) {
+        touchEvent.preventDefault();
+        const element = touchEvent.currentTarget;
+        
+        // Create synthetic dragstart event
+        const syntheticEvent = {
+            preventDefault: () => {},
+            currentTarget: element,
+            dataTransfer: {
+                setDragImage: () => {}
+            }
+        };
+        
+        Board.handleDragStart(syntheticEvent);
+    }
 
+    static handleTouchEnd(touchEvent) {
+        const syntheticEvent = {
+            currentTarget: touchEvent.currentTarget
+        };
+        
+        Board.handleDragEnd(syntheticEvent);
+    }
     static handleDragEnd(e) {
         const draggedElement = e.currentTarget;
         // Restore original element properties

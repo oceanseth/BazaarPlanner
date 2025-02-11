@@ -32,8 +32,11 @@ topPlayer.initialize('inventory-board', 'topPlayerSkills', 1000);
 bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', 1000);
 //      initializeMonsterSearch();
 window.mainBattle = new Battle([topPlayer, bottomPlayer], (winner) => {
-    console.log(winner.name + " wins!");
-    alert(winner.name + " wins!");
+    if(winner) {
+        alert(winner.name + " wins!");
+    } else {
+        alert("Battle ended in a draw.");
+    }
 }, $("#combat-log"));
 window.log = (s) => { mainBattle.log(s) };
 window.lastLogTimes = new Map();
@@ -341,13 +344,15 @@ function createListItem(data) {
     item.draggable = true;
     item.setAttribute('data-name', data.name);
     item.setAttribute('data-item', JSON.stringify(data));
+    const sizeString = data.tags.find(tag => ['Small', 'Medium', 'Large'].includes(tag)) || 'Small';
     if(data.tags) {
-        item.setAttribute('data-size', getSizeValue(data.tags.find(tag => ['Small', 'Medium', 'Large'].includes(tag)) || 'Small'));
+        item.setAttribute('data-size', getSizeValue(sizeString));
     }
     if (data.icon) {
         const icon = document.createElement('img');
         icon.src = data.icon;
         icon.style.marginRight = '10px';
+        icon.classList.add(sizeString);
         item.appendChild(icon);
     }
     
