@@ -6,7 +6,7 @@ export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny', 'Tiny', 'Toxic', 'Turbo' ];
-    static possibleChangeAttributes = ['damage','shield','burn'];
+    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo'];
     static itemID = 0;
     
     pickRandom(...args) {
@@ -124,6 +124,20 @@ export class Item {
 
         if(this.lifesteal > 0) this.damageElement.classList.add('lifesteal');
         else this.damageElement.classList.remove('lifesteal');
+        if(this.maxAmmo) {
+            this.ammoElement.style.display ='block';
+            const maxAmmoDots = this.size*60/15;
+            if(this.maxAmmo>maxAmmoDots) {
+                this.ammoElement.innerHTML = '<div class="ammo-icon ammo-icon-empty"></div>'.repeat(Math.max(0,maxAmmoDots-this.ammo)) +
+                '<div class="ammo-icon ammo-icon-full"></div>'.repeat(Math.min(this.ammo,maxAmmoDots));
+            } else {
+                this.ammoElement.innerHTML = '<div class="ammo-icon ammo-icon-empty"></div>'.repeat(this.maxAmmo-this.ammo) +
+                '<div class="ammo-icon ammo-icon-full"></div>'.repeat(this.ammo);
+            }
+            const ammoWidth = Math.min(this.size*60, this.maxAmmo*15);
+            this.ammoElement.style.width= `${ammoWidth}px`;            
+        }
+        else this.ammoElement.style.display = 'none';
 
         this.priceTagElement.textContent = Number(this.value).toFixed(0);
     }
@@ -177,7 +191,8 @@ export class Item {
         this.burn = this.startItemData.burn||0;
 
         this.multicast = 0;
-        this.ammoRemaining = this.ammo;
+        this.maxAmmo = this.startItemData.ammo||0;
+        this.ammo = this.maxAmmo;
 
         this.triggerFunctions = [];
         this.adjacentItemTriggers = []; //functions to call when any item adjacent to this item is triggered
@@ -220,6 +235,7 @@ export class Item {
             <div class="heal-element"></div>
             <div class="shield-element"></div>
             <div class="multicast-element"></div>
+            <div class="ammo-element"></div>
             </div>
             <div class="price-tag"></div>
         </div>`;        
@@ -230,7 +246,7 @@ export class Item {
         this.healElement = this.triggerValuesElement.querySelector('.heal-element');
         this.shieldElement = this.triggerValuesElement.querySelector('.shield-element');
         this.multicastElement = this.triggerValuesElement.querySelector('.multicast-element');
-
+        this.ammoElement = this.triggerValuesElement.querySelector('.ammo-element');
         mergedSlot.className = 'merged-slot';
         
         // Add classes for each tag
@@ -468,7 +484,7 @@ export class Item {
                 this.isSlowed = 0;
             }
         }
-        if(this.ammo && this.ammoRemaining<=0 && this.numTriggers < Math.floor((effectiveTimeDiff+this.effectiveBattleTime) / this.cooldown)) {
+        if(this.maxAmmo && this.ammo<=0 && this.numTriggers < Math.floor((effectiveTimeDiff+this.effectiveBattleTime) / this.cooldown)) {
             //don't progress battle time if no ammo is remaining and the item is ready to trigger
             return;
         }
@@ -478,8 +494,8 @@ export class Item {
         this.updateProgressBar(progress);
 
         const newTriggers = Math.floor(this.effectiveBattleTime / this.cooldown);
-        if (newTriggers > this.numTriggers && (!this.ammo || this.ammoRemaining>0)) {
-            if(this.ammo) this.ammoRemaining--;
+        if (newTriggers > this.numTriggers && (!this.maxAmmo || this.ammo>0)) {
+            if(this.maxAmmo) this.ammo--;
             if(this.multicast>0) {
                 this.pendingMulticasts+=parseInt(this.multicast);    
             }
@@ -504,10 +520,13 @@ export class Item {
         }
         return false;
     }
-
+    applyDamage(damage) {
+        this.dealDamage(damage);
+    }
     dealDamage(damage) {
         let doesCrit = this.doICrit();
         // Handle critical hits using itemData.crit (0-100) instead of critChance
+
         if (doesCrit) {
             damage *= (1+this.critMultiplier/100);
         }
@@ -1641,8 +1660,7 @@ export class Item {
                             useAWeaponFunction(item);
                         }
                     });
-                    return;
-
+                    return;                   
                 case "use another non-weapon item":
                 case "use a non-weapon item":
                     const useAnotherNonWeaponItemFunction = this.getTriggerFunctionFromText(textAfterComma);
@@ -1655,6 +1673,17 @@ export class Item {
                     return;
                 case "use an adjacent item":
                     this.adjacentItemTriggers.push(this.getTriggerFunctionFromText(textAfterComma));
+                    return;
+                case "use another weapon or haste":
+                    const useAnotherWeaponOrHasteFunction = this.getTriggerFunctionFromText(textAfterComma);
+                    this.board.itemTriggers.set(this.id, (item) => {
+                        if(item.id!==this.id&&(item.tags.includes("Weapon"))) {
+                            useAnotherWeaponOrHasteFunction(item);
+                        }
+                    });
+                    this.board.hasteTriggers.set(this.id, (item) => {
+                            useAnotherWeaponOrHasteFunction(item);
+                    });
                     return;
                 case "use the item to the right of this":
                     const rightItem = this.getItemToTheRight();
@@ -2129,6 +2158,28 @@ export class Item {
 
     getAnonymousTriggerFunctionFromText(text) {        
         let regex,match;
+        const skipStrings = ["At the start of each day"];
+        for(let i=0;i<skipStrings.length;i++) { 
+            if(text.includes(skipStrings[i])) {
+                return ()=>{};
+            }
+        }
+
+   
+        //Shield equal to this item's Ammo.
+        regex = /^(Deal )?([^s]+) equal to this item's Ammo\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            this.ammoChanged((newAmmo,oldAmmo)=>{
+                this['apply'+tagToMatch](newAmmo-oldAmmo);
+            });
+            return () => {
+                this['apply'+tagToMatch](this[tagToMatch.toLowerCase()]);
+            }
+
+        }
+
         //charge this 1 second(s) OR charge this ( 1 » 2 » 3 ) second(s)
         regex = /^\s*charge this (?:\(([^)]+)\)|(\d+)) second\(?s?\)?/i;
         match = text.match(regex);
@@ -2203,16 +2254,21 @@ export class Item {
                 leftmostWeapon.gain(leftmostWeapon.damage,'damage');
             }
         }
-        //Burn equal to 10% of this item's damage.
-        regex = /^\s*(Burn|Poison|Heal) equal to 10% of this item's damage\.?/i;
+        
+         //Burn equal to 10% of this item's damage.
+        regex = /^\s*(?:Deal )?(Burn|Poison|Heal|Shield|Damage) equal to (10% of|10 times) this item's ([^s]+)\./i;
         match = text.match(regex);
         if(match) {
             const whatToGain = match[1];
             const whatToGainLowercase = whatToGain.toLowerCase();
-            this.gain(this.damage*0.1,whatToGainLowercase);
-            this.damageChanged((newDamage,oldDamage)=>{
-                this.gain((newDamage - oldDamage) *.1,whatToGainLowercase);
+            const multiplier = match[2]=='10% of'?0.1:10;
+            const whatToCheck = match[3].toLowerCase();
+            this.gain(this[whatToCheck]*multiplier, whatToGainLowercase);
+
+            this[whatToCheck+"Changed"]((newValue,oldValue)=>{
+                this.gain((newValue - oldValue) *multiplier, whatToGainLowercase);
             });
+
             return () => {
                 this["apply"+whatToGain](this[whatToGainLowercase]);
             };
@@ -2315,7 +2371,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             return () => {
-                this.ammoRemaining = this.ammo;
+                this.ammo = this.maxAmmo;
                 log(this.name + " reloaded");
             }
         }
@@ -2344,9 +2400,9 @@ export class Item {
             return () => {
                 const rightItem = this.getItemToTheRight();
                 if(rightItem&&rightItem.tags.includes("Ammo")) {
-                    rightItem.ammoRemaining += ammo;
-                    if(rightItem.ammoRemaining>rightItem.ammo) {
-                        rightItem.ammoRemaining = rightItem.ammo;
+                    rightItem.ammo += ammo;
+                    if(rightItem.ammo>rightItem.maxAmmo) {
+                        rightItem.ammo = rightItem.maxAmmo;
                     } else {
                         log(this.name + " gave " + rightItem.name + " " + ammo + " Ammo");
                     }                    
@@ -2360,7 +2416,7 @@ export class Item {
             const maxAmmo = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             this.getAdjacentItems().forEach(item => {
                 item.ammo +=maxAmmo;
-                item.ammoRemaining += maxAmmo;
+                item.maxAmmo += maxAmmo;
             });
             return () => {};
         }
@@ -2585,17 +2641,18 @@ export class Item {
             };
         }
 
-
+        //Adjacent items have ( +15% » +30% » +50% ) Crit Chance. from Sextant
         //Adjacent items have ( +3% » +6% » +9% » +12% ) Crit chance
-        regex = /^Adjacent items have \(\s*\+?(\d+)%\s*»\s*\+?(\d+)%\s*»\s*\+?(\d+)%\s*»\s*\+?(\d+)%\s*\) Crit chance/i;
+        regex = /^Adjacent items have (?:\(([^)]+)\)|\+?(\d+)%?) Crit chance\.?/i;
         match = text.match(regex);
         if(match) {
-            const critGain = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);
+            const critGain = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
             this.getAdjacentItems().forEach(item => {
                 item.gain(critGain,'crit');
             });
             return ()=>{};
         }
+
 
         //Adjacent items have their cooldown reduced by ( 10% » 15% » 20% » 25% ).
         regex = /^Adjacent items have their cooldown reduced by (?:\(\s*(\d+)%(?:\s*»\s*(\d+)%)*\s*\)|(\d+)%)\.?$/i;
@@ -2654,7 +2711,7 @@ export class Item {
 
         //Burn items to the right of this gain ( 1 » 2 » 3 » 4 ) Burn for the fight
 
-        regex = /^([^\s]+) items to the right of this gain (?:\(([^)]+)\)|(\d+)) ([^\s]+).*/i;
+        regex = /^(:?the )?([^\s]+)(:? item)?s? to the right of this gains? (?:\(([^)]+)\)|(\d+)) ([^\s]+).*/i;
         match = text.match(regex);
 
         if(match) {
@@ -2728,6 +2785,16 @@ export class Item {
                     }
 
                 });
+            }
+        }
+        //a weapon gains (  +5  » +10  » +15  » +20   ) damage for the fight.
+        regex = /^a ([^\s]+)(?: item)? gains (?:\(([^)]+)\)|(\d+)) ([^\s]+) for the fight\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const gainAmount = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
+            return () => {
+                this.board.items.pickRandom().gain(gainAmount,match[4].toLowerCase());
             }
         }
         //this gains Shield equal to the value of that item for the fight
@@ -2851,8 +2918,8 @@ export class Item {
             const gainAmount = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
             const matchingItem = this.board.items.filter(item => item.tags.includes("Ammo")).sort((a,b) => a.startIndex - b.startIndex)[0];
             if(matchingItem) {
-                matchingItem.ammoRemaining += gainAmount;
-                matchingItem.ammo +=gainAmount;
+                matchingItem.maxAmmo += gainAmount;
+                matchingItem.ammo = matchingItem.maxAmmo;
             }
             return ()=>{};
 
