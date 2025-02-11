@@ -103,6 +103,7 @@ body {
     top: 2px;
     z-index:1000;
     pointer-events: none;
+    touch-action: none;
    /* border-right: 1px solid #ddd;
    */
     box-sizing: border-box;

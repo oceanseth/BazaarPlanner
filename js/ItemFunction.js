@@ -496,11 +496,10 @@ ItemFunction.items.set("Silencer",(item)=>{
         weapons[0].gain(weapons[0].cooldown*(100-cooldownReduction)/100 - weapons[0].cooldown,'cooldown');
     }
     if(weapons.length>0 && weapons[0].startIndex < item.startIndex) {
-        let leftWeapon=weapons[0];
-        for(let i=0;i<weapons.length&&weapons[i].startIndex < item.startIndex;i++) {
-            leftWeapon=weapons[i];                        
+        let leftWeapon=item.getItemToTheLeft();
+        if(leftWeapon) {
+            leftWeapon.gain(dmgGain,'damage');
         }
-        leftWeapon.gain(dmgGain,'damage');
     }    
 });
 
