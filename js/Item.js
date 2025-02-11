@@ -77,6 +77,7 @@ export class Item {
         this.element.classList.add('destroyed');
         log(source.name + " destroyed " + this.name);
         this.board.itemDestroyedTriggers.forEach(func => func(this,source));
+        this.board.itemValuesChangedTriggers.forEach(func => func(this,source));
     }
 
     canBeFrozen() {
