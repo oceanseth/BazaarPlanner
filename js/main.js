@@ -344,13 +344,15 @@ function createListItem(data) {
     item.draggable = true;
     item.setAttribute('data-name', data.name);
     item.setAttribute('data-item', JSON.stringify(data));
+    const sizeString = data.tags.find(tag => ['Small', 'Medium', 'Large'].includes(tag)) || 'Small';
     if(data.tags) {
-        item.setAttribute('data-size', getSizeValue(data.tags.find(tag => ['Small', 'Medium', 'Large'].includes(tag)) || 'Small'));
+        item.setAttribute('data-size', getSizeValue(sizeString));
     }
     if (data.icon) {
         const icon = document.createElement('img');
         icon.src = data.icon;
         icon.style.marginRight = '10px';
+        icon.classList.add(sizeString);
         item.appendChild(icon);
     }
     

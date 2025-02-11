@@ -1061,6 +1061,12 @@ export class Item {
         }
         
         switch(type.toLowerCase()) {
+            case 'ammo':
+                this.ammo += amount;
+                if(this.ammo>this.maxAmmo) {
+                    this.ammo = this.maxAmmo;
+                }
+                break;
             case 'value':
                 this.value += amount;
                 this.board.itemValuesChangedTriggers.forEach(func => func(this));
@@ -1662,6 +1668,22 @@ export class Item {
                         }
                     });
                     return;                   
+                case "use another ammo item":
+                    const useAnotherAmmoItemFunction = this.getTriggerFunctionFromText(textAfterComma);
+                    this.board.itemTriggers.set(this.id, (item) => {
+                        if(item.id !== this.id && item.tags.includes("Ammo")) {
+                            useAnotherAmmoItemFunction(item);
+                        }
+                    });
+                    return;
+                case "crit with another item":
+                    const critWithAnotherItemFunction = this.getTriggerFunctionFromText(textAfterComma);
+                    this.board.critTriggers.set(this.id, (item) => {
+                        if(item.id !== this.id) {
+                            critWithAnotherItemFunction(item);
+                        }
+                    });
+                    return;
                 case "use another non-weapon item":
                 case "use a non-weapon item":
                     const useAnotherNonWeaponItemFunction = this.getTriggerFunctionFromText(textAfterComma);
@@ -2168,12 +2190,13 @@ export class Item {
 
    
         //Shield equal to this item's Ammo.
-        regex = /^(Deal )?([^s]+) equal to this item's Ammo\.?$/i;
+        regex = /^(?:Deal )?([^\s]+) equal to this item's Ammo\.?$/i;
         match = text.match(regex);
         if(match) {
             const tagToMatch = Item.getTagFromText(match[1]);
+            this.gain(this.ammo,tagToMatch.toLowerCase());
             this.ammoChanged((newAmmo,oldAmmo)=>{
-                this['apply'+tagToMatch](newAmmo-oldAmmo);
+                this.gain(newAmmo-oldAmmo,tagToMatch.toLowerCase());
             });
             return () => {
                 this['apply'+tagToMatch](this[tagToMatch.toLowerCase()]);
@@ -2221,7 +2244,22 @@ export class Item {
             }
             return () => {};
         }
-
+        //When one of your items run out of ammo, Charge this 1 second(s).
+        regex = /^\s*When one of your items run out of ammo, (.*)/i;
+        match = text.match(regex);
+        if(match) {
+            const f = this.getTriggerFunctionFromText(match[1]);
+            this.board.items.forEach(item => {
+                if(item.tags.includes("Ammo")) {
+                    item.ammoChanged((newAmmo,oldAmmo)=>{
+                        if(newAmmo<=0) {
+                            f();
+                        }
+                    });
+                }
+            });
+            return () => {};
+        }
         //Charge 1 item 1 second(s). into a trigger function.
         //Charge 1 Weapon 1 second(s). into a trigger function.
         regex = /^\s*Charge (\d+|a) ([^\s]+) (?:item)?\s*(?:for)?\s*(?:by)?\s*(?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
@@ -2421,6 +2459,19 @@ export class Item {
             });
             return () => {};
         }
+
+        //Reload adjacent Ammo items ( 1 » 2 » 3 ) Ammo. from Ramrod
+        regex = /^\s*Reload adjacent Ammo items (?:\(([^)]+)\)|(\d+)) Ammo\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const ammo = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
+            return () => {
+                this.getAdjacentItems().forEach(item => {
+                    item.gain(ammo,'ammo');
+                });
+            };
+        }
+
         //remove freeze from your items
         regex = /^\s*remove freeze from your items/i;
         match = text.match(regex) ;
