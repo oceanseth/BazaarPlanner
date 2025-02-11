@@ -1034,7 +1034,7 @@ export class Item {
         if (itemIndex > 0) {
             const leftItem = this.board.items[itemIndex-1];
             if(leftItem.startIndex + leftItem.size == this.startIndex) {
-                return leftItem; //if the left item is directly adjacent to this item, return it
+                return !leftItem.isDestroyed; //if the left item is directly adjacent to this item, return it
             }
         } 
         return null;
@@ -1045,7 +1045,7 @@ export class Item {
         if (itemIndex < this.board.items.length - 1) {
             const rightItem = this.board.items[itemIndex + 1];
             if(this.startIndex + this.size == rightItem.startIndex) {
-                return rightItem; //if the right item is directly adjacent to this item, return it
+                return !rightItem.isDestroyed; //if the right item is directly adjacent to this item, return it
             }
         } 
         return null;
