@@ -3,6 +3,24 @@ import { Board } from './Board.js';
 import { Item } from './Item.js';
 import { Skill } from './Skill.js';
 
+
+export function colorTextArray(textArray, rarityIndex) {
+    return Array.isArray(textArray) ? 
+        textArray.map(line => {
+            // Match patterns like ( X » Y » Z » W )
+
+            return line.replace(/\(\s*((?:[^»)]+\s*»\s*)*[^»)]+)\s*\)/g, (match, values) => {
+                const parts = values.split('»').map(s => s.trim());
+                const selectedValue = parts[Math.min(rarityIndex, parts.length - 1)];
+                return `(${parts.map((val, i) => 
+                    i+(4-parts.length) === rarityIndex ? `<b class="rarity-${Item.rarityLevels[rarityIndex]}">${val}</b>` : val
+                ).join(' » ')})`;
+            });
+        }).join('<br>') : 
+
+        (textArray || '');
+}
+
 export function getRarityValue(valueString, rarity) {
     // Parse values (e.g., "1 » 2 » 3 » 4" or "1 >> 2" into [1, 2, 3, 4] or [1, 2] )
     const values = valueString.split(/[»>]+/).map(v => parseFloat(v.trim()));
@@ -44,7 +62,7 @@ export function updateUrlState() {
             }
         }
         Item.possibleChangeAttributes.forEach(attribute=>{
-            if(item[attribute] != undefined && item[attribute] != 0) {
+            if(item[attribute] != undefined && item[attribute] != baseItem[attribute]) {
                 toReturn[attribute] = item[attribute];
             }
         });
@@ -69,28 +87,28 @@ export function updateUrlState() {
 
     // Compress the JSON string using LZ compression
     const stateStr = LZString.compressToEncodedURIComponent(JSON.stringify(boardState));
-    window.history.replaceState(null, '', `#${stateStr}`);
+    window.history.pushState({state: stateStr}, '', `#${stateStr}`);
 }
-export function colorTextArray(textArray, rarityIndex) {
-    return Array.isArray(textArray) ? 
-        textArray.map(line => {
-            // Match patterns like ( X » Y » Z » W )
+window.addEventListener('popstate', () => {
+    loadFromUrl();  // This will load the state from the current URL hash
+});
+window.addEventListener('load', () => {
+    const initialHash = window.location.hash.slice(1);
+    if (initialHash) {
+        // Replace the initial history entry and then immediately create a new one
+        window.history.replaceState(null, '', '/'); // Clear the initial entry
+        window.history.pushState({state: initialHash}, '', `#${initialHash}`);
+        loadFromUrl(initialHash);
+    }
+});
 
-            return line.replace(/\(\s*((?:[^»)]+\s*»\s*)*[^»)]+)\s*\)/g, (match, values) => {
-                const parts = values.split('»').map(s => s.trim());
-                const selectedValue = parts[Math.min(rarityIndex, parts.length - 1)];
-                return `(${parts.map((val, i) => 
-                    i+(4-parts.length) === rarityIndex ? `<b class="rarity-${Item.rarityLevels[rarityIndex]}">${val}</b>` : val
-                ).join(' » ')})`;
-            });
-        }).join('<br>') : 
-
-        (textArray || '');
-}
 export function loadFromUrl(hash) {
     if(!hash) hash = window.location.hash.slice(1); // Remove the # symbol
     if (!hash) return;
     window.isLoadingFromUrl = true;
+    Board.boards.forEach(board=>{
+        board.clear();
+    });
     try {
         if(hash.length < 10) {
             firebase.database().ref('tinyurls/'+parseInt(hash, 36)).once('value').then(snapshot => {

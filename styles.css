@@ -1001,6 +1001,32 @@ button:active {
     font-size: 10px;
     padding: 2px 4px;
 }
+.ammo-element {
+    position: absolute;
+    top: 115px;  /* 20px (height of trigger-values) + 10px spacing */
+    left: 50%;
+    transform: translateX(-50%);  /* Centers the element horizontally */
+    padding: 5px 10px;
+    background-size: 100% 100%;
+    background-color:rgb(85, 49, 2);
+    border:1px solid #000;
+    border-radius:15px;
+    height:15px;
+}
+.ammo-icon {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background-image: url('/images/fromBT/skill_tier_bronze.png');
+    background-size: 100% 100%;
+}
+.ammo-icon-empty {
+    background-color:none;   
+}
+.ammo-icon-full {
+    background-color:gold;
+    border-radius: 50%;
+}
 .freeze-element {
     position: absolute;
     top: calc(50% - 20px);
@@ -1170,19 +1196,26 @@ background-color: rgba(255, 0, 0, 0.2);
     overflow-y: scroll;
 }
 .skill-selector-item {
-    height: 25px;
-    line-height: 25px;
+    height: 35px;
     padding:0px;
     margin:0px;
     cursor: pointer;
     text-align: left;
+    display: flex;
+    align-items: center;
 }
 .skill-selector-item:hover {
     background-color: #f0f0f0;
 }
+
 .skill-selector-item img {
-    width: 20px;
-    height: 20px;
+    width: 35px;
+    height: 35px;
+    border:1px solid #ccc;
+}
+.skill-selector-item span {
+    vertical-align: middle;
+    padding-left:10px;
 }
 
 .skill-selector-footer {

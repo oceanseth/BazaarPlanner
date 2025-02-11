@@ -538,6 +538,31 @@ ItemFunction.items.set("Belt",(item)=>{
     //need to make some way to undo this between resets of it
     
 });
-
+//Weapons to the right of this have ( +25 » +50 » +100 ) damage. from Figurehead
+ItemFunction.items.set("Figurehead",(item)=>{
+    const amount = getRarityValue("25 >> 50 >> 100",item.rarity);
+    const weapons = item.board.items.filter(i=>i.tags.includes("Weapon") && i.startIndex > item.startIndex);
+    weapons.forEach(i=>{
+        i.gain(amount,'damage');
+    });
+});
+//Torpedo
+ItemFunction.items.set("Torpedo",(item)=>{
+    const amount = getRarityValue("25 >> 50 >> 75",item.rarity);
+    item.gain(100,"damage");
+    item.board.itemTriggers.set(item.id,(i)=>{
+        if(i.id!=item.id && (i.tags.includes("Aquatic") || i.tags.includes("Ammo"))) {
+            item.gain(amount,'damage');
+            if(i.tags.includes("Large")) {
+                if(item.ammo<item.maxAmmo) {
+                    item.gain(1,'ammo');
+                }
+            }
+        }
+    });
+    item.triggerFunctions.push(()=>{
+        item.dealDamage(item.damage);
+    });
+});
 
 ItemFunction.setupItems();

@@ -213,9 +213,9 @@ class Board {
         this.skillSelector.querySelector('#skill-selector-filter').oninput = (e) => {
             const filter = e.target.value.toLowerCase();
             this.skillSelector.querySelector('.skill-selector-body').querySelectorAll('.skill-selector-item').forEach(item => {
-                if(item.querySelector('span').textContent.toLowerCase().includes(filter)) {
-                    item.style.display = 'block';
-
+                if(item.querySelector('span').textContent.toLowerCase().includes(filter) ||
+                    skills[item.querySelector('span').textContent].tags.some(tag => tag.toLowerCase()==filter.toLowerCase())) {
+                    item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
                 }
