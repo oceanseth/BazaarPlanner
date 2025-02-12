@@ -227,6 +227,7 @@ class Board {
 
         }
         document.body.appendChild(this.skillSelector);
+        this.skillSelector.querySelector('#skill-selector-filter').focus();
     }
     
 
@@ -913,7 +914,7 @@ class Board {
             this.skillsElement.appendChild(newSkill.element);
         });
 
-        this.player.maxHealth = monsterData.health;
+        this.player.startPlayerData.maxHealth = monsterData.health;
         this.player.name = monsterData.name;
         Board.resetBoards();
         updateUrlState();
