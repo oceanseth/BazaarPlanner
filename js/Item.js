@@ -184,7 +184,6 @@ export class Item {
         this.numTriggers = 0;
         this.effectiveBattleTime = 0;
         this.pendingMulticasts = 0;
-        this.poison = 0;
         this.heal = this.startItemData.heal||0;
         this.critMultiplier = 100; //default crit multiplier is 100% more damage
         this.freezeBonus = 0;
@@ -203,6 +202,7 @@ export class Item {
         this.damage = this.startItemData.damage||0;
         this.shield = this.startItemData.shield||0;
         this.burn = this.startItemData.burn||0;
+        this.poison = this.startItemData.poison||0;
 
         this.multicast = 0;
         this.maxAmmo = this.startItemData.ammo||0;
@@ -574,13 +574,14 @@ export class Item {
         }
         this.board.shieldTriggers.forEach(func => func(this));
     }
-    applyBurn(burnAmount) {
+    applyBurn(burnAmount, source,{selfTarget=false}) {
         let doesCrit = this.doICrit();
         if(doesCrit) {
             burnAmount *= (1+this.critMultiplier/100);
         }
-        log(this.name + (doesCrit?"critically ":"")+" burned " + this.board.player.hostileTarget.name + " for " + burnAmount);
-        this.board.player.hostileTarget.applyBurn(burnAmount);
+        const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
+        log(this.name + (doesCrit?"critically ":"")+" burned " + target.name + " for " + burnAmount);
+        target.applyBurn(burnAmount);
         if(doesCrit) {
             this.board.itemDidCrit(this);
         }
@@ -907,8 +908,18 @@ export class Item {
                 this.applyHasteTo(itemToHaste,duration);
                 log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
             }
-
         }
+
+        //Haste this ( 1 » 2 » 3 » 4 ) second(s).
+        regex = /^Haste this(?:\s+(?:\(\s*([^)]+)\s*\)|\d+) second\(?s?\)?\.?)$/i;
+        match = text.match(regex);
+        if(match) {
+            const duration = getRarityValue(match[1], this.rarity);
+            return () => {
+                this.applyHasteTo(this,duration);
+            };
+        }
+
         regex = /^Haste the item to the left of this/i;
         if (regex.test(text)) {
             const itemToHaste = this.getItemToTheLeft();
@@ -1374,6 +1385,10 @@ export class Item {
     }
     setEnchant(enchant) {
         if(this.enchant!=enchant) {
+            if(this.enchant!='') {                
+                const [baseName] = Item.stripEnchantFromName(this.name);
+                this.startItemData.tags = structuredClone(items[baseName].tags);
+            }
             this.tags = this.startItemData.tags; //reset tags to default when enchant changes
             this.enchant = enchant=='None'?'':enchant;
         }
@@ -1457,7 +1472,20 @@ export class Item {
                     <input type="number" id="edit-shield" value="${this.shield}">
                 </div>`;
         }
-        
+        if(this.tags.includes("Poison")) {
+            popupHTML += `
+                <div class="form-group">
+                    <label>Poison:</label>
+                    <input type="number" id="edit-poison" value="${this.poison}">
+                </div>`;
+        }
+        if(this.tags.includes("Burn")) {
+            popupHTML += `
+                <div class="form-group">
+                    <label>Burn:</label>
+                    <input type="number" id="edit-burn" value="${this.burn}">
+                </div>`;
+        }
 
         // Add cooldown field only if item has cooldown
         if (this.cooldown !== undefined && this.cooldown!=0) {
@@ -1505,7 +1533,7 @@ export class Item {
         popup.querySelector('.save-edit').addEventListener('click', () => {
             Board.resetBoards();
             const enchant = popup.querySelector('#edit-enchant').value;
-            
+
             // Update name with enchantment
             this.name = enchant === 'None' ? baseName : `${enchant} ${baseName}`;
             this.setEnchant(enchant);
@@ -1528,6 +1556,14 @@ export class Item {
             if (popup.querySelector('#edit-value')) {
                 const newValue = parseFloat(popup.querySelector('#edit-value').value);
                 this.startItemData.value = (this.startItemData.value||0) + (newValue - this.value)/this.value_multiplier;
+            }
+            if(popup.querySelector('#edit-poison')) {
+                const newPoison = parseFloat(popup.querySelector('#edit-poison').value);
+                this.startItemData.poison = (this.startItemData.poison||0) + (newPoison - this.poison)/this.poison_multiplier;
+            }
+            if(popup.querySelector('#edit-burn')) {
+                const newBurn = parseFloat(popup.querySelector('#edit-burn').value);
+                this.startItemData.burn = (this.startItemData.burn||0) + (newBurn - this.burn)/this.burn_multiplier;
             }
             if(popup.querySelector('#edit-lifesteal')) {
                 this.lifesteal = popup.querySelector('#edit-lifesteal').value == '1';
@@ -1639,6 +1675,13 @@ export class Item {
                 case "use another item":
                     this.board.itemTriggers.set(this.id, (item) =>  {                        
                         if(item.id !== this.id) {
+                            triggerFunctionFromText(item);
+                        }
+                    });
+                    return;
+                case "use another tech":
+                    this.board.itemTriggers.set(this.id, (item) =>  {                        
+                        if(item.id !== this.id && item.tags.includes("Tech")) {
                             triggerFunctionFromText(item);
                         }
                     });
@@ -1973,6 +2016,16 @@ export class Item {
                     });
 
 
+                    return;
+                case "you poison":
+                    let poisonCount = 0;
+                    this.board.poisonTriggers.set(this.id,(item)=>{
+                        if(poisonCount++<=numTimes) {
+                            ntimesFunction(item);
+                        } else {
+                            this.board.poisonTriggers.delete(this.id);
+                        }
+                    });
                     return;
                 case "your enemy uses a non-weapon item":
 
@@ -2918,13 +2971,17 @@ export class Item {
             };
         }
         //This has double damage.
-        regex = /^\s*This has double damage\.?$/i;
+        regex = /^\s*This has double (damage|poison|burn)\.?$/i;
         match = text.match(regex);
         if(match) {
-            this.gain(this.damage,'damage');
-            this.damage_multiplier = 2;
+            const whatToGain = match[1].toLowerCase();
+            this.gain(this[whatToGain],whatToGain);
+            this[whatToGain+"_multiplier"] = 2;
             return ()=>{};
         }
+        //This has double poison
+
+
         //Cleanse half your Burn.
         regex = /^\s*Cleanse half your Burn\.?$/i;
         match = text.match(regex);

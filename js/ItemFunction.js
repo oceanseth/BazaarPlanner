@@ -50,6 +50,29 @@ ItemFunction.items.set("Balcony",(item)=>{
 
     }
 });
+//Burn both players ( 2 » 3 » 4 » 5 ).
+//Adjacent items have their cooldowns reduced by ( 6% » 9% » 12% » 15% ). from Thrusters
+ItemFunction.items.set("Thrusters",(item)=>{
+    const burnAmount = getRarityValue("2 >> 3 >> 4 >> 5",item.rarity);
+    const cooldownReduction = getRarityValue("6 >> 9 >> 12 >> 15",item.rarity);
+    item.gain(burnAmount,'burn');
+    item.getAdjacentItems().forEach(i=>{
+        i.gain(i.cooldown * (1-(cooldownReduction)/100)-i.cooldown,'cooldown');
+    });
+    return ()=>{
+        item.applyBurn(item.burn);
+    }
+});
+//Burn both players ( 4 » 6 » 8 ). from Nitro
+ItemFunction.items.set("Nitro",(item)=>{
+    const burnAmount = getRarityValue("4 >> 6 >> 8",item.rarity);
+    item.gain(burnAmount,'burn');
+    return ()=>{
+        item.applyBurn(item.burn,item);
+        item.applyBurn(item.burn,item,{selfTarget:true});
+    }
+});
+
 ItemFunction.items.set("Cryosleeve",(item)=>{
     //Freeze this and adjacent items for 1 second(s). into a trigger function.
     //When any item gains freeze, shield ( 50 >> 75 >> 100)

@@ -3057,7 +3057,7 @@ export const monsters = {
       },
       {
         "name": "Flamberge",
-        "tier": 4
+        "tier": 3
       },
       {
         "name": "Pendulum",
