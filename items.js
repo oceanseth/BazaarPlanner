@@ -4648,7 +4648,7 @@ export const items = {
   "Flamberge": {
     "name": "Flamberge",
     "icon": "images/items/Flamberge.avif",
-    "tier": "Legendary",
+    "tier": "Diamond",
     "tags": [
       "Common",
       "Large",
@@ -5893,6 +5893,35 @@ export const items = {
       "Fiery": "Burn 3.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "The Weapon to the right of this gains +20% Crit Chance for the fight.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
+    }
+  },
+  "Hot Sauce": {
+    "name": "Hot Sauce",
+    "icon": "images/items/HotSauce.avif",
+    "tier": "Gold",
+    "tags": [
+      "Jules",
+      "Small",
+      "Burn",
+      "Food"
+    ],
+    "cooldown": 10,
+    "ammo": null,
+    "text": [
+      "Burn ( 10 » 20 ).",
+      "For each adjacent Food, this has +1 Multicast."
+    ],
+    "enchants": {
+      "Heavy": "Slow 1 item for 3 second(s).",
+      "Icy": "Freeze 1 item of equal or smaller size for 1 second(s).",
+      "Turbo": "Haste 1 item for 3 second(s).",
+      "Shielded": "Shield 50.",
+      "Restorative": "Heal 75.",
+      "Toxic": "Poison 5.",
+      "Fiery": "This has double Burn.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
@@ -11289,6 +11318,35 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed."
     }
   },
+  "Skillet": {
+    "name": "Skillet",
+    "icon": "images/items/Skillet.avif",
+    "tier": "Silver",
+    "tags": [
+      "Jules",
+      "Medium",
+      "Burn",
+      "Tool"
+    ],
+    "cooldown": 5,
+    "ammo": null,
+    "text": [
+      "Burn ( 4 » 6 » 8 ).",
+      "If both adjacent items are food, this has +1 Multicast."
+    ],
+    "enchants": {
+      "Heavy": "Slow 2 items for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
+      "Turbo": "Haste 2 items for 2 second(s).",
+      "Shielded": "Shield 50.",
+      "Restorative": "Heal 75.",
+      "Toxic": "Poison 5.",
+      "Fiery": "This has double burn.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
+    }
+  },
   "Skyscraper": {
     "name": "Skyscraper",
     "icon": "images/items/Skyscraper.avif",
@@ -11916,7 +11974,7 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Heal equal to 0 times the value of your items.",
+      "Heal equal to ( 4 » 6 ) times the value of your items.",
       "At the start of each fight, your other items gain Value equal to this item's Value for the fight."
     ],
     "enchants": {
@@ -12831,7 +12889,7 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Heal equal to 0 times the value of your highest value item.",
+      "Heal equal to ( 1 » 2 » 3 ) times the value of your highest value item.",
       "When you sell this, your leftmost item gains value equal to this item's value."
     ],
     "enchants": {

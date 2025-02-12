@@ -22,6 +22,10 @@ export function colorTextArray(textArray, rarityIndex) {
 }
 
 export function getRarityValue(valueString, rarity) {
+    if(valueString==undefined) {
+        console.log("gettingRarityValue ofundefined");
+        return 0;
+    }
     if(valueString[0]=='(') {
         valueString = valueString.slice(1,-1);
     }
@@ -64,9 +68,12 @@ export function updateUrlState() {
                 toReturn[key] = item[key];
             }
         }
+        
         Item.possibleChangeAttributes.forEach(attribute=>{
             if(item[attribute] != undefined && item[attribute] != baseItem[attribute]) {
                 toReturn[attribute] = item[attribute];
+            } else {
+                delete toReturn[attribute];
             }
         });
 
@@ -75,6 +82,7 @@ export function updateUrlState() {
         else {
             toReturn.cooldown = parseInt(item.startItemData.cooldown);
         }
+
         return toReturn;
     });
     
@@ -188,12 +196,14 @@ export function setupChangeListeners(obj,arr) {
         if(obj[key] !== undefined) {
             obj[key+"_changedMap"] = new Map();
             obj[key+"_changedArray"] = [];
+            obj[key+"_multiplier"] = 1;
             obj[key] = 0;
             return;
         }
         var value = 0;
         obj[key+"_changedMap"] = new Map();
         obj[key+"_changedArray"] = [];
+        obj[key+"_multiplier"] = 1;
         obj[key+"Changed"] = (f, source)=>{
             if(source) {
                 obj[key+"_changedMap"].set(source,f);
@@ -211,10 +221,10 @@ export function setupChangeListeners(obj,arr) {
         get: function () { return value; },
         set: function (v) {
             const oldValue = value;
-            value = v;
+            value = (v-oldValue)*obj[key+"_multiplier"]+oldValue;
             if(obj[key+"_pauseChanged"]) return;
-            obj[key+"_changedMap"].forEach(f=>f(v, oldValue));
-            obj[key+"_changedArray"].forEach(f=>f(v, oldValue));
+            obj[key+"_changedMap"].forEach(f=>f(value, oldValue));
+            obj[key+"_changedArray"].forEach(f=>f(value, oldValue));
         }
 
         });
