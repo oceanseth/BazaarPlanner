@@ -2849,7 +2849,6 @@ export class Item {
         regex = /^Your items have double value (?:in|during) combat\.?$/i;
         match = text.match(regex);
         if(match) {
-            console.log("Your items have double value in combat");
             this.board.items.forEach(item => {
                 const oldmultiplier = item.value_multiplier;
                 item.value_multiplier = 1;
