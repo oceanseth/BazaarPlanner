@@ -23,8 +23,8 @@ window.Board = Board;
 window.createListItem = createListItem;
 window.search = search;
 window.populateSearchSuggestions = populateSearchSuggestions;
-window.topPlayer = new Player("Top Player");
-window.bottomPlayer = new Player("Bottom Player");
+window.topPlayer = new Player({name:"Top Player"});
+window.bottomPlayer = new Player({name:"Bottom Player"});
 topPlayer.hostileTarget = bottomPlayer;
 bottomPlayer.hostileTarget = topPlayer;
 
@@ -89,7 +89,7 @@ window.poll = (answer) => {
 window.closePoll = function() {
     document.getElementById('poll').remove();
     document.getElementById('simulator').classList.remove('polling');
-    document.getElementById('sign-in-status').innerHTML = 'Does Bazaarplanner harm the game? Poll Results: Yes: <span id="yesResult"></span> No: <span id="noResult"></span>';
+    document.getElementById('sign-in-status').innerHTML = 'Does BazaarPlanner harm the game? Poll Results: Yes: <span id="yesResult"></span> No: <span id="noResult"></span>';
     firebase.database().ref('polls/harmpoll/counts').on('value', snapshot => {
         const counts = snapshot.val() || { yes: 0, no: 0 };
         document.getElementById('yesResult').innerHTML = counts.yes;
@@ -351,7 +351,6 @@ function createListItem(data) {
     if (data.icon) {
         const icon = document.createElement('img');
         icon.src = data.icon;
-        icon.style.marginRight = '10px';
         icon.classList.add(sizeString);
         item.appendChild(icon);
     }
@@ -368,6 +367,7 @@ function createListItem(data) {
 
 function search(searchString, section = 'all') {
     searchString = searchString.toLowerCase();
+    const searchStrings = searchString.split(' ');
     
     // Determine which section we're searching in based on which section is visible
     const simulatorSection = document.getElementById('simulator');
@@ -395,13 +395,21 @@ function search(searchString, section = 'all') {
             const itemName = item.getAttribute('data-name') || '';
             const itemText = (item.text || '')+ " " + (item.bottomtext||'');
             const itemData = JSON.parse(item.getAttribute('data-item')); // Get item data for tag check
+            let show = true;
             
+            searchStrings.forEach(searchString => {
             // Check if the search string matches the name, text, or tags
-            const matchesTag = itemData.tags && itemData.tags.some(tag => tag.toLowerCase() === searchString); // Check for tag match
+                const matchesTag = itemData.tags && itemData.tags.some(tag => tag.toLowerCase() === searchString); // Check for tag match
             
-            if (itemName.toLowerCase().includes(searchString) || 
-                itemText.toLowerCase().includes(searchString) || 
-                matchesTag) { // Include tag match in the condition
+                if (itemName.toLowerCase().includes(searchString) || 
+                    itemText.toLowerCase().includes(searchString) || 
+                    matchesTag) { // Include tag match in the condition
+                    show &= true;
+                } else {
+                    show &= false;
+                }
+            });
+            if(show) {
                 item.style.display = '';
             } else {
                 item.style.display = 'none';
