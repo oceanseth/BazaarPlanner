@@ -33,9 +33,9 @@ bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', 1000);
 //      initializeMonsterSearch();
 window.mainBattle = new Battle([topPlayer, bottomPlayer], (winner) => {
     if(winner) {
-        alert(winner.name + " wins!");
+        alert(winner.name + " wins! Total combat time was "+((topPlayer.battleTime/1000).toFixed(0))+" seconds.");
     } else {
-        alert("Battle ended in a draw.");
+        alert("Battle ended in a draw. Total combat time was "+((topPlayer.battleTime/1000).toFixed(0))+" seconds.");
     }
 }, $("#combat-log"));
 window.log = (s) => { mainBattle.log(s) };
