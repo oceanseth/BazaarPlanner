@@ -44,8 +44,9 @@ ItemFunction.items.set("Balcony",(item)=>{
     const property = item.getItemToTheLeft();
     if(property && property.tags.includes("Property")) {
         property.gain(property.value,'value');
+        property.value_multiplier += 1;
         property.cooldown *= 1-(getRarityValue("10 >> 10 >> 20 >> 30",item.rarity)/100);
-        property.updateTriggerValuesElement();
+    //    property.updateTriggerValuesElement();
 
     }
 });
@@ -266,10 +267,16 @@ ItemFunction.items.set("Big Guns",(item)=>{
     //Double the damage of your Large weapons. from Big Guns
     item.board.items.forEach(i=>{
         if(i.tags.includes("Large")) {
-            i.gain(100,'damageMultiplier');
+            i.gain(i.damage,'damage');
+            i.damageChanged((newValue,oldValue)=>{
+                i.damage_pauseChanged = true;
+                i.gain(newValue-oldValue,'damage');
+                i.damage_pauseChanged = false;
+            });
         }
     });
 });
+
 ItemFunction.items.set("Prosperity",(item)=>{
     //Your Shield items have + Shield equal to the value of your Items.
     const amount = item.board.items.reduce((acc,i)=>acc+i.value,0);
@@ -564,4 +571,37 @@ ItemFunction.items.set("Torpedo",(item)=>{
     });
 });
 
+//Reload all your items ( 1 » 2 » 3 ) Ammo and charge them 1 second(s). from Port
+ItemFunction.items.set("Port",(item)=>{
+    const amount = getRarityValue("1 >> 2 >> 3",item.rarity);
+    return () => {
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Ammo")) {
+                i.gain(amount,'ammo');
+                i.chargeBy(1);
+            }
+        });
+    }
+});
+
+ItemFunction.items.set("Piggles",()=>{});
+
+//Your Weapons deal (  +10  » +15  » +20  » +25   ) Damage. from Strength
+ItemFunction.items.set("Strength",(item)=>{
+    const amount = getRarityValue("10 >> 15 >> 20 >> 25",item.rarity);
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Weapon")) {
+            i.gain(amount,'damage');
+        }
+    });
+});
+
+//At the start of each fight with Crystal Bonsai, this gains ( 2 » 4 » 6 » 8 ) value. from Crystal Bonsai
+ItemFunction.items.set("Crystal Bonsai", (item)=>{
+    const amount = getRarityValue("2 >> 4 >> 6 >> 8",item.rarity);
+    item.board.startOfFightTriggers.set(item.id,()=>{
+        item.gain(amount,'value');
+    });
+    item.triggerFunctions.push(item.getTriggerFunctionFromText("Heal equal to ( 1x » 2x » 3x » 4x ) this item's value."));
+});
 ItemFunction.setupItems();

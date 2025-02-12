@@ -3,14 +3,16 @@ import { updateUrlState, setupChangeListeners } from './utils.js';
 
 export class Player {
     hostileTarget = null;
-    constructor(name) {
-        setupChangeListeners(this, ['health','shield','maxHealth']);
-        this.name = name;
-        this.battleTime = 0;
-        this.skills = [];
-        this.maxHealth = 1000;
-        this.income = 5;
-        this.level = 1;
+    static possibleChangeAttributes = ['health','shield','maxHealth'];
+    constructor(startPlayerData) {
+        setupChangeListeners(this, Player.possibleChangeAttributes );
+        this.startPlayerData = startPlayerData;
+        if(!startPlayerData.maxHealth) startPlayerData.maxHealth = 1000;
+        if(!startPlayerData.income) startPlayerData.income = 5;
+        if(!startPlayerData.level) startPlayerData.level = 1;
+        if(!startPlayerData.gold) startPlayerData.gold = 0;
+        if(!startPlayerData.regen) startPlayerData.regen = 0;
+        Object.assign(this, startPlayerData);
     }
 
     initialize(boardId, skillsContainer, maxHealth) {
@@ -18,16 +20,6 @@ export class Player {
         
         const board = new Board(boardId, this);
         this.board = board;
-        
-        // Get skills from skills container
-        const skillsDiv = document.getElementById(skillsContainer);
-        if (skillsDiv) {
-            this.skills = Array.from(skillsDiv.querySelectorAll('.skill-icon')).map(skill => ({
-                element: skill,
-                data: JSON.parse(skill.getAttribute('data-skill')),
-                lastTrigger: 0
-            }));
-        }
         this.reset();
     }
 
@@ -69,7 +61,10 @@ export class Player {
                 <input type="number" id="player-gold" value="${this.gold}"/>
             </div>
             <div class="form-row">
-
+                <label for="player-regen">Regeneration:</label>
+                <input type="number" id="player-regen" value="${this.regen}"/>
+            </div>
+            <div class="form-row">
                 <label for="player-level">Level:</label>
                 <input type="number" id="player-level" value="${this.level}"/>
             </div>
@@ -79,13 +74,13 @@ export class Player {
 
 
         this.editorElement.querySelector("#save-player").addEventListener("click", () => {
-            this.name = this.editorElement.querySelector("#player-name").value;
-            this.maxHealth = parseInt(this.editorElement.querySelector("#player-max-health").value);
-            this.income = parseInt(this.editorElement.querySelector("#player-income").value);
-            this.health = this.maxHealth;
-            this.level = parseInt(this.editorElement.querySelector("#player-level").value);
-            this.gold = parseInt(this.editorElement.querySelector("#player-gold").value);
-            
+            this.startPlayerData.name = this.editorElement.querySelector("#player-name").value;
+            this.startPlayerData.maxHealth = parseInt(this.editorElement.querySelector("#player-max-health").value);
+            this.startPlayerData.income = parseInt(this.editorElement.querySelector("#player-income").value);
+            this.startPlayerData.level = parseInt(this.editorElement.querySelector("#player-level").value);
+            this.startPlayerData.gold = parseInt(this.editorElement.querySelector("#player-gold").value);
+            this.startPlayerData.regen = parseInt(this.editorElement.querySelector("#player-regen").value);
+
             this.editorElement.style.display = "none";
             Board.resetBoards();
             updateUrlState();
@@ -165,22 +160,17 @@ export class Player {
 
 
     reset() {
+        setupChangeListeners(this, Player.possibleChangeAttributes );
+        Object.assign(this, this.startPlayerData);
+        this.health = this.maxHealth;
         this.battleTime = 0;
         this.burn = 0;
         this.poison = 0;
         this.burn = 0;
         this.poison = 0;
-        this.regen = 0;
-        setupChangeListeners(this, ['health','shield']);
-        this.health = this.maxHealth;
-        if(this.gold==undefined) this.gold = 0;
-        if(this.income==undefined) this.income = 5;
+
         this.fellBelowHalfHealth = false;
         this.diedOnce = false;
-        if(this.startData) {
-            Object.assign(this, this.startData);
-        }
- 
 
         // Trigger arrays for various effects
         this.lostShieldTriggers = new Map();
