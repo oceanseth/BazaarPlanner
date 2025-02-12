@@ -216,7 +216,8 @@ class Board {
             const filter = e.target.value.toLowerCase();
             this.skillSelector.querySelector('.skill-selector-body').querySelectorAll('.skill-selector-item').forEach(item => {
                 if(item.querySelector('span').textContent.toLowerCase().includes(filter) ||
-                    skills[item.querySelector('span').textContent].tags.some(tag => tag.toLowerCase()==filter.toLowerCase())) {
+                    skills[item.querySelector('span').textContent].tags.some(tag => tag.toLowerCase()==filter.toLowerCase())||
+                    skills[item.querySelector('span').textContent].text.toLowerCase().includes(filter)) {
                     item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
@@ -638,7 +639,7 @@ class Board {
         // Get the correct board instance for the slot being hovered over        
         board.updateDropPreview(slot, startIndex, draggingElement);
     }
-    
+
     handleTouchMove(touchEvent, board) {
         touchEvent.preventDefault(); // Prevent scrolling
         const touch = touchEvent.touches[0];

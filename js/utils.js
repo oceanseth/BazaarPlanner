@@ -70,8 +70,8 @@ export function updateUrlState() {
         }
         
         Item.possibleChangeAttributes.forEach(attribute=>{
-            if(item[attribute] != undefined && item[attribute] != baseItem[attribute]) {
-                toReturn[attribute] = item[attribute];
+            if(item[attribute] != undefined && item[attribute] != item.startItemData[attribute]) {
+                toReturn[attribute] = item.startItemData[attribute];
             } else {
                 delete toReturn[attribute];
             }

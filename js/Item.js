@@ -1111,6 +1111,7 @@ export class Item {
         if(!["cooldown"].includes(type)) {
             log(this.name + " gained " + amount + " " + type + (source?(" from "+source.name):""));
         }
+
         
         switch(type.toLowerCase()) {
             case 'ammo':
@@ -1120,7 +1121,7 @@ export class Item {
                 }
                 break;
             case 'value':
-                this.value += amount;
+                this.value = this.value+amount;
                 this.board.itemValuesChangedTriggers.forEach(func => func(this));
                 break;
                 
@@ -2848,9 +2849,12 @@ export class Item {
         regex = /^Your items have double value (?:in|during) combat\.?$/i;
         match = text.match(regex);
         if(match) {
+            console.log("Your items have double value in combat");
             this.board.items.forEach(item => {
+                const oldmultiplier = item.value_multiplier;
+                item.value_multiplier = 1;
                 item.gain(item.value,'value');
-                item.value_multiplier += 1;
+                item.value_multiplier = oldmultiplier+1;
             });
             return ()=>{};
         }
