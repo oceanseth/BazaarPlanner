@@ -574,7 +574,7 @@ export class Item {
         }
         this.board.shieldTriggers.forEach(func => func(this));
     }
-    applyBurn(burnAmount, source,{selfTarget=false}) {
+    applyBurn(burnAmount, source,{selfTarget}={selfTarget:false}) {
         let doesCrit = this.doICrit();
         if(doesCrit) {
             burnAmount *= (1+this.critMultiplier/100);
@@ -1946,14 +1946,16 @@ export class Item {
 
             return;
         }
+        //The first (  4  » 8   ) times you use a non-Weapon item each fight, Charge 1 Weapon 1 second(s). from Mixed Message
         //The first (  4  » 8   ) times you Shield each fight, Charge 1 item 1 second(s).
         //The first (  4  » 8   ) times your enemy uses a non-weapon item each fight, Charge 1 Weapon 1 second(s).
-        regex = /^The first (?:\(([^)]+)\)|(\d+))?\s?times? (.+) each fight, (.*)/i;
+        regex = /^The first (\([^)]+\)|\d+)?\s?times? (.+) each fight, (.*)/i;
         match = text.match(regex);
         if(match) {
-            const numTimes = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]||"1");
-            const ntimesFunction = this.getTriggerFunctionFromText(match[4]);
-            switch(match[3].toLowerCase()) {
+            const numTimes = getRarityValue(match[1], this.rarity);
+            const ntimesFunction = this.getTriggerFunctionFromText(match[3]);
+            const thingDone = match[2].toLowerCase();
+            switch(thingDone) {
                 case "you shield":
                     let shieldCount = 0;
                     this.board.shieldTriggers.set(this.id,()=>{
@@ -2044,15 +2046,17 @@ export class Item {
                         }
                     });
                     return;
+                case "you use a non-weapon item":
                 case "your enemy uses a non-weapon item":
+                    const target = thingDone.includes("enemy")?this.board.player.hostileTarget:this.board.player;
 
                     let nonWeaponCount = 0;
-                    this.board.player.hostileTarget.board.itemTriggers.set(this.id,(item)=>{
+                    target.board.itemTriggers.set(this.id,(item)=>{
                         if(!item.tags.includes("Weapon")) {
                             if(nonWeaponCount++ <= numTimes) {
                                 ntimesFunction(item);
                                 if(nonWeaponCount==numTimes) {
-                                    this.board.player.hostileTarget.board.itemTriggers.delete(this.id);
+                                    target.board.itemTriggers.delete(this.id);
                                 }
                             }
                         }
@@ -2884,7 +2888,7 @@ export class Item {
 
         //Burn items to the right of this gain ( 1 » 2 » 3 » 4 ) Burn for the fight
 
-        regex = /^(:?the )?([^\s]+)(:? item)?s? to the right of this gains? (?:\(([^)]+)\)|(\d+)) ([^\s]+).*/i;
+        regex = /^(?:the )?([^\s]+)(?: item)?s? to the right of this gains? (?:\(([^)]+)\)|(\d+)) ([^\s]+).*/i;
         match = text.match(regex);
 
         if(match) {
@@ -3039,16 +3043,23 @@ export class Item {
             }
         }
         //this gains ( 1 » 2 » 3 » 4 ) (tag)
-        regex = /^\s*this (?:permanently )?gains (?:\(([^)]+)\)|(\d+)) ([^\s]+)\.?/i;
+        regex = /^\s*this (?:permanently )?gains (\([^)]+\)|\d+) ([^\s]+)\.?/i;
         match = text.match(regex);
         if(match) {
-            const gainAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            const whatToGain = match[3].toLowerCase();
-            return () => {
-                this[whatToGain] += gainAmount;
-                log(this.name + " gained " + gainAmount + " " + whatToGain);
+            const isPercentageBased = match[1].includes("%");
+            const gainAmount = getRarityValue(match[1].replace("%",""), this.rarity);            
+            const whatToGain = match[2].toLowerCase();
+            if(isPercentageBased) {
+                return () => {
+                    this.gain(this[whatToGain]*gainAmount/100,whatToGain);
+                    log(this.name + " gained " + gainAmount + " " + whatToGain);
+                }
+            } else {
+                return () => {
+                    this[whatToGain] += gainAmount;
+                    log(this.name + " gained " + gainAmount + " " + whatToGain);
+                }        
             }
-
         }
         //This deals quadruple crit damage.
         regex = /^This deals quadruple crit damage\.?$/i;
@@ -3121,6 +3132,13 @@ export class Item {
             return ()=>{};
 
 
+        }
+        //Your Weapons have double Crit damage.
+        regex = /^Your Weapons have double Crit damage\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            this.gain(this.critMultiplier,'critMultiplier');
+            return ()=>{};
         }
 
         //Your leftmost Weapon deals (  +20  » +30  » +40  » +50   ) Damage.

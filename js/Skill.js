@@ -94,23 +94,22 @@ export class Skill {
             </div>
             <div class="editor-footer">
                 <button class="editor-delete">Remove</button>
-                <button class="editor-save">Save</button>
             </div>
 
 
         `;
         document.body.appendChild(this.editor);
 
-        this.editor.querySelector('.editor-save').onclick = () => {
+        this.editor.querySelector('#editor-rarity').addEventListener('change',()=>{
             const oldRarity = this.rarity;
             this.rarity = this.editor.querySelector('#editor-rarity').value;
-
             if(oldRarity!=this.rarity) {
                 Board.resetBoards();
                 updateUrlState();
             }
             this.editor.style.display = 'none';
-        };
+        });
+       
         this.editor.querySelector('.editor-delete').onclick = () => {
             this.editor.style.display = 'none';
             this.board.removeSkill(this);
