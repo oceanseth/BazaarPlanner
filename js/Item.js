@@ -3043,16 +3043,23 @@ export class Item {
             }
         }
         //this gains ( 1 » 2 » 3 » 4 ) (tag)
-        regex = /^\s*this (?:permanently )?gains (?:\(([^)]+)\)|(\d+)) ([^\s]+)\.?/i;
+        regex = /^\s*this (?:permanently )?gains (\([^)]+\)|\d+) ([^\s]+)\.?/i;
         match = text.match(regex);
         if(match) {
-            const gainAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            const whatToGain = match[3].toLowerCase();
-            return () => {
-                this[whatToGain] += gainAmount;
-                log(this.name + " gained " + gainAmount + " " + whatToGain);
+            const isPercentageBased = match[1].includes("%");
+            const gainAmount = getRarityValue(match[1].replace("%",""), this.rarity);            
+            const whatToGain = match[2].toLowerCase();
+            if(isPercentageBased) {
+                return () => {
+                    this.gain(this[whatToGain]*gainAmount/100,whatToGain);
+                    log(this.name + " gained " + gainAmount + " " + whatToGain);
+                }
+            } else {
+                return () => {
+                    this[whatToGain] += gainAmount;
+                    log(this.name + " gained " + gainAmount + " " + whatToGain);
+                }        
             }
-
         }
         //This deals quadruple crit damage.
         regex = /^This deals quadruple crit damage\.?$/i;
