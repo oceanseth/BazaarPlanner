@@ -574,7 +574,7 @@ export class Item {
         }
         this.board.shieldTriggers.forEach(func => func(this));
     }
-    applyBurn(burnAmount, source,{selfTarget=false}) {
+    applyBurn(burnAmount, source,{selfTarget}={selfTarget:false}) {
         let doesCrit = this.doICrit();
         if(doesCrit) {
             burnAmount *= (1+this.critMultiplier/100);
