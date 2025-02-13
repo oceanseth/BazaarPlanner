@@ -70,7 +70,7 @@ export function updateUrlState() {
         }
         
         Item.possibleChangeAttributes.forEach(attribute=>{
-            if(item[attribute] != undefined && item[attribute] != item.startItemData[attribute]) {
+            if(item[attribute] != undefined && baseItem[attribute] != item.startItemData[attribute]) {
                 toReturn[attribute] = item.startItemData[attribute];
             } else {
                 delete toReturn[attribute];
@@ -87,11 +87,15 @@ export function updateUrlState() {
     });
     
     Board.boards.forEach(board=>{
-        boardState.push({
-            name: 'DataForBoard_'+board.boardId,
+        const aBoardState ={
+            name: '_b_'+board.boardId,
             health: board.player.maxHealth,
             skills: board.skills.map(skill => ({name: skill.name, tier: Item.rarityLevels.indexOf(skill.rarity)}))
-        });
+        };
+        if(aBoardState.skills.length == 0) {
+            delete aBoardState.skills;
+        }
+        boardState.push(aBoardState);
     });
 
 
@@ -129,20 +133,22 @@ export function loadFromUrl(hash) {
             });
             return;
         }
-
+        
         let newItems = [];
         // Decompress the state string
         const boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(hash));
         // Add items from URL state
+        console.log(boardState);
         boardState.forEach((item) => {
-            if(item.name.startsWith('DataForBoard_')) {
-                const board = Board.getBoardFromId(item.name.slice(13));
+            if(item.name.startsWith('_b_')) {
+                const board = Board.getBoardFromId(item.name.slice(3));
                 board.player.maxHealth = item.health;
                 board.player.health = item.health;
-
-                item.skills.forEach(skill => {
-                    board.addSkill(skill.name,{rarity:Item.rarityLevels[parseInt(skill.tier)]});
-                });
+                if(item.skills) {
+                    item.skills.forEach(skill => {
+                        board.addSkill(skill.name,{rarity:Item.rarityLevels[parseInt(skill.tier)]});
+                    });
+                }
 
                 board.updateHealthElement();
                 return;

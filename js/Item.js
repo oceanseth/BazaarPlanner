@@ -1540,6 +1540,16 @@ export class Item {
             updateUrlState();
             popup.remove();            
         });
+        popup.querySelector('#edit-enchant').addEventListener('change',()=>{
+            const initialValueFromEnchant = this.getInitialValue();
+            this.enchant = popup.querySelector('#edit-enchant').value=='None'?'':popup.querySelector('#edit-enchant').value;
+            const newValueFromEnchant = this.getInitialValue();
+            const oldStartDataValue = this.startItemData.value||initialValueFromEnchant;
+            this.startItemData.value = oldStartDataValue-initialValueFromEnchant+newValueFromEnchant;
+            Board.resetBoards();
+            updateUrlState();
+            popup.remove();            
+        });
         
         popup.querySelector('.save-edit').addEventListener('click', () => {
             Board.resetBoards();

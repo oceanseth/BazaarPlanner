@@ -28,8 +28,8 @@ window.bottomPlayer = new Player({name:"Bottom Player"});
 topPlayer.hostileTarget = bottomPlayer;
 bottomPlayer.hostileTarget = topPlayer;
 
-topPlayer.initialize('inventory-board', 'topPlayerSkills', 1000);
-bottomPlayer.initialize('bottom-board', 'bottomPlayerSkills', 1000);
+topPlayer.initialize('t', 'topPlayerSkills', 1000);
+bottomPlayer.initialize('b', 'bottomPlayerSkills', 1000);
 //      initializeMonsterSearch();
 window.mainBattle = new Battle([topPlayer, bottomPlayer], (winner) => {
     if(winner) {
@@ -489,7 +489,7 @@ deleteZone.addEventListener('drop', (e) => {
 }); 
 
 
-function loadMonsterBoard(monsterData, boardId = 'inventory-board') {
+function loadMonsterBoard(monsterData, boardId = 't') {
     const board = Board.getBoardFromId(boardId);
     board.loadMonsterData(monsterData);    
 }
