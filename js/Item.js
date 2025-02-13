@@ -1529,6 +1529,27 @@ export class Item {
         
         popup.innerHTML = popupHTML;
         document.body.appendChild(popup);
+        popup.querySelector('#edit-rarity').addEventListener('change',()=>{
+            const initialValueFromRarity = this.getInitialValue();
+            this.rarity = popup.querySelector('#edit-rarity').value;
+            const newValueFromRarity = this.getInitialValue();
+            const oldStartDataValue = this.startItemData.value||initialValueFromRarity;
+            this.startItemData.rarity = popup.querySelector('#edit-rarity').value;
+            this.startItemData.value = oldStartDataValue-initialValueFromRarity+newValueFromRarity;
+            Board.resetBoards();
+            updateUrlState();
+            popup.remove();            
+        });
+        popup.querySelector('#edit-enchant').addEventListener('change',()=>{
+            const initialValueFromEnchant = this.getInitialValue();
+            this.enchant = popup.querySelector('#edit-enchant').value=='None'?'':popup.querySelector('#edit-enchant').value;
+            const newValueFromEnchant = this.getInitialValue();
+            const oldStartDataValue = this.startItemData.value||initialValueFromEnchant;
+            this.startItemData.value = oldStartDataValue-initialValueFromEnchant+newValueFromEnchant;
+            Board.resetBoards();
+            updateUrlState();
+            popup.remove();            
+        });
         
         popup.querySelector('.save-edit').addEventListener('click', () => {
             Board.resetBoards();
@@ -1539,10 +1560,6 @@ export class Item {
             this.setEnchant(enchant);
             
             // Only update fields that exist in the form
-            if (popup.querySelector('#edit-rarity')) {
-                this.startItemData.rarity = popup.querySelector('#edit-rarity').value;
-                this.rarity = popup.querySelector('#edit-rarity').value;
-            }
             if (popup.querySelector('#edit-damage')) {                
                 const newDamage = parseFloat(popup.querySelector('#edit-damage').value);
                 this.startItemData.damage = (this.startItemData.damage||0) + (newDamage-this.damage)/this.damage_multiplier;
