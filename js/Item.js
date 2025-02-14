@@ -1245,6 +1245,30 @@ export class Item {
                 }
             };
         }
+
+        // Freeze 1 medium or small item for ( 1 » 2 ) second(s).
+        regex = /^Freeze (\([^)]+\)|\d+) medium or small item(?:s)? for (\([^)]+\)|\d+) second\(?s\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const numItems = getRarityValue(match[1], this.rarity);
+            const freezeDuration = getRarityValue(match[2], this.rarity);
+            return (item) => {
+                const targets = this.board.player.hostileTarget.board.items.filter(i=> i.size<=2 && i.isFreezeTargetable());
+                const itemsToFreeze = this.pickRandom(targets,numItems);
+                itemsToFreeze.forEach(item => item.applyFreeze(freezeDuration,item||this));                
+            };
+        }
+
+        //Your leftmost Freeze item gains +1 second to Freeze.      
+        regex = /^Your leftmost Freeze item gains \+1 second to Freeze\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const targets = this.board.items.filter(i=> i.tags.includes("Freeze"));
+            if(targets.length>0) {
+                targets[0].gain(1,'freezebonus');
+            }
+            return () => {};
+        }
     }
 
 
@@ -2538,11 +2562,11 @@ export class Item {
         
         //reduce this item's cooldown by 50%
         //Reduce this item's cooldown by ( 10% » 20% ) for the fight.
-        regex = /^reduce this item's cooldown by (?:\(\s*(\d+)%(?:\s*»\s*(\d+)%)*\s*\)|\+?(\d+)%)(?: for the fight)?\.?/i;
+        regex = /^reduce this item's cooldown by (\([^)]+\)|\d+)(?: for the fight)?\.?/i;
         match = text.match(regex);
 
         if(match) {          
-            const cooldownReduction = parseInt(match[1]?getRarityValue(match[1], this.rarity):parseInt(match[2]));
+            const cooldownReduction = getRarityValue(match[1], this.rarity);
             return () => {
                this.gain(this.cooldown * (1-cooldownReduction/100)-this.cooldown,'cooldown');
             }
@@ -2946,7 +2970,9 @@ export class Item {
         if(match) {
             return () => {
                 this.board.items.forEach(item => {
-                    item.trigger();
+                    if(item.id != this.id) {
+                        item.trigger();
+                    }
                 });
             }
         }

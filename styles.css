@@ -1048,7 +1048,7 @@ button:active {
     padding: 5px 5px;
     width: 30px;
     height: 30px;
-    border-radius: 50%;
+    border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.7);
     text-align: center;
     line-height: 30px;
