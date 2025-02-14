@@ -1098,6 +1098,28 @@ export class Item {
                 this.applyHeal(this.heal);
             };
         }
+        //permanently gain ( +10 » +20 » +40 ) Max Health.
+        regex = /permanently gain (\([^)]+\)|\d+) Max Health/i;
+        match = text.match(regex);
+        if(match) {
+            const maxHealthToGain = getRarityValue(match[1], this.rarity);            
+            return () => {
+                this.board.player.maxHealth += maxHealthToGain;
+            };
+        }
+        //Heal equal to ( 5% » 10% » 15% ) of your Max Health. from Lemonade Stand
+        regex = /Heal equal to (\([^)]+\)|\d+%) of your Max Health/i;
+        match = text.match(regex);
+        if(match) {
+            const healMultiplier = getRarityValue(match[1], this.rarity);
+            this.gain(this.board.player.maxHealth * healMultiplier/100,'heal');
+            this.board.player.maxHealthChanged((newHealth,oldHealth)=>{
+                this.gain((newHealth-oldHealth)*healMultiplier/100,'heal');
+            });
+            return () => {
+                this.applyHeal(this.heal);
+            };
+        }
 
         return null;
     }   
@@ -1300,6 +1322,19 @@ export class Item {
         if(match) {
             return () => {
                 this.gain(this.board.player.hostileTarget.burn,'shield');
+                this.applyShield(this.shield);
+            };
+        }
+        //Shield equal to ( 1x » 2x » 3x ) your gold
+        regex = /Shield equal to (\([^)]+\)|\d+x) your gold/i;
+        match = text.match(regex);
+        if(match) {
+            const multiplier = getRarityValue(match[1], this.rarity);
+            this.gain(this.gold * multiplier,'shield');
+            this.board.player.goldChanged((newGold,oldGold)=>{
+                this.gain((newGold-oldGold)*multiplier,'shield');
+            });
+            return () => {
                 this.applyShield(this.shield);
             };
         }
