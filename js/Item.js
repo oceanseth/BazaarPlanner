@@ -36,7 +36,9 @@ export class Item {
         this.startItemData = structuredClone(itemData);
         this.board = board;        
         Object.assign(this, this.startItemData);
- 
+        if(this.rarity == undefined && this.tier!=undefined) {
+            this.rarity = Item.rarityLevels[Item.rarityLevels.indexOf(this.tier)];
+        }
         
         // Ensure text is always an array
         this.text = Array.isArray(this.text) ? this.text : [this.text].filter(Boolean);
@@ -72,6 +74,17 @@ export class Item {
         this.priceTagElement = document.createElement('div');
         this.priceTagElement.className = 'price-tag';
         this.element.appendChild(this.priceTagElement);
+
+        this.battleStatsElement = document.createElement('div');
+        this.battleStatsElement.className = 'battle-stats';
+        this.battleStatsElement.innerHTML = `
+            <div class="damage-element"></div>
+            <div class="burn-element"></div>
+            <div class="poison-element"></div>
+            <div class="heal-element"></div>
+            <div class="shield-element"></div>
+        `;
+        this.element.appendChild(this.battleStatsElement);
         
         this.reset();
 
@@ -149,6 +162,32 @@ export class Item {
         }
         else this.ammoElement.style.display = 'none';
 
+        if(this.battleStats.damage) {
+            this.battleStatsElement.querySelector('.damage-element').style.display = 'block';
+            this.battleStatsElement.querySelector('.damage-element').textContent = this.battleStats.damage;
+        }
+
+        if(this.battleStats.shield) {
+            this.battleStatsElement.querySelector('.shield-element').style.display = 'block';
+            this.battleStatsElement.querySelector('.shield-element').textContent = this.battleStats.shield;
+        }
+
+        if(this.battleStats.burn) {
+            this.battleStatsElement.querySelector('.burn-element').style.display = 'block';
+            this.battleStatsElement.querySelector('.burn-element').textContent = this.battleStats.burn;
+        }
+
+        if(this.battleStats.poison) {
+            this.battleStatsElement.querySelector('.poison-element').style.display = 'block';
+            this.battleStatsElement.querySelector('.poison-element').textContent = this.battleStats.poison;
+        }
+        if(this.battleStats.heal) {
+            this.battleStatsElement.querySelector('.heal-element').style.display = 'block';
+            this.battleStatsElement.querySelector('.heal-element').textContent = this.battleStats.heal;
+        }
+        
+        
+
         this.priceTagElement.textContent = Number(this.value).toFixed(0);
     }
     resetCooldown() {
@@ -184,6 +223,8 @@ export class Item {
         this.heal = this.startItemData.heal||0;
         this.critMultiplier = 100; //default crit multiplier is 100% more damage
         this.freezeBonus = 0;
+        this.battleStats = {};
+        this.battleStatsElement.querySelectorAll('div').forEach(div => div.style.display = 'none');
         setupChangeListeners(this,Item.possibleChangeAttributes);
 
         this.crit = this.calculateCrit()+(this.startItemData.crit||0);
@@ -558,6 +599,8 @@ export class Item {
         if(doesCrit) {
             this.board.itemDidCrit(this);
         }
+        if(this.battleStats.damage == undefined) this.battleStats.damage = 0;
+        this.battleStats.damage += damage;
     }
     applyShield(shieldAmount) {
         let doesCrit = this.doICrit();
@@ -570,6 +613,8 @@ export class Item {
             this.board.itemDidCrit(this);
         }
         this.board.shieldTriggers.forEach(func => func(this));
+        if(this.battleStats.shield == undefined) this.battleStats.shield = 0;
+        this.battleStats.shield += shieldAmount;
     }
     applyBurn(burnAmount, source,{selfTarget}={selfTarget:false}) {
         let doesCrit = this.doICrit();
@@ -583,6 +628,8 @@ export class Item {
             this.board.itemDidCrit(this);
         }
         this.board.burnTriggers.forEach(func => func(this));
+        if(this.battleStats.burn == undefined) this.battleStats.burn = 0;
+        this.battleStats.burn += burnAmount;
     }
     applyHeal(healAmount) {
         let doesCrit = this.doICrit();
@@ -594,6 +641,8 @@ export class Item {
         if(doesCrit) {
             this.board.itemDidCrit(this);
         }
+        if(this.battleStats.heal == undefined) this.battleStats.heal = 0;
+        this.battleStats.heal += healAmount;
     }
     applyFreeze(duration,source) {
         if(this.enchant=='Radiant') return;
@@ -635,6 +684,8 @@ export class Item {
             this.board.itemDidCrit(this);
         }
         this.board.poisonTriggers.forEach(func => func(this));
+        if(this.battleStats.poison == undefined) this.battleStats.poison = 0;
+        this.battleStats.poison += poisonAmount;
     }
     getWeaponTriggerFunction(text) {
         let match;
@@ -1050,7 +1101,7 @@ export class Item {
             const healAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             this.gain(healAmount,'heal');
             return () => {                
-                this.board.player.heal(this.heal);
+                this.applyHeal(this.heal);
 
                 log(this.name + " healed " + this.board.player.name + " for " + healAmount);
             };
@@ -1595,6 +1646,14 @@ export class Item {
                     <input type="number" id="edit-burn" value="${this.burn}">
                 </div>`;
         }
+        if(this.tags.includes("Ammo")) {
+            popupHTML += `
+                <div class="form-group">
+                    <label>Max Ammo:</label>
+                    <input type="number" id="edit-maxammo" value="${this.maxAmmo}">
+                </div>`;
+        }
+
 
         // Add cooldown field only if item has cooldown
         if (this.cooldown !== undefined && this.cooldown!=0) {
@@ -1698,6 +1757,10 @@ export class Item {
                 Board.resetBoards();
                 const newShield = parseFloat(popup.querySelector('#edit-shield').value);
                 this.startItemData.shield = (this.startItemData.shield||0) + (newShield - this.shield)/this.shield_multiplier;
+            }
+            if(popup.querySelector('#edit-maxammo')) {
+                this.startItemData.maxAmmo = parseFloat(popup.querySelector('#edit-maxammo').value);
+                this.startItemData.ammo = this.startItemData.maxAmmo;
             }
             popup.remove();
             //this.updateStatusIndicators();
@@ -2032,8 +2095,8 @@ export class Item {
                     });
 
                     return;
-
-                case "sell this": //do nothing
+                case "sell a weapon": //do nothing
+                case "sell this": 
                 case "buy this":
                 case "buy another aquatic item":
                 case "level up":
@@ -2171,9 +2234,11 @@ export class Item {
                     this.board.player.healthBelowHalfTriggers.set(this.id,(item)=>{
                         if(healthBelowHalfCount++<=numTimes) {
                             ntimesFunction(item);
-                        } else {
-                            this.board.player.healthBelowHalfTriggers.delete(this.id);
-                        }
+                            if(healthBelowHalfCount>=numTimes) {
+                                this.board.player.healthBelowHalfTriggers.delete(this.id);
+                            }
+                        } 
+
                     });
 
 
@@ -2183,9 +2248,10 @@ export class Item {
                     this.board.poisonTriggers.set(this.id,(item)=>{
                         if(poisonCount++<=numTimes) {
                             ntimesFunction(item);
-                        } else {
-                            this.board.poisonTriggers.delete(this.id);
-                        }
+                            if(poisonCount>=numTimes) {
+                                this.board.poisonTriggers.delete(this.id);
+                            }
+                        } 
                     });
                     return;
                 case "you use a non-weapon item":
@@ -2210,9 +2276,11 @@ export class Item {
                     this.board.player.dieTriggers.set(this.id,(item)=>{
                         if(dieCount++<=numTimes) {
                             ntimesFunction(item);
-                        } else {
-                            this.board.player.dieTriggers.delete(this.id);
-                        }
+                            if(dieCount>=numTimes) {
+                                this.board.player.dieTriggers.delete(this.id);
+                            }
+                        } 
+
                     });
                     return;
                 case "you use an ammo item":
@@ -2244,9 +2312,10 @@ export class Item {
                     this.board.itemTriggers.set(this.id,(item)=>{
                         if(item.tags.includes("Large") && largeItemCount++<=numTimes) {
                             ntimesFunction(item);
-                        } else {
-                            this.board.itemTriggers.delete(this.id);
-                        }
+                            if(largeItemCount>=numTimes) {
+                                this.board.itemTriggers.delete(this.id);
+                            }
+                        } 
                     });
                     return;
             }
@@ -2580,7 +2649,7 @@ export class Item {
             const healthPercentage = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             return () => {
                 const shieldGain = this.board.player.maxHealth*healthPercentage/100;
-                this.board.player.applyShield(shieldGain);
+                this.applyShield(shieldGain);
                 log(this.name + " added " + shieldGain + " shield to " + this.board.player.name);
             }
 

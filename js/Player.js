@@ -24,6 +24,7 @@ export class Player {
     }
 
     heal(healAmount) {
+        this.board.healingApplied += healAmount;
         if(this.health+healAmount>this.maxHealth) {
             healAmount = this.maxHealth-this.health;
             this.overhealTriggers.forEach(func => func(healAmount));
@@ -143,9 +144,13 @@ export class Player {
             log( this.name + " takes " + this.poison.toFixed(0) + " damage from poison.");
         }
 
-        if(this.battleTime%1000==0 && this.regen > 0) { // Regen health every 1000ms
-            this.health += this.regen;
-            log( this.name + " regens " + this.regen.toFixed(0) + " health.");
+        if(this.battleTime%1000==0 && this.regen > 0 && this.health < this.maxHealth) { // Regen health every 1000ms
+            let regenAmount = this.regen;
+            if(this.health + regenAmount > this.maxHealth) {
+                regenAmount = this.maxHealth - this.health;
+            }
+            this.health += regenAmount;
+            log( this.name + " regens " + regenAmount.toFixed(0) + " health.");
         }
 
         if(this.fellBelowHalfHealth && this.health >= this.maxHealth/2) {            

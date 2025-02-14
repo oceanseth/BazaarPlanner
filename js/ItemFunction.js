@@ -476,10 +476,28 @@ ItemFunction.items.set("Open for Business",(item)=>{
     });
 });
 ItemFunction.items.set("Atlatl",(item)=>{
+    //Deal ( 20 » 40 » 60 » 80 ) damage.
     //This item's cooldown is reduced by 1% for every 2 damage it has. from Atlatl
-    item.damageChanged((oldDamage,newDamage)=>{
-        item.gain(item.cooldown*((newDamage-oldDamage)/2/100) - item.cooldown,'cooldown');
+    const damage = getRarityValue("20 >> 40 >> 60 >> 80",item.rarity);
+    item.damageChanged((newDamage,oldDamage)=>{
+        item.gain(item.cooldown*(1- ((newDamage-oldDamage)/2/100)) - item.cooldown,'cooldown');
     })
+    item.gain(damage,'damage');
+    item.triggerFunctions.push(()=>{
+        item.dealDamage(item.damage);
+    });
+});
+//Your leftmost and rightmost items have their cooldowns reduced by (  5%  » 10%  » 15%   ). from Vengeance
+ItemFunction.items.set("Vengeance",(item)=>{
+    const cooldownReduction = getRarityValue("5 >> 10 >> 15",item.rarity);
+    const leftmostItem = item.board.items[0];
+    const rightmostItem = item.board.items[item.board.items.length-1];
+    if(leftmostItem) {
+        leftmostItem.gain(leftmostItem.cooldown*(1-cooldownReduction/100)-leftmostItem.cooldown,'cooldown');
+    }
+    if(rightmostItem) {
+        rightmostItem.gain(rightmostItem.cooldown*(1-cooldownReduction/100)-rightmostItem.cooldown,'cooldown');
+    }
 });
 ItemFunction.items.set("Weights",(item)=>{
     ////Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.

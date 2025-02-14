@@ -112,7 +112,7 @@ export class Battle {
 
     log(s) {
         if(this.logging) {
-            this.combatLogEntries.push(s);
+            this.combatLogEntries.push(this.battleTimeDiff + ": " + s);
         }
     }
     
