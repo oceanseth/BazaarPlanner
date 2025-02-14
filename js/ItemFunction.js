@@ -619,6 +619,8 @@ ItemFunction.items.set("Silencer",(item)=>{
         });
         item.gain(2,'damage');
         item.triggerFunctions.push(()=>{
+            item.dealDamage(item.damage);
+            item.applyBurn(item.burn);
             item.gain(item.board.player.hostileTarget.burn,'damage');
         });
     });
