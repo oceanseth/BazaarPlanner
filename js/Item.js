@@ -92,9 +92,6 @@ export class Item {
         this.board.itemValuesChangedTriggers.forEach(func => func(this,source));
     }
 
-    canBeFrozen() {
-        return !this.isDestroyed && this.cooldown > 0 && this.freezeDurationRemaining <= 0;
-    }
     updateTriggerValuesElement() {
         const formatNumber = num => Number.isInteger(num) ? num.toString() : num.toFixed(0);
       
@@ -600,7 +597,7 @@ export class Item {
     }
     applyFreeze(duration,source) {
         if(this.enchant=='Radiant') return;
-        if(!this.canBeFrozen()) return;
+        if(!this.isFreezeTargetable()) return;
         if(source&&source.freezeBonus) {
             duration += source.freezeBonus;
         }
@@ -768,8 +765,13 @@ export class Item {
     isHasteTargetable() {
         return this.cooldown && this.cooldown>0 && this.isDestroyed == false;
     }
-    isSlowTargetable = this.isHasteTargetable;
+    isSlowTargetable() {
+        return !this.isDestroyed && this.cooldown > 0 && (this.slowTimeRemaining <= 0 || !this.board.items.some(item => item.slowTimeRemaining <= 0 && item.isHasteTargetable()));        
+    }
     isChargeTargetable = this.isHasteTargetable;
+    isFreezeTargetable() {
+        return !this.isDestroyed && this.cooldown > 0 && (this.freezeDurationRemaining <= 0 || !this.board.items.some(item => item.freezeDurationRemaining <= 0 && item.isHasteTargetable()));
+    }
 
         
     getSlowTriggerFunctionFromText(text) {        
@@ -1202,8 +1204,38 @@ export class Item {
                 this.board.player.hostileTarget.items.forEach(item => item.applyFreeze(freezeDuration,this));
             };
         }
+        
+        //Freeze 1 item for (  3  » 4  » 5   ) second(s). from Quick Freeze
+        regex = /^Freeze (\([^)]+\)|\d+) items? for (\([^)]+\)|\d+) second\(?s\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const numItems = getRarityValue(match[1], this.rarity);
+            const freezeDuration = getRarityValue(match[2], this.rarity);
+            return (item) => {
+                const targets = this.board.player.hostileTarget.board.items.filter(i=>i.isFreezeTargetable());
+                const itemsToFreeze = this.pickRandom(targets,numItems);
+                if(itemsToFreeze.length>0) itemsToFreeze.forEach(item => item.applyFreeze(freezeDuration,item||this));
+                else {
+                    log(this.name + " tried to freeze " + numItems + " item(s) but there were no items to freeze");
+                }
+            };
+        }
 
-
+        //Freeze 1 item of equal or smaller size for 1 second(s).
+        regex = /^Freeze (\([^)]+\)|\d+) item(?:s)? of equal or smaller size for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const numItems = getRarityValue(match[1], this.rarity);
+            const freezeDuration = getRarityValue(match[2], this.rarity);
+            return (item) => {
+                const targets = this.board.player.hostileTarget.board.items.filter(i=> i.size<=(item||this).size && i.isFreezeTargetable());
+                const itemsToFreeze = this.pickRandom(targets,numItems);
+                if(itemsToFreeze.length>0) itemsToFreeze.forEach(item => item.applyFreeze(freezeDuration,item||this));
+                else {
+                    log(this.name + " tried to freeze " + numItems + " item(s) of equal or smaller size but there were no items to freeze");
+                }
+            };
+        }
     }
 
 
@@ -1228,6 +1260,15 @@ export class Item {
                 this.applyShield(this.shield);
             };
 
+        }
+        // Gain Shield equal to your enemy's burn.
+        regex = /Gain Shield equal to your enemy's burn/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                this.gain(this.board.player.hostileTarget.burn,'shield');
+                this.applyShield(this.shield);
+            };
         }
 
         // Shield equal to ( 2 » 3 ) time(s) the value of your items.
@@ -1952,7 +1993,7 @@ export class Item {
         regex = /^The first (\([^)]+\)|\d+)?\s?times? (.+) each fight, (.*)/i;
         match = text.match(regex);
         if(match) {
-            const numTimes = getRarityValue(match[1], this.rarity);
+            const numTimes = match[1]?getRarityValue(match[1], this.rarity):1;
             const ntimesFunction = this.getTriggerFunctionFromText(match[3]);
             const thingDone = match[2].toLowerCase();
             switch(thingDone) {
@@ -1981,7 +2022,7 @@ export class Item {
                     });
                     return;
                 case "you use the core":
-
+                case "use the core": // existing wording is scuffed for liquid core
                     let coreUsedCount = 0;
                     this.board.itemTriggers.set(this.id,(item)=>{
                         if(item.tags.includes("Core")&&coreUsedCount++ <= numTimes) {
@@ -2001,7 +2042,16 @@ export class Item {
                             }
                         }
                     });
-
+                case "you haste":
+                    let hasteCount = 0;
+                    this.board.hasteTriggers.set(this.id,(item)=>{
+                        if(hasteCount++<=numTimes) {
+                            ntimesFunction(item);
+                            if(hasteCount==numTimes) {
+                                this.board.hasteTriggers.delete(this.id);
+                            }
+                        }
+                    });
 
                 case "you crit":
                     let critCount = 0;
@@ -2108,7 +2158,7 @@ export class Item {
                     });
                     return;
             }
-            console.log("matched the first "+numTimes+" times but not '"+match[3]+"' from "+this.name);
+            console.log("matched the first "+numTimes+" times but not '"+thingDone+"' from "+this.name);
             
 
 
@@ -2777,7 +2827,7 @@ export class Item {
                 if(tagToMatch) {
                     itemsToFreeze = itemsToFreeze.filter(item => item.tags.includes(tagToMatch));
                 }
-                itemsToFreeze = itemsToFreeze.filter(item => item.canBeFrozen());
+                itemsToFreeze = itemsToFreeze.filter(item => item.isFreezeTargetable());
                 const numToFreezeNow = Math.min(numToFreeze, itemsToFreeze.length);
                 this.pickRandom(itemsToFreeze,numToFreezeNow).forEach(item => {
                     item.applyFreeze(seconds,this);
