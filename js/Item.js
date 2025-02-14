@@ -2018,6 +2018,26 @@ export class Item {
                         }
                     });
                     return;
+                case "you use your slowest weapon":
+                    let slowestWeaponCount = 0;
+                    let slowestWeapon = this.board.items.reduce((a,b)=>Math.min(a,b.cooldown),Infinity);
+                    let slowestWeaponCooldown = slowestWeapon.cooldown||Infinity;
+                    
+                    this.board.itemTriggers.set(this.id,(item)=>{
+                        if(item.tags.includes("Weapon")) {
+                            if(item.cooldown < slowestWeaponCooldown) { 
+                                slowestWeapon = this.board.items.reduce((a,b)=>Math.min(a,b.cooldown),Infinity);
+                                slowestWeaponCooldown = slowestWeapon.cooldown;
+                                if(item.id==slowestWeapon.id) {
+                                    ntimesFunction(item);                                                           
+                                    if(slowestWeaponCount++==numTimes) {
+                                        this.board.itemTriggers.delete(this.id);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                    return;
                 case "you use your rightmost item":
                     let rightmostItemCount = 0;
                     const rightmostItem = this.board.items[this.board.items.length-1];
@@ -2722,6 +2742,31 @@ export class Item {
             return () => {};
         }
 
+        //Non-tech item cooldowns are increased by ( 1 » 2 ) second(s). from Chronobarrier
+        regex = /^\s*Non-tech item cooldowns are increased by (\([^)]+\)|\d+) second\(s\)\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const cooldownIncrease = getRarityValue(match[1], this.rarity);
+            [...this.board.player.hostileTarget.board.items,...this.board.items]            
+            .forEach(item => {
+                if(!item.tags.includes("Tech")) {
+                    item.gain(cooldownIncrease*1000,'cooldown');
+                }
+            });
+            return () => {};
+        }
+
+        //reduce your leftmost item's cooldown by ( 3% » 6% » 9% » 12% )
+        regex = /^\s*reduce your leftmost item's cooldown by (\([^)]+\)|\d+%)/i;
+        match = text.match(regex);
+        if(match) {
+            const cooldownReduction = getRarityValue(match[1], this.rarity);
+            const leftmostItem = this.board.items[0];
+            return () => {
+                leftmostItem.gain(leftmostItem.cooldown * (1-cooldownReduction/100)-leftmostItem.cooldown,'cooldown');
+                log(this.name + " reduced " + leftmostItem.name + " cooldown by " + cooldownReduction + "%");
+            };
+        }
 
         //This has +1 Multicast for each Property you have.
         regex = /^\s*This has \+(\d+) Multicast for each ([^\s^\.]+) you have\.?/i;

@@ -448,6 +448,23 @@ ItemFunction.items.set("Fort",(item)=>{
     });
 });
 
+//Deal 100 damage.
+//This deals ( 3 » 5 » 10 ) times more damage if it is your only weapon. from Sniper Rifle
+ItemFunction.items.set("Sniper Rifle",(item)=>{
+    const amount = getRarityValue("3 >> 5 >> 10",item.rarity);
+    item.damageChanged((newDamage,oldDamage)=>{
+        if(item.board.items.filter(i=>i.tags.includes("Weapon")).length==1) {
+            item.damage_pauseChanged = true;
+            item.gain((newDamage-oldDamage)*amount,'damage');
+            item.damage_pauseChanged = false;
+        }
+    });
+    item.gain(100,'damage');
+
+    item.triggerFunctions.push(()=>{
+        item.dealDamage(item.damage);
+    });
+});
 //You have (  +1  » +2  » +3   ) income for each Property you have (including Stash). from Open for Business
 ItemFunction.items.set("Open for Business",(item)=>{
     const amount = getRarityValue("1 >> 2 >> 3",item.rarity);
