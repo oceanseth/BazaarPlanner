@@ -891,7 +891,10 @@ class Board {
     }
 
     loadMonsterData(monsterData) {            
-        this.initialize();
+        //this.initialize();
+        this.items = [];
+        this.skills = [];
+        this.reset();
         let startIndex = 0;
         // Load monster items to the board
         monsterData.items.forEach(item => {              
@@ -915,7 +918,8 @@ class Board {
         });
 
         this.player.startPlayerData.maxHealth = monsterData.health;
-        this.player.name = monsterData.name;
+        this.player.startPlayerData.name = monsterData.name;
+
         Board.resetBoards();
         updateUrlState();
     }
