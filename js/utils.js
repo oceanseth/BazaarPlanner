@@ -107,15 +107,7 @@ export function updateUrlState() {
 window.addEventListener('popstate', () => {
     loadFromUrl();  // This will load the state from the current URL hash
 });
-window.addEventListener('load', () => {
-    const initialHash = window.location.hash.slice(1);
-    if (initialHash) {
-        // Replace the initial history entry and then immediately create a new one
-        window.history.replaceState(null, '', '/'); // Clear the initial entry
-        window.history.pushState({state: initialHash}, '', `#${initialHash}`);
-        loadFromUrl(initialHash);
-    }
-});
+
 
 export function loadFromUrl(hash) {
     if(!hash) hash = window.location.hash.slice(1); // Remove the # symbol
@@ -142,6 +134,7 @@ export function loadFromUrl(hash) {
         boardState.forEach((item) => {
             if(item.name.startsWith('_b_')) {
                 const board = Board.getBoardFromId(item.name.slice(3));
+                board.player.startPlayerData.maxHealth = item.health;
                 board.player.maxHealth = item.health;
                 board.player.health = item.health;
                 if(item.skills) {
