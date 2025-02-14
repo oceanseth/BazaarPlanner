@@ -10,7 +10,9 @@ import { getRarityValue, loadFromUrl, updateUrlState } from './utils.js';
 import { Battle } from './Battle.js';
 
 // Make necessary functions/classes available globally
-
+if(window.location.hostname == "bazaarplanner.com") {
+    window.location.href = "https://www.bazaarplanner.com/"+window.location.hash;
+}
 window.getSizeValue = getSizeValue;
 window.getRarityValue = getRarityValue;
 window.loadMonsterBoard = loadMonsterBoard;
