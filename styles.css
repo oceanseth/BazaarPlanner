@@ -754,6 +754,7 @@ button:active {
         -0.5px 0.5px 0 #333,
         0.5px 0.5px 0 #333,
         1px 1px 1px rgba(0, 0, 0, 1);
+        display:none;
 }
 
 /* Optional: Different colors for different types */
@@ -1040,7 +1041,7 @@ button:active {
 }
 .freeze-element {
     position: absolute;
-    top: calc(50% - 20px);
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     color: rgb(54, 198, 255);
@@ -1054,6 +1055,19 @@ button:active {
     line-height: 30px;
     filter:none!important;
 }
+.battle-stats {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    display: flex;           /* Add flex display */
+    flex-direction: row;  /* Stack children vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center;     /* Center horizontally */
+}
+
 .destroyed {
     opacity: 0.5;
     filter: blur(2px);

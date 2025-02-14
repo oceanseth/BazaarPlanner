@@ -476,11 +476,6 @@ class Board {
                 this.damageApplied += oldHealth-newHealth;
             }
         });
-        this.player.healthChanged((newHealth,oldHealth) => {
-            if(newHealth>oldHealth) {
-                this.healingApplied += newHealth-oldHealth;
-            }
-        });
         this.player.shieldChanged((newShield,oldShield) => {
             if(newShield>oldShield) {
                 this.shieldApplied += newShield-oldShield;
