@@ -134,6 +134,7 @@ export function loadFromUrl(hash) {
         boardState.forEach((item) => {
             if(item.name.startsWith('_b_')) {
                 const board = Board.getBoardFromId(item.name.slice(3));
+                board.player.startPlayerData.maxHealth = item.health;
                 board.player.maxHealth = item.health;
                 board.player.health = item.health;
                 if(item.skills) {
