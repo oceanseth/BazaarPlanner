@@ -668,7 +668,16 @@ export class Item {
 
 
         }
-
+        //educe its cooldown by 5% for the fight.
+        damageRegex = /Reduce its cooldown by (\d+)% for the fight\.?/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const cooldownReduction = getRarityValue(match[1], this.rarity);
+            return (item) => {
+                const target = item||this;
+                target.gain(target.cooldown*(1-cooldownReduction/100) - target.cooldown,'cooldown');
+            };
+        }
         //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
         //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
         damageRegex = /^Your ([^\s]+)\s*(?:items)? gain (?:\(([^)]+)\)|(\d+))\s+([^\s]+)\s+for the fight\.?/i;
