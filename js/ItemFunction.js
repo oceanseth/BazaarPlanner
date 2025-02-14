@@ -658,6 +658,27 @@ ItemFunction.items.set("Port",(item)=>{
     }
 });
 
+//Poison 10.
+//Gain 10 regeneration for the fight.
+//Could not parse When any non-weapon is used, Charge this 1 second(s). from Necronomicon
+ItemFunction.items.set("Necronomicon",(item)=>{
+    item.gain(10,'poison');
+    item.board.itemTriggers.set(item.id,(i)=>{
+        if(!i.tags.includes("Weapon")) {
+            item.chargeBy(1);
+        }
+    });
+    item.board.player.hostileTarget.board.itemTriggers.set(item.id,(i)=>{
+        if(!i.tags.includes("Weapon")) {
+            item.chargeBy(1);
+        }
+    });
+    item.triggerFunctions.push(()=>{
+        item.applyPoison(item.poison);
+        item.board.player.gainRegen(10);
+    });
+});
+
 ItemFunction.items.set("Piggles",()=>{});
 
 //Your Weapons deal (  +10  » +15  » +20  » +25   ) Damage. from Strength

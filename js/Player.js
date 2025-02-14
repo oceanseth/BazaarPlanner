@@ -116,9 +116,15 @@ export class Player {
     applyBurn(burnAmount) {
         this.burn += burnAmount;
     }   
+
     applyPoison(poisonAmount) {
-        this.poison += poisonAmount;
+        this.poison = this.poison + poisonAmount;
     }
+
+    applyHeal(healAmount) {
+        this.heal(healAmount);
+    }
+
     gainRegen(regenAmount) {
         this.regen += regenAmount;
     }

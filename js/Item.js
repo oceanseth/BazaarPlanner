@@ -1210,7 +1210,7 @@ export class Item {
         if(match) {
             const freezeDuration = (this.freezeBonus||0) + (match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]));
             return () => {
-                this.board.player.hostileTarget.items.forEach(item => item.applyFreeze(freezeDuration,this));
+                this.board.player.hostileTarget.board.items.forEach(item => item.applyFreeze(freezeDuration,this));
             };
         }
         
@@ -1223,7 +1223,7 @@ export class Item {
             return (item) => {
                 const targets = this.board.player.hostileTarget.board.items.filter(i=>i.isFreezeTargetable());
                 const itemsToFreeze = this.pickRandom(targets,numItems);
-                if(itemsToFreeze.length>0) itemsToFreeze.forEach(item => item.applyFreeze(freezeDuration,item||this));
+                if(itemsToFreeze.length>0) itemsToFreeze.forEach(item => item.applyFreeze(freezeDuration,this));
                 else {
                     log(this.name + " tried to freeze " + numItems + " item(s) but there were no items to freeze");
                 }
@@ -2096,6 +2096,7 @@ export class Item {
                             }
                         }
                     });
+                    return;
                 case "you haste":
                     let hasteCount = 0;
                     this.board.hasteTriggers.set(this.id,(item)=>{
@@ -2106,7 +2107,7 @@ export class Item {
                             }
                         }
                     });
-
+                    return;
                 case "you crit":
                     let critCount = 0;
 
@@ -2118,6 +2119,7 @@ export class Item {
                             }
                         }
                     });
+                    return;
                 case "you slow":
                     let slowCount = 0;
                     this.board.slowTriggers.set(this.id,(item)=>{
@@ -2128,6 +2130,7 @@ export class Item {
                             }
                         }
                     });
+                    return;
                 case "you fall below half health":
                     let healthBelowHalfCount = 0;
                     this.board.player.healthBelowHalfTriggers.set(this.id,(item)=>{
@@ -2200,7 +2203,7 @@ export class Item {
                             }
                         });
                     });
-                    
+                    return;
                 case "you use a large item":
                     let largeItemCount = 0;
                     this.board.itemTriggers.set(this.id,(item)=>{
@@ -2826,6 +2829,61 @@ export class Item {
                 }
             });
             return () => {};
+        }
+
+        //Slow all your opponent's items for (  3  » 5  » 7   ) second(s).
+        regex = /^\s*Slow all your opponent's items for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const slowDuration = getRarityValue(match[1], this.rarity);
+            return () => {
+                this.board.player.hostileTarget.board.items.forEach(item => {   
+                    this.applySlowTo(item,slowDuration);
+                });
+            };
+        }
+        
+        //You have ( +1 » +2 » +3 ) Regeneration
+        regex = /^\s*You have (\([^)]+\)|\d+) Regeneration\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const regeneration = getRarityValue(match[1], this.rarity);
+            this.board.player.regeneration += regeneration;
+            return () => {};
+        }
+
+        //Poison equal to your Regeneration.
+        regex = /^\s*Poison equal to your Regeneration\.?/i;
+        match = text.match(regex);
+        if(match) {            
+            return () => {
+                this.applyPoison(this.board.player.regeneration||0);
+            };
+        }
+        //Heal equal to your opponent's Poison.
+        regex = /^\s*Heal equal to your opponent's Poison\.?/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                if(this.board.player.hostileTarget.poison>0) {
+                    this.applyHeal(this.board.player.hostileTarget.poison);
+                }
+            };
+        }
+
+        //Charge your other non-weapon items ( 1 » 2 ) second(s).
+        regex = /^\s*Charge your other non-weapon items (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const chargeDuration = getRarityValue(match[1], this.rarity);
+           
+            return () => {
+                this.board.items.forEach(item => {
+                    if(item.id != this.id && item.cooldown>0 && !item.tags.includes("Weapon")) {
+                        item.chargeBy(chargeDuration);
+                    }
+                });
+            };
         }
 
         /*this gains ( 5 » 10 » 15 » 20 ) damage for the fight
