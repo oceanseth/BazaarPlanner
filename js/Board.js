@@ -891,9 +891,7 @@ class Board {
     }
 
     loadMonsterData(monsterData) {            
-        //this.initialize();
-        this.items = [];
-        this.skills = [];
+        this.initialize();
         this.reset();
         let startIndex = 0;
         // Load monster items to the board
