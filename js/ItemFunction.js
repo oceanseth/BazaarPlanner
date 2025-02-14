@@ -523,8 +523,15 @@ ItemFunction.items.set("Apropos Chapeau",(item)=>{
     const dmgGain = getRarityValue("6 >> 9 >> 12",item.rarity);
     const healGain = getRarityValue("6 >> 9 >> 12",item.rarity);
     const shieldGain = getRarityValue("6 >> 9 >> 12",item.rarity);
-    const amount = item.board.items.filter(i=>i.tags.includes("Tool") || i.tags.includes("Weapon") || i.tags.includes("Property") || i.tags.includes("Apparel")).length;
-    item.gain(amount,'multicast');
+    const uniqueTags = new Set();
+    item.board.items.forEach(i => {
+        if(i.tags.includes("Tool")) uniqueTags.add("Tool");
+        if(i.tags.includes("Weapon")) uniqueTags.add("Weapon");
+        if(i.tags.includes("Property")) uniqueTags.add("Property");
+        if(i.tags.includes("Apparel")) uniqueTags.add("Apparel");
+    });
+    const amount = uniqueTags.size;
+    item.multicast+=amount;
     item.triggerFunctions.push(()=>{
         item.board.items.forEach(i=>{
             if(i.tags.includes("Weapon")) {
