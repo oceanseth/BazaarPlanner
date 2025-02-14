@@ -112,6 +112,13 @@ window.pollCheck = function() {
     ]).then(([yesSnapshot, noSnapshot]) => {
         if (yesSnapshot.exists() || noSnapshot.exists()) {
             closePoll();
+            const initialHash = window.location.hash.slice(1);
+            if (initialHash) {
+                // Replace the initial history entry and then immediately create a new one
+                window.history.replaceState(null, '', '/'); // Clear the initial entry
+                window.history.pushState({state: initialHash}, '', `#${initialHash}`);
+                loadFromUrl(initialHash);
+            }
         }
     });
 }
