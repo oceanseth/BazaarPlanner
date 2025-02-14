@@ -67,10 +67,17 @@ ItemFunction.items.set("Thrusters",(item)=>{
 ItemFunction.items.set("Nitro",(item)=>{
     const burnAmount = getRarityValue("4 >> 6 >> 8",item.rarity);
     item.gain(burnAmount,'burn');
-    return ()=>{
+    item.triggerFunctions.push(()=>{
         item.applyBurn(item.burn,item);
         item.applyBurn(item.burn,item,{selfTarget:true});
-    }
+    });
+});
+//The Core gains ( +5% » +10% » +15% ) Crit Chance for the fight. from Cooling Fan
+ItemFunction.items.set("Cooling Fan",(item)=>{
+    const critChance = getRarityValue("5 >> 10 >> 15",item.rarity);
+    item.triggerFunctions.push(()=>{
+        item.board.items.forEach(i=>{if(i.tags.includes("Core")) i.gain(critChance,'critChance');});
+    });
 });
 
 ItemFunction.items.set("Cryosleeve",(item)=>{
@@ -395,6 +402,33 @@ ItemFunction.items.set("Sapphire",(item)=>{
     });
 });
 
+//The Core has its cooldown reduced by (  10%  » 15%   ). from Overclocked
+//While you have Burn, double this effect. from Overclocked
+ItemFunction.items.set("Overclocked",(item)=>{
+    const cooldownReduction = getRarityValue("10 >> 15",item.rarity);
+    let hasBeenDoubled = false;
+    const cores = item.board.items.filter(i=>i.tags.includes("Core"));  
+    cores.forEach(i=>{
+        i["doublingAmountFromOverclocked"+item.id] = i.cooldown*(1 - cooldownReduction/100) - i.cooldown;
+        i.gain(i["doublingAmountFromOverclocked"+item.id],'cooldown');
+    });
+    item.board.player.burnChanged((newBurn)=>{
+        if(newBurn>0) {
+            if(!hasBeenDoubled) {
+                hasBeenDoubled = true;
+                cores.forEach(i=>{
+                    i.gain(i["doublingAmountFromOverclocked"+item.id],'cooldown');
+                });
+            }
+        } else {
+                cores.forEach(i=>{
+                    i.gain(-i["doublingAmountFromOverclocked"+item.id],'cooldown');
+                    i["doublingAmountFromOverclocked"+item.id] = 0;
+                });
+                hasBeenDoubled = false;
+        }                        
+    });
+});
 //Shield (100 >> 150 ).
 //All item cooldowns are increased by ( 1 » 2 ) second(s). from Fort
 // Your items with a cooldown of 8 seconds or greater have +1 Multicast.
@@ -414,6 +448,23 @@ ItemFunction.items.set("Fort",(item)=>{
     });
 });
 
+//Deal 100 damage.
+//This deals ( 3 » 5 » 10 ) times more damage if it is your only weapon. from Sniper Rifle
+ItemFunction.items.set("Sniper Rifle",(item)=>{
+    const amount = getRarityValue("3 >> 5 >> 10",item.rarity);
+    item.damageChanged((newDamage,oldDamage)=>{
+        if(item.board.items.filter(i=>i.tags.includes("Weapon")).length==1) {
+            item.damage_pauseChanged = true;
+            item.gain((newDamage-oldDamage)*amount,'damage');
+            item.damage_pauseChanged = false;
+        }
+    });
+    item.gain(100,'damage');
+
+    item.triggerFunctions.push(()=>{
+        item.dealDamage(item.damage);
+    });
+});
 //You have (  +1  » +2  » +3   ) income for each Property you have (including Stash). from Open for Business
 ItemFunction.items.set("Open for Business",(item)=>{
     const amount = getRarityValue("1 >> 2 >> 3",item.rarity);

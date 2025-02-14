@@ -3,7 +3,7 @@ import { updateUrlState, setupChangeListeners } from './utils.js';
 
 export class Player {
     hostileTarget = null;
-    static possibleChangeAttributes = ['health','shield','maxHealth'];
+    static possibleChangeAttributes = ['health','shield','maxHealth','burn'];
     constructor(startPlayerData) {
         setupChangeListeners(this, Player.possibleChangeAttributes );
         this.startPlayerData = startPlayerData;
