@@ -592,8 +592,11 @@ export class Item {
             this.board.player.hostileTarget.name);            
         if(this.lifesteal >0) {
             let oldHealth = this.board.player.health;
-            this.board.player.health += (this.lifesteal/100)*damage;
-            if(this.board.player.health > this.board.player.maxHealth) this.board.player.health = this.board.player.maxHealth;
+            if(this.board.player.health +damage > this.board.player.maxHealth) {
+                this.board.player.health = this.board.player.maxHealth;
+            } else {
+                this.board.player.health += damage;
+            }
             log(this.name + " lifesteals " + (this.board.player.health-oldHealth) + " health");
         }
         if(doesCrit) {
