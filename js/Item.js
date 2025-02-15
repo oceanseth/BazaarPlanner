@@ -673,13 +673,14 @@ export class Item {
         this.isSlowed = 0;
         log(this.name + " was un-slowed");
     }
-    applyPoison(poisonAmount) {
+    applyPoison(poisonAmount,source,{selfTarget}={selfTarget:false}) {
         let doesCrit = this.doICrit();
         if(doesCrit) {
             poisonAmount *= (1+this.critMultiplier/100);
         }
-        log(this.name + (doesCrit?"critically ":"")+" poisoned " + this.board.player.hostileTarget.name + " for " + poisonAmount.toFixed(0));
-        this.board.player.hostileTarget.applyPoison(poisonAmount);
+        const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
+        log(this.name + (doesCrit?"critically ":"")+" poisoned " + target.name + " for " + poisonAmount.toFixed(0));
+        target.applyPoison(poisonAmount);
         if(doesCrit) {
             this.board.itemDidCrit(this);
         }
@@ -963,8 +964,9 @@ export class Item {
                 log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
             };
         }
-        regex = /^Haste the item to the right of this/i;
+        regex = /^Haste the item to the right of this for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         if (regex.test(text)) {
+            const duration = getRarityValue(text.match(regex)[1], this.rarity);
             const itemToHaste = this.getItemToTheRight();
             if(itemToHaste) {
                 this.applyHasteTo(itemToHaste,duration);
@@ -1037,6 +1039,16 @@ export class Item {
                 this.applyPoison(this.poison);
             };
         }      
+        //Poison both players ( 4 » 6 » 8 » 10 ). from Noxious Potion
+        regex = /^Poison both players (\([^)]+\)|\d+)\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const poisonAmount = getRarityValue(match[1], this.rarity);
+            return () => {
+                this.applyPoison(poisonAmount);
+                this.applyPoison(poisonAmount,{selfTarget:true});
+            };
+        }
         
         return null;
     }
@@ -1653,6 +1665,13 @@ export class Item {
                     <input type="number" id="edit-maxammo" value="${this.maxAmmo}">
                 </div>`;
         }
+        if(this.tags.includes("Heal")) {
+            popupHTML += `
+                <div class="form-group">
+                    <label>Heal:</label>
+                    <input type="number" id="edit-heal" value="${this.heal}">
+                </div>`;
+        }
 
 
         // Add cooldown field only if item has cooldown
@@ -1761,6 +1780,10 @@ export class Item {
             if(popup.querySelector('#edit-maxammo')) {
                 this.startItemData.maxAmmo = parseFloat(popup.querySelector('#edit-maxammo').value);
                 this.startItemData.ammo = this.startItemData.maxAmmo;
+            }
+            if(popup.querySelector('#edit-heal')) {
+                const newHeal = parseFloat(popup.querySelector('#edit-heal').value);
+                this.startItemData.heal = (this.startItemData.heal||0) + (newHeal - this.heal)/(this.heal_multiplier||1);
             }
             popup.remove();
             //this.updateStatusIndicators();
@@ -1914,7 +1937,15 @@ export class Item {
                             triggerFunctionFromText(item);
                         }
                     });
-                    return;                   
+                    return;            
+                case "use an item with ammo":
+                    this.board.itemTriggers.set(this.id, (item) => {
+                        if(item.tags.includes("Ammo")) {
+                            triggerFunctionFromText(item);
+                        }
+                    });
+                    return;
+                
                 case "use another ammo item":
                     this.board.itemTriggers.set(this.id, (item) => {
                         if(item.id !== this.id && item.tags.includes("Ammo")) {
@@ -2600,12 +2631,12 @@ export class Item {
         }
         
          //Burn equal to 10% of this item's damage.
-        regex = /^\s*(?:Deal )?(Burn|Poison|Heal|Shield|Damage) equal to (10% of|10 times|\([^)]+\) times) (?:this item's ([^\s^\.]+)|the value of your items)\.?/i;
+        regex = /^\s*(?:Deal )?(Burn|Poison|Heal|Shield|Damage) equal to (10% of|[\d]+|\([^)]+\))(?: times)? (?:this item's ([^\s^\.]+)|the value of your items)\.?/i;
         match = text.match(regex);
         if(match) {
             const whatToGain = match[1];
             const whatToGainLowercase = whatToGain.toLowerCase();
-            const multiplier = match[2]=='10% of'?0.1:match[2]=='10 times'?10:getRarityValue(match[2].slice(0,-6), this.rarity);
+            const multiplier = match[2]=='10% of'?0.1:getRarityValue(match[2], this.rarity);
             const whatToCheck = match[3]?match[3].toLowerCase() : 'value of your items';
             if(whatToCheck=='value of your items') {
                 this.gain(this.board.items.reduce((sum,item)=>sum+item.value,0)*multiplier, whatToGainLowercase);
@@ -2989,6 +3020,21 @@ export class Item {
                 });
             };
         }
+        //an enemy item has its cooldown increased by ( 3 » 6 ) second(s). from Spyglass
+        regex = /^\s*an enemy item has its cooldown increased by (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const cooldownIncrease = getRarityValue(match[1], this.rarity);
+            return () => {
+                const targetItems = this.board.player.hostileTarget.board.items.filter(item => item.cooldown>0);
+                const targetItem = this.pickRandom(targetItems);
+                if(targetItem) {
+                    targetItem.gain(cooldownIncrease*1000,'cooldown');
+                    log(this.name + " increased " + targetItem.name + " cooldown by " + cooldownIncrease + " seconds");
+                }
+            };
+        }
+        
 
         /*this gains ( 5 » 10 » 15 » 20 ) damage for the fight
 
@@ -3433,6 +3479,17 @@ export class Item {
             this.gain(this.critMultiplier,'critMultiplier');
             return ()=>{};
         }
+        //This has double Heal.
+        regex = /^This has double Heal\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            this.healChanged((newvalue,oldvalue) => {
+                this.heal_pauseChanged = true;
+                this.gain(newvalue-oldvalue,'heal');
+                this.heal_pauseChanged = false;
+            })
+            return ()=>{};
+        }
 
         //Your leftmost Weapon deals (  +20  » +30  » +40  » +50   ) Damage.
         //Your leftmost Poison item has (  +3  » +6  » +9  » +12   ) Poison.
@@ -3630,6 +3687,19 @@ export class Item {
 
         return null;
     }
+    getCritTriggerFunctionFromText(text) {
+        let regex,match;
+        //Your items gain Crit Chance equal to this item's value for the fight.
+        regex = /^\s*Your items gain Crit Chance equal to this item's value for the fight\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                this.board.items.forEach(item => {
+                    item.gain(this.value,'crit');
+                });
+            }
+        }
+    }
 
     executeSpecificItemFunction() {
         const [strippedName] = Item.stripEnchantFromName(this.name);
@@ -3649,7 +3719,7 @@ export class Item {
         this.getPoisonTriggerFunctionFromText(text) ||
         this.getHealTriggerFunctionFromText(text) ||
         this.getFreezeTriggerFunctionFromText(text) ||
-    //    this.getCritTriggerFunctionFromText(text) ||
+        this.getCritTriggerFunctionFromText(text) ||
    //     this.getAmmoTriggerFunctionFromText(text) ||
         this.getAnonymousTriggerFunctionFromText(text) ||
         (() => { console.log("Could not parse "+ text+ " from "+this.name); return ()=>{};})();

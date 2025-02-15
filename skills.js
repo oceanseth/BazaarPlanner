@@ -1875,7 +1875,7 @@ export const skills = {
       "Ammo",
       "Damagereference"
     ],
-    "text": "Your Weapons have +0 damage for each ammo you have on your items in play. [0]"
+    "text": "Your Weapons have ( +1 » +2 » +3 ) damage for each ammo you have on your items in play."
   },
   "Long Strides": {
     "icon": "images/skills/LongStrides.avif",
