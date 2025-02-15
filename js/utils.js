@@ -76,7 +76,9 @@ export function updateUrlState() {
                 delete toReturn[attribute];
             }
         });
-
+        if(item.lifesteal) {
+            toReturn.lifesteal = true;
+        }
         if(parseInt(item.getStartingCooldownFromText(baseItem.cooldown)) == parseInt(item.getStartingCooldownFromText(item.startItemData.cooldown)))
             delete toReturn.cooldown;
         else {
