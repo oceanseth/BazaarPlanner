@@ -478,10 +478,10 @@ export class Item {
 
     applyHasteTo(item,duration) {
         if(this.hasDoubleHasteDuration) {
-            item.applyHaste(duration*2);
-        }else{
-            item.applyHaste(duration);
+            duration*=2;
         }
+        item.applyHaste(duration);
+        log(this.name + " hastened " + item.name + " for " + duration + " seconds");
     }
 
     applySlow(duration) {
@@ -968,10 +968,12 @@ export class Item {
         if (regex.test(text)) {
             const duration = getRarityValue(text.match(regex)[1], this.rarity);
             const itemToHaste = this.getItemToTheRight();
-            if(itemToHaste) {
-                this.applyHasteTo(itemToHaste,duration);
-                log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
+            return (item) => { 
+                if(itemToHaste) {
+                    this.applyHasteTo(itemToHaste,duration);
+                }
             }
+            
         }
 
         //Haste this ( 1 » 2 » 3 » 4 ) second(s).
@@ -1216,7 +1218,7 @@ export class Item {
     gain(amount,type,source) {
         amount = parseFloat(amount);
         if(!["cooldown"].includes(type)) {
-            log(this.name + " gained " + amount + " " + type + (source?(" from "+source.name):""));
+            log(this.name + " gained " + amount.toFixed(0) + " " + type + (source?(" from "+source.name):""));
         }
 
         
@@ -3619,6 +3621,19 @@ export class Item {
                 });
             };
         }
+        //reload (  1  » 2  » 3   ) the item to the left of it.
+        regex = /^reload (\([^)]+\)|\d+) the item to the left of it\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const reloadAmount = getRarityValue(match[1], this.rarity);
+            return (it) => {
+                const item = it.getItemToTheLeft();
+                if(item) {
+                    item.gain(reloadAmount,'ammo');
+                }
+            }   
+        }
+
         //Your Weapons have + Damage equal to (  1x  » 2x  » 3x   ) your income.
         regex = /^Your ([^\s]+)(?: items)? have \+ ([^\s]+) equal to (?:\(([^)]+)\)|(\d+)x) your income\.?$/i;
         match = text.match(regex);

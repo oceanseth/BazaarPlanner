@@ -306,6 +306,15 @@ ItemFunction.items.set("Big Guns",(item)=>{
         }
     });
 });
+//Reduce the cooldown of your Properties by (  10%  » 15%   ). from Industrialist
+ItemFunction.items.set("Industrialist",(item)=>{
+    const amount = getRarityValue("10 >> 15",item.rarity);
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Property")) {
+            i.gain(i.cooldown*(1-amount/100)-i.cooldown,'cooldown');
+        }
+    });
+});
 
 ItemFunction.items.set("Prosperity",(item)=>{
     //Your Shield items have + Shield equal to the value of your Items.
