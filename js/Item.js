@@ -164,26 +164,26 @@ export class Item {
 
         if(this.battleStats.damage) {
             this.battleStatsElement.querySelector('.damage-element').style.display = 'block';
-            this.battleStatsElement.querySelector('.damage-element').textContent = this.battleStats.damage;
+            this.battleStatsElement.querySelector('.damage-element').textContent = this.battleStats.damage.toFixed(0);
         }
 
         if(this.battleStats.shield) {
             this.battleStatsElement.querySelector('.shield-element').style.display = 'block';
-            this.battleStatsElement.querySelector('.shield-element').textContent = this.battleStats.shield;
+            this.battleStatsElement.querySelector('.shield-element').textContent = this.battleStats.shield.toFixed(0);
         }
 
         if(this.battleStats.burn) {
             this.battleStatsElement.querySelector('.burn-element').style.display = 'block';
-            this.battleStatsElement.querySelector('.burn-element').textContent = this.battleStats.burn;
+            this.battleStatsElement.querySelector('.burn-element').textContent = this.battleStats.burn.toFixed(0);
         }
 
         if(this.battleStats.poison) {
             this.battleStatsElement.querySelector('.poison-element').style.display = 'block';
-            this.battleStatsElement.querySelector('.poison-element').textContent = this.battleStats.poison;
+            this.battleStatsElement.querySelector('.poison-element').textContent = this.battleStats.poison.toFixed(0);
         }
         if(this.battleStats.heal) {
             this.battleStatsElement.querySelector('.heal-element').style.display = 'block';
-            this.battleStatsElement.querySelector('.heal-element').textContent = this.battleStats.heal;
+            this.battleStatsElement.querySelector('.heal-element').textContent = this.battleStats.heal.toFixed(0);
         }
         
         
