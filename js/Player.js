@@ -62,7 +62,7 @@ export class Player {
                 <input type="number" id="player-gold" value="${this.gold}"/>
             </div>
             <div class="form-row">
-                <label for="player-regen">Regeneration:</label>
+                <label for="player-regen">Regen:</label>
                 <input type="number" id="player-regen" value="${this.regen}"/>
             </div>
             <div class="form-row">
