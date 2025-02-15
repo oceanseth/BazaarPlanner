@@ -1776,6 +1776,7 @@ export class Item {
             }
             if(popup.querySelector('#edit-lifesteal')) {
                 this.lifesteal = popup.querySelector('#edit-lifesteal').value == '1';
+                this.startItemData.lifesteal = this.lifesteal;
             }
             if(popup.querySelector('#edit-shield')) {
                 Board.resetBoards();
