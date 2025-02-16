@@ -190,6 +190,7 @@ export class Player {
         this.dieTriggers = new Map();
         this.overhealTriggers = new Map();
         this.healTriggers = new Map();
+        this.destroyTriggers = new Map(); // triggered when this player destroys an item
 
         this.board.reset();
     }

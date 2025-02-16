@@ -89,10 +89,8 @@ export class Battle {
         this.resetBattle();
         // Generate a random seed (32 characters)
         // Using ASCII printable characters (33-126)
-        if(!this.battleSeed) {
-            this.battleSeed = [...crypto.getRandomValues(new Uint8Array(32))]
-            .reduce((acc, x) => acc + String.fromCharCode(33 + (x % 94)), '');
-        }
+        this.battleSeed = [...crypto.getRandomValues(new Uint8Array(32))]
+        .reduce((acc, x) => acc + String.fromCharCode(33 + (x % 94)), '');
 
         // Initialize the RNG with the seed
         this.battleRNG = new Math.seedrandom(this.battleSeed);
