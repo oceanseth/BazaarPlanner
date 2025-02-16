@@ -1051,7 +1051,7 @@ button:active {
 }
 .freeze-element {
     position: absolute;
-    bottom: 20px;
+    bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
     color: rgb(54, 198, 255);
@@ -1064,6 +1064,7 @@ button:active {
     text-align: center;
     line-height: 30px;
     filter:none!important;
+    z-index: 1000;
 }
 .battle-stats {
     position: absolute;
