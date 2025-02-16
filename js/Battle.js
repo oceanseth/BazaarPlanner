@@ -116,9 +116,15 @@ export class Battle {
     
 
     battleFunction = () => {
-        const playersWithPositiveHealth = this.players.filter(player => player.health > 0);
-        if(playersWithPositiveHealth.length <= 1) {
+        if(this.players.some(player => player.health <= 0)) {
             clearInterval(this.battleInterval);
+
+            const playersWithPositiveHealth = this.players.filter(player => player.health > 0);
+
+            this.players.forEach(player => {
+                player.board.updateHealthElement();
+            });
+
             if(playersWithPositiveHealth.length == 0) {
                 this.log("Battle ended in a draw.");
                 this.updateCombatLogDisplay();

@@ -39,6 +39,18 @@ ItemFunction.items.set("Crow's Nest",(item)=>{
             }
         });
 });
+//Deal ( 6 » 12 » 18 » 24 ) damage.
+//When you use this, reload this 1 Ammo if it is your only weapon. From Rifle
+ItemFunction.items.set("Rifle",(item)=>{
+    const damage = getRarityValue("6 >> 12 >> 18 >> 24",item.rarity);
+    item.gain(damage,'damage');
+    item.triggerFunctions.push(()=>{
+        if(item.board.items.filter(i=>i.tags.includes("Weapon")).length==1) {
+            item.gain(1,'ammo');
+        }
+    });
+});
+
 ItemFunction.items.set("Balcony",(item)=>{
     //The Property to the left of this has double value in combat and has its cooldown reduced by ( 10% » 20% » 30% ).
     const property = item.getItemToTheLeft();

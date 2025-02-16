@@ -2147,7 +2147,8 @@ export class Item {
                     this.whenItemTagTriggers("Small", (item) => {
                         triggerFunctionFromText(item);
                     });
-
+                case "use this":
+                    this.triggerFunctions.push(triggerFunctionFromText);
                     return;
                 case "use a large item":
                     this.whenItemTagTriggers("Large", (item) => {
