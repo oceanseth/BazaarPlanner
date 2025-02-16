@@ -2506,7 +2506,7 @@ export class Item {
         board.itemTriggers.set(this.id,(item) => {
             // Handle both string and array cases
             const tags = Array.isArray(tag) ? tag : [tag];
-            if (tags.some(t => item.tags.includes(t))) {
+            if (tag =="Item" || tags.some(t => item.tags.includes(t))) {
                 func(item);
             }
         });
