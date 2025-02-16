@@ -83,6 +83,7 @@ export class Item {
             <div class="poison-element"></div>
             <div class="heal-element"></div>
             <div class="shield-element"></div>
+            <div class="multicast-element"></div>
         `;
         this.element.appendChild(this.battleStatsElement);
         
@@ -185,6 +186,10 @@ export class Item {
             this.battleStatsElement.querySelector('.heal-element').style.display = 'block';
             this.battleStatsElement.querySelector('.heal-element').textContent = this.battleStats.heal.toFixed(0);
         }
+        if(this.battleStats.useCount) {
+            this.battleStatsElement.querySelector('.multicast-element').style.display = 'block';
+            this.battleStatsElement.querySelector('.multicast-element').textContent = this.battleStats.useCount.toFixed(0);
+        }
         
         
 
@@ -223,7 +228,7 @@ export class Item {
         this.heal = this.startItemData.heal||0;
         this.critMultiplier = 100; //default crit multiplier is 100% more damage
         this.freezeBonus = 0;
-        this.battleStats = {};
+        this.battleStats = { useCount:0 };
         this.battleStatsElement.querySelectorAll('div').forEach(div => div.style.display = 'none');
         setupChangeListeners(this,Item.possibleChangeAttributes);
 
@@ -567,6 +572,7 @@ export class Item {
         this.triggerFunctions.forEach(func => func());
         this.board.itemTriggered(this);
         this.getAdjacentItems().forEach(item => item.adjacentItemTriggered(this));
+        this.battleStats.useCount++;
     }
 
     doICrit() {
@@ -842,7 +848,7 @@ export class Item {
         let regex = /Slow (?:\(([^)]+)\)|(\d+)|an) (?:(\w+) )?items?\(?s?\)?\s*for (?:\(([^)]+)\)|(\d+)) second/i;
         let match;
         if (regex.test(text)) {            
-            const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = text.match(regex);
+            let [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = text.match(regex);
                 if(singleItemCount == 'an') {
                     singleItemCount = 1;
                 }
@@ -2228,6 +2234,17 @@ export class Item {
                             ntimesFunction(item);
                             if(freezeCount==numTimes) {
                                 this.board.player.hostileTarget.board.freezeTriggers.delete(this.id);
+                            }
+                        }
+                    });
+                    return;
+                case "you burn":
+                    let burnCount = 0;
+                    this.board.burnTriggers.set(this.id,(item)=>{
+                        if(burnCount++<=numTimes) {
+                            ntimesFunction(item);
+                            if(burnCount==numTimes) {
+                                this.board.burnTriggers.delete(this.id);
                             }
                         }
                     });
