@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "adm-zip": "^0.5.16",
     "firebase": "^11.0.1",
-    "lz-string": "^1.5.0"
+    "lz-string": "^1.5.0",
+    "sharp": "^0.33.5"
   },
   "name": "bazaarplanner",
   "version": "1.0.0",
@@ -16,7 +18,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "zipItemsWithTag": "node scripts/zipItemsWithTag.js"
   },
   "keywords": [],
   "author": "",

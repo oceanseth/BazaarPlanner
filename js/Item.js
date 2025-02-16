@@ -104,6 +104,7 @@ export class Item {
         log(source.name + " destroyed " + this.name);
         this.board.itemDestroyedTriggers.forEach(func => func(this,source));
         this.board.itemValuesChangedTriggers.forEach(func => func(this,source));
+        source.board.player.destroyTriggers.forEach(func => func(this,source));
     }
 
     updateTriggerValuesElement() {
@@ -1862,6 +1863,28 @@ export class Item {
                     break;                
                 }
             }
+            const skipCases = [
+                "sell a weapon", //do nothing
+                "sell this", 
+                "buy this",
+                "buy another aquatic item",
+                "level up",
+                "sell a spare change",
+                "win a fight",
+                "win a fight against a player",
+                "buy a weapon",
+                "visit a merchant",
+                "sell a small item",
+                "sell another non-weapon item",
+                "sell a large item",
+                "win a fight against a monster with this",
+                "gain gold",
+                "win a fight with langxian in play"
+            ];
+            if(skipCases.includes(conditionalMatch.toLowerCase())) {
+                return;
+            }
+
             const triggerFunctionFromText = this.getTriggerFunctionFromText(textAfterComma);
 
             const useAdjacentTagItem = conditionalMatch.match(/^use an adjacent ([^\s]+)?(?: item)?$/i);
@@ -1908,6 +1931,11 @@ export class Item {
                         if(item.id !== this.id && item.tags.includes("Tech")) {
                             triggerFunctionFromText(item);
                         }
+                    });
+                    return;
+                case "destroy an item during combat":
+                    this.board.player.destroyTriggers.set(this.id, (item) => {
+                        triggerFunctionFromText(item);
                     });
                     return;
                 case "over-heal":
@@ -2138,24 +2166,6 @@ export class Item {
                     });
 
                     return;
-                case "sell a weapon": //do nothing
-                case "sell this": 
-                case "buy this":
-                case "buy another aquatic item":
-                case "level up":
-                case "sell a spare change":
-                case "win a fight":
-                case "win a fight against a player":
-                case "buy a weapon":
-                case "visit a merchant":
-                case "sell a small item":
-                case "sell another non-weapon item":
-                case "sell a large item":
-                case "win a fight against a monster with this":
-                case "gain gold":
-                case "win a fight with langxian in play":
-                    return;
-
             }
             console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"'");
 
@@ -2795,6 +2805,21 @@ export class Item {
             return () => {};
         }
 
+        //destroy an item on each player's board for the fight
+        regex = /^\s*destroy an item on each player's board for the fight\.?/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                let target = this.pickRandom(this.board.player.hostileTarget.board.items);
+                if(target) {
+                    target.destroy(this);
+                }
+                target = this.pickRandom(this.board.items);
+                if(target) {
+                    target.destroy(this);
+                }
+            }
+        }
 
         //Reload the item to the right of this ( 1 » 2 » 3 » 4 ) Ammo.
         regex = /^\s*Reload the item to the right of this (?:\(([^)]+)\)|(\d+)) Ammo\.?/i;
@@ -2863,6 +2888,17 @@ export class Item {
             }
         }
 
+        //Destroy a small enemy item for the fight.
+        regex = /^Destroy a small enemy item for the fight\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                const target = this.pickRandom(this.board.player.hostileTarget.board.items.filter(item => item.size==1));
+                if(target) {
+                    target.destroy(this);
+                }
+            };
+        }
         //Multicast ( 1 » 2 » 3 » 4 ).
         regex = /^Multicast (?:\(([^)]+)\)|(\d+))/i;
         match = text.match(regex);

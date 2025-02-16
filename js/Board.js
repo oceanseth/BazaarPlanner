@@ -890,10 +890,12 @@ class Board {
         this.reset();
         let startIndex = 0;
         // Load monster items to the board
-        monsterData.items.forEach(item => {              
-            let itemData = Item.getDataFromName(item.name);
+        monsterData.items.forEach(item => {      
+            let [name,enchant] = Item.stripEnchantFromName(item.name);        
+            let itemData = Item.getDataFromName(name);
             if(!itemData) return;
             itemData.rarity = Item.rarityLevels[item.tier];
+            itemData.enchant = enchant;
             let newItem = new Item(itemData, this);
             newItem.setIndex(startIndex);
             startIndex += newItem.size;

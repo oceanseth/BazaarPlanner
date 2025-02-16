@@ -112,12 +112,18 @@ window.addEventListener('popstate', () => {
 
 
 export function loadFromUrl(hash) {
+    if(window.previouslyLoadedHash == window.location.hash) {
+        return;
+    }
     if(!hash) hash = window.location.hash.slice(1); // Remove the # symbol
-    if (!hash) return;
-    window.isLoadingFromUrl = true;
+
     Board.boards.forEach(board=>{
         board.clear();
     });
+    if (!hash) return;
+    window.isLoadingFromUrl = true;
+    window.previouslyLoadedHash = window.location.hash;
+
     try {
         if(hash.length < 10) {
             firebase.database().ref('tinyurls/'+parseInt(hash, 36)).once('value').then(snapshot => {
