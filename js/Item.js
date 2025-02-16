@@ -1052,14 +1052,22 @@ export class Item {
             };
         }      
         //Poison both players ( 4 » 6 » 8 » 10 ). from Noxious Potion
-        regex = /^Poison both players (\([^)]+\)|\d+)\.?/i;
+        //Burn both players ( 5 » 10 » 15 » 20 ). from Plasma Grenade
+        regex = /^(Poison|Burn) both players (\([^)]+\)|\d+)\.?/i;
         match = text.match(regex);
         if(match) {
-            const poisonAmount = getRarityValue(match[1], this.rarity);
-            return () => {
-                this.applyPoison(poisonAmount);
-                this.applyPoison(poisonAmount,{selfTarget:true});
-            };
+            const poisonAmount = getRarityValue(match[2], this.rarity);
+            if(match[1].toLowerCase() == "poison") {
+                return () => {
+                    this.applyPoison(poisonAmount);
+                    this.applyPoison(poisonAmount,{selfTarget:true});
+                };
+            } else {
+                return () => {
+                    this.applyBurn(poisonAmount);
+                    this.applyBurn(poisonAmount,{selfTarget:true});
+                };
+            }
         }
         
         return null;
@@ -2914,6 +2922,15 @@ export class Item {
             return () => {
                 this.board.player.addGold(match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]));
                 log(this.name + " gave " + this.board.player.gold + " gold to " + this.board.player.name);
+            }
+        }
+
+        //this reloads 1 ammo. from Grapeshot
+        regex = /^this reloads 1 ammo\.?/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                this.gain(1,'ammo');
             }
         }
 
