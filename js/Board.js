@@ -364,7 +364,7 @@ class Board {
             return;
         }
 
-        const runId = prompt("Enter the bazaar tracker run ID:");
+        let runId = prompt("Enter the bazaar tracker run ID:");
         if(runId) {
             if(runId.indexOf("=")!=-1) {
                 runId = runId.split("=")[1];
