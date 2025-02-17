@@ -773,7 +773,11 @@ class Board {
             startIndex: item.startIndex,
             size: item.size
         }));
-        const blob = new Blob([JSON.stringify(items, null, 2)], { type: 'application/json' });
+        const skills = this.skills.map(skill => ({
+            name: skill.name,
+            rarity: skill.rarity
+        }));
+        const blob = new Blob([JSON.stringify({items, skills}, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -793,11 +797,18 @@ class Board {
             
             reader.onload = event => {
                 try {
-                    const items = JSON.parse(event.target.result);
+                    const data = JSON.parse(event.target.result);
+                    const items = data.items;
+                    const skills = data.skills;
                     items.forEach(({item, startIndex, size}) => {
                         let newItem = new Item(item, this);
                         newItem.setIndex(startIndex);
                     });
+                    skills.forEach(({name, rarity}) => {
+                        this.addSkill(name,{rarity:rarity});
+                    });
+                    Board.resetBoards();
+                    updateUrlState();
                 } catch (error) {
                     console.error('Error loading file:', error);
                     alert('Invalid file format');

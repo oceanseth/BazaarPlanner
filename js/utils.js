@@ -116,13 +116,12 @@ export function loadFromUrl(hash) {
         return;
     }
     if(!hash) hash = window.location.hash.slice(1); // Remove the # symbol
-
+    if (!hash) return;
+    window.isLoadingFromUrl = true;
     Board.boards.forEach(board=>{
         board.clear();
     });
-    if (!hash) return;
-    window.isLoadingFromUrl = true;
-    window.previouslyLoadedHash = window.location.hash;
+    
 
     try {
         if(hash.length < 10) {
@@ -133,6 +132,9 @@ export function loadFromUrl(hash) {
             });
             return;
         }
+            
+        window.isLoadingFromUrl = true;
+        window.previouslyLoadedHash = window.location.hash;
         
         let newItems = [];
         // Decompress the state string
