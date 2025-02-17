@@ -649,7 +649,7 @@ ItemFunction.items.set("Silencer",(item)=>{
     }
     if(weapons.length>0 && weapons[0].startIndex < item.startIndex) {
         let leftWeapon=item.getItemToTheLeft();
-        if(leftWeapon) {
+        if(leftWeapon && leftWeapon.tags.includes("Weapon")) {
             leftWeapon.gain(dmgGain,'damage');
         }
     }    
