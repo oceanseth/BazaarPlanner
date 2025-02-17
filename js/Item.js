@@ -38,6 +38,7 @@ export class Item {
         Object.assign(this, this.startItemData);
         if(this.rarity == undefined && this.tier!=undefined) {
             this.rarity = Item.rarityLevels[Item.rarityLevels.indexOf(this.tier)];
+            this.startItemData.rarity = this.rarity;
         }
         
         // Ensure text is always an array
@@ -760,18 +761,21 @@ export class Item {
         }
 
         //Adjacent (Weapons|Tool items|Tools) gain ( 5 » 10 ) Damage for the fight.
-        damageRegex = /(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*gain (?:\(([^)]+)\)|(\d+)) ([^\s]+)(?: chance)? for the fight\.?/i;
+        damageRegex = /(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*gain (\([^)]+\)|\d+) ([^\s]+)(?: chance)? for the fight\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const itemType = match[2];
-            const gainAmount = match[3] ? getRarityValue(match[3], this.rarity) : parseInt(match[4]);            
+            const gainAmount = getRarityValue(match[3], this.rarity);            
             return () => {
-                const adjacentItems = this.getAdjacentItems().filter(item => item.tags.includes(Item.getTagFromText(itemType)));
+                let adjacentItems = this.getAdjacentItems();
+                if(match[2]!="items") {
+                    adjacentItems = adjacentItems.filter(item => item.tags.includes(Item.getTagFromText(itemType)));
+                }
 
                 if(match[1]) adjacentItems.push(this);
                 adjacentItems.forEach(item => {
-                    item.gain(gainAmount,match[5].toLowerCase());
-                    log(item.name + " gained " + gainAmount + " " + match[5] + " for the fight");
+                    item.gain(gainAmount,match[4].toLowerCase());
+                    log(item.name + " gained " + gainAmount + " " + match[4] + " for the fight");
                 });
 
 
@@ -3787,6 +3791,18 @@ export class Item {
                 this.board.items.forEach(item => {
                     item.gain(this.value,'crit');
                 });
+            }
+        }
+
+        //the other adjacent item gains 25% Crit Chance.
+        regex = /^the other adjacent item gains 25% Crit Chance\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return (item) => {
+                const otherAdjacentItem = this.getAdjacentItems().filter(i => i.id != item.id);
+                if(otherAdjacentItem.length > 0) {
+                    otherAdjacentItem[0].gain(25,'crit');
+                }
             }
         }
     }

@@ -122,8 +122,6 @@ export function loadFromUrl(hash) {
         board.clear();
     });
     
-    window.isLoadingFromUrl = true;
-    window.previouslyLoadedHash = window.location.hash;
 
     try {
         if(hash.length < 10) {
@@ -134,6 +132,9 @@ export function loadFromUrl(hash) {
             });
             return;
         }
+            
+        window.isLoadingFromUrl = true;
+        window.previouslyLoadedHash = window.location.hash;
         
         let newItems = [];
         // Decompress the state string

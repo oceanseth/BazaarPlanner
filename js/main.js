@@ -40,6 +40,7 @@ window.mainBattle = new Battle([topPlayer, bottomPlayer], (winner) => {
         alert("Battle ended in a draw. Total combat time was "+((topPlayer.battleTime/1000).toFixed(0))+" seconds.");
     }
 }, $("#combat-log"));
+
 window.log = (s) => { mainBattle.log(s) };
 window.lastLogTimes = new Map();
 window.delayedLog = (s,id) => {
@@ -272,7 +273,6 @@ window.onload = () => {
                         }
                         pollCheck();
                     });
-                    
                     // Hide the auth UI when signed in
                     document.getElementById('firebaseui-auth-container').style.display = 'none';
                 } else {
@@ -288,6 +288,7 @@ window.onload = () => {
                     
 
                 }
+                loadFromUrl();
             });
         }
         window.login = function() {
@@ -299,8 +300,7 @@ window.onload = () => {
 
     } catch (error) {
         console.error("Firebase initialization error:", error);
-    }    
-    loadFromUrl();
+    }        
 }
 
 

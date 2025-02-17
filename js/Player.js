@@ -135,7 +135,7 @@ export class Player {
         let dmg = 0;
         if(this.battleTime%500==0 && this.burn > 0) { // Burn damage every 500ms
 
-            dmg = this.takeDamage(this.burn, .5, true);
+            dmg = this.takeDamage(this.burn, .5);
             log( this.name + " has "+this.burn.toFixed(0)+" burn and burns for " + dmg.toFixed(0));
             this.burn--;
         }
