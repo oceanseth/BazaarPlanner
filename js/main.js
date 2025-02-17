@@ -141,6 +141,13 @@ window.deleteZone = deleteZone;
       }
 
 window.getTinyUrl = function() {
+    if(!window.user) {
+        alert("You must be logged in to get a tiny URL, please click login on top right of the page.");
+        return;
+    }
+    if(!confirm("This will generate a small url which you can send to a friend to recreate both boards and skills. Continue?")) {
+        return;
+    }
     const url = window.location.href.split('#')[1];
 
     let count;

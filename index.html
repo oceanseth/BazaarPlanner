@@ -182,14 +182,22 @@
                     <div id="import" class="import"><input type="text" id="import-input" placeholder="Import from bazaar insights" onChange="importFromBazaarInsights(this.value)"/></div>
                     -->
                 </div>
-                <datalist id="simulator-suggestions"></datalist>
-                <div id="copy-url-container"><button onclick="getTinyUrl()">Get Tiny URL</button></div>
+                <datalist id="simulator-suggestions"></datalist>                
             </div>
             <div style="display: flex; gap: 20px;">
                 <div id="simulator-items">                    
                     <div id="simulator-itemsList"></div>
                 </div>
-                <div style="flex-grow: 1;">                    
+                <div style="flex-grow: 1; position: relative;">
+                    <div class="battle-controls">
+                        <div class="battle-buttons">
+                            <button onclick="mainBattle.startBattle()" class="battle-button">Start Battle</button>
+                            <button onclick="mainBattle.resetBattle()" class="battle-button">Reset Battle</button>
+                        </div>
+                        <div id="copy-url-container">
+                            <button onclick="getTinyUrl()">Get Tiny URL</button>
+                        </div>
+                    </div>
                     <div class="board-container">
                        <div id="t" class="board">
                             <!-- Slots will be generated here -->
@@ -215,8 +223,6 @@
                 </div>
                 
             </div>
-            <button onclick="mainBattle.startBattle()" class="battle-button">Start Battle</button>
-            <button onclick="mainBattle.resetBattle()" class="battle-button">Reset Battle</button>
             <div id="combat-log-div"><textarea id="combat-log"></textarea></div>
         </div>
 
