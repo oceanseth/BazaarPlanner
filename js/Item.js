@@ -212,13 +212,7 @@ export class Item {
 
     }
     reset() {
-        Object.assign(this, this.startItemData);
-        this.tags = structuredClone(this.startItemData.tags);
-
-        if(this.enchant) this.name = this.enchant + ' ' + this.name;
-        if(this.enchant && Item.enchantTagMap[this.enchant]) this.tags.push(Item.enchantTagMap[this.enchant]);
-        this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
-        this.resetCooldown();
+        this.lifesteal = false;
         this.isDestroyed = false;
         this.element.classList.remove('destroyed');
         this.hasteTimeRemaining = 0;
@@ -227,10 +221,19 @@ export class Item {
         this.numTriggers = 0;
         this.effectiveBattleTime = 0;
         this.pendingMulticasts = 0;
-        this.heal = this.startItemData.heal||0;
+        this.heal = 0;
         this.critMultiplier = 100; //default crit multiplier is 100% more damage
         this.freezeBonus = 0;
         this.battleStats = { useCount:0 };
+
+        Object.assign(this, this.startItemData);
+        this.tags = structuredClone(this.startItemData.tags);
+        if(this.enchant) this.name = this.enchant + ' ' + this.name;
+        if(this.enchant && Item.enchantTagMap[this.enchant]) this.tags.push(Item.enchantTagMap[this.enchant]);
+        this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
+        this.resetCooldown();
+
+        
         this.battleStatsElement.querySelectorAll('div').forEach(div => div.style.display = 'none');
         setupChangeListeners(this,Item.possibleChangeAttributes);
 
