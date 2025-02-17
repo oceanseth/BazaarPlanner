@@ -233,7 +233,7 @@ export class Item {
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
         this.resetCooldown();
 
-        
+
         this.battleStatsElement.querySelectorAll('div').forEach(div => div.style.display = 'none');
         setupChangeListeners(this,Item.possibleChangeAttributes);
 
@@ -3560,7 +3560,10 @@ export class Item {
         regex = /^Your Weapons have double Crit damage\.?$/i;
         match = text.match(regex);
         if(match) {
-            this.gain(this.critMultiplier,'critMultiplier');
+            const items = this.board.items.filter(item => item.tags.includes("Weapon"));
+            items.forEach(item => {
+                item.gain(item.critMultiplier,'critMultiplier');
+            });
             return ()=>{};
         }
         //This has double Heal.
