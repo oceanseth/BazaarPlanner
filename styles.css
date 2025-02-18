@@ -1346,9 +1346,9 @@ background-color: rgba(255, 0, 0, 0.2);
 .battle-controls {
     position: absolute;
     display: flex;
-    width: 100%;
+    width: 850px;
     top: -10px;
-    right: 10px;
+    left: 0px;
 }
 
 .battle-buttons {
