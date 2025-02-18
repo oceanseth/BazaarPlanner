@@ -113,6 +113,10 @@ export class Battle {
             this.combatLogEntries.push(this.battleTimeDiff + ": " + s);
         }
     }
+    calculateWinRate() {
+        
+        return 0;
+    }
     
 
     battleFunction = () => {
