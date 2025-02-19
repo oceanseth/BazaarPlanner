@@ -7,6 +7,9 @@ export class Item {
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny', 'Tiny', 'Toxic', 'Turbo' ];
     static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value'];
+    static characterTags = ['Dooley','Vanessa','Pygmalien'];
+    static sizeTags = ['Small','Medium','Large'];
+
     static enchantTagMap = {
         'Toxic': 'Poison',
         'Fiery': 'Burn',        
@@ -221,21 +224,21 @@ export class Item {
         this.numTriggers = 0;
         this.effectiveBattleTime = 0;
         this.pendingMulticasts = 0;
-        this.heal = 0;
         this.critMultiplier = 100; //default crit multiplier is 100% more damage
         this.freezeBonus = 0;
         this.battleStats = { useCount:0 };
+        setupChangeListeners(this,Item.possibleChangeAttributes);
 
         Object.assign(this, this.startItemData);
         this.tags = structuredClone(this.startItemData.tags);
         if(this.enchant) this.name = this.enchant + ' ' + this.name;
-        if(this.enchant && Item.enchantTagMap[this.enchant]) this.tags.push(Item.enchantTagMap[this.enchant]);
+        if(this.enchant && Item.enchantTagMap[this.enchant] && !this.tags.includes(Item.enchantTagMap[this.enchant])) this.tags.push(Item.enchantTagMap[this.enchant]);
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
         this.resetCooldown();
 
 
         this.battleStatsElement.querySelectorAll('div').forEach(div => div.style.display = 'none');
-        setupChangeListeners(this,Item.possibleChangeAttributes);
+
 
         this.crit = this.calculateCrit()+(this.startItemData.crit||0);
         this.freezeDurationRemaining = 0;
@@ -581,7 +584,7 @@ export class Item {
     }
 
     doICrit() {
-        if(this.crit && this.battleRandom(this.crit / 100)) {
+        if(this.cooldown>0 && this.crit && this.battleRandom(this.crit / 100)) {
             return true;
         }
         return false;
@@ -798,7 +801,13 @@ export class Item {
                 if(shieldItem.shield != this.highestShieldValue) {
                     let shieldDiff = shieldItem.shield - this.highestShieldValue;
                     this.highestShieldValue = shieldItem.shield;
-                    this.gain(shieldDiff,'damage');
+                    if(shieldItem == this) {
+                        this.damage_pauseChanged = true;
+                        this.gain(shieldDiff,'damage');
+                        this.damage_pauseChanged = false;
+                    } else {
+                        this.gain(shieldDiff,'damage');
+                    }
                     this.updateTriggerValuesElement();
                 }
             });
@@ -1359,7 +1368,7 @@ export class Item {
         }
 
         // Freeze 1 medium or small item for ( 1 » 2 ) second(s).
-        regex = /^Freeze (\([^)]+\)|\d+) medium or small item(?:s)? for (\([^)]+\)|\d+) second\(?s\)?\.?$/i;
+        regex = /^Freeze (\([^)]+\)|\d+) medium or small item(?:s)? for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const numItems = getRarityValue(match[1], this.rarity);
@@ -1596,27 +1605,8 @@ export class Item {
         if(!this.isEditable || document.querySelector('.item-edit-popup')!=null) return;
         const itemData = this.startItemData;
         // List of available enchantments and rarities
-        const enchantments = [
-            'None',
-            'Fiery',
-            'Radiant',
-            'Heavy',
-            'Golden',
-            'Icy',
-            'Turbo',
-            'Shielded',
-            'Restorative',
-            'Toxic',
-            'Shiny',
-            'Deadly'
-        ];
-
-        const rarities = [
-            'Bronze',
-            'Silver',
-            'Gold',
-            'Diamond'
-        ];
+        const enchantments = Item.possibleEnchants;
+        const rarities = Item.rarityLevels;
 
         // Extract current enchantment if it exists
        
@@ -1830,7 +1820,7 @@ export class Item {
 
     }
     static stripEnchantFromName(name) {
-        const enchantPrefixes = /^(Fiery|Radiant|Heavy|Golden|Icy|Turbo|Shielded|Restorative|Toxic|Shiny|Deadly)\s+/;
+        const enchantPrefixes = new RegExp(`^(${Item.possibleEnchants.join('|')})\\s+`);
         if (enchantPrefixes.test(name)) {
             const match = enchantPrefixes.exec(name);
             return [name.replace(match[0], ''), match[1]];
@@ -1894,7 +1884,9 @@ export class Item {
                 "sell a large item",
                 "win a fight against a monster with this",
                 "gain gold",
-                "win a fight with langxian in play"
+                "win a fight with langxian in play",
+                "buy",
+                "sell",
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;
@@ -2006,6 +1998,11 @@ export class Item {
                         if(item.id !== this.id && item.tags.includes("Ammo")) {
                             triggerFunctionFromText(item);
                         }
+                    });
+                    return;
+                case "crit with an item":
+                    this.board.critTriggers.set(this.id, (item) => {
+                            triggerFunctionFromText(item);
                     });
                     return;
                 case "crit with another item":
@@ -2683,7 +2680,7 @@ export class Item {
         regex = /^\s*(?:Deal )?(Burn|Poison|Heal|Shield|Damage) equal to (10% of|[\d]+|\([^)]+\))(?: times)? (?:this item's ([^\s^\.]+)|the value of your items)\.?/i;
         match = text.match(regex);
         if(match) {
-            const whatToGain = match[1];
+            const whatToGain = Item.getTagFromText(match[1]);
             const whatToGainLowercase = whatToGain.toLowerCase();
             const multiplier = match[2]=='10% of'?0.1:getRarityValue(match[2], this.rarity);
             const whatToCheck = match[3]?match[3].toLowerCase() : 'value of your items';
@@ -2970,12 +2967,12 @@ export class Item {
 
         //This has +1 Multicast for each adjacent Property.
         //For each adjacent Vehicle, this has +1 Multicast. 
-        regex = /^\s*(?:This has \+1 Multicast for each adjacent ([^\s^\.]+)|For each adjacent ([^\s^\.]+), this has \+1 Multicast)\.?/i;
+        regex = /^\s*(?:This has \+1 Multicast for each adjacent ([^\s^\.]+)|For each adjacent ([^\s^\.]+)(?: or ([^\s]+)), this has \+1 Multicast)\.?/i;
         match = text.match(regex);
         if(match) {
-            const tagToMatch = match[1]?Item.getTagFromText(match[1]):Item.getTagFromText(match[2]);
+            const tagsToMatch = match[1]?[Item.getTagFromText(match[1])]:[Item.getTagFromText(match[2]),Item.getTagFromText(match[3])];
             this.getAdjacentItems().forEach(item => {
-                if(item.tags.includes(tagToMatch)) {
+                if(tagsToMatch.some(tag=>tag&&item.tags.includes(tag))) {
                     this.multicast++;
                 }
             });
@@ -3079,6 +3076,16 @@ export class Item {
                 this.applyPoison(this.board.player.regeneration||0);
             };
         }
+
+        //Gain Regeneration for the fight equal to this item's damage
+        regex = /^\s*Gain Regeneration for the fight equal to this item's damage\.?/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                this.gain(this.damage,'regeneration');
+            };
+        }   
+
         //Heal equal to your opponent's Poison.
         regex = /^\s*Heal equal to your opponent's Poison\.?/i;
         match = text.match(regex);
@@ -3187,14 +3194,18 @@ export class Item {
             return () => {};            
         }
         //Freeze 1 small? item for ( 1 » 2 ) second(s)
-        regex = /^\s*Freeze\s+(?:(?:\(([^)]+)\)|(\d+))|an|a)\s*([^\s]+)?\s*item\(?s?\)?\s+for\s+(?:\(([^)]+)\)|(\d+))\s+second\(?s?\)?\.?/i;
+        regex = /^\s*Freeze\s+(?:(?:\(([^)]+)\)|(\d+))|an|a)\s*([^\s]+)?\s*item\(?s?\)?\s+(?:with a cooldown of (\d+) seconds or less )?for\s+(?:\([^)]+\)|\d+)\s+second\(?s?\)?\.?/i;
         match = text.match(regex);        
         if(match) {
-            const seconds = match[4] ? getRarityValue(match[4], this.rarity) : parseInt(match[5]);
+            const seconds = getRarityValue(match[5], this.rarity);
+            const cdrRequirement = match[4] ? parseInt(match[4]) : null;
             const tagToMatch = match[3] ? Item.getTagFromText(match[3]) : null;
             let numToFreeze = match[1] ? getRarityValue(match[1], this.rarity) : match[2] ? parseInt(match[2]) : 1;
             return () => {
                 let itemsToFreeze = this.board.player.hostileTarget.board.items;
+                if(cdrRequirement) {
+                    itemsToFreeze = itemsToFreeze.filter(item => item.cooldown<=cdrRequirement*1000);
+                }
                 if(tagToMatch) {
                     itemsToFreeze = itemsToFreeze.filter(item => item.tags.includes(tagToMatch));
                 }
@@ -3527,14 +3538,27 @@ export class Item {
         //Your Shield items have +1 Shield 
         //your items have ( +1% » +2% » +3% » +4% ) crit chance
         //your items have ( +1% » +2% » +3% » +4% ) crit chance for each weapon you have
-        regex = /^your ([^\s]+)(?:s)? (?:items)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:for each ([^\s]+) you have)?./i;
+        regex = /^your ([^\s]+)(?:s)? (?:items)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:for each ([^\s]+|unique type) you have)?./i;
         match = text.match(regex);
 
         if(match) {
             const tagToMatch = Item.getTagFromText(match[1]);
             const gainAmount = parseInt(getRarityValue(match[2], this.rarity));
             const whatToGain = match[3].toLowerCase();
-            const multiplier = match[4]?this.board.items.filter(item=>item.tags.includes(Item.getTagFromText(match[4]))).length:1;
+            let multiplier = 1;
+            if(match[4]=="unique type") {
+                const uniqueTypes = new Set();
+                this.board.items.forEach(item => {
+                    item.tags.forEach(tag => {
+                        if(!tag.contains("Reference")&& !Item.characterTags.includes(tag)&& !Item.sizeTags.includes(tag)) {
+                            uniqueTypes.add(tag);
+                        }
+                    });
+                });
+                multiplier = uniqueTypes.size;
+            } else if(match[4]) {
+                multiplier = this.board.items.filter(item=>item.tags.includes(Item.getTagFromText(match[4]))).length;
+            }
             this.board.items.forEach(item => {
                 if(tagToMatch=='Item' || item.tags.includes(tagToMatch)) {
                     item.gain(gainAmount*multiplier,whatToGain);

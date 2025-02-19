@@ -45,9 +45,27 @@ ItemFunction.items.set("Rifle",(item)=>{
     const damage = getRarityValue("6 >> 12 >> 18 >> 24",item.rarity);
     item.gain(damage,'damage');
     item.triggerFunctions.push(()=>{
-        if(item.board.items.filter(i=>i.tags.includes("Weapon")).length==1) {
+        item.dealDamage(item.damage);
+        if(item.board.items.filter(i=>i.tags.includes("Weapon")&&i.cooldown>0).length==1) {
             item.gain(1,'ammo');
         }
+    });
+});
+
+//Your Lifesteal Weapons gain ( +5 » +10 » +15 » +20 ) damage for the fight. from Mortar & Pestle
+//The weapon on the right has Lifesteal. from Mortar & Pestle
+ItemFunction.items.set("Mortar & Pestle",(item)=>{
+    const damage = getRarityValue("5 >> 10 >> 15 >> 20",item.rarity);
+    const rightItem = item.getItemToTheRight();
+    if(rightItem && rightItem.tags.includes("Weapon")) {
+        rightItem.lifesteal = true;
+    }
+    item.triggerFunctions.push(()=>{
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Weapon")&&i.lifesteal) {
+                i.gain(damage,'damage');
+            }
+        });
     });
 });
 

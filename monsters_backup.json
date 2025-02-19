@@ -106,7 +106,7 @@
       },
       {
         "name": "Duct Tape",
-        "tier": 0
+        "tier": 1
       }
     ]
   },
@@ -711,9 +711,9 @@
       }
     ]
   },
-  "Techno Virus": {
-    "name": "Techno Virus",
-    "icon": "images/monsters/TechnoVirus.avif",
+  "Ahexa": {
+    "name": "Ahexa",
+    "icon": "images/monsters/Ahexa.avif",
     "day": 4,
     "health": 900,
     "skills": [
@@ -749,9 +749,9 @@
       }
     ]
   },
-  "Deadly Crooner": {
-    "name": "Deadly Crooner",
-    "icon": "images/monsters/DeadlyCrooner.avif",
+  "Hellbilly": {
+    "name": "Hellbilly",
+    "icon": "images/monsters/Hellbilly.avif",
     "day": 4,
     "health": 900,
     "skills": [
@@ -783,9 +783,9 @@
       }
     ]
   },
-  "Hydrodude": {
-    "name": "Hydrodude",
-    "icon": "images/monsters/Hydrodude.avif",
+  "Prince Marianas": {
+    "name": "Prince Marianas",
+    "icon": "images/monsters/PrinceMarianas.avif",
     "day": 4,
     "health": 1200,
     "skills": [
