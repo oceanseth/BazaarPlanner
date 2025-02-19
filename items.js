@@ -408,7 +408,7 @@ export const items = {
       "Shiny": "This has +1 Multicast.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "Your non-Weapon items gain +10% Crit Chance for the fight.",
-      "Obsidian": "Haste a Weapon for {ability.0} second(s)."
+      "Obsidian": "Haste a Weapon for 2 second(s)."
     }
   },
   "Athanor": {
@@ -905,7 +905,7 @@ export const items = {
       "Shiny": "This has +1 Multicast.",
       "Deadly": "Your Aquatic and Toy items gain +10% Crit Chance for the fight.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
-      "Obsidian": "+0 MISSING"
+      "Obsidian": "Deal 10 Damage for each Aquatic or Toy item you have."
     }
   },
   "Beast of Burden": {
@@ -3980,6 +3980,36 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
+    }
+  },
+  "Dragon Heart": {
+    "name": "Dragon Heart",
+    "icon": "images/items/DragonHeart.avif",
+    "tier": "Legendary",
+    "tags": [
+      "Common",
+      "Medium",
+      "BurnReference",
+      "Dragon"
+    ],
+    "cooldown": 10,
+    "ammo": null,
+    "text": [
+      "Double the Burn of an item for the fight.",
+      "When you Burn or use a Dragon item, charge this 2 seconds."
+    ],
+    "enchants": {
+      "Heavy": "Slow 2 item for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
+      "Turbo": "Haste 2 item for 2 second(s).",
+      "Shielded": "Shield 50.",
+      "Restorative": "Heal 75.",
+      "Toxic": "Poison 5.",
+      "Fiery": "Burn 7.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "Your Burn items have +25% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "Deal 50 Damage."
     }
   },
   "Dragon Tooth": {
@@ -10759,7 +10789,7 @@ export const items = {
       "Shiny": "This has +1 Multicast.",
       "Deadly": "Your items have +10% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
-      "Obsidian": "+0 MISSING"
+      "Obsidian": "Deal 10 Damage for each each Unique type you have."
     }
   },
   "Ruby": {

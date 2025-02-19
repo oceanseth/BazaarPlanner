@@ -16,6 +16,7 @@ export class Item {
         'Icy': 'Freeze',
         'Restorative': 'Heal',
         'Shielded': 'Shield',
+        'Obsidian': 'Weapon',
     }
     static itemID = 0;
     
@@ -1169,6 +1170,21 @@ export class Item {
             };
 
         }
+        //Deal damage equal to this item's Heal.
+        regex = /Deal damage equal to this item's Heal/i;
+        match = text.match(regex);
+        if(match) {
+            this.gain(this.heal,'damage');
+            this.healChanged((newHeal,oldHeal)=>{
+                if(newHeal != oldHeal) {
+                    this.gain((newHeal-oldHeal),'damage');
+                }
+            });
+            return () => {
+                this.applyDamage(this.damage);  
+            };
+        }
+        
 
         //Heal equal to ( 1x » 2x » 3x » 4x ) this item's value
         regex = /Heal equal to (\([^)]+\)|\d+x)(?: times)? this item's value/i;
@@ -1605,7 +1621,7 @@ export class Item {
         if(!this.isEditable || document.querySelector('.item-edit-popup')!=null) return;
         const itemData = this.startItemData;
         // List of available enchantments and rarities
-        const enchantments = Item.possibleEnchants;
+        const enchantments = ['None',...Item.possibleEnchants];
         const rarities = Item.rarityLevels;
 
         // Extract current enchantment if it exists
