@@ -41,6 +41,7 @@ def setup_driver():
     chrome_options = Options()
     # chrome_options.add_argument("--headless")  # Uncomment to run in headless mode
     chrome_options.add_argument("--window-size=1920,1080")
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--log-level=3")  # Suppress console messages
     chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])  # Suppress USB errors
     

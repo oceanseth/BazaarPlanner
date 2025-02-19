@@ -7,7 +7,7 @@ export const skills = {
       "Ammoreference",
       "Regen"
     ],
-    "text": "You have (  2  » 4  » 6   ) Regeneration for each Ammo item you have."
+    "text": "You have (  2  » 4  » 6   ) Regeneration for each Ammo item you have. [0]"
   },
   "Advanced Synthetics": {
     "icon": "images/skills/AdvancedSynthetics.avif",
@@ -107,7 +107,7 @@ export const skills = {
       "Crit",
       "Weapon"
     ],
-    "text": "Your items have (  +2%  » +3%   ) Crit Chance for each weapon you have."
+    "text": "Your items have (  +2%  » +3%   ) Crit Chance for each weapon you have. [0]"
   },
   "Artillery Spotter": {
     "icon": "images/skills/ArtillerySpotter.avif",
@@ -121,7 +121,7 @@ export const skills = {
       "Mak",
       "Crit"
     ],
-    "text": "If you have 4 or fewer items, your items have (  +5%  » +10%  » +20%   ) Crit Chance."
+    "text": "If you have 5 or fewer items, your items have (  +5%  » +10%  » +20%   ) Crit Chance."
   },
   "Assault Focus": {
     "icon": "images/skills/AssaultFocus.avif",
@@ -311,7 +311,7 @@ export const skills = {
       "Health",
       "Weapon"
     ],
-    "text": "You have (  +100  » +200  » +300   ) Max Health for each Weapon you have."
+    "text": "You have (  +100  » +200  » +300   ) Max Health for each Weapon you have. [0]"
   },
   "Buddy System": {
     "icon": "images/skills/BuddySystem.avif",
@@ -380,7 +380,7 @@ export const skills = {
       "Burnreference",
       "Shield"
     ],
-    "text": "The first time you fall below half health each fight, Shield equal to (  2  » 3  » 4   ) times the Burn on your opponent."
+    "text": "The first time you fall below half health each fight, Shield equal to (  2  » 3  » 4   ) times the Burn on your opponent. [0]"
   },
   "Burst of Flame": {
     "icon": "images/skills/BurstofFlame.avif",
@@ -738,7 +738,7 @@ export const skills = {
       "Stelle",
       "Health"
     ],
-    "text": "You have (  +300  » +500   ) Max Health for each Diamond-tier item you have."
+    "text": "You have (  +300  » +500   ) Max Health for each Diamond-tier item you have. [0]"
   },
   "Distributed Systems": {
     "icon": "images/skills/DistributedSystems.avif",
@@ -768,7 +768,7 @@ export const skills = {
       "Common",
       "Burn"
     ],
-    "text": "When you use a Medium item, a Burn item gains (  10  » 15   ) burn for the fight."
+    "text": "When you use a Medium item, one of your Burn items gains +15 burn for the fight."
   },
   "Dual Wield": {
     "icon": "images/skills/DualWield.avif",
@@ -777,7 +777,7 @@ export const skills = {
       "Common",
       "Crit"
     ],
-    "text": "If you have exactly 2 Weapons in play, your items have +50 Crit Chance."
+    "text": "If you have exactly 2 Weapons in play, your items have +50% Crit Chance."
   },
   "Electrified Hull": {
     "icon": "images/skills/ElectrifiedHull.avif",
@@ -1097,7 +1097,7 @@ export const skills = {
       "Ammo",
       "Critreference"
     ],
-    "text": "When you Crit with an item, reload another item +1 ammo."
+    "text": "When you Crit with an item, Reload another item 1 ammo."
   },
   "Flurry of Blows": {
     "icon": "images/skills/FlurryofBlows.avif",
@@ -1258,7 +1258,7 @@ export const skills = {
       "Healthreference",
       "Shield"
     ],
-    "text": "The first time you fall below half health each fight, Shield equal to (  20%  » 30%  » 40%  » 50%   ) of your Max Health."
+    "text": "The first time you fall below half health each fight, Shield equal to (  20%  » 30%  » 40%  » 50%   ) of your Max Health. [0]"
   },
   "Hardened Shield": {
     "icon": "images/skills/HardenedShield.avif",
@@ -1301,7 +1301,7 @@ export const skills = {
       "Pygmalien",
       "Nonweapon"
     ],
-    "text": "You have (  +35  » +100  » +200  » +300   ) Max Health for each Non-Weapon item you have."
+    "text": "You have (  +35  » +100  » +200  » +300   ) Max Health for each Non-Weapon item you have. [0]"
   },
   "Healthy Lifestyle": {
     "icon": "images/skills/HealthyLifestyle.avif",
@@ -1312,7 +1312,7 @@ export const skills = {
       "Nonweapon",
       "Regen"
     ],
-    "text": "You have (  1  » 2  » 3   ) Regeneration for each non-weapon item you have."
+    "text": "You have (  1  » 2  » 3   ) Regeneration for each non-weapon item you have. [0]"
   },
   "Healthy Tip": {
     "icon": "images/skills/HealthyTip.avif",
@@ -1369,7 +1369,7 @@ export const skills = {
       "Damagereference",
       "Weapon"
     ],
-    "text": "If you have 4 or fewer items in play, your Weapons have (  +25  » +50  » +75   ) damage."
+    "text": "If you have 5 or fewer items in play, your Weapons have (  +25  » +50  » +75   ) damage."
   },
   "Heavy Machinery": {
     "icon": "images/skills/HeavyMachinery.avif",
@@ -1457,7 +1457,7 @@ export const skills = {
       "Healthreference",
       "Shield"
     ],
-    "text": "The first time you fall below half health each fight, Shield equal to (  30%  » 50%  » 80%   ) of your Max Health."
+    "text": "The first time you fall below half health each fight, Shield equal to (  30%  » 50%  » 80%   ) of your Max Health. [0]"
   },
   "Hyper Focus": {
     "icon": "images/skills/HyperFocus.avif",
@@ -1486,7 +1486,7 @@ export const skills = {
       "Ammo",
       "Freezereference"
     ],
-    "text": "When you Freeze, reload an Weapon 1 ammo."
+    "text": "When you Freeze, Reload a Weapon 1 ammo."
   },
   "Ignition": {
     "icon": "images/skills/Ignition.avif",
@@ -1697,7 +1697,7 @@ export const skills = {
       "Common",
       "Ammo"
     ],
-    "text": "When you use an Ammo item, reload (  1  » 2  » 3   ) the item to the left of it."
+    "text": "When you use an Ammo item, Reload the item to the left of it (  1  » 2  » 3   ) Ammo."
   },
   "Keen Eye": {
     "icon": "images/skills/KeenEye.avif",
@@ -1740,7 +1740,7 @@ export const skills = {
       "Mak",
       "Health"
     ],
-    "text": "If you have 4 or fewer items, you have (  +500  » +1000  » +2000   ) Max Health."
+    "text": "If you have 5 or fewer items, you have (  +500  » +1000  » +2000   ) Max Health."
   },
   "Large Poisons": {
     "icon": "images/skills/LargePoisons.avif",
@@ -1875,7 +1875,7 @@ export const skills = {
       "Ammo",
       "Damagereference"
     ],
-    "text": "Your Weapons have (  +1  » +2  » +3   ) damage for each ammo you have on your items in play."
+    "text": "Your Weapons have (  +1  » +2  » +3   ) damage for each ammo you have on your items in play. [0]"
   },
   "Long Strides": {
     "icon": "images/skills/LongStrides.avif",
@@ -1884,7 +1884,7 @@ export const skills = {
       "Pygmalien",
       "Cooldown"
     ],
-    "text": "If you have 4 or fewer items, your items have their cooldowns reduced by (  4%  » 8%  » 12%   )."
+    "text": "If you have 5 or fewer items, your items have their cooldowns reduced by (  4%  » 8%  » 12%   )."
   },
   "Machine Learning": {
     "icon": "images/skills/MachineLearning.avif",
@@ -2080,7 +2080,7 @@ export const skills = {
       "Common",
       "Ammo"
     ],
-    "text": "The first time you fall below 50% health each fight, reload (  2  » 4  » 6  » 8   ) items."
+    "text": "The first time you fall below 50% health each fight, Reload (  2  » 4  » 6  » 8   ) items."
   },
   "Paralytic Poison": {
     "icon": "images/skills/ParalyticPoison.avif",
@@ -2210,7 +2210,7 @@ export const skills = {
       "Crit",
       "Property"
     ],
-    "text": "When you use a Property, adjacent items gain (  5  » 10  » 15   ) Crit chance for the fight."
+    "text": "When you use a Property, adjacent items gain (  5%  » 10%  » 15%   ) Crit chance for the fight."
   },
   "Property Mogul": {
     "icon": "images/skills/PropertyMogul.avif",
@@ -2230,7 +2230,7 @@ export const skills = {
       "Economy",
       "Shield"
     ],
-    "text": "Your Shield items have + Shield equal to the value of your Items."
+    "text": "Your Shield items have + Shield equal to the value of your Items. [0]"
   },
   "Purifying Flame": {
     "icon": "images/skills/PurifyingFlame.avif",
@@ -2446,7 +2446,7 @@ export const skills = {
       "Ammoreference",
       "Tool"
     ],
-    "text": "When you use a Tool, reload 1 to adjacent items."
+    "text": "When you use a Tool, Reload an adjacent item."
   },
   "Rigged": {
     "icon": "images/skills/Rigged.avif",
@@ -2824,7 +2824,7 @@ export const skills = {
       "Shieldreference",
       "Weapon"
     ],
-    "text": "Your Weapons have (  +3  » +6  » +9   ) Damage for each Aquatic item you have. Your Shield items have (  +3  » +6  » +9   ) Shield for each Aquatic item you have."
+    "text": "Your Weapons have (  +3  » +6  » +9   ) Damage for each Aquatic item you have. [0] Your Shield items have (  +3  » +6  » +9   ) Shield for each Aquatic item you have. [0]"
   },
   "Tall Buildings": {
     "icon": "images/skills/TallBuildings.avif",
@@ -2876,7 +2876,7 @@ export const skills = {
       "Damagereference",
       "Weapon"
     ],
-    "text": "Your non-tool items have (  +5%  » +10%  » +15%   ) Crit Chance for each tool you have."
+    "text": "Your non-tool items have (  +5%  » +10%  » +15%   ) Crit Chance for each tool you have. [0]"
   },
   "Thick Hide": {
     "icon": "images/skills/ThickHide.avif",
@@ -3007,7 +3007,7 @@ export const skills = {
       "Poisonreference",
       "Shield"
     ],
-    "text": "The first time you fall below half health each fight, Shield equal to (  2  » 3  » 4   ) times the Poison on your opponent."
+    "text": "The first time you fall below half health each fight, Shield equal to (  2  » 3  » 4   ) times the Poison on your opponent. [0]"
   },
   "Toxic Weapons": {
     "icon": "images/skills/ToxicWeapons.avif",
@@ -3018,7 +3018,7 @@ export const skills = {
       "Poisonreference",
       "Weapon"
     ],
-    "text": "Your Poison items have (  +2  » +4  » +6   ) Poison for each Weapon you have."
+    "text": "Your Poison items have (  +2  » +4  » +6   ) Poison for each Weapon you have. [0]"
   },
   "Toxin Injector": {
     "icon": "images/skills/ToxinInjector.avif",
@@ -3159,7 +3159,7 @@ export const skills = {
       "Common",
       "Regen"
     ],
-    "text": "You have (  +10  » +15  » +20   ) Regeneration for each non-weapon item you have in play."
+    "text": "You have (  +10  » +15  » +20   ) Regeneration for each non-weapon item you have in play. [0]"
   },
   "Well-Oiled Machine": {
     "icon": "images/skills/WellOiledMachine.avif",
@@ -3182,6 +3182,6 @@ export const skills = {
       "Tool",
       "Weapon"
     ],
-    "text": "Your weapons have +7 Damage for each Tool you have."
+    "text": "Your weapons have +7 Damage for each Tool you have. [0]"
   }
 };

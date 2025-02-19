@@ -1013,6 +1013,19 @@ button:active {
     font-size: 10px;
     padding: 2px 4px;
 }
+.battle-stats {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    display: flex;           /* Add flex display */
+    flex-direction: column;  /* Stack children vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center;     /* Center horizontally */
+}
+
 .battle-stats .multicast-element {
     position: absolute;
     top: 100px;  /* 20px (height of trigger-values) + 10px spacing */
@@ -1024,6 +1037,44 @@ button:active {
     height: 20px;
     padding: 2px 4px;
 }
+.battle-stats .damage-element,
+.battle-stats .burn-element,
+.battle-stats .heal-element,
+.battle-stats .poison-element,
+.battle-stats .shield-element {
+    position: relative;
+    margin-left: 17px;
+}
+.battle-stats .damage-element::before,
+.battle-stats .burn-element::before,
+.battle-stats .heal-element::before,
+.battle-stats .poison-element::before,
+.battle-stats .shield-element::before {
+    content: "";
+    display: block;
+    background-image: url('/images/17px-Damage.webp');
+    background-size: 100% 100%;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: -20px;
+}
+.battle-stats .damage-element::before {
+    background-image: url('/images/17px-Damage.webp');
+}
+.battle-stats .burn-element::before {
+    background-image: url('/images/17px-Burn.webp');
+}
+.battle-stats .heal-element::before {
+    background-image: url('/images/17px-Heal.webp');
+}
+.battle-stats .poison-element::before {
+    background-image: url('/images/17px-Poison.webp');
+}
+.battle-stats .shield-element::before {
+    background-image: url('/images/17px-Shield.webp');
+}
+
 .ammo-element {
     position: absolute;
     top: 115px;  /* 20px (height of trigger-values) + 10px spacing */
@@ -1065,18 +1116,6 @@ button:active {
     line-height: 30px;
     filter:none!important;
     z-index: 1000;
-}
-.battle-stats {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    color: white;
-    font-size: 20px;
-    text-align: center;
-    display: flex;           /* Add flex display */
-    flex-direction: row;  /* Stack children vertically */
-    justify-content: center; /* Center vertically */
-    align-items: center;     /* Center horizontally */
 }
 
 .destroyed {
