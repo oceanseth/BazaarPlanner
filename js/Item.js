@@ -1171,7 +1171,7 @@ export class Item {
                 }
             });
             return () => {
-                this.applyHeal(this.heal);
+                this['apply'+whatToGain](this[whatToGain.toLowerCase()]);
             };
 
         }
