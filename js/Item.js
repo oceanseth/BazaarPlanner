@@ -2026,6 +2026,8 @@ export class Item {
                 "sell an item",
                 "buy an aquatic item",
                 "buy a potion",
+                "buy a property",
+                "buy another item"
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;
@@ -3739,8 +3741,14 @@ export class Item {
             this[whatToGain+"_multiplier"] = 2;
             return ()=>{};
         }
-        //This has double poison
-
+        //Double this item's damage for the fight. from Atlas Stone
+        regex = /^\s*Double this item's damage for the fight\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+               this.gain(this.damage,'damage');
+            }
+        }
 
         //Cleanse half your Burn.
         regex = /^\s*Cleanse half your Burn\.?$/i;
