@@ -110,7 +110,7 @@ export class Item {
         this.board.itemDestroyedTriggers.forEach(func => func(this,source));
         this.board.itemValuesChangedTriggers.forEach(func => func(this,source));
         source.board.player.destroyTriggers.forEach(func => func(this,source));
-    }
+    2
 
     updateTriggerValuesElement() {
         const formatNumber = num => Number.isInteger(num) ? num.toString() : num.toFixed(0);
@@ -4013,7 +4013,19 @@ export class Item {
             });
             return ()=>{};
         }
-
+        //Could not parse Adjacent Potions have +1 Ammo. from Tazidian Dagger
+        //Adjacent Potions have +1 Ammo. from Tazidian Dagger
+        regex = /^Adjacent ([^\s]+)s? have \+1 Ammo\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            this.board.items.forEach(item => {
+                if(item.tags.includes(tagToMatch)) {
+                    item.gain(1,'ammo');
+                }
+            });
+            return ()=>{};
+        }
         //gain ( 2 » 4 ) Regeneration for the fight.
         regex = /^gain (?:\(([^)]+)\)|(\d+)) Regeneration for the fight\.?$/i;
         match = text.match(regex);
