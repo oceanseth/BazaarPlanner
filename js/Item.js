@@ -1182,7 +1182,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const multiplier = parseInt(getRarityValue(match[1], this.rarity));
-            const highestValue = this.board.items.reduce((max,item)=>Math.max(max,item.value),0);
+            let highestValue = this.board.items.reduce((max,item)=>Math.max(max,item.value),0);
             this.gain(highestValue*multiplier,'heal');
             this.board.itemValuesChangedTriggers.set(this.id,(item)=>{
                 const newHighestValue = this.board.items.reduce((max,item)=>Math.max(max,item.value),0);
@@ -1554,7 +1554,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const cooldownReduction = 0.5;
-            const increasedCooldown = false;
+            let increasedCooldown = false;
             this.board.player.shieldChanged((newShield,oldShield)=>{
                 if(newShield>0 && !increasedCooldown) {
                     this.cooldown *= cooldownReduction;
@@ -3969,7 +3969,7 @@ export class Item {
             if(this.board.uniqueTypes>=5) {
                 this.cooldown *= 0.5;
             }
-            const removedCDR = false;
+            let removedCDR = false;
             this.board.itemDestroyedTriggers.set(this.id,()=>{
                 if(this.board.uniqueTypes<5 && !removedCDR) {
                     this.cooldown *= 2;
