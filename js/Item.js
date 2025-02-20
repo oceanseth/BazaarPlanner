@@ -4013,7 +4013,19 @@ export class Item {
             });
             return ()=>{};
         }
-
+        //Adjacent Potions have +1 Ammo. from Tazidian Dagger
+        regex = /^Adjacent ([^\s]+)s? have \+1 Ammo\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            this.getAdjacentItems().forEach(item => {
+                if(item.tags.includes(tagToMatch)) {
+                    item.maxAmmo+=1;
+                    item.ammo+=1;
+                }
+            });
+            return ()=>{};
+        }
         //gain ( 2 » 4 ) Regeneration for the fight.
         regex = /^gain (?:\(([^)]+)\)|(\d+)) Regeneration for the fight\.?$/i;
         match = text.match(regex);
