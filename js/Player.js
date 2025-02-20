@@ -88,7 +88,8 @@ export class Player {
         });
     }
 
-    takeDamage(damage, shieldScalar = 1, ignoreShield = false) {        
+    takeDamage(damage, shieldScalar = 1, ignoreShield = false) {    
+        damage = damage*(1-this.damageReduction/100);
         if(ignoreShield || this.shield <= 0) {
             this.health -= damage;
             return damage;
@@ -179,6 +180,7 @@ export class Player {
         this.poison = 0;
         this.burn = 0;
         this.poison = 0;
+        this.damageReduction = 0;
 
         this.fellBelowHalfHealth = false;
         this.diedOnce = false;
