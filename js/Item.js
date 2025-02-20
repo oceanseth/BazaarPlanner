@@ -6,7 +6,7 @@ export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny', 'Tiny', 'Toxic', 'Turbo' ];
-    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value'];
+    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit'];
     static characterTags = ['Dooley','Vanessa','Pygmalien'];
     static sizeTags = ['Small','Medium','Large'];
 
@@ -782,7 +782,6 @@ export class Item {
                 if(match[1]) adjacentItems.push(this);
                 adjacentItems.forEach(item => {
                     item.gain(gainAmount,match[5].toLowerCase());
-                    log(item.name + " gained " + gainAmount + " " + match[4] + " for the fight");
                 });
 
 
@@ -795,13 +794,13 @@ export class Item {
         match = text.match(damageRegex);
         if(match) {
             const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
-            this.highestShieldValue = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
-            this.damage = this.highestShieldValue;
+            let highestShieldValue = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
+            this.gain(highestShieldValue,'damage');
 
             this.board.shieldValuesChangedTriggers.set(this.id, (shieldItem) => {
-                if(shieldItem.shield != this.highestShieldValue) {
-                    let shieldDiff = shieldItem.shield - this.highestShieldValue;
-                    this.highestShieldValue = shieldItem.shield;
+                if(shieldItem.shield > highestShieldValue) {
+                    let shieldDiff = shieldItem.shield - highestShieldValue;
+                    highestShieldValue = shieldItem.shield;
                     if(shieldItem == this) {
                         this.damage_pauseChanged = true;
                         this.gain(shieldDiff,'damage');
@@ -809,7 +808,6 @@ export class Item {
                     } else {
                         this.gain(shieldDiff,'damage');
                     }
-                    this.updateTriggerValuesElement();
                 }
             });
 
@@ -1959,7 +1957,8 @@ export class Item {
                 "sell",
                 "win a fight with stained glass window in play",
                 "sell an item",
-                "buy an aquatic item"
+                "buy an aquatic item",
+                "buy a potion",
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;
@@ -3384,10 +3383,10 @@ export class Item {
             return () => {};
         }
         //Your other Slow items have +1 Slow.
-        regex = /^Your other ([^\s]+) items have (\+\d+) (Slow|Haste|Shield|Burn|Poison|Heal)\.?/i;
+        regex = /^Your other ([^\s]+) items have (\([^\)]+\)|\+\d+) (Slow|Haste|Shield|Burn|Poison|Heal)\.?/i;
         match = text.match(regex);
         if(match) {
-            const value = parseInt(match[2]);
+            const value = getRarityValue(match[2], this.rarity);
             this.board.items.forEach(item => {
                 if(item.id == this.id) return;
                 if(item.tags.includes(match[1])) {
