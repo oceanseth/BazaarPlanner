@@ -766,9 +766,28 @@ export class Item {
                 });
             };
         }
-
+        //The Core gains ( +5 » +10 ) damage for the fight.
+        damageRegex = /The Core gains (\([^)]+\)|\d+) damage for the fight\.?/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const gainAmount = getRarityValue(match[1], this.rarity);
+            return () => {
+                this.gain(gainAmount,'damage');
+            };
+        }
+        // Adjacent Weapons have ( +5 » +10 » +20 » +40 ) damage.
+        damageRegex = /Adjacent Weapons have (\([^)]+\)|\d+) damage\.?/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const haveAmount = getRarityValue(match[1], this.rarity);
+            this.getAdjacentItems().forEach(item => {
+                item.gain(haveAmount,'damage');
+            });
+        }
+        
+        //Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage. from Epicurean Chocolate
         //Adjacent (Weapons|Tool items|Tools) gain ( 5 » 10 ) Damage for the fight.
-        damageRegex = /(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gain )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)? for the fight\.?/i;
+        damageRegex = /(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gain )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const itemType = match[2];
@@ -934,7 +953,7 @@ export class Item {
                 });
             };
         }
-        regex = /^Haste your(?: other)? items for (\([^)]+\)|\d+) second/i;
+        regex = /^Haste your(?: other)? items (?:for )?(\([^)]+\)|\d+) second/i;
         match = text.match(regex);
         if(match) {
             const duration = getRarityValue(match[1], this.rarity);
@@ -963,6 +982,20 @@ export class Item {
             };
         }
 
+        //your Small items gain Haste for ( 1 » 2 » 3 ) second(s). from Holsters
+        regex = /^your ([^\s]+) items gain Haste for (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const duration = getRarityValue(match[2], this.rarity);
+            const whatToHaste = Item.getTagFromText(match[1]);
+            return () => {
+                this.board.items.forEach(i => {
+                    if(i.tags.includes(whatToHaste)) {
+                        this.applyHasteTo(i,duration);
+                    }
+                });
+            };
+        }
 
 
         //slow all enemy items for ( 1 » 2 » 3 » 4 ) second(s).
@@ -2290,6 +2323,8 @@ export class Item {
                     this.whenItemTagTriggers("Large", (item) => {
                         triggerFunctionFromText(item);
                     });
+                case "gain burn":
+                    this.board.player.hostileTarget.board.burnTriggers.set(this.id,triggerFunctionFromText);
 
                     return;
                 case "crit with any item":
@@ -3022,6 +3057,15 @@ export class Item {
             return () => {};
         }
 
+        //gain ( 10 » 20 » 40 ) Max Health for the fight.
+        regex = /^\s*gain (\([^)]+\)|\d+) Max Health for the fight\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const maxHealth = getRarityValue(match[1], this.rarity);
+            return () => {
+                this.board.player.maxHealth += maxHealth;
+            };
+        }
         //destroy an item on each player's board for the fight
         regex = /^\s*destroy an item on each player's board for the fight\.?/i;
         match = text.match(regex);

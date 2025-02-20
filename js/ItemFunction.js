@@ -60,6 +60,15 @@ ItemFunction.items.set("Phonograph",(item)=>{
         leftItem.gain(leftItem.cooldown*(1-cooldownReduction/100)-leftItem.cooldown,'cooldown');
     }
 });
+//Haste the Core for ( 2 » 3 » 4 ) second(s). from Motherboard
+ItemFunction.items.set("Motherboard",(item)=>{
+    const hasteDuration = getRarityValue("2 >> 3 >> 4",item.rarity);
+    item.board.player.hostileTarget.board.items.forEach(i=>{
+        if(i.tags.includes("Core")) {
+            i.applyHaste(hasteDuration,item);
+        }
+    });
+});
 
 //Deal 20 damage
 //When you Freeze, Burn or Poison, this gains ( 10 » 20 » 30 ) damage for the fight. from Refractor
