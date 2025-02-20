@@ -1182,7 +1182,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const multiplier = parseInt(getRarityValue(match[1], this.rarity));
-            const highestValue = this.board.items.reduce((max,item)=>Math.max(max,item.value),0);
+            let highestValue = this.board.items.reduce((max,item)=>Math.max(max,item.value),0);
             this.gain(highestValue*multiplier,'heal');
             this.board.itemValuesChangedTriggers.set(this.id,(item)=>{
                 const newHighestValue = this.board.items.reduce((max,item)=>Math.max(max,item.value),0);
@@ -1554,7 +1554,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const cooldownReduction = 0.5;
-            const increasedCooldown = false;
+            let increasedCooldown = false;
             this.board.player.shieldChanged((newShield,oldShield)=>{
                 if(newShield>0 && !increasedCooldown) {
                     this.cooldown *= cooldownReduction;
@@ -3153,8 +3153,8 @@ export class Item {
         }
 
         //This has +1 Multicast for each adjacent Property.
-        //For each adjacent Vehicle, this has +1 Multicast. 
-        regex = /^\s*(?:This has \+1 Multicast for each adjacent ([^\s^\.]+)|For each adjacent ([^\s^\.]+)(?: or ([^\s]+)), this has \+1 Multicast)\.?/i;
+        //For each adjacent Vehicle, this has +1 Multicast. from Sirens
+        regex = /^\s*(?:This has \+1 Multicast for each adjacent ([^\s^\.]+)|For each adjacent ([^\s^\,]+)(?: or ([^\s]+))?, this has \+1 Multicast)\.?/i;
         match = text.match(regex);
         if(match) {
             const tagsToMatch = match[1]?[Item.getTagFromText(match[1])]:[Item.getTagFromText(match[2]),Item.getTagFromText(match[3])];
@@ -3969,7 +3969,7 @@ export class Item {
             if(this.board.uniqueTypes>=5) {
                 this.cooldown *= 0.5;
             }
-            const removedCDR = false;
+            let removedCDR = false;
             this.board.itemDestroyedTriggers.set(this.id,()=>{
                 if(this.board.uniqueTypes<5 && !removedCDR) {
                     this.cooldown *= 2;
@@ -4013,7 +4013,31 @@ export class Item {
             });
             return ()=>{};
         }
-
+        //Adjacent Potions have +1 Ammo. from Tazidian Dagger
+        regex = /^Adjacent ([^\s]+)s? have \+1 Ammo\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            this.getAdjacentItems().forEach(item => {
+                if(item.tags.includes(tagToMatch)) {
+                    item.maxAmmo+=1;
+                    item.ammo+=1;
+                }
+            });
+            return ()=>{};
+        }
+        regex = /^(?:Reload )?a potion\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                const potions = this.board.activeItems.filter(item => item.tags.includes("Potion"));
+                if(potions.length > 0) {
+                    const randomPotion = this.pickRandom(potions);
+                    randomPotion.ammo = randomPotion.maxAmmo;
+                    log(randomPotion.name+"has been reloaded to max ammo.");
+                }
+            };
+        }
         //gain ( 2 » 4 ) Regeneration for the fight.
         regex = /^gain (?:\(([^)]+)\)|(\d+)) Regeneration for the fight\.?$/i;
         match = text.match(regex);
