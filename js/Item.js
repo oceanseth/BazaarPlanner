@@ -795,13 +795,13 @@ export class Item {
         match = text.match(damageRegex);
         if(match) {
             const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
-            this.highestShieldValue = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
-            this.damage = this.highestShieldValue;
+            let highestShieldValue = shieldItems.reduce((max, item) => Math.max(max, item.shield), 0);
+            this.gain(highestShieldValue,'damage');
 
             this.board.shieldValuesChangedTriggers.set(this.id, (shieldItem) => {
-                if(shieldItem.shield != this.highestShieldValue) {
-                    let shieldDiff = shieldItem.shield - this.highestShieldValue;
-                    this.highestShieldValue = shieldItem.shield;
+                if(shieldItem.shield > highestShieldValue) {
+                    let shieldDiff = shieldItem.shield - highestShieldValue;
+                    highestShieldValue = shieldItem.shield;
                     if(shieldItem == this) {
                         this.damage_pauseChanged = true;
                         this.gain(shieldDiff,'damage');
@@ -809,7 +809,6 @@ export class Item {
                     } else {
                         this.gain(shieldDiff,'damage');
                     }
-                    this.updateTriggerValuesElement();
                 }
             });
 
@@ -1959,7 +1958,8 @@ export class Item {
                 "sell",
                 "win a fight with stained glass window in play",
                 "sell an item",
-                "buy an aquatic item"
+                "buy an aquatic item",
+                "buy a potion",
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;
