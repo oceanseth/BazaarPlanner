@@ -1192,7 +1192,21 @@ export class Item {
                 });
             };
         }
-
+        //one of your Burn items gains +15 burn for the fight. from Draconic Rage
+        regex = /^one of your ([^\s]+) items gains (\([^)]+\)|\+\d+) ([^\s]+) for the fight\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const whatTypeOfItem = match[1].toLowerCase();
+            const whatToGain = match[3].toLowerCase();
+            const whatToGainTag = Item.getTagFromText(whatToGain);
+            const gainAmount = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
+            return () => {
+                const targets = this.board.activeItems.filter(item => item.tags.includes(whatToGainTag));
+                if(targets.length>0) {
+                    this.pickRandom(targets).gain(gainAmount,whatToGain);
+                }
+            };
+        }   
 
         return null;
 
@@ -2879,9 +2893,10 @@ export class Item {
         match = text.match(regex);
         if(match) {
             return () => {
-                const target = Item.pickRandom(this.board.items.filter(item => item.tags.includes("Burn")));
+                const target = this.pickRandom(this.board.items.filter(item => item.tags.includes("Burn")));
                 if(target) {
                     target.gain(target.burn,'burn');
+                    log(this.name + " doubled the Burn of " + target.name);
                 }
             }
         }

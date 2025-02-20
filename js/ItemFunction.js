@@ -70,6 +70,15 @@ ItemFunction.items.set("Motherboard",(item)=>{
     });
 });
 
+// When your opponent uses a Weapon or Burn item, Charge this 2 second(s). from Blast Doors
+ItemFunction.items.set("Blast Doors",(item)=>{
+    item.board.player.hostileTarget.board.itemTriggers.set(item.id,(i)=>{
+        if(i.tags.includes("Weapon")||i.tags.includes("Burn")) {
+            item.chargeBy(2);
+        }
+    });
+});
+
 //Deal 20 damage
 //When you Freeze, Burn or Poison, this gains ( 10 » 20 » 30 ) damage for the fight. from Refractor
 ItemFunction.items.set("Refractor",(item)=>{
