@@ -7,7 +7,7 @@ export class Item {
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny', 'Tiny', 'Toxic', 'Turbo' ];
     static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit'];
-    static characterTags = ['Dooley','Vanessa','Pygmalien'];
+    static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle'];
     static sizeTags = ['Small','Medium','Large'];
 
     static enchantTagMap = {
@@ -738,8 +738,8 @@ export class Item {
 
 
         }
-        //educe its cooldown by 5% for the fight.
-        damageRegex = /Reduce its cooldown by (\d+)% for the fight\.?/i;
+        //Reduce its cooldown by 5% for the fight.
+        damageRegex = /Reduce its cooldown by (\([^\)]+\)|\d+%) for the fight\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const cooldownReduction = getRarityValue(match[1], this.rarity);
@@ -766,9 +766,28 @@ export class Item {
                 });
             };
         }
-
+        //The Core gains ( +5 » +10 ) damage for the fight.
+        damageRegex = /The Core gains (\([^)]+\)|\d+) damage for the fight\.?/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const gainAmount = getRarityValue(match[1], this.rarity);
+            return () => {
+                this.gain(gainAmount,'damage');
+            };
+        }
+        // Adjacent Weapons have ( +5 » +10 » +20 » +40 ) damage.
+        damageRegex = /Adjacent Weapons have (\([^)]+\)|\d+) damage\.?/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const haveAmount = getRarityValue(match[1], this.rarity);
+            this.getAdjacentItems().forEach(item => {
+                item.gain(haveAmount,'damage');
+            });
+        }
+        
+        //Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage. from Epicurean Chocolate
         //Adjacent (Weapons|Tool items|Tools) gain ( 5 » 10 ) Damage for the fight.
-        damageRegex = /(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gain )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)? for the fight\.?/i;
+        damageRegex = /(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gain )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const itemType = match[2];
@@ -934,10 +953,10 @@ export class Item {
                 });
             };
         }
-        regex = /^Haste your(?: other)? items for (?:\(([^)]+)\)|(\d+)) second/i;
+        regex = /^Haste your(?: other)? items (?:for )?(\([^)]+\)|\d+) second/i;
         match = text.match(regex);
         if(match) {
-            const duration = getRarityValue(match[2], this.rarity);
+            const duration = getRarityValue(match[1], this.rarity);
             const other = match[1]=='other';
             return () => {
                 this.board.items.forEach(i => {
@@ -947,6 +966,38 @@ export class Item {
                 log(this.name + " hasted all items for " + duration + " seconds");
             };
         }
+        // Haste your Friends for ( 1 » 2 » 3 ) second(s). from DJ Rob0t
+        //Haste your tools for ( 1 » 2 » 3 » 4 ) second(s). from Dishwasher
+        regex = /^Haste your ([^\s]+) for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const duration = getRarityValue(match[2], this.rarity);
+            const whatToHaste = Item.getTagFromText(match[1]);
+            return () => {  
+                this.board.items.forEach(i => {
+                    if(i.tags.includes(whatToHaste)) {
+                        this.applyHasteTo(i,duration);
+                    }
+                });
+            };
+        }
+
+        //your Small items gain Haste for ( 1 » 2 » 3 ) second(s). from Holsters
+        regex = /^your ([^\s]+) items gain Haste for (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const duration = getRarityValue(match[2], this.rarity);
+            const whatToHaste = Item.getTagFromText(match[1]);
+            return () => {
+                this.board.items.forEach(i => {
+                    if(i.tags.includes(whatToHaste)) {
+                        this.applyHasteTo(i,duration);
+                    }
+                });
+            };
+        }
+
+
         //slow all enemy items for ( 1 » 2 » 3 » 4 ) second(s).
         regex = /^slow all enemy items for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?$/i;
         match = text.match(regex);
@@ -1095,14 +1146,15 @@ export class Item {
 
 
     getBurnTriggerFunctionFromText(text) {
-        let regex = /Burn (?:\(([^)]+)\)|(\d+))\.?/i;
+        let regex = /(Burn|Poison|Heal) (\([^)]+\)|\d+)( for each unique type you have)?\./i;
         let match = text.match(regex);
         if(match) {
-            const burnAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-
-            this.gain(burnAmount,'burn');
+            const amount = getRarityValue(match[2], this.rarity);
+            const whatToGain = match[1];
+            const multiplier = match[3] ? this.board.uniqueTypes : 1;
+            this.gain(amount*multiplier,whatToGain.toLowerCase());
             return () => {                
-                this.applyBurn(this.burn);
+                this["apply"+whatToGain](this[whatToGain.toLowerCase()]);
             };
 
         }
@@ -1140,7 +1192,21 @@ export class Item {
                 });
             };
         }
-
+        //one of your Burn items gains +15 burn for the fight. from Draconic Rage
+        regex = /^one of your ([^\s]+) items gains (\([^)]+\)|\+\d+) ([^\s]+) for the fight\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const whatTypeOfItem = match[1].toLowerCase();
+            const whatToGain = match[3].toLowerCase();
+            const whatToGainTag = Item.getTagFromText(whatToGain);
+            const gainAmount = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
+            return () => {
+                const targets = this.board.activeItems.filter(item => item.tags.includes(whatToGainTag));
+                if(targets.length>0) {
+                    this.pickRandom(targets).gain(gainAmount,whatToGain);
+                }
+            };
+        }   
 
         return null;
 
@@ -2271,6 +2337,8 @@ export class Item {
                     this.whenItemTagTriggers("Large", (item) => {
                         triggerFunctionFromText(item);
                     });
+                case "gain burn":
+                    this.board.player.hostileTarget.board.burnTriggers.set(this.id,triggerFunctionFromText);
 
                     return;
                 case "crit with any item":
@@ -2825,9 +2893,10 @@ export class Item {
         match = text.match(regex);
         if(match) {
             return () => {
-                const target = Item.pickRandom(this.board.items.filter(item => item.tags.includes("Burn")));
+                const target = this.pickRandom(this.board.items.filter(item => item.tags.includes("Burn")));
                 if(target) {
                     target.gain(target.burn,'burn');
+                    log(this.name + " doubled the Burn of " + target.name);
                 }
             }
         }
@@ -3003,6 +3072,15 @@ export class Item {
             return () => {};
         }
 
+        //gain ( 10 » 20 » 40 ) Max Health for the fight.
+        regex = /^\s*gain (\([^)]+\)|\d+) Max Health for the fight\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const maxHealth = getRarityValue(match[1], this.rarity);
+            return () => {
+                this.board.player.maxHealth += maxHealth;
+            };
+        }
         //destroy an item on each player's board for the fight
         regex = /^\s*destroy an item on each player's board for the fight\.?/i;
         match = text.match(regex);
@@ -3364,10 +3442,10 @@ export class Item {
 
 
         //Give the weapon to the left of this ( +10 » +20 » +30 ) damage for the fight
-        regex = /^Give the weapon to the left of this \(\s*\+?(\d+)\s*»\s*\+?(\d+)\s*»\s*\+?(\d+)\s*\) damage for the fight/i;
+        regex = /^(?:Give )?the weapon to the left of this(?: gains)? (\([^)]+\)|\+\d+) damage for the fight\.?/i;
         match = text.match(regex);
         if(match) {
-            const dmgGain = getRarityValue(`${match[1]}»${match[2]}»${match[3]}`, this.rarity);
+            const dmgGain = getRarityValue(match[1], this.rarity);
             const leftItem = this.getItemToTheLeft();
             return () => {
                 if(leftItem) {
@@ -3988,7 +4066,7 @@ export class Item {
         }
 
         //charge this for 2 seconds. From Solar Farm
-        regex = /^charge this for (?:\(([^)]+)\)|(\d+)) seconds\.?$/i;
+        regex = /^charge this for (\([^)]+\)|\d+) seconds\.?$/i;
         match = text.match(regex);
         if(match) {
             const chargeAmount = getRarityValue(match[1], this.rarity);
