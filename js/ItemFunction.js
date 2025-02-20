@@ -35,6 +35,11 @@ ItemFunction.items.set("Pawn Shop",(item)=>{
     });
 });
 
+//This item's cooldown is reduced by 5 seconds for each adjacent large item. from Hammock
+ItemFunction.items.set("Hammock",(item)=>{
+    const largeItemCount = item.getAdjacentItems().filter(i=>i.tags.includes("Large")).length;
+    item.gain(-largeItemCount*5*1000,'cooldown');
+});
 
 //If you have no weapons, your items have their cooldowns reduced by ( 5% » 10% » 15% » 20% ). from Poppy Field
 ItemFunction.items.set("Poppy Field",(item)=>{

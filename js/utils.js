@@ -23,7 +23,7 @@ export function colorTextArray(textArray, rarityIndex) {
 
 export function getRarityValue(valueString, rarity) {
     if(valueString==undefined) {
-        console.log("gettingRarityValue ofundefined");
+        console.log("gettingRarityValue of undefined ");
         return 0;
     }
     if(valueString[0]=='(') {

@@ -738,7 +738,7 @@ export class Item {
 
 
         }
-        //educe its cooldown by 5% for the fight.
+        //Reduce its cooldown by 5% for the fight.
         damageRegex = /Reduce its cooldown by (\([^\)]+\)|\d+%) for the fight\.?/i;
         match = text.match(damageRegex);
         if(match) {
@@ -934,10 +934,10 @@ export class Item {
                 });
             };
         }
-        regex = /^Haste your(?: other)? items for (?:\(([^)]+)\)|(\d+)) second/i;
+        regex = /^Haste your(?: other)? items for (\([^)]+\)|\d+) second/i;
         match = text.match(regex);
         if(match) {
-            const duration = getRarityValue(match[2], this.rarity);
+            const duration = getRarityValue(match[1], this.rarity);
             const other = match[1]=='other';
             return () => {
                 this.board.items.forEach(i => {
@@ -947,6 +947,24 @@ export class Item {
                 log(this.name + " hasted all items for " + duration + " seconds");
             };
         }
+        // Haste your Friends for ( 1 » 2 » 3 ) second(s). from DJ Rob0t
+        //Haste your tools for ( 1 » 2 » 3 » 4 ) second(s). from Dishwasher
+        regex = /^Haste your ([^\s]+) for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const duration = getRarityValue(match[2], this.rarity);
+            const whatToHaste = Item.getTagFromText(match[1]);
+            return () => {  
+                this.board.items.forEach(i => {
+                    if(i.tags.includes(whatToHaste)) {
+                        this.applyHasteTo(i,duration);
+                    }
+                });
+            };
+        }
+
+
+
         //slow all enemy items for ( 1 » 2 » 3 » 4 ) second(s).
         regex = /^slow all enemy items for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?$/i;
         match = text.match(regex);
@@ -3365,10 +3383,10 @@ export class Item {
 
 
         //Give the weapon to the left of this ( +10 » +20 » +30 ) damage for the fight
-        regex = /^Give the weapon to the left of this \(\s*\+?(\d+)\s*»\s*\+?(\d+)\s*»\s*\+?(\d+)\s*\) damage for the fight/i;
+        regex = /^(?:Give )?the weapon to the left of this(?: gains)? (\([^)]+\)|\+\d+) damage for the fight\.?/i;
         match = text.match(regex);
         if(match) {
-            const dmgGain = getRarityValue(`${match[1]}»${match[2]}»${match[3]}`, this.rarity);
+            const dmgGain = getRarityValue(match[1], this.rarity);
             const leftItem = this.getItemToTheLeft();
             return () => {
                 if(leftItem) {
@@ -3989,7 +4007,7 @@ export class Item {
         }
 
         //charge this for 2 seconds. From Solar Farm
-        regex = /^charge this for (?:\(([^)]+)\)|(\d+)) seconds\.?$/i;
+        regex = /^charge this for (\([^)]+\)|\d+) seconds\.?$/i;
         match = text.match(regex);
         if(match) {
             const chargeAmount = getRarityValue(match[1], this.rarity);

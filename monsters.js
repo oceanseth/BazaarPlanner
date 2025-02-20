@@ -441,6 +441,40 @@ export const monsters = {
       }
     ]
   },
+  "Street Gamer": {
+    "name": "Street Gamer",
+    "icon": "images/monsters/StreetGamer.avif",
+    "day": 3,
+    "health": 450,
+    "skills": [
+      {
+        "name": "Small Refresh",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Red Piggles R",
+        "tier": 1
+      },
+      {
+        "name": "Yo-Yo",
+        "tier": 0
+      },
+      {
+        "name": "Blue Piggles L",
+        "tier": 1
+      },
+      {
+        "name": "Piggles",
+        "tier": 1
+      },
+      {
+        "name": "Red Piggles X",
+        "tier": 1
+      }
+    ]
+  },
   "Scout Trooper": {
     "name": "Scout Trooper",
     "icon": "images/monsters/ScoutTrooper.avif",
@@ -2193,6 +2227,44 @@ export const monsters = {
       }
     ]
   },
+  "Dragon": {
+    "name": "Dragon",
+    "icon": "images/monsters/Dragon.avif",
+    "day": 8,
+    "health": 3675,
+    "skills": [
+      {
+        "name": "Draconic Rage",
+        "tier": 3
+      },
+      {
+        "name": "Regenerative",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Dragon Wing",
+        "tier": 1
+      },
+      {
+        "name": "Fire Claw",
+        "tier": 2
+      },
+      {
+        "name": "Dragon Heart",
+        "tier": 4
+      },
+      {
+        "name": "Fire Claw",
+        "tier": 2
+      },
+      {
+        "name": "Dragon Wing",
+        "tier": 1
+      }
+    ]
+  },
   "Bloodreef Captain": {
     "name": "Bloodreef Captain",
     "icon": "images/monsters/BloodreefCaptain.avif",
@@ -2527,6 +2599,28 @@ export const monsters = {
       }
     ]
   },
+  "Yerdan": {
+    "name": "Yerdan",
+    "icon": "images/monsters/Yerdan.avif",
+    "day": 9,
+    "health": -1,
+    "skills": [
+      {
+        "name": "Relax Bro",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Nargile",
+        "tier": 2
+      },
+      {
+        "name": "Salt",
+        "tier": 2
+      }
+    ]
+  },
   "Hulking Experiment": {
     "name": "Hulking Experiment",
     "icon": "images/monsters/HulkingExperiment.avif",
@@ -2715,10 +2809,18 @@ export const monsters = {
     "name": "Property Baron",
     "icon": "images/monsters/PropertyBaron.avif",
     "day": 10,
-    "health": 2750,
+    "health": 2500,
     "skills": [
       {
         "name": "Master Salesman",
+        "tier": 3
+      },
+      {
+        "name": "Trader",
+        "tier": 3
+      },
+      {
+        "name": "Combat Medic",
         "tier": 3
       }
     ],
