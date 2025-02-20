@@ -6,7 +6,7 @@ export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny', 'Tiny', 'Toxic', 'Turbo' ];
-    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value'];
+    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit'];
     static characterTags = ['Dooley','Vanessa','Pygmalien'];
     static sizeTags = ['Small','Medium','Large'];
 
@@ -782,7 +782,6 @@ export class Item {
                 if(match[1]) adjacentItems.push(this);
                 adjacentItems.forEach(item => {
                     item.gain(gainAmount,match[5].toLowerCase());
-                    log(item.name + " gained " + gainAmount + " " + match[4] + " for the fight");
                 });
 
 
@@ -3384,10 +3383,10 @@ export class Item {
             return () => {};
         }
         //Your other Slow items have +1 Slow.
-        regex = /^Your other ([^\s]+) items have (\+\d+) (Slow|Haste|Shield|Burn|Poison|Heal)\.?/i;
+        regex = /^Your other ([^\s]+) items have (\([^\)]+\)|\+\d+) (Slow|Haste|Shield|Burn|Poison|Heal)\.?/i;
         match = text.match(regex);
         if(match) {
-            const value = parseInt(match[2]);
+            const value = getRarityValue(match[2], this.rarity);
             this.board.items.forEach(item => {
                 if(item.id == this.id) return;
                 if(item.tags.includes(match[1])) {

@@ -1,6 +1,6 @@
 export class ItemFunction {
     static items = new Map();
-    static doNothingItemNames = ["Bar of Gold","Super Syrup"];
+    static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring","Skillet",];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
             ItemFunction.items.set(itemName, (item) => {});
@@ -491,6 +491,31 @@ ItemFunction.items.set("Runic Great Axe",(item)=>{
 
 
 });
+// Adjacent items have bonus damage, heal, or shield equal to their Crit Chance. from Swash Buckle
+ItemFunction.items.set("Swash Buckle",(item)=>{
+    const adjacentItems = item.getAdjacentItems();
+    adjacentItems.forEach(i=>{
+        if(i.tags.includes("Weapon")) { 
+            i.gain(i.crit,'damage');
+            i.critChanged((newCrit,oldCrit)=>{
+                i.gain(newCrit-oldCrit,'damage');
+            });
+        }
+        if(i.tags.includes("Heal")) {
+            i.gain(i.crit,'heal');
+            i.critChanged((newCrit,oldCrit)=>{
+                i.gain(newCrit-oldCrit,'heal');
+            });
+        }
+        if(i.tags.includes("Shield")) {
+            i.gain(i.crit,'shield');
+            i.critChanged((newCrit,oldCrit)=>{
+                i.gain(newCrit-oldCrit,'shield');
+            });
+        }
+    });
+});
+
 
 //Increase your other items' Freeze by 1 second(s). from Sapphire
 ItemFunction.items.set("Sapphire",(item)=>{
