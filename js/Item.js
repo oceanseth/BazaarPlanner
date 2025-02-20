@@ -1159,6 +1159,7 @@ export class Item {
             };
         }
         //Heal equal to this item's Damage.
+        //Deal damage equal to this item's Heal.
         regex = /(?:Deal )?(Heal|Shield|Burn|Poison|Damage) equal to this item's (Heal|Shield|Burn|Poison|Damage|Value)/i;
         match = text.match(regex);
         if(match) {
@@ -1171,7 +1172,7 @@ export class Item {
                 }
             });
             return () => {
-                this['apply'+whatToGain](this[whatToGain.toLowerCase()]);
+                this['apply'+Item.getTagFromText(whatToGain)](this[whatToGain]);
             };
 
         }
