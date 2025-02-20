@@ -3153,8 +3153,8 @@ export class Item {
         }
 
         //This has +1 Multicast for each adjacent Property.
-        //For each adjacent Vehicle, this has +1 Multicast. 
-        regex = /^\s*(?:This has \+1 Multicast for each adjacent ([^\s^\.]+)|For each adjacent ([^\s^\.]+)(?: or ([^\s]+)), this has \+1 Multicast)\.?/i;
+        //For each adjacent Vehicle, this has +1 Multicast. from Sirens
+        regex = /^\s*(?:This has \+1 Multicast for each adjacent ([^\s^\.]+)|For each adjacent ([^\s^\,]+)(?: or ([^\s]+))?, this has \+1 Multicast)\.?/i;
         match = text.match(regex);
         if(match) {
             const tagsToMatch = match[1]?[Item.getTagFromText(match[1])]:[Item.getTagFromText(match[2]),Item.getTagFromText(match[3])];
