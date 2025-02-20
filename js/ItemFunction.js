@@ -1,12 +1,78 @@
 export class ItemFunction {
     static items = new Map();
-    static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring","Skillet",];
+    static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring",
+        "Skillet","Spare Change","Pelt"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
             ItemFunction.items.set(itemName, (item) => {});
         });
     }
 }
+
+//If you have a Vehicle, at the start of each fight, use this. from Propane Tank
+//Haste your Vehicles for ( 3 » 4 » 5 ) second(s). from Propane Tank
+ItemFunction.items.set("Propane Tank",(item)=>{
+    const hasteDuration = getRarityValue("3 >> 4 >> 5",item.rarity);
+    item.board.startOfFightTriggers.set(item.id,()=>{
+        item.trigger();
+    });
+    item.triggerFunctions.push(()=>{
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Vehicle")) i.applyHaste(hasteDuration,item);
+        });
+       
+    });
+});
+
+// You have increased max health equal to ( 10 » 15 » 20 ) times this item's value. from Pawn Shop
+ItemFunction.items.set("Pawn Shop",(item)=>{
+    const maxHealthIncrease = getRarityValue("10 >> 15 >> 20",item.rarity);    
+    item.board.player.maxHealth += maxHealthIncrease*item.value;
+    item.board.player.health=item.board.player.maxHealth;
+    item.board.updateHealthElement();
+    item.valueChanged((newValue,oldValue)=>{
+        item.board.player.maxHealth += maxHealthIncrease*(newValue-oldValue);
+    });
+});
+
+
+//If you have no weapons, your items have their cooldowns reduced by ( 5% » 10% » 15% » 20% ). from Poppy Field
+ItemFunction.items.set("Poppy Field",(item)=>{
+    const cooldownReduction = getRarityValue("5 >> 10 >> 15 >> 20",item.rarity);
+    const weaponCount = item.board.items.filter(i=>i.tags.includes("Weapon")).length;
+    if(weaponCount==0) {
+        item.board.items.forEach(i=>{
+            i.gain(i.cooldown*(1-cooldownReduction/100)-i.cooldown,'cooldown');
+        });
+    }
+});
+
+//The item to the left of this has its cooldown reduced by ( 25% » 50% ). from Phonograph
+ItemFunction.items.set("Phonograph",(item)=>{   
+    const cooldownReduction = getRarityValue("25 >> 50",item.rarity);
+    const leftItem = item.getItemToTheLeft();
+    if(leftItem) {
+        leftItem.gain(leftItem.cooldown*(1-cooldownReduction/100)-leftItem.cooldown,'cooldown');
+    }
+});
+
+//Deal 20 damage
+//When you Freeze, Burn or Poison, this gains ( 10 » 20 » 30 ) damage for the fight. from Refractor
+ItemFunction.items.set("Refractor",(item)=>{
+    const damage = getRarityValue("10 >> 20 >> 30",item.rarity);
+    item.gain(20,'damage');
+    item.board.burnTriggers.set(item.id,(i)=>{
+        item.gain(damage,'damage');
+    });
+    item.board.poisonTriggers.set(item.id,(i)=>{
+        item.gain(damage,'damage');
+    });
+    item.board.freezeTriggers.set(item.id,(i)=>{
+        item.gain(damage,'damage');
+    });
+    
+});
+
 ItemFunction.items.set("Flagship",(item)=>{
         let multicast = item.multicast || 0;
         item.board.items.forEach(i=>{

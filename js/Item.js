@@ -7,7 +7,7 @@ export class Item {
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny', 'Tiny', 'Toxic', 'Turbo' ];
     static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit'];
-    static characterTags = ['Dooley','Vanessa','Pygmalien'];
+    static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle'];
     static sizeTags = ['Small','Medium','Large'];
 
     static enchantTagMap = {
@@ -739,7 +739,7 @@ export class Item {
 
         }
         //educe its cooldown by 5% for the fight.
-        damageRegex = /Reduce its cooldown by (\d+)% for the fight\.?/i;
+        damageRegex = /Reduce its cooldown by (\([^\)]+\)|\d+%) for the fight\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const cooldownReduction = getRarityValue(match[1], this.rarity);
@@ -1095,14 +1095,15 @@ export class Item {
 
 
     getBurnTriggerFunctionFromText(text) {
-        let regex = /Burn (?:\(([^)]+)\)|(\d+))\.?/i;
+        let regex = /(Burn|Poison|Heal) (\([^)]+\)|\d+)( for each unique type you have)?\./i;
         let match = text.match(regex);
         if(match) {
-            const burnAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-
-            this.gain(burnAmount,'burn');
+            const amount = getRarityValue(match[2], this.rarity);
+            const whatToGain = match[1];
+            const multiplier = match[3] ? this.board.uniqueTypes : 1;
+            this.gain(amount*multiplier,whatToGain.toLowerCase());
             return () => {                
-                this.applyBurn(this.burn);
+                this["apply"+whatToGain](this[whatToGain.toLowerCase()]);
             };
 
         }
