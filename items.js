@@ -281,9 +281,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 8,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Deal 100 damage.",
       "When you Haste, this gains ( 60 » 80 » 100 ) damage for the fight."
     ],
@@ -550,9 +549,8 @@ export const items = {
       "Tech"
     ],
     "cooldown": 1,
-    "ammo": null,
+    "ammo": 3,
     "text": [
-      "Ammo 3",
       "Increase an enemy item's cooldown by ( 1 » 2 » 3 ) second(s) for the fight."
     ],
     "enchants": {
@@ -629,9 +627,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 10,
-    "ammo": null,
+    "ammo": 2,
     "text": [
-      "Ammo 2",
       "Deal ( 150 » 200 ) damage.",
       "When you use another Ammo item, this gains 1 Multicast for the fight."
     ],
@@ -830,9 +827,8 @@ export const items = {
       "Tech"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 4,
     "text": [
-      "Ammo 4",
       "Charge the item to the left of this ( 1 » 2 » 3 » 4 ) second(s)."
     ],
     "enchants": {
@@ -925,7 +921,7 @@ export const items = {
     "text": [
       "Deal ( 40 » 60 » 80 » 100 ) damage.",
       "When you buy another item, this gains that item's Types.",
-      "This has +1 Multicast for each of its Types. [0]"
+      "This has +1 Multicast for each of its Types."
     ],
     "enchants": {
       "Golden": "When you buy an item, gain 1 Gold.",
@@ -1463,9 +1459,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 6,
     "text": [
-      "Ammo 6",
       "Deal 100 damage.",
       "When you Burn, charge this ( 1 » 2 ) second(s)."
     ],
@@ -1496,9 +1491,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 2,
     "text": [
-      "Ammo 2",
       "Deal ( 40 » 60 » 80 » 100 ) damage.",
       "Slow 1 item for ( 2 » 3 » 4 » 5 ) second(s)."
     ],
@@ -1652,9 +1646,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 5,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Crit Chance 25%",
       "Deal ( 30 » 60 » 90 » 120 ) damage.",
       "Burn ( 4 » 6 » 8 » 10 )."
@@ -2022,9 +2015,8 @@ export const items = {
       "ShieldReference"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Adjacent Shield items permanently gain ( +1 » +2 » +3 » +4 ) Shield.",
       "This permanently loses 1 Max Ammo and destroy this if it has 0 Max Ammo."
     ],
@@ -2043,9 +2035,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 2,
     "text": [
-      "Ammo 2",
       "Deal ( 40 » 60 » 80 » 100 ) damage.",
       "Burn ( 4 » 6 » 8 » 10 )."
     ],
@@ -2769,7 +2760,7 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "You have Regeneration equal to ( 1x » 2x ) adjacent properties' values. [0]"
+      "You have Regeneration equal to ( 1x » 2x ) adjacent properties' values."
     ],
     "enchants": {
       "Golden": "You have +3 Income.",
@@ -3339,7 +3330,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Deal 16 damage.",
-      "Your Medium Weapons have ( +8 » +16 » +24 ) Damage for each Medium item you have. [0]"
+      "Your Medium Weapons have ( +8 » +16 » +24 ) Damage for each Medium item you have."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
@@ -3931,9 +3922,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 3,
-    "ammo": null,
+    "ammo": 2,
     "text": [
-      "Ammo 2",
       "Multicast 2",
       "Deal ( 25 » 50 » 75 » 100 ) damage."
     ],
@@ -4338,9 +4328,8 @@ export const items = {
       "Potion"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Haste your items for ( 1 » 2 » 3 » 4 ) second(s)."
     ],
     "enchants": {
@@ -4368,9 +4357,8 @@ export const items = {
       "Food"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 10,
     "text": [
-      "Ammo 10",
       "Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage.",
       "This permanently loses 1 Max Ammo and destroy this if it has 0 Max Ammo."
     ],
@@ -4578,7 +4566,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Burn ( 3 » 6 » 9 » 12 ).",
-      "This has + Burn equal to the Burn of your non-Fire Claw items. [0]"
+      "This has + Burn equal to the Burn of your non-Fire Claw items."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -4606,9 +4594,8 @@ export const items = {
       "Potion"
     ],
     "cooldown": 5,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Burn ( 6 » 9 » 12 » 15 )."
     ],
     "enchants": {
@@ -4886,9 +4873,8 @@ export const items = {
       "Slow"
     ],
     "cooldown": 6,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Slow all enemy items for ( 3 » 4 » 5 ) second(s)."
     ],
     "enchants": {
@@ -5043,9 +5029,8 @@ export const items = {
       "Potion"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Freeze ( 1 » 2 » 3 » 4 ) small item(s) for 2 second(s)."
     ],
     "enchants": {
@@ -5258,9 +5243,8 @@ export const items = {
       "Shield"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 2,
     "text": [
-      "Ammo 2",
       "Shield ( 30 » 60 » 90 » 120 ).",
       "When you sell a Tool, this gains +1 Max Ammo."
     ],
@@ -5479,9 +5463,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 3,
-    "ammo": null,
+    "ammo": 2,
     "text": [
-      "Ammo 2",
       "Deal ( 15 » 30 » 60 ) damage.",
       "When you use another Ammo item, Reload 1 ammo."
     ],
@@ -5561,9 +5544,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Crit Chance 25%",
       "Deal ( 50 » 100 » 150 » 200 ) damage."
     ],
@@ -5716,9 +5698,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 8,
-    "ammo": null,
+    "ammo": 2,
     "text": [
-      "Ammo 2",
       "Deal ( 75 » 150 » 300 » 600 ) damage.",
       "When this gains Haste, it also gains ( 5% » 10% » 15% » 20% ) Crit Chance for the fight."
     ],
@@ -5935,9 +5916,8 @@ export const items = {
       "Aquatic"
     ],
     "cooldown": "( 8 » 7 » 6 » 5 )",
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Destroy a small item."
     ],
     "enchants": {
@@ -6784,9 +6764,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 2,
     "text": [
-      "Ammo 2",
       "Deal ( 120 » 180 » 240 ) damage.",
       "When you Haste, Reload this 1 Ammo."
     ],
@@ -6912,9 +6891,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 6,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Deal ( 25 » 50 » 100 ) damage.",
       "Burn ( 6 » 8 » 10 ).",
       "Poison ( 4 » 6 » 8 )"
@@ -7640,7 +7618,7 @@ export const items = {
     "ammo": null,
     "text": [
       "When you win a fight, this gains 2 value.",
-      "Your weapons have + damage equal to this item's value. [0]"
+      "Your weapons have + damage equal to this item's value."
     ],
     "enchants": {
       "Golden": "This has double Value gain.",
@@ -8147,9 +8125,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Multicast 2",
       "Deal ( 20 » 30 » 40 ) damage.",
       "When you use the Core, Reload this."
@@ -8465,9 +8442,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 5,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Crit Chance 100%",
       "Deal ( 100 » 150 » 200 ) damage.",
       "When you Burn, Reload this 1 ammo."
@@ -8650,9 +8626,8 @@ export const items = {
       "Toy"
     ],
     "cooldown": 2,
-    "ammo": null,
+    "ammo": 8,
     "text": [
-      "Ammo 8",
       "Shield equal to this item's Ammo.",
       "At the start of each day, this gains ( 1 » 2 » 3 ) Max Ammo."
     ],
@@ -8802,9 +8777,8 @@ export const items = {
       "Potion"
     ],
     "cooldown": 3,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Poison both players ( 4 » 6 » 8 » 10 )."
     ],
     "enchants": {
@@ -8957,8 +8931,8 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "Weapon Properties adjacent to this have + Damage equal to ( 1x » 2x ) the value of your highest value item. [0]",
-      "Shield Properties adjacent to this have + Shield equal to ( 1x » 2x ) the value of your highest value item. [0]"
+      "Weapon Properties adjacent to this have + Damage equal to ( 1x » 2x ) the value of your highest value item.",
+      "Shield Properties adjacent to this have + Shield equal to ( 1x » 2x ) the value of your highest value item."
     ],
     "enchants": {
       "Golden": "Adjacent properties have double value.",
@@ -9497,9 +9471,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 3,
-    "ammo": null,
+    "ammo": 3,
     "text": [
-      "Ammo 3",
       "Deal ( 24 » 32 ) damage.",
       "When you use an Ammo item, deal ( 24 » 32 ) damage."
     ],
@@ -9529,9 +9502,8 @@ export const items = {
       "Slow"
     ],
     "cooldown": 8,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Burn both players ( 5 » 10 » 15 » 20 ).",
       "Slow all enemy items for ( 1 » 2 » 3 » 4 ) second(s)."
     ],
@@ -9591,9 +9563,8 @@ export const items = {
       "Burn"
     ],
     "cooldown": 3,
-    "ammo": null,
+    "ammo": 3,
     "text": [
-      "Ammo 3",
       "Burn ( 4 » 6 » 8 » 10 )."
     ],
     "enchants": {
@@ -9936,7 +9907,7 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Your weapons gain Damage equal to this item's value for the fight. [0]",
+      "Your weapons gain Damage equal to this item's value for the fight.",
       "When you buy a weapon, this gains ( 1 » 2 » 3 ) value and you gain ( 20 » 50 » 100 ) max health."
     ],
     "enchants": {
@@ -10128,9 +10099,8 @@ export const items = {
       "Slow"
     ],
     "cooldown": 5,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Burn ( 3 » 6 » 9 ). Poison ( 3 » 6 » 9 ).",
       "Freeze 1 small item for ( 1 » 2 » 3 ) second(s).",
       "Slow 1 item for ( 2 » 3 » 4 ) second(s)."
@@ -10448,9 +10418,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 6,
-    "ammo": null,
+    "ammo": 6,
     "text": [
-      "Ammo 6",
       "Deal 60 damage.",
       "When you use another Ammo item, charge this ( 1 » 2 » 3 ) second(s)."
     ],
@@ -10481,9 +10450,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 3,
-    "ammo": null,
+    "ammo": 6,
     "text": [
-      "Ammo 6",
       "Crit Chance 20%",
       "Deal ( 8 » 16 » 24 » 32 ) damage.",
       "When you Crit, Reload this 2 Ammo."
@@ -10534,9 +10502,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 2,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Deal ( 6 » 12 » 18 » 24 ) damage.",
       "When you use this, Reload this 1 Ammo if it is your only weapon with a cooldown."
     ],
@@ -11412,9 +11379,8 @@ export const items = {
       "Shield"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Shield ( 40 » 80 » 150 » 300 )."
     ],
     "enchants": {
@@ -11758,9 +11724,8 @@ export const items = {
       "Slow"
     ],
     "cooldown": 5,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Slow 2 items for ( 4 » 6 » 8 » 10 ) second(s)."
     ],
     "enchants": {
@@ -11788,11 +11753,10 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 3,
-    "ammo": null,
+    "ammo": 0,
     "text": [
-      "Ammo 0",
       "Deal ( 30 » 45 » 60 » 75 ) damage.",
-      "This has ( +1 » +2 » +3 » +4 ) Max Ammo for each Toy you have. [0]"
+      "This has ( +1 » +2 » +3 » +4 ) Max Ammo for each Toy you have."
     ],
     "enchants": {
       "Golden": "This has double value.",
@@ -12085,10 +12049,9 @@ export const items = {
       "DamageReference"
     ],
     "cooldown": 8,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
-      "Your weapons gain damage equal to your weakest weapon's damage for the fight. [0]"
+      "Your weapons gain damage equal to your weakest weapon's damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 item for 6 second(s).",
@@ -12482,9 +12445,8 @@ export const items = {
       "Food"
     ],
     "cooldown": 4,
-    "ammo": null,
+    "ammo": 10,
     "text": [
-      "Ammo 10",
       "Adjacent items permanently gain ( 1% » 2% » 3% » 4% ) Crit chance.",
       "This permanently loses 1 Max Ammo and destroy this if it has 0 Max Ammo."
     ],
@@ -12744,9 +12706,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": "( 20 » 16 )",
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Deal damage equal to your enemy's max health."
     ],
     "enchants": {
@@ -12889,9 +12850,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 3,
-    "ammo": null,
+    "ammo": 3,
     "text": [
-      "Ammo 3",
       "Deal 33 damage.",
       "When you Crit with another item, Charge this ( 1 » 2 » 3 ) second(s)."
     ],
@@ -13045,9 +13005,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 2,
-    "ammo": null,
+    "ammo": 50,
     "text": [
-      "Ammo 50",
       "Deal damage equal to this item's ammo."
     ],
     "enchants": {
@@ -13109,9 +13068,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 8,
-    "ammo": null,
+    "ammo": 1,
     "text": [
-      "Ammo 1",
       "Deal 100 damage.",
       "When you use another Aquatic or Ammo item, this gains ( 25 » 50 » 75 ) damage for the fight.",
       "If the item is Large, Reload 1 Ammo."
@@ -13421,7 +13379,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Heal ( 10 » 20 » 40 » 80 ).",
-      "This has +1 Multicast for each Property you have. [0]"
+      "This has +1 Multicast for each Property you have."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -13449,9 +13407,8 @@ export const items = {
       "Weapon"
     ],
     "cooldown": 2,
-    "ammo": null,
+    "ammo": 12,
     "text": [
-      "Ammo 12",
       "Deal ( 2 » 4 » 8 » 16 ) damage."
     ],
     "enchants": {

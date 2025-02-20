@@ -94,7 +94,7 @@ def parse_description(description_list):
             continue
             
         # Check for ammo
-        if line.startswith("Ammo Max"):
+        if line.startswith("Ammo"):
             continue  # Skip ammo line for now, could add later if needed
             
         # If we get here, it's descriptive text
@@ -153,7 +153,7 @@ def process_item(item_div):
                 item_data["cooldown"] = cooldown
             except (IndexError, ValueError):
                 pass
-        elif not line.startswith("Ammo Max"):  # Skip ammo lines
+        elif not line.startswith("Ammo"):  # Skip ammo lines
             if "text" not in item_data:
                 item_data["text"] = line
             elif "bottomText" not in item_data:
@@ -268,15 +268,19 @@ def parse_items():
                                 cooldown = int(line.split()[1])
                         except (IndexError, ValueError):
                             pass
-                    elif line.startswith("Ammo Max"):
+                    elif line.startswith("Ammo"):
                         try:
-                            ammo = int(line.split()[2])
+                            ammo = int(line.split()[1])
                         except (IndexError, ValueError):
                             pass
                     else:
-                        # Add non-empty sentences to the array
-                        if line.strip():
-                            text_sentences.append(line.strip())
+                        # Add non-empty sentences to the array, stripping [0] if present
+                        line = line.strip()
+                        if line:
+                            # Remove [0] from the end if present
+                            if line.endswith(" [0]"):
+                                line = line[:-4]
+                            text_sentences.append(line)
 
                 # Get enchantments
                 enchants = {}

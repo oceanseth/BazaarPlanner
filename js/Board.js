@@ -765,6 +765,15 @@ class Board {
         this.items = this.items.filter(i => i !== item);
         updateUrlState();
     }
+    get uniqueTypes() {
+        const types = new Set();
+        this.items.forEach(item => {
+            item.tags.forEach(tag => {
+                types.add(tag);
+            });
+        });
+        return types.size;
+    }
 
     save() {        
         const name = prompt("What do you want to name this board?");

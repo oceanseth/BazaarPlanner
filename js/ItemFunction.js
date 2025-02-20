@@ -26,6 +26,22 @@ ItemFunction.items.set("Antimatter Chamber",(item)=>{
             item.destroy(item);
         });
 });
+//"Multicast 2",
+//"Crit Chance 25%",
+//"Deal 100 damage.",
+//"When you use another Toy, Friend or Ammo item, charge this 1 second(s)."
+ItemFunction.items.set("Teddy",(item)=>{
+    item.multicast = 2;
+    item.gain(25,'critChance');
+    item.gain(100,'damage');
+    item.triggerFunctions.push(()=>{
+        item.chargeBy(1);
+    });
+    item.whenItemTagTriggers(["Toy","Friend","Ammo"], (item) => { 
+        item.chargeBy(1,item);
+    });
+});
+
 ItemFunction.items.set("Crow's Nest",(item)=>{
         const critToGain = getRarityValue("20 >> 40 >> 60 >> 80",item.rarity);
         const weaponItems = item.board.items.filter(i=>i.tags.includes("Weapon"));
@@ -164,6 +180,25 @@ ItemFunction.items.set("Forklift",(item)=>{
         thisAndItemsToTheRight.forEach(i=>i.applyHaste(getRarityValue("2 >> 4",item.rarity),item));
     });
 });
+//If you have 5 or fewer items in play, their cooldowns are reduced by ( 10% » 20% ). from Stained Glass Window
+ItemFunction.items.set("Stained Glass Window",(item)=>{
+    const cooldownReduction = getRarityValue("10 >> 20",item.rarity);
+    item.board.items.forEach(i=>{
+        if(item.board.items.length<=5) {
+            i.gain(i.cooldown*(1-cooldownReduction/100)-i.cooldown,'cooldown');
+        }
+    });
+});
+
+//If you have another item with Burn, Poison, Slow, or Freeze, this has +1 Multicast for each. from Weather Glass
+ItemFunction.items.set("Weather Glass",(item)=>{
+    const itemsWithBurn = item.board.items.filter(i=>i!=item && i.tags.includes("Burn"));
+    const itemsWithPoison = item.board.items.filter(i=>i!=item && i.tags.includes("Poison"));
+    const itemsWithSlow = item.board.items.filter(i=>i!=item && i.tags.includes("Slow"));
+    const itemsWithFreeze = item.board.items.filter(i=>i!=item && i.tags.includes("Freeze"));
+    item.multicast = (itemsWithBurn.length>0?1:0) + (itemsWithPoison.length>0?1:0) + (itemsWithSlow.length>0?1:0) + (itemsWithFreeze.length>0?1:0);
+});
+
 ItemFunction.items.set("GPU",(item)=>{
     //Haste the Core for ( 1 » 2 » 3 » 4 ) second(s).
     item.board.player.hostileTarget.board.items.forEach(i=>{

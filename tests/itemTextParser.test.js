@@ -1,0 +1,131 @@
+// Add structuredClone polyfill
+global.structuredClone = obj => JSON.parse(JSON.stringify(obj));
+
+// Create a mock board instance
+const mockBoardInstance = {
+    addItem: () => {},
+    items: [],
+    activeItems: [],
+    itemTriggers: new Map(),
+    hasteTriggers: new Map(),
+    slowTriggers: new Map(),
+    burnTriggers: new Map(),
+    poisonTriggers: new Map(),
+    shieldTriggers: new Map(),
+    critTriggers: new Map(),
+    freezeTriggers: new Map(),
+    shieldValuesChangedTriggers: new Map(),
+    itemValuesChangedTriggers: new Map(),
+    startOfFightTriggers: new Map(),
+    itemDestroyedTriggers: new Map(),
+    player: {
+        healthChanged: () => {},
+        maxHealthChanged: () => {},
+        shieldChanged: () => {},
+        goldChanged: () => {},
+        destroyTriggers: new Map(),
+        overhealTriggers: new Map(),
+        healTriggers: new Map(),
+        itemTriggers: new Map(),
+        useFriendTriggers: new Map(),
+        useAnotherTechTriggers: new Map(),
+        healthBelowHalfTriggers: new Map(),
+        poisonTriggers: new Map(),
+        critTriggers: new Map(),
+        hasteTriggers: new Map(),
+        slowTriggers: new Map(),
+        burnTriggers: new Map(),
+        dieTriggers: new Map(),
+        lostShieldTriggers: new Map(),    
+        damageReduction:0,
+        health:0,
+        maxHealth:0,
+        burn:0,
+        poison:0,
+        shield:0,
+        gold:0,
+        income:0,
+        shield:0,
+    }
+};
+mockBoardInstance.player.board = mockBoardInstance;
+mockBoardInstance.player.hostileTarget = mockBoardInstance.player;
+
+// Mock Board class
+const mockBoard = {
+    Board: class {
+        constructor() {
+            return mockBoardInstance;
+        }
+        static resetBoards = () => {};
+        static handleDragStart = () => {};
+        static handleDragEnd = () => {};
+        static handleTouchStart = () => {};
+        static handleTouchEnd = () => {};
+    }
+};
+
+// Use dynamic import.meta.jest for mocking in ES modules
+await import.meta.jest.mock('../js/Board.js', () => mockBoard);
+
+global.log = () => {}; // Mock the log function if it exists
+
+// Import your items data and Item class
+import { items } from '../items.js';
+import { Item } from '../js/Item.js';
+import { ItemFunction } from '../js/ItemFunction.js';
+
+// Store original console.log
+const originalConsoleLog = console.log;
+let consoleLogCount = 0;
+global.items = items;
+global.Item = Item;
+
+describe('Item Text Parser Tests', () => {
+    beforeAll(() => {
+        // Replace console.log with our capturing function
+        console.log = (...args) => {
+            consoleLogCount++;
+            originalConsoleLog(...args);
+        };
+    });
+
+    afterAll(() => {
+        // Restore original console.log
+        console.log = originalConsoleLog;
+    });
+
+    beforeEach(() => {
+        // Clear console output before each test
+        consoleLogCount = 0;
+    });
+
+    test('Parse all item text patterns', () => {
+        // Process each item
+        Object.entries(items).forEach(([itemName, itemData]) => {
+            if(ItemFunction.items.get(itemName)) return;
+            try {
+                const item = new Item(itemData, mockBoardInstance); // Use mockBoardInstance here
+                
+                // If the item has text, process each text line
+                if (item.text && Array.isArray(item.text)) {
+                    item.text.forEach(textLine => {
+                        item.setupTextFunctions(textLine);
+                    });
+                }
+            } catch (error) {
+                console.log(`Error processing item ${itemName}:`, error);
+            }
+        });
+
+        // If there were any console.log messages about unhandled cases, the test will show them
+        if(consoleLogCount>0) {
+            expect(consoleLogCount).toBe(0);
+        }
+
+        // Optional: Make the test fail if there are any unhandled cases
+        // expect(consoleOutput.filter(output => output.includes("No code yet written for this case!"))).toHaveLength(0);
+    });
+});
+
+export default {}; 
