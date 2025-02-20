@@ -4026,6 +4026,18 @@ export class Item {
             });
             return ()=>{};
         }
+        regex = /^(?:Reload )?a potion\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                const potions = this.board.activeItems.filter(item => item.tags.includes("Potion"));
+                if(potions.length > 0) {
+                    const randomPotion = this.pickRandom(potions);
+                    randomPotion.ammo = randomPotion.maxAmmo;
+                    log(randomPotion.name+"has been reloaded to max ammo.");
+                }
+            };
+        }
         //gain ( 2 » 4 ) Regeneration for the fight.
         regex = /^gain (?:\(([^)]+)\)|(\d+)) Regeneration for the fight\.?$/i;
         match = text.match(regex);
