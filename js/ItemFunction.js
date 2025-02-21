@@ -838,7 +838,7 @@ ItemFunction.items.set("Silencer",(item)=>{
         });
     });
 
-    //Burn (3 >> 6 >> 9 >> 12)
+//Burn (3 >> 6 >> 9 >> 12)
 //This has + Burn equal to the Burn of your non-Fire Claw items. [0] from Fire Claw
 ItemFunction.items.set("Fire Claw",(item)=>{
     const burnAmount = getRarityValue("3 >> 6 >> 9 >> 12",item.rarity);
@@ -850,7 +850,11 @@ ItemFunction.items.set("Fire Claw",(item)=>{
             item.gain(newBurn-oldBurn,'burn');
         });
     });
+    item.triggerFunctions.push(()=>{
+        item.applyBurn(item.burn);
+    });
 });
+
 //When you use the Core, adjacent weapons gain (  10  » 20  » 30   ) damage for the fight. from Firepower
 ItemFunction.items.set("Firepower",(item)=>{
     const amount = getRarityValue("10 >> 20 >> 30",item.rarity);
@@ -865,6 +869,7 @@ ItemFunction.items.set("Firepower",(item)=>{
         }
     });
 });
+
 //You have ( +50% » +75% » +100% ) Max Health. from Belt
 ItemFunction.items.set("Belt",(item)=>{
     const amount = getRarityValue("50 >> 75 >> 100",item.rarity);
@@ -872,6 +877,7 @@ ItemFunction.items.set("Belt",(item)=>{
     //need to make some way to undo this between resets of it
     
 });
+
 //Weapons to the right of this have ( +25 » +50 » +100 ) damage. from Figurehead
 ItemFunction.items.set("Figurehead",(item)=>{
     const amount = getRarityValue("25 >> 50 >> 100",item.rarity);
