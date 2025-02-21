@@ -851,6 +851,20 @@ ItemFunction.items.set("Fire Claw",(item)=>{
         });
     });
 });
+//When you use the Core, adjacent weapons gain (  10  » 20  » 30   ) damage for the fight. from Firepower
+ItemFunction.items.set("Firepower",(item)=>{
+    const amount = getRarityValue("10 >> 20 >> 30",item.rarity);
+    item.board.itemTriggers.set(item.id,(i)=>{
+        if(i.tags.includes("Core")) {
+            const adjacentItems = i.getAdjacentItems();
+            adjacentItems.forEach(i=>{
+                if(i.tags.includes("Weapon")) {
+                    i.gain(amount,'damage');
+                }
+            });
+        }
+    });
+});
 //You have ( +50% » +75% » +100% ) Max Health. from Belt
 ItemFunction.items.set("Belt",(item)=>{
     const amount = getRarityValue("50 >> 75 >> 100",item.rarity);
