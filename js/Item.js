@@ -349,8 +349,10 @@ export class Item {
         });
         
         mergedSlot.addEventListener('mouseleave', () => {
-            this.tooltip.style.display = 'none';
-            this.tooltip.remove();
+            if(this.tooltip) {
+                this.tooltip.style.display = 'none';
+                this.tooltip.remove();
+            }
         });
         
         return mergedSlot;
@@ -1694,11 +1696,18 @@ export class Item {
         }
 
         //Shield ( 1 » 2 » 3 » 4 ).
-        regex = /Shield (?:\(([^)]+)\)|(\d+))/i;
+        regex = /^Shield (\([^)]+\)|\d+)(?: for each ([^\s]+) item you have in play)?\./i;
         match = text.match(regex);
         if (match) {
-            const shieldAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            this.gain(shieldAmount,'shield');
+            const shieldAmount = getRarityValue(match[1], this.rarity);
+            const tagToMatch = match[2] ? Item.getTagFromText(match[2]) : null;
+            const multiplier = tagToMatch ? this.board.items.filter(i=>i.tags.includes(tagToMatch)).length : 1;
+            this.gain(shieldAmount*multiplier,'shield');
+            this.board.itemDestroyedTriggers.set(this.id,(item)=>{
+                if(item.tags.includes(tagToMatch)) {
+                    this.gain(-shieldAmount,'shield');
+                }
+            });
             return () => {
                 this.applyShield(this.shield);
             };            
@@ -3154,15 +3163,17 @@ export class Item {
        
         //your items gain ( +2% » +4% » +6% » +8% ) Crit chance for the fight.
         //or: your items gain +20% Crit chance for the fight.
-        regex = /your items gain (?:\(\s*\+?(\d+)%(?:\s*»\s*\+?(\d+)%)*\s*\)|\+?(\d+)%) Crit chance for the fight/i;
+        regex = /your\s?([^\s]+)? items gain (\([^)]+\)|\d+) Crit chance for the fight/i;
         match = text.match(regex);
         if(match) {
-            const critGain = match[3] ? 
-                parseInt(match[3]) : // Single value format
-                getRarityValue(match.slice(1, 3).filter(Boolean).join('»'), this.rarity); // Rarity progression format
+            const tagToMatch = match[1] ? Item.getTagFromText(match[1]) : null;
+            const critGain = getRarityValue(match[2], this.rarity);
             return () => {
-                this.board.items.forEach(i => i.gain(critGain,'crit'));
-                log(this.name + " gave all items " + critGain + " crit chance");
+                this.board.items.forEach(i => {
+                    if(tagToMatch ? i.tags.includes(tagToMatch) : true) {
+                        i.gain(critGain,'crit');
+                    }
+                });
             }
         }
 
@@ -3733,7 +3744,7 @@ export class Item {
             };
         }
         //This has double damage.
-        regex = /^\s*This has double (damage|poison|burn)\.?$/i;
+        regex = /^\s*This has double (damage|poison|burn|shield)\.?$/i;
         match = text.match(regex);
         if(match) {
             const whatToGain = match[1].toLowerCase();
