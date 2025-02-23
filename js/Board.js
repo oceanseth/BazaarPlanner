@@ -786,7 +786,13 @@ class Board {
             name: skill.name,
             rarity: skill.rarity
         }));
-        const blob = new Blob([JSON.stringify({items, skills}, null, 2)], { type: 'application/json' });
+        const player = {
+            name: this.player.name,
+            maxHealth: this.player.maxHealth,
+            gold: this.player.gold,
+            income: this.player.income
+        };
+        const blob = new Blob([JSON.stringify({items, skills, player}, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -816,6 +822,7 @@ class Board {
                     skills.forEach(({name, rarity}) => {
                         this.addSkill(name,{rarity:rarity});
                     });
+                    this.player.startPlayerData = data.player;
                     Board.resetBoards();
                     updateUrlState();
                 } catch (error) {

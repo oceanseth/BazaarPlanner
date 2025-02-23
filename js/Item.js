@@ -3038,11 +3038,11 @@ export class Item {
         
         
         //Reduce the cooldown of your aquatic items by (  10%  » 20%   ).
-        regex = /^\s*Reduce the cooldown of your ([^\s]+) items by (?:\(([^)]+)\)|(\+?\d+%))\.?/i;
+        regex = /^\s*Reduce the cooldown of your ([^\s]+) items by (\([^)]+\)|\+?\d+%)\.?/i;
         match = text.match(regex);
 
         if(match) {
-            const cooldownReduction = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
+            const cooldownReduction = getRarityValue(match[2], this.rarity);
             const tagToMatch = Item.getTagFromText(match[1]);
             this.board.items.forEach(item => {
                 if(item.tags.includes(tagToMatch)) {
