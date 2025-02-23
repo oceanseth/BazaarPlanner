@@ -1604,16 +1604,15 @@ export class Item {
             };
         }
         //Your Shield item to the (right|left) of this gains ( +4 » +8 » +12 » +16 ) Shield for the fight. from Yellow Piggles R
-        regex = /Your Shield item to the (right|left) of this gains (?:(\([^)]+\)|\d+) Shield for the fight)/i;
+        regex = /Your Shield item to the (right|left) of this gains (\([^)]+\)|\d+) Shield for the fight)/i;
         match = text.match(regex);
         if(match) {
-            const shieldAmount = getRarityValue(match[1], this.rarity);
+            const shieldAmount = getRarityValue(match[2], this.rarity);
+            const target = match[1]=='right' ? this.getItemToTheRight() : this.getItemToTheLeft();
             return () => {
-                this.board.items.forEach(item => {
-                    if(item.tags.includes("Shield") || item.enchant=='Shielded') {
-                        item.gain(shieldAmount,'shield');
-                    }
-                });
+                if(target && target.tags.includes("Shield") && !target.isDestroyed) {
+                    target.gain(shieldAmount,'shield');
+                }
             };
         }
         // While you have Shield, this item's cooldown is reduced by 50%. from Welding Torch
