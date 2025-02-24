@@ -899,13 +899,20 @@ ItemFunction.items.set("Belt",(item)=>{
 });
 
 //Weapons to the right of this have ( +25 » +50 » +100 ) damage. from Figurehead
+//Aquatic items to the left of this have their cooldowns reduced by ( 10% » 20% » 30% ).
 ItemFunction.items.set("Figurehead",(item)=>{
     const amount = getRarityValue("25 >> 50 >> 100",item.rarity);
     const weapons = item.board.items.filter(i=>i.tags.includes("Weapon") && i.startIndex > item.startIndex);
     weapons.forEach(i=>{
         i.gain(amount,'damage');
     });
+    const cooldownReduction = getRarityValue("10 >> 20 >> 30",item.rarity);
+    const aquaticItems = item.board.items.filter(i=>i.tags.includes("Aquatic") && i.startIndex < item.startIndex);
+    aquaticItems.forEach(i=>{
+        i.gain(i.cooldown*(100-cooldownReduction)/100 - i.cooldown,'cooldown');
+    });
 });
+
 //Torpedo
 ItemFunction.items.set("Torpedo",(item)=>{
     const amount = getRarityValue("25 >> 50 >> 75",item.rarity);
