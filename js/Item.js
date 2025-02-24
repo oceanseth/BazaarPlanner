@@ -1603,18 +1603,7 @@ export class Item {
                 });
             };
         }
-        //Your Shield item to the (right|left) of this gains ( +4 » +8 » +12 » +16 ) Shield for the fight. from Yellow Piggles R
-        regex = /Your Shield item to the (right|left) of this gains (\([^)]+\)|\+?\d+) Shield for the fight/i;
-        match = text.match(regex);
-        if(match) {
-            const shieldAmount = getRarityValue(match[2], this.rarity);
-            const target = match[1]=='right' ? this.getItemToTheRight() : this.getItemToTheLeft();
-            return () => {
-                if(target && target.tags.includes("Shield") && !target.isDestroyed) {
-                    target.gain(shieldAmount,'shield');
-                }
-            };
-        }
+       
         // While you have Shield, this item's cooldown is reduced by 50%. from Welding Torch
         regex = /While you have Shield, this item's cooldown is reduced by 50%\.?/i;
         match = text.match(regex);
@@ -1644,16 +1633,21 @@ export class Item {
             };
         }
 
-        //Your Shield items gain ( +2 » +4 » +6 » +8 ) Shield for the fight.
-        regex = /Your Shield items gain\s*\(\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*\)\s*Shield for the fight/i;
+        //Your Shield item to the right of this gains ( +4 » +8 » +12 » +16 ) Shield for the fight. from Yellow Piggles R
+        //Your Shield items gain ( +2 » +4 » +6 » +8 ) Shield for the fight. from Yellow Piggles X
+        regex = /(?:Your|The) ([^\s]+)? ?item(s)?(?: to the (right|left) of this)? gains? (\([^)]+\)|\+?\d+%?) ([^\s]+)(?: chance)? for the fight/i;
         match = text.match(regex);
         if (match) {
-            const shieldAmount = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);            
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const pluralItems = match[2];
+            const amount = getRarityValue(match[4], this.rarity);    
+            const whatToGain = Item.getTagFromText(match[5]);        
             return () => {
-                const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
-                shieldItems.forEach(item => {
-                    item.gain(shieldAmount,'shield');
-                    log(this.name + " gave " + item.name + " " + shieldAmount + " shield");
+                const targets = match[3]=='right' ? 
+                    pluralItems? this.board.activeItems.filter(i=>i.startIndex>this.startIndex && (!tagToMatch || i.tags.includes(tagToMatch))) : [this.getItemToTheRight()] :
+                    pluralItems? this.board.activeItems.filter(i=>i.startIndex<this.startIndex && (!tagToMatch || i.tags.includes(tagToMatch))) : [this.getItemToTheLeft()];
+                targets.forEach(target => {
+                    if(target) target.gain(amount,whatToGain.toLowerCase(), this);
                 });
             };
 
@@ -2767,7 +2761,18 @@ export class Item {
             return (item) => item.gain(damageGain,'damage');
         }
    
-
+        //charge your Busy Bees 2 second(s).
+        regex = /^\s*charge your ([^\d]+)s ([\d]+) second\(?s?\)?/i;   
+        match = text.match(regex);
+        if(match) {
+            const seconds = parseInt(match[2]);
+            return () => {
+                const itemsToCharge = this.board.items.filter(item => item.name.toLowerCase()==match[1].toLowerCase());
+                itemsToCharge.forEach(item=>{
+                    item.chargeBy(seconds,this);
+                });
+            }
+        }
         //Shield equal to this item's Ammo.
         regex = /^(?:Deal )?([^\s]+) equal to this item's Ammo\.?$/i;
         match = text.match(regex);

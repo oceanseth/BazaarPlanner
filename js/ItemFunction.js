@@ -1,6 +1,6 @@
 export class ItemFunction {
     static items = new Map();
-    static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring",
+    static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels",
         "Skillet","Spare Change","Pelt"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
@@ -106,8 +106,39 @@ ItemFunction.items.set("Flagship",(item)=>{
 
         item.setupTextFunctions(item.text[0]);
 });
+
+//Reload your Potions 1 Ammo and Charge them 1 second(s). from Athanor
+ItemFunction.items.set("Athanor",(item)=>{
+    return () => {
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Potion")) {
+                i.gain(1,'ammo');
+                i.chargeBy(1,item);
+            }
+        });
+    }
+});
+//While your enemy has Poison, this has ( +50% » +100% ) Crit Chance. from Basilisk Fang
+ItemFunction.items.set("Basilisk Fang",(item)=>{
+    const critGain = getRarityValue("50 >> 100",item.rarity);
+    const gainedCrit = false;
+    item.board.player.poisonChanged((oldValue,newValue)=>{
+        if(newValue>0) {
+            if(!gainedCrit) {
+                item.gain(critGain,'crit');
+                gainedCrit = true;
+            }
+        } else {
+            if(gainedCrit) {
+                item.gain(-critGain,'crit');
+                gainedCrit = false;
+            }
+        }
+    });
+});
+
+//Destroy this and 3 small enemy items for the fight from Antimatter Chamber
 ItemFunction.items.set("Antimatter Chamber",(item)=>{
-    //Destroy this and 3 small enemy items for the fight
         item.triggerFunctions.push(()=>{
             let smallEnemyItems = item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes("Small"));
             let numItemsToDestroy = Math.min(3,smallEnemyItems.length);
