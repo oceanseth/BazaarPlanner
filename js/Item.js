@@ -1148,11 +1148,11 @@ export class Item {
 
 
     getBurnTriggerFunctionFromText(text) {
-        let regex = /(Burn|Poison|Heal) (\([^)]+\)|\d+)( for each unique type you have)?\./i;
+        let regex = /(Burn|Poison|Heal|Shield) (\([^)]+\)|\d+)( for each unique type you have)?\./i;
         let match = text.match(regex);
         if(match) {
             const amount = getRarityValue(match[2], this.rarity);
-            const whatToGain = match[1];
+            const whatToGain = Item.getTagFromText(match[1]);
             const multiplier = match[3] ? this.board.uniqueTypes : 1;
             this.gain(amount*multiplier,whatToGain.toLowerCase());
             return () => {                
@@ -1604,7 +1604,7 @@ export class Item {
             };
         }
         //Your Shield item to the (right|left) of this gains ( +4 » +8 » +12 » +16 ) Shield for the fight. from Yellow Piggles R
-        regex = /Your Shield item to the (right|left) of this gains (\([^)]+\)|\d+) Shield for the fight/i;
+        regex = /Your Shield item to the (right|left) of this gains (\([^)]+\)|\+?\d+) Shield for the fight/i;
         match = text.match(regex);
         if(match) {
             const shieldAmount = getRarityValue(match[2], this.rarity);
@@ -2340,6 +2340,13 @@ export class Item {
                     this.whenItemTagTriggers("Small", (item) => {
                         triggerFunctionFromText(item);
                     });
+                case "crit with a weapon":
+                    this.board.critTriggers.set(this.id,(item)=>{
+                        if(item.tags.includes("Weapon")) {
+                            triggerFunctionFromText(item);
+                        }
+                    });
+                    return;
                 case "use this":
                     this.triggerFunctions.push(triggerFunctionFromText);
                     return;
@@ -4209,6 +4216,8 @@ export class Item {
                 }
             }
         }
+
+        return null;
     }
 
     executeSpecificItemFunction() {
