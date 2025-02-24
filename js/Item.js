@@ -1604,7 +1604,7 @@ export class Item {
             };
         }
         //Your Shield item to the (right|left) of this gains ( +4 » +8 » +12 » +16 ) Shield for the fight. from Yellow Piggles R
-        regex = /Your Shield item to the (right|left) of this gains (\([^)]+\)|\d+) Shield for the fight)/i;
+        regex = /Your Shield item to the (right|left) of this gains (\([^)]+\)|\d+) Shield for the fight/i;
         match = text.match(regex);
         if(match) {
             const shieldAmount = getRarityValue(match[2], this.rarity);
