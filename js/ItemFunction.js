@@ -854,7 +854,27 @@ ItemFunction.items.set("Fire Claw",(item)=>{
         item.applyBurn(item.burn);
     });
 });
-
+//If you have exactly one weapon, it has Lifesteal and (  5%  » 10%   ) Crit Chance. from Quality over Quantity
+ItemFunction.items.set("Quality over Quantity",(item)=>{
+    const critGain = getRarityValue("5 >> 10",item.rarity);
+    const weapons = item.board.items.filter(i=>i.tags.includes("Weapon"));
+    if(weapons.length==1) {
+        weapons[0].lifesteal = true;
+        weapons[0].gain(critGain,'crit');
+    }
+});
+//If you have at least 7 items in play, your Weapons deal (  +20  » +25  » +30   ) damage. from Noisy Cricket
+ItemFunction.items.set("Noisy Cricket",(item)=>{
+    const amount = getRarityValue("20 >> 25 >> 30",item.rarity);
+    
+    if(item.board.items.length>=7) {
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Weapon")) {
+                i.gain(amount,'damage');
+            }
+        });
+    }
+});
 //When you use the Core, adjacent weapons gain (  10  » 20  » 30   ) damage for the fight. from Firepower
 ItemFunction.items.set("Firepower",(item)=>{
     const amount = getRarityValue("10 >> 20 >> 30",item.rarity);
