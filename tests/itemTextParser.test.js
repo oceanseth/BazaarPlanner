@@ -72,6 +72,7 @@ global.log = () => {}; // Mock the log function if it exists
 
 // Import your items data and Item class
 import { items } from '../items.js';
+import { skills } from '../skills.js';
 import { Item } from '../js/Item.js';
 import { ItemFunction } from '../js/ItemFunction.js';
 
@@ -80,6 +81,7 @@ const originalConsoleLog = console.log;
 let consoleLogCount = 0;
 global.items = items;
 global.Item = Item;
+global.skills = skills;
 
 describe('Item Text Parser Tests', () => {
     beforeAll(() => {
@@ -101,6 +103,7 @@ describe('Item Text Parser Tests', () => {
     });
 
     test('Parse all item text patterns', () => {
+        Object.assign(items,skills);
         // Process each item
         Object.entries(items).forEach(([itemName, itemData]) => {
             if(ItemFunction.items.get(itemName)) return;
