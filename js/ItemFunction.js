@@ -49,6 +49,16 @@ ItemFunction.items.set("Dam",(item)=>{
         });
     });
 });
+//Haste the Aquatic item to the right for ( 2 » 3 » 4 » 5 ) second(s). from Fishing Rod
+ItemFunction.items.set("Fishing Rod",(item)=>{
+    const hasteDuration = getRarityValue("2 >> 3 >> 4 >> 5",item.rarity);
+    const rightItem = item.getItemToTheRight();
+    item.triggerFunctions.push(()=>{
+        if(rightItem && !rightItem.isDestroyed && rightItem.tags.includes("Aquatic")) {
+            rightItem.applyHaste(hasteDuration,item);
+        }
+    });
+});
 
 //Deal 16 Damage.
 //Your Medium Weapons have ( +8 » +16 » +24 ) Damage for each Medium item you have. from Crook
@@ -62,7 +72,7 @@ ItemFunction.items.set("Crook",(item)=>{
     item.board.itemDestroyedTriggers.set(item.id,(itemDestroyed)=>{
         if(itemDestroyed.tags.includes("Medium")) {
             item.board.activeItems.forEach(i=>{
-                if(i.tags.includes("Weapon")&&i.size=="Medium") i.gain(-damage,'damage');
+                if(i.tags.includes("Weapon")&&i.tags.includes("Medium")) i.gain(-damage,'damage');
             });
         }
     });
