@@ -1,6 +1,6 @@
 export class ItemFunction {
     static items = new Map();
-    static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise",
+    static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
         "Skillet","Spare Change","Pelt"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {

@@ -3137,6 +3137,46 @@ export class Item {
             }
         }
 
+        //Shield ( 5 » 10 » 20 » 40 ) for each small item you have (including Stash). from Cargo Shorts                                                            
+        regex = /^\s*Shield (\([^)]+\)|\d+) for each small item you have \(including Stash\)\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const shield = getRarityValue(match[1], this.rarity);
+            return () => {
+               const numItems = this.board.items.reduce((acc,item)=>{
+                    if(item.tags.includes("Small")) {
+                        acc += 1;
+                    }
+                    return acc;
+                },0);
+                this.applyShield(shield*numItems);
+            }
+        }
+
+        //If you have another (Apparel|Vehicle) item in play, this item's cooldown is reduced by 50%. from Cargo Shorts   
+        regex = /^\s*If you have another ([^\s]+) item in play, this item's cooldown is reduced by (\([^)]+\)|\d+)%\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const cooldownReduction = getRarityValue(match[2], this.rarity);
+            const reduceBy = this.cooldown*(100-cooldownReduction)/100;
+            let cooldownReduced = false;
+            const f = ()=>{
+                const itemsInPlay = this.board.activeItems.filter(item => item.id != this.id && item.tags.includes(tagToMatch));
+                if(!cooldownReduced && itemsInPlay.length>0) {
+                    this.gain(reduceBy - this.cooldown,'cooldown');
+                    cooldownReduced = true;
+                } else if(cooldownReduced) {
+                    this.gain(reduceBy,'cooldown');
+                }
+            };
+            f();
+            this.board.itemDestroyedTriggers.set(this.id,(item)=>{
+                f();
+            });
+            return ()=>{};
+        }
+
         //Reload the item to the right of this ( 1 » 2 » 3 » 4 ) Ammo.
         regex = /^\s*Reload the item to the right of this (?:\(([^)]+)\)|(\d+)) Ammo\.?/i;
         match = text.match(regex);
