@@ -29,6 +29,18 @@ ItemFunction.items.set("Dragon Tooth",(item)=>{
     });
 });
 
+//This item's value is equal to your highest value Property. from Deed
+ItemFunction.items.set("Deed",(item)=>{
+    const f = ()=>{
+        const highestValueProperty = item.board.activeItems.filter(i=>i.tags.includes("Property")).reduce((max,i)=>Math.max(max,i.value),0);
+        item.value = highestValueProperty;
+    }
+    f();
+    item.board.itemValuesChangedTriggers.set(item.id,f);
+    item.board.itemDestroyedTriggers.set(item.id,f);
+});
+
+
 //Destroy this and all smaller items for the fight. from Dam
 ItemFunction.items.set("Dam",(item)=>{
     item.triggerFunctions.push(()=>{
