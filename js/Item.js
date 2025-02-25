@@ -3152,6 +3152,17 @@ export class Item {
                 this.applyShield(shield*numItems);
             }
         }
+        //this and the weapon to the left gains ( 20 » 25 ) damage for the fight. from Claw Arm
+        regex = /^\s*this and the weapon to the left gains (\([^)]+\)|\d+) damage for the fight\.?/i;   
+        match = text.match(regex);
+        if(match) {
+            const damage = getRarityValue(match[1], this.rarity);
+            return ()=>{
+                this.gain(damage,'damage');
+                const leftItem = this.getItemToTheLeft();
+                if(leftItem && leftItem.tags.includes("Weapon")) leftItem.gain(damage,'damage');
+            };
+        }
 
         //If you have another (Apparel|Vehicle) item in play, this item's cooldown is reduced by 50%. from Cargo Shorts   
         regex = /^\s*If you have another ([^\s]+) item in play, this item's cooldown is reduced by (\([^)]+\)|\d+)%\.?/i;

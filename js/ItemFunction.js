@@ -38,6 +38,12 @@ ItemFunction.items.set("Dam",(item)=>{
     });
 });
 
+//You have Regeneration equal to ( 1x » 2x ) adjacent properties' values. from Closed Sign
+ItemFunction.items.set("Closed Sign",(item)=>{
+    const regeneration = getRarityValue("1x >> 2x",item.rarity);
+    item.board.player.regen += regeneration*item.getAdjacentItems().filter(i=>i.tags.includes("Property")).reduce((acc,i)=>acc+i.value,0);
+    item.board.updateHealthElement();
+});
 
 //If you have a Vehicle, at the start of each fight, use this. from Propane Tank
 //Haste your Vehicles for ( 3 » 4 » 5 ) second(s). from Propane Tank
