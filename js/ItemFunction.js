@@ -8,7 +8,26 @@ export class ItemFunction {
         });
     }
 }
-
+//Deal 10 >> 20 damage.
+//At the start of each fight with Dragon Tooth, spend 3 gold and your weapons permanently gain ( 5 » 10 ) damage. from Dragon Tooth
+ItemFunction.items.set("Dragon Tooth",(item)=>{
+    const damage = getRarityValue("10 >> 20",item.rarity);
+    const damageGain = getRarityValue("5 >> 10",item.rarity);
+    item.board.startOfFightTriggers.set(item.id,()=>{
+        if(item.board.player.gold<3) {
+            log(item.board.player.name + " does not have enough gold to use " + item.name + ".");
+            return;
+        }
+        item.board.player.spend(3);
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Weapon")) i.gain(damageGain,'damage',item);
+        });
+    });
+    item.gain(damage,'damage');
+    item.triggerFunctions.push(()=>{
+        item.dealDamage(damage);
+    });
+});
 //If you have a Vehicle, at the start of each fight, use this. from Propane Tank
 //Haste your Vehicles for ( 3 » 4 » 5 ) second(s). from Propane Tank
 ItemFunction.items.set("Propane Tank",(item)=>{

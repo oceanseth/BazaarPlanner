@@ -22,6 +22,11 @@ export class Player {
         this.board = board;
         this.reset();
     }
+    spend(amount) {
+        this.gold -= amount;
+        log(this.name + " spends " + amount + " gold.");
+        this.board.updateGoldElement();
+    }
 
     heal(healAmount) {
         this.board.healingApplied += healAmount;

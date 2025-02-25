@@ -3166,7 +3166,7 @@ export class Item {
                 if(!cooldownReduced && itemsInPlay.length>0) {
                     this.gain(reduceBy - this.cooldown,'cooldown');
                     cooldownReduced = true;
-                } else if(cooldownReduced) {
+                } else if(cooldownReduced && itemsInPlay.length==0) {
                     this.gain(reduceBy,'cooldown');
                 }
             };
@@ -3177,6 +3177,13 @@ export class Item {
             return ()=>{};
         }
 
+        //Every 50 you spend (skip this for now)
+        regex = /^\s*Every (\d+) you spend/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {}
+        }
+        
         //Reload the item to the right of this ( 1 » 2 » 3 » 4 ) Ammo.
         regex = /^\s*Reload the item to the right of this (?:\(([^)]+)\)|(\d+)) Ammo\.?/i;
         match = text.match(regex);
