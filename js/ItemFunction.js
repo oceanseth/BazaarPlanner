@@ -50,6 +50,24 @@ ItemFunction.items.set("Dam",(item)=>{
     });
 });
 
+//Deal 16 Damage.
+//Your Medium Weapons have ( +8 » +16 » +24 ) Damage for each Medium item you have. from Crook
+ItemFunction.items.set("Crook",(item)=>{
+    const damage = getRarityValue("8 >> 16 >> 24",item.rarity);
+    item.gain(16,'damage');
+    const mediumItemCount = item.board.activeItems.filter(i=>i.tags.includes("Medium")).length;
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Weapon")&&i.tags.includes("Medium")) i.gain(damage*mediumItemCount,'damage');
+    });
+    item.board.itemDestroyedTriggers.set(item.id,(itemDestroyed)=>{
+        if(itemDestroyed.tags.includes("Medium")) {
+            item.board.activeItems.forEach(i=>{
+                if(i.tags.includes("Weapon")&&i.size=="Medium") i.gain(-damage,'damage');
+            });
+        }
+    });
+});
+
 //You have Regeneration equal to ( 1x » 2x ) adjacent properties' values. from Closed Sign
 ItemFunction.items.set("Closed Sign",(item)=>{
     const regeneration = getRarityValue("1x >> 2x",item.rarity);
