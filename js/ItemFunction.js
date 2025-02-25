@@ -18,6 +18,17 @@ ItemFunction.items.set("Cosmic Plumage",(item)=>{
         });
     });
 });
+//Burn ( 4 » 6 » 8 ) from Curry
+//Charge another small item ( 3 » 4 » 5 ) second(s). from Curry
+ItemFunction.items.set("Curry",(item)=>{
+    const burn = getRarityValue("4 >> 6 >> 8",item.rarity);
+    const chargeDuration = getRarityValue("3 >> 4 >> 5",item.rarity);
+    item.gain(burn,'burn');
+    item.triggerFunctions.push(()=>{
+        item.pickRandom(item.board.activeItems.filter(i=>i.id!=item.id && i.tags.includes("Small"))).chargeBy(chargeDuration);
+        item.applyBurn(item.burn);
+    });
+});
 
 //Deal 10 >> 20 damage.
 //At the start of each fight with Dragon Tooth, spend 3 gold and your weapons permanently gain ( 5 » 10 ) damage. from Dragon Tooth
