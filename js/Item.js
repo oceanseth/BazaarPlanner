@@ -1453,6 +1453,11 @@ export class Item {
             case 'freezebonus':
                 this.freezeBonus += amount;
                 break;
+            case 'multicast':
+                this.multicast += amount;
+                break;
+            default:
+                console.log("Unknown gain type: " + type);
         }
     }
 
@@ -4093,6 +4098,26 @@ export class Item {
             });
             return ()=>{};
         }
+        //For each adjacent Tool or Food item, this gains +1 Multicast. from Butter
+        regex = /^For each adjacent ([^\s]+) or ([^\s]+) item, this gains \+1 Multicast\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const tagToMatch2 = Item.getTagFromText(match[2]);
+            
+            const adjacentItems = this.getAdjacentItems();
+            const toolOrFoodItems = adjacentItems.filter(item => item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2));
+            this.gain(toolOrFoodItems.length,'multicast');
+            this.board.itemDestroyedTriggers.set(this.id,(item)=>{
+                if(adjacentItems.includes(item)) {
+                    if(item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2)) {
+                        this.gain(-1,'multicast');
+                    }
+                }
+            });
+            return ()=>{};
+        }
+
         //your other items gain Value equal to this item's Value for the fight.
         regex = /^your other items gain Value equal to this item's Value for the fight\.?$/i;
         match = text.match(regex);
