@@ -1,6 +1,6 @@
 export class ItemFunction {
     static items = new Map();
-    static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels",
+    static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise",
         "Skillet","Spare Change","Pelt"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
@@ -148,22 +148,6 @@ ItemFunction.items.set("Open Sign",(item)=>{
         }
         if(i.tags.includes("Shield") && i.tags.includes("Property")) {
             i.gain(amount*highestValueItem,'shield');
-        }
-    });
-});
-
-//If your enemy has at least ( 5 » 4 ) items, destroy a small or medium enemy item for the fight. from Momma-Saur
-//your Dinosaurs permanently gain ( 30 » 40 ) damage. from Momma-Saur
-ItemFunction.items.set("Momma-Saur",(item)=>{
-    const damage = getRarityValue("30 >> 40",item.rarity);
-    const requireItemCount = getRarityValue("5 >> 4",item.rarity);
-    const itemCount = item.board.player.hostileTarget.board.activeItems.length;
-    if(itemCount>=requireItemCount) {
-        item.pickRandom(item.board.player.hostileTarget.board.activeItems.filter(i=>i.tags.includes("Small")||i.tags.includes("Medium"))).destroy(item);
-    }
-    item.board.items.forEach(i=>{
-        if(i.tags.includes("Dinosaur")) {
-            i.gain(damage,'damage');
         }
     });
 });

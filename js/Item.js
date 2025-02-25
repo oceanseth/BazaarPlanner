@@ -777,8 +777,34 @@ export class Item {
                 this.gain(gainAmount,'damage');
             };
         }
-
         
+        //If your enemy has at least ( 5 » 4 ) items, destroy a small( or medium) enemy item for the fight. from Momma-Saur
+        damageRegex = /If your enemy has at least (\([^)]+\)|\d+) items, destroy a small( or medium)? enemy item for the fight\.?/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const requireItemCount = getRarityValue(match[1], this.rarity);
+            return ()=>{
+                const itemCount = this.board.player.hostileTarget.board.activeItems.length;
+                if(itemCount>=requireItemCount) {
+                    this.pickRandom(this.board.player.hostileTarget.board.activeItems.filter(i=>i.tags.includes("Small")||(match[2]&&i.tags.includes("Medium")))).destroy(this);
+                }
+            };
+        }
+
+        //    your Dinosaurs permanently gain ( 30 » 40 ) damage. from Momma-Saur
+        damageRegex = /your Dinosaurs permanently gain (\([^)]+\)|\d+) damage\.?/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const gainAmount = getRarityValue(match[1], this.rarity);
+            return () => {
+                this.board.activeItems.forEach(i=>{
+                    if(i.tags.includes("Dinosaur")) {
+                        i.gain(gainAmount,'damage');
+                    }
+                });
+            };
+        }
+
         //Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage. from Epicurean Chocolate
         //Adjacent (Weapons|Tool items|Tools) gain ( 5 » 10 ) Damage for the fight.
         damageRegex = /(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gain )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
