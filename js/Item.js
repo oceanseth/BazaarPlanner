@@ -777,15 +777,7 @@ export class Item {
                 this.gain(gainAmount,'damage');
             };
         }
-        // Adjacent Weapons have ( +5 » +10 » +20 » +40 ) damage.
-        damageRegex = /Adjacent Weapons have (\([^)]+\)|\d+) damage\.?/i;
-        match = text.match(damageRegex);
-        if(match) {
-            const haveAmount = getRarityValue(match[1], this.rarity);
-            this.getAdjacentItems().forEach(item => {
-                item.gain(haveAmount,'damage');
-            });
-        }
+
         
         //Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage. from Epicurean Chocolate
         //Adjacent (Weapons|Tool items|Tools) gain ( 5 » 10 ) Damage for the fight.
@@ -3580,6 +3572,19 @@ export class Item {
                     this.gain(critGain,'crit');
                 }
             };
+        }
+        //Adjacent Weapons have ( +5 » +10 » +20 » +40 ) damage. from Exoskeleton 
+        regex = /^Adjacent (.+)?(?: item)?s have (\([^)]+\)|\+?\d+) damage\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = match[1].toLowerCase();
+            const damageGain = getRarityValue(match[2], this.rarity);
+            this.getAdjacentItems().forEach(item => {
+                if(tagToMatch=='item'||item.tags.includes(Item.getTagFromText(tagToMatch))) {
+                    item.gain(damageGain,'damage');
+                }
+            });
+            return ()=>{};
         }
 
         //Adjacent Vehicles have their cooldowns reduced by ( 5% » 10% » 15% » 20% ). from Fuel Rod
