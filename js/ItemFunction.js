@@ -28,6 +28,17 @@ ItemFunction.items.set("Dragon Tooth",(item)=>{
         item.dealDamage(damage);
     });
 });
+
+//Destroy this and all smaller items for the fight. from Dam
+ItemFunction.items.set("Dam",(item)=>{
+    item.triggerFunctions.push(()=>{
+        [...item.board.items,...item.board.player.hostileTarget.board.items].forEach(i=>{
+            if(i.size< item.size) i.destroy(item);
+        });
+    });
+});
+
+
 //If you have a Vehicle, at the start of each fight, use this. from Propane Tank
 //Haste your Vehicles for ( 3 » 4 » 5 ) second(s). from Propane Tank
 ItemFunction.items.set("Propane Tank",(item)=>{
