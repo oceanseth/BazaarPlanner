@@ -8,6 +8,17 @@ export class ItemFunction {
         });
     }
 }
+//Your Shield items gain ( +4 » +8 » +12 ) Shield and your Weapons ( +4 » +8 » +12 ) damage for the fight. from Cosmic Plumage
+ItemFunction.items.set("Cosmic Plumage",(item)=>{
+    const gain = getRarityValue("4 >> 8 >> 12",item.rarity);
+    item.triggerFunctions.push(()=>{
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Shield")) i.gain(gain,'shield');
+            if(i.tags.includes("Weapon")) i.gain(gain,'damage');
+        });
+    });
+});
+
 //Deal 10 >> 20 damage.
 //At the start of each fight with Dragon Tooth, spend 3 gold and your weapons permanently gain ( 5 » 10 ) damage. from Dragon Tooth
 ItemFunction.items.set("Dragon Tooth",(item)=>{
