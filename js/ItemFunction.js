@@ -137,6 +137,37 @@ ItemFunction.items.set("Basilisk Fang",(item)=>{
     });
 });
 
+//Weapon Properties adjacent to this have + Damage equal to ( 1x » 2x ) the value of your highest value item. from Open Sign                                        
+//Shield Properties adjacent to this have + Shield equal to ( 1x » 2x ) the value of your highest value item. from Open Sign   
+ItemFunction.items.set("Open Sign",(item)=>{
+    const amount = getRarityValue("1x >> 2x",item.rarity);
+    item.getAdjacentItems().forEach(i=>{
+        const highestValueItem = item.board.activeItems.reduce((max,i)=>Math.max(max,i.value),0);
+        if(i.tags.includes("Weapon") && i.tags.includes("Property")) {
+            i.gain(amount*highestValueItem,'damage');
+        }
+        if(i.tags.includes("Shield") && i.tags.includes("Property")) {
+            i.gain(amount*highestValueItem,'shield');
+        }
+    });
+});
+
+//If your enemy has at least ( 5 » 4 ) items, destroy a small or medium enemy item for the fight. from Momma-Saur
+//your Dinosaurs permanently gain ( 30 » 40 ) damage. from Momma-Saur
+ItemFunction.items.set("Momma-Saur",(item)=>{
+    const damage = getRarityValue("30 >> 40",item.rarity);
+    const requireItemCount = getRarityValue("5 >> 4",item.rarity);
+    const itemCount = item.board.player.hostileTarget.board.activeItems.length;
+    if(itemCount>=requireItemCount) {
+        item.pickRandom(item.board.player.hostileTarget.board.activeItems.filter(i=>i.tags.includes("Small")||i.tags.includes("Medium"))).destroy(item);
+    }
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Dinosaur")) {
+            i.gain(damage,'damage');
+        }
+    });
+});
+
 //Destroy this and 3 small enemy items for the fight from Antimatter Chamber
 ItemFunction.items.set("Antimatter Chamber",(item)=>{
         item.triggerFunctions.push(()=>{

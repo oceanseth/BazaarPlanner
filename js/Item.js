@@ -3568,26 +3568,32 @@ export class Item {
             });
             return ()=>{};
         }
-
-
-        //Adjacent items have their cooldown reduced by ( 10% » 15% » 20% » 25% ).
-        regex = /^Adjacent items have their cooldown reduced by (?:\(\s*(\d+)%(?:\s*»\s*(\d+)%)*\s*\)|(\d+)%)\.?$/i;
+        //it also gains ( 5% » 10% » 15% » 20% ) Crit Chance for the fight. from Hakurvian Launche
+        regex = /^it also gains (\([^)]+\)|\d+) Crit Chance for the fight\.?$/i;
         match = text.match(regex);
         if(match) {
-            if (match[3]) {
-                // Single number format
-                const cooldownReduction = parseInt(match[3]);
-                this.getAdjacentItems().forEach(item => {
-                    item.cooldown *= (1-cooldownReduction/100);
-                });
-            } else {
-                // Range format
-                const rarityString = match.slice(1).filter(Boolean).join('»');
-                const cooldownReduction = getRarityValue(rarityString, this.rarity);
-                this.getAdjacentItems().forEach(item => {
-                    item.cooldown *= (1-cooldownReduction/100);
-                });
-            }
+            const critGain = getRarityValue(match[1], this.rarity);
+            return (item)=>{
+                if(item) {
+                    item.gain(critGain,'crit');
+                } else { 
+                    this.gain(critGain,'crit');
+                }
+            };
+        }
+
+        //Adjacent Vehicles have their cooldowns reduced by ( 5% » 10% » 15% » 20% ). from Fuel Rod
+        //Adjacent items have their cooldown reduced by ( 10% » 15% » 20% » 25% ).
+        regex = /^Adjacent (.+)?(?: item)?s have their cooldowns? reduced by (\([^)]+\)|\d+%)\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const cooldownReduction = getRarityValue(match[2], this.rarity);
+            const tagToMatch = match[1].toLowerCase();
+            this.getAdjacentItems().forEach(item => {
+                if(tagToMatch=='item'||item.tags.includes(Item.getTagFromText(tagToMatch))) {
+                    item.gain((item.cooldown*(100-cooldownReduction)/100)-item.cooldown,'cooldown');
+                }
+            });
             return ()=>{};
         }
         //This has triple value in combat.
