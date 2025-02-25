@@ -777,19 +777,37 @@ export class Item {
                 this.gain(gainAmount,'damage');
             };
         }
-        // Adjacent Weapons have ( +5 » +10 » +20 » +40 ) damage.
-        damageRegex = /Adjacent Weapons have (\([^)]+\)|\d+) damage\.?/i;
+        
+        //If your enemy has at least ( 5 » 4 ) items, destroy a small( or medium) enemy item for the fight. from Momma-Saur
+        damageRegex = /If your enemy has at least (\([^)]+\)|\d+) items, destroy a small( or medium)? enemy item for the fight\.?/i;
         match = text.match(damageRegex);
         if(match) {
-            const haveAmount = getRarityValue(match[1], this.rarity);
-            this.getAdjacentItems().forEach(item => {
-                item.gain(haveAmount,'damage');
-            });
+            const requireItemCount = getRarityValue(match[1], this.rarity);
+            return ()=>{
+                const itemCount = this.board.player.hostileTarget.board.activeItems.length;
+                if(itemCount>=requireItemCount) {
+                    this.pickRandom(this.board.player.hostileTarget.board.activeItems.filter(i=>i.tags.includes("Small")||(match[2]&&i.tags.includes("Medium")))).destroy(this);
+                }
+            };
         }
-        
+
+        //    your Dinosaurs permanently gain ( 30 » 40 ) damage. from Momma-Saur
+        damageRegex = /your Dinosaurs permanently gain (\([^)]+\)|\d+) damage\.?/i;
+        match = text.match(damageRegex);
+        if(match) {
+            const gainAmount = getRarityValue(match[1], this.rarity);
+            return () => {
+                this.board.activeItems.forEach(i=>{
+                    if(i.tags.includes("Dinosaur")) {
+                        i.gain(gainAmount,'damage');
+                    }
+                });
+            };
+        }
+
         //Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage. from Epicurean Chocolate
         //Adjacent (Weapons|Tool items|Tools) gain ( 5 » 10 ) Damage for the fight.
-        damageRegex = /(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gain )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
+        damageRegex = /^(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gain )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const itemType = match[2];
@@ -1435,6 +1453,11 @@ export class Item {
             case 'freezebonus':
                 this.freezeBonus += amount;
                 break;
+            case 'multicast':
+                this.multicast += amount;
+                break;
+            default:
+                console.log("Unknown gain type: " + type);
         }
     }
 
@@ -1603,18 +1626,7 @@ export class Item {
                 });
             };
         }
-        //Your Shield item to the (right|left) of this gains ( +4 » +8 » +12 » +16 ) Shield for the fight. from Yellow Piggles R
-        regex = /Your Shield item to the (right|left) of this gains (\([^)]+\)|\+?\d+) Shield for the fight/i;
-        match = text.match(regex);
-        if(match) {
-            const shieldAmount = getRarityValue(match[2], this.rarity);
-            const target = match[1]=='right' ? this.getItemToTheRight() : this.getItemToTheLeft();
-            return () => {
-                if(target && target.tags.includes("Shield") && !target.isDestroyed) {
-                    target.gain(shieldAmount,'shield');
-                }
-            };
-        }
+       
         // While you have Shield, this item's cooldown is reduced by 50%. from Welding Torch
         regex = /While you have Shield, this item's cooldown is reduced by 50%\.?/i;
         match = text.match(regex);
@@ -1644,16 +1656,21 @@ export class Item {
             };
         }
 
-        //Your Shield items gain ( +2 » +4 » +6 » +8 ) Shield for the fight.
-        regex = /Your Shield items gain\s*\(\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*»\s*\+\s*(\d+)\s*\)\s*Shield for the fight/i;
+        //Your Shield item to the right of this gains ( +4 » +8 » +12 » +16 ) Shield for the fight. from Yellow Piggles R
+        //Your Shield items gain ( +2 » +4 » +6 » +8 ) Shield for the fight. from Yellow Piggles X
+        regex = /(?:Your|The) ([^\s]+)? ?item(s)?(?: to the (right|left) of this)? gains? (\([^)]+\)|\+?\d+%?) ([^\s]+)(?: chance)? for the fight/i;
         match = text.match(regex);
         if (match) {
-            const shieldAmount = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);            
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const pluralItems = match[2];
+            const amount = getRarityValue(match[4], this.rarity);    
+            const whatToGain = Item.getTagFromText(match[5]);        
             return () => {
-                const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
-                shieldItems.forEach(item => {
-                    item.gain(shieldAmount,'shield');
-                    log(this.name + " gave " + item.name + " " + shieldAmount + " shield");
+                const targets = match[3]=='right' ? 
+                    pluralItems? this.board.activeItems.filter(i=>i.startIndex>this.startIndex && (!tagToMatch || i.tags.includes(tagToMatch))) : [this.getItemToTheRight()] :
+                    pluralItems? this.board.activeItems.filter(i=>i.startIndex<this.startIndex && (!tagToMatch || i.tags.includes(tagToMatch))) : [this.getItemToTheLeft()];
+                targets.forEach(target => {
+                    if(target) target.gain(amount,whatToGain.toLowerCase(), this);
                 });
             };
 
@@ -2767,7 +2784,18 @@ export class Item {
             return (item) => item.gain(damageGain,'damage');
         }
    
-
+        //charge your Busy Bees 2 second(s).
+        regex = /^\s*charge your ([^\d]+)s ([\d]+) second\(?s?\)?/i;   
+        match = text.match(regex);
+        if(match) {
+            const seconds = parseInt(match[2]);
+            return () => {
+                const itemsToCharge = this.board.items.filter(item => item.name.toLowerCase()==match[1].toLowerCase());
+                itemsToCharge.forEach(item=>{
+                    item.chargeBy(seconds,this);
+                });
+            }
+        }
         //Shield equal to this item's Ammo.
         regex = /^(?:Deal )?([^\s]+) equal to this item's Ammo\.?$/i;
         match = text.match(regex);
@@ -3114,6 +3142,64 @@ export class Item {
             }
         }
 
+        //Shield ( 5 » 10 » 20 » 40 ) for each small item you have (including Stash). from Cargo Shorts                                                            
+        regex = /^\s*Shield (\([^)]+\)|\d+) for each small item you have \(including Stash\)\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const shield = getRarityValue(match[1], this.rarity);
+            return () => {
+               const numItems = this.board.items.reduce((acc,item)=>{
+                    if(item.tags.includes("Small")) {
+                        acc += 1;
+                    }
+                    return acc;
+                },0);
+                this.applyShield(shield*numItems);
+            }
+        }
+        //this and the weapon to the left gains ( 20 » 25 ) damage for the fight. from Claw Arm
+        regex = /^\s*this and the weapon to the left gains (\([^)]+\)|\d+) damage for the fight\.?/i;   
+        match = text.match(regex);
+        if(match) {
+            const damage = getRarityValue(match[1], this.rarity);
+            return ()=>{
+                this.gain(damage,'damage');
+                const leftItem = this.getItemToTheLeft();
+                if(leftItem && leftItem.tags.includes("Weapon")) leftItem.gain(damage,'damage');
+            };
+        }
+
+        //If you have another (Apparel|Vehicle) item in play, this item's cooldown is reduced by 50%. from Cargo Shorts   
+        regex = /^\s*If you have another ([^\s]+) item in play, this item's cooldown is reduced by (\([^)]+\)|\d+)%\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const cooldownReduction = getRarityValue(match[2], this.rarity);
+            const reduceBy = this.cooldown*(100-cooldownReduction)/100;
+            let cooldownReduced = false;
+            const f = ()=>{
+                const itemsInPlay = this.board.activeItems.filter(item => item.id != this.id && item.tags.includes(tagToMatch));
+                if(!cooldownReduced && itemsInPlay.length>0) {
+                    this.gain(reduceBy - this.cooldown,'cooldown');
+                    cooldownReduced = true;
+                } else if(cooldownReduced && itemsInPlay.length==0) {
+                    this.gain(reduceBy,'cooldown');
+                }
+            };
+            f();
+            this.board.itemDestroyedTriggers.set(this.id,(item)=>{
+                f();
+            });
+            return ()=>{};
+        }
+
+        //Every 50 you spend (skip this for now)
+        regex = /^\s*Every (\d+) you spend/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {}
+        }
+        
         //Reload the item to the right of this ( 1 » 2 » 3 » 4 ) Ammo.
         regex = /^\s*Reload the item to the right of this (?:\(([^)]+)\)|(\d+)) Ammo\.?/i;
         match = text.match(regex);
@@ -3563,26 +3649,45 @@ export class Item {
             });
             return ()=>{};
         }
-
-
-        //Adjacent items have their cooldown reduced by ( 10% » 15% » 20% » 25% ).
-        regex = /^Adjacent items have their cooldown reduced by (?:\(\s*(\d+)%(?:\s*»\s*(\d+)%)*\s*\)|(\d+)%)\.?$/i;
+        //it also gains ( 5% » 10% » 15% » 20% ) Crit Chance for the fight. from Hakurvian Launche
+        regex = /^it also gains (\([^)]+\)|\d+) Crit Chance for the fight\.?$/i;
         match = text.match(regex);
         if(match) {
-            if (match[3]) {
-                // Single number format
-                const cooldownReduction = parseInt(match[3]);
-                this.getAdjacentItems().forEach(item => {
-                    item.cooldown *= (1-cooldownReduction/100);
-                });
-            } else {
-                // Range format
-                const rarityString = match.slice(1).filter(Boolean).join('»');
-                const cooldownReduction = getRarityValue(rarityString, this.rarity);
-                this.getAdjacentItems().forEach(item => {
-                    item.cooldown *= (1-cooldownReduction/100);
-                });
-            }
+            const critGain = getRarityValue(match[1], this.rarity);
+            return (item)=>{
+                if(item) {
+                    item.gain(critGain,'crit');
+                } else { 
+                    this.gain(critGain,'crit');
+                }
+            };
+        }
+        //Adjacent Weapons have ( +5 » +10 » +20 » +40 ) damage. from Exoskeleton 
+        regex = /^Adjacent (.+)?(?: item)?s have (\([^)]+\)|\+?\d+) damage\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = match[1].toLowerCase();
+            const damageGain = getRarityValue(match[2], this.rarity);
+            this.getAdjacentItems().forEach(item => {
+                if(tagToMatch=='item'||item.tags.includes(Item.getTagFromText(tagToMatch))) {
+                    item.gain(damageGain,'damage');
+                }
+            });
+            return ()=>{};
+        }
+
+        //Adjacent Vehicles have their cooldowns reduced by ( 5% » 10% » 15% » 20% ). from Fuel Rod
+        //Adjacent items have their cooldown reduced by ( 10% » 15% » 20% » 25% ).
+        regex = /^Adjacent (.+)?(?: item)?s have their cooldowns? reduced by (\([^)]+\)|\d+%)\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const cooldownReduction = getRarityValue(match[2], this.rarity);
+            const tagToMatch = match[1].toLowerCase();
+            this.getAdjacentItems().forEach(item => {
+                if(tagToMatch=='item'||item.tags.includes(Item.getTagFromText(tagToMatch))) {
+                    item.gain((item.cooldown*(100-cooldownReduction)/100)-item.cooldown,'cooldown');
+                }
+            });
             return ()=>{};
         }
         //This has triple value in combat.
@@ -3993,6 +4098,26 @@ export class Item {
             });
             return ()=>{};
         }
+        //For each adjacent Tool or Food item, this gains +1 Multicast. from Butter
+        regex = /^For each adjacent ([^\s]+) or ([^\s]+) item, this gains \+1 Multicast\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const tagToMatch2 = Item.getTagFromText(match[2]);
+            
+            const adjacentItems = this.getAdjacentItems();
+            const toolOrFoodItems = adjacentItems.filter(item => item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2));
+            this.gain(toolOrFoodItems.length,'multicast');
+            this.board.itemDestroyedTriggers.set(this.id,(item)=>{
+                if(adjacentItems.includes(item)) {
+                    if(item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2)) {
+                        this.gain(-1,'multicast');
+                    }
+                }
+            });
+            return ()=>{};
+        }
+
         //your other items gain Value equal to this item's Value for the fight.
         regex = /^your other items gain Value equal to this item's Value for the fight\.?$/i;
         match = text.match(regex);

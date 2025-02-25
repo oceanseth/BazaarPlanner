@@ -1,13 +1,111 @@
 export class ItemFunction {
     static items = new Map();
-    static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring",
-        "Skillet","Spare Change","Pelt"];
+    static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
+        "Epicurean Chocolate","Skillet","Spare Change","Pelt","Candy Mail"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
             ItemFunction.items.set(itemName, (item) => {});
         });
     }
 }
+//Your Shield items gain ( +4 » +8 » +12 ) Shield and your Weapons ( +4 » +8 » +12 ) damage for the fight. from Cosmic Plumage
+ItemFunction.items.set("Cosmic Plumage",(item)=>{
+    const gain = getRarityValue("4 >> 8 >> 12",item.rarity);
+    item.triggerFunctions.push(()=>{
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Shield")) i.gain(gain,'shield');
+            if(i.tags.includes("Weapon")) i.gain(gain,'damage');
+        });
+    });
+});
+//Burn ( 4 » 6 » 8 ) from Curry
+//Charge another small item ( 3 » 4 » 5 ) second(s). from Curry
+ItemFunction.items.set("Curry",(item)=>{
+    const burn = getRarityValue("4 >> 6 >> 8",item.rarity);
+    const chargeDuration = getRarityValue("3 >> 4 >> 5",item.rarity);
+    item.gain(burn,'burn');
+    item.triggerFunctions.push(()=>{
+        item.pickRandom(item.board.activeItems.filter(i=>i.id!=item.id && i.tags.includes("Small"))).chargeBy(chargeDuration);
+        item.applyBurn(item.burn);
+    });
+});
+
+//Deal 10 >> 20 damage.
+//At the start of each fight with Dragon Tooth, spend 3 gold and your weapons permanently gain ( 5 » 10 ) damage. from Dragon Tooth
+ItemFunction.items.set("Dragon Tooth",(item)=>{
+    const damage = getRarityValue("10 >> 20",item.rarity);
+    const damageGain = getRarityValue("5 >> 10",item.rarity);
+    item.board.startOfFightTriggers.set(item.id,()=>{
+        if(item.board.player.gold<3) {
+            log(item.board.player.name + " does not have enough gold to use " + item.name + ".");
+            return;
+        }
+        item.board.player.spend(3);
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Weapon")) i.gain(damageGain,'damage',item);
+        });
+    });
+    item.gain(damage,'damage');
+    item.triggerFunctions.push(()=>{
+        item.dealDamage(damage);
+    });
+});
+
+//This item's value is equal to your highest value Property. from Deed
+ItemFunction.items.set("Deed",(item)=>{
+    const f = ()=>{
+        const highestValueProperty = item.board.activeItems.filter(i=>i.tags.includes("Property")).reduce((max,i)=>Math.max(max,i.value),0);
+        item.value = highestValueProperty;
+    }
+    f();
+    item.board.itemValuesChangedTriggers.set(item.id,f);
+    item.board.itemDestroyedTriggers.set(item.id,f);
+});
+
+
+//Destroy this and all smaller items for the fight. from Dam
+ItemFunction.items.set("Dam",(item)=>{
+    item.triggerFunctions.push(()=>{
+        [...item.board.items,...item.board.player.hostileTarget.board.items].forEach(i=>{
+            if(i.size< item.size) i.destroy(item);
+        });
+    });
+});
+//Haste the Aquatic item to the right for ( 2 » 3 » 4 » 5 ) second(s). from Fishing Rod
+ItemFunction.items.set("Fishing Rod",(item)=>{
+    const hasteDuration = getRarityValue("2 >> 3 >> 4 >> 5",item.rarity);
+    const rightItem = item.getItemToTheRight();
+    item.triggerFunctions.push(()=>{
+        if(rightItem && !rightItem.isDestroyed && rightItem.tags.includes("Aquatic")) {
+            rightItem.applyHaste(hasteDuration,item);
+        }
+    });
+});
+
+//Deal 16 Damage.
+//Your Medium Weapons have ( +8 » +16 » +24 ) Damage for each Medium item you have. from Crook
+ItemFunction.items.set("Crook",(item)=>{
+    const damage = getRarityValue("8 >> 16 >> 24",item.rarity);
+    item.gain(16,'damage');
+    const mediumItemCount = item.board.activeItems.filter(i=>i.tags.includes("Medium")).length;
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Weapon")&&i.tags.includes("Medium")) i.gain(damage*mediumItemCount,'damage');
+    });
+    item.board.itemDestroyedTriggers.set(item.id,(itemDestroyed)=>{
+        if(itemDestroyed.tags.includes("Medium")) {
+            item.board.activeItems.forEach(i=>{
+                if(i.tags.includes("Weapon")&&i.tags.includes("Medium")) i.gain(-damage,'damage');
+            });
+        }
+    });
+});
+
+//You have Regeneration equal to ( 1x » 2x ) adjacent properties' values. from Closed Sign
+ItemFunction.items.set("Closed Sign",(item)=>{
+    const regeneration = getRarityValue("1x >> 2x",item.rarity);
+    item.board.player.regen += regeneration*item.getAdjacentItems().filter(i=>i.tags.includes("Property")).reduce((acc,i)=>acc+i.value,0);
+    item.board.updateHealthElement();
+});
 
 //If you have a Vehicle, at the start of each fight, use this. from Propane Tank
 //Haste your Vehicles for ( 3 » 4 » 5 ) second(s). from Propane Tank
@@ -106,8 +204,54 @@ ItemFunction.items.set("Flagship",(item)=>{
 
         item.setupTextFunctions(item.text[0]);
 });
+
+//Reload your Potions 1 Ammo and Charge them 1 second(s). from Athanor
+ItemFunction.items.set("Athanor",(item)=>{
+    return () => {
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Potion")) {
+                i.gain(1,'ammo');
+                i.chargeBy(1,item);
+            }
+        });
+    }
+});
+//While your enemy has Poison, this has ( +50% » +100% ) Crit Chance. from Basilisk Fang
+ItemFunction.items.set("Basilisk Fang",(item)=>{
+    const critGain = getRarityValue("50 >> 100",item.rarity);
+    const gainedCrit = false;
+    item.board.player.poisonChanged((oldValue,newValue)=>{
+        if(newValue>0) {
+            if(!gainedCrit) {
+                item.gain(critGain,'crit');
+                gainedCrit = true;
+            }
+        } else {
+            if(gainedCrit) {
+                item.gain(-critGain,'crit');
+                gainedCrit = false;
+            }
+        }
+    });
+});
+
+//Weapon Properties adjacent to this have + Damage equal to ( 1x » 2x ) the value of your highest value item. from Open Sign                                        
+//Shield Properties adjacent to this have + Shield equal to ( 1x » 2x ) the value of your highest value item. from Open Sign   
+ItemFunction.items.set("Open Sign",(item)=>{
+    const amount = getRarityValue("1x >> 2x",item.rarity);
+    item.getAdjacentItems().forEach(i=>{
+        const highestValueItem = item.board.activeItems.reduce((max,i)=>Math.max(max,i.value),0);
+        if(i.tags.includes("Weapon") && i.tags.includes("Property")) {
+            i.gain(amount*highestValueItem,'damage');
+        }
+        if(i.tags.includes("Shield") && i.tags.includes("Property")) {
+            i.gain(amount*highestValueItem,'shield');
+        }
+    });
+});
+
+//Destroy this and 3 small enemy items for the fight from Antimatter Chamber
 ItemFunction.items.set("Antimatter Chamber",(item)=>{
-    //Destroy this and 3 small enemy items for the fight
         item.triggerFunctions.push(()=>{
             let smallEnemyItems = item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes("Small"));
             let numItemsToDestroy = Math.min(3,smallEnemyItems.length);
