@@ -9,9 +9,9 @@ export function colorTextArray(textArray, rarityIndex) {
         textArray.map(line => {
             line=line.replace(/(?:^|\s)(Ammo|Haste|Charge|Heal|Shield|Slow|Lifesteal|Freeze|Multicast|(?:\([^\)]+\)|\d+) Damage|Burn|Poison|Crit Chance|Value)( |\.|,|:)/gi," <font class='$1'>$1</font>$2");
          
-            // Match patterns like ( X » Y » Z » W )
-            return line.replace(/\(\s*((?:[^»)]+\s*»\s*)*[^»)]+)\s*\)/g, (match, values) => {
-                const parts = values.split('»').map(s => s.trim());
+            // Match patterns like ( X » Y » Z » W ) or ( X / Y / Z / W )
+            return line.replace(/\(\s*((?:[^»)\/]+\s*[»\/]\s*)*[^»)\/]+)\s*\)/g, (match, values) => {
+                const parts = values.split(/[»\/]/).map(s => s.trim());
                 const selectedValue = parts[Math.min(rarityIndex, parts.length - 1)];
                 return `(${parts.map((val, i) => 
                     i+(4-parts.length) === rarityIndex ? `<b class="rarity-${Item.rarityLevels[rarityIndex]}">${val}</b>` : val
@@ -31,7 +31,7 @@ export function getRarityValue(valueString, rarity) {
         valueString = valueString.slice(1,-1);
     }
     // Parse values (e.g., "1 » 2 » 3 » 4" or "1 >> 2" into [1, 2, 3, 4] or [1, 2] )
-    const values = valueString.split(/[»>]+/).map(v => parseFloat(v.trim()));
+    const values = valueString.split(/[»>\/]+/).map(v => parseFloat(v.trim()));
     
     // Get the appropriate value based on item's rarity
     const rarityIndex = Item.rarityLevels.indexOf(rarity || 'Bronze');

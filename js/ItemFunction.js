@@ -1,13 +1,51 @@
+import { getRarityValue } from "./utils.js";
+
 export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
-        "Epicurean Chocolate","Skillet","Spare Change","Pelt","Candy Mail"];
+        "Epicurean Chocolate","Skillet","Spare Change","Pelt","Candy Mail","Machine Learning","Iron Sharpens Iron"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
             ItemFunction.items.set(itemName, (item) => {});
         });
     }
 }
+//If you have exactly 1 weapon, your Shield items have (+10/+20/+30) shield. from Specialist
+ItemFunction.items.set("Specialist",(item)=>{
+    const shieldGain = getRarityValue("10 >> 20 >> 30",item.rarity);
+    if(item.board.items.filter(i=>i.tags.includes("Weapon")).length==1) {
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Shield")) i.gain(shieldGain,'shield');
+        });
+    }
+});
+//If you have at least 7 items in play, your items have their cooldowns reduced by (5%/10%/15%). from Tiny Dancer
+ItemFunction.items.set("Tiny Dancer",(item)=>{
+    const cooldownReduction = getRarityValue("5 >> 10 >> 15",item.rarity);
+    if(item.board.items.length>=7) {
+        item.board.items.forEach(i=>{
+            i.gain(-i.cooldown*(cooldownReduction/100),'cooldown');
+        });
+    }
+});
+//Your leftmost Tool has +1 Multicast. from Re-Tooled
+ItemFunction.items.set("Re-Tooled",(item)=>{
+    const leftmostTool = item.board.items.find(i=>i.tags.includes("Tool"));
+    if(leftmostTool) {
+        leftmostTool.gain(1,'multicast');
+    }
+});
+
+//All items have a cooldown increase of (30%/50%). from Lethargy
+ItemFunction.items.set("Lethargy",(item)=>{
+    const cooldownIncrease = getRarityValue("30 >> 50",item.rarity);
+    item.board.items.forEach(i=>{
+        i.gain(i.cooldown*cooldownIncrease/100,'cooldown');
+    });
+    item.board.player.hostileTarget.board.items.forEach(i=>{
+        i.gain(i.cooldown*cooldownIncrease/100,'cooldown');
+    });
+});
 //Your Shield items gain ( +4 » +8 » +12 ) Shield and your Weapons ( +4 » +8 » +12 ) damage for the fight. from Cosmic Plumage
 ItemFunction.items.set("Cosmic Plumage",(item)=>{
     const gain = getRarityValue("4 >> 8 >> 12",item.rarity);
@@ -220,7 +258,7 @@ ItemFunction.items.set("Athanor",(item)=>{
 //While your enemy has Poison, this has ( +50% » +100% ) Crit Chance. from Basilisk Fang
 ItemFunction.items.set("Basilisk Fang",(item)=>{
     const critGain = getRarityValue("50 >> 100",item.rarity);
-    const gainedCrit = false;
+    let gainedCrit = false;
     item.board.player.poisonChanged((oldValue,newValue)=>{
         if(newValue>0) {
             if(!gainedCrit) {
