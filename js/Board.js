@@ -176,12 +176,14 @@ class Board {
         this.skillSelector.style.display = 'block';
         
         for(let skillName in skills) {
-            if(this.skills.find(skill => skill.name == skillName)) continue;
+            const skill = skills[skillName];
+            if(!skill) continue;
+            if(this.skills.find(s => s.name == skillName)) continue;
             const skillItem = document.createElement('div');
             skillItem.className = 'skill-selector-item';
             skillItem.innerHTML = `
-                <img src="${skills[skillName].icon}" alt="${skills[skillName].name}">
-                <span>${skills[skillName].name}</span>
+                <img src="${skill.icon}" alt="${skillName}">
+                <span>${skillName}</span>
             `;
             this.skillSelector.querySelector('.skill-selector-body').appendChild(skillItem);
             skillItem.onclick = () => {
@@ -203,7 +205,7 @@ class Board {
                     <img src="${skill.icon}" style='box-shadow: 1px 1px 10px 1px rgba(14,14, 14, 1);'>
                     </div>
                     <h1>${skill.name}</h1>
-                    <p>${skill.text.split('\n').map(line => `<span>${line}</span>`).join('')}</p>
+                    <p>${skill.text.map(line => `<span>${line}</span>`).join('')}</p>
                     `;
                 }
 
@@ -223,7 +225,7 @@ class Board {
             this.skillSelector.querySelector('.skill-selector-body').querySelectorAll('.skill-selector-item').forEach(item => {
                 if(item.querySelector('span').textContent.toLowerCase().includes(filter) ||
                     skills[item.querySelector('span').textContent].tags.some(tag => tag.toLowerCase()==filter.toLowerCase())||
-                    skills[item.querySelector('span').textContent].text.toLowerCase().includes(filter)) {
+                    skills[item.querySelector('span').textContent].text.map(line => line.toLowerCase()).join(' ').includes(filter)) {
                     item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
@@ -255,8 +257,12 @@ class Board {
         this.dpsElement.innerHTML = ""+
         "   DPS: " + (this.damageApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0)+
         " / HPS: "+(this.healingApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0)+
-
-        " / SPS: "+(this.shieldApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0);
+        " / SPS: "+(this.shieldApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0) +
+        (this.damageApplied>0?"<div class='totals'><font class='Damage'>"+(this.damageApplied - this.player.hostileTarget.poisonDamageReceived - this.player.hostileTarget.burnDamageReceived).toFixed(0)+"</font>":"") +
+        (this.player.hostileTarget.poisonDamageReceived>0?" <font class='Poison'>"+this.player.hostileTarget.poisonDamageReceived.toFixed(0)+"</font>":"") +
+        (this.player.hostileTarget.burnDamageReceived>0?" <font class='Burn'>"+this.player.hostileTarget.burnDamageReceived.toFixed(0)+"</font>":"") +
+        "</div>"
+        ;
     }
     updateHealthElement() {
         const healthPercent = (this.player?.health || 0) / (this.player?.maxHealth || 1000) * 100;
@@ -408,6 +414,7 @@ class Board {
             return;
         }
         let newSkillData = structuredClone(skills[skillName]);
+        newSkillData.name = skillName;
         Object.assign(newSkillData,skillData);
         let newSkill = new Skill(newSkillData);
         this.skills.push(newSkill);
@@ -955,6 +962,7 @@ class Board {
             if(!skillData) return;
             skillData.rarity = Item.rarityLevels[skill.tier];
             let newSkill = new Skill(skillData);
+            newSkill.name = skill.name;
             this.skills.push(newSkill);
             newSkill.board = this;
             this.skillsElement.appendChild(newSkill.element);

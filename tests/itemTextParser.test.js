@@ -23,6 +23,8 @@ const mockBoardInstance = {
         maxHealthChanged: () => {},
         shieldChanged: () => {},
         goldChanged: () => {},
+        poisonChanged: () => {},
+        regenChanged: () => {},
         destroyTriggers: new Map(),
         overhealTriggers: new Map(),
         healTriggers: new Map(),
@@ -74,6 +76,7 @@ global.log = () => {}; // Mock the log function if it exists
 import { items } from '../items.js';
 import { skills } from '../skills.js';
 import { Item } from '../js/Item.js';
+import { Skill } from '../js/Skill.js';
 import { ItemFunction } from '../js/ItemFunction.js';
 
 // Store original console.log
@@ -103,7 +106,6 @@ describe('Item Text Parser Tests', () => {
     });
 
     test('Parse all item text patterns', () => {
-        Object.assign(items,skills);
         // Process each item
         Object.entries(items).forEach(([itemName, itemData]) => {
             if(ItemFunction.items.get(itemName)) return;
@@ -122,12 +124,26 @@ describe('Item Text Parser Tests', () => {
         });
 
         // If there were any console.log messages about unhandled cases, the test will show them
-        if(consoleLogCount>0) {
             expect(consoleLogCount).toBe(0);
-        }
 
         // Optional: Make the test fail if there are any unhandled cases
         // expect(consoleOutput.filter(output => output.includes("No code yet written for this case!"))).toHaveLength(0);
+    });
+    test('Parse all skill text patterns', () => {
+        // Process each skill
+        Object.entries(skills).forEach(([skillName, skillData]) => {
+            if(ItemFunction.items.get(skillName)) return;
+            try {
+                const skill = Skill.fromName(skillName);
+                skill.board = mockBoardInstance;
+                skill.setup();
+            } catch (error) {
+                console.log(`Error processing skill ${skillName}:`, error);
+            }
+
+        });
+        
+        expect(consoleLogCount).toBe(0);
     });
 });
 

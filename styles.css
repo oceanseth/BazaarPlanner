@@ -833,7 +833,7 @@ font.Freeze:before {
 font.damage:before,font.Damage:before {
     background-image: url("data:image/svg+xml,%3Csvg height='12' width='12' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='rgb(255,0,0)' d='M16.986,8.105c-.062-.311-.312-.55-.625-.597l-3.278-.492,1.627-4.775c.107-.316-.007-.666-.281-.857-.273-.192-.644-.178-.901,.033l-4.031,3.273L6.614,.57c-.193-.278-.548-.392-.869-.276-.318,.115-.521,.429-.492,.767l.378,4.614-3.75-.664c-.343-.061-.679,.12-.817,.437-.14,.317-.044,.688,.23,.897l3.57,2.729-3.395,3.395c-.233,.234-.287,.593-.131,.884,.155,.292,.482,.445,.809,.381l4.288-.858,.834,3.544c.072,.307,.33,.537,.644,.573,.029,.003,.059,.005,.087,.005,.281,0,.543-.159,.671-.415l1.612-3.225,5.038,3.505c.287,.198,.671,.175,.932-.059,.259-.234,.322-.615,.153-.92l-2.856-5.156,3.084-1.836c.272-.163,.413-.478,.353-.789Z'%3E%3C/path%3E%3C/svg%3E");
 }
-font.Poison:before {
+font.Poison:before,.battle-stats .poison-element::before {
     background-image: url("data:image/svg+xml,%3Csvg height='12' width='12' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='rgb(0, 255, 0)' d='M15.75 7.5c0-4.142-3.358-7.5-7.5-7.5-4.142 0-7.5 3.358-7.5 7.5 0 2.498 1.222 4.708 3.096 6.075-.066.724-.096 1.567-.096 2.175 0 1.243 1.007 2.25 2.25 2.25h4.5c1.243 0 2.25-1.007 2.25-2.25 0-.608-.03-1.451-.096-2.175 1.874-1.367 3.096-3.577 3.096-6.075zm-4.5 3c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3 3-3zm-6 0c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-3 3z'%3E%3C/path%3E%3Ccircle fill='rgb(0, 0, 0)' cx='8' cy='13' r='0.8'%3E%3C/circle%3E%3C/svg%3E");
 }
 font.Slow:before {
@@ -884,9 +884,9 @@ font.Slow:before {
     background-size: 100% 100%;
     content: "";
     width: calc(100% + 10px);
-    height: calc(100% + 20px);
+    height: calc(100% + 15px);
     position: absolute;
-    top: -10px;
+    top: -8px;
     left: -5px;
     z-index: 5;
 }
@@ -1127,7 +1127,6 @@ font.Slow:before {
 .battle-stats .shield-element::before {
     content: "";
     display: block;
-    background-image: url('/images/17px-Damage.webp');
     background-size: 100% 100%;
     width: 20px;
     height: 20px;
@@ -1142,9 +1141,6 @@ font.Slow:before {
 }
 .battle-stats .heal-element::before {
     background-image: url('/images/17px-Heal.webp');
-}
-.battle-stats .poison-element::before {
-    background-image: url('/images/17px-Poison.webp');
 }
 .battle-stats .shield-element::before {
     background-image: url('/images/17px-Shield.webp');
@@ -1421,8 +1417,16 @@ background-color: rgba(255, 0, 0, 0.2);
     height: 20px;
     line-height: 20px;
     padding: 2px 4px;
-    width:200px;
+    width:300px;
     text-align: center;
+}
+.dps-element .totals {
+    font-size: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: inline-block;
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-left: 5px;
 }
 .import-element {
     position: absolute;
