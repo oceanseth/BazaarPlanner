@@ -40,7 +40,8 @@ export function getRarityValue(valueString, rarity) {
 
 export function updateUrlState() {        
     if(window.isLoadingFromUrl) { return; }
-    const boardState = Array.from(Board.boards.values())
+    topPlayer.battle.calculateWinRate();
+    const boardState = [topPlayer.board,bottomPlayer.board]
     .flatMap(board => board.items)
     .map(item => {
         let toReturn = {name: item.name, startIndex: item.startIndex, board: item.board.boardId};
@@ -89,7 +90,7 @@ export function updateUrlState() {
         return toReturn;
     });
     
-    Board.boards.forEach(board=>{
+    [topPlayer.board,bottomPlayer.board].forEach(board=>{
         const aBoardState ={
             name: '_b_'+board.boardId,
             health: board.player.maxHealth,
@@ -199,6 +200,7 @@ export function loadFromUrl(hash) {
     }
 
     window.isLoadingFromUrl = false;
+    topPlayer.battle.calculateWinRate();
 }
 
 export function setupChangeListeners(obj,arr) {
