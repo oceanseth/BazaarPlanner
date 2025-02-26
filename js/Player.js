@@ -39,6 +39,11 @@ export class Player {
         if(this.poison > 0) this.poison--; //cleanse 1 poison when a heal occurs
         if(this.burn > 0) this.burn--; //cleanse 1 burn when a heal occurs
     }
+    clone() {
+        const clone = new Player(structuredClone(this.startPlayerData));
+        clone.board = this.board.clone(clone);
+        return clone;
+    }
 
     openEditor() {
         if(this.editorElement) {

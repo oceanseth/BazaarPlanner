@@ -846,7 +846,7 @@ font.Slow:before {
     0.5px -0.5px 0 #aaa,
     -0.5px 0.5px 0 #aaa,
     0.5px 0.5px 0 #aaa,
-    1px 1px 1px rgb(255, 255, 255); 
+    1px 1px 1px rgb(0, 0, 0); 
 }
 
 .burn-element {
@@ -1475,3 +1475,18 @@ background-color: rgba(255, 0, 0, 0.2);
     margin-left: auto;  /* This pushes the tiny URL button to the right */
 }
 
+.win-rate-element {
+    position: absolute;
+    top: 30px;
+    right: -120px;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    text-align: center;
+    line-height: 100px;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 10px;
+    display: none;
+}

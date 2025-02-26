@@ -58,8 +58,20 @@ export class Skill {
         this.itemProxy.rarity = this.rarity;
         this.itemProxy.setup();
     }
-    setBoard(board) {
+    _myBoard = null;
+    set board(board) {
+        this._myBoard = board;
         this.itemProxy.board = board;
+    }
+    get board() {
+        return this._myBoard;
+    }
+    clone(newBoard) {
+        const skillData = skills[this.name];
+        skillData.rarity = this.rarity;
+        const newSkill= new Skill(skillData);
+        newSkill.board = newBoard;
+        return newSkill;
     }
     static getDataFromName(name) {
         if(!skills[name]) {

@@ -5,21 +5,6 @@ import { updateUrlState } from './utils.js';
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
     static boards = new Map();
-    static resetBoards() {
-        const players = Array.from(Board.boards.values()).map(board=>board.player);
-        players.forEach(player=>player.reset());
-        players.forEach(player=>player.setup());
-    }
-
-
-
-
-    static getBoardFromId(boardId) {
-        if(Board.boards.has(boardId)) return Board.boards.get(boardId);
-        //console.log("Board not found: " + boardId);
-        return null;
-    }
-
 
     constructor(boardId, player) {
         this.boardId = boardId;
@@ -28,12 +13,31 @@ class Board {
         this.initialize();
         Board.boards.set(boardId,this);
     }
+    
+    static resetBoards() {
+        const players = Array.from(Board.boards.values()).map(board=>board.player);
+        players.forEach(player=>player.reset());
+        players.forEach(player=>player.setup());
+    }
+
+    static getBoardFromId(boardId) {
+        if(Board.boards.has(boardId)) return Board.boards.get(boardId);
+        console.log("Board not found: " + boardId);
+        return null;
+    }
 
     initialize() {
-        this.element.innerHTML = '';
         this.slots = [];
         this.items = [];
         this.skills = [];
+        if(!this.element) {
+            this.updateHealthElement = ()=>{};
+            this.updateDPSElement = ()=>{};
+            this.updateGoldElement = ()=>{};
+            this.updateIncomeElement = ()=>{};
+            return;
+        }
+        this.element.innerHTML = '';
         // Create slots
         for (let i = 0; i < 10; i++) {
             const slot = document.createElement('div');
@@ -67,16 +71,18 @@ class Board {
         this.createGoldElement();
         this.createDPSElement();
         this.createIncomeElement();
+        this.createWinRateElement();
         this.reset();
 
 
     }
     clear() {
-        this.skillsElement.innerHTML = '';
-        this.items.forEach(item => item.element.remove());
+        if(this.element) {
+            this.skillsElement.innerHTML = '';        
+            this.items.forEach(item => item.element.remove());
+        }
         this.items = [];
         this.skills = [];
-        this.skillsElement.innerHTML = '';
         this.reset();
         updateUrlState();
     }
@@ -135,7 +141,7 @@ class Board {
     }
 
     resetSkills() {
-        this.skills.forEach(skill => skill.setBoard(this));
+        this.skills.forEach(skill => skill.board=this);
         this.skills.forEach(skill => skill.reset());
     }
     setupSkills() {
@@ -389,6 +395,12 @@ class Board {
         
 
     }
+    clone(newPlayer) {
+        const clone = new Board("cloned-"+this.boardId,newPlayer);
+        clone.items = this.items.map(item => item.clone(clone));
+        clone.skills = this.skills.map(skill => skill.clone(clone));
+        return clone;
+    }
 
     addSkill(skillName,skillData) {
         if(!skills[skillName]) {
@@ -408,6 +420,12 @@ class Board {
         this.skillsElement.removeChild(skill.element);
         Board.resetBoards();
         updateUrlState();
+    }
+    createWinRateElement() {
+        this.winRateElement = document.createElement('div');
+        this.winRateElement.className = 'win-rate-element';
+        this.winRateElement.innerHTML = "0%";
+        this.element.appendChild(this.winRateElement);
     }
 
     createHealthElement() {
@@ -723,7 +741,8 @@ class Board {
 
         const boardElement = slot.closest('.board');
         const targetBoard = Board.getBoardFromId(boardElement.id);
-        const sourceBoard = Board.getBoardFromId(draggingElement.closest('.board')?.id);
+        const closestBoard = draggingElement.closest('.board')?.id;
+        const sourceBoard = closestBoard?Board.getBoardFromId(closestBoard):null;
 
         if (board.isValidPlacement(startIndex, draggingElement)) {
             if (alreadyOnBoard) {  
@@ -753,7 +772,9 @@ class Board {
 
     addItem(item) {
         this.items.push(item);
-        this.element.appendChild(item.element);
+        if(this.element) {
+            this.element.appendChild(item.element);
+        }
         this.sortItems();
 //        Board.resetBoards();
  //       updateUrlState();

@@ -18,6 +18,7 @@ ItemFunction.items.set("Cosmic Plumage",(item)=>{
         });
     });
 });
+
 //Burn ( 4 » 6 » 8 ) from Curry
 //Charge another small item ( 3 » 4 » 5 ) second(s). from Curry
 ItemFunction.items.set("Curry",(item)=>{
@@ -423,13 +424,21 @@ ItemFunction.items.set("Stained Glass Window",(item)=>{
     });
 });
 
+//Burn 4 >> 6 >> 8
+//Poison 2 >> 3 >> 4
 //If you have another item with Burn, Poison, Slow, or Freeze, this has +1 Multicast for each. from Weather Glass
 ItemFunction.items.set("Weather Glass",(item)=>{
+    item.gain(getRarityValue("4 >> 6 >> 8",item.rarity),'burn');
+    item.gain(getRarityValue("2 >> 3 >> 4",item.rarity),'poison');
     const itemsWithBurn = item.board.items.filter(i=>i!=item && i.tags.includes("Burn"));
     const itemsWithPoison = item.board.items.filter(i=>i!=item && i.tags.includes("Poison"));
     const itemsWithSlow = item.board.items.filter(i=>i!=item && i.tags.includes("Slow"));
     const itemsWithFreeze = item.board.items.filter(i=>i!=item && i.tags.includes("Freeze"));
     item.multicast = (itemsWithBurn.length>0?1:0) + (itemsWithPoison.length>0?1:0) + (itemsWithSlow.length>0?1:0) + (itemsWithFreeze.length>0?1:0);
+    item.triggerFunctions.push(()=>{
+        item.applyBurn(item.burn);
+        item.applyPoison(item.poison);
+    });
 });
 
 ItemFunction.items.set("GPU",(item)=>{
