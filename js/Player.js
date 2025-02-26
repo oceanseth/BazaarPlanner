@@ -3,7 +3,7 @@ import { updateUrlState, setupChangeListeners } from './utils.js';
 
 export class Player {
     hostileTarget = null;
-    static possibleChangeAttributes = ['health','shield','gold','maxHealth','burn'];
+    static possibleChangeAttributes = ['health','shield','gold','maxHealth','burn','poison','regeneration'];
     constructor(startPlayerData) {
         setupChangeListeners(this, Player.possibleChangeAttributes );
         this.startPlayerData = startPlayerData;
@@ -147,11 +147,13 @@ export class Player {
         if(this.battleTime%500==0 && this.burn > 0) { // Burn damage every 500ms
 
             dmg = this.takeDamage(this.burn, .5);
+            this.burnDamageReceived += dmg;
             log( this.name + " has "+this.burn.toFixed(0)+" burn and burns for " + dmg.toFixed(0));
             this.burn--;
         }
         if(this.battleTime%1000==0 && this.poison > 0) { // Poison damage every 1000ms  
             this.takeDamage(this.poison, 1, true);
+            this.poisonDamageReceived += this.poison;
             log( this.name + " takes " + this.poison.toFixed(0) + " damage from poison.");
         }
 
@@ -191,6 +193,8 @@ export class Player {
         this.burn = 0;
         this.poison = 0;
         this.damageReduction = 0;
+        this.burnDamageReceived = 0;
+        this.poisonDamageReceived = 0;
 
         this.fellBelowHalfHealth = false;
         this.diedOnce = false;

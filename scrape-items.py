@@ -1,3 +1,4 @@
+# This might not be needed as Meo is now exposing https://www.howbazaar.gg/api/items
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options

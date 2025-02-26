@@ -5,7 +5,6 @@ import { Item } from './Item.js';
 export class Skill {
     constructor(skillData) {
         Object.assign(this, skillData);
-        this.text = this.text.split(".").map(t=>t.trim()).filter(t=>t.length>0&&t!='[0]'&&t!='[NaN]'&&t!='[0%]').map(t=>t+".");
         this.itemProxy = new Item({
             name: this.name,
             rarity: this.rarity,
@@ -43,6 +42,15 @@ export class Skill {
         });
         this.reset();
     }
+    static fromName(name) {
+        if(!skills[name]) {
+            console.log("Skill not found: " + name);
+            return null;
+        }
+        const skillData = skills[name];
+        skillData.name = name;
+        return new Skill(skillData);
+    }
     reset() {
         this.element.classList.remove(...Item.rarityLevels);
         if(this.rarity) {
@@ -69,6 +77,7 @@ export class Skill {
     clone(newBoard) {
         const skillData = skills[this.name];
         skillData.rarity = this.rarity;
+        skillData.name = this.name;
         const newSkill= new Skill(skillData);
         newSkill.board = newBoard;
         return newSkill;
