@@ -1544,11 +1544,10 @@ export class Item {
 
     getShieldTriggerFunctionFromText(text) {        
         // Match patterns like "Shield equal to ( 1x » 2x ) the value of the adjacent items"
-        let regex = /Shield equal to \(\s*(\d+)x\s*»\s*(\d+)x\s*\) the value of the adjacent items/i;
+        let regex = /Shield equal to (\([^)]+\)|\d+x?)(?: times)? the value of the adjacent items/i;
         let match = text.match(regex);
         if (match) {
-            const [_, minMultiplier, maxMultiplier] = match;
-            const multiplier = getRarityValue(`${minMultiplier}»${maxMultiplier}`, this.rarity);
+            const multiplier = getRarityValue(match[1], this.rarity);
             this.shieldAmountFromValues = this.getAdjacentItems().reduce((sum, item) => sum + item.value, 0) * multiplier;
             this.gain(this.shieldAmountFromValues,'shield');
 
@@ -1670,12 +1669,13 @@ export class Item {
         }
         
         //this gains damage equal to ( 10% » 20% » 40% ) of the Shield lost.
-        regex = /this gains damage equal to \(\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*\) of the Shield lost/i;            
+        regex = /this gains damage equal to (\([^)]+\)|\d+%?)\s* of the Shield lost/i;            
         match = text.match(regex);
         if (match) {
+            const multiplier = getRarityValue(match[1], this.rarity);
             return (shieldLost) => {
-                let gainDamage = shieldLost * getRarityValue(`${match[1]}»${match[2]}»${match[3]}`, this.rarity)/100;
-                this.damage += gainDamage;
+                let gainDamage = shieldLost * multiplier/100;
+                this.gain(gainDamage,'damage');
                 log(this.name + " gained " + gainDamage + " damage for "+this.board.player.name+" losing " + shieldLost + " shield");
             };
         }
@@ -3281,13 +3281,13 @@ export class Item {
             }
         }
         //Your other Friends' cooldowns are reduced by ( 10% » 20% » 30% )
-        regex = /^\s*Your other Friends' cooldowns are reduced by (?:\(\s*(\d+)%(?:\s*»\s*(\d+)%)*\s*\)|\+?(\d+)%)/i;
+        regex = /^\s*Your other Friends' cooldowns are reduced by (\([^)]+\)|\d+%?)/i;
         match = text.match(regex);
         if(match) {
-            const cooldownReduction = getRarityValue(match.slice(1).filter(Boolean).join('»'), this.rarity);
+            const cooldownReduction = getRarityValue(match[1], this.rarity);
             this.board.items.forEach(item => {  
                 if(item.id !== this.id && item.tags.includes("Friend")) {
-                    item.cooldown *= (1-cooldownReduction/100);
+                    item.gain(-item.cooldown * (cooldownReduction/100),'cooldown');
                 }
             });
             return () => {};
@@ -3704,13 +3704,13 @@ export class Item {
             }
         }
         // Your other tools have their cooldowns reduced by ( 5% » 10% » 15% » 20% ).
-        regex = /^\s*Your other tools have their cooldowns reduced by \(\s*(\d+)%(?:\s*»\s*(\d+)%){1,3}\s*\)\s*\.?$/i;
+        regex = /^\s*Your other tools have their cooldowns reduced by (\([^)]+\)|\d+%?)\s*\.?$/i;
         match = text.match(regex);
         if(match) {
-            const cooldownReduction = getRarityValue(match.slice(1).filter(Boolean).join('»'), this.rarity);
+            const cooldownReduction = getRarityValue(match[1], this.rarity);
             this.board.items.forEach(item => {
                 if(item.id != this.id && item.tags.includes("Tool")) {
-                    item.cooldown *= (1-cooldownReduction/100);
+                    item.gain(-item.cooldown * (cooldownReduction/100),'cooldown');
                 }
             });
             return () => {};
