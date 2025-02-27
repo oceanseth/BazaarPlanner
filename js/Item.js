@@ -593,6 +593,8 @@ export class Item {
         this.dealDamage(damage);
     }
     dealDamage(damage) {
+        damage = parseFloat(damage);
+        if(isNaN(damage) || damage <=0) return;
         let doesCrit = this.doICrit();
         // Handle critical hits using itemData.crit (0-100) instead of critChance
 
@@ -649,6 +651,8 @@ export class Item {
         this.battleStats.burn += burnAmount;
     }
     applyHeal(healAmount) {
+        healAmount = parseFloat(healAmount);
+        if(isNaN(healAmount) || healAmount <=0) return;
         let doesCrit = this.doICrit();
         if(doesCrit) {
             healAmount *= (1+this.critMultiplier/100);
@@ -4278,7 +4282,7 @@ export class Item {
             return ()=>{};
         }
         // (deal)? (anyWord) equal to ( 1 » 2 » 3 ) times your gold.
-        regex = /^(?:deal )?([^ ]+) equal to (\([^)]+\)|\d+) times your gold\.?$/i;
+        regex = /^(?:deal )?([^ ]+) equal to (\([^)]+\)|\d+)(?: times)? your gold\.?$/i;
         match = text.match(regex);
         if(match) {
             const tag = Item.getTagFromText(match[1]);
@@ -4288,7 +4292,7 @@ export class Item {
             });
             this.gain(this.board.player.gold * multiplier, tag);
             return () => {
-                this['apply'+tag](this[tag]);
+                this['apply'+tag](this[tag.toLowerCase()]);
             };
         }
         //Your Weapons have double Crit damage.
