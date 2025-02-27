@@ -76,7 +76,7 @@ export const monsters = {
         "tier": 0
       },
       {
-        "name": "Toxic Fang",
+        "name": "Fang",
         "tier": 0
       },
       {
@@ -356,11 +356,11 @@ export const monsters = {
         "tier": 0
       },
       {
-        "name": "Fiery Cutlass",
+        "name": "Cutlass",
         "tier": 0
       },
       {
-        "name": "Fiery Cutlass",
+        "name": "Cutlass",
         "tier": 0
       },
       {
@@ -934,11 +934,11 @@ export const monsters = {
         "tier": 3
       },
       {
-        "name": "Shiny Fang",
+        "name": "Fang",
         "tier": 3
       },
       {
-        "name": "Shiny Fang",
+        "name": "Fang",
         "tier": 3
       },
       {
@@ -972,7 +972,7 @@ export const monsters = {
     ],
     "items": [
       {
-        "name": "Restorative Fire Claw",
+        "name": "Fire Claw",
         "tier": 0
       },
       {
@@ -988,7 +988,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Restorative Fire Claw",
+        "name": "Fire Claw",
         "tier": 0
       }
     ]
@@ -1106,7 +1106,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Toxic Clockwork Blades",
+        "name": "Clockwork Blades",
         "tier": 1
       },
       {
@@ -1186,11 +1186,11 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Obsidian Fang",
+        "name": "Fang",
         "tier": 1
       },
       {
-        "name": "Obsidian Fang",
+        "name": "Fang",
         "tier": 1
       },
       {
@@ -1584,7 +1584,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Toxic Fang",
+        "name": "Fang",
         "tier": 1
       },
       {
@@ -1760,7 +1760,7 @@ export const monsters = {
         "tier": 3
       },
       {
-        "name": "Toxic Concealed Dagger",
+        "name": "Concealed Dagger",
         "tier": 2
       },
       {
@@ -1780,7 +1780,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Toxic Brass Knuckles",
+        "name": "Brass Knuckles",
         "tier": 2
       }
     ]
@@ -1852,7 +1852,7 @@ export const monsters = {
         "tier": 2
       },
       {
-        "name": "Icy Hammock",
+        "name": "Hammock",
         "tier": 2
       },
       {
@@ -1944,7 +1944,7 @@ export const monsters = {
         "tier": 2
       },
       {
-        "name": "Fiery Katana",
+        "name": "Katana",
         "tier": 2
       },
       {
@@ -3090,7 +3090,7 @@ export const monsters = {
         "tier": 4
       },
       {
-        "name": "Battery",
+        "name": "Arken's Ring",
         "tier": 3
       },
       {
@@ -3182,7 +3182,7 @@ export const monsters = {
   "Sparring Partner": {
     "name": "Sparring Partner",
     "icon": "images/monsters/SparringPartner.avif",
-    "day": 11,
+    "day": "event",
     "health": 1000,
     "skills": [
       {
@@ -3195,7 +3195,7 @@ export const monsters = {
   "Mr. Moo": {
     "name": "Mr. Moo",
     "icon": "images/monsters/MrMoo.avif",
-    "day": 11,
+    "day": "event",
     "health": 2325,
     "skills": [
       {
@@ -3249,7 +3249,7 @@ export const monsters = {
   "Bounty Hunter": {
     "name": "Bounty Hunter",
     "icon": "images/monsters/BountyHunter.avif",
-    "day": 11,
+    "day": "event",
     "health": 1550,
     "skills": [
       {
@@ -3291,7 +3291,7 @@ export const monsters = {
   "Mimic": {
     "name": "Mimic",
     "icon": "images/monsters/Mimic.avif",
-    "day": 11,
+    "day": "event",
     "health": 2750,
     "skills": [
       {
@@ -3301,43 +3301,43 @@ export const monsters = {
     ],
     "items": [
       {
-        "name": "Heavy Fang",
+        "name": "Fang",
         "tier": 3
       },
       {
-        "name": "Icy Fang",
+        "name": "Fang",
         "tier": 3
       },
       {
-        "name": "Fiery Fang",
+        "name": "Fang",
         "tier": 3
       },
       {
-        "name": "Obsidian Fang",
+        "name": "Fang",
         "tier": 3
       },
       {
-        "name": "Shiny Fang",
+        "name": "Fang",
         "tier": 3
       },
       {
-        "name": "Shiny Fang",
+        "name": "Fang",
         "tier": 3
       },
       {
-        "name": "Obsidian Fang",
+        "name": "Fang",
         "tier": 3
       },
       {
-        "name": "Fiery Fang",
+        "name": "Fang",
         "tier": 3
       },
       {
-        "name": "Icy Fang",
+        "name": "Fang",
         "tier": 3
       },
       {
-        "name": "Heavy Fang",
+        "name": "Fang",
         "tier": 3
       }
     ]

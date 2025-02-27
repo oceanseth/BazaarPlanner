@@ -3,7 +3,37 @@
 import requests
 import json
 import re
+import os
 
+def download_image_if_missing(name, type_folder):
+    """
+    Downloads the image from howbazaar.gg if it doesn't exist locally
+    Args:
+        name: Name of the item/monster
+        type_folder: 'items' or 'monsters'
+    """
+    # Clean filename
+    clean_name = re.sub(r'[ \'\"\(\)\-_\.]', '', name)
+    local_path = f"./public/images/{type_folder}/{clean_name}.avif"
+    
+    # Check if file exists
+    if not os.path.exists(local_path):
+        # Create directory if it doesn't exist
+        os.makedirs(f"./public/images/{type_folder}", exist_ok=True)
+        
+        # Construct URL
+        url = f"https://www.howbazaar.gg/images/{type_folder}/{clean_name}.avif"
+        
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            
+            # Save the image
+            with open(local_path, 'wb') as f:
+                f.write(response.content)
+            print(f"Downloaded {local_path}")
+        except Exception as e:
+            print(f"Failed to download {url}: {e}")
 
 def fetch_items():
     url = "https://www.howbazaar.gg/api/items"
@@ -14,7 +44,7 @@ def process_item(item):
     # Initialize the processed item structure
     processed = {
         "name": item["name"],
-        "icon": f"images/items/{re.sub(r'[ \'\"\(\)\-_]', '', item['name'])}.avif",
+        "icon": f"images/items/{re.sub(r'[ \'\"\(\)\-_\.]', '', item['name'])}.avif",
         "tier": item["startingTier"],
         "tags": [],
         "cooldown": None,
@@ -49,6 +79,9 @@ def process_item(item):
     # Process enchantments
     for enchant in item.get("enchantments", []):
         processed["enchants"][enchant["type"]] = enchant["tooltips"][0]
+    
+    # Download image if needed
+    download_image_if_missing(item["name"], "items")
     
     return processed
 

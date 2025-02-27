@@ -1,5 +1,8 @@
 # BazaarPlanner
-A web application for planning and optimizing your Bazaar strategies. Built with Vite.
+A web application for planning and optimizing your Bazaar strategies.
+
+Builds and Releases upon push to production to https://www.bazaarplanner.com
+Or, runs locally at http://localhost:3000
 
 ## 🚀 Getting Started
 
@@ -19,18 +22,18 @@ A web application for planning and optimizing your Bazaar strategies. Built with
 3. Run the development server:
     npm run dev
     
-    This will start the local server at http://localhost:5173
+    This will start the local server at http://localhost:3000
 
-4. Build for production:
+4. Build for production: (runs automatically upon push to production)
     npm run build
     
-    The built files will be in the dist directory.
+    The built files will be in the build directory.
 
 ## 📁 Project Structure
-- `src/` - Source code
-- `public/` - Static assets (images, etc.)
-- `dist/` - Production build output (generated)
-- `import-lambda/` - Lambda function for the bazaartracker import functionality
+- `js/` - Main javascript Classes. Lowercase filesnames are utility/initial setup scripts.
+- `public/` - Static assets (images, etc.) these will be pushed to s3 
+- `build/` - Production build output (generated)
+- `import-lambda/` - Legacy Lambda function for the bazaartracker import functionality (not used anymore)
 
 ## 🔧 Tech Stack
 - Vite - Build tool and development server
@@ -51,6 +54,6 @@ Created by Seth Caldwell
 - GitHub: [oceanseth](https://github.com/oceanseth)
 
 ## 🔮 Future Plans
-- See the Kickstarter and the About section for more information.
+- See the About section for more information.
 
 Feel free to star ⭐ the repo if you find it useful!
