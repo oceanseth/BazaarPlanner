@@ -19,7 +19,7 @@ def transform_skill(skill_data):
     all_tags = list(set(tag for tag in all_tags if tag))
 
     # Create the icon path
-    icon_name = re.sub(r'[ \'\"\(\)\-_]', '', skill_data['name'])
+    icon_name = re.sub(r'[ \'\"\(\)\-_\.\&]', '', skill_data['name'])
     icon_path = f"images/skills/{icon_name}.avif"
     if(len(skill_data['unifiedTooltips']) <= 0):
         print(f"No unified tooltips for {skill_data['name']}")

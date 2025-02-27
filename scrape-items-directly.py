@@ -13,7 +13,7 @@ def download_image_if_missing(name, type_folder):
         type_folder: 'items' or 'monsters'
     """
     # Clean filename
-    clean_name = re.sub(r'[ \'\"\(\)\-_\.]', '', name)
+    clean_name = re.sub(r'[ \'\"\(\)\-_\.\&]', '', name)
     local_path = f"./public/images/{type_folder}/{clean_name}.avif"
     
     # Check if file exists
@@ -44,7 +44,7 @@ def process_item(item):
     # Initialize the processed item structure
     processed = {
         "name": item["name"],
-        "icon": f"images/items/{re.sub(r'[ \'\"\(\)\-_\.]', '', item['name'])}.avif",
+        "icon": f"images/items/{re.sub(r'[ \'\"\(\)\-_\.\&]', '', item['name'])}.avif",
         "tier": item["startingTier"],
         "tags": [],
         "cooldown": None,
