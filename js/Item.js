@@ -2438,7 +2438,7 @@ export class Item {
         //The first (  4  » 8   ) times you use a non-Weapon item each fight, Charge 1 Weapon 1 second(s). from Mixed Message
         //The first (  4  » 8   ) times you Shield each fight, Charge 1 item 1 second(s).
         //The first (  4  » 8   ) times your enemy uses a non-weapon item each fight, Charge 1 Weapon 1 second(s).
-        regex = /^The first (\([^)]+\)|\d+)?\s?times? (.+)(?: each fight| in a fight), (.*)/i;
+        regex = /^The first (\([^)]+\)|\d+)?\s?times? ([^,]+?)(?: each fight| in a fight)?, (.*)/i;
         match = text.match(regex);
         if(match) {
             const numTimes = match[1]?getRarityValue(match[1], this.rarity):1;
@@ -2950,6 +2950,16 @@ export class Item {
 
             }
         }
+
+        //all your items lose 10% crit chance for the fight. from First Strike
+        regex = /^\s*all your items lose 10% crit chance for the fight\.?/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                this.board.items.forEach(item => item.gain(-10,'crit'));
+            }
+        }
+
         //+50% Crit Chance
         regex = /^(?:The ([^\s]+) to the left (of this )?has)?\s*\+50% Crit Chance/i;
         match = text.match(regex);
@@ -2984,10 +2994,10 @@ export class Item {
         }
         //Charge 1 item 1 second(s). into a trigger function.
         //Charge 1 Weapon 1 second(s). into a trigger function.
-        regex = /^\s*Charge (\d+|a|your)? ([^\s]+)s? (?:item)?\s*(?:for)?\s*(?:by)?\s*(\([^)]+\)|\d+) second\(?s?\)?\.?/i;
+        regex = /^\s*Charge (\([^\)]+\)|\d+|a|your)? ([^\s^(]+)\(?s?\)? (?:item)?\s*(?:for)?\s*(?:by)?\s*(\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            const numItemsToCharge = match[1]=='a'?1:match[1]=='your'?Infinity:parseInt(match[1]);
+            const numItemsToCharge = match[1]=='a'?1:match[1]=='your'?Infinity:getRarityValue(match[1], this.rarity);
             const seconds = parseInt(getRarityValue(match[3], this.rarity));
             return () => {
                 let validTargets = this.board.items.filter(item => item.isChargeTargetable());

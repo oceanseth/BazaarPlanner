@@ -5,7 +5,7 @@ import { updateUrlState } from './utils.js';
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
     static boards = new Map();
-    static uniqueTypeTags = ['Ammo','Apparel','Dinosaur','Dragon','Food','Property','Ray','Tech','Tool','Toy','Vehicle','Weapon'];
+    static uniqueTypeTags = ['Ammo','Apparel','Aquatic','Core','Dinosaur','Dragon','Food','Friend','Loot','Potion','Property','Ray','Tech','Tool','Toy','Vehicle','Weapon'];
 
     constructor(boardId, player) {
         this.boardId = boardId;
@@ -98,7 +98,6 @@ class Board {
         this.damageDealt = 0;
         this.itemTriggers = new Map(); //functions to call when any item on this board is triggered
         this.freezeTriggers = new Map(); //functions to call when any item on this board is frozen
-
         this.shieldValuesChangedTriggers = new Map(); //functions to call when shield values change
         this.itemValuesChangedTriggers = new Map(); //functions to call when item values change
         this.hasteTriggers = new Map(); //functions to call when haste is applied to any item on this board
