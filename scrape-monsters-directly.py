@@ -16,7 +16,7 @@ def download_image_if_missing(name, type_folder):
         type_folder: 'items' or 'monsters'
     """
     # Clean filename
-    clean_name = re.sub(r'[ \'\"\(\)\-_\.]', '', name)
+    clean_name = re.sub(r'[ \'\"\(\)\-_\.\&]', '', name)
     local_path = f"./public/images/{type_folder}/{clean_name}.avif"
     
     # Check if file exists
