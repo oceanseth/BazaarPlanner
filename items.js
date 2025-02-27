@@ -8309,7 +8309,7 @@ export const items = {
   },
   "Mortar & Pestle": {
     "name": "Mortar & Pestle",
-    "icon": "images/items/Mortar&Pestle.avif",
+    "icon": "images/items/MortarPestle.avif",
     "tier": "Bronze",
     "tags": [
       "Mak",

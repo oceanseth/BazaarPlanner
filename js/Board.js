@@ -255,12 +255,15 @@ class Board {
             return;
         }
         this.dpsElement.innerHTML = ""+
+         (this.player.battle.battleTimeDiff/1000).toFixed(0)+"s"+
         "   DPS: " + (this.damageApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0)+
         " / HPS: "+(this.healingApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0)+
         " / SPS: "+(this.shieldApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0) +
         (this.damageApplied>0?"<div class='totals'><font class='Damage'>"+(this.damageApplied - this.player.hostileTarget.poisonDamageReceived - this.player.hostileTarget.burnDamageReceived).toFixed(0)+"</font>":"") +
         (this.player.hostileTarget.poisonDamageReceived>0?" <font class='Poison'>"+this.player.hostileTarget.poisonDamageReceived.toFixed(0)+"</font>":"") +
         (this.player.hostileTarget.burnDamageReceived>0?" <font class='Burn'>"+this.player.hostileTarget.burnDamageReceived.toFixed(0)+"</font>":"") +
+        (this.healingApplied>0?" <font class='Heal'>"+this.healingApplied.toFixed(0)+"</font>":"") +
+        (this.shieldApplied>0?" <font class='Shield'>"+this.shieldApplied.toFixed(0)+"</font>":"") +
         "</div>"
         ;
     }
