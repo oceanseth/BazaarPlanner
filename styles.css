@@ -630,34 +630,6 @@ button:active {
     font-style: italic;
 }
 
-.search-container {
-    position: relative;
-    display: inline-block;
-}
-
-.search-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-top: none;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 1000;
-    display: none;
-}
-
-.search-dropdown div {
-    padding: 8px;
-    cursor: pointer;
-}
-
-.search-dropdown div:hover {
-    background-color: #f0f0f0;
-}
-
 .haste-indicator, .slow-indicator {
     position: absolute;
     top: -20px;
@@ -1495,4 +1467,76 @@ background-color: rgba(255, 0, 0, 0.2);
     font-weight: bold;
     border-radius: 10px;
     display: none;
+}
+
+
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
+.search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    z-index: 1000;
+    display: none;
+}
+
+.monster-dropdown-item {
+    padding: 0px;
+    cursor: pointer;
+    width: 200px;
+    height: 30px;
+    display: flex;  /* Changed from block to flex */
+    align-items: center;
+    overflow: hidden;
+}
+.monster-dropdown-day {
+    font-size: 10px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 15px;
+    height: 100%;
+    display: flex;  /* Changed to flex */
+    align-items: center;
+    justify-content: center;  /* Added for horizontal centering */
+}
+.monster-dropdown-icon {
+    height: 30px;
+    width: 30px;
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+}
+.monster-dropdown-name {
+    font-size: 14px;
+    font-weight: bold;
+    width: calc(100% - 45px);
+    margin-left: 5px;
+    padding: 0px;
+    /* Removed line-height since we're using flex alignment */
+}
+
+
+.monster-dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+#monster-preview-img {
+    position: absolute;
+    top: 100px;
+    left: 50px;
+    width: 200px;
+    height: 200px;
+    z-index: 1000;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));
 }

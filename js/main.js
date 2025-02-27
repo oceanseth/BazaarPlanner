@@ -518,20 +518,49 @@ function searchMonsters(query) {
     
     // Filter monsters - if query is empty, show all monsters
     const filteredMonsters = Object.values(monsters)
-        .sort((a, b) => a.name.localeCompare(b.name))
         .filter(monster => !query || monster.name.toLowerCase().includes(query.toLowerCase()));
     
     if (filteredMonsters.length > 0) {
         dropdown.style.display = 'block';
         
         filteredMonsters.forEach(monster => {
-            const div = document.createElement('div');
-            div.textContent = monster.name;
+            const div = document.createElement('div');  
+            div.classList.add('monster-dropdown-item');
             div.onclick = () => {
                 searchInput.value = monster.name;
                 loadMonsterBoard(monster);
                 dropdown.style.display = 'none';
             };
+            div.onmouseover = () => {
+                if(document.getElementById('monster-preview-img')==null) {
+                    const img = document.createElement('img');
+                    img.id = 'monster-preview-img';
+                    img.src = monster.icon;
+                    img.classList.add('monster-preview-icon');
+                    document.getElementById('simulator-controls').appendChild(img);
+                }
+            };
+            div.onmouseout = () => {
+                if(document.getElementById('monster-preview-img')!=null) {
+                    document.getElementById('monster-preview-img').remove();
+                }
+            };
+            
+            const day = document.createElement('div');
+            day.classList.add('monster-dropdown-day');
+            day.textContent = monster.day;
+            div.appendChild(day);
+            
+            const img = document.createElement('img');
+            img.src = monster.icon;
+            img.classList.add('monster-dropdown-icon');
+            div.appendChild(img);
+
+            const name = document.createElement('div');
+            name.classList.add('monster-dropdown-name');
+            name.textContent = monster.name;
+            div.appendChild(name);
+
             dropdown.appendChild(div);
         });
     } else {
