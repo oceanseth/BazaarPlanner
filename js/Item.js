@@ -4193,7 +4193,7 @@ export class Item {
             });
             this.gain(this.board.player.gold * multiplier, tag);
             return () => {
-                this.applyHeal(this.heal);
+                this['apply'+tag](this[tag]);
             };
         }
         //Your Weapons have double Crit damage.
