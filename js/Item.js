@@ -4181,8 +4181,21 @@ export class Item {
                 matchingItem.ammo = matchingItem.maxAmmo;
             }
             return ()=>{};
-
-
+        }
+        // (deal)? (anyWord) equal to ( 1 » 2 » 3 ) times your gold.
+        regex = /^(?:deal )?([^ ]+) equal to (\([^)]+\)|\d+) times your gold\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tag = Item.getTagFromText(match[1]);
+            const multiplier = getRarityValue(match[2], this.rarity);
+            this.board.player.goldChanged((newValue, oldValue)=>{
+                this.gain(multiplier*(newValue-oldValue), tag);
+            });
+            this.gain(this.board.player.gold * multiplier, tag);
+            return () => {
+                this.applyHeal(this.heal);
+                console.log('end');
+            };
         }
         //Your Weapons have double Crit damage.
         regex = /^Your Weapons have double Crit damage\.?$/i;
