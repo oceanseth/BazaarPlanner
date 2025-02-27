@@ -3,13 +3,86 @@ import { getRarityValue } from "./utils.js";
 export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
-        "Epicurean Chocolate","Skillet","Spare Change","Pelt","Candy Mail","Machine Learning","Iron Sharpens Iron"];
+        "Epicurean Chocolate","Skillet","Spare Change","Pelt","Candy Mail","Machine Learning","Iron Sharpens Iron","Chocoholic"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
             ItemFunction.items.set(itemName, (item) => {});
         });
     }
 }
+//While you have less health than your opponent, your items gain (10%/15%/20%) Crit Chance. from Desperate Strike
+ItemFunction.items.set("Desperate Strike",(item)=>{
+    const critGain = getRarityValue("10 >> 15 >> 20",item.rarity);
+    let gainedCrit = false; 
+
+    const f = ()=>{
+        if(item.board.player.health<item.board.player.hostileTarget.health) {
+            if(!gainedCrit) {
+                item.board.items.forEach(i=>i.gain(critGain,'crit'));
+                gainedCrit = true;
+            }
+        } else {
+            if(gainedCrit) {
+                item.board.items.forEach(i=>i.gain(-critGain,'crit'));
+                gainedCrit = false;
+            }
+        }
+    };
+    f();
+    item.board.startOfFightTriggers.set(item.id,f);         
+    item.board.player.healthChanged(f);
+    item.board.player.hostileTarget.healthChanged(f);
+});
+
+//Your leftmost and rightmost Weapons have + Damage equal to (1x/2x) their value. from Boar Market
+ItemFunction.items.set("Boar Market",(item)=>{
+    const multiplier = getRarityValue("1x >> 2x",item.rarity);
+    const weapons = item.board.items.filter(i=>i.tags.includes("Weapon"));
+    if(weapons.length>0) {
+        weapons[0].gain(multiplier*weapons[0].value,'damage');
+    }
+    if(weapons.length>1) {
+        weapons[weapons.length-1].gain(multiplier*weapons[weapons.length-1].value,'damage');
+    }
+});
+//If you have a vehicle, reduce your non-vehicle items' cooldowns by (10%/15%/20%). from Command Ship
+ItemFunction.items.set("Command Ship",(item)=>{
+    const cooldownReduction = getRarityValue("10 >> 15 >> 20",item.rarity);
+    if(item.board.items.some(i=>i.tags.includes("Vehicle"))) {
+        item.board.items.forEach(i=>{
+            if(!i.tags.includes("Vehicle")) i.gain(-i.cooldown*cooldownReduction/100,'cooldown');
+        });
+    }
+});
+//If you have exactly one friend, reduce its and the Core's cooldown by (5%/10%/15%). from Buddy System
+ItemFunction.items.set("Buddy System",(item)=>{
+    const friendCount = item.board.items.filter(i=>i.tags.includes("Friend")).length;
+    const cooldownReduction = getRarityValue("5 >> 10 >> 15",item.rarity);
+    if(friendCount==1) {
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Friend")) i.gain(-i.cooldown*cooldownReduction/100,'cooldown');
+            if(i.tags.includes("Core")) i.gain(-i.cooldown*cooldownReduction/100,'cooldown');
+        });
+    }
+});
+//If you have exactly 2 Weapons in play, your items have +50% Crit Chance. from Dual Wield
+ItemFunction.items.set("Dual Wield",(item)=>{
+    const weaponCount = item.board.items.filter(i=>i.tags.includes("Weapon")).length;
+    if(weaponCount==2) {
+        item.board.items.forEach(i=>{
+            i.gain(50,'crit');
+        });
+    }
+});
+
+//If you have only one medium item, its cooldown is reduced by 30%. from Hyper Focus
+ItemFunction.items.set("Hyper Focus",(item)=>{
+    const mediumItemCount = item.board.items.filter(i=>i.tags.includes("Medium")).length;
+    if(mediumItemCount==1) {
+        item.gain(-item.cooldown*30/100,'cooldown');
+    }
+});
+
 //If you have exactly 1 weapon, your Shield items have (+10/+20/+30) shield. from Specialist
 ItemFunction.items.set("Specialist",(item)=>{
     const shieldGain = getRarityValue("10 >> 20 >> 30",item.rarity);
@@ -396,6 +469,14 @@ ItemFunction.items.set("Cooling Fan",(item)=>{
     item.triggerFunctions.push(()=>{
         item.board.items.forEach(i=>{if(i.tags.includes("Core")) i.gain(critChance,'critChance');});
     });
+});
+// Your leftmost Weapon has lifesteal. from Circle of Life
+ItemFunction.items.set("Circle of Life",(item)=>{
+    const leftmostWeapon = item.board.items.find(i=>i.tags.includes("Weapon"));
+    if(leftmostWeapon) {
+        leftmostWeapon.lifesteal = true;
+        leftmostWeapon.updateTriggerValuesElement();
+    }
 });
 
 ItemFunction.items.set("Cryosleeve",(item)=>{
@@ -905,16 +986,16 @@ ItemFunction.items.set("Vengeance",(item)=>{
 });
 ItemFunction.items.set("Weights",(item)=>{
     ////Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
-    //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
+    //your heal items gain (  5  » 10  » 15   ) heal for the fight
     const amount = getRarityValue("2 >> 4 >> 6 >> 8",item.rarity);
-    const shieldAmount = getRarityValue("5 >> 10 >> 15",item.rarity);
+    const healAmount = getRarityValue("5 >> 10 >> 15",item.rarity);
     item.triggerFunctions.push(()=>{
     item.board.items.forEach(i=>{
         if(i.tags.includes("Weapon")) {
             i.gain(amount,'damage');
         }
-        if(i.tags.includes("Shield")) {
-                i.gain(shieldAmount,'shield');
+        if(i.tags.includes("Heal")) {
+                i.gain(healAmount,'heal');
             }
         });
     });
@@ -1103,7 +1184,33 @@ ItemFunction.items.set("Figurehead",(item)=>{
         i.gain(i.cooldown*(100-cooldownReduction)/100 - i.cooldown,'cooldown');
     });
 });
-
+//If you only have one weapon, it deals triple damage and has its cooldown increased by 50%. from One Shot, One Kill
+ItemFunction.items.set("One Shot, One Kill",(item)=>{
+    const weapons = item.board.items.filter(i=>i.tags.includes("Weapon"));
+    if(weapons.length==1) {
+        weapons[0].gain(weapons[0].damage*2,'damage');
+        weapons[0].damage_multiplier+=2;
+        weapons[0].gain(weapons[0].cooldown*.5,'cooldown');
+    }
+});
+//If you have 5 or fewer items you have (+500/+1000/+2000) Max Health. from Large Appetites
+ItemFunction.items.set("Large Appetites",(item)=>{
+    const amount = getRarityValue("500 >> 1000 >> 2000",item.rarity);
+    if(item.board.items.length<=5) {
+        item.board.player.maxHealth += amount;
+        item.board.player.health = item.board.player.maxHealth;
+        item.board.updateHealthElement();
+    }
+});
+//If you have no weapons, your items' cooldowns are reduced by (10%/20%). from Minimalist
+ItemFunction.items.set("Minimalist",(item)=>{
+    const cooldownReduction = getRarityValue("10 >> 20",item.rarity);
+    if(item.board.items.filter(i=>i.tags.includes("Weapon")).length==0) {
+        item.board.items.forEach(i=>{
+            i.gain(-i.cooldown*cooldownReduction/100,'cooldown');
+        });
+    }
+});
 //Torpedo
 ItemFunction.items.set("Torpedo",(item)=>{
     const amount = getRarityValue("25 >> 50 >> 75",item.rarity);
@@ -1113,7 +1220,7 @@ ItemFunction.items.set("Torpedo",(item)=>{
             item.gain(amount,'damage');
             if(i.tags.includes("Large")) {
                 if(item.ammo<item.maxAmmo) {
-                    item.gain(1,'ammo');
+                    item.gain(1,'ammo',i);
                 }
             }
         }
@@ -1122,7 +1229,55 @@ ItemFunction.items.set("Torpedo",(item)=>{
         item.dealDamage(item.damage);
     });
 });
+//If you have exactly one weapon, it has (+5/+10) Max Ammo. from Depth Charge
+//...if it is also Aquatic, it has (+25/+50) Damage. from Depth Charge
+ItemFunction.items.set("Depth Charge",(item)=>{
+    const maxAmmoGain = getRarityValue("5 >> 10",item.rarity);
+    const damageGain = getRarityValue("25 >> 50",item.rarity);
+    const weapons = item.board.items.filter(i=>i.tags.includes("Weapon"));
+    if(weapons.length==1) {
+        if(weapons[0].tags.includes("Ammo")) {
+            weapons[0].maxAmmo += maxAmmoGain;
+            weapons[0].ammo = weapons[0].maxAmmo;
+        }
+        if(weapons[0].tags.includes("Aquatic")) {
+            weapons[0].gain(damageGain,'damage');
+        }    
+    }
+});
+//Your Small Diamond-tier items have their cooldowns reduced by (30%/40%/50%/60%). from Diamond Fangs
+ItemFunction.items.set("Diamond Fangs",(item)=>{
+    const cooldownReduction = getRarityValue("30 >> 40 >> 50 >> 60",item.rarity);
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Small") && i.rarity=="Diamond") {
+            i.gain(-i.cooldown*cooldownReduction/100,'cooldown');
+        }
+    });
+});
+//Your Shield Vehicles gain (30%/60%) Shield. from Expert Pilot
+//Your Weapon Vehicles gain (30%/60%) Damage. from Expert Pilot
+ItemFunction.items.set("Expert Pilot",(item)=>{
+    const amount = getRarityValue("30 >> 60",item.rarity);
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Shield")) {
+            i.gain(i.damage * amount/100,'shield');
+        }
+        if(i.tags.includes("Weapon")) {
+            i.gain(i.damage * amount/100,'damage');
+        }
+    });
+});
 
+//Both players' weapons have double damage. from Glass Cannon
+ItemFunction.items.set("Glass Cannon",(item)=>{
+    [...item.board.items, ...item.board.player.hostileTarget.board.items].forEach(i=>{
+        if(i.tags.includes("Weapon")) {
+            i.gain(i.damage,'damage');
+            i.damage_multiplier+=1;
+            i.updateTriggerValuesElement();
+        }
+    });
+});
 //Reload all your items ( 1 » 2 » 3 ) Ammo and charge them 1 second(s). from Port
 ItemFunction.items.set("Port",(item)=>{
     const amount = getRarityValue("1 >> 2 >> 3",item.rarity);

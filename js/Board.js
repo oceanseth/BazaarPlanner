@@ -5,6 +5,7 @@ import { updateUrlState } from './utils.js';
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
     static boards = new Map();
+    static uniqueTypeTags = ['Ammo','Apparel','Dinosaur','Dragon','Food','Property','Ray','Tech','Tool','Toy','Vehicle','Weapon'];
 
     constructor(boardId, player) {
         this.boardId = boardId;
@@ -797,7 +798,9 @@ class Board {
         const types = new Set();
         this.items.forEach(item => {
             item.tags.forEach(tag => {
-                types.add(tag);
+                if(Board.uniqueTypeTags.includes(tag)) {
+                    types.add(tag);
+                }
             });
         });
         return types.size;

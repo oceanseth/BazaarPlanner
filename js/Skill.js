@@ -5,6 +5,12 @@ import { Item } from './Item.js';
 export class Skill {
     constructor(skillData) {
         Object.assign(this, skillData);
+        if(!this.rarity) {
+            this.rarity = this.tier;
+        }
+        if(Item.rarityLevels.indexOf(this.rarity) < Item.rarityLevels.indexOf(this.tier)) {
+            this.rarity = this.tier;
+        }
         this.itemProxy = new Item({
             name: this.name,
             rarity: this.rarity,
