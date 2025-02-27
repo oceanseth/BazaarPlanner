@@ -7,7 +7,7 @@ export class Item {
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny','Toxic', 'Turbo' ];
     static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit'];
-    static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle'];
+    static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle','Common'];
     static sizeTags = ['Small','Medium','Large'];
 
     static enchantTagMap = {
@@ -106,7 +106,7 @@ export class Item {
         if(this.enchant=='Radiant') {return};
         this.isDestroyed = true;
         this.element.classList.add('destroyed');
-        log(source.name + " destroyed " + this.name);
+        log((source?source.name:"") + " destroyed " + this.name);
         this.board.itemDestroyedTriggers.forEach(func => func(this,source));
         this.board.itemValuesChangedTriggers.forEach(func => func(this,source));
         source.board.player.destroyTriggers.forEach(func => func(this,source));
@@ -240,8 +240,6 @@ export class Item {
 
         this.battleStatsElement.querySelectorAll('div').forEach(div => div.style.display = 'none');
 
-
-        this.crit = this.calculateCrit()+(this.startItemData.crit||0);
         this.freezeDurationRemaining = 0;
         this.freezeElement.classList.add('hidden');
         this.element.classList.remove('frozen',...Item.rarityLevels, ...Item.possibleEnchants);
@@ -455,17 +453,6 @@ export class Item {
         }
         return 0;
     }
-    calculateCrit() {
-        let critRegex = /^Crit Chance (?:\(\s*(\d+)%(?:\s*»\s*(\d+)%)*\s*\)|(\d+)%)\.?/i;      
-        for (const textElement of this.text) {
-            const match = textElement.match(critRegex);
-            if (match) {
-                return match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            }
-        }
-        return 0;
-
-    }
 
     calculateHeal() {
         if (!this.tags.includes('Heal')) return 0;
@@ -518,6 +505,10 @@ export class Item {
         }
         log(this.name + " slowed " + item.name + " for " + duration + " seconds");
         this.board.slowTriggers.forEach(func => func(item,this));
+    }
+    reload(source) {
+        this.ammo = this.maxAmmo;
+        log((source?source.name:"") + " reloaded " + this.name);
     }
 
     updateProgressBar(progress) {
@@ -648,7 +639,7 @@ export class Item {
             burnAmount *= (1+this.critMultiplier/100);
         }
         const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
-        log(this.name + (doesCrit?"critically ":"")+" burned " + target.name + " for " + burnAmount);
+        log(this.name + (doesCrit?" critically ":"")+" burned " + target.name + " for " + burnAmount);
         target.applyBurn(burnAmount);
         if(doesCrit) {
             this.board.itemDidCrit(this);
@@ -883,12 +874,10 @@ export class Item {
             };
         }
 
-        //Crit Chance 20%
-        let critRegex = /^Crit Chance (?:\(\s*(\d+)%(?:\s*»\s*(\d+)%)*\s*\)|(\d+)%)\.?/i;
-        match = text.match(critRegex);
+        damageRegex = /^Crit chance (\([^)]+\)|\d+%?)/i;
+        match = text.match(damageRegex);
         if(match) {
-            const critChance = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            this.crit = critChance + (this.startItemData.crit||0);
+            this.gain(getRarityValue(match[1], this.rarity),'crit');
             return () => {};
         }
         return null;
@@ -1455,6 +1444,7 @@ export class Item {
                 
             case 'crit':
             case 'crit chance':
+                if(!this.crit) this.crit = 0;
                 this.crit += amount;
                 break;
             case 'critmultiplier':
@@ -1592,6 +1582,20 @@ export class Item {
                 this.applyShield(this.shield);
             };
         }
+
+        //use your highest Shield item. from Emergency Shield
+        regex = /^use your highest Shield item\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return ()=>{
+                const highestShield = this.board.activeItems.reduce((max, item) => item.tags.includes("Shield") ? (item.shield>(max?max.shield:0))?item:max:max, null);
+                if(highestShield) {
+                    log(this.name + " used " + highestShield.name + " as highest Shield item");
+                    highestShield.trigger();
+                }
+            };
+        }
+        
 
         // Shield equal to ( 2 » 3 ) time(s) the value of your items.
         regex = /Shield equal to \(\s*(\d+)\s*»\s*(\d+)\s*\) time\(?s\)? the value of your items/i;
@@ -2068,6 +2072,7 @@ export class Item {
                 "buy a property",
                 "buy another item",
                 "upgrade a friend",
+                "sell a medium or large item",
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;
@@ -2406,6 +2411,13 @@ export class Item {
                 case "crit with any item":
                     this.board.critTriggers.set(this.id, triggerFunctionFromText);
                     return;
+                case "use an item with burn":
+                    this.board.itemTriggers.set(this.id, (item) => {
+                        if(item.tags.includes("Burn")) {
+                            triggerFunctionFromText(item);
+                        }
+                    });
+                    return;
                 case "use your leftmost item":
                     this.board.itemTriggers.set(this.id, (item) => {
                         if(item.startIndex==0) {
@@ -2422,7 +2434,7 @@ export class Item {
         //The first (  4  » 8   ) times you use a non-Weapon item each fight, Charge 1 Weapon 1 second(s). from Mixed Message
         //The first (  4  » 8   ) times you Shield each fight, Charge 1 item 1 second(s).
         //The first (  4  » 8   ) times your enemy uses a non-weapon item each fight, Charge 1 Weapon 1 second(s).
-        regex = /^The first (\([^)]+\)|\d+)?\s?times? (.+) each fight, (.*)/i;
+        regex = /^The first (\([^)]+\)|\d+)?\s?times? (.+)(?: each fight| in a fight), (.*)/i;
         match = text.match(regex);
         if(match) {
             const numTimes = match[1]?getRarityValue(match[1], this.rarity):1;
@@ -2461,13 +2473,26 @@ export class Item {
                         }
                     });
                     return;
+                case "you use an aquatic item":
+                    let aquaticItemCount = 0;
+                    this.board.itemTriggers.set(this.id,(item)=>{
+                        if(item.tags.includes("Aquatic")) {
+                            ntimesFunction(item);
+                            aquaticItemCount++;
+                            if(aquaticItemCount==numTimes) {
+                                this.board.itemTriggers.delete(this.id);
+                            }
+                        }
+                    });
+                    return;
                 case "you use your leftmost item":
                     let leftmostItemCount = 0;
                     const leftmostItem = this.board.items[0];
                     this.board.itemTriggers.set(this.id,(item)=>{
                         if(item.id==leftmostItem.id) {
                             ntimesFunction(item);
-                            if(leftmostItemCount++ == numTimes) {
+                            leftmostItemCount++;
+                            if(leftmostItemCount == numTimes) {
                                 this.board.itemTriggers.delete(this.id);
                             }
                         }
@@ -2479,7 +2504,8 @@ export class Item {
                     this.board.itemTriggers.set(this.id,(item)=>{
                         if(item.id==rightmostItem.id) {
                             ntimesFunction(item);
-                            if(rightmostItemCount++ == numTimes) {
+                            rightmostItemCount++;
+                            if(rightmostItemCount == numTimes) {
                                 this.board.itemTriggers.delete(this.id);
                             }
                         }
@@ -2597,6 +2623,17 @@ export class Item {
                             ntimesFunction(item);
                             if(toolCount==numTimes) {
                                 this.board.itemTriggers.delete(this.id);
+                            }
+                        }
+                    });
+                    return;
+                case 'your enemy uses a weapon':
+                    let enemyWeaponCount = 0;
+                    this.board.player.hostileTarget.board.itemTriggers.set(this.id,(item)=>{
+                        if(item.tags.includes("Weapon") && enemyWeaponCount++<=numTimes) {
+                            ntimesFunction(item);
+                            if(enemyWeaponCount==numTimes) {
+                                this.board.player.hostileTarget.board.itemTriggers.delete(this.id);
                             }
                         }
                     });
@@ -3159,8 +3196,43 @@ export class Item {
                }
             }
         }
+
+        //an item gains (3%/5%) Crit Chance for the fight. from Combat Medic
+        regex = /^\s*an item gains (\([^)]+\)|\d+) Crit Chance for the fight\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const critChance = getRarityValue(match[1], this.rarity);
+            return (i) => {
+                const item = this.pickRandom(this.board.items);
+                if(item) {
+                    item.gain(critChance,'crit',i||this);
+                }
+            }
+        }
+
+        //enemy Weapons lose (2/4) damage. from Corrosive Toxins
+        regex = /^\s*enemy Weapons lose (\([^)]+\)|\d+) damage\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const damage = getRarityValue(match[1], this.rarity);
+            return (i) => {
+                this.board.player.hostileTarget.board.items.forEach(item => {
+                    if(item.tags.includes("Weapon")) {
+                        item.gain(-damage,'damage',i||this);
+                    }
+                });
+            }
+        }
         
-        
+        //that item gains (1/2) Burn for the fight. from Conflagration
+        regex = /^\s*that item gains (\([^)]+\)|\d+) Burn for the fight\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const burn = getRarityValue(match[1], this.rarity);
+            return (i) => {
+                i.gain(burn,'burn',this);
+            }
+        }
         
         //Reduce the cooldown of your aquatic items by (  10%  » 20%   ).
         regex = /^\s*Reduce the cooldown of your ([^\s]+) items by (\([^)]+\)|\+?\d+%)\.?/i;
@@ -3206,7 +3278,35 @@ export class Item {
             });
             return () => {};
         }
-
+        //Reload a Weapon 1 ammo. from Ice Bullets
+        regex = /^\s*Reload a Weapon 1 ammo\.?/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                const weapon = this.pickRandom(this.board.items.filter(item => item.tags.includes("Ammo") && item.tags.includes("Weapon")));
+                if(weapon) {
+                    weapon.gain(1,'ammo',this);
+                }
+            }
+        }
+        //Shield equal to (2/3/4) times the Burn on your opponent. from Burning Shield
+        regex = /^\s*Shield equal to (\([^)]+\)|\d+) times the Burn on your opponent\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const multiplier = getRarityValue(match[1], this.rarity);
+            return () => {
+                this.applyShield(this.board.player.hostileTarget.burn*multiplier);
+            }
+        }
+        //gain Shield equal to (1x/2x) that item's Burn. from Heat Shield
+        regex = /^\s*gain Shield equal to (\([^)]+\)|\d+) that item's Burn\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const multiplier = getRarityValue(match[1], this.rarity);
+            return (i) => {
+                this.board.player.applyShield(i.burn*multiplier,this);
+            }
+        }
         //gain ( 10 » 20 » 40 ) Max Health for the fight.
         regex = /^\s*gain (\([^)]+\)|\d+) Max Health for the fight\.?/i;
         match = text.match(regex);
@@ -3619,7 +3719,8 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const regeneration = getRarityValue(match[1], this.rarity);
-            this.board.player.regeneration += regeneration;
+            this.board.player.regen += regeneration;
+            this.board.updateHealthElement();
             return () => {};
         }
 
@@ -3645,10 +3746,11 @@ export class Item {
         regex = /^\s*Heal equal to your opponent's Poison\.?/i;
         match = text.match(regex);
         if(match) {
+            this.board.player.hostileTarget.poisonChanged((newPoison,oldPoison)=>{
+                this.gain(newPoison-oldPoison,'heal');
+            });
             return () => {
-                if(this.board.player.hostileTarget.poison>0) {
-                    this.applyHeal(this.board.player.hostileTarget.poison);
-                }
+                this.applyHeal(this.heal);
             };
         }
 
@@ -3718,13 +3820,7 @@ export class Item {
                 }
             }
         }
-        regex = /^Crit chance \(\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*»\s*(\d+)%\s*\)/i;
-        match = text.match(regex);
-        if(match) {
-            this.crit = getRarityValue(`${match[1]}»${match[2]}»${match[3]}»${match[4]}`, this.rarity);
-            this.text = this.text.filter(t => t!=text);
-            return () => {};
-        }
+        
         //Your other Slow items have +1 Slow.
         regex = /^Your other ([^\s]+) items have (\([^\)]+\)|\+\d+) (Slow|Haste|Shield|Burn|Poison|Heal)\.?/i;
         match = text.match(regex);
@@ -4044,9 +4140,8 @@ export class Item {
         regex = /^\s*reload (\d+) Ammo/i;
         match = text.match(regex);
         if(match) {
-            return () => {
-                this.ammo += parseInt(match[1]);
-                log(this.name + " reloaded " + match[1] + " Ammo");
+            return (item) => {
+                this.gain(parseInt(match[1]),'ammo',item||this);
             }
         }
         //use this
@@ -4181,8 +4276,20 @@ export class Item {
                 matchingItem.ammo = matchingItem.maxAmmo;
             }
             return ()=>{};
-
-
+        }
+        // (deal)? (anyWord) equal to ( 1 » 2 » 3 ) times your gold.
+        regex = /^(?:deal )?([^ ]+) equal to (\([^)]+\)|\d+) times your gold\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tag = Item.getTagFromText(match[1]);
+            const multiplier = getRarityValue(match[2], this.rarity);
+            this.board.player.goldChanged((newValue, oldValue)=>{
+                this.gain(multiplier*(newValue-oldValue), tag);
+            });
+            this.gain(this.board.player.gold * multiplier, tag);
+            return () => {
+                this['apply'+tag](this[tag]);
+            };
         }
         //Your Weapons have double Crit damage.
         regex = /^Your Weapons have double Crit damage\.?$/i;
@@ -4394,6 +4501,61 @@ export class Item {
                 }
             }   
         }
+    //destroy an item for the fight. from Ravenous
+    regex = /^destroy an item for the fight\.?$/i;
+    match = text.match(regex);
+    if(match) {
+        return (item) => {
+            const randomItem = this.pickRandom(this.board.player.hostileTarget.board.activeItems);
+            randomItem.destroy(item||this);
+        }
+    }
+    //Reload (2/4/6/8) items. from Panic
+    regex = /^Reload (\([^)]+\)|\d+) items\.?$/i;
+    match = text.match(regex);
+    if(match) {
+        const reloadAmount = getRarityValue(match[1], this.rarity);
+        return (item) => {
+            const targets = this.pickRandom(this.board.activeItems.filter(i=>i.tags.includes("Ammo")),reloadAmount);
+            targets.forEach(target => {
+                target.reload(item||this);
+            });
+        }
+    }
+    //double all your items' Crit Chance for the fight. from Focused Rage
+    regex = /^double all your items' Crit Chance for the fight\.?$/i;
+    match = text.match(regex);
+    if(match) {
+        return ()=>{
+            this.board.items.forEach(item => {
+                item.gain(item.crit,'crit');
+            });
+        }
+    }
+    //Reload another item 1 ammo. from Flashy Reload
+    regex = /^Reload another item (\d+) ammo\.?$/i;
+    match = text.match(regex);
+    if(match) {
+        const amount = parseInt(match[1]);
+        return (item)=>{            
+            const targets = this.pickRandom(this.board.activeItems.filter(i=>i.tags.includes("Ammo")),amount);
+            targets.forEach(target => {
+                target.reload(item||this);
+            });
+        }
+    }
+    //parse your items gain (10%/20%/30%) Crit chance. from Flashy Pilot
+    regex = /^your items gain (\([^)]+\)|\d+%?) Crit chance\.?$/i;
+    match = text.match(regex);
+    if(match) {
+        const amount = getRarityValue(match[1], this.rarity);
+        return ()=>{
+            this.board.items.forEach(item => {
+                item.gain(amount,'crit');
+            });
+        }
+    }
+    
 
     //your items have their cooldowns reduced by 50% for the fight. from Reel 'Em In 
         regex = /^your items have their cooldowns reduced by (\([^)]+\)|\d+%?) for the fight\.?$/i;
@@ -4493,12 +4655,11 @@ export class Item {
         regex = /^(?:Reload )?a potion\.?$/i;
         match = text.match(regex);
         if(match) {
-            return () => {
+            return (item) => {
                 const potions = this.board.activeItems.filter(item => item.tags.includes("Potion"));
                 if(potions.length > 0) {
                     const randomPotion = this.pickRandom(potions);
-                    randomPotion.ammo = randomPotion.maxAmmo;
-                    log(randomPotion.name+"has been reloaded to max ammo.");
+                    randomPotion.reload(item||this);
                 }
             };
         }

@@ -800,6 +800,7 @@ font.Crit:before, font.Slow:before, font.Haste:before, font.Charge:before, font.
     margin-right: 4px;
     vertical-align: middle;    
     filter:drop-shadow(1px 1px 1px rgba(0, 0, 0, 1));
+    margin-top: -2px;
 }
 
 font.Crit:before {
@@ -1422,11 +1423,12 @@ background-color: rgba(255, 0, 0, 0.2);
 }
 .dps-element .totals {
     font-size: 10px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
     display: inline-block;
     padding: 2px 4px;
     border-radius: 4px;
     margin-left: 5px;
+    vertical-align: middle;
 }
 .import-element {
     position: absolute;
