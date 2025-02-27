@@ -56,23 +56,46 @@ ItemFunction.items.set("Command Ship",(item)=>{
 });
 //If you have exactly one friend, reduce its and the Core's cooldown by (5%/10%/15%). from Buddy System
 ItemFunction.items.set("Buddy System",(item)=>{
-    const friendCount = item.board.items.filter(i=>i.tags.includes("Friend")).length;
+    let cooldownRemoved = false;
     const cooldownReduction = getRarityValue("5 >> 10 >> 15",item.rarity);
-    if(friendCount==1) {
-        item.board.items.forEach(i=>{
-            if(i.tags.includes("Friend")) i.gain(-i.cooldown*cooldownReduction/100,'cooldown');
-            if(i.tags.includes("Core")) i.gain(-i.cooldown*cooldownReduction/100,'cooldown');
-        });
-    }
+    const f = ()=>{
+        const friends = item.board.activeItems.filter(i=>i.tags.includes("Friend"));
+        if(friends.length==1 && !cooldownRemoved) {
+            friends[0].gain(-friends[0].cooldown*cooldownReduction/100,'cooldown');
+            item.board.items.forEach(i=>{
+                if(i.tags.includes("Core")) i.gain(-i.cooldown*cooldownReduction/100,'cooldown');
+            });
+            cooldownRemoved = true;
+        } else if(cooldownRemoved) {
+            friends[0].gain(friends[0].cooldown*cooldownReduction/100,'cooldown');
+            item.board.items.forEach(i=>{
+                if(i.tags.includes("Core")) i.gain(i.cooldown*cooldownReduction/100,'cooldown');
+            });
+            cooldownRemoved = false;
+        }
+    };
+    f();
+    item.board.itemDestroyedTriggers.set(item.id,f);
 });
 //If you have exactly 2 Weapons in play, your items have +50% Crit Chance. from Dual Wield
 ItemFunction.items.set("Dual Wield",(item)=>{
-    const weaponCount = item.board.items.filter(i=>i.tags.includes("Weapon")).length;
-    if(weaponCount==2) {
-        item.board.items.forEach(i=>{
-            i.gain(50,'crit');
-        });
-    }
+    let critGained = false;
+    const f = ()=>{
+        const weaponCount = item.board.items.filter(i=>i.tags.includes("Weapon")).length;
+        if(weaponCount==2 && !critGained) {
+            item.board.items.forEach(i=>{
+                i.gain(50,'crit');
+            });
+            critGained = true;
+        } else if(weaponCount!=2 && critGained) {
+            item.board.items.forEach(i=>{
+                i.gain(-50,'crit');
+            });
+            critGained = false;
+        }
+    };
+    f();
+    item.board.itemDestroyedTriggers.set(item.id,f);
 });
 
 //If you have only one medium item, its cooldown is reduced by 30%. from Hyper Focus
