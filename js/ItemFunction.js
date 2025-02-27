@@ -336,6 +336,9 @@ ItemFunction.items.set("Refractor",(item)=>{
     item.board.freezeTriggers.set(item.id,(i)=>{
         item.gain(damage,'damage');
     });
+    item.triggerFunctions.push(()=>{
+        item.dealDamage(item.damage);
+    });
     
 });
 

@@ -98,7 +98,8 @@ export class Player {
         });
     }
 
-    takeDamage(damage, shieldScalar = 1, ignoreShield = false) {    
+    takeDamage(damage, shieldScalar = 1, ignoreShield = false) { 
+        this.hostileTarget.board.damageApplied += damage;
         damage = damage*(1-this.damageReduction/100);
         if(ignoreShield || this.shield <= 0) {
             this.health -= damage;
