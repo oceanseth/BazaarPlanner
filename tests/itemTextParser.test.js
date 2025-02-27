@@ -18,6 +18,7 @@ const mockBoardInstance = {
     itemValuesChangedTriggers: new Map(),
     startOfFightTriggers: new Map(),
     itemDestroyedTriggers: new Map(),
+    updateHealthElement: () => {},
     player: {
         healthChanged: () => {},
         maxHealthChanged: () => {},
@@ -25,6 +26,7 @@ const mockBoardInstance = {
         goldChanged: () => {},
         poisonChanged: () => {},
         regenChanged: () => {},
+        burnChanged: () => {},
         destroyTriggers: new Map(),
         overhealTriggers: new Map(),
         healTriggers: new Map(),
