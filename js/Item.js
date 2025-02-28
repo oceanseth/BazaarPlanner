@@ -2935,16 +2935,7 @@ export class Item {
 
         }
 
-        //charge this 1 second(s) OR charge this ( 1 » 2 » 3 ) second(s)
-        regex = /^\s*charge this (?:\(([^)]+)\)|(\d+)) second\(?s?\)?/i;
-        match = text.match(regex);
-        if(match) {
-            const seconds = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            return () => {
-                this.chargeBy(seconds);
-                log(this.name + " charged for " + seconds + " second(s)");
-            }
-        }
+
         //Charge the item to the (left|right) of this ( 1 » 2 » 3 » 4 ) second(s).
         regex = /^\s*Charge the item to the (left|right) (?:of this|for)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?/i;
         match = text.match(regex);
@@ -2994,7 +2985,7 @@ export class Item {
                 if(item.tags.includes("Ammo")) {
                     item.ammoChanged((newAmmo,oldAmmo)=>{
                         if(newAmmo<=0) {
-                            f();
+                            f(item);
                         }
                     });
                 }
@@ -3662,13 +3653,15 @@ export class Item {
             return () => {};
         }
 
+
         //charge it ( 1 » 2 ) second(s).
-        regex = /^\s*charge it (\([^)]+\)|\d+) second\(s\)\.?/i;
+        regex = /^\s*charge (it|this)(?: for)? (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            const chargeDuration = getRarityValue(match[1], this.rarity);
+            const it = match[1]=='it';
+            const chargeDuration = getRarityValue(match[2], this.rarity);
             return (item) => {
-                (item||this).chargeBy(chargeDuration);
+                (it?item:this).chargeBy(chargeDuration);
             };
         }
         //Non-tech item cooldowns are increased by ( 1 » 2 ) second(s). from Chronobarrier
@@ -4630,17 +4623,7 @@ export class Item {
             this.lifesteal = true;
             return ()=>{};
         }
-
-        //charge this for 2 seconds. From Solar Farm
-        regex = /^charge this for (\([^)]+\)|\d+) seconds\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            const chargeAmount = getRarityValue(match[1], this.rarity);
-            return (i)=>{
-                this.chargeBy(chargeAmount,i);    
-            }
-        }
-
+       
         //Your Weapons have + Damage equal to (  1x  » 2x  » 3x   ) your income.
         regex = /^Your ([^\s]+)(?: items)? have \+ ([^\s]+) equal to (?:\(([^)]+)\)|(\d+)x) your income\.?$/i;
         match = text.match(regex);
