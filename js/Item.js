@@ -1798,7 +1798,7 @@ export class Item {
         if(!this.isEditable || document.querySelector('.item-edit-popup')!=null) return;
         const itemData = this.startItemData;
         // List of available enchantments and rarities
-        const enchantments = ['None',...Item.possibleEnchants];
+        const enchantments = ['None',...Object.keys(items[itemData.name].enchants)];
         const rarities = Item.rarityLevels;
 
         // Extract current enchantment if it exists
@@ -3504,7 +3504,9 @@ export class Item {
         if(match) {
             const maxAmmo = getRarityValue(match[1], this.rarity);
             this.board.items.forEach(item => {
-                item.gain(maxAmmo,'maxAmmo');
+                if(item.tags.includes("Ammo")) {
+                    item.gain(maxAmmo,'maxAmmo');
+                }
             });
             return () => {};
         }
