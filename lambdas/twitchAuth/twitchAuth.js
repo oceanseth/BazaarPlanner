@@ -115,6 +115,19 @@ exports.handler = async (event) => {
       twitchEmail: userData.email || null,
     });
 
+    // Get the state parameter from Twitch's response
+    const state = event.queryStringParameters?.state;
+    let originalHash = '';
+    
+    try {
+      if (state) {
+        const stateData = JSON.parse(decodeURIComponent(state));
+        originalHash = stateData.hash || '';
+      }
+    } catch (e) {
+      console.error('Error parsing state:', e);
+    }
+
     const htmlResponse = `
       <!DOCTYPE html>
       <html>
@@ -142,8 +155,8 @@ exports.handler = async (event) => {
             // Sign in with the custom token
             firebase.auth().signInWithCustomToken("${firebaseCustomToken}")
               .then(() => {
-                // Redirect back to main page after successful sign in
-                window.location.href = "https://www.bazaarplanner.com";
+                // Redirect back to main page with original hash
+                window.location.href = "https://www.bazaarplanner.com${originalHash}";
               })
               .catch((error) => {
                 console.error('Error signing in:', error);

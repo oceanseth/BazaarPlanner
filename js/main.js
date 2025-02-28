@@ -306,19 +306,24 @@ window.onload = () => {
         document
         .getElementById('twitch-login-button')
         .addEventListener('click', () => {
-            // Redirect user to Twitch's OAuth endpoint:
             const clientId = 'p8hu53p18vur8yj9jakv2bg0kkacrf';
             const redirectUri = encodeURIComponent('https://www.bazaarplanner.com/twitchAuth');
-            const scope = 'user:read:email'; // or whatever scopes you need
+            const scope = 'user:read:email';
+            
+            // Capture the current hash and encode it
+            const originalHash = encodeURIComponent(window.location.hash);
+            
+            // Add it to state parameter
+            const state = encodeURIComponent(JSON.stringify({ hash: originalHash }));
 
             const twitchAuthUrl = 
             `https://id.twitch.tv/oauth2/authorize` +
             `?client_id=${clientId}` +
             `&redirect_uri=${redirectUri}` +
             `&response_type=code` +
-            `&scope=${scope}`;
+            `&scope=${scope}` +
+            `&state=${state}`;  // Add state parameter
 
-            // Send them off to Twitch's OAuth page
             window.location.href = twitchAuthUrl;
         });
     initAuth();
