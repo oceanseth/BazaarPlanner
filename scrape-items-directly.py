@@ -63,13 +63,13 @@ def process_item(item):
     tooltips = item["unifiedTooltips"]
     for tooltip in tooltips:
         # Extract cooldown if present
-        if "Cooldown" in tooltip:
+        if tooltip.startswith("Cooldown"):
             cd = tooltip.split("Cooldown")[1].split("seconds")[0].strip()
             processed["cooldown"] = cd if "(" in cd else int(cd)
             continue
             
         # Extract ammo if present
-        if "Ammo" in tooltip:
+        if tooltip.startswith("Ammo"):
             ammo = tooltip.split("Ammo")[1].split(".")[0].strip()
             processed["ammo"] = int(ammo) if ammo.isdigit() else ammo
             continue
