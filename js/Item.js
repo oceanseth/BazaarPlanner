@@ -107,6 +107,9 @@ export class Item {
         this.isDestroyed = true;
         this.element.classList.add('destroyed');
         log((source?source.name:"") + " destroyed " + this.name);
+        if(this.tags.includes("Ammo")) {
+          this.ammo = 0;
+        }
         this.board.itemDestroyedTriggers.forEach(func => func(this,source));
         this.board.itemValuesChangedTriggers.forEach(func => func(this,source));
         source.board.player.destroyTriggers.forEach(func => func(this,source));
@@ -1406,6 +1409,11 @@ export class Item {
                     this.ammo = this.maxAmmo;
                 }
                 break;
+            case 'maxammo':
+            case 'max ammo':
+                this.maxAmmo += amount;
+                this.ammo += amount;
+            break;
             case 'value':
                 this.value = this.value+amount;
                 this.board.itemValuesChangedTriggers.forEach(func => func(this));
@@ -2077,6 +2085,7 @@ export class Item {
                 "buy another item",
                 "upgrade a friend",
                 "sell a medium or large item",
+                "start a fight",
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;
@@ -2748,7 +2757,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const f = this.getTriggerFunctionFromText(match[2]);
-            const f2 = (item)=>{ if(this.id==item.id) f(); };
+            const f2 = (item)=>{ if(this.id==item.id) f(this); };
             switch(match[1].toLowerCase()) {
                 case "haste":
                     this.board.hasteTriggers.set(this.id,f2);
@@ -2926,16 +2935,7 @@ export class Item {
 
         }
 
-        //charge this 1 second(s) OR charge this ( 1 » 2 » 3 ) second(s)
-        regex = /^\s*charge this (?:\(([^)]+)\)|(\d+)) second\(?s?\)?/i;
-        match = text.match(regex);
-        if(match) {
-            const seconds = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            return () => {
-                this.chargeBy(seconds);
-                log(this.name + " charged for " + seconds + " second(s)");
-            }
-        }
+
         //Charge the item to the (left|right) of this ( 1 » 2 » 3 » 4 ) second(s).
         regex = /^\s*Charge the item to the (left|right) (?:of this|for)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?/i;
         match = text.match(regex);
@@ -2985,7 +2985,7 @@ export class Item {
                 if(item.tags.includes("Ammo")) {
                     item.ammoChanged((newAmmo,oldAmmo)=>{
                         if(newAmmo<=0) {
-                            f();
+                            f(item);
                         }
                     });
                 }
@@ -3493,14 +3493,26 @@ export class Item {
                 }
             }
         }
-        //Adjacent items have ( +1 » +2 » +3 » +4 ) Max Ammo
-        regex = /^\s*Adjacent items have (?:\(\s*\+?(\d+)(?:\s*»\s*\+?(\d+))*\s*\)|\+?(\d+)) Max Ammo/i;
+
+        //Your items have (+1/+2/+3) Max Ammo. from Gunner
+        regex = /^\s*Your items have (\([^)]+\)|\d+) Max Ammo\.?/i;
         match = text.match(regex);
         if(match) {
-            const maxAmmo = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            const maxAmmo = getRarityValue(match[1], this.rarity);
+            this.board.items.forEach(item => {
+                item.gain(maxAmmo,'maxAmmo');
+            });
+            return () => {};
+        }
+        
+
+        //Adjacent items have ( +1 » +2 » +3 » +4 ) Max Ammo
+        regex = /^\s*Adjacent items have (\([^)]+\)|\d+) Max Ammo\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const maxAmmo = getRarityValue(match[1], this.rarity);
             this.getAdjacentItems().forEach(item => {
-                item.ammo +=maxAmmo;
-                item.maxAmmo += maxAmmo;
+                item.gain(maxAmmo,'maxAmmo');
             });
             return () => {};
         }
@@ -3641,15 +3653,17 @@ export class Item {
             return () => {};
         }
 
-        //charge it ( 1 » 2 ) second(s).
-        regex = /^\s*charge it (\([^)]+\)|\d+) second\(s\)\.?/i;
+        //charge it ( 1 » 2 ) second(s). Belleista, Solar Farm, etc
+        regex = /^\s*charge (it|this)(?: for)? (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            const chargeDuration = getRarityValue(match[1], this.rarity);
+            const it = match[1]=='it';
+            const chargeDuration = getRarityValue(match[2], this.rarity);
             return (item) => {
-                item.chargeBy(chargeDuration);
+                (it?item:this).chargeBy(chargeDuration);
             };
         }
+
         //Non-tech item cooldowns are increased by ( 1 » 2 ) second(s). from Chronobarrier
         regex = /^\s*Non-tech item cooldowns are increased by (\([^)]+\)|\d+) second\(s\)\.?/i;
         match = text.match(regex);
@@ -4223,23 +4237,6 @@ export class Item {
                 this.gain(300,'critMultiplier');
                 return () => {}
         }
-        //Your Weapons have (  +5%  » +10%  » +15%  » +20%   ) Crit chance. 
-        /*Your Shield items have +1 Shield 
-        regex = /^Your ([^\s]+)(?:s)? (?:items)?\s*have (?:\(([^)]+)\)|(\+?\d+%?)) ([^\s^\.]+)(?: chance)?\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            const tagToMatch = Item.getTagFromText(match[1]);
-            const haveAmount = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
-            const whatToGain = match[4].toLowerCase();
-            this.board.items.forEach(item => {
-                if(tagToMatch=='Item' || item.tags.includes(tagToMatch)) {
-                    item.gain(haveAmount,whatToGain);
-                }
-            });
-            return ()=>{};
-        }*/
-        
-
 
         //Your Shield items have + Shield equal to (  2  » 3  » 4   ) times your level.
         regex = /^Your Shield items have \+ Shield equal to (?:\(([^)]+)\)|(\d+)) times your level.*$/i;
@@ -4259,7 +4256,7 @@ export class Item {
         //Your Shield items have +1 Shield 
         //your items have ( +1% » +2% » +3% » +4% ) crit chance
         //your items have ( +1% » +2% » +3% » +4% ) crit chance for each weapon you have
-        regex = /^your ([^\s]+)(?:s)? (?:items)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:for each ([^\s]+|unique type) you have)?./i;
+        regex = /^your ([^\s]+)(?:s)? (?:items)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.$/i;
         match = text.match(regex);
 
         if(match) {
@@ -4626,17 +4623,7 @@ export class Item {
             this.lifesteal = true;
             return ()=>{};
         }
-
-        //charge this for 2 seconds. From Solar Farm
-        regex = /^charge this for (\([^)]+\)|\d+) seconds\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            const chargeAmount = getRarityValue(match[1], this.rarity);
-            return (i)=>{
-                this.chargeBy(chargeAmount,i);    
-            }
-        }
-
+       
         //Your Weapons have + Damage equal to (  1x  » 2x  » 3x   ) your income.
         regex = /^Your ([^\s]+)(?: items)? have \+ ([^\s]+) equal to (?:\(([^)]+)\)|(\d+)x) your income\.?$/i;
         match = text.match(regex);

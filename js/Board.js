@@ -548,6 +548,13 @@ class Board {
         } while(shiftAmount>0);
     }
 
+    giveAll(tag,value,stat) {
+        this.items.forEach(item => {
+            if(item.tags.includes(tag)) {
+                item.gain(value,stat);
+            }
+        });
+    }
 
 
     shiftItemsToTheRight(item,shiftAmount,ignoreItem) {
