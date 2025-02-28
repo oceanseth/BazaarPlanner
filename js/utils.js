@@ -94,7 +94,16 @@ export function updateUrlState() {
         const aBoardState ={
             name: '_b_'+board.boardId,
             health: board.player.maxHealth,
-            skills: board.skills.map(skill => ({name: skill.name, tier: Item.rarityLevels.indexOf(skill.rarity)}))
+            skills: board.skills.map(skill => {
+                const skillData = {name: skill.name};
+                if(skills[skill.name].tier != skill.tier) {
+                    skillData.tier = skill.tier;
+                }
+                if(skills[skill.name].text.join('\n') != skill.text.join('\n')) {
+                    skillData.text = skill.text;
+                }
+                return skillData;
+            })
         };
         if(aBoardState.skills.length == 0) {
             delete aBoardState.skills;
@@ -151,7 +160,7 @@ export function loadFromUrl(hash) {
                 board.player.health = item.health;
                 if(item.skills) {
                     item.skills.forEach(skill => {
-                        board.addSkill(skill.name,{rarity:Item.rarityLevels[parseInt(skill.tier)]});
+                        board.addSkill(skill.name,skill);
                     });
                 }
 

@@ -3,7 +3,7 @@ export const skills = {
     "text": [
       "You have (2/4/6) Regeneration for each Ammo item you have."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "AmmoReference",
       "Regen",
@@ -15,7 +15,7 @@ export const skills = {
     "text": [
       "When you Level Up, upgrade a (Bronze-tier/Silver-tier) item."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Stelle",
       "Dooley"
@@ -26,7 +26,7 @@ export const skills = {
     "text": [
       "When you use a Weapon, it gains (+2%/+4%/+6%/+8%) crit Chance for the fight."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Weapon",
       "Crit",
@@ -38,12 +38,12 @@ export const skills = {
     "text": [
       "The first (5/10) times you Crit each fight, Charge 1 item 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Mak",
+      "Vanessa",
       "Charge",
-      "CritReference",
-      "Vanessa"
+      "Mak",
+      "CritReference"
     ],
     "icon": "images/skills/Alacrity.avif"
   },
@@ -51,10 +51,10 @@ export const skills = {
     "text": [
       "While you have more than half Health, your weapons have (+25/+50) damage."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "HealthReference",
       "DamageReference",
+      "HealthReference",
       "Common"
     ],
     "icon": "images/skills/AllTalk.avif"
@@ -63,7 +63,7 @@ export const skills = {
     "text": [
       "At the start of each fight, deal damage equal to (15%/30%) of the enemy's Max Health."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Damage",
       "Common"
@@ -74,7 +74,7 @@ export const skills = {
     "text": [
       "Your leftmost Ammo item has (+1/+2/+3/+4) Max Ammo."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Ammo",
       "Common"
@@ -85,11 +85,11 @@ export const skills = {
     "text": [
       "When you use a non-weapon item, Burn (1/2/3) and Poison (1/2/3)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Burn",
-      "Poison",
       "NonWeapon",
+      "Poison",
       "Common"
     ],
     "icon": "images/skills/AnythingtoWin.avif"
@@ -98,12 +98,12 @@ export const skills = {
     "text": [
       "When you win a fight against a player, gain (2/3/4/5) gold."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "Gold",
+      "Vanessa",
       "Stelle",
-      "Pygmalien",
-      "Vanessa"
+      "Gold",
+      "Pygmalien"
     ],
     "icon": "images/skills/Arbitrage.avif"
   },
@@ -111,12 +111,12 @@ export const skills = {
     "text": [
       "When you buy a Weapon, permanently gain (20/30/40/50) Max Health."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
+      "Vanessa",
       "Health",
       "Weapon",
-      "Pygmalien",
-      "Vanessa"
+      "Pygmalien"
     ],
     "icon": "images/skills/ArmsDealer.avif"
   },
@@ -124,7 +124,7 @@ export const skills = {
     "text": [
       "Your items have (+2%/+3%) Crit Chance for each weapon you have."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Weapon",
       "Crit",
@@ -136,15 +136,15 @@ export const skills = {
     "text": [
       "If you have 5 or fewer items, your items have (+5%/+10%/+20%) Crit Chance."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Crit",
       "Stelle",
       "Dooley",
       "Mak",
-      "Pygmalien"
+      "Crit",
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/ArtillerySpotter.avif"
   },
@@ -152,7 +152,7 @@ export const skills = {
     "text": [
       "When any non-weapon item is used, slow it for (2/4) second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Slow",
       "NonWeapon",
@@ -162,9 +162,10 @@ export const skills = {
   },
   "Augmented Defenses": {
     "text": [
-      "Your Shield items have +1 Shield. When you sell a small item, increase this bonus by (+1/+2/+3/+4) Shield."
+      "Your Shield items have +1 Shield.",
+      "When you sell a small item, increase this bonus by (+1/+2/+3/+4) Shield."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "ShieldReference",
       "Common"
@@ -173,9 +174,10 @@ export const skills = {
   },
   "Augmented Weaponry": {
     "text": [
-      "Your weapons have +1 Damage. When you sell a small item, increase this bonus by (+1/+2/+3/+4) Damage."
+      "Your weapons have +1 Damage.",
+      "When you sell a small item, increase this bonus by (+1/+2/+3/+4) Damage."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Weapon",
       "DamageReference",
@@ -187,7 +189,7 @@ export const skills = {
     "text": [
       "When you visit a Merchant, permanently gain (25/50/75) Max Health."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Health",
       "Mak",
@@ -199,12 +201,12 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, Shield equal to (20%/30%) of your Max Health."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "HealthReference",
-      "Shield",
       "Stelle",
+      "Shield",
       "Dooley",
+      "HealthReference",
       "Pygmalien"
     ],
     "icon": "images/skills/BackupDefenses.avif"
@@ -213,13 +215,13 @@ export const skills = {
     "text": [
       "Your Weapons have (+2/+4/+6) damage and Shield items have (+2/+4/+6) shield for each friend you have."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "ShieldReference",
       "Dooley",
-      "DamageReference",
-      "Friend"
+      "Friend",
+      "ShieldReference",
+      "DamageReference"
     ],
     "icon": "images/skills/BalancedFriendship.avif"
   },
@@ -227,11 +229,11 @@ export const skills = {
     "text": [
       "Reduce the cooldown of your aquatic items by (10%/20%)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Aquatic",
+      "Vanessa",
       "Cooldown",
-      "Vanessa"
+      "Aquatic"
     ],
     "icon": "images/skills/BarnacleCrusted.avif"
   },
@@ -239,12 +241,12 @@ export const skills = {
     "text": [
       "When you use a Friend, your weapons gain (3/6) damage for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Dooley",
-      "DamageReference",
       "Friend",
-      "Weapon"
+      "Dooley",
+      "Weapon",
+      "DamageReference"
     ],
     "icon": "images/skills/BeautifulFriendship.avif"
   },
@@ -252,11 +254,11 @@ export const skills = {
     "text": [
       "While your enemy has more health than you, your Weapons have their cooldowns reduced by (5%/10%/20%)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Weapon",
+      "Vanessa",
       "Cooldown",
-      "Vanessa"
+      "Weapon"
     ],
     "icon": "images/skills/Berserker.avif"
   },
@@ -264,7 +266,7 @@ export const skills = {
     "text": [
       "Your Weapons have Lifesteal."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Weapon",
       "Lifesteal",
@@ -276,29 +278,29 @@ export const skills = {
     "text": [
       "Double the damage of your Large weapons."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Vanessa",
-      "Stelle",
       "Weapon",
-      "DamageReference",
-      "Pygmalien"
+      "Stelle",
+      "Pygmalien",
+      "DamageReference"
     ],
     "icon": "images/skills/BigGuns.avif"
   },
   "Big Numbers": {
     "text": [
-      "Your large items have (+25%/+50%) crit chance"
+      "Your large items have (+25%/+50%) crit chance."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Crit",
       "Stelle",
       "Dooley",
       "Mak",
-      "Pygmalien"
+      "Crit",
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/BigNumbers.avif"
   },
@@ -306,7 +308,7 @@ export const skills = {
     "text": [
       "At the start of each fight, Freeze all non-weapon items for (2/3) second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Freeze",
       "NonWeapon",
@@ -318,10 +320,10 @@ export const skills = {
     "text": [
       "The first time your enemy falls below half health each fight, Charge your items (2/3/4) second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Jules",
-      "Vanessa"
+      "Vanessa",
+      "Jules"
     ],
     "icon": "images/skills/Bloodhound.avif"
   },
@@ -329,12 +331,12 @@ export const skills = {
     "text": [
       "Your leftmost and rightmost Weapons have + Damage equal to (1x/2x) their value."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "EconomyReference",
       "Weapon",
-      "Pygmalien",
-      "DamageReference"
+      "EconomyReference",
+      "DamageReference",
+      "Pygmalien"
     ],
     "icon": "images/skills/BoarMarket.avif"
   },
@@ -342,13 +344,13 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, Haste (2/4/6) items 2 second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Mak",
       "Haste",
-      "Pygmalien"
+      "Mak",
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/BoldUnderPressure.avif"
   },
@@ -356,7 +358,7 @@ export const skills = {
     "text": [
       "Enemy cooldowns are increased by 1 second(s)."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Common"
     ],
@@ -366,10 +368,10 @@ export const skills = {
     "text": [
       "You have (+100/+200/+300) Max Health for each Weapon you have."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Health",
       "Weapon",
+      "Health",
       "Pygmalien"
     ],
     "icon": "images/skills/Brawler.avif"
@@ -378,30 +380,29 @@ export const skills = {
     "text": [
       "If you have exactly one friend, reduce its and the Core's cooldown by (5%/10%/15%)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Core",
-      "Cooldown",
       "Dooley",
+      "Core",
+      "Friend",
       "Tech",
-      "Friend"
+      "Cooldown"
     ],
     "icon": "images/skills/BuddySystem.avif"
   },
   "Building Crescendo": {
     "text": [
-      "When you use an item, your items gain (3%/6%) crit chance for the fight.",
-      "Your items have 100% less crit chance."
+      "When you use an item, your items gain (3%/6%) crit chance for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Crit",
       "Stelle",
       "Dooley",
       "Mak",
-      "Pygmalien"
+      "Crit",
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/BuildingCrescendo.avif"
   },
@@ -409,11 +410,11 @@ export const skills = {
     "text": [
       "The first (4/8) times you use an Ammo item each fight, Slow 1 item for 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
+      "Vanessa",
       "Slow",
-      "AmmoReference",
-      "Vanessa"
+      "AmmoReference"
     ],
     "icon": "images/skills/BulletTime.avif"
   },
@@ -421,12 +422,12 @@ export const skills = {
     "text": [
       "The first (5/10) times you Burn each fight, Charge 1 Shield item 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "ShieldReference",
-      "Dooley",
       "Charge",
-      "BurnReference"
+      "Dooley",
+      "BurnReference",
+      "ShieldReference"
     ],
     "icon": "images/skills/BurnContainment.avif"
   },
@@ -434,7 +435,7 @@ export const skills = {
     "text": [
       "When you Burn, your Weapons gain (+2/+4/+6/+8) damage for the fight."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Weapon",
       "BurnReference",
@@ -447,12 +448,12 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, Shield equal to (2/3/4) times the Burn on your opponent."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Dooley",
-      "BurnReference",
       "Shield",
-      "Mak"
+      "Dooley",
+      "Mak",
+      "BurnReference"
     ],
     "icon": "images/skills/BurningShield.avif"
   },
@@ -460,7 +461,7 @@ export const skills = {
     "text": [
       "The first time your enemy falls below half health each fight, Burn (10/15/20/25)."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Burn",
       "Common"
@@ -471,13 +472,13 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, Haste (2/3/4) items for 3 second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Jules",
+      "Haste",
       "Stelle",
       "Dooley",
-      "Haste"
+      "Jules"
     ],
     "icon": "images/skills/CaptainsCharge.avif"
   },
@@ -485,27 +486,26 @@ export const skills = {
     "text": [
       "Your weapons have + damage equal to your gold."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
-      "Gold",
       "Weapon",
-      "Pygmalien",
-      "DamageReference"
+      "Gold",
+      "DamageReference",
+      "Pygmalien"
     ],
     "icon": "images/skills/CashDeposits.avif"
   },
   "Chemical Fire": {
     "text": [
-      "Your Burn items have (+2/+4/+6) Burn.",
-      "Your Poison items have (+2/+4/+6) Poison."
+      "Your Burn items have (+2/+4/+6) Burn."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "PoisonReference",
       "Dooley",
-      "BurnReference",
-      "Mak"
+      "Mak",
+      "BurnReference"
     ],
     "icon": "images/skills/ChemicalFire.avif"
   },
@@ -513,7 +513,7 @@ export const skills = {
     "text": [
       "The first time you Freeze each fight, Slow all your opponent's items for (3/5/7) second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Slow",
       "FreezeReference",
@@ -525,7 +525,7 @@ export const skills = {
     "text": [
       "When you sell a medium or large item, get (1/2) Chocolate Bar(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Health",
       "Pygmalien"
@@ -536,12 +536,12 @@ export const skills = {
     "text": [
       "Your leftmost Weapon has lifesteal."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
-      "Weapon",
-      "Mak",
       "Vanessa",
-      "Lifesteal"
+      "Mak",
+      "Lifesteal",
+      "Weapon"
     ],
     "icon": "images/skills/CircleofLife.avif"
   },
@@ -549,7 +549,7 @@ export const skills = {
     "text": [
       "Your leftmost item has (+15/+30/+50) value during combat."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Value",
       "Common"
@@ -560,11 +560,11 @@ export const skills = {
     "text": [
       "When you Heal, an item gains (3%/5%) Crit Chance for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Crit",
-      "HealReference",
       "Mak",
+      "HealReference",
       "Pygmalien"
     ],
     "icon": "images/skills/CombatMedic.avif"
@@ -573,13 +573,13 @@ export const skills = {
     "text": [
       "If you have a vehicle, reduce your non-vehicle items' cooldowns by (10%/15%/20%)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Cooldown",
-      "Vehicle",
       "Stelle",
-      "Dooley"
+      "Dooley",
+      "Vehicle",
+      "Cooldown"
     ],
     "icon": "images/skills/CommandShip.avif"
   },
@@ -587,12 +587,12 @@ export const skills = {
     "text": [
       "When you use a Property, deal damage equal to (1x/2x) your gold."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Damage",
+      "Property",
       "EconomyReference",
-      "Pygmalien",
-      "Property"
+      "Pygmalien"
     ],
     "icon": "images/skills/CommercialZoning.avif"
   },
@@ -600,14 +600,14 @@ export const skills = {
     "text": [
       "When you use an item with Burn, that item gains (1/2) Burn for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "Jules",
       "Stelle",
       "Dooley",
       "Mak",
-      "BurnReference"
+      "BurnReference",
+      "Jules"
     ],
     "icon": "images/skills/Conflagration.avif"
   },
@@ -615,13 +615,13 @@ export const skills = {
     "text": [
       "The first (4/8) times you use your rightmost item each fight, Freeze 1 item for 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Freeze",
-      "Jules",
       "Dooley",
       "Mak",
-      "Pygmalien"
+      "Pygmalien",
+      "Jules",
+      "Freeze"
     ],
     "icon": "images/skills/CoolantLeak.avif"
   },
@@ -629,7 +629,7 @@ export const skills = {
     "text": [
       "When you Poison, enemy Weapons lose (2/4) damage."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "PoisonReference"
@@ -640,10 +640,10 @@ export const skills = {
     "text": [
       "When you Crit, Haste 1 item for (1/2/3) second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Haste",
       "CritReference",
+      "Haste",
       "Common"
     ],
     "icon": "images/skills/CosmicWind.avif"
@@ -652,7 +652,7 @@ export const skills = {
     "text": [
       "The first 5 times your enemy uses a weapon, Charge (1/2/3) item(s) 1 second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Weapon",
       "Charge",
@@ -664,7 +664,7 @@ export const skills = {
     "text": [
       "The first (5/10) times you use The Core each fight, Slow 1 item for 2 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Slow",
       "Dooley",
@@ -676,12 +676,12 @@ export const skills = {
     "text": [
       "The first (5/10) times you use an Aquatic item each fight, Haste 1 weapon for 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
+      "Vanessa",
       "Aquatic",
-      "Haste",
       "Weapon",
-      "Vanessa"
+      "Haste"
     ],
     "icon": "images/skills/CrashingWaves.avif"
   },
@@ -689,14 +689,14 @@ export const skills = {
     "text": [
       "The first time you Slow each fight, Freeze 1 item for (3/4/5) second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Freeze",
       "Vanessa",
-      "SlowReference",
       "Stelle",
       "Dooley",
-      "Mak"
+      "Mak",
+      "SlowReference",
+      "Freeze"
     ],
     "icon": "images/skills/CreepingChill.avif"
   },
@@ -704,14 +704,14 @@ export const skills = {
     "text": [
       "The first (5/10) times you Slow each fight, Charge 1 Poison item 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "SlowReference",
       "PoisonReference",
       "Charge",
       "Dooley",
-      "Mak"
+      "Mak",
+      "SlowReference"
     ],
     "icon": "images/skills/CreepingToxins.avif"
   },
@@ -719,7 +719,7 @@ export const skills = {
     "text": [
       "Your Heal items have (+5%/+10%/+15%/+20%) Crit chance."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "HealthReference",
       "Mak",
@@ -731,12 +731,12 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, your items gain (+4%/+8%/+12%/+16%) Crit Chance for the fight."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
+      "Vanessa",
       "Stelle",
       "Dooley",
-      "Crit",
-      "Vanessa"
+      "Crit"
     ],
     "icon": "images/skills/CriticalCaptain.avif"
   },
@@ -744,11 +744,11 @@ export const skills = {
     "text": [
       "Your Properties have (+10%/+15%/+20%) Crit chance."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Crit",
-      "Pygmalien",
-      "Property"
+      "Property",
+      "Pygmalien"
     ],
     "icon": "images/skills/CriticalInvestments.avif"
   },
@@ -756,10 +756,10 @@ export const skills = {
     "text": [
       "Your Shield items have (+5%/+10%/+15%/+20%) Crit chance."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "ShieldReference",
       "Dooley",
+      "ShieldReference",
       "Pygmalien"
     ],
     "icon": "images/skills/CriticalProtector.avif"
@@ -768,10 +768,10 @@ export const skills = {
     "text": [
       "The first (3/6) times you Shield each fight, Freeze 1 item for 2 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "ShieldReference",
       "Freeze",
+      "ShieldReference",
       "Common"
     ],
     "icon": "images/skills/Cryomastery.avif"
@@ -780,16 +780,16 @@ export const skills = {
     "text": [
       "Your Weapons have (+5%/+10%/+15%/+20%) Crit chance."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Crit",
+      "Weapon",
       "Stelle",
       "Dooley",
       "Mak",
-      "Weapon",
-      "Pygmalien"
+      "Crit",
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/DeadlyEye.avif"
   },
@@ -797,12 +797,12 @@ export const skills = {
     "text": [
       "At the start of each fight, gain shield equal to (10%/20%/35%/50%) of your max health."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "HealthReference",
       "Stelle",
       "Dooley",
       "Mak",
+      "HealthReference",
       "Pygmalien"
     ],
     "icon": "images/skills/DefenseGrid.avif"
@@ -811,28 +811,27 @@ export const skills = {
     "text": [
       "When you use a weapon, your Shield items gain (3/6/9) Shield for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "ShieldReference",
+      "Weapon",
       "Stelle",
       "Dooley",
-      "Weapon",
+      "ShieldReference",
       "Pygmalien"
     ],
     "icon": "images/skills/DefensiveStance.avif"
   },
   "Depth Charge": {
     "text": [
-      "If you have exactly one weapon, it has (+5/+10) Max Ammo.",
-      "...if it is also Aquatic, it has (+25/+50) Damage."
+      "If you have exactly one weapon, it has (+5/+10) Max Ammo."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Aquatic",
-      "Ammo",
       "Vanessa",
       "Weapon",
-      "DamageReference"
+      "Ammo",
+      "DamageReference",
+      "Aquatic"
     ],
     "icon": "images/skills/DepthCharge.avif"
   },
@@ -840,7 +839,7 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, remove Freeze and Slow from your items and Cleanse half your Burn and Poison."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Dooley",
       "Pygmalien"
@@ -851,12 +850,12 @@ export const skills = {
     "text": [
       "While you have less health than your opponent, your items gain (10%/15%/20%) Crit Chance."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Jules",
+      "Vanessa",
       "Stelle",
       "Crit",
-      "Vanessa"
+      "Jules"
     ],
     "icon": "images/skills/DesperateStrike.avif"
   },
@@ -864,7 +863,7 @@ export const skills = {
     "text": [
       "Your Small Diamond-tier items have their cooldowns reduced by (30%/40%/50%/60%)."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Cooldown",
       "Common"
@@ -875,10 +874,10 @@ export const skills = {
     "text": [
       "You have (+300/+500) Max Health for each Diamond-tier item you have."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Health",
       "Stelle",
+      "Health",
       "Pygmalien"
     ],
     "icon": "images/skills/DiamondHeart.avif"
@@ -887,7 +886,7 @@ export const skills = {
     "text": [
       "When you use a large item, haste (2/3) small items for (2/3) second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Haste",
       "Common"
@@ -898,13 +897,13 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, double the damage of your leftmost Weapon for the fight."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Vanessa",
       "Weapon",
       "Dooley",
-      "DamageReference",
-      "Pygmalien"
+      "Pygmalien",
+      "DamageReference"
     ],
     "icon": "images/skills/DoubleDown.avif"
   },
@@ -912,7 +911,7 @@ export const skills = {
     "text": [
       "When you use a Medium item, one of your Burn items gains +15 burn for the fight."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Burn",
       "Common"
@@ -923,7 +922,7 @@ export const skills = {
     "text": [
       "If you have exactly 2 Weapons in play, your items have +50% Crit Chance."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Crit",
       "Common"
@@ -934,11 +933,11 @@ export const skills = {
     "text": [
       "The first (4/8) times you Shield each fight, Charge 1 item 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "ShieldReference",
-      "Dooley",
       "Charge",
+      "Dooley",
+      "ShieldReference",
       "Pygmalien"
     ],
     "icon": "images/skills/ElectrifiedHull.avif"
@@ -947,12 +946,12 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, Burn (20/30/40)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Jules",
       "Stelle",
       "Dooley",
-      "Burn"
+      "Burn",
+      "Jules"
     ],
     "icon": "images/skills/EmergencyBurn.avif"
   },
@@ -960,10 +959,10 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, gain (20/30/40) Regeneration for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Mak",
-      "Regen"
+      "Regen",
+      "Mak"
     ],
     "icon": "images/skills/EmergencyDraught.avif"
   },
@@ -971,11 +970,11 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, use your highest Shield item."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Stelle",
-      "Dooley",
       "Shield",
+      "Dooley",
       "Pygmalien"
     ],
     "icon": "images/skills/EmergencyShield.avif"
@@ -984,10 +983,10 @@ export const skills = {
     "text": [
       "When you use a weapon, your Heal items gain (+10/+20/+30) Heal for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "HealReference",
       "Mak",
+      "HealReference",
       "Pygmalien"
     ],
     "icon": "images/skills/Endurance.avif"
@@ -996,7 +995,7 @@ export const skills = {
     "text": [
       "When you Heal, charge 1 Poison item 1 second(s)."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "HealReference",
       "Poison",
@@ -1006,14 +1005,12 @@ export const skills = {
   },
   "Expert Pilot": {
     "text": [
-      "Cooldown 10 seconds",
-      "Your Shield Vehicles gain (30%/60%) Shield.",
-      "Your Weapon Vehicles gain (30%/60%) Damage."
+      "Cooldown 10 seconds."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Vehicle",
-      "Stelle"
+      "Stelle",
+      "Vehicle"
     ],
     "icon": "images/skills/ExpertPilot.avif"
   },
@@ -1021,13 +1018,13 @@ export const skills = {
     "text": [
       "When you Poison, your items gain (+1%/+2%/+3%) Crit Chance for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Poison",
       "Dooley",
       "Mak",
-      "Crit"
+      "Crit",
+      "Poison"
     ],
     "icon": "images/skills/ExposingToxins.avif"
   },
@@ -1035,7 +1032,7 @@ export const skills = {
     "text": [
       "When you heal, your Shield items gain (1/2/3/4) shield for the fight."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "ShieldReference",
       "HealReference",
@@ -1047,14 +1044,14 @@ export const skills = {
     "text": [
       "Your Burn items have (+2/+4/+6/+8) Burn."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
       "Stelle",
       "Dooley",
       "Mak",
-      "BurnReference"
+      "BurnReference",
+      "Jules"
     ],
     "icon": "images/skills/Fiery.avif"
   },
@@ -1062,7 +1059,7 @@ export const skills = {
     "text": [
       "The first time you would die each fight, Heal to full."
     ],
-    "tier": "Legendary",
+    "tier": 4,
     "tags": [
       "Common"
     ],
@@ -1072,12 +1069,12 @@ export const skills = {
     "text": [
       "Your rightmost Poison item has (+3/+6/+9/+12) Poison."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "Dooley",
-      "PoisonReference",
       "Vanessa",
-      "Mak"
+      "Dooley",
+      "Mak",
+      "PoisonReference"
     ],
     "icon": "images/skills/FinalDose.avif"
   },
@@ -1085,14 +1082,14 @@ export const skills = {
     "text": [
       "Your rightmost Burn item has (+3/+6/+9/+12) Burn."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
       "Stelle",
       "Dooley",
       "Mak",
-      "BurnReference"
+      "BurnReference",
+      "Jules"
     ],
     "icon": "images/skills/FinalFlame.avif"
   },
@@ -1100,12 +1097,12 @@ export const skills = {
     "text": [
       "While your enemy has more health than you, your Shield items have their cooldowns reduced by (5%/10%/20%)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "ShieldReference",
-      "Cooldown",
       "Stelle",
       "Dooley",
+      "ShieldReference",
+      "Cooldown",
       "Pygmalien"
     ],
     "icon": "images/skills/FinesseShield.avif"
@@ -1114,10 +1111,10 @@ export const skills = {
     "text": [
       "When you use the Core, adjacent weapons gain (10/20/30) damage for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Dooley",
       "DamageReference",
+      "Dooley",
       "Core"
     ],
     "icon": "images/skills/Firepower.avif"
@@ -1126,7 +1123,7 @@ export const skills = {
     "text": [
       "At the start of each fight, burn (17/25/35)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Burn",
       "Common"
@@ -1137,14 +1134,14 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, Burn (10/15/20)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Burn",
       "Vanessa",
-      "Jules",
       "Stelle",
       "Dooley",
-      "Mak"
+      "Mak",
+      "Burn",
+      "Jules"
     ],
     "icon": "images/skills/FirstFlames.avif"
   },
@@ -1152,28 +1149,27 @@ export const skills = {
     "text": [
       "Your leftmost Heal item has (+20/+35/+50/+65) Heal."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "HealReference",
       "Mak",
+      "HealReference",
       "Pygmalien"
     ],
     "icon": "images/skills/FirstResponder.avif"
   },
   "First Strike": {
     "text": [
-      "Your items have (+30%/+50%) Crit Chance.",
-      "When you use an item, all your items lose 10% crit chance for the fight."
+      "Your items have (+30%/+50%) Crit Chance."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Crit",
       "Stelle",
       "Dooley",
       "Mak",
-      "Pygmalien"
+      "Crit",
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/FirstStrike.avif"
   },
@@ -1181,7 +1177,7 @@ export const skills = {
     "text": [
       "Your Burn items have (+2%/+4%/+6%/+8%) Crit Chance."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "BurnReference",
       "Common"
@@ -1192,10 +1188,10 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, Adjacent items gain (+15/+20/+25) Heal for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "HealReference",
       "Mak",
+      "HealReference",
       "Pygmalien"
     ],
     "icon": "images/skills/FlankingAid.avif"
@@ -1204,15 +1200,15 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, Adjacent items gain (15%/20%/25%) Crit Chance for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Crit",
       "Stelle",
       "Dooley",
       "Mak",
-      "Pygmalien"
+      "Crit",
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/FlankingCriticals.avif"
   },
@@ -1220,12 +1216,12 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, Adjacent items gain (7/10/13) Burn for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Jules",
+      "Vanessa",
       "Stelle",
       "BurnReference",
-      "Vanessa"
+      "Jules"
     ],
     "icon": "images/skills/FlankingFire.avif"
   },
@@ -1233,11 +1229,11 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, adjacent Shield items gain (15/30/50) Shield for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "ShieldReference",
       "Stelle",
       "Dooley",
+      "ShieldReference",
       "Pygmalien"
     ],
     "icon": "images/skills/FlankingShield.avif"
@@ -1246,16 +1242,16 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, adjacent weapons gain (15/30/50) Damage for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Jules",
+      "Weapon",
       "Stelle",
       "Dooley",
       "Mak",
-      "Weapon",
-      "DamageReference",
-      "Pygmalien"
+      "Pygmalien",
+      "Jules",
+      "DamageReference"
     ],
     "icon": "images/skills/FlankingShots.avif"
   },
@@ -1263,12 +1259,12 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, adjacent Poison items gain (4/6/8) Poison for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Dooley",
-      "PoisonReference",
       "Vanessa",
-      "Mak"
+      "Dooley",
+      "Mak",
+      "PoisonReference"
     ],
     "icon": "images/skills/FlankingToxins.avif"
   },
@@ -1276,13 +1272,13 @@ export const skills = {
     "text": [
       "When you use a Tool, items adjacent to it gain (3%/6%/9%) Crit chance."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Jules",
       "Stelle",
       "Dooley",
-      "Tool"
+      "Tool",
+      "Jules"
     ],
     "icon": "images/skills/FlashyMechanic.avif"
   },
@@ -1290,12 +1286,12 @@ export const skills = {
     "text": [
       "When you use a Vehicle, your items gain (10%/20%/30%) Crit chance."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Vehicle",
+      "Vanessa",
       "Stelle",
       "Dooley",
-      "Vanessa"
+      "Vehicle"
     ],
     "icon": "images/skills/FlashyPilot.avif"
   },
@@ -1303,11 +1299,11 @@ export const skills = {
     "text": [
       "When you Crit with an item, Reload another item 1 ammo."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
+      "Vanessa",
       "Ammo",
-      "CritReference",
-      "Vanessa"
+      "CritReference"
     ],
     "icon": "images/skills/FlashyReload.avif"
   },
@@ -1315,11 +1311,11 @@ export const skills = {
     "text": [
       "The first (4/8) times you use a Weapon each fight, charge 1 item 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Weapon",
+      "Vanessa",
       "Charge",
-      "Vanessa"
+      "Weapon"
     ],
     "icon": "images/skills/FlurryofBlows.avif"
   },
@@ -1327,7 +1323,7 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, double all your items' Crit Chance for the fight."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Crit",
       "Dooley",
@@ -1339,10 +1335,10 @@ export const skills = {
     "text": [
       "Your rightmost Heal item has (+20/+35/+50/+65) Heal."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "HealReference",
       "Mak",
+      "HealReference",
       "Pygmalien"
     ],
     "icon": "images/skills/FollowUpCare.avif"
@@ -1351,7 +1347,7 @@ export const skills = {
     "text": [
       "When any player uses an item, all items gain (2%/4%) Crit Chance for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Crit",
       "Common"
@@ -1362,14 +1358,14 @@ export const skills = {
     "text": [
       "Your leftmost Shield item has (+20/+30/+40/+50) Shield."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
-      "ShieldReference",
       "Stelle",
       "Dooley",
-      "Pygmalien"
+      "Pygmalien",
+      "ShieldReference",
+      "Jules"
     ],
     "icon": "images/skills/FrontalShielding.avif"
   },
@@ -1377,15 +1373,15 @@ export const skills = {
     "text": [
       "The first time you Burn each fight, Freeze 1 item for (3/4/5) second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Freeze",
       "Vanessa",
-      "Jules",
       "Stelle",
       "Dooley",
       "Mak",
-      "BurnReference"
+      "BurnReference",
+      "Jules",
+      "Freeze"
     ],
     "icon": "images/skills/Frostfire.avif"
   },
@@ -1393,15 +1389,15 @@ export const skills = {
     "text": [
       "When your items gain Freeze, Burn (8/12/16)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "FreezeReference",
-      "Jules",
       "Stelle",
       "Dooley",
       "Mak",
-      "Pygmalien"
+      "FreezeReference",
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/FrozenFlames.avif"
   },
@@ -1409,14 +1405,14 @@ export const skills = {
     "text": [
       "The first (4/8) times you use your Slowest weapon each fight, Freeze 1 item of equal or smaller size for 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Freeze",
-      "Jules",
-      "Dooley",
       "Weapon",
+      "Dooley",
       "Mak",
-      "Pygmalien"
+      "Pygmalien",
+      "Jules",
+      "Freeze"
     ],
     "icon": "images/skills/FrozenShot.avif"
   },
@@ -1424,11 +1420,11 @@ export const skills = {
     "text": [
       "The first (5/10) times you Freeze each fight, Haste the Core for 2 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Haste",
-      "Dooley",
       "FreezeReference",
+      "Dooley",
+      "Haste",
       "Core"
     ],
     "icon": "images/skills/FrozenSynapse.avif"
@@ -1437,12 +1433,12 @@ export const skills = {
     "text": [
       "Your item's cooldowns are reduced by (5%/10%) if you have a Vehicle, reduced by (5%/10%) if you have a Weapon, and reduced by (5%/10%) if you have a Tool."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Cooldown",
-      "Vehicle",
       "Weapon",
+      "Vehicle",
       "Tool",
+      "Cooldown",
       "Common"
     ],
     "icon": "images/skills/FullArsenal.avif"
@@ -1451,11 +1447,11 @@ export const skills = {
     "text": [
       "Both players' weapons have double damage."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Vanessa",
-      "Stelle",
       "Weapon",
+      "Stelle",
       "Dooley",
       "Mak",
       "DamageReference"
@@ -1466,13 +1462,13 @@ export const skills = {
     "text": [
       "When you use a tool, Burn (3/5)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Burn",
-      "Jules",
       "Stelle",
       "Dooley",
-      "Tool"
+      "Tool",
+      "Burn",
+      "Jules"
     ],
     "icon": "images/skills/GreaseFire.avif"
   },
@@ -1480,11 +1476,11 @@ export const skills = {
     "text": [
       "Your items have (+1/+2/+3) Max Ammo."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
+      "Vanessa",
       "Ammo",
-      "Mak",
-      "Vanessa"
+      "Mak"
     ],
     "icon": "images/skills/Gunner.avif"
   },
@@ -1492,7 +1488,7 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, Shield equal to (20%/30%/40%/50%) of your Max Health."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "HealthReference",
       "Shield",
@@ -1504,11 +1500,11 @@ export const skills = {
     "text": [
       "When your enemy uses a Weapon, your Shield items gain (5/10) Shield for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "ShieldReference",
       "Stelle",
       "Dooley",
+      "ShieldReference",
       "Pygmalien"
     ],
     "icon": "images/skills/HardenedShield.avif"
@@ -1517,14 +1513,14 @@ export const skills = {
     "text": [
       "When you Slow, gain (2/4) Regeneration for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "SlowReference",
       "Stelle",
       "Dooley",
       "Mak",
-      "Regen"
+      "Regen",
+      "SlowReference"
     ],
     "icon": "images/skills/HardlyWorkin.avif"
   },
@@ -1532,10 +1528,10 @@ export const skills = {
     "text": [
       "Your Heal items have (+10/+20/+30/+40) Heal."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "HealReference",
       "Mak",
+      "HealReference",
       "Pygmalien"
     ],
     "icon": "images/skills/HealPower.avif"
@@ -1544,7 +1540,7 @@ export const skills = {
     "text": [
       "You have (+35/+100/+200/+300) Max Health for each Non-Weapon item you have."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "NonWeapon",
       "Pygmalien"
@@ -1555,12 +1551,12 @@ export const skills = {
     "text": [
       "You have (1/2/3) Regeneration for each non-weapon item you have."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
+      "Regen",
       "Mak",
       "NonWeapon",
-      "Pygmalien",
-      "Regen"
+      "Pygmalien"
     ],
     "icon": "images/skills/HealthyLifestyle.avif"
   },
@@ -1568,7 +1564,7 @@ export const skills = {
     "text": [
       "When you gain gold, permanently gain Max Health equal to (1x/2x) the amount of gold gained."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Health",
       "EconomyReference",
@@ -1580,7 +1576,7 @@ export const skills = {
     "text": [
       "When you or your enemy Burns, gain (2/4/6/8) Regeneration for the fight."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Regen",
       "BurnReference",
@@ -1592,12 +1588,12 @@ export const skills = {
     "text": [
       "When you Burn with an item, gain Shield equal to (1x/2x) that item's Burn."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Stelle",
+      "Shield",
       "Dooley",
-      "BurnReference",
-      "Shield"
+      "BurnReference"
     ],
     "icon": "images/skills/HeatShield.avif"
   },
@@ -1605,12 +1601,12 @@ export const skills = {
     "text": [
       "When you use an Ammo item, Burn (2/3/4)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Burn",
+      "Vanessa",
       "Ammo",
       "Mak",
-      "Vanessa"
+      "Burn"
     ],
     "icon": "images/skills/HeatedShells.avif"
   },
@@ -1618,16 +1614,16 @@ export const skills = {
     "text": [
       "If you have 5 or fewer items in play, your Weapons have (+25/+50/+75) damage."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Jules",
       "Stelle",
+      "Weapon",
       "Dooley",
       "Mak",
-      "Weapon",
-      "DamageReference",
-      "Pygmalien"
+      "Pygmalien",
+      "DamageReference"
     ],
     "icon": "images/skills/HeavyFirepower.avif"
   },
@@ -1635,10 +1631,10 @@ export const skills = {
     "text": [
       "The first (5/10) times you use The Core each fight, Haste 1 item for 2 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Haste",
       "Dooley",
+      "Haste",
       "Core"
     ],
     "icon": "images/skills/HeavyMachinery.avif"
@@ -1647,11 +1643,11 @@ export const skills = {
     "text": [
       "Your Shield items have + Shield equal to (2/3/4) times your level."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "ShieldReference",
       "Stelle",
       "Dooley",
+      "ShieldReference",
       "Pygmalien"
     ],
     "icon": "images/skills/HeavyMettle.avif"
@@ -1660,11 +1656,11 @@ export const skills = {
     "text": [
       "Your Large Shield items have (+12/+36/+72/+120) shield."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "ShieldReference",
       "Stelle",
       "Dooley",
+      "ShieldReference",
       "Pygmalien"
     ],
     "icon": "images/skills/HeavyShielding.avif"
@@ -1673,16 +1669,16 @@ export const skills = {
     "text": [
       "Your items have (+1%/+3%/+5%) Crit Chance per Weapon you have."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Crit",
+      "Weapon",
       "Stelle",
       "Dooley",
       "Mak",
-      "Weapon",
-      "Pygmalien"
+      "Crit",
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/HonedArsenal.avif"
   },
@@ -1690,11 +1686,11 @@ export const skills = {
     "text": [
       "When you Crit with an item, it gains (+5%/+10%) Crit Chance for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
+      "Vanessa",
       "Mak",
-      "CritReference",
-      "Vanessa"
+      "CritReference"
     ],
     "icon": "images/skills/HonedStrike.avif"
   },
@@ -1702,13 +1698,13 @@ export const skills = {
     "text": [
       "When you use your leftmost item, Burn (2/3/4)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Burn",
       "Vanessa",
-      "Jules",
       "Stelle",
-      "Dooley"
+      "Dooley",
+      "Burn",
+      "Jules"
     ],
     "icon": "images/skills/HotSpot.avif"
   },
@@ -1716,10 +1712,10 @@ export const skills = {
     "text": [
       "When you buy a property, gain (1/2) Chocolate Bar(s) and (1/2) Spare Change."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Pygmalien",
-      "Property"
+      "Property",
+      "Pygmalien"
     ],
     "icon": "images/skills/HousewarmingGifts.avif"
   },
@@ -1727,7 +1723,7 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, Shield equal to (30%/50%/80%) of your Max Health."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "HealthReference",
       "Shield",
@@ -1739,7 +1735,7 @@ export const skills = {
     "text": [
       "If you have only one medium item, its cooldown is reduced by 30%."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Cooldown",
       "Common"
@@ -1750,7 +1746,7 @@ export const skills = {
     "text": [
       "When you use a weapon with Lifesteal, Freeze a smaller item for 2 second(s)."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Weapon",
       "Freeze",
@@ -1762,10 +1758,10 @@ export const skills = {
     "text": [
       "When you Freeze, Reload a Weapon 1 ammo."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
-      "Ammo",
       "Vanessa",
+      "Ammo",
       "FreezeReference"
     ],
     "icon": "images/skills/IceBullets.avif"
@@ -1774,14 +1770,14 @@ export const skills = {
     "text": [
       "Your leftmost Burn item has (+3/+6/+9/+12) Burn."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
       "Stelle",
       "Dooley",
       "Mak",
-      "BurnReference"
+      "BurnReference",
+      "Jules"
     ],
     "icon": "images/skills/ImmolatingSpark.avif"
   },
@@ -1789,12 +1785,12 @@ export const skills = {
     "text": [
       "Your Poison items have (+2/+4/+6/+8) Poison."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "Dooley",
-      "PoisonReference",
       "Vanessa",
-      "Mak"
+      "Dooley",
+      "Mak",
+      "PoisonReference"
     ],
     "icon": "images/skills/ImprovedToxins.avif"
   },
@@ -1802,12 +1798,12 @@ export const skills = {
     "text": [
       "When you Crit, your Burn items gain (1/2) Burn for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
+      "Vanessa",
       "Mak",
       "BurnReference",
-      "CritReference",
-      "Vanessa"
+      "CritReference"
     ],
     "icon": "images/skills/ImprovisedBurn.avif"
   },
@@ -1815,11 +1811,11 @@ export const skills = {
     "text": [
       "When you Crit, your Heal items gain (+10/+20/+30) Heal for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "HealReference",
       "Mak",
+      "HealReference",
       "CritReference",
       "Pygmalien"
     ],
@@ -1829,12 +1825,12 @@ export const skills = {
     "text": [
       "When you Crit, your Poison items gain (1/2) Poison for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
+      "Vanessa",
       "Mak",
       "PoisonReference",
-      "CritReference",
-      "Vanessa"
+      "CritReference"
     ],
     "icon": "images/skills/ImprovisedPoison.avif"
   },
@@ -1842,15 +1838,15 @@ export const skills = {
     "text": [
       "When you Crit, your Shield items gain (5/10/15) Shield for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Jules",
-      "ShieldReference",
       "Stelle",
       "Dooley",
       "CritReference",
-      "Pygmalien"
+      "Pygmalien",
+      "ShieldReference",
+      "Jules"
     ],
     "icon": "images/skills/ImprovisedProtection.avif"
   },
@@ -1858,17 +1854,17 @@ export const skills = {
     "text": [
       "When you Crit, your weapons gain (5/10/15) Damage for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Jules",
+      "Weapon",
       "Stelle",
       "Dooley",
       "Mak",
-      "Weapon",
-      "DamageReference",
       "CritReference",
-      "Pygmalien"
+      "Pygmalien",
+      "Jules",
+      "DamageReference"
     ],
     "icon": "images/skills/ImprovisedWeaponry.avif"
   },
@@ -1876,22 +1872,23 @@ export const skills = {
     "text": [
       "Reduce the cooldown of your Properties by (10%/15%)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
+      "Property",
       "Cooldown",
-      "Pygmalien",
-      "Property"
+      "Pygmalien"
     ],
     "icon": "images/skills/Industrialist.avif"
   },
   "Inexorable": {
     "text": [
-      "Your items have +2% crit chance. When you start a fight, increase this bonus by (+2%/+4%/+6%)."
+      "Your items have +2% crit chance.",
+      "When you start a fight, increase this bonus by (+2%/+4%/+6%)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Crit",
-      "Vanessa"
+      "Vanessa",
+      "Crit"
     ],
     "icon": "images/skills/Inexorable.avif"
   },
@@ -1899,13 +1896,13 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, Freeze 1 item for (3/4/5) second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Freeze",
-      "Jules",
       "Dooley",
       "Mak",
-      "Pygmalien"
+      "Pygmalien",
+      "Jules",
+      "Freeze"
     ],
     "icon": "images/skills/InitialChill.avif"
   },
@@ -1913,12 +1910,12 @@ export const skills = {
     "text": [
       "Your leftmost Poison item has (+3/+6/+9/+12) Poison."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "Dooley",
-      "PoisonReference",
       "Vanessa",
-      "Mak"
+      "Dooley",
+      "Mak",
+      "PoisonReference"
     ],
     "icon": "images/skills/InitialDose.avif"
   },
@@ -1926,7 +1923,7 @@ export const skills = {
     "text": [
       "At the start of each fight, destroy an item on each player's board for the fight."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Common"
     ],
@@ -1936,10 +1933,10 @@ export const skills = {
     "text": [
       "The first time you fall below half health in a fight, use your Friends."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
-      "Dooley",
-      "Friend"
+      "Friend",
+      "Dooley"
     ],
     "icon": "images/skills/IntrusionCountermeasures.avif"
   },
@@ -1947,11 +1944,11 @@ export const skills = {
     "text": [
       "The first (5/10) times you use a Weapon each fight, Charge 1 Heal item 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "HealReference",
       "Weapon",
       "Charge",
+      "HealReference",
       "Pygmalien"
     ],
     "icon": "images/skills/InvigoratingBlade.avif"
@@ -1960,29 +1957,30 @@ export const skills = {
     "text": [
       "The first time you Freeze each fight, Haste (1/2/3) items for 2 second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "FreezeReference",
+      "Haste",
       "Jules",
       "Stelle",
       "Dooley",
       "Mak",
-      "Haste",
+      "FreezeReference",
       "Pygmalien"
     ],
     "icon": "images/skills/InvigoratingCold.avif"
   },
   "Iron Sharpens Iron": {
     "text": [
-      "Your leftmost Weapon has +2 damage. When you buy a weapon, increase this bonus by (2/3/4)."
+      "Your leftmost Weapon has +2 damage.",
+      "When you buy a weapon, increase this bonus by (2/3/4)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Jules",
       "Weapon",
       "Mak",
+      "Jules",
       "DamageReference"
     ],
     "icon": "images/skills/IronSharpensIron.avif"
@@ -1991,7 +1989,7 @@ export const skills = {
     "text": [
       "When you use a small item, Charge a large item for 1 second(s)."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Cooldown",
       "Common"
@@ -2002,7 +2000,7 @@ export const skills = {
     "text": [
       "When you use an Ammo item, Reload the item to the left of it (1/2/3) Ammo."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Ammo",
       "Common"
@@ -2013,15 +2011,15 @@ export const skills = {
     "text": [
       "Your items have (+4%/+8%/+12%/+16%) Crit chance."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Crit",
       "Stelle",
       "Dooley",
       "Mak",
-      "Pygmalien"
+      "Crit",
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/KeenEye.avif"
   },
@@ -2029,16 +2027,16 @@ export const skills = {
     "text": [
       "When you use a weapon, reduce its cooldown by 5% for the fight."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Cooldown",
+      "Weapon",
       "Stelle",
       "Dooley",
       "Mak",
-      "Weapon",
-      "Pygmalien"
+      "Pygmalien",
+      "Cooldown",
+      "Jules"
     ],
     "icon": "images/skills/KnifeTricks.avif"
   },
@@ -2046,15 +2044,15 @@ export const skills = {
     "text": [
       "If you have 5 or fewer items, you have (+500/+1000/+2000) Max Health."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Health",
       "Stelle",
       "Dooley",
       "Mak",
-      "Pygmalien"
+      "Pygmalien",
+      "Jules",
+      "Health"
     ],
     "icon": "images/skills/LargeAppetites.avif"
   },
@@ -2062,7 +2060,7 @@ export const skills = {
     "text": [
       "Your Large Poison items have (+4/+8/+12/+16) Poison."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "PoisonReference"
@@ -2073,7 +2071,7 @@ export const skills = {
     "text": [
       "At the start of each fight, Poison (3/6/9/12)."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Poison",
       "Common"
@@ -2084,15 +2082,15 @@ export const skills = {
     "text": [
       "Your leftmost item has (+8%/+16%/+24%/+32%) Crit chance."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Crit",
       "Stelle",
       "Dooley",
       "Mak",
-      "Pygmalien"
+      "Crit",
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/LeftEye.avif"
   },
@@ -2100,16 +2098,16 @@ export const skills = {
     "text": [
       "Your leftmost Weapon deals (+20/+30/+40/+50) Damage."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Dooley",
       "Weapon",
-      "DamageReference",
-      "Pygmalien"
+      "Stelle",
+      "Dooley",
+      "Mak",
+      "Pygmalien",
+      "Jules",
+      "DamageReference"
     ],
     "icon": "images/skills/LeftHanded.avif"
   },
@@ -2117,12 +2115,12 @@ export const skills = {
     "text": [
       "The first (5/10) times you use your leftmost item each fight, Haste 1 item for 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Jules",
-      "Haste",
+      "Vanessa",
       "Dooley",
-      "Vanessa"
+      "Haste",
+      "Jules"
     ],
     "icon": "images/skills/LeftyLoosey.avif"
   },
@@ -2130,7 +2128,7 @@ export const skills = {
     "text": [
       "All items have a cooldown increase of (30%/50%)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Stelle",
       "Mak",
@@ -2142,37 +2140,39 @@ export const skills = {
     "text": [
       "The first (5/10) times you Burn each fight, Haste the Core for 2 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Haste",
       "Dooley",
       "BurnReference",
+      "Haste",
       "Core"
     ],
     "icon": "images/skills/LettingoffSteam.avif"
   },
   "Lifting": {
     "text": [
-      "Your weapons have +1 Damage. When you buy a Weapon, increase this bonus by (+1/+2/+3) Damage."
+      "Your weapons have +1 Damage.",
+      "When you buy a Weapon, increase this bonus by (+1/+2/+3) Damage."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Jules",
       "Weapon",
-      "DamageReference",
-      "Pygmalien"
+      "Pygmalien",
+      "Jules",
+      "DamageReference"
     ],
     "icon": "images/skills/Lifting.avif"
   },
   "Like Clockwork": {
     "text": [
-      "When you level up, Your Weapons gain (+5/+10/+15/+20) damage. If you have a Weapon Core, double this."
+      "When you level up, Your Weapons gain (+5/+10/+15/+20) damage.",
+      "If you have a Weapon Core, double this."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "Dooley",
       "DamageReference",
+      "Dooley",
       "Core"
     ],
     "icon": "images/skills/LikeClockwork.avif"
@@ -2181,10 +2181,10 @@ export const skills = {
     "text": [
       "The first (5/10) times use the Core each fight, Freeze 1 item of equal or smaller size for 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Dooley",
       "Freeze",
+      "Dooley",
       "Core"
     ],
     "icon": "images/skills/LiquidCooled.avif"
@@ -2193,15 +2193,15 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, your Burn items have their cooldowns reduced by 50% for the fight."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
-      "Burn",
       "Vanessa",
-      "Jules",
-      "Cooldown",
       "Stelle",
       "Dooley",
-      "Mak"
+      "Mak",
+      "Burn",
+      "Cooldown",
+      "Jules"
     ],
     "icon": "images/skills/LivingFlame.avif"
   },
@@ -2209,11 +2209,11 @@ export const skills = {
     "text": [
       "Your Weapons have (+1/+2/+3) damage for each ammo you have on your items in play."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
+      "Vanessa",
       "Ammo",
-      "DamageReference",
-      "Vanessa"
+      "DamageReference"
     ],
     "icon": "images/skills/LoadedFury.avif"
   },
@@ -2221,7 +2221,7 @@ export const skills = {
     "text": [
       "If you have 5 or fewer items, your items have their cooldowns reduced by (4%/8%/12%)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Cooldown",
       "Pygmalien"
@@ -2232,7 +2232,7 @@ export const skills = {
     "text": [
       "When you buy or upgrade this, upgrade the core."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Core"
@@ -2243,10 +2243,10 @@ export const skills = {
     "text": [
       "Your Shield items have +1 Shield for every (4/3/2) gold you have."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "EconomyReference",
       "Shield",
+      "EconomyReference",
       "Pygmalien"
     ],
     "icon": "images/skills/MakeshiftPlate.avif"
@@ -2255,7 +2255,7 @@ export const skills = {
     "text": [
       "Your items have double value during combat."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Value",
       "Common"
@@ -2266,10 +2266,10 @@ export const skills = {
     "text": [
       "Your Large Heal items have (+12/+36/+72/+120) Heal."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "HealReference",
       "Mak",
+      "HealReference",
       "Pygmalien"
     ],
     "icon": "images/skills/MedicalWard.avif"
@@ -2278,7 +2278,7 @@ export const skills = {
     "text": [
       "If you have no weapons, your items' cooldowns are reduced by (10%/20%)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Cooldown",
       "Pygmalien"
@@ -2289,15 +2289,15 @@ export const skills = {
     "text": [
       "The first (4/8) times you use a non-Weapon item each fight, Charge 1 Weapon 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Charge",
+      "Weapon",
       "Stelle",
+      "Charge",
       "Dooley",
       "Mak",
-      "Weapon"
+      "Jules"
     ],
     "icon": "images/skills/MixedMessage.avif"
   },
@@ -2305,12 +2305,12 @@ export const skills = {
     "text": [
       "You have Regeneration equal to half the Burn on your enemy."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
-      "Dooley",
       "Regen",
-      "BurnReference",
-      "Mak"
+      "Dooley",
+      "Mak",
+      "BurnReference"
     ],
     "icon": "images/skills/MothtoaFlame.avif"
   },
@@ -2318,14 +2318,14 @@ export const skills = {
     "text": [
       "The first time you freeze, burn, slow, poison, and haste each fight, charge 1 item (2/4) second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "SlowReference",
-      "FreezeReference",
       "PoisonReference",
       "HasteReference",
-      "Cooldown",
       "BurnReference",
+      "SlowReference",
+      "FreezeReference",
+      "Cooldown",
       "Common"
     ],
     "icon": "images/skills/Neophiliac.avif"
@@ -2334,13 +2334,13 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, Slow (2/3/4) item(s) for 3 second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Slow",
       "Vanessa",
       "Stelle",
       "Dooley",
-      "Mak"
+      "Mak",
+      "Slow"
     ],
     "icon": "images/skills/NetLauncher.avif"
   },
@@ -2348,16 +2348,16 @@ export const skills = {
     "text": [
       "If you have at least 7 items in play, your Weapons deal (+20/+25/+30) damage."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Jules",
       "Stelle",
+      "Weapon",
       "Dooley",
       "Mak",
-      "Weapon",
-      "DamageReference",
-      "Pygmalien"
+      "Pygmalien",
+      "DamageReference"
     ],
     "icon": "images/skills/NoisyCricket.avif"
   },
@@ -2365,11 +2365,11 @@ export const skills = {
     "text": [
       "At the start of each fight, Haste (1/2/3) Aquatic items for 2 second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
+      "Vanessa",
       "Aquatic",
-      "Haste",
-      "Vanessa"
+      "Haste"
     ],
     "icon": "images/skills/OceanicRush.avif"
   },
@@ -2377,7 +2377,7 @@ export const skills = {
     "text": [
       "If you only have one weapon, it deals triple damage and has its cooldown increased by 50%."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Weapon",
       "DamageReference",
@@ -2389,11 +2389,11 @@ export const skills = {
     "text": [
       "You have (+1/+2/+3) income for each Property you have (including Stash)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Income",
-      "Pygmalien",
-      "Property"
+      "Property",
+      "Pygmalien"
     ],
     "icon": "images/skills/OpenforBusiness.avif"
   },
@@ -2401,26 +2401,25 @@ export const skills = {
     "text": [
       "The first (5/10) times you Slow each fight, Haste 1 vehicle for 2 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "SlowReference",
-      "Vehicle",
+      "Haste",
       "Stelle",
-      "Haste"
+      "Vehicle",
+      "SlowReference"
     ],
     "icon": "images/skills/Outmaneuver.avif"
   },
   "Overclocked": {
     "text": [
-      "The Core has its cooldown reduced by (10%/15%).",
-      "While you have Burn, double this effect."
+      "The Core has its cooldown reduced by (10%/15%)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Cooldown",
       "Dooley",
       "BurnReference",
+      "Cooldown",
       "Core"
     ],
     "icon": "images/skills/Overclocked.avif"
@@ -2429,7 +2428,7 @@ export const skills = {
     "text": [
       "The first time you fall below 50% health each fight, Reload (2/4/6/8) items."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Ammo",
       "Common"
@@ -2440,13 +2439,13 @@ export const skills = {
     "text": [
       "The first time you Poison each fight, Freeze 1 item for (3/4/5) second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Freeze",
       "Vanessa",
       "PoisonReference",
       "Dooley",
-      "Mak"
+      "Mak",
+      "Freeze"
     ],
     "icon": "images/skills/ParalyticPoison.avif"
   },
@@ -2454,10 +2453,10 @@ export const skills = {
     "text": [
       "When you Slow, Haste a Weapon (1/2) second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "SlowReference",
       "Weapon",
+      "SlowReference",
       "Haste",
       "Common"
     ],
@@ -2467,11 +2466,11 @@ export const skills = {
     "text": [
       "When you use an item with Ammo, it gains (+5%/+10%) Crit Chance for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "AmmoReference",
+      "Vanessa",
       "Crit",
-      "Vanessa"
+      "AmmoReference"
     ],
     "icon": "images/skills/PartingShot.avif"
   },
@@ -2479,13 +2478,13 @@ export const skills = {
     "text": [
       "When you upgrade a Friend, your other items gain (3/6/9) bonus Damage, (3/6/9) bonus Shield and (1/2/3) bonus Burn."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Core",
       "Dooley",
-      "DamageReference",
+      "Core",
+      "Friend",
       "Tech",
-      "Friend"
+      "DamageReference"
     ],
     "icon": "images/skills/PartyLikeits011111001111.avif"
   },
@@ -2493,16 +2492,16 @@ export const skills = {
     "text": [
       "Your Non-Weapon items have (+5%/+10%/+15%/+20%) Crit chance."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Crit",
       "Stelle",
       "Dooley",
       "Mak",
+      "Crit",
+      "Pygmalien",
       "NonWeapon",
-      "Pygmalien"
+      "Jules"
     ],
     "icon": "images/skills/PeacefulEye.avif"
   },
@@ -2510,10 +2509,10 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, Freeze all enemy items for (1/2/3) second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "HealthReference",
       "Freeze",
+      "HealthReference",
       "Common"
     ],
     "icon": "images/skills/PetrifyingGaze.avif"
@@ -2522,7 +2521,7 @@ export const skills = {
     "text": [
       "At the start of each fight, gain (1/2/3/4) gold."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Gold",
       "Common"
@@ -2533,10 +2532,10 @@ export const skills = {
     "text": [
       "When you or your enemy Poisons, gain (2/4/6/8) Regeneration for the fight."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "PoisonReference",
       "Regen",
+      "PoisonReference",
       "Common"
     ],
     "icon": "images/skills/PoisonTyrant.avif"
@@ -2545,12 +2544,12 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, Poison (10/15/20)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Poison",
-      "Dooley",
       "Vanessa",
-      "Mak"
+      "Dooley",
+      "Mak",
+      "Poison"
     ],
     "icon": "images/skills/PoisonousOpener.avif"
   },
@@ -2558,10 +2557,10 @@ export const skills = {
     "text": [
       "Your weapons have + damage equal to (1x/2x) your income."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "EconomyReference",
       "Weapon",
+      "EconomyReference",
       "DamageReference",
       "Common"
     ],
@@ -2571,11 +2570,11 @@ export const skills = {
     "text": [
       "Your Aquatic items have (+8%/+10%/+12%) Crit chance."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Aquatic",
+      "Vanessa",
       "Crit",
-      "Vanessa"
+      "Aquatic"
     ],
     "icon": "images/skills/PrecisionDiver.avif"
   },
@@ -2583,11 +2582,11 @@ export const skills = {
     "text": [
       "When you use a Property, adjacent items gain (5%/10%/15%) Crit chance for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Crit",
-      "Pygmalien",
-      "Property"
+      "Property",
+      "Pygmalien"
     ],
     "icon": "images/skills/PrimeRealEstate.avif"
   },
@@ -2595,11 +2594,11 @@ export const skills = {
     "text": [
       "When you buy a Property, permanently gain (50/100/150) Max Health."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Health",
-      "Pygmalien",
-      "Property"
+      "Property",
+      "Pygmalien"
     ],
     "icon": "images/skills/PropertyMogul.avif"
   },
@@ -2607,10 +2606,10 @@ export const skills = {
     "text": [
       "Your Shield items have + Shield equal to the value of your Items."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
-      "EconomyReference",
       "Shield",
+      "EconomyReference",
       "Common"
     ],
     "icon": "images/skills/Prosperity.avif"
@@ -2619,7 +2618,7 @@ export const skills = {
     "text": [
       "When you gain Regeneration, a Burn item gains (1/2) Burn for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "RegenReference",
       "BurnReference",
@@ -2631,7 +2630,7 @@ export const skills = {
     "text": [
       "When you use a large item, Burn (10/15)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Burn",
       "Common"
@@ -2642,13 +2641,13 @@ export const skills = {
     "text": [
       "If you have exactly one weapon, it has Lifesteal and (5%/10%) Crit Chance."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "Crit",
+      "Lifesteal",
       "Weapon",
       "Mak",
-      "Lifesteal",
+      "Crit",
       "Pygmalien"
     ],
     "icon": "images/skills/QualityoverQuantity.avif"
@@ -2657,14 +2656,14 @@ export const skills = {
     "text": [
       "The first time you Haste each fight, Freeze 1 item for (3/4/5) second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Freeze",
       "Vanessa",
-      "Jules",
       "HasteReference",
       "Stelle",
-      "Dooley"
+      "Dooley",
+      "Jules",
+      "Freeze"
     ],
     "icon": "images/skills/QuickFreeze.avif"
   },
@@ -2672,14 +2671,14 @@ export const skills = {
     "text": [
       "At the start of each fight, Haste (2/3) Burn items for 2 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "Jules",
+      "Haste",
       "Dooley",
-      "BurnReference",
       "Mak",
-      "Haste"
+      "BurnReference",
+      "Jules"
     ],
     "icon": "images/skills/QuickIgnition.avif"
   },
@@ -2687,10 +2686,10 @@ export const skills = {
     "text": [
       "While your enemy has more health than you, your Heal items have their cooldowns reduced by (5%/10%/15%)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "HealReference",
       "Mak",
+      "HealReference",
       "Cooldown",
       "Pygmalien"
     ],
@@ -2700,7 +2699,7 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, destroy an item for the fight."
     ],
-    "tier": "Legendary",
+    "tier": 4,
     "tags": [
       "Common"
     ],
@@ -2710,15 +2709,15 @@ export const skills = {
     "text": [
       "Your leftmost Tool has +1 Multicast."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Vanessa",
-      "Jules",
       "Stelle",
-      "Mak",
       "Dooley",
+      "Mak",
       "Tool",
-      "Pygmalien"
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/ReTooled.avif"
   },
@@ -2726,15 +2725,15 @@ export const skills = {
     "text": [
       "When you Freeze, your items gain (+2%/+4%) Crit Chance for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "FreezeReference",
-      "Jules",
       "Stelle",
       "Dooley",
       "Mak",
-      "Pygmalien"
+      "FreezeReference",
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/ReachingtheSummit.avif"
   },
@@ -2742,14 +2741,14 @@ export const skills = {
     "text": [
       "Your rightmost Shield item has (+20/+30/+40/+50) Shield."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
-      "ShieldReference",
       "Stelle",
       "Dooley",
-      "Pygmalien"
+      "Pygmalien",
+      "ShieldReference",
+      "Jules"
     ],
     "icon": "images/skills/RearShielding.avif"
   },
@@ -2757,15 +2756,15 @@ export const skills = {
     "text": [
       "When you buy this, gain 10 gold."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
       "Stelle",
       "Dooley",
       "Mak",
       "Gold",
-      "Pygmalien"
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/RedEnvelope.avif"
   },
@@ -2773,11 +2772,11 @@ export const skills = {
     "text": [
       "The first time your enemy falls below half health each fight, your items have their cooldowns reduced by 50% for the fight."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
+      "Vanessa",
       "Stelle",
-      "Cooldown",
-      "Vanessa"
+      "Cooldown"
     ],
     "icon": "images/skills/ReelEmIn.avif"
   },
@@ -2785,12 +2784,12 @@ export const skills = {
     "text": [
       "You have (10/20/30) Regeneration."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Stelle",
-      "Mak",
       "Vanessa",
-      "Regen"
+      "Stelle",
+      "Regen",
+      "Mak"
     ],
     "icon": "images/skills/Regenerative.avif"
   },
@@ -2798,12 +2797,12 @@ export const skills = {
     "text": [
       "When you use a Property, your Weapons gain (+5/+10/+15) damage and your Shield items gain (+5/+10/+15) shield for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "ShieldReference",
       "DamageReference",
-      "Pygmalien",
-      "Property"
+      "ShieldReference",
+      "Property",
+      "Pygmalien"
     ],
     "icon": "images/skills/ReinforcedSteel.avif"
   },
@@ -2811,10 +2810,10 @@ export const skills = {
     "text": [
       "When you Slow, gain (2/4) Regeneration for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "SlowReference",
       "Weapon",
+      "SlowReference",
       "Haste",
       "Common"
     ],
@@ -2824,10 +2823,10 @@ export const skills = {
     "text": [
       "When you level up, upgrade a Property."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
-      "Pygmalien",
-      "Property"
+      "Property",
+      "Pygmalien"
     ],
     "icon": "images/skills/Renovation.avif"
   },
@@ -2835,12 +2834,12 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, Shield equal to (10%/20%/30%) of your max health."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "HealthReference",
-      "Shield",
       "Stelle",
+      "Shield",
       "Dooley",
+      "HealthReference",
       "Pygmalien"
     ],
     "icon": "images/skills/ReserveShield.avif"
@@ -2849,12 +2848,12 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, Poison (20/30/40)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Poison",
       "Stelle",
       "Dooley",
-      "Mak"
+      "Mak",
+      "Poison"
     ],
     "icon": "images/skills/RetaliatoryToxins.avif"
   },
@@ -2862,7 +2861,7 @@ export const skills = {
     "text": [
       "When you use a Tool, Reload an adjacent item."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "AmmoReference",
       "Tool",
@@ -2874,7 +2873,7 @@ export const skills = {
     "text": [
       "At the start of each fight, Haste (2/3/4/5) items for 3 second(s)."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Haste",
       "Common"
@@ -2885,15 +2884,15 @@ export const skills = {
     "text": [
       "Your rightmost item has (+8%/+16%/+24%/+32%) Crit chance."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Crit",
       "Stelle",
       "Dooley",
       "Mak",
-      "Pygmalien"
+      "Crit",
+      "Pygmalien",
+      "Jules"
     ],
     "icon": "images/skills/RightEye.avif"
   },
@@ -2901,16 +2900,16 @@ export const skills = {
     "text": [
       "Your rightmost Weapon has (+20/+30/+40/+50) Damage."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Dooley",
       "Weapon",
-      "DamageReference",
-      "Pygmalien"
+      "Stelle",
+      "Dooley",
+      "Mak",
+      "Pygmalien",
+      "Jules",
+      "DamageReference"
     ],
     "icon": "images/skills/RightHanded.avif"
   },
@@ -2918,11 +2917,11 @@ export const skills = {
     "text": [
       "The first (5/10) times you use your rightmost item each fight, slow 1 item for 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
+      "Vanessa",
       "Slow",
       "Dooley",
-      "Vanessa",
       "Mak"
     ],
     "icon": "images/skills/RightyTighty.avif"
@@ -2931,10 +2930,10 @@ export const skills = {
     "text": [
       "At the start of each fight, Haste a weapon (3/5/7/9) second(s)."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "Haste",
       "Weapon",
+      "Haste",
       "Common"
     ],
     "icon": "images/skills/Rush.avif"
@@ -2943,7 +2942,7 @@ export const skills = {
     "text": [
       "At the start of each fight, slow 1 item for (3/5/7/9) second(s)."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Slow",
       "Common"
@@ -2954,13 +2953,13 @@ export const skills = {
     "text": [
       "The first (5/10) times you use a Tool each fight, Slow 1 item for 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Slow",
       "Vanessa",
       "Stelle",
       "Dooley",
-      "Tool"
+      "Tool",
+      "Slow"
     ],
     "icon": "images/skills/Sabotage.avif"
   },
@@ -2968,14 +2967,14 @@ export const skills = {
     "text": [
       "Your Medium Burn items have (+2/+4/+6/+8) Burn."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
       "Stelle",
       "Dooley",
       "Mak",
-      "BurnReference"
+      "BurnReference",
+      "Jules"
     ],
     "icon": "images/skills/SecondDegreeBurns.avif"
   },
@@ -2983,12 +2982,12 @@ export const skills = {
     "text": [
       "The first time you use a Large item each fight, heal (20%/40%/60%) of your max health."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "HealthReference",
       "Heal",
       "Dooley",
       "Mak",
+      "HealthReference",
       "Pygmalien"
     ],
     "icon": "images/skills/SecondWind.avif"
@@ -2997,14 +2996,14 @@ export const skills = {
     "text": [
       "When you Shield, your weapons gain (3/6/9) damage for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "ShieldReference",
+      "Weapon",
       "Stelle",
       "Dooley",
-      "Weapon",
-      "DamageReference",
-      "Pygmalien"
+      "ShieldReference",
+      "Pygmalien",
+      "DamageReference"
     ],
     "icon": "images/skills/SharpCorners.avif"
   },
@@ -3012,7 +3011,7 @@ export const skills = {
     "text": [
       "When you use a Weapon, Adjacent items gain (4%/8%/12%) Crit Chance for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Weapon",
       "Crit",
@@ -3024,10 +3023,10 @@ export const skills = {
     "text": [
       "Your Ammo items have (+3%/+6%/+9%/+12%) Crit chance."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "Mak",
       "Vanessa",
+      "Mak",
       "AmmoReference"
     ],
     "icon": "images/skills/Sharpshooter.avif"
@@ -3036,17 +3035,17 @@ export const skills = {
     "text": [
       "When you freeze, your Weapons gain (+10/+15/+20) damage for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "FreezeReference",
-      "Jules",
+      "Weapon",
       "Stelle",
       "Dooley",
       "Mak",
-      "Weapon",
-      "DamageReference",
-      "Pygmalien"
+      "FreezeReference",
+      "Pygmalien",
+      "Jules",
+      "DamageReference"
     ],
     "icon": "images/skills/Shatter.avif"
   },
@@ -3054,7 +3053,7 @@ export const skills = {
     "text": [
       "The first (4/8) times your enemy uses a non-weapon item each fight, Charge 1 Weapon 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Charge",
@@ -3068,7 +3067,7 @@ export const skills = {
     "text": [
       "When you Heal, charge a Shield item 1 second(s)."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "ShieldReference",
       "HealReference",
@@ -3080,12 +3079,12 @@ export const skills = {
     "text": [
       "The first (5/10) times you Poison each fight, charge 1 Burn item 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "PoisonReference",
-      "Mak",
+      "Vanessa",
       "Charge",
-      "Vanessa"
+      "Mak",
+      "PoisonReference"
     ],
     "icon": "images/skills/SickBurn.avif"
   },
@@ -3093,14 +3092,14 @@ export const skills = {
     "text": [
       "When you Slow, your weapons gain (3/6) damage for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "SlowReference",
-      "Stelle",
       "Weapon",
+      "Stelle",
       "Dooley",
       "Mak",
+      "SlowReference",
       "DamageReference"
     ],
     "icon": "images/skills/SlowandSteady.avif"
@@ -3109,13 +3108,13 @@ export const skills = {
     "text": [
       "The first (5/10) times you Slow each fight, Charge 1 Burn item 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "SlowReference",
       "Charge",
       "Mak",
-      "BurnReference"
+      "BurnReference",
+      "SlowReference"
     ],
     "icon": "images/skills/SlowBurn.avif"
   },
@@ -3123,14 +3122,14 @@ export const skills = {
     "text": [
       "When you Slow, your items gain (+1%/+2%/+3%) Crit Chance for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "SlowReference",
       "Stelle",
       "Dooley",
       "Mak",
-      "Crit"
+      "Crit",
+      "SlowReference"
     ],
     "icon": "images/skills/SlowedTargets.avif"
   },
@@ -3138,7 +3137,7 @@ export const skills = {
     "text": [
       "When you use a small item, heal (5/10/15/20)."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Heal",
       "Common"
@@ -3149,19 +3148,20 @@ export const skills = {
     "text": [
       "When you freeze, your weapons gain (2/4/6/8) damage for the fight."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "FreezeReference",
       "DamageReference",
+      "FreezeReference",
       "Common"
     ],
     "icon": "images/skills/Snowstorm.avif"
   },
   "Sparring Partner": {
     "text": [
-      "When you would die, Cleanse all Burn and Poison, double your Max Health and Heal to full. In addition, your enemy gains 1 Gold."
+      "When you would die, Cleanse all Burn and Poison, double your Max Health and Heal to full.",
+      "In addition, your enemy gains 1 Gold."
     ],
-    "tier": "Legendary",
+    "tier": 4,
     "tags": [
       "Common"
     ],
@@ -3171,12 +3171,12 @@ export const skills = {
     "text": [
       "If you have exactly 1 weapon, your Shield items have (+10/+20/+30) shield."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "ShieldReference",
+      "Weapon",
       "Stelle",
       "Dooley",
-      "Weapon",
+      "ShieldReference",
       "Pygmalien"
     ],
     "icon": "images/skills/Specialist.avif"
@@ -3185,10 +3185,10 @@ export const skills = {
     "text": [
       "Your Medium Heal items have (+6/+18/+36/+60) Heal."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "HealReference",
       "Mak",
+      "HealReference",
       "Pygmalien"
     ],
     "icon": "images/skills/StandardizedCare.avif"
@@ -3197,11 +3197,11 @@ export const skills = {
     "text": [
       "Your Medium Shield items have (+6/+18/+36/+60) shield."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "ShieldReference",
       "Stelle",
       "Dooley",
+      "ShieldReference",
       "Pygmalien"
     ],
     "icon": "images/skills/StandardizedDefenses.avif"
@@ -3210,12 +3210,12 @@ export const skills = {
     "text": [
       "Your Medium Poison items have (+2/+4/+6/+8) Poison."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "Dooley",
-      "PoisonReference",
       "Vanessa",
-      "Mak"
+      "Dooley",
+      "Mak",
+      "PoisonReference"
     ],
     "icon": "images/skills/StandardizedToxins.avif"
   },
@@ -3223,7 +3223,7 @@ export const skills = {
     "text": [
       "When you Haste, your items gain (+1%/+2%) crit chance for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "HasteReference",
       "Stelle",
@@ -3237,11 +3237,11 @@ export const skills = {
     "text": [
       "When you use a Tool, Heal (5/10/15/20)."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Heal",
-      "Pygmalien",
-      "Tool"
+      "Tool",
+      "Pygmalien"
     ],
     "icon": "images/skills/StayingPower.avif"
   },
@@ -3249,11 +3249,11 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, slow (2/4/6) items for 2 second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
+      "Vanessa",
       "Slow",
       "Dooley",
-      "Vanessa",
       "Mak"
     ],
     "icon": "images/skills/StopThat!.avif"
@@ -3262,16 +3262,16 @@ export const skills = {
     "text": [
       "Your Weapons deal (+10/+15/+20/+25) Damage."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Dooley",
       "Weapon",
-      "DamageReference",
-      "Pygmalien"
+      "Stelle",
+      "Dooley",
+      "Mak",
+      "Pygmalien",
+      "Jules",
+      "DamageReference"
     ],
     "icon": "images/skills/Strength.avif"
   },
@@ -3279,11 +3279,11 @@ export const skills = {
     "text": [
       "Your Weapons have + Damage equal to (1x/2x/3x) your income."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
+      "Weapon",
       "Damage",
       "EconomyReference",
-      "Weapon",
       "Pygmalien"
     ],
     "icon": "images/skills/StrongArm.avif"
@@ -3292,26 +3292,25 @@ export const skills = {
     "text": [
       "The first time you Crit each fight, Freeze 1 item for (3/4/5) second(s)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
+      "Vanessa",
       "Freeze",
-      "CritReference",
-      "Vanessa"
+      "CritReference"
     ],
     "icon": "images/skills/StunningStrike.avif"
   },
   "Submerged": {
     "text": [
-      "Your Weapons have (+3/+6/+9) Damage for each Aquatic item you have.",
-      "Your Shield items have (+3/+6/+9) Shield for each Aquatic item you have."
+      "Your Weapons have (+3/+6/+9) Damage for each Aquatic item you have."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Aquatic",
       "Vanessa",
-      "ShieldReference",
       "Weapon",
-      "DamageReference"
+      "ShieldReference",
+      "DamageReference",
+      "Aquatic"
     ],
     "icon": "images/skills/Submerged.avif"
   },
@@ -3319,11 +3318,11 @@ export const skills = {
     "text": [
       "When you use a Property, haste items adjacent to it (1/2) second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
+      "Property",
       "Haste",
-      "Pygmalien",
-      "Property"
+      "Pygmalien"
     ],
     "icon": "images/skills/TallBuildings.avif"
   },
@@ -3331,11 +3330,11 @@ export const skills = {
     "text": [
       "When you use a weapon, it gains (+3/+6/+9) damage for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Jules",
+      "Vanessa",
       "Damage",
-      "Vanessa"
+      "Jules"
     ],
     "icon": "images/skills/Tempering.avif"
   },
@@ -3343,13 +3342,13 @@ export const skills = {
     "text": [
       "If you have exactly one weapon, the first (5/10) times you use it each fight, Slow 1 item for 3 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Slow",
       "Vanessa",
       "Weapon",
       "Dooley",
-      "Mak"
+      "Mak",
+      "Slow"
     ],
     "icon": "images/skills/TemporalStrike.avif"
   },
@@ -3357,11 +3356,11 @@ export const skills = {
     "text": [
       "When you use a weapon, Weapons adjacent to it gain (+3/+6/+9) damage for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
+      "Vanessa",
       "Weapon",
-      "DamageReference",
-      "Vanessa"
+      "DamageReference"
     ],
     "icon": "images/skills/TheBestDefense.avif"
   },
@@ -3369,7 +3368,7 @@ export const skills = {
     "text": [
       "Your non-tool items have (+5%/+10%/+15%) Crit Chance for each tool you have."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Weapon",
       "DamageReference",
@@ -3381,10 +3380,10 @@ export const skills = {
     "text": [
       "When you slow, charge 1 item 1 second(s)."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
-      "SlowReference",
       "Charge",
+      "SlowReference",
       "Common"
     ],
     "icon": "images/skills/ThickHide.avif"
@@ -3393,14 +3392,14 @@ export const skills = {
     "text": [
       "Your Large Burn items have (+4/+8/+12/+16) Burn."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
-      "Jules",
       "Stelle",
       "Dooley",
       "Mak",
-      "BurnReference"
+      "BurnReference",
+      "Jules"
     ],
     "icon": "images/skills/ThirdDegreeBurns.avif"
   },
@@ -3408,7 +3407,7 @@ export const skills = {
     "text": [
       "When you Haste, Shield (10/20/30/40)."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "HasteReference",
       "Shield",
@@ -3420,11 +3419,11 @@ export const skills = {
     "text": [
       "If you have at least 7 items in play, your items have their cooldowns reduced by (5%/10%/15%)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
+      "Vanessa",
       "Dooley",
-      "Cooldown",
-      "Vanessa"
+      "Cooldown"
     ],
     "icon": "images/skills/TinyDancer.avif"
   },
@@ -3432,10 +3431,10 @@ export const skills = {
     "text": [
       "When you use The Core, your Shield items gain (15/30) Shield for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "ShieldReference",
       "Dooley",
+      "ShieldReference",
       "Core"
     ],
     "icon": "images/skills/TitaniumCasing.avif"
@@ -3444,13 +3443,13 @@ export const skills = {
     "text": [
       "The first (5/10) times you use a Tool each fight, Haste 1 Tool for 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Jules",
+      "Haste",
       "Stelle",
       "Dooley",
       "Tool",
-      "Haste"
+      "Jules"
     ],
     "icon": "images/skills/ToolsoftheTrade.avif"
   },
@@ -3458,11 +3457,11 @@ export const skills = {
     "text": [
       "Your Shield items have (+10/+15/+20/+25) Shield."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
-      "ShieldReference",
       "Stelle",
       "Dooley",
+      "ShieldReference",
       "Pygmalien"
     ],
     "icon": "images/skills/Toughness.avif"
@@ -3471,12 +3470,12 @@ export const skills = {
     "text": [
       "When you poison, your weapons gain (5/10/15) damage for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "PoisonReference",
+      "Vanessa",
       "Mak",
-      "DamageReference",
-      "Vanessa"
+      "PoisonReference",
+      "DamageReference"
     ],
     "icon": "images/skills/Toxic.avif"
   },
@@ -3484,27 +3483,26 @@ export const skills = {
     "text": [
       "When you Poison, your enemy loses (5/10) Max Health for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Dooley",
-      "PoisonReference",
       "Vanessa",
-      "Mak"
+      "Dooley",
+      "Mak",
+      "PoisonReference"
     ],
     "icon": "images/skills/ToxicExposure.avif"
   },
   "Toxic Flame": {
     "text": [
-      "When you Burn with an item, Poison (1/2).",
-      "When you Poison with an item, Burn (2/4)."
+      "When you Burn with an item, Poison (1/2)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Burn",
       "Vanessa",
-      "Poison",
       "Dooley",
-      "Mak"
+      "Mak",
+      "Burn",
+      "Poison"
     ],
     "icon": "images/skills/ToxicFlame.avif"
   },
@@ -3512,10 +3510,10 @@ export const skills = {
     "text": [
       "When you use a Friend, Poison (1/2)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Poison",
       "Friend",
+      "Poison",
       "Common"
     ],
     "icon": "images/skills/ToxicFriendship.avif"
@@ -3524,12 +3522,12 @@ export const skills = {
     "text": [
       "The first time you fall below half health each fight, Shield equal to (2/3/4) times the Poison on your opponent."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Mak",
-      "PoisonReference",
       "Shield",
-      "Dooley"
+      "Dooley",
+      "Mak",
+      "PoisonReference"
     ],
     "icon": "images/skills/ToxicShield.avif"
   },
@@ -3537,12 +3535,12 @@ export const skills = {
     "text": [
       "Your Poison items have (+2/+4/+6) Poison for each Weapon you have."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
-      "Weapon",
+      "Vanessa",
       "Mak",
       "PoisonReference",
-      "Vanessa"
+      "Weapon"
     ],
     "icon": "images/skills/ToxicWeapons.avif"
   },
@@ -3550,12 +3548,12 @@ export const skills = {
     "text": [
       "At the start of each fight, Haste (2/3) Poison items for 2 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Haste",
+      "Vanessa",
       "Mak",
       "PoisonReference",
-      "Vanessa"
+      "Haste"
     ],
     "icon": "images/skills/ToxinInjector.avif"
   },
@@ -3563,15 +3561,15 @@ export const skills = {
     "text": [
       "When you burn, your items gain (+1%/+2%/+3%) Crit Chance for the fight."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Jules",
       "Stelle",
       "Dooley",
       "Mak",
+      "Crit",
       "BurnReference",
-      "Crit"
+      "Jules"
     ],
     "icon": "images/skills/TracerFire.avif"
   },
@@ -3579,7 +3577,7 @@ export const skills = {
     "text": [
       "At the start of each day, your items gain (1/2) value."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Value",
       "Pygmalien"
@@ -3590,11 +3588,11 @@ export const skills = {
     "text": [
       "When you slow, a weapon gains (+5/+10/+15/+20) damage for the fight."
     ],
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Weapon",
-      "DamageReference",
-      "SlowReference"
+      "SlowReference",
+      "DamageReference"
     ],
     "icon": "images/skills/Trained.avif"
   },
@@ -3602,7 +3600,7 @@ export const skills = {
     "text": [
       "When you use a large item, haste another item for (3/4) second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Haste",
       "Common"
@@ -3613,7 +3611,7 @@ export const skills = {
     "text": [
       "When you use an item, Shield (20/40)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Shield",
       "Common"
@@ -3624,7 +3622,7 @@ export const skills = {
     "text": [
       "Your leftmost and rightmost items have their cooldowns reduced by (5%/10%/15%)."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Cooldown",
       "Common"
@@ -3635,11 +3633,11 @@ export const skills = {
     "text": [
       "The first (4/8) times you use a Weapon each fight, Charge 1 Poison item 1 second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "Charge",
       "PoisonReference",
+      "Charge",
       "Weapon",
       "Mak"
     ],
@@ -3649,12 +3647,12 @@ export const skills = {
     "text": [
       "You have Regeneration equal to half the Poison on your enemy."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
-      "Mak",
-      "PoisonReference",
       "Vanessa",
-      "Regen"
+      "Regen",
+      "Mak",
+      "PoisonReference"
     ],
     "icon": "images/skills/VenomousVitality.avif"
   },
@@ -3662,7 +3660,7 @@ export const skills = {
     "text": [
       "When you Burn, charge a Shield item 1 second(s)."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "ShieldReference",
       "BurnReference",
@@ -3674,10 +3672,10 @@ export const skills = {
     "text": [
       "When you burn, Haste an item for (1/2) second(s)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Haste",
       "BurnReference",
+      "Haste",
       "Common"
     ],
     "icon": "images/skills/VoidRage.avif"
@@ -3686,7 +3684,7 @@ export const skills = {
     "text": [
       "When you destroy an item during combat, your Weapons gain (100/200) damage and your burn items gain (10/20) Burn for the fight."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Common"
     ],
@@ -3696,11 +3694,11 @@ export const skills = {
     "text": [
       "When you use a Friend, Burn (2/3)."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Burn",
+      "Vanessa",
       "Dooley",
-      "Vanessa"
+      "Burn"
     ],
     "icon": "images/skills/WarmHugs.avif"
   },
@@ -3708,7 +3706,7 @@ export const skills = {
     "text": [
       "You have (+10/+15/+20) Regeneration for each non-weapon item you have in play."
     ],
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Regen",
       "Common"
@@ -3719,10 +3717,10 @@ export const skills = {
     "text": [
       "When you use The Core, reduce an item's cooldown by 5% for the fight."
     ],
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
-      "Dooley",
       "DamageReference",
+      "Dooley",
       "Core"
     ],
     "icon": "images/skills/WellOiledMachine.avif"
@@ -3731,13 +3729,13 @@ export const skills = {
     "text": [
       "Your weapons have +7 Damage for each Tool you have."
     ],
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
-      "Jules",
+      "Weapon",
       "Stelle",
       "Dooley",
-      "Weapon",
       "Tool",
+      "Jules",
       "DamageReference"
     ],
     "icon": "images/skills/WorkinHard.avif"

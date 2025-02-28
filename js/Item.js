@@ -107,6 +107,9 @@ export class Item {
         this.isDestroyed = true;
         this.element.classList.add('destroyed');
         log((source?source.name:"") + " destroyed " + this.name);
+        if(this.tags.includes("Ammo")) {
+          this.ammo = 0;
+        }
         this.board.itemDestroyedTriggers.forEach(func => func(this,source));
         this.board.itemValuesChangedTriggers.forEach(func => func(this,source));
         source.board.player.destroyTriggers.forEach(func => func(this,source));
@@ -1406,6 +1409,11 @@ export class Item {
                     this.ammo = this.maxAmmo;
                 }
                 break;
+            case 'maxammo':
+            case 'max ammo':
+                this.maxAmmo += amount;
+                this.ammo += amount;
+            break;
             case 'value':
                 this.value = this.value+amount;
                 this.board.itemValuesChangedTriggers.forEach(func => func(this));
@@ -2077,6 +2085,7 @@ export class Item {
                 "buy another item",
                 "upgrade a friend",
                 "sell a medium or large item",
+                "start a fight",
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;
@@ -3493,14 +3502,26 @@ export class Item {
                 }
             }
         }
-        //Adjacent items have ( +1 » +2 » +3 » +4 ) Max Ammo
-        regex = /^\s*Adjacent items have (?:\(\s*\+?(\d+)(?:\s*»\s*\+?(\d+))*\s*\)|\+?(\d+)) Max Ammo/i;
+
+        //Your items have (+1/+2/+3) Max Ammo. from Gunner
+        regex = /^\s*Your items have (\([^)]+\)|\d+) Max Ammo\.?/i;
         match = text.match(regex);
         if(match) {
-            const maxAmmo = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            const maxAmmo = getRarityValue(match[1], this.rarity);
+            this.board.items.forEach(item => {
+                item.gain(maxAmmo,'maxAmmo');
+            });
+            return () => {};
+        }
+        
+
+        //Adjacent items have ( +1 » +2 » +3 » +4 ) Max Ammo
+        regex = /^\s*Adjacent items have (\([^)]+\)|\d+) Max Ammo\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const maxAmmo = getRarityValue(match[1], this.rarity);
             this.getAdjacentItems().forEach(item => {
-                item.ammo +=maxAmmo;
-                item.maxAmmo += maxAmmo;
+                item.gain(maxAmmo,'maxAmmo');
             });
             return () => {};
         }
@@ -4223,23 +4244,6 @@ export class Item {
                 this.gain(300,'critMultiplier');
                 return () => {}
         }
-        //Your Weapons have (  +5%  » +10%  » +15%  » +20%   ) Crit chance. 
-        /*Your Shield items have +1 Shield 
-        regex = /^Your ([^\s]+)(?:s)? (?:items)?\s*have (?:\(([^)]+)\)|(\+?\d+%?)) ([^\s^\.]+)(?: chance)?\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            const tagToMatch = Item.getTagFromText(match[1]);
-            const haveAmount = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
-            const whatToGain = match[4].toLowerCase();
-            this.board.items.forEach(item => {
-                if(tagToMatch=='Item' || item.tags.includes(tagToMatch)) {
-                    item.gain(haveAmount,whatToGain);
-                }
-            });
-            return ()=>{};
-        }*/
-        
-
 
         //Your Shield items have + Shield equal to (  2  » 3  » 4   ) times your level.
         regex = /^Your Shield items have \+ Shield equal to (?:\(([^)]+)\)|(\d+)) times your level.*$/i;
@@ -4259,7 +4263,7 @@ export class Item {
         //Your Shield items have +1 Shield 
         //your items have ( +1% » +2% » +3% » +4% ) crit chance
         //your items have ( +1% » +2% » +3% » +4% ) crit chance for each weapon you have
-        regex = /^your ([^\s]+)(?:s)? (?:items)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:for each ([^\s]+|unique type) you have)?./i;
+        regex = /^your ([^\s]+)(?:s)? (?:items)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.$/i;
         match = text.match(regex);
 
         if(match) {
