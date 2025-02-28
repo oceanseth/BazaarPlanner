@@ -1,0 +1,54 @@
+service: twitchAuth
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+    
+  iam:
+      role:
+        statements:
+          - Effect: Allow
+            Action:
+              - ssm:GetParameter
+            Resource:
+              - arn:aws:ssm:${aws:region}:${aws:accountId}:parameter/bazaarplanner/prod/firebase_service_account
+              - arn:aws:ssm:${aws:region}:${aws:accountId}:parameter/bazaarplanner/prod/twitch_client_secret
+
+functions:
+  twitchAuth:
+    handler: twitchAuth.handler
+    timeout: 29
+    memorySize: 1024
+    events:
+      - http:
+          path: twitchAuth
+          method: get
+          cors:
+            origins: 
+              - 'http://localhost'
+              - 'http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            methods: ['GET', 'OPTIONS']
+            allowCredentials: true
+      - http:
+          path: twitchAuth
+          method: options
+          cors:
+            origins: ['http://localhost']
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            methods: ['GET', 'OPTIONS']
+            allowCredentials: true
