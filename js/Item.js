@@ -3653,8 +3653,7 @@ export class Item {
             return () => {};
         }
 
-
-        //charge it ( 1 » 2 ) second(s).
+        //charge it ( 1 » 2 ) second(s). Belleista, Solar Farm, etc
         regex = /^\s*charge (it|this)(?: for)? (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
@@ -3664,6 +3663,7 @@ export class Item {
                 (it?item:this).chargeBy(chargeDuration);
             };
         }
+
         //Non-tech item cooldowns are increased by ( 1 » 2 ) second(s). from Chronobarrier
         regex = /^\s*Non-tech item cooldowns are increased by (\([^)]+\)|\d+) second\(s\)\.?/i;
         match = text.match(regex);
