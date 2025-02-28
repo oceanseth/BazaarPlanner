@@ -301,7 +301,26 @@ window.onload = () => {
         window.login = function() {
             // Show the auth UI when signed out
             document.getElementById('firebaseui-auth-container').style.display = 'block';
+            document.getElementById('twitch-auth-container').style.display = 'block';
         }
+        document
+        .getElementById('twitch-login-button')
+        .addEventListener('click', () => {
+            // Redirect user to Twitch's OAuth endpoint:
+            const clientId = 'p8hu53p18vur8yj9jakv2bg0kkacrf';
+            const redirectUri = encodeURIComponent('https://www.bazaarplanner.com/twitchAuth');
+            const scope = 'user:read:email'; // or whatever scopes you need
+
+            const twitchAuthUrl = 
+            `https://id.twitch.tv/oauth2/authorize` +
+            `?client_id=${clientId}` +
+            `&redirect_uri=${redirectUri}` +
+            `&response_type=code` +
+            `&scope=${scope}`;
+
+            // Send them off to Twitch's OAuth page
+            window.location.href = twitchAuthUrl;
+        });
     initAuth();
     initApp();
 

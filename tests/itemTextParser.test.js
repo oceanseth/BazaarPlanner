@@ -110,16 +110,40 @@ describe('Item Text Parser Tests', () => {
     test('Parse all item text patterns', () => {
         // Process each item
         Object.entries(items).forEach(([itemName, itemData]) => {
+            if(ItemFunction.doNothingItemNames.includes(itemName)) return;
             if(ItemFunction.items.get(itemName)) return;
             try {
-                const item = new Item(itemData, mockBoardInstance); // Use mockBoardInstance here
-                
+                const item = new Item(itemData, mockBoardInstance); // Use mockBoardInstance here                
+
                 // If the item has text, process each text line
                 if (item.text && Array.isArray(item.text)) {
                     item.text.forEach(textLine => {
                         item.setupTextFunctions(textLine);
                     });
+
                 }
+            } catch (error) {
+                console.log(`Error processing item ${itemName}:`, error);
+            }
+        });
+
+        // If there were any console.log messages about unhandled cases, the test will show them
+            expect(consoleLogCount).toBe(0);
+
+        // Optional: Make the test fail if there are any unhandled cases
+        // expect(consoleOutput.filter(output => output.includes("No code yet written for this case!"))).toHaveLength(0);
+    });
+    
+    test('Parse all item enchant text patterns', () => {
+        // Process each item
+        Object.entries(items).forEach(([itemName, itemData]) => {
+            if(ItemFunction.doNothingItemNames.includes(itemName)) return;
+            try {
+                const item = new Item(itemData, mockBoardInstance); // Use mockBoardInstance here                
+                Object.entries(item.enchants).forEach(([enchantName, enchantData]) => {
+                    if(enchantName=='Radiant') return;
+                    item.setupTextFunctions(enchantData);
+                });
             } catch (error) {
                 console.log(`Error processing item ${itemName}:`, error);
             }
