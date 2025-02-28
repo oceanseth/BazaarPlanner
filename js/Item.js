@@ -2757,7 +2757,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const f = this.getTriggerFunctionFromText(match[2]);
-            const f2 = (item)=>{ if(this.id==item.id) f(); };
+            const f2 = (item)=>{ if(this.id==item.id) f(this); };
             switch(match[1].toLowerCase()) {
                 case "haste":
                     this.board.hasteTriggers.set(this.id,f2);
@@ -3668,7 +3668,7 @@ export class Item {
         if(match) {
             const chargeDuration = getRarityValue(match[1], this.rarity);
             return (item) => {
-                item.chargeBy(chargeDuration);
+                (item||this).chargeBy(chargeDuration);
             };
         }
         //Non-tech item cooldowns are increased by ( 1 » 2 ) second(s). from Chronobarrier
