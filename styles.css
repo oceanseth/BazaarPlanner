@@ -1540,3 +1540,34 @@ background-color: rgba(255, 0, 0, 0.2);
     z-index: 1000;
     filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.8));
 }
+#twitch-login-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-weight: normal;
+    color: var(--secondary);
+    background-color: var(--tertiary);
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
+    border-radius: var(--d-button-border-radius);
+    transition: var(--d-button-transition);
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0);
+    font-size: var(--font-0);
+    line-height: normal;
+    box-sizing: border-box;
+    padding: .5em .65em;
+}
+#twitch-login-button:before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M5.7 0L1.4 10.985V55.88h15.284V64h8.597l8.12-8.12h12.418l16.716-16.716V0H5.7zm51.104 36.3L47.25 45.85H31.967l-8.12 8.12v-8.12H10.952V5.73h45.85V36.3zM47.25 16.716v16.716h-5.73V16.716h5.73zm-15.284 0v16.716h-5.73V16.716h5.73z' fill='%236441a4' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    content: "";
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    position: absolute;
+    left: -40px;
+}

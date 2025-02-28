@@ -3504,7 +3504,9 @@ export class Item {
         if(match) {
             const maxAmmo = getRarityValue(match[1], this.rarity);
             this.board.items.forEach(item => {
-                item.gain(maxAmmo,'maxAmmo');
+                if(item.tags.includes("Ammo")) {
+                    item.gain(maxAmmo,'maxAmmo');
+                }
             });
             return () => {};
         }
