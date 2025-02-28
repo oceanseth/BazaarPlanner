@@ -5,17 +5,14 @@ import { Item } from './Item.js';
 export class Skill {
     constructor(skillData) {
         Object.assign(this, skillData);
-        if(!this.rarity) {
-            this.rarity = this.tier;
-        }
-        if(Item.rarityLevels.indexOf(this.rarity) < Item.rarityLevels.indexOf(this.tier)) {
-            this.rarity = this.tier;
+        if(this.tier) {
+            this.rarity = Item.rarityLevels[parseInt(this.tier)];
         }
         this.itemProxy = new Item({
             name: this.name,
-            rarity: this.rarity,
             text: this.text,
-            tags: this.tags
+            tags: this.tags,
+            tier: this.tier
         });
 
 
@@ -106,20 +103,23 @@ export class Skill {
         this.editor.innerHTML = `
             <div class="editor-header">
                 <h3>${this.name}</h3>
-
-
             </div>
             <div class="editor-body">
                 <div class="form-group">
                     <label>Rarity:</label>
                     <select id="editor-rarity">
-                        ${Item.rarityLevels.map(r => 
-                            `<option value="${r}" ${r==this.rarity?'selected':''}>${r}</option>`
+                        ${Item.rarityLevels.map((r,i) => 
+                            `<option value="${i}" ${i==this.tier?'selected':''}>${r}</option>`
                         ).join('')}
                     </select>
                 </div>
+                <div class="form-group">
+                    <label>Text:</label>
+                    <textarea id="editor-text" style="width: 220px; height: 75px;">${this.text.join('\n')}</textarea>
+                </div>
             </div>
             <div class="editor-footer">
+                <button id="editor-apply-text">Apply</button>
                 <button class="editor-delete">Remove</button>
             </div>
 
@@ -128,15 +128,28 @@ export class Skill {
         document.body.appendChild(this.editor);
 
         this.editor.querySelector('#editor-rarity').addEventListener('change',()=>{
-            const oldRarity = this.rarity;
-            this.rarity = this.editor.querySelector('#editor-rarity').value;
-            if(oldRarity!=this.rarity) {
+            const oldTier = this.tier;
+            this.tier = this.editor.querySelector('#editor-rarity').value;
+            this.rarity = Item.rarityLevels[parseInt(this.tier)];
+            if(oldTier!=this.tier) {
                 Board.resetBoards();
                 updateUrlState();
             }
             this.editor.style.display = 'none';
-        });
+        }); 
+
+        this.editor.querySelector('#editor-apply-text').onclick = () => {
+            this.text = this.editor.querySelector('#editor-text').value
+                .split('.')
+                .filter(s => s.trim())
+                .map(s => s.trim() + '.');
+            this.itemProxy.startItemData.text = this.text;
+            this.editor.style.display = 'none';
+            Board.resetBoards();
+            updateUrlState();
+        };
        
+
         this.editor.querySelector('.editor-delete').onclick = () => {
             this.editor.style.display = 'none';
             this.board.removeSkill(this);
@@ -161,7 +174,6 @@ export class Skill {
                     .map(([key, _]) => key);
             }
         }
-        let rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
         // Create HTML content with structured layout
         let tooltipContent = `
             <div class="tooltip-content">
@@ -173,7 +185,7 @@ export class Skill {
                     ${this.cooldown ? `
                         <div class="cooldown-circle">${this.cooldown}<span class="unit">SEC</span></div>
                     ` : ''}
-                    <div class="tooltip-main-text">${colorTextArray(this.text,rarityIndex)}</div>
+                    <div class="tooltip-main-text">${colorTextArray(this.text,this.tier)}</div>
                 </div>
 
 

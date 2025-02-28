@@ -24,9 +24,20 @@ def transform_skill(skill_data):
     if(len(skill_data['unifiedTooltips']) <= 0):
         print(f"No unified tooltips for {skill_data['name']}")
         return None
+
+    # Convert tier names to numeric values
+    tier_mapping = {
+        'Bronze': 0,
+        'Silver': 1,
+        'Gold': 2,
+        'Diamond': 3,
+        'Legendary': 4
+    }
+    tier = tier_mapping.get(skill_data['startingTier'], 0)  # Default to 0 if tier not found
+
     return {
-        'text': skill_data['unifiedTooltips'],
-        'tier': skill_data['startingTier'],
+        'text': [s.strip() + '.' for s in skill_data['unifiedTooltips'][0].split('.') if s.strip()],
+        'tier': tier,  # Using the numeric tier value
         'tags': all_tags,
         'icon': icon_path
     }

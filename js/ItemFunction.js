@@ -3,7 +3,7 @@ import { getRarityValue } from "./utils.js";
 export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
-        "Epicurean Chocolate","Skillet","Spare Change","Pelt","Candy Mail","Machine Learning","Iron Sharpens Iron","Chocoholic"];
+        "Epicurean Chocolate","Skillet","Spare Change","Pelt","Candy Mail","Machine Learning","Iron Sharpens Iron","Chocoholic","Like Clockwork"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
             ItemFunction.items.set(itemName, (item) => {});
@@ -32,6 +32,20 @@ ItemFunction.items.set("Desperate Strike",(item)=>{
     item.board.startOfFightTriggers.set(item.id,f);         
     item.board.player.healthChanged(f);
     item.board.player.hostileTarget.healthChanged(f);
+});
+
+//Your Weapons have (+1/+2/+3) damage for each ammo you have on your items in play. from Loaded Fury
+ItemFunction.items.set("Loaded Fury",(item)=>{
+    const multiplier = getRarityValue("1 >> 2 >> 3",item.rarity);
+    item.board.items.forEach(i=>{
+        if(i.tags.includes("Ammo")) {
+            item.board.giveAll("Weapon",i.ammo*multiplier,'damage');
+            i.ammoChanged((newAmmo,oldAmmo)=>{
+                item.board.giveAll("Weapon",(newAmmo-oldAmmo)*multiplier,'damage');
+            });
+        }
+    });
+
 });
 
 //Your leftmost and rightmost Weapons have + Damage equal to (1x/2x) their value. from Boar Market
