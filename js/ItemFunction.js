@@ -1078,6 +1078,7 @@ ItemFunction.items.set("Apropos Chapeau",(item)=>{
     const shieldGain = getRarityValue("6 >> 9 >> 12",item.rarity);
     const uniqueTags = new Set();
     item.board.items.forEach(i => {
+        if(i==item) return;
         if(i.tags.includes("Tool")) uniqueTags.add("Tool");
         if(i.tags.includes("Weapon")) uniqueTags.add("Weapon");
         if(i.tags.includes("Property")) uniqueTags.add("Property");
