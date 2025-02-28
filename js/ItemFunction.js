@@ -625,8 +625,8 @@ ItemFunction.items.set("Metronome",(item)=>{
         i.triggerFunctions.push(()=>{
             let otherAdjacentItem = item.getAdjacentItems().find(i2=>i!=i2);
             if(otherAdjacentItem) {
-                otherAdjacentItem.applyHaste(hasteDuration,item);
-                log("usage of "+i.name+" gave "+otherAdjacentItem.name+" haste for "+hasteDuration+" seconds");
+                item.applyHasteTo(otherAdjacentItem,hasteDuration);
+                //log("usage of "+i.name+" gave "+otherAdjacentItem.name+" haste for "+hasteDuration+" seconds");
             }
         });
     });

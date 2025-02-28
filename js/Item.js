@@ -1189,26 +1189,7 @@ export class Item {
             };
 
         }
-        //Burn equal to ( 1 » 2 ) times this item's damage.
-        regex = /^([^\s]+) equal to (\([^)]+\)|(\d+)|double|triple)?(?: times)?\s*this item's damage/i;
-        match = text.match(regex);
-        if(match) {
-            const whatToDo = match[1].toLowerCase();
-            const multiplier = !match[2]? 1 : match[2]=='double'?2:match[2]=='triple'?3:parseInt(getRarityValue(match[2], this.rarity));
-            this.gain(this.damage * multiplier,whatToDo);
-            this.damageChanged((newDamage,oldDamage)=>{
-                if(newDamage != oldDamage) {
-                    this.gain((newDamage-oldDamage)*multiplier,whatToDo);
-                }
-            });
-
-
-            return () => {          
-                this.applyBurn(this.burn);
-            };
-
-
-        }
+   
         //Increase your other items' Burn by 2. from Ruby
         regex = /^Increase your other items' ([^\s]+)(?: chance)? by (?:\(([^)]+)\)|(\d+))\.?/i;
         match = text.match(regex);
@@ -1255,17 +1236,40 @@ export class Item {
                 log(this.name + " healed " + this.board.player.name + " for " + healAmount);
             };
         }
+
+             /*Burn equal to ( 1 » 2 ) times this item's damage.
+             regex = /^([^\s]+) equal to (\([^)]+\)|(\d+)|double|triple)?(?: times)?\s*this item's damage/i;
+             match = text.match(regex);
+             if(match) {
+                 const whatToDo = Item.getTagFromText(match[1]);
+                 const multiplier = !match[2]? 1 : match[2]=='double'?2:match[2]=='triple'?3:parseInt(getRarityValue(match[2], this.rarity));
+                 this.gain(this.damage * multiplier,whatToDo.toLowerCase());
+                 this.damageChanged((newDamage,oldDamage)=>{
+                     if(newDamage != oldDamage) {
+                         this.gain((newDamage-oldDamage)*multiplier,whatToDo.toLowerCase());
+                     }
+                 });
+     
+     
+                 return () => {          
+                     this["apply"+whatToDo](this[whatToDo.toLowerCase()]);
+                 };
+     
+     
+             }*/
+
         //Heal equal to this item's Damage.
         //Deal damage equal to this item's Heal.
-        regex = /(?:Deal )?(Heal|Shield|Burn|Poison|Damage) equal to this item's (Heal|Shield|Burn|Poison|Damage|Value)/i;
+        regex = /(?:Deal )?(Heal|Shield|Burn|Poison|Damage) equal to (\([^)]+\)|\d+|double|triple)?(?: times)?\s*this item's (Heal|Shield|Burn|Poison|Damage|Value)/i;
         match = text.match(regex);
         if(match) {
             const whatToGain = match[1].toLowerCase();
-            const gainFrom = match[2].toLowerCase();
-            this.gain(this[gainFrom],whatToGain); 
+            const gainFrom = match[3].toLowerCase();
+            const multiplier = !match[2]? 1 : match[2]=='double'?2:match[2]=='triple'?3:getRarityValue(match[2], this.rarity);
+            this.gain(this[gainFrom]*multiplier,whatToGain); 
             this[gainFrom+'Changed']((newAmount,oldAmount)=>{
                 if(newAmount != oldAmount) {
-                    this.gain((newAmount-oldAmount),whatToGain);
+                    this.gain((newAmount-oldAmount)*multiplier,whatToGain);
                 }
             });
             return () => {
