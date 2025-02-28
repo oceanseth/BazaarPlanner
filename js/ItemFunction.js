@@ -3,7 +3,8 @@ import { getRarityValue } from "./utils.js";
 export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
-        "Epicurean Chocolate","Skillet","Spare Change","Pelt","Candy Mail","Machine Learning","Iron Sharpens Iron","Chocoholic","Like Clockwork"];
+        "Epicurean Chocolate","Skillet","Spare Change","Pelt","Candy Mail","Machine Learning","Iron Sharpens Iron","Chocoholic","Like Clockwork","Upgrade Hammer",
+    "Vending Machine"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
             ItemFunction.items.set(itemName, (item) => {});
