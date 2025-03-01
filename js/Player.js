@@ -4,7 +4,7 @@ import { updateUrlState, setupChangeListeners } from './utils.js';
 export class Player {
     hostileTarget = null;
     static possibleChangeAttributes = ['health','shield','gold','maxHealth','burn','poison','regen'];
-    constructor(startPlayerData) {
+    constructor(startPlayerData={}) {
         setupChangeListeners(this, Player.possibleChangeAttributes );
         this.startPlayerData = startPlayerData;
         if(!startPlayerData.maxHealth) startPlayerData.maxHealth = 1000;

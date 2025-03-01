@@ -123,7 +123,7 @@ window.addEventListener('popstate', () => {
 
 
 export function loadFromUrl(hash) {
-    if(window.previouslyLoadedHash == window.location.hash) {
+    if(!hash && window.previouslyLoadedHash == window.location.hash) {
         return;
     }
     if(!hash) hash = window.location.hash.slice(1); // Remove the # symbol

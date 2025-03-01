@@ -1,5 +1,23 @@
 {
   "rules": {
+    "puzzles": {
+      "$puzzleId": {
+        "data": {
+          ".read": true,
+          ".write": false
+        },
+        "votes": {
+          "$userId": {
+            ".read": "$userId === auth.uid",
+            ".write": "!data.exists() && auth.uid === $userId"
+          }
+        },
+        "result":{
+          ".write":false,
+          ".read": "data.parent().child('votes').child(auth.uid).exists()"
+        }
+      }
+    },
     "tinyurls": {
         "count": {
             ".read": true,

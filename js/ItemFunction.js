@@ -536,24 +536,30 @@ ItemFunction.items.set("Cryosleeve",(item)=>{
     //When one of your items gains Freeze, reduce the duration by half. into a trigger function.
 
     let shieldAmount = getRarityValue("50 >> 75 >> 100",item.rarity);
+    item.gain(shieldAmount,'shield');
     item.triggerFunctions.push(()=>{
        [item,...item.getAdjacentItems()].forEach(i=>i.applyFreeze(1,item));
     });
     item.board.freezeTriggers.set(item.id,(i,source)=>{
-            item.applyShield(shieldAmount);
+            item.applyShield(item.shield);
             i.freezeDurationRemaining /= 2;
             log(item.name + " reduced " + i.name + " freeze duration by half");
     });
     item.board.player.hostileTarget.board.freezeTriggers.set(item.id,(i,source)=>{
-        item.applyShield(shieldAmount);
+        item.applyShield(item.shield);
     });
 });
 ItemFunction.items.set("Cryosphere",(item)=>{
+    const freezeDuration = getRarityValue("2 >> 3",item.rarity);
     // Freeze all items other than The Core for ( 2 » 3 ) second(s).
     item.triggerFunctions.push(()=>{
         item.board.items.forEach(i=>{
             if(i.tags.includes("Core")) return;
-            i.applyFreeze(getRarityValue("2 >> 3",item.rarity),item);
+            i.applyFreeze(freezeDuration,item);
+        });
+        item.board.player.hostileTarget.board.items.forEach(i=>{
+            if(i.tags.includes("Core")) return;
+            i.applyFreeze(freezeDuration,item);
         });
     });
 });

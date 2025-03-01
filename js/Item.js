@@ -39,6 +39,8 @@ export class Item {
         setupChangeListeners(this,Item.possibleChangeAttributes);
         this.startItemData = structuredClone(itemData);
         this.board = board;        
+        if(board) this.editable = board.editable;
+        else this.editable = true;
         Object.assign(this, this.startItemData);
         if(this.rarity == undefined && this.tier!=undefined) {
             this.rarity = Item.rarityLevels[Item.rarityLevels.indexOf(this.tier)];
@@ -328,15 +330,10 @@ export class Item {
                 mergedSlot.classList.add(`tag-${tag.toLowerCase()}`);
             });
         }
-        mergedSlot.classList.add(this.rarity || 'Bronze', 'editorOpener');
+        mergedSlot.classList.add(this.rarity || 'Bronze', this.editable?'editorOpener':'not-editable');
         mergedSlot.style.width = `${this.size * 80 + this.startIndex*2}px`;
         mergedSlot.style.left = `calc(${this.startIndex * 80 + this.startIndex*2}px)`;
-        mergedSlot.draggable = true;
         mergedSlot.setAttribute('data-size', this.size);
-        mergedSlot.addEventListener('click', () => {
-            this.showEditor();
-        });
-        
         if (this.icon) {
             const icon = document.createElement('img');
             icon.src = this.icon;
@@ -344,10 +341,17 @@ export class Item {
             mergedSlot.appendChild(icon);
         }
 
-        mergedSlot.addEventListener('dragstart', Board.handleDragStart);
-        mergedSlot.addEventListener('dragend', Board.handleDragEnd);
-        mergedSlot.addEventListener('touchstart', Board.handleTouchStart);
-        mergedSlot.addEventListener('touchend', Board.handleTouchEnd);
+        if(this.editable) {
+            mergedSlot.draggable = true;        
+            mergedSlot.addEventListener('click', () => {
+                this.showEditor();
+            });
+
+            mergedSlot.addEventListener('dragstart', Board.handleDragStart);
+            mergedSlot.addEventListener('dragend', Board.handleDragEnd);
+            mergedSlot.addEventListener('touchstart', Board.handleTouchStart);
+            mergedSlot.addEventListener('touchend', Board.handleTouchEnd);
+        }
         // Add event listeners
         mergedSlot.addEventListener('mouseenter', () => {
             if(this.isDestroyed) return;
@@ -361,7 +365,7 @@ export class Item {
                 this.tooltip.remove();
             }
         });
-        
+    
         return mergedSlot;
     }
     
@@ -520,7 +524,7 @@ export class Item {
     }
 
     updateBattle(timeDiff) {
-        if (!this.progressBar || this.isDestroyed) return;
+        
         if(this.freezeDurationRemaining > 0) {
             this.freezeDurationRemaining -= timeDiff;
             if(this.freezeDurationRemaining > 0) {
@@ -533,6 +537,8 @@ export class Item {
             this.element.classList.remove('frozen');
             this.freezeElement.classList.add('hidden');
         }
+        
+        if (!this.progressBar || this.isDestroyed) return;
 
         // Calculate effective time considering haste/slow
         let effectiveTimeDiff = timeDiff;
@@ -584,6 +590,15 @@ export class Item {
         this.board.itemTriggered(this);
         this.getAdjacentItems().forEach(item => item.adjacentItemTriggered(this));
         this.battleStats.useCount++;
+        if(this.pendingCharge) {
+            if(this.pendingCharge >= this.cooldown) {
+                this.pendingCharge -= this.cooldown-1;
+                this.effectiveBattleTime += this.cooldown-1;
+            } else {
+                this.effectiveBattleTime += this.pendingCharge;
+                this.pendingCharge = 0;
+            }
+        }
     }
 
     doICrit() {
@@ -670,7 +685,8 @@ export class Item {
     }
     applyFreeze(duration,source) {
         if(this.enchant=='Radiant') return;
-        if(!this.isFreezeTargetable()) return;
+        if(this.isDestroyed) return;
+        //const wasAlreadyFrozen = this.freezeDurationRemaining > 0;
         if(source&&source.freezeBonus) {
             duration += source.freezeBonus;
         }
@@ -680,7 +696,9 @@ export class Item {
         this.freezeElement.classList.remove('hidden');
 
         log(this.name + " was frozen by " + source.name + " for " + duration + " seconds");
-        this.board.freezeTriggers.forEach(func => func(this,source));
+       //game is bugged and doesn't do this if(!wasAlreadyFrozen) {
+            this.board.freezeTriggers.forEach(func => func(this,source));
+        //}
     }
     removeFreeze(source) {
         if (this.freezeDurationRemaining <= 0) 
@@ -897,7 +915,9 @@ export class Item {
     }
     isChargeTargetable = this.isHasteTargetable;
     isFreezeTargetable() {
-        return !this.isDestroyed && this.cooldown > 0 && (this.freezeDurationRemaining <= 0 || !this.board.items.some(item => item.freezeDurationRemaining <= 0 && item.isHasteTargetable()));
+        return !this.isDestroyed 
+        && (this.cooldown > 0  || !this.board.items.some(item => item.cooldown > 0 && item.freezeDurationRemaining<=0))
+        && (this.freezeDurationRemaining <= 0 || !this.board.items.some(item => item.freezeDurationRemaining <= 0 && item.isHasteTargetable()));
     }
 
         
@@ -1487,10 +1507,10 @@ export class Item {
 
     getFreezeTriggerFunctionFromText(text) {
         //Freeze all enemy items for (  1  » 2  » 3   ) second(s).
-        let regex = /Freeze all enemy items for (?:\(([^)]+)\)|(\d+)) second\(?s\)?\.?/i;
+        let regex = /Freeze all enemy items for (\([^)]+\)|\d+) second\(?s\)?\.?/i;
         let match = text.match(regex);
         if(match) {
-            const freezeDuration = (this.freezeBonus||0) + (match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]));
+            const freezeDuration = getRarityValue(match[1], this.rarity);
             return () => {
                 this.board.player.hostileTarget.board.items.forEach(item => item.applyFreeze(freezeDuration,this));
             };
@@ -1503,11 +1523,13 @@ export class Item {
             const numItems = getRarityValue(match[1], this.rarity);
             const freezeDuration = getRarityValue(match[2], this.rarity);
             return (item) => {
-                const targets = this.board.player.hostileTarget.board.items.filter(i=>i.isFreezeTargetable());
-                const itemsToFreeze = this.pickRandom(targets,numItems);
-                if(itemsToFreeze.length>0) itemsToFreeze.forEach(item => item.applyFreeze(freezeDuration,this));
-                else {
-                    log(this.name + " tried to freeze " + numItems + " item(s) but there were no items to freeze");
+                for(let i=0;i<numItems;i++) {
+                    const targets = this.board.player.hostileTarget.board.items.filter(i=>i.isFreezeTargetable());
+                    const itemToFreeze = this.pickRandom(targets);
+                    if(itemToFreeze) itemToFreeze.applyFreeze(freezeDuration,this);
+                    else {
+                        log(this.name + " tried to freeze " + numItems + " item(s) but there were no items to freeze");
+                    }
                 }
             };
         }
@@ -1519,11 +1541,13 @@ export class Item {
             const numItems = getRarityValue(match[1], this.rarity);
             const freezeDuration = getRarityValue(match[2], this.rarity);
             return (item) => {
-                const targets = this.board.player.hostileTarget.board.items.filter(i=> i.size<=(item||this).size && i.isFreezeTargetable());
-                const itemsToFreeze = this.pickRandom(targets,numItems);
-                if(itemsToFreeze.length>0) itemsToFreeze.forEach(item => item.applyFreeze(freezeDuration,item||this));
-                else {
-                    log(this.name + " tried to freeze " + numItems + " item(s) of equal or smaller size but there were no items to freeze");
+                for(let i=0;i<numItems;i++) {
+                    const targets = this.board.player.hostileTarget.board.items.filter(i=> i.size<=(item||this).size && i.isFreezeTargetable());
+                    const itemToFreeze = this.pickRandom(targets);
+                    if(itemToFreeze) itemToFreeze.applyFreeze(freezeDuration,this);
+                    else {
+                        log(this.name + " tried to freeze " + numItems + " item(s) of equal or smaller size but there were no items to freeze");
+                    }
                 }
             };
         }
@@ -1535,9 +1559,14 @@ export class Item {
             const numItems = getRarityValue(match[1], this.rarity);
             const freezeDuration = getRarityValue(match[2], this.rarity);
             return (item) => {
-                const targets = this.board.player.hostileTarget.board.items.filter(i=> i.size<=2 && i.isFreezeTargetable());
-                const itemsToFreeze = this.pickRandom(targets,numItems);
-                itemsToFreeze.forEach(item => item.applyFreeze(freezeDuration,item||this));                
+                for(let i=0;i<numItems;i++) {
+                    const targets = this.board.player.hostileTarget.board.items.filter(i=> i.size<=2 && i.isFreezeTargetable());
+                    const itemToFreeze = this.pickRandom(targets);
+                    if(itemToFreeze) itemToFreeze.applyFreeze(freezeDuration,this);
+                    else {
+                        log(this.name + " tried to freeze " + numItems + " medium or small item(s) but there were no items to freeze");
+                    }
+                }
             };
         }
 
@@ -2786,11 +2815,11 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const f = this.getTriggerFunctionFromText(match[1]);
-            this.board.freezeTriggers.set(this.id,(item,source)=>{
-                    f();
+            this.board.freezeTriggers.set(this.id+"_anyitemgainsfreeze",(item,source)=>{
+                    f(item);
             });
-            this.board.player.hostileTarget.board.freezeTriggers.set(this.id,(item,source)=>{
-                f();
+            this.board.player.hostileTarget.board.freezeTriggers.set(this.id+"_anyitemgainsfreeze",(item,source)=>{
+                f(item);
             });
             return;
         }
@@ -2891,6 +2920,7 @@ export class Item {
             this.effectiveBattleTime += seconds*1000;
             return;
         }
+        this.pendingCharge = (this.pendingCharge||0) + (seconds*1000 - timeToNextTrigger);
         this.effectiveBattleTime += timeToNextTrigger;
         
     }
@@ -3666,7 +3696,7 @@ export class Item {
             const it = match[1]=='it';
             const chargeDuration = getRarityValue(match[2], this.rarity);
             return (item) => {
-                (it?item:this).chargeBy(chargeDuration);
+                (it?item:this).chargeBy(chargeDuration,item||this);
             };
         }
 
@@ -3910,9 +3940,13 @@ export class Item {
                 }
                 itemsToFreeze = itemsToFreeze.filter(item => item.isFreezeTargetable());
                 const numToFreezeNow = Math.min(numToFreeze, itemsToFreeze.length);
-                this.pickRandom(itemsToFreeze,numToFreezeNow).forEach(item => {
-                    item.applyFreeze(seconds,this);
-                });
+                for(let i=0;i<numToFreezeNow;i++) {
+                    const itemToFreeze = this.pickRandom(itemsToFreeze);
+                    if(itemToFreeze) itemToFreeze.applyFreeze(seconds,this);
+                    else {
+                        log(this.name + " tried to freeze " + numToFreezeNow + " item(s) but there were no items to freeze");
+                    }
+                }
 
             };
         }
