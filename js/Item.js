@@ -531,6 +531,13 @@ export class Item {
                 this.element.classList.add('frozen');       
                 this.freezeElement.classList.remove('hidden');
                 this.freezeElement.textContent = (this.freezeDurationRemaining/1000).toFixed(1);
+
+                if(this.hasteTimeRemaining > 0) {
+                    this.hasteTimeRemaining -= timeDiff;
+                }
+                if(this.slowTimeRemaining > 0) {
+                    this.slowTimeRemaining -= timeDiff;
+                }
                 return;
             }
             this.freezeDurationRemaining = 0;
@@ -1968,7 +1975,11 @@ export class Item {
         });
         popup.querySelector('#edit-enchant').addEventListener('change',()=>{
             const initialValueFromEnchant = this.getInitialValue();
+            const oldEnchant = this.enchant;
             this.enchant = popup.querySelector('#edit-enchant').value=='None'?'':popup.querySelector('#edit-enchant').value;
+            if(this.enchant!=oldEnchant) {
+                this.startItemData.tags = structuredClone(items[baseName].tags);
+            }
             const newValueFromEnchant = this.getInitialValue();
             const oldStartDataValue = this.startItemData.value||initialValueFromEnchant;
             this.startItemData.value = oldStartDataValue-initialValueFromEnchant+newValueFromEnchant;
