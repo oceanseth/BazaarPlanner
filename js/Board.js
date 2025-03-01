@@ -828,8 +828,11 @@ class Board {
             element.classList.remove('valid-drop', 'invalid-drop', 'dragging');
         });
 
-    
-        this.deleteZone.style.display = 'none';
+        Board.boards.forEach(board => {
+            if(board.deleteZone) {
+                board.deleteZone.style.display = 'none';
+            }
+        });
     }
 
     addItem(item) {

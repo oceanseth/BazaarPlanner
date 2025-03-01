@@ -314,17 +314,18 @@ button:active {
     left: 0;
     width: calc(100% - 100px);
     height: 50px;
-    background: rgba(255, 0, 0, 0.1);
+    background: rgba(255, 0, 0, .9);
     border: 2px dashed #ff0000;
     border-radius: 4px;
     display: none;
     justify-content: center;
     align-items: center;
-    color: #ff0000;
+    color: white;
     font-weight: bold;
     animation: fade-in 0.2s ease;
     line-height: 50px;
     padding-left:100px;
+    z-index: 4000;
 }
 
 .delete-zone.active {
