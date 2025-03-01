@@ -7,10 +7,12 @@ class Board {
     static boards = new Map();
     static uniqueTypeTags = ['Ammo','Apparel','Aquatic','Core','Dinosaur','Dragon','Food','Friend','Loot','Potion','Property','Ray','Tech','Tool','Toy','Vehicle','Weapon'];
 
-    constructor(boardId, player) {
+    constructor(boardId, player, editable=true) {
         this.boardId = boardId;
         this.player = player;
+        this.player.board = this;
         this.element = document.getElementById(boardId);
+        this.editable = editable;
         this.initialize();
         Board.boards.set(boardId,this);
     }
@@ -54,25 +56,27 @@ class Board {
             this.element.appendChild(slot);
             this.slots.push(slot);
         }
-
-        const addSkillButton = document.createElement('div');
-        addSkillButton.className = 'add-skill-button';
-        addSkillButton.classList.add('editorOpener');
-        addSkillButton.innerHTML = "➕";
-        addSkillButton.onclick = () => {
-            this.showSkillSelector();
-        };
-        this.element.appendChild(addSkillButton);
-        this.importElement = document.createElement('div');
-        this.importElement.className = 'import-element';
-        this.element.appendChild(this.importElement);
-
+        if(this.editable) {
+            const addSkillButton = document.createElement('div');
+            addSkillButton.className = 'add-skill-button';
+            addSkillButton.classList.add('editorOpener');
+            addSkillButton.innerHTML = "➕";
+            addSkillButton.onclick = () => {
+                this.showSkillSelector();
+            };
+            this.element.appendChild(addSkillButton);
+            this.importElement = document.createElement('div');
+            this.importElement.className = 'import-element';
+            this.element.appendChild(this.importElement);
+            this.createDeleteZone();
+        }
         this.createHealthElement();
         this.createSkillsElement();
         this.createGoldElement();
         this.createDPSElement();
         this.createIncomeElement();
         this.createWinRateElement();
+        
         this.reset();
 
 
@@ -718,6 +722,49 @@ class Board {
             slot.classList.add('invalid-drop');
         }
     }
+    createDeleteZone() {
+        // Initialize delete zone globally
+        this.deleteZone = document.createElement('div');
+        this.deleteZone.className = 'delete-zone';
+        this.deleteZone.textContent = ' Drop here to delete';
+        
+        // Add dragover and drop handlers for delete zone
+        this.deleteZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            this.deleteZone.classList.add('active');
+        });
+
+        this.deleteZone.addEventListener('dragleave', () => {
+            this.deleteZone.classList.remove('active');
+        });
+
+        this.deleteZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const draggingElement = document.querySelector('.dragging');
+            if (draggingElement) {
+                // Get the source board and remove the item from its tracking
+                const sourceBoard = Board.getBoardFromId(draggingElement.closest('.board')?.id);
+                if (sourceBoard) {
+                    // Remove the item from the board's tracking by matching the element
+                    sourceBoard.items = sourceBoard.items.filter(item => item.element !== draggingElement);
+                }
+                
+                draggingElement.classList.add('removing');
+                setTimeout(() => {
+                    draggingElement.remove();
+                    // Clean up any ghost elements
+                    const ghost = document.querySelector('.drag-ghost');
+                    if (ghost) ghost.remove();
+                }, 500);
+            }
+            this.deleteZone.classList.remove('active');
+            this.deleteZone.style.display = 'none';
+            Board.resetBoards();
+            updateUrlState();
+        }); 
+        this.element.appendChild(this.deleteZone);
+    }
 
     clearDropPreview() {
         document.querySelectorAll('.board-slot').forEach(slot => {
@@ -779,7 +826,7 @@ class Board {
         });
 
     
-        deleteZone.style.display = 'none';
+        this.deleteZone.style.display = 'none';
     }
 
     addItem(item) {
@@ -891,8 +938,11 @@ class Board {
         document.querySelectorAll('.tooltip').forEach(tooltip => {
             tooltip.style.display = 'none';
         });
-        
-        deleteZone.style.display = 'block';
+        Board.boards.forEach(board => {
+            if(board.items.some(item => item.element === draggedElement)) {              
+                board.deleteZone.style.display = 'block';
+            }
+        });    
     }
     static handleTouchStart(touchEvent) {
         touchEvent.preventDefault();
@@ -929,8 +979,11 @@ class Board {
         });
     
 
-        
-        deleteZone.style.display = 'none';
+        Board.boards.forEach(board => {
+            if(board.items.some(item => item.element === draggedElement)) {              
+                board.deleteZone.style.display = 'none';
+            }
+        });    
 
         /*
         // Get the board that originally contained this element

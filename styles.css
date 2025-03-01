@@ -366,6 +366,7 @@ button:active {
 .board-container {
     position: relative;
     width: 842px;
+    margin: 0 auto;
     margin-top: 100px;
     margin-bottom: 60px;  /* Increased spacing for buttons */
 }
@@ -1177,11 +1178,6 @@ font.Slow:before {
     z-index: 10;
 }
 
-#sign-in-status {
-    color: black;
-    margin: 10px 0;
-}
-
 #account-details {
     color: white;
     margin: 10px 0;
@@ -1544,24 +1540,70 @@ background-color: rgba(255, 0, 0, 0.2);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-weight: normal;
-    font-size: 15px;
     background-color: #6441A4;
     color: white;
     border-radius: 2px;
     width: 220px;
+    height: 40px;
 }
 #twitch-login-button:before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cpath d='M5.7 0L1.4 10.985V55.88h15.284V64h8.597l8.12-8.12h12.418l16.716-16.716V0H5.7zm51.104 36.3L47.25 45.85H31.967l-8.12 8.12v-8.12H10.952V5.73h45.85V36.3zM47.25 16.716v16.716h-5.73V16.716h5.73zm-15.284 0v16.716h-5.73V16.716h5.73z' fill='%236441a4' fill-rule='evenodd'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 25px;
+    background-size: 20px;
     content: "";
     display: block;
     width: 30px;
     height: calc(100% - 2px);
     position: absolute;
     left: 0px;
+    padding-right: 5px;
+    padding-left: 5px;
     border: 1px solid #6441A4;
     background-color: white;
+}
+.puzzle-slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-top: 5px;
+}
+
+#puzzle-guess-slider {
+    width: 80%;
+    -webkit-appearance: none;
+    height: 25px;
+    background: #444;
+    outline: none;
+    border-radius: 12.5px;
+}
+
+#puzzle-guess-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 25px;
+    background: #666;
+    cursor: pointer;
+    border-radius: 12.5px;
+    border: 2px solid #888;
+}
+
+#puzzle-guess-slider::-moz-range-thumb {
+    width: 100px;
+    height: 25px;
+    background: #666;
+    cursor: pointer;
+    border-radius: 12.5px;
+    border: 2px solid #888;
+}
+#puzzle-content { 
+    text-align: center;
 }

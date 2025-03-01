@@ -8,6 +8,7 @@ import { Item } from './Item.js';
 import { ItemFunction } from './ItemFunction.js';
 import { getRarityValue, loadFromUrl, updateUrlState } from './utils.js';
 import { Battle } from './Battle.js';
+import { Puzzle } from './Puzzle.js';
 
 // Make necessary functions/classes available globally
 if(window.location.hostname == "bazaarplanner.com") {
@@ -27,6 +28,7 @@ window.search = search;
 window.populateSearchSuggestions = populateSearchSuggestions;
 window.topPlayer = new Player({name:"Top Player"});
 window.bottomPlayer = new Player({name:"Bottom Player"});
+window.Puzzle = Puzzle;
 topPlayer.hostileTarget = bottomPlayer;
 bottomPlayer.hostileTarget = topPlayer;
 
@@ -92,7 +94,7 @@ window.poll = (answer) => {
 window.closePoll = function() {
     document.getElementById('poll').remove();
     document.getElementById('simulator').classList.remove('polling');
-    document.getElementById('sign-in-status').innerHTML = 'Does BazaarPlanner harm the game? Poll Results: Yes: <span id="yesResult"></span> No: <span id="noResult"></span>';
+    document.getElementById('poll-results').innerHTML = 'Does BazaarPlanner harm the game? Poll Results: Yes: <span id="yesResult"></span>&nbsp;&nbsp;&nbsp; No: <span id="noResult"></span>';
     firebase.database().ref('polls/harmpoll/counts').on('value', snapshot => {
         const counts = snapshot.val() || { yes: 0, no: 0 };
         document.getElementById('yesResult').innerHTML = counts.yes;
@@ -128,12 +130,7 @@ window.pollCheck = function() {
 
 
 
-// Initialize delete zone globally
-const deleteZone = document.createElement('div');
-deleteZone.className = 'delete-zone';
-deleteZone.textContent = ' Drop here to delete';
-document.querySelector('.board-container:last-child').appendChild(deleteZone);
-window.deleteZone = deleteZone;
+
     // Initialize players
 
     function isMobileDevice() {
@@ -167,9 +164,6 @@ window.getTinyUrl = function() {
 
 
 window.onload = () => {
-     
-
-
     const simulatorItemsList = document.getElementById('simulator-itemsList');
         
          // Populate monster selector dropdown
@@ -254,10 +248,7 @@ window.onload = () => {
         // Track auth state
         function initApp() {
             pollCheck();
-            firebase.auth().onAuthStateChanged(function(user) {
-                // Get the login button
-                const loginButton = document.querySelector('button[onclick="login()"]');
-                
+            firebase.auth().onAuthStateChanged(function(user) {                
                 if (user) {
                     // User is signed in
                     user.getIdToken().then(function(accessToken) {
@@ -273,11 +264,6 @@ window.onload = () => {
                             uid: user.uid
                         }, null, '  ');
 
-                        // Update login button to show logout
-                        if (loginButton) {
-                            loginButton.textContent = 'Logout';
-                            loginButton.onclick = logout;
-                        }
                         pollCheck();
                     });
                     // Hide the auth UI when signed in
@@ -335,7 +321,10 @@ window.onload = () => {
 }
 
 
-function logout() {
+window.logout = ()=> {
+    if(!confirm("Do you want to logout?")) {
+        return;
+    }
     if (!firebase.auth) {
         console.error("Firebase auth is not initialized");
         return;
@@ -375,6 +364,10 @@ window.showSection = function(sectionId) {
         button.classList.remove('selected');
     });
     document.querySelector(`button[onclick="showSection('${sectionId}')"]`).classList.add('selected');
+
+    if(sectionId=='puzzle') {
+        Puzzle.loadPuzzle();
+    }
 }
 
 
@@ -492,42 +485,6 @@ function populateSearchSuggestions(data) {
 
 window.battleRNG = null;
 
-// Add dragover and drop handlers for delete zone
-deleteZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-    deleteZone.classList.add('active');
-});
-
-deleteZone.addEventListener('dragleave', () => {
-    deleteZone.classList.remove('active');
-});
-
-deleteZone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    const draggingElement = document.querySelector('.dragging');
-    if (draggingElement) {
-        // Get the source board and remove the item from its tracking
-        const sourceBoard = Board.getBoardFromId(draggingElement.closest('.board')?.id);
-        if (sourceBoard) {
-            // Remove the item from the board's tracking by matching the element
-            sourceBoard.items = sourceBoard.items.filter(item => item.element !== draggingElement);
-        }
-        
-        draggingElement.classList.add('removing');
-        setTimeout(() => {
-            draggingElement.remove();
-            // Clean up any ghost elements
-            const ghost = document.querySelector('.drag-ghost');
-            if (ghost) ghost.remove();
-        }, 500);
-    }
-    deleteZone.classList.remove('active');
-    deleteZone.style.display = 'none';
-    Board.resetBoards();
-    updateUrlState();
-}); 
-
 
 function loadMonsterBoard(monsterData, boardId = 't') {
     const board = Board.getBoardFromId(boardId);
@@ -606,8 +563,4 @@ document.addEventListener('click', (e) => {
             editor.style.display = 'none';
         });
     }
-
-
-
-
 });
