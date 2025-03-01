@@ -154,6 +154,7 @@ class Board {
 
 
     showSkillSelector() {
+        if(!this.editable) return;
         if(this.skillSelector) {
             document.body.removeChild(this.skillSelector);
         }
@@ -423,9 +424,8 @@ class Board {
         let newSkillData = structuredClone(skills[skillName]);
         newSkillData.name = skillName;
         Object.assign(newSkillData,skillData);
-        let newSkill = new Skill(newSkillData);
+        let newSkill = new Skill(newSkillData, this,this.editable);
         this.skills.push(newSkill);
-        newSkill.board = this;
         this.skillsElement.appendChild(newSkill.element);
         newSkill.setup();
     }
@@ -446,8 +446,13 @@ class Board {
         this.healthElement = document.createElement('div');
 
         this.healthElement.className = 'health-element';
-        this.healthElement.classList.add('editorOpener');
-
+        
+        if(this.editable) {
+            this.healthElement.classList.add('editorOpener');
+            this.healthElement.onclick = () => {
+                this.player.openEditor();
+            }
+        }
         this.healthElementHealth = document.createElement('div');
         this.healthElementHealth.className = 'health-element-health';
         this.healthElement.appendChild(this.healthElementHealth);
@@ -464,9 +469,7 @@ class Board {
         this.healthElementRegen.className = 'health-element-regen';
         this.healthElement.appendChild(this.healthElementRegen);
         this.element.appendChild(this.healthElement);
-        this.healthElement.onclick = () => {
-            this.player.openEditor();
-        }
+
         this.updateHealthElement();
     }
     createGoldElement() {

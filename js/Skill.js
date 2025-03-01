@@ -3,17 +3,19 @@ import { Item } from './Item.js';
 
 
 export class Skill {
-    constructor(skillData) {
+    constructor(skillData,board=null,editable=true) {
         Object.assign(this, skillData);
         if(this.tier) {
             this.rarity = Item.rarityLevels[parseInt(this.tier)];
         }
+        this.editable = editable;
         this.itemProxy = new Item({
             name: this.name,
             text: this.text,
             tags: this.tags,
             tier: this.tier
-        });
+        },board);
+        this.board = board;
 
 
         const skillElement = document.createElement('div');
@@ -29,6 +31,7 @@ export class Skill {
         skillElement.appendChild(imgElement);
         
         this.element = skillElement;
+    
         // Add hover listeners
         skillElement.addEventListener('mouseenter', () => {
             this.tooltip = this.createTooltipElement();                        
@@ -40,9 +43,11 @@ export class Skill {
             this.tooltip.remove();
             this.tooltip = null;
         });
-        skillElement.addEventListener('click', () => {
-            this.showEditor();
-        });
+        if(this.editable) {
+            skillElement.addEventListener('click', () => {
+                this.showEditor();
+            });
+        }
         this.reset();
     }
     static fromName(name) {
