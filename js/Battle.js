@@ -13,6 +13,7 @@ export class Battle {
         this.sandstormIncrement = .25;
         this.battleIntervalSpeedMultiplier = 1;
         this.testBattleIntervals = [];
+        this.winRateBattleCount = 100;
 
         this.startBattleTime = undefined;
         this.battleIntervalSpeed = battleIntervalSpeed;
@@ -139,7 +140,7 @@ export class Battle {
         let numTopPlayerWins =0;
         let numBottomPlayerWins =0;
         let numDraws = 0;
-        let numBattles = 100;
+        let numBattles = this.winRateBattleCount;
         let numBattlesFinished = 0;
         this.testBattleIntervals = [];
         this.isCalculating = true;
