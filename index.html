@@ -41,28 +41,59 @@
     </head>
     <body>
         <h2 style="color:white;">BazaarPlanner</h2>
-        <div id="Menu" style="display: flex; gap: 10px;">
+        <div id="Menu" style="display: flex; gap: 10px; align-items: center;">
             <!--<button onclick="showSection('library')" class="selected">Library</button>-->
             <button onclick="showSection('simulator')">Simulator</button>
             <button onclick="showSection('puzzle')">Daily Puzzle</button>
             <button onclick="showSection('about')">About</button>
             <button onclick="showSection('faq')">FAQ</button>
             
-    
-            <div id="sign-in-status" style="margin-left: auto;"></div>
-            <div id="account-details" style="margin-left: auto; display:none;"></div>
-            <button onclick="login()" style="margin-left: auto;">Login</button>
+            <div id="poll-results" style="display: flex; align-items: center;"></div>
+            <div id="sign-in-status" style="margin-left: auto; display: flex; align-items: center;">            
+            </div><button onclick="showSection('account')">Account</button>
+        </div>
+        <div id="account" class="section" style="display: none;">
+            <h1>Account</h1>
+            <div id="account-content">
+                We will never share your account details with anyone else, excepting your display name.<br/>
+                <div id="account-details" style='background-color: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px;'></div>
+                Soon we will show stats on puzzle solves, and more. The main thing to do for now is set your display name to other users on the site.<br/><br/>
+                What shall we call you?
+                <input type="text" id="account-username" placeholder="username">
+                <button onclick="setUsername()">Save</button>
+                <br/><br/>
+                <br/><br/>
+                <button onclick="logout()" style="margin-left: auto;">Logout</button>
+            </div>
         </div>
         <div id="puzzle" class="section" style="display: none;">
-            <h1>Daily Puzzle</h1>
-            <p>
-                coming soon!<br/><br/>
-                We will display two boards, and you will guess who wins, and for bonus points, the win rate!
-                We will keep track of your points and show a leaderboard.<br/><br/>
-                These boards will be from real player twitch vod sumissions. <br/><br/>
-                If you think you have an interesting battle to showcase, you can submit both a vod url,
-                 and a bazaarplanner tinyurl which loads the boards/skills.
-            </p>
+            <div id="puzzle-content">
+                <h1 id="puzzle-title">Daily Puzzle</h1>
+                <p align="center"> The two boards below are from a real player twitch vod sumission.<br/>
+                    Afer voting, we will reveal the answer, simulate the battle, and link to the vod.<br>
+                    If you guess within 10 of the correct answer, you will gain a point, be added to the leaderboard, and given the chance to submit your own puzzle!<br/><br/>
+                    <b>In 100 battles, how many times does the bottom board win?</b>
+                    </p>
+                <div class="puzzle-slider-container">
+                    <input type="range" id="puzzle-guess-slider" min="0" max="100" value="0" step="1" oninput="this.nextElementSibling.nextElementSibling.textContent = this.value">
+                    <div class="slider-labels">
+                        <span>0</span>
+                        <span>100</span>
+                    </div>
+                    <div style="text-align: center; margin-top: 5px;"><b id="slider-value">0</b></div>
+                    <br/><br/>
+                    <div style="text-align: center; margin-top: 5px;">
+                        <button onclick="Puzzle.submitGuess()">Submit</button>
+                    </div>
+                </div>
+            </div>   
+            
+            <div class="board-container">
+                <div id="puzzle-top" class="board"></div>
+            </div>
+            <div class="board-container">
+                <div id="puzzle-bottom" class="board"></div>
+            </div>
             
         </div>
         <!-- FAQ Section -->
@@ -173,7 +204,7 @@
                 <i>(you must login to vote)</i>
                 <div class="poll-login">
                     <div id="firebaseui-auth-container"></div>
-                    <div id="twitch-auth-container"><button id="twitch-login-button">Sign in with Twitch</button></div>
+                    <div id="twitch-auth-container"><button id="twitch-login-button" class="firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-password firebaseui-id-idp-button firebaseui-idp-text firebaseui-idp-text-long">Sign in with Twitch</button></div>
                 </div>             
                 <div class="poll-button-group">
                     <button onclick="poll(true)">Yes</button>
