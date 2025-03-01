@@ -111,6 +111,7 @@ function showResults() {
             html += `<p>You did not guess within 10 points of the actual result!<br/><br/>
             Better luck tomorrow!</p>`;
         }
+        html+= "<p>Watch the fight below and the vod on twitch: <a href='"+result.vod+"' target='_blank'>"+result.vod+"</a></p>";
         document.getElementById("puzzle-content").innerHTML = html;
         Puzzle.battle.startBattle();
     });
@@ -119,6 +120,8 @@ function showResults() {
 Puzzle.submitPuzzle = function() {
     let html = `
         <h1>Submit your own puzzle!</h1>
+        Coming soon!
+        <!--
         <form onsubmit="Puzzle.submitPuzzleForm(event)">
             <label>Title:</label> <input type="text" id="puzzle-title" placeholder="Title"><br/>
             <label>Description:</label> <textarea id="puzzle-description" placeholder="Description"></textarea><br/>
@@ -126,6 +129,7 @@ Puzzle.submitPuzzle = function() {
             <label>BazaarPlanner URL:</label> <input type="text" id="puzzle-bazaarplanner-url" placeholder="BazaarPlanner URL"><br/>
             <button type="submit">Submit</button>
         </form>
+        -->
     `;
     document.getElementById("puzzle-content").innerHTML = html;
 }
