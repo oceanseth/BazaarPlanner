@@ -94,6 +94,8 @@ export function updateUrlState() {
         const aBoardState ={
             name: '_b_'+board.boardId,
             health: board.player.maxHealth,
+            regen: board.player.regen,
+            playerName: board.player.name,
             skills: board.skills.map(skill => {
                 const skillData = {name: skill.name};
                 if(skills[skill.name].tier != skill.tier) {
@@ -157,7 +159,9 @@ export function loadFromUrl(hash) {
                 const board = Board.getBoardFromId(item.name.slice(3));
                 board.player.startPlayerData.maxHealth = item.health;
                 board.player.maxHealth = item.health;
-                board.player.health = item.health;
+                if(item.playerName) board.player.name = item.playerName;
+                if(item.regen) board.player.regen = item.regen;
+                    
                 if(item.skills) {
                     item.skills.forEach(skill => {
                         board.addSkill(skill.name,skill);
