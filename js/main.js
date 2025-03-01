@@ -9,7 +9,7 @@ import { ItemFunction } from './ItemFunction.js';
 import { getRarityValue, loadFromUrl, updateUrlState } from './utils.js';
 import { Battle } from './Battle.js';
 import { Puzzle } from './Puzzle.js';
-
+import { Account } from './Account.js';
 // Make necessary functions/classes available globally
 if(window.location.hostname == "bazaarplanner.com") {
     window.location.href = "https://www.bazaarplanner.com/"+window.location.hash;
@@ -29,6 +29,7 @@ window.populateSearchSuggestions = populateSearchSuggestions;
 window.topPlayer = new Player({name:"Top Player"});
 window.bottomPlayer = new Player({name:"Bottom Player"});
 window.Puzzle = Puzzle;
+window.Account = Account;
 topPlayer.hostileTarget = bottomPlayer;
 bottomPlayer.hostileTarget = topPlayer;
 
@@ -161,6 +162,45 @@ window.getTinyUrl = function() {
     });
 }
 
+window.updateUserInfo = function(user) {
+    if (user) {
+        document.getElementById('sign-in-status').textContent = 'Signed in as ' + user.displayName;
+        document.getElementById('account-details').textContent = JSON.stringify({
+            displayName: user.displayName,
+            email: user.email,
+            emailVerified: user.emailVerified,
+            photoURL: user.photoURL,
+            uid: user.uid
+        }, null, '  ');
+    }
+}
+
+function setLoggedInUser (user) {        
+        if (user) {
+            // User is signed in
+            user.getIdToken().then(function(accessToken) {
+                window.user = user;
+                window.isDoner = true;
+                // Update status elements
+                updateUserInfo(user);
+
+                pollCheck();
+            });
+            // Hide the auth UI when signed in
+            document.getElementById('firebaseui-auth-container').style.display = 'none';
+        } else {
+            // User is signed out
+            document.getElementById('sign-in-status').textContent = '';
+            document.getElementById('account-details').textContent = '';
+            
+            // Reset login button
+            if (loginButton) {
+                loginButton.textContent = 'Login';
+                loginButton.onclick = login;
+            }            
+        }
+        loadFromUrl();
+}
 
 
 window.onload = () => {
@@ -248,41 +288,7 @@ window.onload = () => {
         // Track auth state
         function initApp() {
             pollCheck();
-            firebase.auth().onAuthStateChanged(function(user) {                
-                if (user) {
-                    // User is signed in
-                    user.getIdToken().then(function(accessToken) {
-                        window.user = user;
-                        window.isDoner = true;
-                        // Update status elements
-                        document.getElementById('sign-in-status').textContent = 'Signed in as ' + user.displayName;
-                        document.getElementById('account-details').textContent = JSON.stringify({
-                            displayName: user.displayName,
-                            email: user.email,
-                            emailVerified: user.emailVerified,
-                            photoURL: user.photoURL,
-                            uid: user.uid
-                        }, null, '  ');
-
-                        pollCheck();
-                    });
-                    // Hide the auth UI when signed in
-                    document.getElementById('firebaseui-auth-container').style.display = 'none';
-                } else {
-                    // User is signed out
-                    document.getElementById('sign-in-status').textContent = '';
-                    document.getElementById('account-details').textContent = '';
-                    
-                    // Reset login button
-                    if (loginButton) {
-                        loginButton.textContent = 'Login';
-                        loginButton.onclick = login;
-                    }
-                    
-
-                }
-                loadFromUrl();
-            });
+            firebase.auth().onAuthStateChanged(setLoggedInUser);
         }
         window.login = function() {
             // Show the auth UI when signed out
