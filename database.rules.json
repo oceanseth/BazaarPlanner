@@ -1,6 +1,16 @@
 {
   "rules": {
     "puzzles": {
+      "current": {
+        ".read": true,
+        ".write": false
+      },
+      "submissions": {
+        "$submissionId": {
+          ".read": true,
+          ".write": "auth.uid === newData.child('byUID').val()"
+        }
+      },
       "$puzzleId": {
         "data": {
           ".read": true,

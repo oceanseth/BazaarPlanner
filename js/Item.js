@@ -277,7 +277,9 @@ export class Item {
     }
     setup() {
         if(!this.executeSpecificItemFunction()) {
-            this.text.forEach(text => this.setupTextFunctions(text));
+            this.text.forEach((text, index) => {
+                this.setupTextFunctions(text, this.priorities?this.priorities[index]:0)
+            });
         }
         if(this.enchant) {
             if(this.enchant!='Radiant') {
