@@ -44,6 +44,7 @@ export class Battle {
         });
 
         allItems.sort(()=>this.battleRandom() - .5);
+        allItems.sort((a,b)=>b.priority-a.priority);
         allItems.forEach(item => item.updateBattle(timeDiff));
         allItems.forEach(item => item.updateTriggerValuesElement());
         allBoards.forEach(board => board.updateHealthElement());

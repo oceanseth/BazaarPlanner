@@ -233,6 +233,11 @@ export class Item {
         this.critMultiplier = 100; //default crit multiplier is 100% more damage
         this.freezeBonus = 0;
         this.battleStats = { useCount:0 };
+        if(this.priorities && this.priorities.length>0) {
+            this.priority = this.priorities[0];
+        } else {
+            this.priority = 0;
+        }
         setupChangeListeners(this,Item.possibleChangeAttributes);
 
         Object.assign(this, this.startItemData);
