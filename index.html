@@ -155,17 +155,26 @@
                 <br/><br/>
                 This project is currently in development. We update about a day after every patch, and most things are currently matching in-game exactly at that time.
             </p>
-            <h1>Known Issues</h1>
+            <h1>Simulator Differences from the Actual Game Engine</h1>
             If you don't see something mentioned below, please let us know!
             <ul>
                 <li>1. Items with cooldowns can still crit from non-cooldown based triggers such as duct tape critting when adjacent item is used.</li>
+                <li>2. If items should trigger at the same time, 'priority' from bazaardb.gg is used to determine order. 
+                    This has recently been added, and is not yet being enforced on some enchantment effects that had different priorities than their item's effects. 
+                    For example, a toxic weights is really weird; The toxic effect has a priority of 'medium', while the weights effect has a priority of 'high'. 
+                    We randomize the trigger order of items with the same priority and cooldown, but the game might use left to right order. I'm looking into this and will update as soon as I have more information.
+                    So in game, if a 'medium' priority weapon was on the left of the weights, had poison and the same cooldown as the weights, the weights will first add damage to the weapon, the weapon will trigger, then the toxic weights will add poison, and that added poison will not have been added before the weapon already applied it's poison.
+                    I personally think this is a really odd implementation as these 'priority' values are not consistent/obvious without inspecting the code (or looking it up online from someone who has and published it, which Reynad is serving DMCA takedowns for). 
+                    In this simulator, the weights enchantment priority will always match the weights priority. 
+                    Oddly, weights and pyg's gym have very different priorities even though they do similar things - the gym is low priority while the weights is high.                  
             </ul>
             <h1>Coming Soon</h1>
             <p style="width:400px;">
                 <ul>
                     <li>1. Create a desktop client you can run to give a button that will bring your current board in game into bazaarplanner (by generating a url with the board data).</li>
-                    <li>2. Awaiting game API (or ressurection of bazaar tracker), but some way to show a leaderboard of the top 100 builds seen on each day, by simulating battles against all other builds on that day submitted in the past month.</li>
-                    <li>3. Community items/skills - enable a creator tool for community items/skills which you can test out in the sim and thumbs up/down, and show a ranking of all the items.</li>
+                    <li>2. Awaiting game API (or ressurection of bazaar tracker or some other approved tool using official api), but some way to show a leaderboard of the top 100 builds seen on each day, by simulating battles against all other builds on that day submitted in the past month.</li>
+                    <li>3. Also if some tool like bazaar tracker is approved, being able to see your previous runs, and battles from those runs to select from to populate the boards. (We had this when bazaar tracker was up, and it was so nice).</li>
+                    <li>4. Community items/skills - enable a creator tool for community items/skills which you can test out in the sim and thumbs up/down, and show a ranking of all the items.</li>
                 </ul>
                 <b>Send other ideas and things you might want to see to @Strong on <a href="https://discord.gg/AfYdzr2C">his discord</a>!</b>
             </p>
