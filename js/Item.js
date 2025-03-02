@@ -235,6 +235,8 @@ export class Item {
         this.battleStats = { useCount:0 };
         if(this.priorities && this.priorities.length>0) {
             this.priority = this.priorities[0];
+        } else {
+            this.priority = 0;
         }
         setupChangeListeners(this,Item.possibleChangeAttributes);
 
