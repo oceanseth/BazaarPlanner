@@ -339,6 +339,7 @@ window.logout = ()=> {
     firebase.auth().signOut()
         .then(() => {
             console.log("Logout successful");
+            window.location.reload();
             // The auth state observer will handle UI updates
         })
         .catch(error => {
