@@ -68,6 +68,7 @@ export const items = {
       "Deal (8/12/16/20) damage.",
       "When you use the Core or another Ray, your Weapons gain (+2/+3/+4/+5) Damage for the fight."
     ],
+    "priorities": [1,0],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
       "Icy": "Freeze 1 small item for 1 second(s).",
@@ -9892,6 +9893,7 @@ export const items = {
       "Your weapons gain Damage equal to this item's value for the fight.",
       "When you buy a weapon, this gains (1/2/3) value and you gain (20/50/100) max health."
     ],
+    "priorities": [0,0],
     "enchants": {
       "Golden": "This has double value.",
       "Heavy": "Slow 3 items for 2 second(s).",

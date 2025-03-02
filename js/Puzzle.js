@@ -15,19 +15,23 @@ export class Puzzle {
     constructor() {
     }
     static loadPuzzle(date=new Date()) {
-        Puzzle.puzzleId = Math.floor((date - Puzzle.firstPuzzleDate ) / (1000 * 60 * 60 * 24))+1;
-
-        firebase.database().ref(`puzzles/${Puzzle.puzzleId}/votes/${window.user.uid}`).once('value').then(snapshot =>{                        
-            Puzzle.solved = snapshot.val()!=null;
-            if(Puzzle.solved) {
-                Puzzle.guess = snapshot.val();
-                document.getElementById("puzzle-content").innerHTML = '';
-                showResults();
+        firebase.database().ref(`puzzles/current`).once('value').then(snapshot => {
+            Puzzle.puzzleId = snapshot.val();
+            if(Puzzle.puzzleId) {
+                firebase.database().ref(`puzzles/${Puzzle.puzzleId}/votes/${window.user.uid}`).once('value').then(snapshot =>{                        
+                    Puzzle.solved = snapshot.val()!=null;
+                    if(Puzzle.solved) {
+                        Puzzle.guess = snapshot.val();
+                        document.getElementById("puzzle-content").innerHTML = '';
+                        showResults();
+                    }
+                    Puzzle.isLoading = false;
+                    
+                }); 
+                Puzzle.loadPuzzleBoards();               
             }
-            Puzzle.isLoading = false;
         });
         
-        Puzzle.loadPuzzleBoards();
     }
     static loadPuzzleBoards() {
         const puzzleTopPlayer = new Player();
