@@ -14,7 +14,8 @@ export class Skill {
             text: this.text,
             tags: this.tags,
             tier: this.tier
-        },board);
+        });
+        this.itemProxy.board = board;
         this.board = board;
 
 

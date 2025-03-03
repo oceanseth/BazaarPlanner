@@ -15,6 +15,10 @@ export class Puzzle {
     constructor() {
     }
     static loadPuzzle(date=new Date()) {
+        if(Puzzle.battle!=null) {
+            Puzzle.battle.resetBattle();
+            return;
+        }
         firebase.database().ref(`puzzles/current`).once('value').then(snapshot => {
             Puzzle.puzzleId = snapshot.val();
             if(Puzzle.puzzleId) {
@@ -34,22 +38,17 @@ export class Puzzle {
         
     }
     static loadPuzzleBoards() {
-        const puzzleTopPlayer = new Player();
-        const puzzleBottomPlayer = new Player();
-        puzzleTopPlayer.hostileTarget = puzzleBottomPlayer;
-        puzzleBottomPlayer.hostileTarget = puzzleTopPlayer;
-        if(Board.getBoardFromId("puzzle-top")) Board.getBoardFromId("puzzle-top").clear();
-        if(Board.getBoardFromId("puzzle-bottom")) Board.getBoardFromId("puzzle-bottom").clear();
-        const topBoard = new Board("puzzle-top",puzzleTopPlayer,false);
-        const bottomBoard = new Board("puzzle-bottom",puzzleBottomPlayer,false);
-        Puzzle.battle = new Battle([puzzleTopPlayer, puzzleBottomPlayer], (winner) => {
-            if(winner) {
-                alert(winner.name + " wins! Total combat time was "+((puzzleTopPlayer.battleTime/1000).toFixed(0))+" seconds.");
-            } else {
-                alert("Battle ended in a draw. Total combat time was "+((puzzleTopPlayer.battleTime/1000).toFixed(0))+" seconds.");
-            }
-        });
-
+        if(Puzzle.battle == null) {
+            const puzzleTopPlayer = new Player();
+            const puzzleBottomPlayer = new Player();
+            puzzleTopPlayer.hostileTarget = puzzleBottomPlayer;
+            puzzleBottomPlayer.hostileTarget = puzzleTopPlayer;
+            if(Board.getBoardFromId("puzzle-top")) Board.getBoardFromId("puzzle-top").clear();
+            if(Board.getBoardFromId("puzzle-bottom")) Board.getBoardFromId("puzzle-bottom").clear();
+            const topBoard = new Board("puzzle-top",puzzleTopPlayer,false);
+            const bottomBoard = new Board("puzzle-bottom",puzzleBottomPlayer,false);
+            Puzzle.battle = new Battle([puzzleTopPlayer, puzzleBottomPlayer], ()=>{},$("#puzzle-combatlog"));
+        }
         firebase.database().ref(`puzzles/${Puzzle.puzzleId}/data`).once('value').then(snapshot => {
             const data = snapshot.val();
             Puzzle.puzzleData = data;
@@ -115,7 +114,8 @@ function showResults() {
             html += `<p>You did not guess within 10 points of the actual result!<br/><br/>
             Better luck tomorrow!</p>`;
         }
-        html+= "<p>Watch the fight below and the vod on twitch: <a href='"+result.vod+"' target='_blank'>"+result.vod+"</a></p>";
+        html+= `<p>Watch the fight below and the vod on twitch: <a href='${result.vod}' target='_blank'>${result.vod}</a></p>
+        <button onclick="Puzzle.battle.resetBattle();Puzzle.battle.startBattle()">Run Battle</button>`;
         document.getElementById("puzzle-content").innerHTML = html;
         Puzzle.battle.startBattle();
     });

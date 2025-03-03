@@ -28,7 +28,9 @@ export class Item {
         return this.board.player.battle.battleRandom(...args);
     }
 
-
+    log(s) {
+            this.board.player.battle.log(s);
+    }
 
     constructor(itemData, board) {
         if(!itemData) {
@@ -108,7 +110,7 @@ export class Item {
         if(this.enchant=='Radiant') {return};
         this.isDestroyed = true;
         this.element.classList.add('destroyed');
-        log((source?source.name:"") + " destroyed " + this.name);
+        this.log((source?source.name:"") + " destroyed " + this.name);
         if(this.tags.includes("Ammo")) {
           this.ammo = 0;
         }
@@ -504,7 +506,7 @@ export class Item {
             duration*=2;
         }
         item.applyHaste(duration);
-        log(this.name + " hastened " + item.name + " for " + duration + " seconds");
+        this.log(this.name + " hastened " + item.name + " for " + duration + " seconds");
     }
 
     applySlow(duration) {
@@ -517,12 +519,12 @@ export class Item {
         }else{
             item.applySlow(duration);
         }
-        log(this.name + " slowed " + item.name + " for " + duration + " seconds");
+        this.log(this.name + " slowed " + item.name + " for " + duration + " seconds");
         this.board.slowTriggers.forEach(func => func(item,this));
     }
     reload(source) {
         this.ammo = this.maxAmmo;
-        log((source?source.name:"") + " reloaded " + this.name);
+        this.log((source?source.name:"") + " reloaded " + this.name);
     }
 
     updateProgressBar(progress) {
@@ -635,7 +637,7 @@ export class Item {
         }
 
        damage = this.board.player.hostileTarget.takeDamage(damage);
-        log(this.name + (doesCrit?" critically strikes and":"") +
+        this.log(this.name + (doesCrit?" critically strikes and":"") +
             " deals "+ damage+" damage to " +
             this.board.player.hostileTarget.name);            
         if(this.lifesteal >0) {
@@ -645,7 +647,7 @@ export class Item {
             } else {
                 this.board.player.health += damage;
             }
-            log(this.name + " lifesteals " + (this.board.player.health-oldHealth) + " health");
+            this.log(this.name + " lifesteals " + (this.board.player.health-oldHealth) + " health");
         }
         if(doesCrit) {
             this.board.itemDidCrit(this);
@@ -658,7 +660,7 @@ export class Item {
         if(doesCrit) {
             shieldAmount *= (1+this.critMultiplier/100);
         }
-        log(this.name + (doesCrit?"critically ":"")+" shielded " + this.board.player.name + " for " + shieldAmount);
+        this.log(this.name + (doesCrit?"critically ":"")+" shielded " + this.board.player.name + " for " + shieldAmount);
         this.board.player.applyShield(shieldAmount);
         if(doesCrit) {
             this.board.itemDidCrit(this);
@@ -689,7 +691,7 @@ export class Item {
         if(doesCrit) {
             healAmount *= (1+this.critMultiplier/100);
         }
-        log(this.name + (doesCrit?"critically ":"")+" healed " + this.board.player.name + " for " + healAmount);
+        this.log(this.name + (doesCrit?"critically ":"")+" healed " + this.board.player.name + " for " + healAmount);
         this.board.player.heal(healAmount);
         if(doesCrit) {
             this.board.itemDidCrit(this);
@@ -709,7 +711,7 @@ export class Item {
         this.freezeElement.textContent = (this.freezeDurationRemaining/1000).toFixed(1);
         this.freezeElement.classList.remove('hidden');
 
-        log(this.name + " was frozen by " + source.name + " for " + duration + " seconds");
+        this.log(this.name + " was frozen by " + source.name + " for " + duration + " seconds");
        //game is bugged and doesn't do this if(!wasAlreadyFrozen) {
             this.board.freezeTriggers.forEach(func => func(this,source));
         //}
@@ -720,14 +722,14 @@ export class Item {
         this.freezeDurationRemaining = 0;
         this.element.classList.remove('frozen');
         this.freezeElement.classList.add('hidden');
-        log(source.name + ' unfroze ' + this.name);
+        this.log(source.name + ' unfroze ' + this.name);
     }
     removeSlow() {
         if (this.slowTimeRemaining <= 0) 
             return;
         this.slowTimeRemaining = 0;
         this.isSlowed = 0;
-        log(this.name + " was un-slowed");
+        this.log(this.name + " was un-slowed");
     }
     applyPoison(poisonAmount,source,{selfTarget}={selfTarget:false}) {
         let doesCrit = this.doICrit();
@@ -735,7 +737,7 @@ export class Item {
             poisonAmount *= (1+this.critMultiplier/100);
         }
         const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
-        log(this.name + (doesCrit?"critically ":"")+" poisoned " + target.name + " for " + poisonAmount.toFixed(0));
+        this.log(this.name + (doesCrit?"critically ":"")+" poisoned " + target.name + " for " + poisonAmount.toFixed(0));
         target.applyPoison(poisonAmount);
         if(doesCrit) {
             this.board.itemDidCrit(this);
@@ -1005,7 +1007,7 @@ export class Item {
             
                 selectedItems.forEach(i => {
                     this.applyHasteTo(i,duration);
-                    log(this.name + " hasted " + i.name + " for " + duration + " seconds");
+                    this.log(this.name + " hasted " + i.name + " for " + duration + " seconds");
                 });
             };
         }
@@ -1019,7 +1021,7 @@ export class Item {
                     if(other && i.id == this.id) return;
                     this.applyHasteTo(i,duration);
                 });
-                log(this.name + " hasted all items for " + duration + " seconds");
+                this.log(this.name + " hasted all items for " + duration + " seconds");
             };
         }
         // Haste your Friends for ( 1 » 2 » 3 ) second(s). from DJ Rob0t
@@ -1070,7 +1072,7 @@ export class Item {
             const duration = getRarityValue(match[1], this.rarity);
             return () => {
                 this.board.player.hostileTarget.board.items.forEach(i => this.applySlowTo(i,duration));
-                log(this.name + " slowed all enemy items for " + duration + " seconds");
+                this.log(this.name + " slowed all enemy items for " + duration + " seconds");
             };
         }
         
@@ -1107,7 +1109,7 @@ export class Item {
             return () => {
                 let itemToHaste = this.pickRandom(this.board.items);
                 this.applyHasteTo(itemToHaste,duration);
-                log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
+                this.log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
             };
         }
         regex = /^Haste the item to the right of this for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
@@ -1137,7 +1139,7 @@ export class Item {
             const itemToHaste = this.getItemToTheLeft();
             if(itemToHaste) {
                 this.applyHasteTo(itemToHaste,duration);
-                log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
+                this.log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
             }
 
         }
@@ -1148,7 +1150,7 @@ export class Item {
             const duration = getRarityValue(match[1], this.rarity);
             return () => {
                 this.getAdjacentItems().forEach(item => this.applyHasteTo(item,duration));
-                log(this.name + " hasted adjacent items for " + duration + " seconds"); 
+                this.log(this.name + " hasted adjacent items for " + duration + " seconds"); 
             };
         }
 
@@ -1159,7 +1161,7 @@ export class Item {
             const duration = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
             return (item) => {
                 this.applyHasteTo(item,duration);
-                log(this.name + " hasted "+item.name+" for " + duration + " seconds");
+                this.log(this.name + " hasted "+item.name+" for " + duration + " seconds");
             };
 
         }
@@ -1171,7 +1173,7 @@ export class Item {
             const duration = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
             return () => {
                 this.applyHasteTo(this,duration);
-                log(this.name + " gained haste for " + duration + " seconds");
+                this.log(this.name + " gained haste for " + duration + " seconds");
             };
         }
         return null;
@@ -1267,7 +1269,7 @@ export class Item {
             return () => {                
                 this.applyHeal(this.heal);
 
-                log(this.name + " healed " + this.board.player.name + " for " + healAmount);
+                this.log(this.name + " healed " + this.board.player.name + " for " + healAmount);
             };
         }
 
@@ -1436,7 +1438,7 @@ export class Item {
     gain(amount,type,source) {
         amount = parseFloat(amount);
         if(!["cooldown"].includes(type)) {
-            log(this.name + " gained " + amount.toFixed(0) + " " + type + (source?(" from "+source.name):""));
+            this.log(this.name + " gained " + amount.toFixed(0) + " " + type + (source?(" from "+source.name):""));
         }
 
         
@@ -1504,7 +1506,7 @@ export class Item {
                 const oldCooldown = this.cooldown;
                 this.cooldown += amount;
                 if(this.cooldown<1000) this.cooldown = 1000; //cooldown can't go below 1 second
-                log(this.name + " cooldown changed from " + (oldCooldown/1000).toFixed(1) + "s to " + (this.cooldown/1000).toFixed(1) + "s");
+                this.log(this.name + " cooldown changed from " + (oldCooldown/1000).toFixed(1) + "s to " + (this.cooldown/1000).toFixed(1) + "s");
                 break;
             case 'freezebonus':
                 this.freezeBonus += amount;
@@ -1542,7 +1544,7 @@ export class Item {
                     const itemToFreeze = this.pickRandom(targets);
                     if(itemToFreeze) itemToFreeze.applyFreeze(freezeDuration,this);
                     else {
-                        log(this.name + " tried to freeze " + numItems + " item(s) but there were no items to freeze");
+                        this.log(this.name + " tried to freeze " + numItems + " item(s) but there were no items to freeze");
                     }
                 }
             };
@@ -1560,7 +1562,7 @@ export class Item {
                     const itemToFreeze = this.pickRandom(targets);
                     if(itemToFreeze) itemToFreeze.applyFreeze(freezeDuration,this);
                     else {
-                        log(this.name + " tried to freeze " + numItems + " item(s) of equal or smaller size but there were no items to freeze");
+                        this.log(this.name + " tried to freeze " + numItems + " item(s) of equal or smaller size but there were no items to freeze");
                     }
                 }
             };
@@ -1578,7 +1580,7 @@ export class Item {
                     const itemToFreeze = this.pickRandom(targets);
                     if(itemToFreeze) itemToFreeze.applyFreeze(freezeDuration,this);
                     else {
-                        log(this.name + " tried to freeze " + numItems + " medium or small item(s) but there were no items to freeze");
+                        this.log(this.name + " tried to freeze " + numItems + " medium or small item(s) but there were no items to freeze");
                     }
                 }
             };
@@ -1648,7 +1650,7 @@ export class Item {
             return ()=>{
                 const highestShield = this.board.activeItems.reduce((max, item) => item.tags.includes("Shield") ? (item.shield>(max?max.shield:0))?item:max:max, null);
                 if(highestShield) {
-                    log(this.name + " used " + highestShield.name + " as highest Shield item");
+                    this.log(this.name + " used " + highestShield.name + " as highest Shield item");
                     highestShield.trigger();
                 }
             };
@@ -1731,7 +1733,7 @@ export class Item {
             return (shieldLost) => {
                 let gainDamage = shieldLost * multiplier/100;
                 this.gain(gainDamage,'damage');
-                log(this.name + " gained " + gainDamage + " damage for "+this.board.player.name+" losing " + shieldLost + " shield");
+                this.log(this.name + " gained " + gainDamage + " damage for "+this.board.player.name+" losing " + shieldLost + " shield");
             };
         }
 
@@ -2931,7 +2933,7 @@ export class Item {
     chargeBy(seconds, source) {
         //calculate time to next trigger
         if(source) {
-            log(source.name + " charged " + this.name + " for " + seconds + " second(s)");
+            this.log(source.name + " charged " + this.name + " for " + seconds + " second(s)");
         }
         const timeToNextTrigger = this.cooldown - (this.effectiveBattleTime % this.cooldown);
         if(timeToNextTrigger > seconds*1000) {
@@ -2997,7 +2999,7 @@ export class Item {
                 const itemToCharge = match[1]=='left'?this.getItemToTheLeft():this.getItemToTheRight();
                 if(itemToCharge) {
                     itemToCharge.chargeBy(seconds);
-                    log(this.name + " charged " + itemToCharge.name + " for " + seconds + " second(s)");
+                    this.log(this.name + " charged " + itemToCharge.name + " for " + seconds + " second(s)");
                 }
 
             }
@@ -3118,7 +3120,7 @@ export class Item {
                 const target = this.pickRandom(this.board.items.filter(item => item.tags.includes("Burn")));
                 if(target) {
                     target.gain(target.burn,'burn');
-                    log(this.name + " doubled the Burn of " + target.name);
+                    this.log(this.name + " doubled the Burn of " + target.name);
                 }
             }
         }
@@ -3147,7 +3149,7 @@ export class Item {
                 });
                 this.board.player.burn = this.board.player.burn/2;
                 this.board.player.poison = this.board.player.poison/2;
-                log(this.name + " removed Freeze and Slow from "+this.board.player.name+"'s items and Cleansed half their Burn and Poison");
+                this.log(this.name + " removed Freeze and Slow from "+this.board.player.name+"'s items and Cleansed half their Burn and Poison");
             }
         }
         //gain shield equal to (  10%  » 20%  » 35%  » 50%   ) of your max health
@@ -3158,7 +3160,7 @@ export class Item {
             return () => {
                 const shieldGain = this.board.player.maxHealth*healthPercentage/100;
                 this.applyShield(shieldGain);
-                log(this.name + " added " + shieldGain + " shield to " + this.board.player.name);
+                this.log(this.name + " added " + shieldGain + " shield to " + this.board.player.name);
             }
 
         }
@@ -3186,7 +3188,7 @@ export class Item {
                 const item =this.pickRandom(items);
                 if(item) {
                     item.cooldown *= 1 - (parseInt(match[1])/100);
-                    log(this.name + " reduced " + item.name + " cooldown by 5%");
+                    this.log(this.name + " reduced " + item.name + " cooldown by 5%");
                 }
             }
         }
@@ -3223,7 +3225,7 @@ export class Item {
                 this.board.player.hostileTarget.board.items.forEach(item => {   
                     if(item.tags.includes(match[1])) {
                         item.gain(-lossAmount,match[4].toLowerCase());
-                        log(this.name + " caused " + item.name + " to lose " + lossAmount + " " + match[4]);
+                        this.log(this.name + " caused " + item.name + " to lose " + lossAmount + " " + match[4]);
                     }
                 });
             }
@@ -3329,7 +3331,7 @@ export class Item {
         if(match) {
             return () => {
                 this.ammo = this.maxAmmo;
-                log(this.name + " reloaded");
+                this.log(this.name + " reloaded");
             }
         }
         //Your other Friends' cooldowns are reduced by ( 10% » 20% » 30% )
@@ -3420,7 +3422,7 @@ export class Item {
             const maxHealth = getRarityValue(match[1], this.rarity);
             return () => {
                 this.board.player.hostileTarget.maxHealth -= maxHealth;
-                log(this.name + " caused " + this.board.player.hostileTarget.name + " to lose " + maxHealth + " Max Health");
+                this.log(this.name + " caused " + this.board.player.hostileTarget.name + " to lose " + maxHealth + " Max Health");
             }
         }
         
@@ -3540,7 +3542,7 @@ export class Item {
                     if(rightItem.ammo>rightItem.maxAmmo) {
                         rightItem.ammo = rightItem.maxAmmo;
                     } else {
-                        log(this.name + " gave " + rightItem.name + " " + ammo + " Ammo");
+                        this.log(this.name + " gave " + rightItem.name + " " + ammo + " Ammo");
                     }                    
                 }
             }
@@ -3632,7 +3634,7 @@ export class Item {
         if(match) {            
             return () => {
                 this.board.player.addGold(match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]));
-                log(this.name + " gave " + this.board.player.gold + " gold to " + this.board.player.name);
+                this.log(this.name + " gave " + this.board.player.gold + " gold to " + this.board.player.name);
             }
         }
 
@@ -3740,7 +3742,7 @@ export class Item {
             const leftmostItem = this.board.items[0];
             return () => {
                 leftmostItem.gain(leftmostItem.cooldown * (1-cooldownReduction/100)-leftmostItem.cooldown,'cooldown');
-                log(this.name + " reduced " + leftmostItem.name + " cooldown by " + cooldownReduction + "%");
+                this.log(this.name + " reduced " + leftmostItem.name + " cooldown by " + cooldownReduction + "%");
             };
         }
 
@@ -3860,7 +3862,7 @@ export class Item {
                 const targetItem = this.pickRandom(targetItems);
                 if(targetItem) {
                     targetItem.gain(cooldownIncrease*1000,'cooldown');
-                    log(this.name + " increased " + targetItem.name + " cooldown by " + cooldownIncrease + " seconds");
+                    this.log(this.name + " increased " + targetItem.name + " cooldown by " + cooldownIncrease + " seconds");
                 }
             };
         }
@@ -3876,7 +3878,7 @@ export class Item {
             const dmgGain = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             return () => {
                 this.damage += dmgGain;
-                log(this.name + " gained " + dmgGain + " damage");
+                this.log(this.name + " gained " + dmgGain + " damage");
             };
         }*/
        //Destroy an enemy item for the fight.
@@ -3898,7 +3900,7 @@ export class Item {
             return () => {
                 if(leftItem) {
                     leftItem.damage += dmgGain;
-                    log(this.name+" gave " + leftItem.name + " " + dmgGain + " damage");
+                    this.log(this.name+" gave " + leftItem.name + " " + dmgGain + " damage");
                 }
             }
         }
@@ -3962,7 +3964,7 @@ export class Item {
                     const itemToFreeze = this.pickRandom(itemsToFreeze);
                     if(itemToFreeze) itemToFreeze.applyFreeze(seconds,this);
                     else {
-                        log(this.name + " tried to freeze " + numToFreezeNow + " item(s) but there were no items to freeze");
+                        this.log(this.name + " tried to freeze " + numToFreezeNow + " item(s) but there were no items to freeze");
                     }
                 }
 
@@ -4101,7 +4103,7 @@ export class Item {
             return () => {
                 this.board.items.filter(item => item.startIndex>this.startIndex && item.tags.includes(tagToMatch)).forEach(item => {
                     item.gain(gainAmount,match[4].toLowerCase());
-                    log(this.name + " gave " + item.name + " " + gainAmount + " " + match[4]);
+                    this.log(this.name + " gave " + item.name + " " + gainAmount + " " + match[4]);
                 });
             };
         }
@@ -4149,7 +4151,7 @@ export class Item {
             return () => {
                 itemsToGive.forEach(item => {
                     item.gain(gainAmount,match[4].toLowerCase());
-                    log(this.name + " gave " + item.name + " " + gainAmount + " " + match[4]);
+                    this.log(this.name + " gave " + item.name + " " + gainAmount + " " + match[4]);
                 });
             };
         }
@@ -4192,7 +4194,7 @@ export class Item {
         if(match) {
             return (item)=>{
                 this.shield += item.value;
-                log(this.name + " gained " + item.value + " Shield");
+                this.log(this.name + " gained " + item.value + " Shield");
             };
         }
         //This has double damage.
@@ -4219,7 +4221,7 @@ export class Item {
         if(match) {
             return () => {
                 this.board.player.burn /= 2;
-                log(this.name + " cleansed half "+this.board.player.name+"'s Burn");
+                this.log(this.name + " cleansed half "+this.board.player.name+"'s Burn");
             }
         }
         //reload 2 Ammo
@@ -4245,7 +4247,7 @@ export class Item {
             return () => {
                 this.board.items.forEach(item=>{
                     if(item.tags.includes("Core")) {
-                        log(this.name+" used "+item.name);
+                        this.log(this.name+" used "+item.name);
                         item.trigger();
                     }
                 });
@@ -4279,12 +4281,12 @@ export class Item {
             if(isPercentageBased) {
                 return () => {
                     this.gain(this[whatToGain]*gainAmount/100,whatToGain);
-                    log(this.name + " gained " + gainAmount + " " + whatToGain);
+                    this.log(this.name + " gained " + gainAmount + " " + whatToGain);
                 }
             } else {
                 return () => {
                     this[whatToGain] += gainAmount;
-                    log(this.name + " gained " + gainAmount + " " + whatToGain);
+                    this.log(this.name + " gained " + gainAmount + " " + whatToGain);
                 }        
             }
         }
@@ -4729,7 +4731,7 @@ export class Item {
             const gainAmount = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
            return ()=>{
             this.board.player.gainRegen(gainAmount);
-            log(this.name + " added " + gainAmount + " Regeneration");
+            this.log(this.name + " added " + gainAmount + " Regeneration");
            }
 
         }
@@ -4766,7 +4768,7 @@ export class Item {
             const itemCount = this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[3]))).length;
             this.board.player.gainRegen(regenToAdd * itemCount);
             this.board.updateHealthElement();
-            log(this.name + " added " + regenToAdd * itemCount + " Regeneration");
+            this.log(this.name + " added " + regenToAdd * itemCount + " Regeneration");
             return ()=>{};
 
         }
