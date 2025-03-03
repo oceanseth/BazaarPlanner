@@ -58,10 +58,13 @@ def process_monster(monster):
     
     # Process items
     for item in monster["items"]:
-        processed["items"].append({
+        item_data = {
             "name": item["card"]["name"],
             "tier": get_tier_number(item["tierType"])
-        })
+        }
+        if item.get("enchantmentType"):  # Only add enchant if it exists
+            item_data["enchant"] = item["enchantmentType"]
+        processed["items"].append(item_data)
     
     # Download image if needed
     download_image_if_missing(monster["cardName"], "monsters")

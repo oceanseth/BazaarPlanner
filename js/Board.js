@@ -1062,7 +1062,7 @@ class Board {
             let itemData = Item.getDataFromName(name);
             if(!itemData) return;
             itemData.rarity = Item.rarityLevels[item.tier];
-            itemData.enchant = enchant;
+            itemData.enchant = item.enchant || enchant;
             let newItem = new Item(itemData, this);
             newItem.setIndex(startIndex);
             startIndex += newItem.size;
