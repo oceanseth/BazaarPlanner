@@ -1472,7 +1472,7 @@ background-color: rgba(255, 0, 0, 0.2);
     background: var(--input-background);
     border: 1px solid var(--input-border);
     border-radius: 8px;
-    color:black;
+    color: var(--text-color);
     padding: 0px;
     margin: 0px;
     padding-top:10px;
@@ -1710,6 +1710,14 @@ a:hover {
 
 iframe {
     border: 0px;
+}
+select {
+    background-color: var(--input-background);
+    color: var(--text-color);
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 14px;
 }
 
 #puzzle-select {
