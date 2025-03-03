@@ -126,8 +126,11 @@ class Board {
             this.updateHealthElement();
             this.updateDPSElement();
             this.updatePlayerElement();
+            if(this.winRateElement) {
+                this.winRateElement.style.display = "none";
+            }
         }
-
+        
         this.updateGoldElement();
         this.updateIncomeElement();
     }

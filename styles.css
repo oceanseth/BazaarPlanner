@@ -1499,7 +1499,7 @@ background-color: rgba(255, 0, 0, 0.2);
 
 .win-rate-element {
     display: none;
-     
+     z-index:2000;
     font-size: 30px;
 }
 
@@ -1667,9 +1667,6 @@ background-color: rgba(255, 0, 0, 0.2);
     border-radius: 12.5px;
     border: 2px solid #888;
 }
-#puzzle-content { 
-    text-align: center;
-}
 
 /* Add new styles for links */
 a {
@@ -1725,7 +1722,7 @@ select {
 
 #puzzle-select {
     position:absolute;
-    top: 20px;
-    left: 20px;
+    top: 10px;
+    left: 10px;
     width: 100 px;
 }

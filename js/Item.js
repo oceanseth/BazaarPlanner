@@ -678,7 +678,7 @@ export class Item {
             burnAmount *= (1+this.critMultiplier/100);
         }
         const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
-        log(this.name + (doesCrit?" critically ":"")+" burned " + target.name + " for " + burnAmount);
+        this.log(this.name + (doesCrit?" critically ":"")+" burned " + target.name + " for " + burnAmount);
         target.applyBurn(burnAmount);
         if(doesCrit) {
             this.board.itemDidCrit(this);
@@ -1405,7 +1405,11 @@ export class Item {
                 this.gain((newHealth-oldHealth)*multiplier/100,shouldShield?"shield":"heal");
             });
             return () => {
-                this["apply"+shouldShield?"Shield":"Heal"](this[shouldShield?"shield":"heal"]);
+                if(shouldShield) {
+                    this.applyShield(this.shield);
+                } else {
+                    this.applyHeal(this.heal);
+                }
             };
         }
 
