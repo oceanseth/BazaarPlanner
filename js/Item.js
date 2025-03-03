@@ -307,7 +307,9 @@ export class Item {
     }
 
     adjacentItemTriggered(item) {
+        this.board.critPossible=false;
         this.adjacentItemTriggers.forEach(func => func(item));
+        this.board.critPossible=true;
     }
 
     createElement() {
@@ -621,6 +623,7 @@ export class Item {
     }
 
     doICrit() {
+        if(!this.board.critPossible) return false;
         if(this.cooldown>0 && this.crit && this.battleRandom(this.crit / 100)) {
             return true;
         }

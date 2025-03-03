@@ -101,6 +101,7 @@ class Board {
     }
 
     reset() {
+        this.critPossible=true;
         this.damageDealt = 0;
         this.itemTriggers = new Map(); //functions to call when any item on this board is triggered
         this.freezeTriggers = new Map(); //functions to call when any item on this board is frozen
@@ -254,7 +255,9 @@ class Board {
 
 
     itemDidCrit(item) {
+        this.critPossible=false;
         this.critTriggers.forEach(func => func(item));
+        this.critPossible=true;
     }
     itemValuesChanged(item) {
         this.itemValuesChangedTriggers.forEach(func => func(item));
@@ -1084,7 +1087,9 @@ class Board {
         if(this.editable) updateUrlState();
     }
     itemTriggered(item) {    
+        this.critPossible=false;
         this.itemTriggers.forEach(func => func(item));
+        this.critPossible=true;
     }
 
    
