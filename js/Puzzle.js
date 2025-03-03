@@ -161,18 +161,23 @@ function showResults() {
         }
         html+= `<button onclick="Puzzle.battle.resetBattle();Puzzle.battle.startBattle()">Run Battle</button>`;
         html+="</div>";
-        if(result.desc) {
-            html+= `<p><b>Description:</b> <br/><br/>${result.desc}</p>`;
-        }
         if(result.vod) {
-            html+= `<div style="width: 100%;"><iframe
-    src="https://clips.twitch.tv/embed?clip=${result.vod}&parent=`+window.location.hostname+`"
-    height="400"
-    width="100%"
-    allowfullscreen>
-</iframe></div></div>
-`;
-        } 
+            html+= `<div style="width: 100%;">
+            <iframe src="https://clips.twitch.tv/embed?clip=${result.vod}&parent=`+window.location.hostname+`"
+            height="400"
+            width="100%"
+            allowfullscreen>
+            </iframe></div></div>`;
+            if(result.desc) {
+                html+=`<div style="margin: 0 auto; width: 50%; background-color:rgba(0,0,0,.3); padding: 10px; border-radius: 10px;"><p><b>Analysis: </b> ${result.desc}</p></div>`;
+            }
+        }   else {
+            if(result.desc) {
+                html+= `<div style="justify-content: center; width: 50%; background-color:rgba(0,0,0,.3); padding: 10px; border-radius: 10px;"><p><b>Analysis: </b> ${result.desc}</p></div>`;
+            }
+            html+="</div>";
+        }
+        
         
         document.getElementById("puzzle-content").innerHTML = html;
         Puzzle.battle.startBattle();

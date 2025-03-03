@@ -133,8 +133,9 @@ export class Battle {
         }
     }
     calculateWinRate() {        
-        topPlayer.board.winRateElement.style.display = "none";
-        bottomPlayer.board.winRateElement.style.display = "none";
+        this.players.forEach(player => {
+            player.board.winRateElement.style.display = "none";
+        });
         if(!window.isPaidUser) return;
         if(this.testBattleIntervals.length>0) {
             this.stopCalculating();
@@ -147,7 +148,7 @@ export class Battle {
         this.testBattleIntervals = [];
         this.isCalculating = true;
         for(let i=0;i<numBattles;i++) {
-            const testPlayers = [topPlayer,bottomPlayer].map(player => player.clone());
+            const testPlayers = this.players.map(player => player.clone());
             testPlayers[0].hostileTarget = testPlayers[1];
             testPlayers[1].hostileTarget = testPlayers[0];
             const testBattle = new Battle(testPlayers,(winner)=>{
@@ -159,10 +160,10 @@ export class Battle {
                  //   console.log(testPlayers[0].name + " wins " + numTopPlayerWins + " times out of " + numBattles + " battles.");
                  //   console.log(testPlayers[1].name + " wins " + numBottomPlayerWins + " times out of " + numBattles + " battles.");
                  //   console.log("Draws: " + numDraws);
-                    topPlayer.board.winRateElement.innerHTML = ((numTopPlayerWins+numDraws)/numBattles*100).toFixed(0) + "%";
-                    bottomPlayer.board.winRateElement.innerHTML = ((numBottomPlayerWins+numDraws)/numBattles*100).toFixed(0) + "%";
-                    topPlayer.board.winRateElement.style.display = "block";
-                    bottomPlayer.board.winRateElement.style.display = "block";
+                    this.players[0].board.winRateElement.innerHTML = ((numTopPlayerWins+numDraws)/numBattles*100).toFixed(0) + "%";
+                    this.players[1].board.winRateElement.innerHTML = ((numBottomPlayerWins+numDraws)/numBattles*100).toFixed(0) + "%";
+                    this.players[0].board.winRateElement.style.display = "block";
+                    this.players[1].board.winRateElement.style.display = "block";
                     this.isCalculating = false;
                 }
             },null,100,null,false);
