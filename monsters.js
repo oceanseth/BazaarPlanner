@@ -77,7 +77,8 @@ export const monsters = {
       },
       {
         "name": "Fang",
-        "tier": 0
+        "tier": 0,
+        "enchant": "Toxic"
       },
       {
         "name": "Fang",
@@ -357,11 +358,13 @@ export const monsters = {
       },
       {
         "name": "Cutlass",
-        "tier": 0
+        "tier": 0,
+        "enchant": "Fiery"
       },
       {
         "name": "Cutlass",
-        "tier": 0
+        "tier": 0,
+        "enchant": "Fiery"
       },
       {
         "name": "Bar of Gold",
@@ -935,11 +938,13 @@ export const monsters = {
       },
       {
         "name": "Fang",
-        "tier": 3
+        "tier": 3,
+        "enchant": "Shiny"
       },
       {
         "name": "Fang",
-        "tier": 3
+        "tier": 3,
+        "enchant": "Shiny"
       },
       {
         "name": "Pelt",
@@ -973,7 +978,8 @@ export const monsters = {
     "items": [
       {
         "name": "Fire Claw",
-        "tier": 0
+        "tier": 0,
+        "enchant": "Restorative"
       },
       {
         "name": "Cinders",
@@ -989,7 +995,8 @@ export const monsters = {
       },
       {
         "name": "Fire Claw",
-        "tier": 0
+        "tier": 0,
+        "enchant": "Restorative"
       }
     ]
   },
@@ -1107,7 +1114,8 @@ export const monsters = {
       },
       {
         "name": "Clockwork Blades",
-        "tier": 1
+        "tier": 1,
+        "enchant": "Toxic"
       },
       {
         "name": "Nightshade",
@@ -1187,11 +1195,13 @@ export const monsters = {
       },
       {
         "name": "Fang",
-        "tier": 1
+        "tier": 1,
+        "enchant": "Obsidian"
       },
       {
         "name": "Fang",
-        "tier": 1
+        "tier": 1,
+        "enchant": "Obsidian"
       },
       {
         "name": "Claws",
@@ -1585,7 +1595,8 @@ export const monsters = {
       },
       {
         "name": "Fang",
-        "tier": 1
+        "tier": 1,
+        "enchant": "Toxic"
       },
       {
         "name": "Basilisk Fang",
@@ -1752,6 +1763,10 @@ export const monsters = {
       {
         "name": "Bonk",
         "tier": 3
+      },
+      {
+        "name": "Strength",
+        "tier": 0
       }
     ],
     "items": [
@@ -1761,7 +1776,8 @@ export const monsters = {
       },
       {
         "name": "Concealed Dagger",
-        "tier": 2
+        "tier": 2,
+        "enchant": "Toxic"
       },
       {
         "name": "Anchor",
@@ -1781,7 +1797,8 @@ export const monsters = {
       },
       {
         "name": "Brass Knuckles",
-        "tier": 2
+        "tier": 2,
+        "enchant": "Toxic"
       }
     ]
   },
@@ -1853,7 +1870,8 @@ export const monsters = {
       },
       {
         "name": "Hammock",
-        "tier": 2
+        "tier": 2,
+        "enchant": "Icy"
       },
       {
         "name": "Igloo",
@@ -1945,7 +1963,8 @@ export const monsters = {
       },
       {
         "name": "Katana",
-        "tier": 2
+        "tier": 2,
+        "enchant": "Fiery"
       },
       {
         "name": "Lighthouse",
@@ -3302,43 +3321,53 @@ export const monsters = {
     "items": [
       {
         "name": "Fang",
-        "tier": 3
+        "tier": 3,
+        "enchant": "Heavy"
       },
       {
         "name": "Fang",
-        "tier": 3
+        "tier": 3,
+        "enchant": "Icy"
       },
       {
         "name": "Fang",
-        "tier": 3
+        "tier": 3,
+        "enchant": "Fiery"
       },
       {
         "name": "Fang",
-        "tier": 3
+        "tier": 3,
+        "enchant": "Obsidian"
       },
       {
         "name": "Fang",
-        "tier": 3
+        "tier": 3,
+        "enchant": "Shiny"
       },
       {
         "name": "Fang",
-        "tier": 3
+        "tier": 3,
+        "enchant": "Shiny"
       },
       {
         "name": "Fang",
-        "tier": 3
+        "tier": 3,
+        "enchant": "Obsidian"
       },
       {
         "name": "Fang",
-        "tier": 3
+        "tier": 3,
+        "enchant": "Fiery"
       },
       {
         "name": "Fang",
-        "tier": 3
+        "tier": 3,
+        "enchant": "Icy"
       },
       {
         "name": "Fang",
-        "tier": 3
+        "tier": 3,
+        "enchant": "Heavy"
       }
     ]
   }
