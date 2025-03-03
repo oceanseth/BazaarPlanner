@@ -160,9 +160,8 @@ export function loadFromUrl(hash) {
                     boardsCleared.set(boardId,true);
                 }
                 board.player.startPlayerData.maxHealth = boardStateObject.health;
-                board.player.maxHealth = boardStateObject.health;
-                if(boardStateObject.playerName) board.player.name = boardStateObject.playerName;
-                if(boardStateObject.regen) board.player.regen = boardStateObject.regen;
+                if(boardStateObject.playerName) board.player.startPlayerData.name = boardStateObject.playerName;
+                if(boardStateObject.regen) board.player.startPlayerData.regen = boardStateObject.regen;
                     
                 if(boardStateObject.skills) {
                     boardStateObject.skills.forEach(skill => {
