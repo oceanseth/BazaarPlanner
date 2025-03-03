@@ -161,6 +161,9 @@ function showResults() {
         }
         html+= `<button onclick="Puzzle.battle.resetBattle();Puzzle.battle.startBattle()">Run Battle</button>`;
         html+="</div>";
+        if(result.desc) {
+            html+= `<p><b>Description:</b> <br/><br/>${result.desc}</p>`;
+        }
         if(result.vod) {
             html+= `<div style="width: 100%;"><iframe
     src="https://clips.twitch.tv/embed?clip=${result.vod}&parent=`+window.location.hostname+`"
