@@ -181,14 +181,10 @@ function setLoggedInUser (user) {
             document.getElementById('firebaseui-auth-container').style.display = 'none';
         } else {
             // User is signed out
-            document.getElementById('sign-in-status').textContent = '';
-            document.getElementById('account-details').textContent = '';
-            
-            // Reset login button
-            if (loginButton) {
-                loginButton.textContent = 'Login';
-                loginButton.onclick = login;
-            }            
+            const signInStatus = document.getElementById('sign-in-status');
+            if(signInStatus) signInStatus.textContent = '';
+            const accountDetails = document.getElementById('account-details');
+            if(accountDetails) accountDetails.textContent = '';              
         }
         loadFromUrl();
 }
