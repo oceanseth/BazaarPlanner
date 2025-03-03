@@ -40,28 +40,34 @@
      crossorigin="anonymous"></script>
     </head>
     <body>
-        <h2 style="color:white;">BazaarPlanner</h2>
-        <div id="Menu" style="display: flex; gap: 10px; align-items: center;">
+        <div id="Menu">
             <!--<button onclick="showSection('library')" class="selected">Library</button>-->
-            <button onclick="showSection('simulator')">Simulator</button>
-            <button onclick="showSection('puzzle')">Daily Puzzle</button>
-            <button onclick="showSection('about')">About</button>
-            <button onclick="showSection('faq')">FAQ</button>
+            <button onclick="showSection('simulator',event)">Simulator</button>
+            <button onclick="showSection('puzzle',event)">Daily Puzzle</button>
+            <button onclick="showSection('about',event)">About</button>
+            <button onclick="showSection('faq',event)">FAQ</button>
             
             <div id="poll-results" style="display: flex; align-items: center;"></div>
-            <div id="sign-in-status" style="margin-left: auto; display: flex; align-items: center;">            
-            </div><button onclick="showSection('account')">Account</button>
+            <a href="javascript:showSection('settings')"  style="margin-left: auto; display: flex; align-items: center; text-decoration: none; font-size: 20px; line-height: 20px; border:1px solid black; background-color:rgba(0,0,0,0.7); color: white; padding: 5px; border-radius: 5px;">⚙️</a>
         </div>
-        <div id="account" class="section" style="display: none;">
+        <div id="settings" class="section" style="display: none;">
+            <h1>Mode</h1>
+            <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
             <h1>Account</h1>
             <div id="account-content">
-                We will never share your account details with anyone else, excepting your display name.<br/>
+                We will never share your account details with anyone else, excepting your display name and the image in your photo url.<br/>
                 <div id="account-details" style='background-color: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px;'></div>
-                Soon we will show stats on puzzle solves, and more. The main thing to do for now is set your display name to other users on the site.<br/><br/>
+                Soon we will show stats on puzzle solves, and more.<br/>
+                Set your display name to show on the site.<br/><br/>
                 What shall we call you?
                 <input type="text" id="update-account-display-name" placeholder="display name">
                 <button onclick="Account.updateDisplayName()">Save</button>
                 <br/><br/>
+                <!--
+                What icon should represent you?
+                <input type="text" id="update-account-icon" placeholder="icon url">
+                <button onclick="Account.updateIcon()">Save</button>
+                -->
                 <br/><br/>
                 <button onclick="logout()" style="margin-left: auto;">Logout</button>
             </div>
@@ -94,7 +100,7 @@
             <div class="board-container">
                 <div id="puzzle-bottom" class="board"></div>
             </div>
-            
+            <textarea id="puzzle-combatlog" class="combat-log"></textarea>
         </div>
         <!-- FAQ Section -->
         <div id="faq" class="section" style="display: none;">
@@ -220,9 +226,8 @@
                     <button onclick="poll(false)">No</button>          
                 </div>
             </div>
-            <div id="simulator-controls">
-                <input type="text" id="simulator-search-input" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" autocomplete="off" placeholder="Search items...">
-                <div class="search-container">
+            <div id="monster-search-container">
+                <div class="search-container" style="width: 100%">
                     <input type="text" 
                            autocomplete="off" 
                            class="search-input" 
@@ -238,11 +243,11 @@
                     <!--coming soon
                     <div id="import" class="import"><input type="text" id="import-input" placeholder="Import from bazaar insights" onChange="importFromBazaarInsights(this.value)"/></div>
                     -->
-                </div>
-                <datalist id="simulator-suggestions"></datalist>                
+                </div>                         
             </div>
             <div style="display: flex; gap: 20px;">
-                <div id="simulator-items">                    
+                <div id="simulator-items">           
+                    <input type="text" style="width: calc(100% - 5px); height: 20px;margin-bottom:5px;" id="simulator-search-input" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" autocomplete="off" placeholder="Search items...">         
                     <div id="simulator-itemsList"></div>
                 </div>
                 <div style="flex-grow: 1; position: relative;">
@@ -252,7 +257,7 @@
                             <button onclick="mainBattle.resetBattle()" class="battle-button">Reset Battle</button>
                         </div>
                         <div id="copy-url-container">
-                            <button onclick="getTinyUrl()">Get Tiny URL</button>
+                            <button onclick="getTinyUrl()" class="battle-button">Get Tiny URL</button>
                         </div>
                     </div>
                     <div class="board-container">
@@ -280,7 +285,7 @@
                 </div>
                 
             </div>
-            <div id="combat-log-div"><textarea id="combat-log"></textarea></div>
+            <div id="combat-log-div"><textarea id="combat-log" class="combat-log"></textarea></div>
         </div>
 
         <!-- Library Section 

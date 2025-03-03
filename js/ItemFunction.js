@@ -197,7 +197,7 @@ ItemFunction.items.set("Dragon Tooth",(item)=>{
     const damageGain = getRarityValue("5 >> 10",item.rarity);
     item.board.startOfFightTriggers.set(item.id,()=>{
         if(item.board.player.gold<3) {
-            log(item.board.player.name + " does not have enough gold to use " + item.name + ".");
+            item.log(item.board.player.name + " does not have enough gold to use " + item.name + ".");
             return;
         }
         item.board.player.spend(3);
@@ -543,7 +543,7 @@ ItemFunction.items.set("Cryosleeve",(item)=>{
     item.board.freezeTriggers.set(item.id,(i,source)=>{
             item.applyShield(item.shield);
             i.freezeDurationRemaining /= 2;
-            log(item.name + " reduced " + i.name + " freeze duration by half");
+            item.log(item.name + " reduced " + i.name + " freeze duration by half");
     });
     item.board.player.hostileTarget.board.freezeTriggers.set(item.id,(i,source)=>{
         item.applyShield(item.shield);
@@ -651,7 +651,7 @@ ItemFunction.items.set("Luxury Tents",(item)=>{
     const healAmount = getRarityValue("25 >> 50",item.rarity);
     item.board.player.dieTriggers.set(item.id,()=>{
         item.board.player.heal(item.board.player.maxHealth*healAmount/100);
-        log(item.name + " healed for " + healAmount + "% of max health.");
+        item.log(item.name + " healed for " + healAmount + "% of max health.");
         item.board.player.dieTriggers.delete(item.id);
     });
 });
@@ -681,7 +681,7 @@ ItemFunction.items.set("Atomic Clock",(item)=>{
         const itemToIncreaseCooldown = item.pickRandom(item.board.player.hostileTarget.board.items);
         if(itemToIncreaseCooldown) {
             itemToIncreaseCooldown.cooldown += 1000*cooldownIncrease;
-            log(item.name + " increased " + itemToIncreaseCooldown.name + " cooldown by " + cooldownIncrease + " seconds");
+            item.log(item.name + " increased " + itemToIncreaseCooldown.name + " cooldown by " + cooldownIncrease + " seconds");
         }
     });
 
@@ -862,7 +862,7 @@ ItemFunction.items.set("Hypnotic Drain",(item)=>{
             if(smallerItems.length>0) {
                 const smallerItem = item.pickRandom(smallerItems);
                 smallerItem.applyFreeze(2,item);
-                log(item.name + " used " + i.name + " with Lifesteal to Freeze " + smallerItem.name + " for 2 seconds");
+                item.log(item.name + " used " + i.name + " with Lifesteal to Freeze " + smallerItem.name + " for 2 seconds");
             }
 
 

@@ -153,26 +153,25 @@ export function loadFromUrl(hash) {
         // Decompress the state string
         const boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(hash));
         // Add items from URL state
-        console.log(boardState);
-        boardState.forEach((item) => {
-            if(item.name.startsWith('_b_')) {
-                const board = Board.getBoardFromId(item.name.slice(3));
-                board.player.startPlayerData.maxHealth = item.health;
-                board.player.maxHealth = item.health;
-                if(item.playerName) board.player.name = item.playerName;
-                if(item.regen) board.player.regen = item.regen;
+       // console.log(boardState);
+        boardState.forEach((boardStateObject) => {
+            if(boardStateObject.name.startsWith('_b_')) {
+                const board = Board.getBoardFromId(boardStateObject.name.slice(3));
+                board.player.startPlayerData.maxHealth = boardStateObject.health;
+                board.player.maxHealth = boardStateObject.health;
+                if(boardStateObject.playerName) board.player.name = boardStateObject.playerName;
+                if(boardStateObject.regen) board.player.regen = boardStateObject.regen;
                     
-                if(item.skills) {
-                    item.skills.forEach(skill => {
+                if(boardStateObject.skills) {
+                    boardStateObject.skills.forEach(skill => {
                         board.addSkill(skill.name,skill);
                     });
                 }
 
                 board.updateHealthElement();
                 return;
-
             }
-            const { board, startIndex, name, ...itemWithoutBoardAndStartIndex} = item;
+            const { board, startIndex, name, ...itemWithoutBoardAndStartIndex} = boardStateObject;
 
             const [baseName, enchant] = Item.stripEnchantFromName(name);
 
