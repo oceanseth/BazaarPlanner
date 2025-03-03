@@ -1072,6 +1072,7 @@ class Board {
         monsterData.skills.forEach(skill => {
             let skillData = Skill.getDataFromName(skill.name);
             if(!skillData) return;
+            skillData.name = skill.name;
             skillData.rarity = Item.rarityLevels[skill.tier];
             let newSkill = new Skill(skillData);
             newSkill.name = skill.name;
