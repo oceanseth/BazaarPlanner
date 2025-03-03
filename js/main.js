@@ -317,14 +317,17 @@ window.toggleDarkMode = () => {
     document.documentElement.classList.toggle('dark-mode');
     // Optionally save the preference
     const darkModeOff = !document.documentElement.classList.contains('dark-mode');
-    localStorage.setItem('darkModeOff', darkModeOff);
+    if(darkModeOff) localStorage.setItem('darkModeOff', true);
+    else localStorage.removeItem('darkModeOff');
 }
   
   // On page load, check for saved preference
   document.addEventListener('DOMContentLoaded', () => {
-    const isDarkMode = localStorage.getItem('darkMode') === 'false';
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark-mode');
+    const darkModeOff = localStorage.getItem('darkModeOff') === 'true';
+    if (darkModeOff) {
+      document.documentElement.classList.remove('dark-mode');
+    } else {
+        document.documentElement.classList.add('dark-mode');
     }
   });
 
