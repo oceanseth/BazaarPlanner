@@ -26,25 +26,16 @@ window.Board = Board;
 window.createListItem = createListItem;
 window.search = search;
 window.populateSearchSuggestions = populateSearchSuggestions;
-window.topPlayer = new Player({name:"Top Player"});
-window.bottomPlayer = new Player({name:"Bottom Player"});
+window.topPlayer = new Player({name:"Vanessa", maxHealth:1000}, 't');
+window.bottomPlayer = new Player({name:"Dooley"}, 'b');
 window.Puzzle = Puzzle;
 window.Account = Account;
 topPlayer.hostileTarget = bottomPlayer;
 bottomPlayer.hostileTarget = topPlayer;
 
-topPlayer.initialize('t', 'topPlayerSkills', 1000);
-bottomPlayer.initialize('b', 'bottomPlayerSkills', 1000);
 //      initializeMonsterSearch();
-window.mainBattle = new Battle([topPlayer, bottomPlayer], (winner) => {
-    if(winner) {
-        alert(winner.name + " wins! Total combat time was "+((topPlayer.battleTime/1000).toFixed(0))+" seconds.");
-    } else {
-        alert("Battle ended in a draw. Total combat time was "+((topPlayer.battleTime/1000).toFixed(0))+" seconds.");
-    }
-}, $("#combat-log"));
+window.mainBattle = new Battle([topPlayer, bottomPlayer], (winner) => {}, $("#combat-log"));
 
-window.log = (s) => { mainBattle.log(s) };
 window.lastLogTimes = new Map();
 window.delayedLog = (s,id) => {
     if(window.lastLogTimes.get(id) && Date.now() - window.lastLogTimes.get(id) < 1000) {
@@ -164,7 +155,7 @@ window.getTinyUrl = function() {
 
 window.updateUserInfo = function(user) {
     if (user) {
-        document.getElementById('sign-in-status').textContent = 'Signed in as ' + user.displayName;
+//        document.getElementById('sign-in-status').textContent = 'Signed in as ' + user.displayName;
         document.getElementById('account-details').textContent = JSON.stringify({
             displayName: user.displayName,
             email: user.email,
@@ -326,6 +317,20 @@ window.onload = () => {
     }        
 }
 
+window.toggleDarkMode = () => {
+    document.documentElement.classList.toggle('dark-mode');
+    // Optionally save the preference
+    const darkModeOff = !document.documentElement.classList.contains('dark-mode');
+    localStorage.setItem('darkModeOff', darkModeOff);
+}
+  
+  // On page load, check for saved preference
+  document.addEventListener('DOMContentLoaded', () => {
+    const isDarkMode = localStorage.getItem('darkMode') === 'false';
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark-mode');
+    }
+  });
 
 window.logout = ()=> {
     if(!confirm("Do you want to logout?")) {
@@ -361,7 +366,7 @@ emptyDragImage.style.top = '-9999px';
 emptyDragImage.style.opacity = '0';
 document.body.appendChild(emptyDragImage);
 
-window.showSection = function(sectionId) {
+window.showSection = function(sectionId,e) {
     document.querySelectorAll('.section').forEach(section => {
         section.style.display = 'none';
     });
@@ -370,10 +375,14 @@ window.showSection = function(sectionId) {
     document.querySelectorAll('#Menu button').forEach(button => {
         button.classList.remove('selected');
     });
-    document.querySelector(`button[onclick="showSection('${sectionId}')"]`).classList.add('selected');
+    e.target.classList.add('selected');
 
     if(sectionId=='puzzle') {
         Puzzle.loadPuzzle();
+    } else {
+        if(Puzzle.battle!=null) {
+            Puzzle.battle.resetBattle();
+        }
     }
 }
 
@@ -525,7 +534,7 @@ function searchMonsters(query) {
                     img.id = 'monster-preview-img';
                     img.src = monster.icon;
                     img.classList.add('monster-preview-icon');
-                    document.getElementById('simulator-controls').appendChild(img);
+                    document.getElementById('monster-search-container').appendChild(img);
                 }
             };
             div.onmouseout = () => {

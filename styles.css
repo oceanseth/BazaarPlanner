@@ -1,3 +1,33 @@
+/* Add CSS variables for theming at the root level */
+:root {
+  --background-color: rgba(255, 255, 255, 0.8);
+  --text-color: #333;
+  --input-background: #fff;
+  --input-border: #ccc;
+  --list-background: #f5f5f5;
+  --list-item-background: #f8f8f8;
+  --list-item-hover: #e0e0e0;
+  --board-background: #fff;
+  --dps-text-color: #333;
+  --link-color: #0066cc;           /* Standard blue for light mode */
+  --link-visited-color: #551A8B;   /* Standard purple for light mode */
+}
+
+/* Dark mode overrides */
+.dark-mode {
+  --background-color: rgba(0, 0, 0, 0.7);
+  --text-color: #fff;
+  --input-background: #333;
+  --input-border: #555;
+  --list-background: #222;
+  --list-item-background: #333;
+  --list-item-hover: #444;
+  --board-background: #333;
+  --dps-text-color: #fff;
+  --link-color: #66b3ff;          /* Lighter blue for dark mode */
+  --link-visited-color: #bb86fc;  /* Light purple for dark mode */
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -10,19 +40,36 @@ body {
 }
 
 .section {
-    background: rgba(255,255,255,.8);
+    background: var(--background-color);
+    color: var(--text-color);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 #Menu {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+.section {
+    position: relative;
+}
+.section::before {
+    content: "";
+    display: block;
+    background-image: url('/images/logo.png');
+    background-size: 100% 100%;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    
 }
 
-#Menu button {
-    margin-right: 10px;
-}
+
 .battle-button {
     padding: 10px 20px;
     background-color: #4CAF50;
@@ -56,16 +103,17 @@ body {
     align-items: center;
     padding: 0px;
     margin: 1px 0;
-    background: #f8f8f8;
+    background: var(--list-item-background);
     border-radius: 4px;
     cursor: pointer;
     position: relative;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform: translateZ(0);
+    color: var(--text-color);
 }
 
 .list-item:hover {
-    background: #e0e0e0;
+    background: var(--list-item-hover);
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
@@ -91,7 +139,7 @@ body {
     position: relative;
     width: 836px;
     height: 164px;
-    background: #fff;
+    background: var(--board-background);
     border: 2px solid #ccc;
     border-radius: 4px;
 
@@ -244,13 +292,12 @@ body {
     background: rgba(255, 0, 0, 0.15);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-#simulator-controls {
-    margin: 20px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    flex-wrap: wrap;
+#monster-search-container {
+    margin-left:20px;
+    width: 250px;
+}
+#monster-search-container input {
+    width: 100%;
 }
 
 button {
@@ -275,11 +322,22 @@ button:active {
     box-shadow: 0 1px 4px rgba(69, 160, 73, 0.2);
 }
 
-.search-input {
+.search-input, 
+.editor input,
+.combat-log {
+    background: var(--input-background);
+    color: var(--text-color);
+    border: 1px solid var(--input-border);   
+}
+.combat-log {
+    width: calc(100% - 10px);
+    height: 200px;  /* Increase height */
+    resize: vertical;  /* Allow vertical resizing */
+    font-family: monospace;  /* Better for log readability */
+    white-space: pre-wrap;  /* Preserve line breaks and spacing */
+    margin: 10px 0;
     padding: 8px;
-    border: 1px solid #ccc;
     border-radius: 4px;
-    width: 200px;
 }
 
 #simulator-items {
@@ -287,12 +345,12 @@ button:active {
     max-height: 500px;
     
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--input-border);
     border-radius: 4px;
-    background: #f5f5f5;
+    background: var(--list-background);
 }
 #simulator-itemsList {
-    height: 100%;
+    height: calc(100% - 25px);
     overflow-y: scroll;
     overflow-x:hidden;
 }
@@ -430,16 +488,6 @@ button:active {
 
 .pause-battle {
     background-color: #f44336 !important;
-}
-
-#combat-log {
-    width: 100%;
-    height: 200px;  /* Increase height */
-    resize: vertical;  /* Allow vertical resizing */
-    font-family: monospace;  /* Better for log readability */
-    white-space: pre-wrap;  /* Preserve line breaks and spacing */
-    margin: 10px 0;
-    padding: 8px;
 }
 
 .pause-battle:hover {
@@ -794,7 +842,7 @@ font.Shield:before {
 }
 
 font.Value:before {
-    background-image: url("data:image/svg+xml,%3Csvg height='12' width='12' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='rgb(255, 255, 0)' d='M4.599,4h2.401v-.75c0-.414,.336-.75,.75-.75s.75,.336,.75,.75v.75h2.401l1.223-1.834c.082-.123,.126-.268,.126-.416,0-.965-.785-1.75-1.75-1.75H5c-.965,0-1.75,.785-1.75,1.75,0,.148,.044,.293,.126,.416l1.223,1.834Z'%3E%3C/path%3E%3E%3Cpath fill='rgb(255, 255, 0)' d='M8.5,15.25v-.658c-.627-.602-1-1.443-1-2.342v-1c0-.899,.373-1.74,1-2.342v-.658c0-1.162,.618-2.175,1.537-2.75H3.85c-1.683,1.705-2.85,4.213-2.85,6.5s1.171,5,6.75,5c.444,0,.85-.023,1.24-.056-.305-.495-.49-1.072-.49-1.694Z'%3E%3C/path%3E%%3Cpath fill='rgb(255, 255, 0)' d='M18,9.25v-1c0-.965-.785-1.75-1.75-1.75h-4.5c-.965,0-1.75,.785-1.75,1.75v1c0,.138,.02,.27,.05,.398-.617,.271-1.05,.886-1.05,1.602v1c0,.716,.433,1.331,1.05,1.602-.03,.128-.05,.261-.05,.398v1c0,.965,.785,1.75,1.75,1.75h4.5c.965,0,1.75-.785,1.75-1.75v-1c0-.716-.433-1.331-1.05-1.602,.03-.128,.05-.261,.05-.398,.617-.271,1.05-.886,1.05-1.602Zm-6.5-1c0-.138,.112-.25,.25-.25h4.5c.138,0,.25,.112,.25,.25v1c0,.138-.112,.25-.25,.25h-4.5c-.138,0-.25-.112-.25-.25v-1Zm5,7c0,.138-.112,.25-.25,.25h-4.5c-.138,0-.25-.112-.25-.25v-1c0-.138,.112-.25,.25-.25,.25h4.5c.138,0,.25,.112,.25,.25v1Z'%3E%3C/path%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg height='12' width='12' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='rgb(255, 255, 0)' d='M4.599,4h2.401v-.75c0-.414,.336-.75,.75-.75s.75,.336,.75,.75v.75h2.401l1.223-1.834c.082-.123,.126-.268,.126-.416,0-.965-.785-1.75-1.75-1.75H5c-.965,0-1.75,.785-1.75,1.75,0,.148,.044,.293,.126,.416l1.223,1.834Z'%3E%3C/path%3E%3E%3Cpath fill='rgb(255, 255, 0)' d='M8.5,15.25v-.658c-.627-.602-1-1.443-1-2.342v-1c0-.899,.373-1.74,1-2.342v-.658c0-1.162,.618-2.175,1.537-2.75H3.85c-1.683,1.705-2.85,4.213-2.85,6.5s1.171,5,6.75,5c.444,0,.85-.023,1.24-.056-.305-.495-.49-1.072-.49-1.694Z'%3E%3C/path%3E%%3Cpath fill='rgb(255, 255, 0)' d='M18,9.25v-1c0-.965-.785-1.75-1.75-1.75h-4.5c-.965,0-1.75,.785-1.75,1.75v1c0,.138,.02,.27,.05,.398-.617,.271-1.05,.886-1.05,1.602v1c0,.716,.433,1.331,1.05,1.602-.03,.128-.05,.261-.05,.398v1c0,.965,.785,1.75,1.75,1.75h4.5c.965,0,1.75-.785,1.75-1.75v-1c0-.716-.433-1.331-1.05-1.602,.03-.128,.05-.261,.05-.398,.617-.271,1.05,.886,1.05,1.602Zm-6.5-1c0-.138,.112-.25,.25-.25h4.5c.138,0,.25,.112,.25,.25v1c0,.138-.112,.25-.25,.25h-4.5c-.138,0-.25-.112-.25-.25v-1Zm5,7c0,.138-.112,.25-.25,.25h-4.5c-.138,0-.25-.112-.25-.25v-1c0-.138,.112-.25,.25-.25,.25h4.5c.138,0,.25,.112,.25,.25v1Z'%3E%3C/path%3E%3C/svg%3E");
 }
 font.Burn:before {
     background-image: url("data:image/svg+xml,%3Csvg height='12' width='12' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='rgb(255, 128, 0)' d='M13.18,5.302c-.178-.15-.417-.208-.642-.159-.228,.048-.42,.201-.521,.41-.004,.009-.283,.582-.818,1.132C10.667,2.275,7.739,.661,7.603,.588c-.228-.122-.502-.117-.726,.011-.224,.128-.366,.362-.376,.62-.111,2.73-.988,3.944-1.916,5.229-.793,1.098-1.612,2.233-1.83,4.202-.179,1.613,.302,3.143,1.354,4.309,1.173,1.299,2.935,2.041,4.841,2.041h.057c2.688-.021,4.87-1.061,5.985-2.854,1.699-2.731,.92-6.533-1.812-8.844Zm-1.933,9.118c-.457,.672-1.252,1.076-2.126,1.08h-.021c-1.326,0-2.351-.624-2.813-1.714-.632-1.489-.102-3.584,1.262-4.982,.205-.21,.515-.281,.79-.183,.276,.099,.47,.35,.494,.642,.098,1.145,.431,1.293,1.034,1.562,.514,.229,1.216,.542,1.586,1.489,.284,.727,.21,1.494-.206,2.105Z'%3E%3C/path%3E%3C/svg%3E");
@@ -809,7 +857,7 @@ font.damage:before,font.Damage:before {
     background-image: url("data:image/svg+xml,%3Csvg height='12' width='12' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='rgb(255,0,0)' d='M16.986,8.105c-.062-.311-.312-.55-.625-.597l-3.278-.492,1.627-4.775c.107-.316-.007-.666-.281-.857-.273-.192-.644-.178-.901,.033l-4.031,3.273L6.614,.57c-.193-.278-.548-.392-.869-.276-.318,.115-.521,.429-.492,.767l.378,4.614-3.75-.664c-.343-.061-.679,.12-.817,.437-.14,.317-.044,.688,.23,.897l3.57,2.729-3.395,3.395c-.233,.234-.287,.593-.131,.884,.155,.292,.482,.445,.809,.381l4.288-.858,.834,3.544c.072,.307,.33,.537,.644,.573,.029,.003,.059,.005,.087,.005,.281,0,.543-.159,.671-.415l1.612-3.225,5.038,3.505c.287,.198,.671,.175,.932-.059,.259-.234,.322-.615,.153-.92l-2.856-5.156,3.084-1.836c.272-.163,.413-.478,.353-.789Z'%3E%3C/path%3E%3C/svg%3E");
 }
 font.Poison:before,.battle-stats .poison-element::before {
-    background-image: url("data:image/svg+xml,%3Csvg height='12' width='12' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='rgb(0, 255, 0)' d='M15.75 7.5c0-4.142-3.358-7.5-7.5-7.5-4.142 0-7.5 3.358-7.5 7.5 0 2.498 1.222 4.708 3.096 6.075-.066.724-.096 1.567-.096 2.175 0 1.243 1.007 2.25 2.25 2.25h4.5c1.243 0 2.25-1.007 2.25-2.25 0-.608-.03-1.451-.096-2.175 1.874-1.367 3.096-3.577 3.096-6.075zm-4.5 3c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3 3-3zm-6 0c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-3 3z'%3E%3C/path%3E%3Ccircle fill='rgb(0, 0, 0)' cx='8' cy='13' r='0.8'%3E%3C/circle%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg height='12' width='12' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='rgb(0, 255, 0)' d='M15.75 7.5c0-4.142-3.358-7.5-7.5-7.5-4.142 0-7.5 3.358-7.5 7.5 0 2.498 1.222 4.708 3.096 6.075-.066.724-.096 1.567-.096 2.175 0 1.243 1.007 2.25 2.25 2.25h4.5c1.243 0 2.25-1.007 2.25-2.25 0-.608-.03-1.451-.096-2.175 1.874-1.367 3.096-3.577 3.096-6.075zm-4.5 3c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3z'%3E%3C/path%3E%3Ccircle fill='rgb(0, 0, 0)' cx='8' cy='13' r='0.8'%3E%3C/circle%3E%3C/svg%3E");
 }
 font.Slow:before {
     background-image: url("data:image/svg+xml,%3Csvg height='12' width='12' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cpath fill='rgb(203,159,110)' d='M13.75,7c-.881,0-1.686-.518-2.049-1.32-.364-.803-.224-1.75,.357-2.412l.522-.597c-.45-.275-.785-.71-.954-1.219-.824-.288-1.705-.452-2.625-.452C4.589,1,1,4.589,1,9s3.589,8,8,8,8-3.589,8-8c0-.692-.097-1.359-.263-2h-2.987Zm-.883,4.677c-.146,.21-.379,.323-.617,.323-.147,0-.296-.043-.426-.133l-3.25-2.25c-.203-.14-.323-.371-.323-.617V4.75c0-.414,.336-.75,.75-.75s.75,.336,.75,.75v3.857l2.927,2.026c.341,.236,.426,.703,.19,1.043Z'%3E%3C/path%3E%3Cpath d='M17.25,5.5h-3.5c-.294,0-.562-.172-.683-.44s-.075-.583,.119-.804l2.412-2.756h-1.847c-.414,0-.75-.336-.75-.75s.336-.75,.75-.75h3.5c.294,0,.562,.172,.683,.44s.075,.583-.119,.804l-2.412,2.756h1.847c.414,0,.75,.336,.75,.75s-.336,.75-.75,.75Z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
@@ -980,8 +1028,9 @@ font.Slow:before {
     gap: 4px;
 }
 .editor {
-    background-color: white;
-    border: 1px solid #ccc;
+    background: var(--input-background);
+    color: var(--text-color);
+    border: 1px solid var(--input-border);
     border-radius: 8px;
     position: absolute;
     top: 40%;
@@ -989,7 +1038,6 @@ font.Slow:before {
     transform: translateX(-50%);
     padding: 20px;
     width: 300px;
-    color: #333;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     z-index:2000;
     text-align: center;
@@ -1014,10 +1062,10 @@ font.Slow:before {
 .editor input {
     width: 70%;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--input-border);
     border-radius: 4px;
     font-size: 16px;
-    color: #333;
+    color: var(--text-color);
 }
 
 .editor button {
@@ -1292,8 +1340,8 @@ background-color: rgba(255, 0, 0, 0.2);
     transform: translate(-50%, -50%);
     width: 300px;
     height: 420px;
-    background-color: white;
-    border: 1px solid #ccc;
+    background: var(--input-background);
+    border: 1px solid var(--input-border);
     border-radius: 8px;
     padding: 20px;
     z-index: 1000;
@@ -1321,13 +1369,13 @@ background-color: rgba(255, 0, 0, 0.2);
     align-items: center;
 }
 .skill-selector-item:hover {
-    background-color: #f0f0f0;
+    background-color: var(--list-item-hover);
 }
 
 .skill-selector-item img {
     width: 35px;
     height: 35px;
-    border:1px solid #ccc;
+    border:1px solid var(--input-border);
 }
 .skill-selector-item span {
     vertical-align: middle;
@@ -1350,7 +1398,7 @@ background-color: rgba(255, 0, 0, 0.2);
     left: 5%;
     top: 100px;
     z-index: 1000;
-    background-color: white;
+    background: var(--input-background);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
@@ -1382,7 +1430,7 @@ background-color: rgba(255, 0, 0, 0.2);
     position: absolute;
     bottom: -50px;
     left: 100px;
-    color: black;
+    color: var(--dps-text-color);
     font-size: 12px;
     height: 20px;
     line-height: 20px;
@@ -1421,8 +1469,8 @@ background-color: rgba(255, 0, 0, 0.2);
     left: 0;
     width: 100%;
     height: 100px;
-    background-color: white;
-    border: 1px solid #ccc;
+    background: var(--input-background);
+    border: 1px solid var(--input-border);
     border-radius: 8px;
     color:black;
     padding: 0px;
@@ -1446,26 +1494,37 @@ background-color: rgba(255, 0, 0, 0.2);
     margin: 0 auto;  /* This centers the battle buttons */
 }
 
-#copy-url-container {
-    margin-left: auto;  /* This pushes the tiny URL button to the right */
+.win-rate-element {
+    display: none;
+     
+    font-size: 30px;
 }
 
-.win-rate-element {
+.player-element, .win-rate-element {
     position: absolute;
     top: 30px;
     right: -120px;
     width: 100px;
     height: 100px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    text-align: center;
-    line-height: 100px;
-    font-size: 30px;
+    color: var(--text-color);    
+    text-align: center;    
     font-weight: bold;
     border-radius: 10px;
-    display: none;
+    background-size: 100% 100%;
+    pointer-events: none;
+    
+}
+.player-element {
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
+.player-element span {  /* Add this new rule for the text */
+    position: absolute;
+    top: 100%;          /* Position below the element */
+    left: 0;
+    width: 100%;
+    margin-top: 5px;    /* Add some space between box and text */
+}
 
 .search-container {
     position: relative;
@@ -1477,8 +1536,8 @@ background-color: rgba(255, 0, 0, 0.2);
     top: 100%;
     left: 0;
     right: 0;
-    background: #fff;
-    border: 1px solid #ddd;
+    background: var(--input-background);
+    border: 1px solid var(--input-border);
     border-top: none;
     max-height: 200px;
     overflow-y: auto;
@@ -1491,7 +1550,7 @@ background-color: rgba(255, 0, 0, 0.2);
 .monster-dropdown-item {
     padding: 0px;
     cursor: pointer;
-    width: 200px;
+    width: 250px;
     height: 30px;
     display: flex;  /* Changed from block to flex */
     align-items: center;
@@ -1525,13 +1584,13 @@ background-color: rgba(255, 0, 0, 0.2);
 
 
 .monster-dropdown-item:hover {
-    background-color: #f0f0f0;
+    background-color: var(--list-item-hover);
 }
 
 #monster-preview-img {
     position: absolute;
-    top: 100px;
-    left: 50px;
+    top: 40px;
+    left: 300px;
     width: 200px;
     height: 200px;
     z-index: 1000;
@@ -1607,4 +1666,44 @@ background-color: rgba(255, 0, 0, 0.2);
 }
 #puzzle-content { 
     text-align: center;
+}
+
+/* Add new styles for links */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--link-visited-color);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Scrollbar styles for Webkit browsers (Chrome, Safari, etc.) */
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--list-background);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--list-item-hover);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--input-border);
+}
+
+/* Firefox scrollbar styles */
+* {
+  
+  scrollbar-color: var(--list-item-hover) var(--list-background);
 }

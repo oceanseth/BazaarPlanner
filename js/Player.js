@@ -3,8 +3,11 @@ import { updateUrlState, setupChangeListeners } from './utils.js';
 
 export class Player {
     hostileTarget = null;
+    static playerId = 0;
+    static players = new Map();
     static possibleChangeAttributes = ['health','shield','gold','maxHealth','burn','poison','regen'];
-    constructor(startPlayerData={}) {
+   
+    constructor(startPlayerData={}, boardId=null, editable=true) {
         setupChangeListeners(this, Player.possibleChangeAttributes );
         this.startPlayerData = startPlayerData;
         if(!startPlayerData.maxHealth) startPlayerData.maxHealth = 1000;
@@ -13,15 +16,12 @@ export class Player {
         if(!startPlayerData.gold) startPlayerData.gold = 0;
         if(!startPlayerData.regen) startPlayerData.regen = 0;
         Object.assign(this, startPlayerData);
+        if(boardId) {
+            const board = new Board(boardId, this, editable);
+            this.board = board;
+        }
     }
 
-    initialize(boardId, skillsContainer, maxHealth) {
-        this.maxHealth = maxHealth;
-        
-        const board = new Board(boardId, this);
-        this.board = board;
-        this.reset();
-    }
     spend(amount) {
         this.gold -= amount;
         log(this.name + " spends " + amount + " gold.");

@@ -76,6 +76,7 @@ class Board {
         this.createDPSElement();
         this.createIncomeElement();
         this.createWinRateElement();
+        this.createPlayerElement();
         
         this.reset();
 
@@ -123,6 +124,7 @@ class Board {
             this.player.battle.battleTimeDiff = 0;
             this.updateHealthElement();
             this.updateDPSElement();
+            this.updatePlayerElement();
         }
 
         this.updateGoldElement();
@@ -286,6 +288,27 @@ class Board {
         this.healthElementPoison.innerHTML = this.player?.poison>0?this.player?.poison.toFixed(0):"";
         this.healthElementRegen.innerHTML = this.player?.regen>0?this.player?.regen.toFixed(0):"";
     } 
+    updatePlayerElement() {
+        if(!this.playerElement) return;
+        if(monsters[this.player?.name]) {
+            this.playerElement.style.backgroundImage = `url(${monsters[this.player?.name].icon})`;
+        } else if(Item.characterTags.includes(this.player?.name)) {
+            this.playerElement.style.backgroundImage = `url(images/fromBT/${this.player?.name}.png)`;
+        } else {
+            this.playerElement.style.backgroundImage = "none";
+        }
+        this.playerElement.innerHTML = `<span>${this.player?.name}</span>`;
+    }
+    setAsWinner() {
+        if(this.playerElement) {
+            this.playerElement.style.backgroundImage = "url(images/victory.webp)";
+        }
+    }
+    setAsLoser() {
+        if(this.playerElement) {
+            this.playerElement.style.backgroundImage = "url(images/defeat.webp)";
+        }
+    }
     updateGoldElement() {
         this.goldElement.textContent = this.player?.gold;
     }
@@ -434,6 +457,16 @@ class Board {
         this.skillsElement.removeChild(skill.element);
         Board.resetBoards();
         updateUrlState();
+    }
+    createPlayerElement() {
+        this.playerElement = document.createElement('div');
+        this.playerElement.className = 'player-element';
+        if(this.player.name) {
+            this.playerElement.innerHTML = `<span>${this.player.name}</span>`;
+        } else {
+            this.playerElement.innerHTML = "<span>Player</span>";
+        }
+        this.element.appendChild(this.playerElement);
     }
     createWinRateElement() {
         this.winRateElement = document.createElement('div');

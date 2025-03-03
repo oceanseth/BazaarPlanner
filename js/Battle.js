@@ -187,9 +187,12 @@ export class Battle {
                 this.log("Battle ended in a draw.");
                 this.updateCombatLogDisplay();
                 this.battleOverFunction(null);
+                this.players.forEach(player => player.board.setAsWinner());
             } else {
                 this.log(playersWithPositiveHealth[0].name + " wins!");
                 this.updateCombatLogDisplay();
+                playersWithPositiveHealth.forEach(player => player.board.setAsWinner());
+                this.players.filter(player => player.health <= 0).forEach(player => player.board.setAsLoser());
                 this.battleOverFunction(playersWithPositiveHealth[0]);
             }
             return;
