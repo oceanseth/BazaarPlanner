@@ -11,6 +11,7 @@
   --dps-text-color: #333;
   --link-color: #0066cc;           /* Standard blue for light mode */
   --link-visited-color: #551A8B;   /* Standard purple for light mode */
+  --background-full-color: #fff;
 }
 
 /* Dark mode overrides */
@@ -26,17 +27,43 @@
   --dps-text-color: #fff;
   --link-color: #66b3ff;          /* Lighter blue for dark mode */
   --link-visited-color: #bb86fc;  /* Light purple for dark mode */
+  --background-full-color: #000;
 }
 
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f0f0f0;
-        background-image: url('/images/background.png');
-        background-repeat: no-repeat;
-        background-attachment: fixed; 
-        background-size: 100% 100%;
+    background-color: var(--background-full-color);
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+    transition: opacity 5s ease-in-out;
+}
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    transition: opacity 2s ease-in-out;
+    opacity: 0;
+}
+
+.background-image.active {
+    opacity: 0.2;  /* or whatever opacity you want */
 }
 
 .section {
