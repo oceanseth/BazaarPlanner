@@ -298,6 +298,12 @@ class Board {
         } else {
             this.playerElement.style.backgroundImage = "none";
         }
+        if(this.editable) {
+            this.playerElement.classList.add('editorOpener');
+            this.playerElement.onclick = () => {
+                this.player.openEditor();
+            }
+        }
         this.playerElement.innerHTML = `<span>${this.player?.name}</span>`;
     }
     setAsWinner() {
