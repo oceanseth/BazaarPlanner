@@ -1707,3 +1707,14 @@ a:hover {
   
   scrollbar-color: var(--list-item-hover) var(--list-background);
 }
+
+iframe {
+    border: 0px;
+}
+
+#puzzle-select {
+    position:absolute;
+    top: 20px;
+    left: 20px;
+    width: 100 px;
+}

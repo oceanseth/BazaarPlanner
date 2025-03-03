@@ -12,42 +12,68 @@ export class Puzzle {
     static puzzleGuess=0;
     static puzzleData=null;
     static battle=null;
+    static initialContent = "";
     constructor() {
     }
-    static loadPuzzle(date=new Date()) {
+    static loadPuzzle() {
+        Puzzle.initialContent = document.getElementById("puzzle-content").innerHTML;
+        firebase.database().ref(`puzzles/current`).once('value').then(snapshot => {
+            Puzzle.currentPuzzleId = snapshot.val();
+            Puzzle.puzzleId = Puzzle.currentPuzzleId;
+            Puzzle.loadPuzzleById(Puzzle.puzzleId);
+            Puzzle.updateSelect();
+        });        
+    }
+    static loadPuzzleById(puzzleId) {
         if(Puzzle.battle!=null) {
             Puzzle.battle.resetBattle();
-            return;
         }
-        firebase.database().ref(`puzzles/current`).once('value').then(snapshot => {
-            Puzzle.puzzleId = snapshot.val();
-            if(Puzzle.puzzleId) {
-                firebase.database().ref(`puzzles/${Puzzle.puzzleId}/votes/${window.user.uid}`).once('value').then(snapshot =>{                        
-                    Puzzle.solved = snapshot.val()!=null;
-                    if(Puzzle.solved) {
-                        Puzzle.guess = snapshot.val();
-                        document.getElementById("puzzle-content").innerHTML = '';
-                        showResults();
-                    }
-                    Puzzle.isLoading = false;
-                    
-                }); 
-                Puzzle.loadPuzzleBoards();               
+        Puzzle.puzzleId = puzzleId;
+        if(Puzzle.puzzleId) {
+            firebase.database().ref(`puzzles/${Puzzle.puzzleId}/votes/${window.user.uid}`).once('value').then(snapshot =>{                        
+                Puzzle.solved = snapshot.val()!=null;
+                if(Puzzle.solved) {
+                    Puzzle.guess = snapshot.val();
+                    document.getElementById("puzzle-content").innerHTML = '';
+                    showResults();
+                } else {
+                    document.getElementById("puzzle-content").innerHTML = Puzzle.initialContent;
+                }
+                Puzzle.isLoading = false;
+                
+            }); 
+            Puzzle.loadPuzzleBoards();               
+        }
+    }
+    static updateSelect() {
+        if(!Puzzle.puzzleId) { return; }
+        if(!Puzzle.selectElement) {
+            Puzzle.selectElement = document.createElement("select");
+            Puzzle.selectElement.id = "puzzle-select";
+            for(let i = Puzzle.currentPuzzleId; i > 0; i--) {
+                const option = document.createElement("option");
+                option.value = i;
+                option.innerHTML = `Puzzle ${i}`;
+                Puzzle.selectElement.appendChild(option);
             }
-        });
+            Puzzle.selectElement.addEventListener("change", (event) => {
+                Puzzle.puzzleId = event.target.value;
+                Puzzle.loadPuzzleById(Puzzle.puzzleId);
+            });
+            document.getElementById("puzzle").appendChild(Puzzle.selectElement);
+        }
+        Puzzle.selectElement.value = Puzzle.puzzleId;
         
     }
     static loadPuzzleBoards() {
         if(Puzzle.battle == null) {
-            const puzzleTopPlayer = new Player();
-            const puzzleBottomPlayer = new Player();
+            window.isLoadingFromUrl = true;
+            const puzzleTopPlayer = new Player({},"puzzle-top",false);
+            const puzzleBottomPlayer = new Player({},"puzzle-bottom",false);
             puzzleTopPlayer.hostileTarget = puzzleBottomPlayer;
             puzzleBottomPlayer.hostileTarget = puzzleTopPlayer;
-            if(Board.getBoardFromId("puzzle-top")) Board.getBoardFromId("puzzle-top").clear();
-            if(Board.getBoardFromId("puzzle-bottom")) Board.getBoardFromId("puzzle-bottom").clear();
-            const topBoard = new Board("puzzle-top",puzzleTopPlayer,false);
-            const bottomBoard = new Board("puzzle-bottom",puzzleBottomPlayer,false);
             Puzzle.battle = new Battle([puzzleTopPlayer, puzzleBottomPlayer], ()=>{},$("#puzzle-combatlog"));
+            window.isLoadingFromUrl = false;            
         }
         firebase.database().ref(`puzzles/${Puzzle.puzzleId}/data`).once('value').then(snapshot => {
             const data = snapshot.val();
@@ -80,7 +106,26 @@ export class Puzzle {
                 alert("No puzzle for this date")
             }
             const stateStr = LZString.compressToEncodedURIComponent(JSON.stringify(boardState));
-            loadFromUrl(stateStr);        
+            loadFromUrl(stateStr);   
+            let html = "";
+            switch(data.type) {
+                case 'vod':
+                    html =`
+            The two boards below are from a real player twitch vod sumission.<br/>
+            Afer voting, we will reveal the answer, simulate the battle, and link to the vod.<br>
+            If you guess within 10 of the correct answer, you will gain a point, be added to the leaderboard, and given the chance to submit your own puzzle!<br/><br/>
+            <b>In 100 battles, how many times does the bottom board win?</b>`;
+                    break;
+                case 'sim':
+                    html =`
+            The two boards below were created in the simulator.
+            Afer voting, we will reveal the answer and simulate the battle.
+            If you guess within 10 of the correct answer, you will gain a point, be added to the leaderboard, and given the chance to submit your own puzzle!<br/><br/>
+            <b>In 100 battles, how many times does the bottom board win?</b>`;
+                    break;
+            }
+            const descriptionElement = document.getElementById("puzzle-description");
+            if(descriptionElement) descriptionElement.innerHTML = html;
         });
     }
 
@@ -97,11 +142,11 @@ export class Puzzle {
 function showResults() {
     firebase.database().ref(`puzzles/${Puzzle.puzzleId}/result`).once('value').then(snapshot => {
         const result = snapshot.val();
-        let html = `
-                        <h1>Puzzle ${Puzzle.puzzleId} Solved already!</h1>
+        let html = `<div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 20px;"><div>
+                        <h1>Puzzle ${Puzzle.puzzleId} Solved!</h1>
                         <p>${Puzzle.puzzleData.title} : submitted by ${Puzzle.puzzleData.by}</p>
                         <p>Your guess: Bottom win rate ${Puzzle.guess}%.</p>
-                        <div>
+                        
                         <p>The bottom player will win or tie ${result.b} times out of 100.</p>
                         <p>The top player will win or tie ${result.t} times out of 100.</p>
                     `;
@@ -114,8 +159,18 @@ function showResults() {
             html += `<p>You did not guess within 10 points of the actual result!<br/><br/>
             Better luck tomorrow!</p>`;
         }
-        html+= `<p>Watch the fight below and the vod on twitch: <a href='${result.vod}' target='_blank'>${result.vod}</a></p>
-        <button onclick="Puzzle.battle.resetBattle();Puzzle.battle.startBattle()">Run Battle</button>`;
+        html+= `<button onclick="Puzzle.battle.resetBattle();Puzzle.battle.startBattle()">Run Battle</button>`;
+        html+="</div>";
+        if(result.vod) {
+            html+= `<div style="width: 100%;"><iframe
+    src="https://clips.twitch.tv/embed?clip=${result.vod}&parent=`+window.location.hostname+`"
+    height="400"
+    width="100%"
+    allowfullscreen>
+</iframe></div></div>
+`;
+        } 
+        
         document.getElementById("puzzle-content").innerHTML = html;
         Puzzle.battle.startBattle();
     });

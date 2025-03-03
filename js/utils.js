@@ -131,10 +131,7 @@ export function loadFromUrl(hash) {
     if(!hash) hash = window.location.hash.slice(1); // Remove the # symbol
     if (!hash) return;
     window.isLoadingFromUrl = true;
-    Board.boards.forEach(board=>{
-        board.clear();
-    });
-    
+    const boardsCleared = new Map();
 
     try {
         if(hash.length < 10) {
@@ -156,7 +153,12 @@ export function loadFromUrl(hash) {
        // console.log(boardState);
         boardState.forEach((boardStateObject) => {
             if(boardStateObject.name.startsWith('_b_')) {
-                const board = Board.getBoardFromId(boardStateObject.name.slice(3));
+                const boardId = boardStateObject.name.slice(3);
+                const board = Board.getBoardFromId(boardId);
+                if(!boardsCleared.has(boardId)) {
+                    board.clear();
+                    boardsCleared.set(boardId,true);
+                }
                 board.player.startPlayerData.maxHealth = boardStateObject.health;
                 board.player.maxHealth = boardStateObject.health;
                 if(boardStateObject.playerName) board.player.name = boardStateObject.playerName;
@@ -172,13 +174,17 @@ export function loadFromUrl(hash) {
                 return;
             }
             const { board, startIndex, name, ...itemWithoutBoardAndStartIndex} = boardStateObject;
+            if(!boardsCleared.has(board)) {
+                Board.getBoardFromId(board).clear();
+                boardsCleared.set(board,true);
+            }
 
             const [baseName, enchant] = Item.stripEnchantFromName(name);
 
             const newItemData = structuredClone(items[baseName]);
               
             const newItem = new Item(newItemData, Board.getBoardFromId(board));
-            newItem.pendingItemData = itemWithoutBoardAndStartIndex;
+            newItem.pendingItemData = itemWithoutBoardAndStartIndex;    
             newItem.enchant = enchant;
             newItem.name = name;
             newItem.setIndex(startIndex);
