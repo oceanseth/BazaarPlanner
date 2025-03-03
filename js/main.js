@@ -329,7 +329,53 @@ window.toggleDarkMode = () => {
     } else {
         document.documentElement.classList.add('dark-mode');
     }
+    setInterval(backgroundFader,10000);
   });
+  window.backgroundFader = function() {
+    // Create container if it doesn't exist
+    let container = document.querySelector('.background-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.className = 'background-container';
+        document.body.appendChild(container);
+        
+        // Create two background elements
+        container.innerHTML = `
+            <div class="background-image"></div>
+            <div class="background-image"></div>
+        `;
+    }
+
+    const backgrounds = container.querySelectorAll('.background-image');
+    if(items) {
+        // Get all item names (keys)
+        const itemNames = Object.keys(items);
+        // Select a random item name
+        const randomItemName = itemNames[Math.floor(Math.random() * itemNames.length)];
+        // Get the random item
+        const randomItem = items[randomItemName];
+        
+        if(randomItem && randomItem.icon) {
+            // Find inactive background
+            const inactiveBackground = Array.from(backgrounds).find(bg => !bg.classList.contains('active'));
+            if (inactiveBackground) {
+                // Set new background
+                inactiveBackground.style.backgroundImage = `url(${randomItem.icon})`;
+                // Trigger reflow
+                inactiveBackground.offsetHeight;
+                // Add active class to fade in
+                inactiveBackground.classList.add('active');
+                
+                // Remove active class from other background
+                backgrounds.forEach(bg => {
+                    if (bg !== inactiveBackground) {
+                        bg.classList.remove('active');
+                    }
+                });
+            }
+        }
+    }
+  }
 
 window.logout = ()=> {
     if(!confirm("Do you want to logout?")) {
