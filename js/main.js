@@ -330,6 +330,7 @@ window.toggleDarkMode = () => {
         document.documentElement.classList.add('dark-mode');
     }
     setInterval(backgroundFader,10000);
+    backgroundFader();
   });
   window.backgroundFader = function() {
     // Create container if it doesn't exist
