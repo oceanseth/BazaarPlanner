@@ -12,6 +12,8 @@
   --link-color: #0066cc;           /* Standard blue for light mode */
   --link-visited-color: #551A8B;   /* Standard purple for light mode */
   --background-full-color: #fff;
+  --button-background-color: #4CAF50;
+  --button-background-color-hover: #156019;
 }
 
 /* Dark mode overrides */
@@ -28,6 +30,8 @@
   --link-color: #66b3ff;          /* Lighter blue for dark mode */
   --link-visited-color: #bb86fc;  /* Light purple for dark mode */
   --background-full-color: #000;
+  --button-background-color: #156019;
+  --button-background-color-hover: #4CAF50;
 }
 
 body {
@@ -70,12 +74,11 @@ body {
     background: var(--background-color);
     color: var(--text-color);
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 0 0 8px 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 #Menu {
-    margin-bottom: 10px;
     display: flex;
     align-items: flex-end;
     gap: 10px;
@@ -99,7 +102,7 @@ body {
 
 .battle-button {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: var(--button-background-color);
     color: white;
     border: none;
     border-radius: 4px;
@@ -109,7 +112,7 @@ body {
 }
 
 .battle-button:hover {
-    background-color: #45a049;
+    background-color: var(--button-background-color-hover);
 }
 
 .battleItemProgressBar {
@@ -330,7 +333,7 @@ button {
     padding: 8px 16px;
     border: none;
     border-radius: 4px;
-    background: #4CAF50;
+    background: var(--button-background-color);
     color: white;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -347,7 +350,25 @@ button:active {
     transform: translateY(0);
     box-shadow: 0 1px 4px rgba(69, 160, 73, 0.2);
 }
-
+#Menu button {
+    background-color: rgba(128, 128, 128, 0.3);
+    color: var(--text-color);
+    border-radius: 8px 8px 0 0;
+    border-bottom: none;
+}
+#Menu button.section-header-selected {
+    background-color: var(--background-color);
+}
+#Menu button:hover {
+    background: var(--button-background-color);
+    transform: translateY(-1px);
+    box-shadow: 0 0 2px 8px rgba(69, 160, 73, 0.3);
+}
+#Menu button.section-header-selected:hover {
+    background-color: var(--background-color);
+    box-shadow: none;
+    transform: none;
+}
 .search-input, 
 .editor input,
 .combat-log {
