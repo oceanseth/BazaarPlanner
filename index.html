@@ -160,8 +160,7 @@
             <h1>Simulator Differences from the Actual Game Engine</h1>
             If you don't see something mentioned below, please let us know!
             <ul>
-                <li>1. Items with cooldowns can still crit from non-cooldown based triggers such as duct tape critting when adjacent item is used.</li>
-                <li>2. If items should trigger at the same time, 'priority' from bazaardb.gg is used to determine order. 
+                <li>1. If items should trigger at the same time, 'priority' from bazaardb.gg is used to determine order. 
                     This has recently been added, and is not yet being enforced on some enchantment effects that had different priorities than their item's effects. 
                     For example, a toxic weights is really weird; The toxic effect has a priority of 'medium', while the weights effect has a priority of 'high'. 
                     We randomize the trigger order of items with the same priority and cooldown, but the game might use left to right order. I'm looking into this and will update as soon as I have more information.
@@ -170,7 +169,7 @@
                     In this simulator, the weights enchantment priority will always match the weights priority. 
                     Oddly, weights and pyg's gym have very different priorities even though they do similar things - the gym is low priority while the weights is high.  
                     </li>
-                    <li>3. Some enchanted effects are not being parsed/triggering the same they do in game.
+                    <li>2. Some enchanted effects are not being parsed/triggering the same they do in game.
                          The game also has many bugs, for example an obsidian magma core works in the sim as expected, but in the game it's bugged and doens't do damage.</li>
 
             </ul>
