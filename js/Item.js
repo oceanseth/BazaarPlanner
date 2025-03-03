@@ -332,6 +332,9 @@ export class Item {
         this.multicastElement = this.triggerValuesElement.querySelector('.multicast-element');
         this.ammoElement = this.triggerValuesElement.querySelector('.ammo-element');
         mergedSlot.className = 'merged-slot';
+        if(this.editable) {
+            mergedSlot.style.cursor='move';
+        }
         
         // Add classes for each tag
         if (this.tags && Array.isArray(this.tags)) {

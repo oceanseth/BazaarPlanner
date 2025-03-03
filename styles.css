@@ -180,8 +180,7 @@ body {
     height: 160px;
     margin: 0;
     background: #f0f0f0;
-    border-radius: 4px;
-    cursor: move;
+    border-radius: 4px;    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1079,6 +1078,10 @@ font.Slow:before {
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s;
+}
+.editorOpener {
+    cursor: pointer;
+    pointer-events: all!important;
 }
 
 .editor button:hover {

@@ -52,8 +52,7 @@ export class Player {
 
     openEditor() {
         if(this.editorElement) {
-            this.editorElement.style.display = "block";
-            return;
+            this.editorElement.remove();
         }
         this.editorElement = document.createElement("div");
         this.editorElement.className = "editor";
