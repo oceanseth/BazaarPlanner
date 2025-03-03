@@ -2040,7 +2040,6 @@ export class Item {
                 this.startItemData.lifesteal = this.lifesteal;
             }
             if(popup.querySelector('#edit-shield')) {
-                Board.resetBoards();
                 const newShield = parseFloat(popup.querySelector('#edit-shield').value);
                 this.startItemData.shield = (this.startItemData.shield||0) + (newShield - this.shield)/this.shield_multiplier;
             }

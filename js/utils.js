@@ -150,7 +150,7 @@ export function loadFromUrl(hash) {
         // Decompress the state string
         const boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(hash));
         // Add items from URL state
-       // console.log(boardState);
+        console.log(boardState);
         boardState.forEach((boardStateObject) => {
             if(boardStateObject.name.startsWith('_b_')) {
                 const boardId = boardStateObject.name.slice(3);
@@ -181,35 +181,12 @@ export function loadFromUrl(hash) {
             const [baseName, enchant] = Item.stripEnchantFromName(name);
 
             const newItemData = structuredClone(items[baseName]);
-              
+            Object.assign(newItemData, itemWithoutBoardAndStartIndex);
             const newItem = new Item(newItemData, Board.getBoardFromId(board));
-            newItem.pendingItemData = itemWithoutBoardAndStartIndex;    
             newItem.enchant = enchant;
             newItem.name = name;
             newItem.setIndex(startIndex);
-            newItems.push(newItem);
-        });
-        Board.resetBoards();
-        newItems.forEach(item=>{
-            Object.assign(item.startItemData, item.pendingItemData);
-            for(const key in item.pendingItemData) {
-              //  console.log("evaluating "+key+ "from "+item.name+ " with value "+item[key]+" and pending value "+item.pendingItemData[key]);
-                if(item[key] != undefined) {
-                    if(item.pendingItemData[key]=='burn') {
-                        console.log(item.pendingItemData[key]+" ---- "+item[key]);
-                    }
-
-                    if(parseFloat(item.pendingItemData[key]) == parseFloat(item[key])) {
-                        item.startItemData[key] = parseFloat(item.pendingItemData[key])-parseFloat(item[key]);
-                    } else {
-
-                        item.startItemData[key] = item.pendingItemData[key];
-                    }
-                    
-                }
-            }
-            delete item.pendingItemData;
-        });
+        });       
 
         Board.resetBoards();
     } catch (error) {
