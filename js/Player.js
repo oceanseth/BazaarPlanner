@@ -21,10 +21,15 @@ export class Player {
             this.board = board;
         }
     }
+    log(s) {
+        if(this.battle) {
+            this.battle.log(s);
+        }
+    }
 
     spend(amount) {
         this.gold -= amount;
-        log(this.name + " spends " + amount + " gold.");
+        this.log(this.name + " spends " + amount + " gold.");
         this.board.updateGoldElement();
     }
 
@@ -149,13 +154,13 @@ export class Player {
 
             dmg = this.takeDamage(this.burn, .5);
             this.burnDamageReceived += dmg;
-            log( this.name + " has "+this.burn.toFixed(0)+" burn and burns for " + dmg.toFixed(0));
+            this.log( this.name + " has "+this.burn.toFixed(0)+" burn and burns for " + dmg.toFixed(0));
             this.burn--;
         }
         if(this.battleTime%1000==0 && this.poison > 0) { // Poison damage every 1000ms  
             this.takeDamage(this.poison, 1, true);
             this.poisonDamageReceived += this.poison;
-            log( this.name + " takes " + this.poison.toFixed(0) + " damage from poison.");
+            this.log( this.name + " takes " + this.poison.toFixed(0) + " damage from poison.");
         }
 
         if(this.battleTime%1000==0 && this.regen > 0 && this.health < this.maxHealth) { // Regen health every 1000ms
@@ -164,7 +169,7 @@ export class Player {
                 regenAmount = this.maxHealth - this.health;
             }
             this.health += regenAmount;
-            log( this.name + " regens " + regenAmount.toFixed(0) + " health.");
+            this.log( this.name + " regens " + regenAmount.toFixed(0) + " health.");
         }
 
         if(this.fellBelowHalfHealth && this.health >= this.maxHealth/2) {            
