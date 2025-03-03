@@ -26,6 +26,7 @@ export class Battle {
         this.pauseTime = 0;
 
         this.combatLogEntries = [];
+        this.resetBattle();
     }
 
     updateCombatLogDisplay() {

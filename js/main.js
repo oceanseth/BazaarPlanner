@@ -114,7 +114,7 @@ window.pollCheck = function() {
                 // Replace the initial history entry and then immediately create a new one
                 window.history.replaceState(null, '', '/'); // Clear the initial entry
                 window.history.pushState({state: initialHash}, '', `#${initialHash}`);
-                loadFromUrl(initialHash);
+                //loadFromUrl(initialHash);
             }
         }
     });
@@ -368,10 +368,13 @@ window.showSection = function(sectionId,e) {
     });
     document.getElementById(sectionId).style.display = 'block';
     
-    document.querySelectorAll('#Menu button').forEach(button => {
-        button.classList.remove('selected');
-    });
-    e.target.classList.add('selected');
+    
+    if(e) {
+        document.querySelectorAll('.section-header-selected').forEach(e => {
+            e.classList.remove('section-header-selected');
+        });
+        e.target.classList.add('section-header-selected');
+    }
 
     if(sectionId=='puzzle') {
         Puzzle.loadPuzzle();

@@ -15,6 +15,7 @@ class Board {
         this.editable = editable;
         this.initialize();
         Board.boards.set(boardId,this);
+        this.reset();
     }
     
     static resetBoards() {
@@ -90,7 +91,7 @@ class Board {
         this.items = [];
         this.skills = [];
         this.reset();
-        updateUrlState();
+        if(this.editable)updateUrlState();
     }
     get activeItems() {
         return this.items.filter(item => !item.isDestroyed);
@@ -198,7 +199,7 @@ class Board {
                 this.addSkill(skillName,{rarity:rarity});
                 this.skillSelector.style.display = 'none';
                 Board.resetBoards();
-                updateUrlState();
+                if(this.editable) updateUrlState();
             };
             skillItem.onmouseenter = (e) => {
                 const skillSelectorTooltip = document.createElement('div');
@@ -399,7 +400,7 @@ class Board {
         
         Board.resetBoards();
         window.isLoadingFromUrl = false;
-        updateUrlState();
+        if(this.editable) updateUrlState();
     }
     importFromBazaarTracker() {        
         if(!window.isDoner) {
@@ -456,7 +457,7 @@ class Board {
         this.skills = this.skills.filter(s => s !== skill);
         this.skillsElement.removeChild(skill.element);
         Board.resetBoards();
-        updateUrlState();
+        if(this.editable) updateUrlState();
     }
     createPlayerElement() {
         this.playerElement = document.createElement('div');
@@ -797,7 +798,7 @@ class Board {
             this.deleteZone.classList.remove('active');
             this.deleteZone.style.display = 'none';
             Board.resetBoards();
-            updateUrlState();
+            if(this.editable) updateUrlState();
         }); 
         this.element.appendChild(this.deleteZone);
     }
@@ -855,7 +856,7 @@ class Board {
             }
             targetBoard.sortItems();
             Board.resetBoards();
-            updateUrlState();
+            if(this.editable) updateUrlState();
         }
         document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
             element.classList.remove('valid-drop', 'invalid-drop', 'dragging');
@@ -882,7 +883,7 @@ class Board {
     }
     removeItem(item) {
         this.items = this.items.filter(i => i !== item);
-        updateUrlState();
+        if(this.editable) updateUrlState();
     }
     get uniqueTypes() {
         const types = new Set();
@@ -945,7 +946,7 @@ class Board {
                     });
                     this.player.startPlayerData = data.player;
                     Board.resetBoards();
-                    updateUrlState();
+                    if(this.editable) updateUrlState();
                 } catch (error) {
                     console.error('Error loading file:', error);
                     alert('Invalid file format');
@@ -1071,7 +1072,7 @@ class Board {
         this.player.startPlayerData.name = monsterData.name;
 
         Board.resetBoards();
-        updateUrlState();
+        if(this.editable) updateUrlState();
     }
     itemTriggered(item) {    
         this.itemTriggers.forEach(func => func(item));
