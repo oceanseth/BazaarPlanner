@@ -1,0 +1,8 @@
+{
+    "name": "advance-puzzle",
+    "version": "1.0.0",
+    "dependencies": {
+      "firebase-admin": "^11.0.0",
+      "aws-sdk": "^2.1.0"
+    }
+  }
