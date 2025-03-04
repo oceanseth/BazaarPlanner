@@ -10,6 +10,7 @@ import { getRarityValue, loadFromUrl, updateUrlState } from './utils.js';
 import { Battle } from './Battle.js';
 import { Puzzle } from './Puzzle.js';
 import { Account } from './Account.js';
+import { colorTextArray } from './utils.js';
 // Make necessary functions/classes available globally
 if(window.location.hostname == "bazaarplanner.com") {
     window.location.href = "https://www.bazaarplanner.com/"+window.location.hash;
@@ -117,6 +118,7 @@ window.pollCheck = function() {
                 //loadFromUrl(initialHash);
             }
         }
+        document.getElementById('simulator-search-input').focus();
     });
 }
 
@@ -192,7 +194,6 @@ function setLoggedInUser (user) {
 
 window.onload = () => {
     const simulatorItemsList = document.getElementById('simulator-itemsList');
-        
          // Populate monster selector dropdown
     for (const key in monsters) {
         if (monsters.hasOwnProperty(key)) {  // defensive programming
@@ -434,14 +435,35 @@ window.showSection = function(sectionId,e) {
         }
     }
 }
-
+function showItemPreview(e) {
+    const item = e.target;
+    const preview = document.createElement('div');
+    preview.id = 'item-preview';
+    preview.classList.add('tooltip');
+    const itemData = items[item.getAttribute('data-name')];
+    const tempItem = new Item(itemData,null);
+    preview.innerHTML ="";// itemData.text.map((t,i) => `<div class="item-preview-text">${t}</div>`).join('');
+    if(itemData&& itemData.enchants) {
+        for(let i in itemData.enchants) {
+            preview.innerHTML += `<div class="enchant-preview-container">
+        <div class="enchant-name">${colorTextArray([i],itemData.tier)}</div>
+        <div class="enchant-description">${colorTextArray([itemData.enchants[i]],itemData.tier)}</div>
+    </div>
+        `;
+        }
+    }
+    preview.appendChild(tempItem.createTooltipElement());
+    preview.style.display = 'block';
+    document.body.appendChild(preview);
+}
+window.showItemPreview = showItemPreview;
 
 function createListItem(data) {
     const item = document.createElement('div');
     item.className = 'list-item';
     item.draggable = true;
     item.setAttribute('data-name', data.name);
-    item.setAttribute('data-item', JSON.stringify(data));
+    
     const sizeString = data.tags.find(tag => ['Small', 'Medium', 'Large'].includes(tag)) || 'Small';
     if(data.tags) {
         item.setAttribute('data-size', getSizeValue(sizeString));
@@ -450,15 +472,22 @@ function createListItem(data) {
         const icon = document.createElement('img');
         icon.src = data.icon;
         icon.classList.add(sizeString);
+        icon.style.pointerEvents = 'none';
         item.appendChild(icon);
     }
     
     const text = document.createElement('span');
     text.textContent = data.name;
+    text.style.pointerEvents = 'none';
     item.appendChild(text);
     
     item.addEventListener('dragstart', Board.handleDragStart);
     item.addEventListener('dragend', Board.handleDragEnd);    
+    item.addEventListener('mouseover', showItemPreview);
+    item.addEventListener('mouseout', ()=>{
+        let e = document.getElementById('item-preview');
+        if(e) e.remove();
+    });
     
     return item;
 }
@@ -488,11 +517,11 @@ function search(searchString, section = 'all') {
     containersToSearch.forEach(container => {
         if (!container) return;
         
-        const items = container.querySelectorAll('.list-item');
-        items.forEach(item => {
+        const listItems = container.querySelectorAll('.list-item');
+        listItems.forEach(item => {
             const itemName = item.getAttribute('data-name') || '';
             const itemText = (item.text || '')+ " " + (item.bottomtext||'');
-            const itemData = JSON.parse(item.getAttribute('data-item')); // Get item data for tag check
+            const itemData = items[itemName]; // Get item data for tag check
             let show = true;
             
             searchStrings.forEach(searchString => {

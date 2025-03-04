@@ -61,14 +61,14 @@ class Board {
             const addSkillButton = document.createElement('div');
             addSkillButton.className = 'add-skill-button';
             addSkillButton.classList.add('editorOpener');
-            addSkillButton.innerHTML = "➕";
+            addSkillButton.innerHTML = "Add Skill➕";
             addSkillButton.onclick = () => {
                 this.showSkillSelector();
             };
             this.element.appendChild(addSkillButton);
-            this.importElement = document.createElement('div');
-            this.importElement.className = 'import-element';
-            this.element.appendChild(this.importElement);
+            //this.importElement = document.createElement('div');
+            //this.importElement.className = 'import-element';
+            //this.element.appendChild(this.importElement);
             this.createDeleteZone();
         }
         this.createHealthElement();
@@ -328,6 +328,7 @@ class Board {
     updateIncomeElement() {
         this.incomeElement.textContent = "+" +this.player?.income;
     }
+    /*
     updateImportElement() {
         if(!this.importedData) {return;}
         let encounterIndex=-1;
@@ -441,10 +442,9 @@ class Board {
                     console.error('Error:', error);
                 });
 
-        }
-        
-
+        }    
     }
+    */
     clone(newPlayer) {
         const clone = new Board("cloned-"+this.boardId,newPlayer);
         clone.items = this.items.map(item => item.clone(clone));
@@ -675,22 +675,30 @@ class Board {
                         if(rightOverlap<leftOverlap && openSpacesToTheLeft>=rightOverlap) {
                             //we can push the item to the left) {
                                 this.shiftItemsToTheLeft(someItem,rightOverlap,foundItem);
+                                //console.log("Shifted item to the left: old startindex: "+foundItem.startIndex+" new startindex: "+startIndex-(rightOverlap-1));
+                               if(foundItem) foundItem.startIndex=startIndex-(rightOverlap-foundItem.size);
                                 return true;
                         } else {
                             //we can push the item to the right
                             if(openSpacesToTheRight>=draggingElementSize + (startIndex-someItem.startIndex)) {
                                 this.shiftItemsToTheRight(someItem, leftOverlap,foundItem);
+                               // console.log("Shifted item to the right: old startindex: "+foundItem.startIndex+" new startindex: "+startIndex-(leftOverlap-1));
+                                if(foundItem) foundItem.startIndex=startIndex-(leftOverlap-foundItem.size);
                                 return true;
                             }
                         }
 
                         if(openSpacesToTheLeft>=rightOverlap) {
                             this.shiftItemsToTheLeft(someItem, rightOverlap,foundItem);
+                            //console.log("Shifted item to the left: old startindex: "+(""+foundItem.startIndex)+" new startindex: "+startIndex);
+                            if(foundItem) foundItem.startIndex=startIndex;
                             return true;
                         }
   
                         if(openSpacesToTheRight>=leftOverlap) {
                             this.shiftItemsToTheRight(someItem,rightOverlap,foundItem);
+                            //console.log("Shifted item to the right: old startindex: "+foundItem.startIndex+" new startindex: "+startIndex);
+                            if(foundItem) foundItem.startIndex=startIndex;
                             return true;
                         }
 
@@ -843,7 +851,7 @@ class Board {
             foundItem = boardItems.find(item => item.element === draggingElement);
             size = foundItem.size;
         } else {
-            itemData = JSON.parse(draggingElement.getAttribute('data-item'));
+            itemData = items[draggingElement.getAttribute('data-name')];
             size = getSizeValue(itemData.tags.find(tag => ['Small', 'Medium', 'Large'].includes(tag)) || 'Small');
         }
 
@@ -1036,7 +1044,12 @@ class Board {
                 board.deleteZone.style.display = 'none';
             }
         });    
-
+        Board.boards.forEach(board => {
+            board.items.forEach(item => {
+                item.updateElementPosition();
+            });
+            board.items.sort(Item.compareByIndex);
+        });
         /*
         // Get the board that originally contained this element
         const sourceBoard = Board.getBoardFromId(draggedElement.closest('.board')?.id);

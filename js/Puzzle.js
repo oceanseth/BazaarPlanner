@@ -68,11 +68,11 @@ export class Puzzle {
     static loadPuzzleBoards() {
         if(Puzzle.battle == null) {
             window.isLoadingFromUrl = true;
-            const puzzleTopPlayer = new Player({},"puzzle-top",false);
-            const puzzleBottomPlayer = new Player({},"puzzle-bottom",false);
-            puzzleTopPlayer.hostileTarget = puzzleBottomPlayer;
-            puzzleBottomPlayer.hostileTarget = puzzleTopPlayer;
-            Puzzle.battle = new Battle([puzzleTopPlayer, puzzleBottomPlayer], ()=>{},$("#puzzle-combatlog"));
+            Puzzle.topPlayer = new Player({},"puzzle-top",false);
+            Puzzle.bottomPlayer = new Player({},"puzzle-bottom",false);
+            Puzzle.topPlayer.hostileTarget = Puzzle.bottomPlayer;
+            Puzzle.bottomPlayer.hostileTarget = Puzzle.topPlayer;
+            Puzzle.battle = new Battle([Puzzle.topPlayer, Puzzle.bottomPlayer], ()=>{},$("#puzzle-combatlog"));
             window.isLoadingFromUrl = false;            
         }
         firebase.database().ref(`puzzles/${Puzzle.puzzleId}/data`).once('value').then(snapshot => {
@@ -138,28 +138,35 @@ export class Puzzle {
     }
 
 };
-
+Puzzle.runBattle = function() {
+    Puzzle.battle.resetBattle();
+    Puzzle.battle.startBattle();
+    Puzzle.bottomPlayer.board.winRateElement.innerHTML = Puzzle.result.b + "%";
+    Puzzle.topPlayer.board.winRateElement.innerHTML = Puzzle.result.t + "%";
+    Puzzle.bottomPlayer.board.winRateElement.style.display = "block";
+    Puzzle.topPlayer.board.winRateElement.style.display = "block";
+}
 function showResults() {
     firebase.database().ref(`puzzles/${Puzzle.puzzleId}/result`).once('value').then(snapshot => {
         const result = snapshot.val();
-        let html = `<div style="display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 20px;"><div>
-                        <h1>Puzzle ${Puzzle.puzzleId} Solved!</h1>
+        Puzzle.result = result;
+        const win = Math.abs(Puzzle.guess -result.b)<=10;
+        let html = `<div class="puzzle-results"><div class="puzzle-results-left ${win?'puzzle-results-win':'puzzle-results-loss'}">
+                        <h1>Puzzle ${Puzzle.puzzleId}</h1>
                         <p>${Puzzle.puzzleData.title} : submitted by ${Puzzle.puzzleData.by}</p>
                         <p>Your guess: Bottom win rate ${Puzzle.guess}%.</p>
-                        
-                        <p>The bottom player will win or tie ${result.b} times out of 100.</p>
-                        <p>The top player will win or tie ${result.t} times out of 100.</p>
                     `;
-        if(Math.abs(Puzzle.guess -result.b)<=10) {
+                
+ 
+        if(win) {
             html += `<p>You guessed within 10 points of the actual result!<br/>
             You have been awarded a point! (tracking and leaderboards will be updated soon)<br/>
             You are now eligible to <a href="javascript:Puzzle.submitPuzzle()">submit your own puzzle!</a></p>
             `;
         } else {
-            html += `<p>You did not guess within 10 points of the actual result!<br/><br/>
-            Better luck tomorrow!</p>`;
+            html += `<p>You did not guess within 10 points of the actual result!</p>`;
         }
-        html+= `<button onclick="Puzzle.battle.resetBattle();Puzzle.battle.startBattle()">Run Battle</button>`;
+        html+= `<button onclick="Puzzle.runBattle()">Run Battle</button>`;
         html+="</div>";
         if(result.vod) {
             html+= `<div style="width: 100%;">
@@ -180,7 +187,7 @@ function showResults() {
         
         
         document.getElementById("puzzle-content").innerHTML = html;
-        Puzzle.battle.startBattle();
+        Puzzle.runBattle();
     });
 }
 

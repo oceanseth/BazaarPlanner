@@ -71,7 +71,6 @@ export function updateUrlState() {
                 toReturn[key] = item[key];
             }
         }
-        console.log(toReturn);
         
         for(const key in item.startItemData) {
             if(item.startItemData[key] && baseItem[key] == undefined && testItem.startItemData[key] != item[key]) {
@@ -159,7 +158,6 @@ export function loadFromUrl(hash) {
         // Decompress the state string
         const boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(hash));
         // Add items from URL state
-        console.log(boardState);
         boardState.forEach((boardStateObject) => {
             if(boardStateObject.name.startsWith('_b_')) {
                 const boardId = boardStateObject.name.slice(3);
