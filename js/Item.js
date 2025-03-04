@@ -16,6 +16,7 @@ export class Item {
         'Icy': 'Freeze',
         'Restorative': 'Heal',
         'Shielded': 'Shield',
+        'Turbo': 'Haste',
         'Obsidian': 'Weapon',
     }
     static itemID = 0;
@@ -234,6 +235,8 @@ export class Item {
         this.pendingMulticasts = 0;
         this.critMultiplier = 100; //default crit multiplier is 100% more damage
         this.freezeBonus = 0;
+        this.hasteBonus = 0;
+        this.slowBonus = 0;
         this.battleStats = { useCount:0 };
         if(this.priorities && this.priorities.length>0) {
             this.priority = this.priorities[0];
@@ -431,6 +434,9 @@ export class Item {
                         ${this.lifesteal>0?'Lifesteal<br>':''}
                         ${this.critMultiplier>100?'Crit Multiplier: '+this.critMultiplier+'%<br>':''}
                         ${this.enchant?this.enchants[this.enchant]+'<br>':''}
+                        ${this.hasteBonus>0?'Haste Bonus: '+this.hasteBonus+'s<br>':''}
+                        ${this.slowBonus>0?'Slow Bonus: '+this.slowBonus+'s<br>':''}
+                        ${this.freezeBonus>0?'Freeze Bonus: '+this.freezeBonus+'s<br>':''}
                     </div>
                 </div>
             </div>
@@ -507,6 +513,9 @@ export class Item {
     }
 
     applyHasteTo(item,duration) {
+        if(this.hasteBonus>0) {
+            duration += this.hasteBonus;
+        }
         if(this.hasDoubleHasteDuration) {
             duration*=2;
         }
@@ -519,6 +528,9 @@ export class Item {
     }
 
     applySlowTo(item,duration) {
+        if(this.slowBonus>0) {
+            duration += this.slowBonus;
+        }
         if(this.hasDoubleSlowDuration) {    
             item.applySlow(duration*2); 
         }else{
@@ -666,7 +678,7 @@ export class Item {
         if(doesCrit) {
             shieldAmount *= (1+this.critMultiplier/100);
         }
-        this.log(this.name + (doesCrit?"critically ":"")+" shielded " + this.board.player.name + " for " + shieldAmount);
+        this.log(this.name + (doesCrit?" critically ":"")+" shielded " + this.board.player.name + " for " + shieldAmount);
         this.board.player.applyShield(shieldAmount);
         if(doesCrit) {
             this.board.itemDidCrit(this);
@@ -697,7 +709,7 @@ export class Item {
         if(doesCrit) {
             healAmount *= (1+this.critMultiplier/100);
         }
-        this.log(this.name + (doesCrit?"critically ":"")+" healed " + this.board.player.name + " for " + healAmount);
+        this.log(this.name + (doesCrit?" critically ":"")+" healed " + this.board.player.name + " for " + healAmount);
         this.board.player.heal(healAmount);
         if(doesCrit) {
             this.board.itemDidCrit(this);
@@ -705,7 +717,8 @@ export class Item {
         if(this.battleStats.heal == undefined) this.battleStats.heal = 0;
         this.battleStats.heal += healAmount;
     }
-    applyFreeze(duration,source) {
+    applyFreeze(duration,source=null) {
+        if(source!=null) { return source.applyFreezeTo(this,duration);}
         if(this.enchant=='Radiant') return;
         if(this.isDestroyed) return;
         //const wasAlreadyFrozen = this.freezeDurationRemaining > 0;
@@ -721,6 +734,16 @@ export class Item {
        //game is bugged and doesn't do this if(!wasAlreadyFrozen) {
             this.board.freezeTriggers.forEach(func => func(this,source));
         //}
+    }
+    applyFreezeTo(item,duration) {
+        if(this.freezeBonus>0) {
+            duration += this.freezeBonus;
+        }
+        if(this.hasDoubleFreezeDuration) {
+            duration*=2;
+        }
+        item.applyFreeze(duration);
+        this.log(this.name + " was frozen by " + item.name + " for " + duration + " seconds");
     }
     removeFreeze(source) {
         if (this.freezeDurationRemaining <= 0) 
@@ -743,7 +766,7 @@ export class Item {
             poisonAmount *= (1+this.critMultiplier/100);
         }
         const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
-        this.log(this.name + (doesCrit?"critically ":"")+" poisoned " + target.name + " for " + poisonAmount.toFixed(0));
+        this.log(this.name + (doesCrit?" critically ":"")+" poisoned " + target.name + " for " + poisonAmount.toFixed(0));
         target.applyPoison(poisonAmount);
         if(doesCrit) {
             this.board.itemDidCrit(this);
@@ -1937,6 +1960,27 @@ export class Item {
                     <input type="number" id="edit-heal" value="${this.heal}">
                 </div>`;
         }
+        if(this.tags.includes("Haste")) {
+            popupHTML += `
+                <div class="form-group">
+                    <label>Haste Bonus:</label>
+                    <input type="number" id="edit-haste-bonus" value="${this.hasteBonus}">
+                </div>`;
+        }
+        if(this.tags.includes("Slow")) {
+            popupHTML += `
+                <div class="form-group">
+                    <label>Slow Bonus:</label>
+                    <input type="number" id="edit-slow-bonus" value="${this.slowBonus}">
+                </div>`;
+        }
+        if(this.tags.includes("Freeze")) {
+            popupHTML += `
+                <div class="form-group">
+                    <label>Freeze Bonus:</label>
+                    <input type="number" id="edit-freeze-bonus" value="${this.freezeBonus}">
+                </div>`;
+        }
 
 
         // Add cooldown field only if item has cooldown
@@ -2019,12 +2063,18 @@ export class Item {
             if (popup.querySelector('#edit-damage')) {                
                 const newDamage = parseFloat(popup.querySelector('#edit-damage').value);
                 this.startItemData.damage = (this.startItemData.damage||0) + (newDamage-this.damage)/this.damage_multiplier;
+                if(this.startItemData.damage<=0) {
+                    delete this.startItemData.damage;
+                }
             }
             if (popup.querySelector('#edit-cooldown')) {
                 this.startItemData.cooldown = this.startItemData.cooldown - (this.cooldown - (parseFloat(popup.querySelector('#edit-cooldown').value)*1000 || 0))/1000;
             }
             if (popup.querySelector('#edit-crit')) {
                 this.startItemData.crit = parseFloat(popup.querySelector('#edit-crit').value) - this.crit;
+                if(this.startItemData.crit<=0) {
+                    delete this.startItemData.crit;
+                }
             }            
             if (popup.querySelector('#edit-value')) {
                 const newValue = parseFloat(popup.querySelector('#edit-value').value);
@@ -2047,12 +2097,20 @@ export class Item {
                 this.startItemData.shield = (this.startItemData.shield||0) + (newShield - this.shield)/this.shield_multiplier;
             }
             if(popup.querySelector('#edit-maxammo')) {
-                this.startItemData.maxAmmo = parseFloat(popup.querySelector('#edit-maxammo').value);
-                this.startItemData.ammo = this.startItemData.maxAmmo;
+                this.startItemData.ammo = parseFloat(popup.querySelector('#edit-maxammo').value);
             }
             if(popup.querySelector('#edit-heal')) {
                 const newHeal = parseFloat(popup.querySelector('#edit-heal').value);
                 this.startItemData.heal = (this.startItemData.heal||0) + (newHeal - this.heal)/(this.heal_multiplier||1);
+            }
+            if(popup.querySelector('#edit-haste-bonus')) {
+                this.startItemData.hasteBonus = parseFloat(popup.querySelector('#edit-haste-bonus').value);
+            }
+            if(popup.querySelector('#edit-slow-bonus')) {
+                this.startItemData.slowBonus = parseFloat(popup.querySelector('#edit-slow-bonus').value);
+            }
+            if(popup.querySelector('#edit-freeze-bonus')) {
+                this.startItemData.freezeBonus = parseFloat(popup.querySelector('#edit-freeze-bonus').value);
             }
             popup.remove();
             //this.updateStatusIndicators();

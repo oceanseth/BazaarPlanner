@@ -48,6 +48,7 @@ export function updateUrlState() {
         if(item.rarity && item.rarity!='Bronze') toReturn.rarity = item.rarity;
         const [baseName] = Item.stripEnchantFromName(item.name);   
         const baseItem = structuredClone(items[baseName]);
+        const testItem = new Item(baseItem);
 
         for(const key in baseItem) {
             if (Array.isArray(baseItem[key]) && Array.isArray(item[key])) {
@@ -70,6 +71,14 @@ export function updateUrlState() {
                 toReturn[key] = item[key];
             }
         }
+        console.log(toReturn);
+        
+        for(const key in item.startItemData) {
+            if(item.startItemData[key] && baseItem[key] == undefined && testItem.startItemData[key] != item[key]) {
+                toReturn[key] = item.startItemData[key];
+            }
+        }
+        
         
         Item.possibleChangeAttributes.forEach(attribute=>{
             if(item[attribute] != undefined && baseItem[attribute] != item.startItemData[attribute]) {
