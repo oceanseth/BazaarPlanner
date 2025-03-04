@@ -246,7 +246,7 @@
             </div>
             <div style="display: flex; gap: 20px;">
                 <div id="simulator-items">           
-                    <input type="text" style="width: calc(100% - 5px); height: 20px;margin-bottom:5px;" id="simulator-search-input" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" autocomplete="off" placeholder="Search items...">         
+                    <input type="text" style="width: calc(100% - 5px); height: 24px;margin-bottom:5px;" id="simulator-search-input" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" autocomplete="off" placeholder="Search items...">         
                     <div id="simulator-itemsList"></div>
                 </div>
                 <div style="position: relative;">
@@ -267,7 +267,8 @@
                             <button onclick="Board.getBoardFromId('t').clear()">Clear</button>
                             <button onclick="Board.getBoardFromId('t').save()">Save</button>
                             <button onclick="Board.getBoardFromId('t').load()">Load</button>
-                            <button onclick="Board.getBoardFromId('t').importFromBazaarTracker()">Import</button>                            
+                        <!--    <button onclick="Board.getBoardFromId('t').importFromBazaarTracker()">Import</button>                            
+                        -->
                         </div>
                     </div>
                     <div class="board-container">
@@ -278,7 +279,8 @@
                             <button onclick="Board.getBoardFromId('b').clear()">Clear</button>
                             <button onclick="Board.getBoardFromId('b').save()">Save</button>
                             <button onclick="Board.getBoardFromId('b').load()">Load</button>
-                            <button onclick="Board.getBoardFromId('b').importFromBazaarTracker()">Import</button>
+                        <!--    <button onclick="Board.getBoardFromId('b').importFromBazaarTracker()">Import</button>
+                        -->
                         </div>
                     </div>
                 </div>

@@ -730,7 +730,7 @@ export class Item {
         this.freezeElement.textContent = (this.freezeDurationRemaining/1000).toFixed(1);
         this.freezeElement.classList.remove('hidden');
 
-        this.log(this.name + " was frozen by " + source.name + " for " + duration + " seconds");
+        //this.log(this.name + " was frozen by " + source.name + " for " + duration + " seconds");
        //game is bugged and doesn't do this if(!wasAlreadyFrozen) {
             this.board.freezeTriggers.forEach(func => func(this,source));
         //}
