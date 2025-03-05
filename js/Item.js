@@ -728,12 +728,7 @@ export class Item {
         this.freezeDurationRemaining += duration*1000;
         this.element.classList.add('frozen');
         this.freezeElement.textContent = (this.freezeDurationRemaining/1000).toFixed(1);
-        this.freezeElement.classList.remove('hidden');
-
-        //this.log(this.name + " was frozen by " + source.name + " for " + duration + " seconds");
-       //game is bugged and doesn't do this if(!wasAlreadyFrozen) {
-            this.board.freezeTriggers.forEach(func => func(this,source));
-        //}
+        this.freezeElement.classList.remove('hidden');      
     }
     applyFreezeTo(item,duration) {
         if(this.freezeBonus>0) {
@@ -744,6 +739,7 @@ export class Item {
         }
         item.applyFreeze(duration);
         this.log(this.name + " was frozen by " + item.name + " for " + duration + " seconds");
+        this.board.freezeTriggers.forEach(func => func(item,this));
     }
     removeFreeze(source) {
         if (this.freezeDurationRemaining <= 0) 
@@ -1561,7 +1557,7 @@ export class Item {
         if(match) {
             const freezeDuration = getRarityValue(match[1], this.rarity);
             return () => {
-                this.board.player.hostileTarget.board.items.forEach(item => item.applyFreeze(freezeDuration,this));
+                this.board.player.hostileTarget.board.items.forEach(item => this.applyFreezeTo(item,freezeDuration));
             };
         }
         
@@ -1575,7 +1571,7 @@ export class Item {
                 for(let i=0;i<numItems;i++) {
                     const targets = this.board.player.hostileTarget.board.items.filter(i=>i.isFreezeTargetable());
                     const itemToFreeze = this.pickRandom(targets);
-                    if(itemToFreeze) itemToFreeze.applyFreeze(freezeDuration,this);
+                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze,freezeDuration);
                     else {
                         this.log(this.name + " tried to freeze " + numItems + " item(s) but there were no items to freeze");
                     }
@@ -1593,7 +1589,7 @@ export class Item {
                 for(let i=0;i<numItems;i++) {
                     const targets = this.board.player.hostileTarget.board.items.filter(i=> i.size<=(item||this).size && i.isFreezeTargetable());
                     const itemToFreeze = this.pickRandom(targets);
-                    if(itemToFreeze) itemToFreeze.applyFreeze(freezeDuration,this);
+                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze,freezeDuration);
                     else {
                         this.log(this.name + " tried to freeze " + numItems + " item(s) of equal or smaller size but there were no items to freeze");
                     }
@@ -1611,7 +1607,7 @@ export class Item {
                 for(let i=0;i<numItems;i++) {
                     const targets = this.board.player.hostileTarget.board.items.filter(i=> i.size<=2 && i.isFreezeTargetable());
                     const itemToFreeze = this.pickRandom(targets);
-                    if(itemToFreeze) itemToFreeze.applyFreeze(freezeDuration,this);
+                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze,freezeDuration);
                     else {
                         this.log(this.name + " tried to freeze " + numItems + " medium or small item(s) but there were no items to freeze");
                     }
@@ -4031,7 +4027,7 @@ export class Item {
                 const numToFreezeNow = Math.min(numToFreeze, itemsToFreeze.length);
                 for(let i=0;i<numToFreezeNow;i++) {
                     const itemToFreeze = this.pickRandom(itemsToFreeze);
-                    if(itemToFreeze) itemToFreeze.applyFreeze(seconds,this);
+                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze,seconds);
                     else {
                         this.log(this.name + " tried to freeze " + numToFreezeNow + " item(s) but there were no items to freeze");
                     }
@@ -4619,12 +4615,12 @@ export class Item {
             return ()=>{
                 this.board.items.forEach(item => {
                     if(!item.tags.includes("Weapon")) {
-                        item.applyFreeze(freezeAmount,this);
+                        this.applyFreezeTo(item,freezeAmount);
                     }
                 });
                 this.board.player.hostileTarget.board.items.forEach(item => {
                     if(!item.tags.includes("Weapon")) {
-                        item.applyFreeze(freezeAmount,this);
+                        this.applyFreezeTo(item,freezeAmount);
                     }
                 });
             };
