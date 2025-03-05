@@ -89,8 +89,25 @@ def main():
     items = fetch_items()
     processed_items = {}
     
+    # Load existing file to preserve priorities
+    existing_data = {}
+    try:
+        with open("items.js", "r", encoding="utf-8") as f:
+            content = f.read()
+            if content:
+                # Remove "export const items = " and ";" from the content
+                json_str = content.replace("export const items = ", "").rstrip(";")
+                existing_data = json.loads(json_str)
+    except FileNotFoundError:
+        pass
+
+    # Process new items
     for item in items:
-        processed_items[item["name"]] = process_item(item)
+        processed = process_item(item)
+        # Preserve priorities if they exist
+        if item["name"] in existing_data and "priorities" in existing_data[item["name"]]:
+            processed["priorities"] = existing_data[item["name"]]["priorities"]
+        processed_items[item["name"]] = processed
     
     # Write to file
     with open("items.js", "w", encoding="utf-8") as f:
