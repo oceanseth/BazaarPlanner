@@ -1169,6 +1169,48 @@ export const monsters = {
       }
     ]
   },
+  "Kyver Commander": {
+    "name": "Kyver Commander",
+    "icon": "images/monsters/KyverCommander.avif",
+    "day": 5,
+    "health": -1,
+    "skills": [
+      {
+        "name": "Counterstrike",
+        "tier": 1
+      }
+    ],
+    "items": []
+  },
+  "Scovyle": {
+    "name": "Scovyle",
+    "icon": "images/monsters/Scovyle.avif",
+    "day": 5,
+    "health": -1,
+    "skills": [],
+    "items": [
+      {
+        "name": "Curry",
+        "tier": 1
+      },
+      {
+        "name": "Skillet",
+        "tier": 1
+      },
+      {
+        "name": "Black Pepper",
+        "tier": 1
+      },
+      {
+        "name": "Hot Sauce",
+        "tier": 2
+      },
+      {
+        "name": "Pickled Peppers",
+        "tier": 2
+      }
+    ]
+  },
   "Dire Inglet": {
     "name": "Dire Inglet",
     "icon": "images/monsters/DireInglet.avif",
@@ -1971,6 +2013,19 @@ export const monsters = {
         "tier": 2
       }
     ]
+  },
+  "Ghost Pepper": {
+    "name": "Ghost Pepper",
+    "icon": "images/monsters/GhostPepper.avif",
+    "day": 7,
+    "health": -1,
+    "skills": [
+      {
+        "name": "Heat Lover",
+        "tier": 0
+      }
+    ],
+    "items": []
   },
   "Infernal Frigate": {
     "name": "Infernal Frigate",
