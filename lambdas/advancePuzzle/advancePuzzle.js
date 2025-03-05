@@ -22,7 +22,8 @@ const initializeFirebase = async () => {
   const serviceAccount = JSON.parse(result.Parameter.Value);
 
   firebaseApp = admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: 'https://bazaarplanner-default-rtdb.firebaseio.com'
   });
 };
 

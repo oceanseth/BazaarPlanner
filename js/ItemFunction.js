@@ -237,7 +237,7 @@ ItemFunction.items.set("Fishing Rod",(item)=>{
     const rightItem = item.getItemToTheRight();
     item.triggerFunctions.push(()=>{
         if(rightItem && !rightItem.isDestroyed && rightItem.tags.includes("Aquatic")) {
-            rightItem.applyHaste(hasteDuration,item);
+            rightItem.applyHasteTo(rightItem,hasteDuration);
         }
     });
 });
@@ -276,7 +276,7 @@ ItemFunction.items.set("Propane Tank",(item)=>{
     });
     item.triggerFunctions.push(()=>{
         item.board.items.forEach(i=>{
-            if(i.tags.includes("Vehicle")) i.applyHaste(hasteDuration,item);
+            if(i.tags.includes("Vehicle")) item.applyHasteTo(i,hasteDuration);
         });
        
     });
@@ -323,7 +323,7 @@ ItemFunction.items.set("Motherboard",(item)=>{
     const hasteDuration = getRarityValue("2 >> 3 >> 4",item.rarity);
     item.board.player.hostileTarget.board.items.forEach(i=>{
         if(i.tags.includes("Core")) {
-            i.applyHaste(hasteDuration,item);
+            item.applyHasteTo(i,hasteDuration);
         }
     });
 });
@@ -538,7 +538,7 @@ ItemFunction.items.set("Cryosleeve",(item)=>{
     let shieldAmount = getRarityValue("50 >> 75 >> 100",item.rarity);
     item.gain(shieldAmount,'shield');
     item.triggerFunctions.push(()=>{
-       [item,...item.getAdjacentItems()].forEach(i=>i.applyFreeze(1,item));
+       [item,...item.getAdjacentItems()].forEach(i=>item.applyFreezeTo(i,1));
     });
     item.board.freezeTriggers.set(item.id,(i,source)=>{
             item.applyShield(item.shield);
@@ -555,28 +555,28 @@ ItemFunction.items.set("Cryosphere",(item)=>{
     item.triggerFunctions.push(()=>{
         item.board.items.forEach(i=>{
             if(i.tags.includes("Core")) return;
-            i.applyFreeze(freezeDuration,item);
+           item.applyFreezeTo(i,freezeDuration);
         });
         item.board.player.hostileTarget.board.items.forEach(i=>{
             if(i.tags.includes("Core")) return;
-            i.applyFreeze(freezeDuration,item);
+            item.applyFreezeTo(i,freezeDuration);
         });
     });
 });
 ItemFunction.items.set("Iceberg",(item)=>{
     //When your enemy uses an item, Freeze it for 1 second(s).
     item.board.player.hostileTarget.board.itemTriggers.set(item.id,(i)=>{
-        i.applyFreeze(1,item);
+        item.applyFreezeTo(i,1);
     });
 });
 ItemFunction.items.set("Stopwatch",(item)=>{
     //Freeze both players' items for ( 1 » 2 ) second(s).
     item.triggerFunctions.push(()=>{
         item.board.items.forEach(i=>{
-            i.applyFreeze(getRarityValue("1 >> 2",item.rarity),item);
+            item.applyFreezeTo(i,getRarityValue("1 >> 2",item.rarity));
         });
         item.board.player.hostileTarget.board.items.forEach(i=>{
-            i.applyFreeze(getRarityValue("1 >> 2",item.rarity),item);
+            item.applyFreezeTo(i,getRarityValue("1 >> 2",item.rarity));
         });
     });
 });
@@ -587,7 +587,7 @@ ItemFunction.items.set("Forklift",(item)=>{
     item.damage = (item.startItemData.damage||0) + item.board.items.reduce((acc,i)=>i.startIndex<item.startIndex?acc+damage:acc,0);
     item.triggerFunctions.push(()=>{    
         let thisAndItemsToTheRight = item.board.items.filter(i=>i.startIndex>=item.startIndex);
-        thisAndItemsToTheRight.forEach(i=>i.applyHaste(getRarityValue("2 >> 4",item.rarity),item));
+        thisAndItemsToTheRight.forEach(i=>item.applyHasteTo(i,getRarityValue("2 >> 4",item.rarity)));
     });
 });
 //If you have 5 or fewer items in play, their cooldowns are reduced by ( 10% » 20% ). from Stained Glass Window
@@ -621,7 +621,7 @@ ItemFunction.items.set("GPU",(item)=>{
     //Haste the Core for ( 1 » 2 » 3 » 4 ) second(s).
     item.board.player.hostileTarget.board.items.forEach(i=>{
         if(i.tags.includes("Core")) {
-            i.applyHaste(getRarityValue("1 >> 2 >> 3 >> 4",item.rarity),item);
+            item.applyHasteTo(i,getRarityValue("1 >> 2 >> 3 >> 4",item.rarity));
         }
     });
 });
@@ -861,11 +861,9 @@ ItemFunction.items.set("Hypnotic Drain",(item)=>{
             const smallerItems = item.board.player.hostileTarget.board.items.filter(i=>i.size<item.size);
             if(smallerItems.length>0) {
                 const smallerItem = item.pickRandom(smallerItems);
-                smallerItem.applyFreeze(2,item);
+                item.applyFreezeTo(smallerItem,2);
                 item.log(item.name + " used " + i.name + " with Lifesteal to Freeze " + smallerItem.name + " for 2 seconds");
             }
-
-
         }
     });
 });
