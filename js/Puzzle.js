@@ -29,7 +29,7 @@ export class Puzzle {
             Puzzle.battle.resetBattle();
         }
         Puzzle.puzzleId = puzzleId;
-        if(Puzzle.puzzleId) {
+        if(Puzzle.puzzleId && window.user) {
             firebase.database().ref(`puzzles/${Puzzle.puzzleId}/votes/${window.user.uid}`).once('value').then(snapshot =>{                        
                 Puzzle.solved = snapshot.val()!=null;
                 if(Puzzle.solved) {
@@ -41,9 +41,9 @@ export class Puzzle {
                 }
                 Puzzle.isLoading = false;
                 
-            }); 
-            Puzzle.loadPuzzleBoards();               
+            });                           
         }
+        Puzzle.loadPuzzleBoards(); 
     }
     static updateSelect() {
         if(!Puzzle.puzzleId) { return; }
@@ -130,6 +130,10 @@ export class Puzzle {
     }
 
     static submitGuess() {
+        if(!window.user) {
+            window.showLogin();
+            return;
+        }
         if(Puzzle.isLoading) return;
         Puzzle.guess = document.getElementById("puzzle-guess-slider").value;
         firebase.database().ref(`puzzles/${Puzzle.puzzleId}/votes/${window.user.uid}`).set(Puzzle.guess);
