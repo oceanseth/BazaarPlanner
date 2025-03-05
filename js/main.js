@@ -188,7 +188,13 @@ function setLoggedInUser (user) {
             const accountDetails = document.getElementById('account-details');
             if(accountDetails) accountDetails.textContent = '';              
         }
-        loadFromUrl();
+        if(window.location.hash.length>0) {
+            showSection('simulator');
+            loadFromUrl();            
+        } else {
+            showSection('puzzle');
+            Puzzle.loadPuzzle();
+        }
 }
 
 
@@ -262,7 +268,9 @@ window.onload = () => {
             signInFlow: isMobileDevice()?'redirect':'popup',
             signInSuccessUrl: window.location.href
         };
-
+        window.showLogin = function() {
+            document.getElementById('auth-container').style.display = 'block';
+        }
 
         // Initialize the auth UI
         function initAuth() {
@@ -656,5 +664,7 @@ document.addEventListener('click', (e) => {
         document.querySelectorAll('.editor').forEach(editor => {
             editor.style.display = 'none';
         });
+        document.getElementById('auth-container').style.display = 'none';
     }
+
 });

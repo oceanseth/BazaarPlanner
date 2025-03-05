@@ -42,8 +42,8 @@
     </head>
     <body>
         <div id="Menu">
-            <button class="section-header-selected" onclick="showSection('simulator',event)">Simulator</button>
-            <button onclick="showSection('puzzle',event)">Daily Puzzle</button>
+            <button onclick="showSection('simulator',event)">Simulator</button>
+            <button class="section-header-selected" onclick="showSection('puzzle',event)">Daily Puzzle</button>
             <button onclick="showSection('about',event)">About</button>
             <button onclick="showSection('faq',event)">FAQ</button>
             
@@ -72,7 +72,7 @@
                 <button onclick="logout()" style="margin-left: auto;">Logout</button>
             </div>
         </div>
-        <div id="puzzle" class="section" style="display: none;">
+        <div id="puzzle" class="section">
             <div id="puzzle-content">
                 <h1 id="puzzle-title">Daily Puzzle</h1>
                 <p id="puzzle-description" align="center"></p>
@@ -85,7 +85,7 @@
                     <div style="text-align: center; margin-top: 5px;"><b id="slider-value">0</b></div>
                     <br/><br/>
                     <div style="text-align: center; margin-top: 5px;">
-                        <button onclick="Puzzle.submitGuess()">Submit</button>
+                        <button class="editorOpener" onclick="Puzzle.submitGuess()">Submit</button>
                     </div>
                 </div>
             </div>   
@@ -200,7 +200,7 @@
             </div>
         </div>
         <!-- Simulator Section -->
-        <div id="simulator" class="section polling">
+        <div id="simulator" class="section polling" style="display: none;">
             <div id="poll">
                 <h1>Please Answer Poll Before Using</h1>
                 I received a message from Reynad, the developer of Bazaar.<br/><br/>
@@ -217,8 +217,7 @@
                 <font size="+1">Will this site harm gameplay or your enjoyment of the game?</font><br/>
                 <i>(you must login to vote - if you login with twitch, the only information given is your twitch user id, which is already public information on twitch)</i>
                 <div class="poll-login">
-                    <div id="firebaseui-auth-container"></div>
-                    <div id="twitch-auth-container"><button id="twitch-login-button" class="firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-password firebaseui-id-idp-button firebaseui-idp-text firebaseui-idp-text-long">Sign in with Twitch</button></div>
+                    <button class="editorOpener" onclick="showLogin()">Login</button>
                 </div>             
                 <div class="poll-button-group">
                     <button onclick="poll(true)">Yes</button>
@@ -308,5 +307,9 @@
             </div>
         </div>
         -->
+        <div id="auth-container">
+            <div id="firebaseui-auth-container"></div>
+            <div id="twitch-auth-container"><button id="twitch-login-button" class="firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-password firebaseui-id-idp-button firebaseui-idp-text firebaseui-idp-text-long">Sign in with Twitch</button></div>
+        </div>
     </body>
 </html> 
