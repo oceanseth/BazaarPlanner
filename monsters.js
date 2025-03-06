@@ -1042,6 +1042,44 @@ export const monsters = {
       }
     ]
   },
+  "Kyver Commander": {
+    "name": "Kyver Commander",
+    "icon": "images/monsters/KyverCommander.avif",
+    "day": 5,
+    "health": 900,
+    "skills": [
+      {
+        "name": "Counterstrike",
+        "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Insect Wing",
+        "tier": 2
+      },
+      {
+        "name": "Junkyard Lance",
+        "tier": 1
+      },
+      {
+        "name": "Busy Bee",
+        "tier": 1
+      },
+      {
+        "name": "Busy Bee",
+        "tier": 1
+      },
+      {
+        "name": "Busy Bee",
+        "tier": 1
+      },
+      {
+        "name": "Insect Wing",
+        "tier": 2
+      }
+    ]
+  },
   "Mod Squad": {
     "name": "Mod Squad",
     "icon": "images/monsters/ModSquad.avif",
@@ -1169,26 +1207,22 @@ export const monsters = {
       }
     ]
   },
-  "Kyver Commander": {
-    "name": "Kyver Commander",
-    "icon": "images/monsters/KyverCommander.avif",
-    "day": 5,
-    "health": -1,
-    "skills": [
-      {
-        "name": "Counterstrike",
-        "tier": 1
-      }
-    ],
-    "items": []
-  },
   "Scovyle": {
     "name": "Scovyle",
     "icon": "images/monsters/Scovyle.avif",
     "day": 5,
-    "health": -1,
-    "skills": [],
+    "health": 1400,
+    "skills": [
+      {
+        "name": "Fiery",
+        "tier": 0
+      }
+    ],
     "items": [
+      {
+        "name": "Cinders",
+        "tier": 1
+      },
       {
         "name": "Curry",
         "tier": 1
@@ -1844,6 +1878,23 @@ export const monsters = {
       }
     ]
   },
+  "Ghost Pepper": {
+    "name": "Ghost Pepper",
+    "icon": "images/monsters/GhostPepper.avif",
+    "day": 7,
+    "health": 1550,
+    "skills": [
+      {
+        "name": "Heat Lover",
+        "tier": 0
+      },
+      {
+        "name": "Fiery",
+        "tier": 0
+      }
+    ],
+    "items": []
+  },
   "Shock Trooper": {
     "name": "Shock Trooper",
     "icon": "images/monsters/ShockTrooper.avif",
@@ -2013,19 +2064,6 @@ export const monsters = {
         "tier": 2
       }
     ]
-  },
-  "Ghost Pepper": {
-    "name": "Ghost Pepper",
-    "icon": "images/monsters/GhostPepper.avif",
-    "day": 7,
-    "health": -1,
-    "skills": [
-      {
-        "name": "Heat Lover",
-        "tier": 0
-      }
-    ],
-    "items": []
   },
   "Infernal Frigate": {
     "name": "Infernal Frigate",
@@ -2477,6 +2515,58 @@ export const monsters = {
       }
     ]
   },
+  "Yerdan": {
+    "name": "Yerdan",
+    "icon": "images/monsters/Yerdan.avif",
+    "day": 9,
+    "health": 2325,
+    "skills": [
+      {
+        "name": "Tools of the Trade",
+        "tier": 2
+      },
+      {
+        "name": "Relax Bro",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Goggles",
+        "tier": 1
+      },
+      {
+        "name": "Nargile",
+        "tier": 2
+      },
+      {
+        "name": "Abacus",
+        "tier": 2
+      },
+      {
+        "name": "Salt",
+        "tier": 2,
+        "enchant": "Shielded"
+      },
+      {
+        "name": "Blue Piggles L",
+        "tier": 2,
+        "enchant": "Shielded"
+      },
+      {
+        "name": "Piggles",
+        "tier": 2
+      },
+      {
+        "name": "Blue Piggles X",
+        "tier": 2
+      },
+      {
+        "name": "Cargo Shorts",
+        "tier": 2
+      }
+    ]
+  },
   "Roaming Isle": {
     "name": "Roaming Isle",
     "icon": "images/monsters/RoamingIsle.avif",
@@ -2671,46 +2761,6 @@ export const monsters = {
         "name": "Runic Great Axe",
         "tier": 3
       }
-    ]
-  },
-  "Yerdan": {
-    "name": "Yerdan",
-    "icon": "images/monsters/Yerdan.avif",
-    "day": 9,
-    "health": 2325,
-    "skills": [
-      {
-        "name": "Relax Bro",
-        "tier": 2
-      },
-      {
-        "name": "Tools of the Trade",
-        "tier": 2
-      }
-    ],
-    "items": [
-      { "name":"Goggles", "tier":1},      
-      { "name": "Nargile","tier": 2 },
-      {
-        "name": "Abacus",
-        "tier": 2
-      },
-      {
-        "name": "Salt",
-        "tier": 1
-      },
-
-      {
-        "name": "Shielded Blue Piggles X",
-        "tier": 2
-      },
-      {
-        "name": "Piggles",
-        "tier": 2
-      },
-      { "name": "Blue Piggles X", "tier": 2},
-      { "name": "Cargo Pants", "tier": 2},
-
     ]
   },
   "Hulking Experiment": {
@@ -2913,7 +2963,7 @@ export const monsters = {
       },
       {
         "name": "Combat Medic",
-        "tier": 3
+        "tier": 2
       }
     ],
     "items": [
