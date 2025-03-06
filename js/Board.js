@@ -78,7 +78,6 @@ class Board {
         this.createIncomeElement();
         this.createWinRateElement();
         this.createPlayerElement();
-        
         this.reset();
 
 
@@ -112,6 +111,7 @@ class Board {
         this.burnTriggers = new Map();
         this.poisonTriggers = new Map();
         this.critTriggers = new Map();
+        this.reloadTriggers = new Map(); //functions to call when any item on this board is reloaded
         this.startOfFightTriggers = new Map();
         this.itemDestroyedTriggers = new Map(); //functions to call when an item on this board is destroyed
         this.healTriggers = [];
@@ -120,6 +120,7 @@ class Board {
         this.largeItemTriggers = [];
         this.mediumItemTriggers = [];
         this.smallItemTriggers = [];
+        this.uniqueTypeTagCache = [];
         
         this.resetItems();
         if(this.player?.battle) {
@@ -905,7 +906,9 @@ class Board {
         this.items = this.items.filter(i => i !== item);
         if(this.editable) updateUrlState();
     }
-    get uniqueTypes() {
+    uniqueTypeTagCache = [];
+    get uniqueTypeTags() {
+        if(this.uniqueTypeTagCache.length>0) return this.uniqueTypeTagCache;
         const types = new Set();
         this.items.forEach(item => {
             item.tags.forEach(tag => {
@@ -914,7 +917,12 @@ class Board {
                 }
             });
         });
-        return types.size;
+        this.uniqueTypeTagCache = Array.from(types);
+        return this.uniqueTypeTagCache;
+    }
+    get uniqueTypes() {
+        if(this.uniqueTypeTagCache.length>0) return this.uniqueTypeTagCache.length;        
+        return this.uniqueTypeTags.length;
     }
 
     save() {        
@@ -1040,9 +1048,7 @@ class Board {
     
 
         Board.boards.forEach(board => {
-            if(board.items.some(item => item.element === draggedElement)) {              
                 board.deleteZone.style.display = 'none';
-            }
         });    
         Board.boards.forEach(board => {
             board.items.forEach(item => {

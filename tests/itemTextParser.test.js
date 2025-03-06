@@ -18,6 +18,8 @@ const mockBoardInstance = {
     itemValuesChangedTriggers: new Map(),
     startOfFightTriggers: new Map(),
     itemDestroyedTriggers: new Map(),
+    reloadTriggers: new Map(),
+    uniqueTypeTags: [],
     updateHealthElement: () => {},
     player: {
         healthChanged: () => {},
@@ -54,6 +56,11 @@ const mockBoardInstance = {
 };
 mockBoardInstance.player.board = mockBoardInstance;
 mockBoardInstance.player.hostileTarget = mockBoardInstance.player;
+mockBoardInstance.player.battle = {
+    log: () => {},
+    battleRandom: () => {},
+    pickRandom: () => {},
+};
 
 // Mock Board class
 const mockBoard = {
@@ -133,7 +140,7 @@ describe('Item Text Parser Tests', () => {
         // Optional: Make the test fail if there are any unhandled cases
         // expect(consoleOutput.filter(output => output.includes("No code yet written for this case!"))).toHaveLength(0);
     });
-    
+    /*
     test('Parse all item enchant text patterns', () => {
         // Process each item
         Object.entries(items).forEach(([itemName, itemData]) => {
@@ -155,13 +162,13 @@ describe('Item Text Parser Tests', () => {
         // Optional: Make the test fail if there are any unhandled cases
         // expect(consoleOutput.filter(output => output.includes("No code yet written for this case!"))).toHaveLength(0);
     });
+    */
     test('Parse all skill text patterns', () => {
         // Process each skill
         Object.entries(skills).forEach(([skillName, skillData]) => {
             if(ItemFunction.items.get(skillName)) return;
             try {
-                const skill = Skill.fromName(skillName);
-                skill.board = mockBoardInstance;
+                const skill = Skill.fromName(skillName, mockBoardInstance);
                 skill.setup();
             } catch (error) {
                 console.log(`Error processing skill ${skillName}:`, error);

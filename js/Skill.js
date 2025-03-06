@@ -51,14 +51,14 @@ export class Skill {
         }
         this.reset();
     }
-    static fromName(name) {
+    static fromName(name, board=null) {
         if(!skills[name]) {
             console.log("Skill not found: " + name);
             return null;
         }
         const skillData = skills[name];
         skillData.name = name;
-        return new Skill(skillData);
+        return new Skill(skillData, board);
     }
     reset() {
         this.element.classList.remove(...Item.rarityLevels);
