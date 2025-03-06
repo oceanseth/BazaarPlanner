@@ -2677,22 +2677,40 @@ export const monsters = {
     "name": "Yerdan",
     "icon": "images/monsters/Yerdan.avif",
     "day": 9,
-    "health": -1,
+    "health": 2325,
     "skills": [
       {
         "name": "Relax Bro",
         "tier": 2
+      },
+      {
+        "name": "Tools of the Trade",
+        "tier": 2
       }
     ],
     "items": [
+      { "name":"Goggles", "tier":1},      
+      { "name": "Nargile","tier": 2 },
       {
-        "name": "Nargile",
+        "name": "Abacus",
         "tier": 2
       },
       {
         "name": "Salt",
+        "tier": 1
+      },
+
+      {
+        "name": "Shielded Blue Piggles X",
         "tier": 2
-      }
+      },
+      {
+        "name": "Piggles",
+        "tier": 2
+      },
+      { "name": "Blue Piggles X", "tier": 2},
+      { "name": "Cargo Pants", "tier": 2},
+
     ]
   },
   "Hulking Experiment": {
