@@ -1048,7 +1048,7 @@ class Board {
     
 
         Board.boards.forEach(board => {
-                board.deleteZone.style.display = 'none';
+                if(board.deleteZone) board.deleteZone.style.display = 'none';
         });    
         Board.boards.forEach(board => {
             board.items.forEach(item => {
