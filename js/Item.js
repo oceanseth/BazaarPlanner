@@ -520,8 +520,7 @@ export class Item {
 
     applyHaste(duration) {
         this.hasteTimeRemaining += duration * 1000;
-        this.hasteTriggers.forEach(func => func(this));
-        this.board.hasteTriggers.forEach(func => func(this));
+        this.hasteTriggers.forEach(func => func(this));        
     }
 
     applyHasteTo(item,duration) {
@@ -533,6 +532,7 @@ export class Item {
         }
         item.applyHaste(duration);
         this.log(this.name + " hastened " + item.name + " for " + duration + " seconds");
+        this.board.hasteTriggers.forEach(func => func(item,this));
     }
 
     applySlow(duration) {
@@ -754,7 +754,7 @@ export class Item {
             duration*=2;
         }
         item.applyFreeze(duration);
-        this.log(this.name + " was frozen by " + item.name + " for " + duration + " seconds");
+        this.log(this.name + " froze " + item.name + " for " + duration + " seconds");
         this.board.freezeTriggers.forEach(func => func(item,this));
     }
     removeFreeze(source) {
@@ -1048,7 +1048,6 @@ export class Item {
             
                 selectedItems.forEach(i => {
                     this.applyHasteTo(i,duration);
-                    this.log(this.name + " hasted " + i.name + " for " + duration + " seconds");
                 });
             };
         }
@@ -1062,7 +1061,6 @@ export class Item {
                     if(other && i.id == this.id) return;
                     this.applyHasteTo(i,duration);
                 });
-                this.log(this.name + " hasted all items for " + duration + " seconds");
             };
         }
         // Haste your Friends for ( 1 » 2 » 3 ) second(s). from DJ Rob0t
@@ -1172,7 +1170,6 @@ export class Item {
             return () => {
                 let itemToHaste = this.pickRandom(this.board.items);
                 this.applyHasteTo(itemToHaste,duration);
-                this.log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
             };
         }
         regex = /^Haste the item to the right of this for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
@@ -1202,7 +1199,6 @@ export class Item {
             const itemToHaste = this.getItemToTheLeft();
             if(itemToHaste) {
                 this.applyHasteTo(itemToHaste,duration);
-                this.log(this.name + " hasted "+itemToHaste.name+" for " + duration + " seconds");
             }
 
         }
@@ -1213,7 +1209,6 @@ export class Item {
             const duration = getRarityValue(match[1], this.rarity);
             return () => {
                 this.getAdjacentItems().forEach(item => this.applyHasteTo(item,duration));
-                this.log(this.name + " hasted adjacent items for " + duration + " seconds"); 
             };
         }
 
@@ -1224,7 +1219,6 @@ export class Item {
             const duration = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
             return (item) => {
                 this.applyHasteTo(item,duration);
-                this.log(this.name + " hasted "+item.name+" for " + duration + " seconds");
             };
 
         }
@@ -1236,7 +1230,6 @@ export class Item {
             const duration = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
             return () => {
                 this.applyHasteTo(this,duration);
-                this.log(this.name + " gained haste for " + duration + " seconds");
             };
         }
         return null;
@@ -1574,6 +1567,7 @@ export class Item {
                 this.critMultiplier += amount;
                 break;
             case 'cooldown':
+                if(this.cooldown<=0) return;
                 const oldCooldown = this.cooldown;
                 this.cooldown += amount;
                 if(this.cooldown<1000) this.cooldown = 1000; //cooldown can't go below 1 second
@@ -2285,19 +2279,17 @@ export class Item {
                 return;
             }
             //freeze, or burn, blah blah blah
-            let conditionalMatches = [];
-            if(!textAfterComma.includes(",")) {
-                conditionalMatches.push(conditionalMatch);
-            } else {
-            do {
-                const regex = /^([^,]+),(?: or)? (.*)$/;
-                const m = textAfterComma.match(regex);
-                if(m) {
-                    conditionalMatches.push(m[1]);
-                    textAfterComma = m[2];
-                }
-            } while(textAfterComma.includes(","));
-        }
+            let conditionalMatches = [conditionalMatch];
+            if(textAfterComma.includes(",")) {
+                do {
+                    const regex = /^([^,]+),(?: or)? (.*)$/;
+                    const m = textAfterComma.match(regex);
+                    if(m) {
+                        conditionalMatches.push(m[1]);
+                        textAfterComma = m[2];
+                    }
+                } while(textAfterComma.includes(","));
+            }
             
 
             const triggerFunctionFromText = this.getTriggerFunctionFromText(textAfterComma);
@@ -2336,7 +2328,7 @@ export class Item {
                 return;
             }
 
-            for(const conditionalMatch of conditionalMatches) {
+            conditionalMatches.forEach(conditionalMatch=>{
                 switch(conditionalMatch.toLowerCase()) {
                     case "use an item":
                         this.board.itemTriggers.set(this.id, triggerFunctionFromText);
@@ -2542,25 +2534,22 @@ export class Item {
                         this.board.burnTriggers.set(this.id,triggerFunctionFromText);
                         return;
                     case "haste":
-                        this.board.hasteTriggers.set(this.id,triggerFunctionFromText);
+                        this.board.hasteTriggers.set(this.id,(i,source) => {
+                            triggerFunctionFromText(source);
+                        });
                         return;
 
                     case "slow":
-                        this.board.slowTriggers.set(this.id,triggerFunctionFromText);
+                        this.board.slowTriggers.set(this.id,(i,source)=>{
+                            triggerFunctionFromText(source);
+                        });
                         return;
                     case "gain freeze":
                         this.board.player.hostileTarget.board.freezeTriggers.set(this.id,triggerFunctionFromText);
                         return;
                     case "freeze":
-                        this.board.player.hostileTarget.board.freezeTriggers.set(this.id,(target,source)=>{
-                            if(source.board==this.board) {
-                                triggerFunctionFromText(source);
-                            }
-                        });
                         this.board.freezeTriggers.set(this.id,(target,source)=>{
-                            if(source.board==this.board) {
                                 triggerFunctionFromText(source);
-                            }
                         });
                         return;
                     case "crit":
@@ -2624,6 +2613,7 @@ export class Item {
                         this.whenItemTagTriggers("Property", (item) => {
                             triggerFunctionFromText(item);
                         });
+                        return;
                     case "haste or slow":
                         this.board.hasteTriggers.set(this.id,triggerFunctionFromText);
                         this.board.slowTriggers.set(this.id,triggerFunctionFromText);
@@ -2632,6 +2622,7 @@ export class Item {
                         this.whenItemTagTriggers("Small", (item) => {
                             triggerFunctionFromText(item);
                         });
+                        return;
                     case "crit with a weapon":
                         this.board.critTriggers.set(this.id,(item)=>{
                             if(item.tags.includes("Weapon")) {
@@ -2675,7 +2666,8 @@ export class Item {
                 console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"' from "+this.name);
 
                 return;
-            }
+            });
+            if(conditionalMatches.length>0) {return;}
         }
         //The first (  4  » 8   ) times you use a non-Weapon item each fight, Charge 1 Weapon 1 second(s). from Mixed Message
         //The first (  4  » 8   ) times you Shield each fight, Charge 1 item 1 second(s).

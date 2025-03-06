@@ -173,12 +173,18 @@ function showResults() {
         html+= `<button onclick="Puzzle.runBattle()">Run Battle</button>`;
         html+="</div>";
         if(result.vod) {
+            if(result.vod.includes("youtube.com")) {
+                html+= `<div style="width: 100%;">
+               <iframe width="560" height="315" src="${result.vod}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div></div>`;
+            } else {
             html+= `<div style="width: 100%;">
             <iframe src="https://clips.twitch.tv/embed?clip=${result.vod}&parent=`+window.location.hostname+`"
             height="400"
             width="100%"
             allowfullscreen>
             </iframe></div></div>`;
+            }
             if(result.desc) {
                 html+=`<div style="margin: 0 auto; width: 50%; background-color:rgba(0,0,0,.3); padding: 10px; border-radius: 10px;"><p><b>Analysis: </b> ${result.desc}</p></div>`;
             }
