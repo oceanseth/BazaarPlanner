@@ -143,7 +143,7 @@ ItemFunction.items.set("Dual Wield",(item)=>{
 //The first time you Freeze, Burn, Slow, Poison, and Haste each fight, Charge 1 item 2 » 4 second(s). from Neophiliac
 ItemFunction.items.set("Neophiliac",(item)=>{
     const chargeDuration = getRarityValue("2 >> 4",item.rarity);
-    [item.board.burnTriggers,item.board.poisonTriggers,item.board.player.hostileTarget.board.freezeTriggers,item.board.player.hostileTarget.board.slowTriggers,item.board.hasteTriggers].forEach(t=>{
+    [item.board.burnTriggers,item.board.poisonTriggers,item.board.freezeTriggers,item.board.slowTriggers,item.board.hasteTriggers].forEach(t=>{
         t.set(item.id,()=>{
             item.pickRandom(item.board.activeItems.filter(i=>i.cooldown>0)).chargeBy(chargeDuration,item);
             t.delete(item.id);
@@ -570,10 +570,16 @@ ItemFunction.items.set("Cryosleeve",(item)=>{
     });
     item.board.freezeTriggers.set(item.id,(i,source)=>{
             item.applyShield(item.shield);
-            i.freezeDurationRemaining /= 2;
-            item.log(item.name + " reduced " + i.name + " freeze duration by half");
+            if(i.board==item.board) {
+                i.freezeDurationRemaining /= 2;
+                item.log(item.name + " reduced " + i.name + " freeze duration by half");
+            }
     });
     item.board.player.hostileTarget.board.freezeTriggers.set(item.id,(i,source)=>{
+        if(i.board==item.board) {
+            i.freezeDurationRemaining /= 2;
+            item.log(item.name + " reduced " + i.name + " freeze duration by half");
+        }
         item.applyShield(item.shield);
     });
 });
@@ -817,30 +823,7 @@ ItemFunction.items.set("Big Guns",(item)=>{
         }
     });
 });
-//Deal ( 50 » 75 » 100 » 125 ) damage.
-//When you Haste, Slow, Freeze, Burn or Poison, charge this 2 second(s). From Power Drill
-ItemFunction.items.set("Power Drill",(item)=>{
-    const amount = getRarityValue("50 >> 75 >> 100 >> 125",item.rarity);
-    item.gain(amount,'damage');
-    item.board.hasteTriggers.set(item.id,(i)=>{
-        item.chargeBy(2,i);
-    });
-    item.board.slowTriggers.set(item.id,(i)=>{
-        item.chargeBy(2,i);
-    });
-    item.board.freezeTriggers.set(item.id,(i)=>{
-        item.chargeBy(2,i);
-    });
-    item.board.burnTriggers.set(item.id,(i)=>{
-        item.chargeBy(2,i);
-    });
-    item.board.poisonTriggers.set(item.id,(i)=>{
-        item.chargeBy(2,i);
-    });
-    item.triggerFunctions.push(()=>{
-        item.dealDamage(item.damage);
-    });
-});
+
 
 //Reduce the cooldown of your Properties by (  10%  » 15%   ). from Industrialist
 ItemFunction.items.set("Industrialist",(item)=>{
