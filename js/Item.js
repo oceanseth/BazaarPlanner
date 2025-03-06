@@ -2321,12 +2321,17 @@ export class Item {
                 });
                 return;
             }
-            const whenmatch = conditionalMatch.match(/^uses? an? ([^\s]+)(?: item)?$/i);
+            const whenmatch = conditionalMatch.match(/^uses? an? (non-)?([^\s]+)(?: item)?$/i);
             if(whenmatch) {
-                const tagToMatch = Item.getTagFromText(whenmatch[1]);
+                const non = whenmatch[1];
+                const tagToMatch = Item.getTagFromText(whenmatch[2]);
                 
                 targetBoards.forEach(board => {
-                    this.whenItemTagTriggers(tagToMatch, triggerFunctionFromText, board);
+                    if(non) {
+                        this.whenNonItemTagTriggers(tagToMatch, triggerFunctionFromText, board);
+                    } else {
+                        this.whenItemTagTriggers(tagToMatch, triggerFunctionFromText, board);
+                    }
                 });
                 return;
             }
@@ -3100,6 +3105,20 @@ export class Item {
             // Handle both string and array cases
             const tags = Array.isArray(tag) ? tag : [tag];
             if (tag =="Item" || tags.some(t => item.tags.includes(t))) {
+                func(item);
+            }
+        });
+    }
+        
+    /*
+    When an item with a tag is used, trigger the given function
+    tag can be a string or an array of strings
+    */
+    whenNonItemTagTriggers(tag, func, board) {
+        board = board || this.board;  // Set default value for board if not provided
+        board.itemTriggers.set(this.id,(item) => {
+            // Handle both string and array cases
+            if(!item.tags.includes(tag)) {
                 func(item);
             }
         });
@@ -4545,21 +4564,22 @@ export class Item {
         //Your Shield items have +1 Shield 
         //your items have ( +1% » +2% » +3% » +4% ) crit chance
         //your items have ( +1% » +2% » +3% » +4% ) crit chance for each weapon you have
-        regex = /^your ([^\s]+)(?:s)? (?:items)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.$/i;
+        regex = /^your (non-)?([^\s]+)(?:s)? (?:items)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.$/i;
         match = text.match(regex);
 
         if(match) {
-            const tagToMatch = Item.getTagFromText(match[1]);
-            const gainAmount = parseInt(getRarityValue(match[2], this.rarity));
-            const whatToGain = match[3].toLowerCase();
+            const non = match[1];
+            const tagToMatch = Item.getTagFromText(match[2]);
+            const gainAmount = parseInt(getRarityValue(match[3], this.rarity));
+            const whatToGain = match[4].toLowerCase();
             let multiplier = 1;
             if(match[4]=="unique type") {                
                 multiplier = this.board.uniqueTypes;
-            } else if(match[4]) {
-                multiplier = this.board.items.filter(item=>item.tags.includes(Item.getTagFromText(match[4]))).length;
+            } else if(match[5]) {
+                multiplier = this.board.items.filter(item=>item.tags.includes(Item.getTagFromText(match[5]))).length;
             }
             this.board.items.forEach(item => {
-                if(tagToMatch=='Item' || item.tags.includes(tagToMatch)) {
+                if(tagToMatch=='Item' || non?(!item.tags.includes(tagToMatch)):item.tags.includes(tagToMatch)) {
                     item.gain(gainAmount*multiplier,whatToGain);
                 }
             });

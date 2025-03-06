@@ -180,6 +180,7 @@ export class Skill {
                     .map(([key, _]) => key);
             }
         }
+        let rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
         // Create HTML content with structured layout
         let tooltipContent = `
             <div class="tooltip-content">
@@ -191,7 +192,7 @@ export class Skill {
                     ${this.cooldown ? `
                         <div class="cooldown-circle">${this.cooldown}<span class="unit">SEC</span></div>
                     ` : ''}
-                    <div class="tooltip-main-text">${colorTextArray(this.text,this.tier)}</div>
+                    <div class="tooltip-main-text">${colorTextArray(this.text,rarityIndex)}</div>
                 </div>
 
 
