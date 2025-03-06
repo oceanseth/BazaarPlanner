@@ -3828,7 +3828,7 @@ export class Item {
             };
         }
         //Multicast ( 1 » 2 » 3 » 4 ).
-        regex = /^Multicast (?:\(([^)]+)\)|(\d+))/i;
+        regex = /^Multicast (?:\(([^)]+)\)|(\d+))\.?$/i;
         match = text.match(regex);
         if(match) {
             this.multicast = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2])) - 1;
@@ -3890,16 +3890,16 @@ export class Item {
             const tagsToMatch = match[1]?[Item.getTagFromText(match[1])]:[Item.getTagFromText(match[2]),Item.getTagFromText(match[3])];
             this.getAdjacentItems().forEach(item => {
                 if(tagsToMatch.some(tag=>tag&&item.tags.includes(tag))) {
-                    this.multicast++;
+                    this.gain(1,'multicast');
                 }
             });
             return () => {};
         }
         //This has +1 Multicast. (from shiny)
-        regex = /^\s*This has \+1 Multicast\.?/i;
+        regex = /^\s*This has \+1 Multicast\.?$/i;
         match = text.match(regex);
         if(match) {
-            this.multicast++;
+            this.gain(1,'multicast');
             return () => {};
         }
         //Adjacent Toys have +1 Multicast.
@@ -3909,7 +3909,7 @@ export class Item {
             const tagToMatch = Item.getTagFromText(match[1]);
             this.getAdjacentItems().forEach(item => {
                 if(item.tags.includes(tagToMatch)) {
-                    item.multicast++;
+                    item.gain(1,'multicast');
                 }
             });
             return () => {};
@@ -3961,9 +3961,9 @@ export class Item {
             this.board.items.forEach(item => {
                 if(item.tags.includes(tagToMatch)) {
                     if(match[2] == "Multicast") {
-                        this.multicast+=amount;
+                        this.gain(amount,'multicast');
                     } else {
-                        this.maxAmmo+=amount;
+                        this.gain(amount,'maxAmmo');
                     }
                 }
             });
