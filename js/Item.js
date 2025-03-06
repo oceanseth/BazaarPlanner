@@ -6,7 +6,7 @@ export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny','Toxic', 'Turbo' ];
-    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit'];
+    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen'];
     static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle','Common'];
     static sizeTags = ['Small','Medium','Large'];
 
@@ -223,12 +223,23 @@ export class Item {
         return 0;
 
     }
+    get regeneration() {
+        return this.regen;
+    }
+    set regeneration(value) {
+        this.regen = value;
+    }
+    regenerationChanged(f,s) {
+        this.regenChanged(f,s);
+    }
     reset() {
         this.lifesteal = false;
         this.isDestroyed = false;
         this.element.classList.remove('destroyed');
         this.hasteTimeRemaining = 0;
         this.hasDoubleHasteDuration = false;
+        this.hasDoubleFreezeDuration = false;
+        this.hasDoubleSlowDuration = false;
         this.slowTimeRemaining = 0;
         this.numTriggers = 0;
         this.effectiveBattleTime = 0;
@@ -237,6 +248,7 @@ export class Item {
         this.freezeBonus = 0;
         this.hasteBonus = 0;
         this.slowBonus = 0;
+        this.regen = 0;
         this.battleStats = { useCount:0 };
         if(this.priorities && this.priorities.length>0) {
             this.priority = this.priorities[0];
@@ -702,6 +714,10 @@ export class Item {
         if(this.battleStats.burn == undefined) this.battleStats.burn = 0;
         this.battleStats.burn += burnAmount;
     }
+    applyRegeneration(regenAmount) {
+        this.board.player.regen+=regenAmount;
+        this.log(this.name + " adds " + regenAmount + " regeneration");
+    }
     applyHeal(healAmount) {
         healAmount = parseFloat(healAmount);
         if(isNaN(healAmount) || healAmount <=0) return;
@@ -815,7 +831,7 @@ export class Item {
         }
         //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
         //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
-        damageRegex = /^Your ([^\s]+)\s*(?:items)? gain (?:\(([^)]+)\)|(\d+))\s+([^\s]+)\s+for the fight\.?/i;
+        damageRegex = /^Your ([^\s]+)\s*(?:items)? (?:gain|get) (?:\(([^)]+)\)|(\d+))\s+([^\s]+)\s+for the fight\.?/i;
         match = text.match(damageRegex);
 
         if(match) {
@@ -1091,15 +1107,37 @@ export class Item {
         }
 
         //slow all enemy items for ( 1 » 2 » 3 » 4 ) second(s).
-        regex = /^slow all enemy items for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?$/i;
+        regex = /^(slow|freeze) all enemy (?:(\w+) )?items for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const duration = getRarityValue(match[1], this.rarity);
+            const whatToDo = Item.getTagFromText(match[1]);
+            const tagToMatch = match[2] ? Item.getTagFromText(match[2]) : null;
+            const duration = getRarityValue(match[3], this.rarity);            
+
             return () => {
-                this.board.player.hostileTarget.board.items.forEach(i => this.applySlowTo(i,duration));
-                this.log(this.name + " slowed all enemy items for " + duration + " seconds");
+                this.board.player.hostileTarget.board.items.forEach(i => {
+                    if(tagToMatch && !i.tags.includes(tagToMatch)) return;
+                    this["apply"+whatToDo+"To"](i,duration);
+                });
+                this.log(this.name + " applied " + whatToDo + " to all enemy items for " + duration + " seconds");
             };
         }
+         //slow all enemy items for ( 1 » 2 » 3 » 4 ) second(s).
+         regex = /^(slow|freeze) both players' (?:(\w+) )?items for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+         match = text.match(regex);
+         if(match) {
+             const whatToDo = Item.getTagFromText(match[1]);
+             const tagToMatch = match[2] ? Item.getTagFromText(match[2]) : null;
+             const duration = getRarityValue(match[3], this.rarity);            
+ 
+             return () => {
+                 [...this.board.activeItems,...this.board.player.hostileTarget.board.activeItems].forEach(i => {
+                     if(tagToMatch && !i.tags.includes(tagToMatch)) return;
+                     this["apply"+whatToDo+"To"](i,duration);
+                 });
+                 this.log(this.name + " applied " + whatToDo + " to all items for " + duration + " seconds");
+             };
+         }
         
         
         //Haste ( 1 » 2 » 3 » 4 ) Aquatic or Toy item(s) for 2 second(s).
@@ -1238,7 +1276,7 @@ export class Item {
 
 
     getBurnTriggerFunctionFromText(text) {
-        let regex = /(Burn|Poison|Heal|Shield) (\([^)]+\)|\d+)( for each unique type you have)?\./i;
+        let regex = /^(Burn|Poison|Heal|Shield) (\([^)]+\)|\d+)( for each unique type you have)?\.?$/i;
         let match = text.match(regex);
         if(match) {
             const amount = getRarityValue(match[2], this.rarity);
@@ -1477,6 +1515,7 @@ export class Item {
                 if(this.ammo>this.maxAmmo) {
                     this.ammo = this.maxAmmo;
                 }
+                this.board.reloadTriggers.forEach(func => func(this,source));
                 break;
             case 'maxammo':
             case 'max ammo':
@@ -1521,6 +1560,9 @@ export class Item {
                 
             case 'burn':
                 this.burn += amount;
+                break;
+            case 'regen':
+                this.regen += amount;
                 break;
                 
             case 'crit':
@@ -1578,7 +1620,29 @@ export class Item {
                 }
             };
         }
+        //Freeze adjacent items for 1 second(s). from Ice Luge 
+        regex = /^Freeze adjacent items for (\([^)]+\)|\d+) second\(?s\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const freezeDuration = getRarityValue(match[1], this.rarity);
+            return () => {
+                this.getAdjacentItems().forEach(item => this.applyFreezeTo(item,freezeDuration));
+            };
+        }
 
+        //When an adjacent item gains Freeze, reduce its cooldown by (1/2) second(s) for the fight. from Ice Luge 
+        regex = /^When an adjacent item gains Freeze, reduce its cooldown by (\([^)]+\)|\d+)\s*second\(?s\)?(?: for the fight)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const cooldownReduction = getRarityValue(match[1], this.rarity);
+            const adjacentItems = this.getAdjacentItems();
+            this.board.player.hostileTarget.board.freezeTriggers.set(this.id, (item) => {  
+                if(adjacentItems.includes(item)) {
+                    item.gain(-cooldownReduction*1000,'cooldown');
+                }
+            });
+            return () => {};
+        }
         //Freeze 1 item of equal or smaller size for 1 second(s).
         regex = /^Freeze (\([^)]+\)|\d+) item(?:s)? of equal or smaller size for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
@@ -1612,6 +1676,15 @@ export class Item {
                         this.log(this.name + " tried to freeze " + numItems + " medium or small item(s) but there were no items to freeze");
                     }
                 }
+            };
+        }
+        //Freeze it for 1 second(s). from Tripwire
+        regex = /^Freeze it for (\([^)]+\)|\d+) second\(?s\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const freezeDuration = getRarityValue(match[1], this.rarity);
+            return (item) => {
+                this.applyFreezeTo(item,freezeDuration);
             };
         }
 
@@ -2142,7 +2215,7 @@ export class Item {
         if(text.match(/^At the start of each hour/i)) {
             return;
         }
-        let regex = /^\s*When (you|your enemy|any player)? ([^,]*), (.*)$/i;
+        let regex = /^\s*When (you|your enemy|any player|your items|your enemy's items)? ([^,]*), (.*)$/i;
         let match = text.match(regex);
         let ifFunction = null;
         if(match) {
@@ -2154,7 +2227,10 @@ export class Item {
                 targetBoards = [this.board.player.hostileTarget.board];
             } else if(enemyMatch=="any player") {
                 targetBoards.push(this.board.player.hostileTarget.board);
+            } else if(enemyMatch=="your enemy's items") {
+                targetBoards.push(this.board.player.hostileTarget.board);
             }
+
             if(ifmatch) {
                 textAfterComma = ifmatch[1];
                 switch(ifmatch[2].toLowerCase()) {
@@ -2179,6 +2255,7 @@ export class Item {
                 "buy this",
                 "buy another aquatic item",
                 "level up",
+                "sell 10 items",
                 "sell a spare change",
                 "win a fight",
                 "win a fight against a player",
@@ -2195,6 +2272,7 @@ export class Item {
                 "sell",
                 "win a fight with stained glass window in play",
                 "sell an item",
+                "sell a property",
                 "buy an aquatic item",
                 "buy a potion",
                 "buy a property",
@@ -2206,6 +2284,21 @@ export class Item {
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;
             }
+            //freeze, or burn, blah blah blah
+            let conditionalMatches = [];
+            if(!textAfterComma.includes(",")) {
+                conditionalMatches.push(conditionalMatch);
+            } else {
+            do {
+                const regex = /^([^,]+),(?: or)? (.*)$/;
+                const m = textAfterComma.match(regex);
+                if(m) {
+                    conditionalMatches.push(m[1]);
+                    textAfterComma = m[2];
+                }
+            } while(textAfterComma.includes(","));
+        }
+            
 
             const triggerFunctionFromText = this.getTriggerFunctionFromText(textAfterComma);
 
@@ -2238,327 +2331,346 @@ export class Item {
                 return;
             }
 
+            for(const conditionalMatch of conditionalMatches) {
+                switch(conditionalMatch.toLowerCase()) {
+                    case "use an item":
+                        this.board.itemTriggers.set(this.id, triggerFunctionFromText);
+                        return;
 
-            switch(conditionalMatch.toLowerCase()) {
-                case "use an item":
-                    this.board.itemTriggers.set(this.id, triggerFunctionFromText);
-                    return;
-
-                case "use another item":
-                    this.board.itemTriggers.set(this.id, (item) =>  {                        
-                        if(item.id !== this.id) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
-                    return;
-                case "use another tech":
-                    this.board.itemTriggers.set(this.id, (item) =>  {                        
-                        if(item.id !== this.id && item.tags.includes("Tech")) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
-                    return;
-                case "destroy an item":
-                case "destroy an item during combat":
-                    this.board.player.destroyTriggers.set(this.id, (item) => {
-                        triggerFunctionFromText(item);
-                    });
-                    return;
-                case "over-heal":
-                    this.board.player.overhealTriggers.set(this.id, triggerFunctionFromText);
-                    return;
-                case "heal":
-                    this.board.player.healTriggers.set(this.id, triggerFunctionFromText);
-                case "use a friend":
-                    this.board.itemTriggers.set(this.id, (item) =>  {                        
-                        if(item.tags.includes("Friend")) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
-                    return;
-                case "use another friend":
-                    this.board.itemTriggers.set(this.id, (item) =>  {                        
-                        if(item.id !== this.id && item.tags.includes("Friend")) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
-                    return;
-                case "use another aquatic item":
-                    this.board.itemTriggers.set(this.id, (item) => {
-                        if(item.id !== this.id && item.tags.includes("Aquatic")) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
-                    return;
-                case "use another weapon":
-                    this.board.itemTriggers.set(this.id, (item) => {
-                        if(item.id !== this.id && item.tags.includes("Weapon")) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
-                    return;
-                case "use a weapon":
-                    this.board.itemTriggers.set(this.id, (item) =>  {                        
-                        if(item.tags.includes("Weapon")) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
-                    return;            
-                case "use an item with ammo":
-                    this.board.itemTriggers.set(this.id, (item) => {
-                        if(item.tags.includes("Ammo")) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
-                    return;
-                
-                case "use another ammo item":
-                    this.board.itemTriggers.set(this.id, (item) => {
-                        if(item.id !== this.id && item.tags.includes("Ammo")) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
-                    return;
-                case "crit with an item":
-                    this.board.critTriggers.set(this.id, (item) => {
-                            triggerFunctionFromText(item);
-                    });
-                    return;
-                case "crit with another item":
-                    this.board.critTriggers.set(this.id, (item) => {
-                        if(item.id !== this.id) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
-                    return;
-                case "use another non-weapon item":
-                case "use a non-weapon item":
-                    this.board.itemTriggers.set(this.id, (item) =>  {                        
-                        if(item.id !== this.id && !item.tags.includes("Weapon")) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
-                    return;
-                case "use an adjacent item":
-                    this.adjacentItemTriggers.push(triggerFunctionFromText);
-                    return;
-                case "use another weapon or haste":
-                    this.board.itemTriggers.set(this.id, (item) => {
-                        if(item.id!==this.id&&(item.tags.includes("Weapon"))) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
-                    this.board.hasteTriggers.set(this.id, (item) => {
-                        triggerFunctionFromText(item);
-                    });
-                    return;
-                case "use the item to the right of this":
-                    const rightItem = this.getItemToTheRight();
-                    if(rightItem) {
-                        rightItem.triggerFunctions.push(() => {
-                            triggerFunctionFromText(rightItem);
-                            if(ifFunction) ifFunction(rightItem);
-                        });
-                    }
-                    return;
-                case "use the item to the left of this":
-                    const leftItem = this.getItemToTheLeft();
-                    if(leftItem) {
-                        leftItem.triggerFunctions.push(() => {
-                            triggerFunctionFromText(leftItem);
-                            if(ifFunction) ifFunction(leftItem);
-                        });
-                    }
-                    return;
-                case "use any item to the left of this":
-                    this.board.itemTriggers.set(this.id, (item)=> {
-                        if(item.startIndex < this.startIndex) {
-                            triggerFunctionFromText(item);
-                            if(ifFunction) ifFunction(item);
-                        }
-                    });
-                    return;
-                case "use any item to the right of this":
-                    this.board.itemTriggers.set(this.id, (item)=> {
-                        if(item.startIndex > this.startIndex) {
-                            triggerFunctionFromText(item);
-                            if(ifFunction) ifFunction(item);
-                        }
-                    });
-                    return;
-                case "use the property to the left of this":
-                    const leftPropertyItem = this.getItemToTheLeft();
-                    if(leftPropertyItem&&leftPropertyItem.tags.includes("Property")) {
-                        leftPropertyItem.triggerFunctions.push(triggerFunctionFromText);
-                    }
-                    return;
-                case "use the weapon to the left":
-                case "use the weapon to the left of this":
-                    const leftWeaponItem = this.getItemToTheLeft();
-                    if(leftWeaponItem&&leftWeaponItem.tags.includes("Weapon")) {
-                        leftWeaponItem.triggerFunctions.push(() => {
-                            triggerFunctionFromText(leftWeaponItem);
-                            if(ifFunction) ifFunction(leftWeaponItem);
-                        });
-                    }
-                    return;
-                case "use the weapon to the right of this":
-                    const rightWeaponItem = this.getItemToTheRight();
-                    if(rightWeaponItem&&rightWeaponItem.tags.includes("Weapon")) {
-                        rightWeaponItem.triggerFunctions.push(triggerFunctionFromText);
-                    }
-
-                    return;
-                case "use the core or another ray":
-                    this.whenItemTagTriggers(["Core", "Ray"], 
-                        (item) => {
+                    case "use another item":
+                        this.board.itemTriggers.set(this.id, (item) =>  {                        
                             if(item.id !== this.id) {
-                              triggerFunctionFromText(item);  
+                                triggerFunctionFromText(item);
                             }
-                        }
-                    );
-                    return;
-                case "use the core":
-                    this.whenItemTagTriggers(["Core"],
-                        (item) => {
-                            triggerFunctionFromText(item);  
-                        }
-                    );
-                    return;
-                case "or your enemy burns":
-                    this.board.player.hostileTarget.board.burnTriggers.set(this.id,triggerFunctionFromText);
-                case "burn with an item":
-                case "burn":
-                    this.board.burnTriggers.set(this.id,triggerFunctionFromText);
-                    return;
-                case "haste":
-                    this.board.hasteTriggers.set(this.id,triggerFunctionFromText);
-                    return;
-
-                case "slow":
-                    this.board.slowTriggers.set(this.id,triggerFunctionFromText);
-                    return;
-                case "freeze":
-                    this.board.player.hostileTarget.board.freezeTriggers.set(this.id,(target,source)=>{
-                        if(source.board==this.board) {
-                            triggerFunctionFromText(source);
-                        }
-                    });
-                    this.board.freezeTriggers.set(this.id,(target,source)=>{
-                        if(source.board==this.board) {
-                            triggerFunctionFromText(source);
-                        }
-                    });
-                    return;
-                case "crit":
-                    this.board.critTriggers.set(this.id,triggerFunctionFromText);
-                    return;
-                case "shield":
-                    this.board.shieldTriggers.set(this.id,triggerFunctionFromText);
-
-                    return;
-                case "lose shield":
-                    this.board.player.lostShieldTriggers.set(this.id,triggerFunctionFromText);
-                    return;
+                        });
+                        return;
+                    case "use another tech":
+                        this.board.itemTriggers.set(this.id, (item) =>  {                        
+                            if(item.id !== this.id && item.tags.includes("Tech")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "destroy an item":
+                    case "destroy an item during combat":
+                        this.board.player.destroyTriggers.set(this.id, (item) => {
+                            triggerFunctionFromText(item);
+                        });
+                        return;
+                    case "over-heal":
+                        this.board.player.overhealTriggers.set(this.id, triggerFunctionFromText);
+                        return;
+                    case "heal":
+                        this.board.player.healTriggers.set(this.id, triggerFunctionFromText);
+                    case "use a friend":
+                        this.board.itemTriggers.set(this.id, (item) =>  {                        
+                            if(item.tags.includes("Friend")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "use another friend":
+                        this.board.itemTriggers.set(this.id, (item) =>  {                        
+                            if(item.id !== this.id && item.tags.includes("Friend")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "use another aquatic item":
+                        this.board.itemTriggers.set(this.id, (item) => {
+                            if(item.id !== this.id && item.tags.includes("Aquatic")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "use another weapon":
+                        this.board.itemTriggers.set(this.id, (item) => {
+                            if(item.id !== this.id && item.tags.includes("Weapon")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "use a weapon":
+                        this.board.itemTriggers.set(this.id, (item) =>  {                        
+                            if(item.tags.includes("Weapon")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;            
+                    case "use an item with ammo":
+                        this.board.itemTriggers.set(this.id, (item) => {
+                            if(item.tags.includes("Ammo")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
                     
-                case "or your enemy poisons":
-                    this.board.player.hostileTarget.board.poisonTriggers.set(this.id,triggerFunctionFromText);
-                case "poison with an item":
-                case "poison":
-                    this.board.poisonTriggers.set(this.id, triggerFunctionFromText);
-                    return;
-                case "use a Tech":
-                    this.whenItemTagTriggers("Tech", (item) => {
-                        triggerFunctionFromText(item);
-                    });
-                    return;
-                case "use another toy":
-                    this.whenItemTagTriggers("Toy", (item) => { 
-                        if(item.id !== this.id) {
+                    case "use another ammo item":
+                        this.board.itemTriggers.set(this.id, (item) => {
+                            if(item.id !== this.id && item.tags.includes("Ammo")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "crit with an item":
+                        this.board.critTriggers.set(this.id, (item) => {
+                                triggerFunctionFromText(item);
+                        });
+                        return;
+                    case "crit with another item":
+                        this.board.critTriggers.set(this.id, (item) => {
+                            if(item.id !== this.id) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "crit with an adjacent item":
+                        this.board.critTriggers.set(this.id, (item) => {
+                            if(item.id !== this.id && this.getAdjacentItems().some(i=>i.id==item.id)) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "use another non-weapon item":
+                    case "use a non-weapon item":
+                        this.board.itemTriggers.set(this.id, (item) =>  {                        
+                            if(item.id !== this.id && !item.tags.includes("Weapon")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "use an adjacent item":
+                        this.adjacentItemTriggers.push(triggerFunctionFromText);
+                        return;
+                    case "use another weapon or haste":
+                        this.board.itemTriggers.set(this.id, (item) => {
+                            if(item.id!==this.id&&(item.tags.includes("Weapon"))) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        this.board.hasteTriggers.set(this.id, (item) => {
                             triggerFunctionFromText(item);
+                        });
+                        return;
+                    case "use the item to the right of this":
+                        const rightItem = this.getItemToTheRight();
+                        if(rightItem) {
+                            rightItem.triggerFunctions.push(() => {
+                                triggerFunctionFromText(rightItem);
+                                if(ifFunction) ifFunction(rightItem);
+                            });
                         }
-                    });
-                    return;
-                case "use an adjacent or dragon item":
-                    const adjacentItems = this.getAdjacentItems();
-                    this.board.itemTriggers.set(this.id,(item)=>{
-                        if(adjacentItems.some(i=>i.id==item.id)||item.tags.includes("Dragon")) {
-                            triggerFunctionFromText(item);
+                        return;
+                    case "use the item to the left of this":
+                        const leftItem = this.getItemToTheLeft();
+                        if(leftItem) {
+                            leftItem.triggerFunctions.push(() => {
+                                triggerFunctionFromText(leftItem);
+                                if(ifFunction) ifFunction(leftItem);
+                            });
                         }
-                    });
-                    return;
-                case "burn or use a dragon item":
-                    this.board.burnTriggers.set(this.id,triggerFunctionFromText);
-                    this.whenItemTagTriggers("Dragon", (item) => {
-                        triggerFunctionFromText(item);
-                    });
-                    return;
-                case "use another tool":
-                    this.whenItemTagTriggers("Tool", (item) => {
-                        if(item.id !== this.id) {
-                            triggerFunctionFromText(item);
+                        return;
+                    case "use any item to the left of this":
+                        this.board.itemTriggers.set(this.id, (item)=> {
+                            if(item.startIndex < this.startIndex) {
+                                triggerFunctionFromText(item);
+                                if(ifFunction) ifFunction(item);
+                            }
+                        });
+                        return;
+                    case "use any item to the right of this":
+                        this.board.itemTriggers.set(this.id, (item)=> {
+                            if(item.startIndex > this.startIndex) {
+                                triggerFunctionFromText(item);
+                                if(ifFunction) ifFunction(item);
+                            }
+                        });
+                        return;
+                    case "use the property to the left of this":
+                        const leftPropertyItem = this.getItemToTheLeft();
+                        if(leftPropertyItem&&leftPropertyItem.tags.includes("Property")) {
+                            leftPropertyItem.triggerFunctions.push(triggerFunctionFromText);
                         }
-                    });
-                    return;
-                case "gain regeneration":
-                    this.board.player.regenChanged((newRegen,oldRegen)=>{
-                        if(newRegen>oldRegen) {
-                            triggerFunctionFromText(this);
+                        return;
+                    case "use the weapon to the left":
+                    case "use the weapon to the left of this":
+                        const leftWeaponItem = this.getItemToTheLeft();
+                        if(leftWeaponItem&&leftWeaponItem.tags.includes("Weapon")) {
+                            leftWeaponItem.triggerFunctions.push(() => {
+                                triggerFunctionFromText(leftWeaponItem);
+                                if(ifFunction) ifFunction(leftWeaponItem);
+                            });
                         }
-                    });
-                    return;
-                case "use a property":
-                    this.whenItemTagTriggers("Property", (item) => {
-                        triggerFunctionFromText(item);
-                    });
-                case "haste or slow":
-                    this.board.hasteTriggers.set(this.id,triggerFunctionFromText);
-                    this.board.slowTriggers.set(this.id,triggerFunctionFromText);
-                    return;
-                case "use a small item":
-                    this.whenItemTagTriggers("Small", (item) => {
-                        triggerFunctionFromText(item);
-                    });
-                case "crit with a weapon":
-                    this.board.critTriggers.set(this.id,(item)=>{
-                        if(item.tags.includes("Weapon")) {
-                            triggerFunctionFromText(item);
+                        return;
+                    case "use the weapon to the right of this":
+                        const rightWeaponItem = this.getItemToTheRight();
+                        if(rightWeaponItem&&rightWeaponItem.tags.includes("Weapon")) {
+                            rightWeaponItem.triggerFunctions.push(triggerFunctionFromText);
                         }
-                    });
-                    return;
-                case "use this":
-                    this.triggerFunctions.push(triggerFunctionFromText);
-                    return;
-                case "use a large item":
-                    this.whenItemTagTriggers("Large", (item) => {
-                        triggerFunctionFromText(item);
-                    });
-                case "gain burn":
-                    this.board.player.hostileTarget.board.burnTriggers.set(this.id,triggerFunctionFromText);
+                        return;
+                    case "use the ammo item to the right of this":
+                        const rightAmmoItem = this.getItemToTheRight();
+                        if(rightAmmoItem&&rightAmmoItem.tags.includes("Ammo")) {
+                            rightAmmoItem.triggerFunctions.push(triggerFunctionFromText);
+                        }
+                        return;
+                    case "use the core or another ray":
+                        this.whenItemTagTriggers(["Core", "Ray"], 
+                            (item) => {
+                                if(item.id !== this.id) {
+                                triggerFunctionFromText(item);  
+                                }
+                            }
+                        );
+                        return;
+                    case "use the core":
+                        this.whenItemTagTriggers(["Core"],
+                            (item) => {
+                                triggerFunctionFromText(item);  
+                            }
+                        );
+                        return;
+                    case "or your enemy burns":
+                        this.board.player.hostileTarget.board.burnTriggers.set(this.id,triggerFunctionFromText);
+                    case "burn with an item":
+                    case "burn":
+                        this.board.burnTriggers.set(this.id,triggerFunctionFromText);
+                        return;
+                    case "haste":
+                        this.board.hasteTriggers.set(this.id,triggerFunctionFromText);
+                        return;
 
-                    return;
-                case "crit with any item":
-                    this.board.critTriggers.set(this.id, triggerFunctionFromText);
-                    return;
-                case "use an item with burn":
-                    this.board.itemTriggers.set(this.id, (item) => {
-                        if(item.tags.includes("Burn")) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
-                    return;
-                case "use your leftmost item":
-                    this.board.itemTriggers.set(this.id, (item) => {
-                        if(item.startIndex==0) {
-                            triggerFunctionFromText(item);
-                        }
-                    });
+                    case "slow":
+                        this.board.slowTriggers.set(this.id,triggerFunctionFromText);
+                        return;
+                    case "gain freeze":
+                        this.board.player.hostileTarget.board.freezeTriggers.set(this.id,triggerFunctionFromText);
+                        return;
+                    case "freeze":
+                        this.board.player.hostileTarget.board.freezeTriggers.set(this.id,(target,source)=>{
+                            if(source.board==this.board) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                        this.board.freezeTriggers.set(this.id,(target,source)=>{
+                            if(source.board==this.board) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                        return;
+                    case "crit":
+                        this.board.critTriggers.set(this.id,triggerFunctionFromText);
+                        return;
+                    case "shield":
+                        this.board.shieldTriggers.set(this.id,triggerFunctionFromText);
 
-                    return;
+                        return;
+                    case "lose shield":
+                        this.board.player.lostShieldTriggers.set(this.id,triggerFunctionFromText);
+                        return;
+                        
+                    case "or your enemy poisons":
+                        this.board.player.hostileTarget.board.poisonTriggers.set(this.id,triggerFunctionFromText);
+                    case "poison with an item":
+                    case "poison":
+                        this.board.poisonTriggers.set(this.id, triggerFunctionFromText);
+                        return;
+                    case "use a Tech":
+                        this.whenItemTagTriggers("Tech", (item) => {
+                            triggerFunctionFromText(item);
+                        });
+                        return;
+                    case "use another toy":
+                        this.whenItemTagTriggers("Toy", (item) => { 
+                            if(item.id !== this.id) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "use an adjacent or dragon item":
+                        const adjacentItems = this.getAdjacentItems();
+                        this.board.itemTriggers.set(this.id,(item)=>{
+                            if(adjacentItems.some(i=>i.id==item.id)||item.tags.includes("Dragon")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "burn or use a dragon item":
+                        this.board.burnTriggers.set(this.id,triggerFunctionFromText);
+                        this.whenItemTagTriggers("Dragon", (item) => {
+                            triggerFunctionFromText(item);
+                        });
+                        return;
+                    case "use another tool":
+                        this.whenItemTagTriggers("Tool", (item) => {
+                            if(item.id !== this.id) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "gain regeneration":
+                        this.board.player.regenChanged((newRegen,oldRegen)=>{
+                            if(newRegen>oldRegen) {
+                                triggerFunctionFromText(this);
+                            }
+                        });
+                        return;
+                    case "use a property":
+                        this.whenItemTagTriggers("Property", (item) => {
+                            triggerFunctionFromText(item);
+                        });
+                    case "haste or slow":
+                        this.board.hasteTriggers.set(this.id,triggerFunctionFromText);
+                        this.board.slowTriggers.set(this.id,triggerFunctionFromText);
+                        return;
+                    case "use a small item":
+                        this.whenItemTagTriggers("Small", (item) => {
+                            triggerFunctionFromText(item);
+                        });
+                    case "crit with a weapon":
+                        this.board.critTriggers.set(this.id,(item)=>{
+                            if(item.tags.includes("Weapon")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "use this":
+                        this.triggerFunctions.push(triggerFunctionFromText);
+                        return;
+                    case "use a large item":
+                        this.whenItemTagTriggers("Large", (item) => {
+                            triggerFunctionFromText(item);
+                        });
+                    case "gain burn":
+                        this.board.player.hostileTarget.board.burnTriggers.set(this.id,triggerFunctionFromText);
+
+                        return;
+                    case "crit with any item":
+                        this.board.critTriggers.set(this.id, triggerFunctionFromText);
+                        return;
+                    case "use an item with burn":
+                        this.board.itemTriggers.set(this.id, (item) => {
+                            if(item.tags.includes("Burn")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "reload":
+                        this.board.reloadTriggers.set(this.id,triggerFunctionFromText);
+                        return;
+                    case "use your leftmost item":
+                        this.board.itemTriggers.set(this.id, (item) => {
+                            if(item.startIndex==0) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+
+                        return;
+                }
+                console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"' from "+this.name);
+
+                return;
             }
-            console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"' from "+this.name);
-
-            return;
         }
         //The first (  4  » 8   ) times you use a non-Weapon item each fight, Charge 1 Weapon 1 second(s). from Mixed Message
         //The first (  4  » 8   ) times you Shield each fight, Charge 1 item 1 second(s).
@@ -3382,7 +3494,7 @@ export class Item {
 
 
         //This deals double Crit damage
-        regex = /^\s*This deals double Crit damage/i;
+        regex = /^\s*This (?:deals|has) double Crit damage\.?$/i;
         match = text.match(regex);
         if(match) {
             this.gain(100,'critMultiplier');
@@ -3393,7 +3505,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             return () => {
-                this.ammo = this.maxAmmo;
+                this.gain(this.maxAmmo-this.ammo,'ammo');
                 this.log(this.name + " reloaded");
             }
         }
@@ -3462,6 +3574,19 @@ export class Item {
                 }
             }
         }
+        //Slow 1 the slowest enemy item for (3/4/5/6) second(s). from Sleeping Potion
+        regex = /^\s*(Slow|Freeze) the slowest enemy item for (\([^)]+\)|\d+) second\(?s\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const whatToDo = Item.getTagFromText(match[1]);
+            const duration = getRarityValue(match[2], this.rarity);
+            return () => {
+                this.board.player.hostileTarget.board.items.sort((a,b)=>b.cooldown-a.cooldown).slice(0,1).forEach(item=>{ 
+                    this["apply"+whatToDo+"To"](item, duration);
+                });
+            }
+        }
+
 
         //Shield ( 5 » 10 » 20 » 40 ) for each small item you have (including Stash). from Cargo Shorts                                                            
         regex = /^\s*Shield (\([^)]+\)|\d+) for each small item you have \(including Stash\)\.?/i;
@@ -3523,7 +3648,7 @@ export class Item {
         }
 
         //If you have another (Apparel|Vehicle) item in play, this item's cooldown is reduced by 50%. from Cargo Shorts   
-        regex = /^\s*If you have another ([^\s]+) item in play, this item's cooldown is reduced by (\([^)]+\)|\d+)%\.?/i;
+        regex = /^\s*If you have another ([^\s]+)(?: item in play)?, (?:this item's cooldown is reduced|reduce this item's cooldown) by (\([^)]+\)|\d+)%\.?/i;
         match = text.match(regex);
         if(match) {
             const tagToMatch = Item.getTagFromText(match[1]);
@@ -3601,12 +3726,7 @@ export class Item {
             return () => {
                 const rightItem = this.getItemToTheRight();
                 if(rightItem&&rightItem.tags.includes("Ammo")) {
-                    rightItem.ammo += ammo;
-                    if(rightItem.ammo>rightItem.maxAmmo) {
-                        rightItem.ammo = rightItem.maxAmmo;
-                    } else {
-                        this.log(this.name + " gave " + rightItem.name + " " + ammo + " Ammo");
-                    }                    
+                    rightItem.gain(ammo,'ammo',this);
                 }
             }
         }
@@ -3645,7 +3765,7 @@ export class Item {
             const ammo = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
             return () => {
                 this.getAdjacentItems().forEach(item => {
-                    item.gain(ammo,'ammo');
+                    item.gain(ammo,'ammo',this);
                 });
             };
         }
@@ -3658,10 +3778,31 @@ export class Item {
                 this.board.items.forEach(i => i.removeFreeze(this));
             }
         }
+        
+
+        //This has + Multicast equal to its ammo. from Dive Weights 
+        regex = /^\s*This has \+ Multicast equal to its ammo\.?/i;
+        match = text.match(regex);
+        if(match) {
+            this.gain(this.ammo,'multicast');
+            this.ammoChanged((newAmount,oldAmount)=>{
+                this.gain(newAmount-oldAmount,'multicast');
+            });
+            return () => {};
+        }
+
+        // Adjacent items are Aquatic. from Diving Helmet 
+        regex = /^\s*Adjacent items are ([^\.]+)\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToGain = Item.getTagFromText(match[1]);
+            this.getAdjacentItems().forEach(i => i.tags.push(tagToGain));
+            return () => {};
+        }
        
         //your items gain ( +2% » +4% » +6% » +8% ) Crit chance for the fight.
         //or: your items gain +20% Crit chance for the fight.
-        regex = /your\s?([^\s]+)? items gain (\([^)]+\)|\d+) Crit chance for the fight/i;
+        regex = /your\s?([^\s]+)? items (?:gain|get) (\([^)]+\)|\d+) Crit chance(?: for the fight)?/i;
         match = text.match(regex);
         if(match) {
             const tagToMatch = match[1] ? Item.getTagFromText(match[1]) : null;
@@ -3883,11 +4024,12 @@ export class Item {
         }
 
         //Gain Regeneration for the fight equal to this item's damage
-        regex = /^\s*Gain Regeneration for the fight equal to this item's damage\.?/i;
+        regex = /^\s*Gain (Shield|Regeneration) (?:for the fight )?equal to this item's damage\.?/i;
         match = text.match(regex);
         if(match) {
+            const whatToGain = match[1].toLowerCase();
             return () => {
-                this.gain(this.damage,'regeneration');
+                this["apply"+whatToGain](this.damage);
             };
         }   
 
@@ -4117,15 +4259,37 @@ export class Item {
                 });
             }
         }
+
+        //If both adjacent items are food, this has +1 Multicast. from Skillet
+        regex = /^If both adjacent items are ([^\s]+), (.*)$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const adjacentItems = this.getAdjacentItems();
+            if(adjacentItems.length==2 && adjacentItems.every(item => item.tags.includes(tagToMatch))) {
+                this.setupTextFunctions(match[2]);
+            }
+            return () => {};
+        }
+
+        //Your Heal items gain Heal equal to your weakest Heal item's Heal for the fight. from Spices 
+        //Your Poison items gain Poison equal to your weakest Poison item's Poison for the fight. from Spices
          //Your weapons gain damage equal to your weakest weapon's damage for the fight. [0]
-         regex = /^Your weapons gain damage equal to your weakest weapon's damage for the fight.*?$/i;
+         regex = /^Your ([^\s]+)(?: item)?s gain ([^\s]+) equal to your weakest ([^\s]+)(?: item)?'s ([^\s]+) for the fight.*?$/i;
          match = text.match(regex);
          if(match) {
-            return () => {
-                const weakestWeaponDamage = this.board.items.filter(item => item.tags.includes("Weapon")).reduce((min, item) => Math.min(min, item.damage), Infinity);
-                this.board.items.forEach(item => {
-                    if(item.tags.includes("Weapon")) {
-                        item.gain(weakestWeaponDamage,'damage');
+            const tagGaining = Item.getTagFromText(match[1]);
+            const whatGaining = match[2].toLowerCase();
+            const tagToMatch = match[3];
+            const whatToCheck = match[4];
+            return () => {                
+                const weakestSomething = this.board.activeItems
+                .filter(item => item.tags.includes(tagToMatch) &&  item[whatToCheck.toLowerCase()]>0)
+                .reduce((min, item) => Math.min(min, item[whatToCheck.toLowerCase()]), Infinity);
+                if(weakestSomething==Infinity) { return; }
+                this.board.activeItems.forEach(item => {
+                    if(item.tags.includes(tagGaining)) {
+                        item.gain(weakestSomething,whatGaining.toLowerCase());
                     }
                 });
             }
@@ -4427,6 +4591,24 @@ export class Item {
                 this['apply'+tag](this[tag.toLowerCase()]);
             };
         }
+        //Your weapons have + damage equal to this item's value. from Lockbox
+        regex = /^Your weapons have \+ damage equal to this item's value\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            this.board.items.forEach(item => {
+                if(item.tags.includes("Weapon")) {
+                    item.gain(this.value,'damage');
+                }
+            });
+            this.valueChanged((newvalue,oldvalue) => {
+                this.board.items.forEach(item => {
+                    if(item.tags.includes("Weapon")) {
+                        item.gain(newvalue-oldvalue,'damage');
+                    }
+                });
+            });
+            return ()=>{};
+        }
         //Your Weapons have double Crit damage.
         regex = /^Your Weapons have double Crit damage\.?$/i;
         match = text.match(regex);
@@ -4499,24 +4681,58 @@ export class Item {
             }   
             return ()=>{};
         }
-        //This has double Haste duration.
-        regex = /^This has double Haste duration\.?$/i;
+
+        //This has double value gain.
+        regex = /^(?:This has )?double value(?: gain)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            this.hasDoubleHasteDuration = true;
+            this.value_multiplier+=1;
             return ()=>{};
         }
+        //...and Enchant the item with
+        regex = /^\.\.\.and Enchant.*$/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                console.log("Not currently parsing: " + text);
+            };
+        }
+
+        //This has double
+        regex = /^This has double (.*) bonus\.?$/i;
+        match = text.match(regex);
+        if(match) {            
+         return () => {
+            console.log("Not currently parsing: " + text);
+         };
+        }
+
+        //This has double Haste duration.
+        regex = /^This has double (Haste|Slow|Freeze) duration\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const whatToGain = Item.getTagFromText(match[1]);
+            this["hasDouble"+whatToGain+"Duration"] = true;
+            return ()=>{};
+        }       
+
 
         //Reload an adjacent item. from Retool
-        regex = /^Reload an adjacent item\.?$/i;
+        regex = /^Reload an( adjacent)? item\.?$/i;
         match = text.match(regex);
         if(match) {
             return (item)=>{
-                const adjacentItems = (item||this).getAdjacentItems();
-                const matchingItems = adjacentItems.filter(i=>i.tags.includes("Ammo"));
+                let matchingItems = [];
+                if(match[1]) {
+                    matchingItems = (item||this).getAdjacentItems();
+                } else {
+                    matchingItems = this.board.items;
+                }
+                matchingItems = matchingItems.filter(i=>i.tags.includes("Ammo"));
+
                 if(matchingItems.length>0) {
                     const randomItem = this.pickRandom(matchingItems);
-                    randomItem.ammo = randomItem.maxAmmo;
+                    randomItem.gain(randomItem.maxAmmo-randomItem.ammo,'ammo',this);
                 }
             }
         }
@@ -4553,7 +4769,7 @@ export class Item {
         }
 
         //your other items gain Value equal to this item's Value for the fight.
-        regex = /^your other items gain Value equal to this item's Value for the fight\.?$/i;
+        regex = /^your other items (?:gain|get) Value equal to this item's Value for the fight\.?$/i;
         match = text.match(regex);
         if(match) {
             return ()=>{
@@ -4606,6 +4822,28 @@ export class Item {
                 });
             };
         }
+        //Freeze ALL other items for 4 seconds. from Private Hot Springs
+        regex = /^Freeze ALL other items for (\d+) seconds\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const freezeAmount = parseInt(match[1]);
+            return ()=>{
+                this.board.items.forEach(item => {
+                    if(item.id!=this.id) {
+                       this.applyFreezeTo(item,freezeAmount);
+                    }
+                });
+            }
+        }
+
+        //This has the Types of items you have. from Beast of Burden
+        regex = /^This has the Types of items you have\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            this.tags.push( ...this.board.uniqueTypeTags.filter(type => !this.tags.includes(type)) );
+            return ()=>{};
+        }              
+
 
         //Freeze all non-weapon items for (  2  » 3   ) second(s).
         regex = /^Freeze all non-weapon items for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?$/i;
@@ -4677,17 +4915,6 @@ export class Item {
             const targets = this.pickRandom(this.board.activeItems.filter(i=>i.tags.includes("Ammo")),amount);
             targets.forEach(target => {
                 target.reload(item||this);
-            });
-        }
-    }
-    //parse your items gain (10%/20%/30%) Crit chance. from Flashy Pilot
-    regex = /^your items gain (\([^)]+\)|\d+%?) Crit chance\.?$/i;
-    match = text.match(regex);
-    if(match) {
-        const amount = getRarityValue(match[1], this.rarity);
-        return ()=>{
-            this.board.items.forEach(item => {
-                item.gain(amount,'crit');
             });
         }
     }

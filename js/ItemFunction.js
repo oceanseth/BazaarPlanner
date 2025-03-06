@@ -3,14 +3,42 @@ import { getRarityValue } from "./utils.js";
 export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
-        "Epicurean Chocolate","Skillet","Spare Change","Pelt","Candy Mail","Machine Learning","Iron Sharpens Iron","Chocoholic","Like Clockwork","Upgrade Hammer",
-    "Vending Machine"];
+        "Epicurean Chocolate","Spare Change","Pelt","Candy Mail","Machine Learning","Iron Sharpens Iron","Chocoholic","Like Clockwork","Upgrade Hammer",
+    "Vending Machine","Piggy Bank","Cash Register","VIP Pass"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
             ItemFunction.items.set(itemName, (item) => {});
         });
     }
 }
+//When you use an adjacent item,charge the other adjacent item for (1/2) second(s) and it gains (10%/20%) Crit Chance for the fight. from Pendulum
+ItemFunction.items.set("Pendulum",(item)=>{
+    const chargeAmount = getRarityValue("1/2",item.rarity);
+    const critChance = getRarityValue("10 >> 20",item.rarity);
+    const adjacentItems = item.getAdjacentItems();
+    if(adjacentItems.length==2) {
+        item.board.itemTriggers.set(item.id,(i)=>{
+            if(adjacentItems.includes(i)) {
+                const otherItem = adjacentItems.find(j=>j.id!=i.id);
+                if(otherItem && !otherItem.isDestroyed) {
+                    otherItem.chargeBy(chargeAmount,item);
+                    otherItem.gain(critChance,'crit',item);
+                }
+            }
+        });
+    }
+});
+
+
+//When this gains Haste or when you Freeze, Charge this 2 second(s). from Snowmobile
+ItemFunction.items.set("Snowmobile",(item)=>{
+    item.board.freezeTriggers.set(item.id,(i)=>{
+        item.chargeBy(2);
+    });
+    item.board.hasteTriggers.set(item.id,(i)=>{
+        if(item.id==i.id) item.chargeBy(2);
+    });
+});
 //While you have less health than your opponent, your items gain (10%/15%/20%) Crit Chance. from Desperate Strike
 ItemFunction.items.set("Desperate Strike",(item)=>{
     const critGain = getRarityValue("10 >> 15 >> 20",item.rarity);
