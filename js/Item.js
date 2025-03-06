@@ -4174,9 +4174,9 @@ export class Item {
             const tagToMatch2 = match[3] ? Item.getTagFromText(match[3]) : null;
             let numToFreeze = match[1] ? getRarityValue(match[1], this.rarity) : 1;
             return () => {
-                let itemsToFreeze = this.board.player.hostileTarget.board.items;
+                let itemsToFreeze = this.board.player.hostileTarget.board.activeItems;
                 if(cdrRequirement) {
-                    itemsToFreeze = itemsToFreeze.filter(item => item.cooldown<=cdrRequirement*1000);
+                    itemsToFreeze = itemsToFreeze.filter(item => item.cooldown>0 && item.cooldown<=cdrRequirement*1000);
                 }
                 if(tagToMatch) {
                     itemsToFreeze = itemsToFreeze.filter(item => 
