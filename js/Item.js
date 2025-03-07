@@ -1235,10 +1235,10 @@ export class Item {
     }
 
     getPoisonTriggerFunctionFromText(text) {
-        let regex = /Poison (?:\(([^)]+)\)|(\d+))\.?/i;
+        let regex = /Poison (\([^)]+\)|\d+)\.?$/i;
         let match = text.match(regex);
         if(match) {
-            const poisonAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            const poisonAmount = getRarityValue(match[1], this.rarity);
             this.gain(poisonAmount,'poison');
             return () => {                
                 this.applyPoison(this.poison);
@@ -5105,6 +5105,19 @@ export class Item {
         return false;
     }
 
+    getCommaTriggerFunctionFromText(text) {
+        let regex = /^([^,]+), (?:and )?(.*)$/i;
+        let match = text.match(regex);
+        if(match) {
+            const f1 = this.getTriggerFunctionFromText(match[1]+".");
+            const f2 = this.getTriggerFunctionFromText(match[2]);
+            return () => {
+                f1();
+                f2();
+            }
+        }
+        return null;
+    }
     
 
     getTriggerFunctionFromText(text) {
@@ -5119,6 +5132,7 @@ export class Item {
         this.getCritTriggerFunctionFromText(text) ||
    //     this.getAmmoTriggerFunctionFromText(text) ||
         this.getAnonymousTriggerFunctionFromText(text) ||
+        this.getCommaTriggerFunctionFromText(text) ||
         (() => { console.log("Could not parse "+ text+ " from "+this.name); return ()=>{};})();
     }
     static getTagFromText(text) {
