@@ -544,11 +544,12 @@ button:active {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
+    background:var(--background-color);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     z-index: 1000;
+    color: var(--text-color);
 }
 
 .item-edit-popup .form-group {
@@ -563,7 +564,7 @@ button:active {
 .item-edit-popup input {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--input-border);
     border-radius: 4px;
 }
 
@@ -850,6 +851,9 @@ button:active {
 }
 .Ammo {
     color: rgb(255, 142, 0);
+}
+.Weapon {
+    color: rgb(255, 0, 0);
 }
 
 .heal-element,.Heal {

@@ -203,7 +203,7 @@ export class Battle {
         
         this.updateBattle(this.battleIntervalSpeed);
     
-      if(this.battleTimeDiff>30000) {
+      if(this.battleTimeDiff>=30000) {
         let sandstormDmg = Math.floor(this.sandstormValue);
         this.log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
         this.players.forEach(player => player.takeDamage(sandstormDmg));

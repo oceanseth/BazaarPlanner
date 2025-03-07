@@ -18,6 +18,9 @@ export class Item {
         'Shielded': 'Shield',
         'Turbo': 'Haste',
         'Obsidian': 'Weapon',
+        'Deadly': 'Crit',
+        'Heavy': 'Slow',
+        'Shiny': 'Multicast',
     }
     static itemID = 0;
     
@@ -213,14 +216,12 @@ export class Item {
         this.cooldown = this.getStartingCooldownFromText(this.startItemData.cooldown);
     }
     getStartingCooldownFromText(cooldown) {
+        if(!cooldown) return 0;
         if(typeof cooldown === 'string') {
-            return parseInt(getRarityValue(cooldown.slice(1,-1), this.rarity||'Bronze'))*1000;
+            cooldown = getRarityValue(cooldown, this.rarity||'Bronze');
         }
 
-        else if(cooldown) {
-            return cooldown * 1000;
-        }
-        return 0;
+        return cooldown * 1000;
 
     }
     get regeneration() {
@@ -840,8 +841,6 @@ export class Item {
                 this.board.items.forEach(item => {
                     if(item.tags.includes(Item.getTagFromText(match[1]))) {
                         item.gain(gainAmount,match[4].toLowerCase());
-//                        log(item.name + " gained " + gainAmount + " " + match[4] + " for the fight");
-                      //  item.updateTriggerValuesElement();
 
                     }
                 });
@@ -1577,7 +1576,9 @@ export class Item {
                 this.freezeBonus += amount;
                 break;
             case 'multicast':
-                this.multicast += amount;
+                if(this.cooldown>0) {
+                    this.multicast += amount;
+                }
                 break;
             default:
                 console.log("Unknown gain type: " + type);
@@ -1766,7 +1767,6 @@ export class Item {
                 if(newShield != this.shield) {
                     this.shield = newShield;
                     this.board.shieldValuesChangedTriggers.forEach(func => func(this));
-                //    this.updateTriggerValuesElement();
                 }
             });
             return () => {
@@ -1955,10 +1955,10 @@ export class Item {
         // Add enchantment field
         popupHTML += `
             <div class="form-group">
-                <label>Enchant:</label>
+                <label><span class='Shield'>E</span><span class='Burn'>n</span><span class='Poison'>c</span><span class='Freeze'>h</span><span class='Haste'>a</span><span class='Slow'>n</span><span class='Multicast'>t</span>:</label>
                 <select id="edit-enchant">
                     ${enchantments.map(e => 
-                        `<option value="${e}" ${e === enchant ? 'selected' : ''}>${e}</option>`
+                        `<option class='${Item.enchantTagMap[e]}' value="${e}" ${e === enchant ? 'selected' : ''}>${e}</option>`
                     ).join('')}
                 </select>
             </div>`;
@@ -2131,7 +2131,7 @@ export class Item {
                 }
             }
             if (popup.querySelector('#edit-cooldown')) {
-                this.startItemData.cooldown = this.startItemData.cooldown - (this.cooldown - (parseFloat(popup.querySelector('#edit-cooldown').value)*1000 || 0))/1000;
+                this.startItemData.cooldown = getRarityValue(this.startItemData.cooldown,this.rarity) - (this.cooldown - (parseFloat(popup.querySelector('#edit-cooldown').value)*1000 || 0))/1000;
             }
             if (popup.querySelector('#edit-crit')) {
                 this.startItemData.crit = parseFloat(popup.querySelector('#edit-crit').value) - this.crit;
@@ -2176,11 +2176,7 @@ export class Item {
                 this.startItemData.freezeBonus = parseFloat(popup.querySelector('#edit-freeze-bonus').value);
             }
             popup.remove();
-            //this.updateStatusIndicators();
-            //this.updateTriggerValuesElement();
             Board.resetBoards();
-
-
 
             updateUrlState();
         });
@@ -3838,13 +3834,6 @@ export class Item {
                 }
             };
         }
-        //Multicast ( 1 » 2 » 3 » 4 ).
-        regex = /^Multicast (?:\(([^)]+)\)|(\d+))\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            this.multicast = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2])) - 1;
-            return () => {};
-        }        
         
         regex = /^Gain (?:\(([^)]+)\)|(\d+)) gold/i;
         match = text.match(regex);
@@ -3907,10 +3896,10 @@ export class Item {
             return () => {};
         }
         //This has +1 Multicast. (from shiny)
-        regex = /^\s*This has \+1 Multicast\.?$/i;
+        regex = /^\s*(?:This has )?(\([^\)]+\)|\+?\d+) Multicast\.?$/i;
         match = text.match(regex);
         if(match) {
-            this.gain(1,'multicast');
+            this.gain(getRarityValue(match[1], this.rarity),'multicast');
             return () => {};
         }
         //Adjacent Toys have +1 Multicast.
@@ -3964,12 +3953,14 @@ export class Item {
         }
 
         //This has +1 Multicast for each Property you have.
-        regex = /^\s*This has (\([^\)]+\)|\+?\d+) (Multicast|Max Ammo) for each ([^\s^\.]+) you have\.?/i;
+        regex = /^\s*This has (\([^\)]+\)|\+?\d+) (Multicast|Max Ammo) for each (other )?([^\s^\.]+)(?: item)? you have\.?/i;
         match = text.match(regex);
         if(match) {
-            const tagToMatch = Item.getTagFromText(match[3]);
+            const tagToMatch = Item.getTagFromText(match[4]);
+            const other = match[3] ? true : false;
             const amount = getRarityValue(match[1], this.rarity);
             this.board.items.forEach(item => {
+                if(other && item.id == this.id) return;
                 if(item.tags.includes(tagToMatch)) {
                     if(match[2] == "Multicast") {
                         this.gain(amount,'multicast');
