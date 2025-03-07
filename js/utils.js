@@ -27,6 +27,9 @@ export function getRarityValue(valueString, rarity) {
         console.log("gettingRarityValue of undefined ");
         return 0;
     }
+    if(typeof valueString === 'number') {
+        return ""+valueString;
+    }
     if(valueString[0]=='(') {
         valueString = valueString.slice(1,-1);
     }

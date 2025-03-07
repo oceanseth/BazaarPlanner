@@ -127,23 +127,23 @@ export class Player {
     }
 
     applyShield(shieldAmount) {
-        this.shield += shieldAmount;
+        this.shield += Math.round(shieldAmount);
     }
 
     applyBurn(burnAmount) {
-        this.burn += burnAmount;
+        this.burn += Math.round(burnAmount);
     }   
 
     applyPoison(poisonAmount) {
-        this.poison = this.poison + poisonAmount;
+        this.poison += Math.round(poisonAmount);
     }
 
     applyHeal(healAmount) {
-        this.heal(healAmount);
+        this.heal(Math.round(healAmount));
     }
 
     gainRegen(regenAmount) {
-        this.regen += regenAmount;
+        this.regen += Math.round(regenAmount);
     }
 
     updateBattle(timeDiff) {
