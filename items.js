@@ -645,7 +645,7 @@ export const items = {
   "Aurora Dome": {
     "name": "Aurora Dome",
     "icon": "images/items/AuroraDome.avif",
-    "tier": "Gold",
+    "tier": "Silver",
     "tags": [
       "Pygmalien",
       "Medium",
@@ -656,8 +656,8 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Shield (10/20).",
-      "When any item gains Freeze, your Shield items get (+10/+20) Shield for the fight."
+      "Shield (5/10/15).",
+      "When you Freeze, your Shield items gain (+5/+10/+15) Shield for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
@@ -2099,7 +2099,7 @@ export const items = {
       "Heal",
       "ShieldReference"
     ],
-    "cooldown": 5,
+    "cooldown": 4,
     "ammo": null,
     "text": [
       "Heal (60/90/120/150).",
@@ -3204,7 +3204,7 @@ export const items = {
   "Cold Room": {
     "name": "Cold Room",
     "icon": "images/items/ColdRoom.avif",
-    "tier": "Bronze",
+    "tier": "Silver",
     "tags": [
       "Pygmalien",
       "Medium",
@@ -3212,11 +3212,11 @@ export const items = {
       "Freeze",
       "Regen"
     ],
-    "cooldown": 8,
+    "cooldown": 10,
     "ammo": null,
     "text": [
-      "Freeze (1/2/3/4) item(s) for 1 second(s).",
-      "When you Freeze, gain (3/6/9/12) Regeneration for the fight.",
+      "Freeze (1/2/3) item(s) for 1 second(s).",
+      "When you Freeze, gain (3/6/9) Regeneration for the fight.",
       "When your enemy uses an item, charge this 1 second(s)."
     ],
     "enchants": {
@@ -4182,7 +4182,7 @@ export const items = {
   "Darkwater Anglerfish": {
     "name": "Darkwater Anglerfish",
     "icon": "images/items/DarkwaterAnglerfish.avif",
-    "tier": "Bronze",
+    "tier": "Silver",
     "tags": [
       "Vanessa",
       "Medium",
@@ -4191,11 +4191,11 @@ export const items = {
       "Burn",
       "SlowReference"
     ],
-    "cooldown": 7,
+    "cooldown": "(10/9/8)",
     "ammo": null,
     "text": [
-      "Burn (6/8/10/12).",
-      "When you Slow, charge this 1 second(s)."
+      "Burn 10.",
+      "When you Slow, charge this 2 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -4359,16 +4359,17 @@ export const items = {
       "Vanessa",
       "Small",
       "Aquatic",
+      "Apparel",
       "Tool",
       "Haste",
       "Cooldown",
       "Ammo"
     ],
-    "cooldown": 7,
+    "cooldown": 8,
     "ammo": 3,
     "text": [
       "Haste 1 item for (1/2/3) second(s).",
-      "If both adjacent items are Aquatic, reduce this item's cooldown by 50%.",
+      "For each adjacent Aquatic item, reduce this item's cooldown by 1 second.",
       "This has + Multicast equal to its ammo."
     ],
     "enchants": {
@@ -4392,6 +4393,7 @@ export const items = {
     "tags": [
       "Vanessa",
       "Medium",
+      "Apparel",
       "Aquatic",
       "Tool",
       "Shield"
@@ -7250,7 +7252,7 @@ export const items = {
     "ammo": 1,
     "text": [
       "Freeze adjacent items for 1 second(s).",
-      "When an adjacent item gains Freeze, reduce its cooldown by (1/2) second(s) for the fight."
+      "Reduce the cooldown of adjacent items by (1/2) second(s) for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -9257,7 +9259,7 @@ export const items = {
       "Small",
       "Burn"
     ],
-    "cooldown": 5,
+    "cooldown": 4,
     "ammo": null,
     "text": [
       "Burn (4/5/6/7).",
@@ -10242,7 +10244,7 @@ export const items = {
       "Friend",
       "Damage"
     ],
-    "cooldown": 9,
+    "cooldown": 8,
     "ammo": null,
     "text": [
       "Multicast 8",
@@ -11346,7 +11348,7 @@ export const items = {
       "Freeze",
       "Ammo"
     ],
-    "cooldown": "(10/9/8)",
+    "cooldown": "(12/11/10)",
     "ammo": 1,
     "text": [
       "Poison 4, Burn 4, and Freeze 1 medium or small item for 1 second(s).",
@@ -11383,8 +11385,8 @@ export const items = {
     "text": [
       "Burn (8/12).",
       "Gain (8/12) Regeneration for the fight.",
-      "The first time you fall below half health each fight, Freeze ALL other items for 4 seconds.",
-      "When you Freeze, Charge this 6 second(s)."
+      "The first time you fall below half health each fight, Freeze ALL other items for 3 seconds.",
+      "When you Freeze, Charge this 4 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 4 second(s).",
@@ -11471,7 +11473,7 @@ export const items = {
   "Pufferfish": {
     "name": "Pufferfish",
     "icon": "images/items/Pufferfish.avif",
-    "tier": "Bronze",
+    "tier": "Silver",
     "tags": [
       "Vanessa",
       "Medium",
@@ -11480,11 +11482,11 @@ export const items = {
       "Poison",
       "HasteReference"
     ],
-    "cooldown": 9,
+    "cooldown": "(10/9/8)",
     "ammo": null,
     "text": [
-      "Poison (6/8/10/12).",
-      "When you Haste, charge this 2 second(s)."
+      "Poison 10.",
+      "When you Haste, charge this {ability.1} second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -13656,7 +13658,7 @@ export const items = {
     "cooldown": 4,
     "ammo": 1,
     "text": [
-      "Slow the slowest enemy item for (3/4/5/6) second(s)."
+      "Slow 1 the slowest enemy item for (3/4/5/6) second(s)."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
@@ -13828,7 +13830,7 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you sell this, Your leftmost Freeze item gains +1 second to Freeze."
+      "When you sell this, Your leftmost Freeze item gains +0.5 second to Freeze."
     ],
     "enchants": {
       "Golden": "...and Enchant the item with Golden if able.",
@@ -14298,8 +14300,8 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Burn 3.",
-      "When you Freeze, this gains (+3/+6/+9/+12) Burn for the fight."
+      "Burn 2.",
+      "When you Freeze, this gains (+2/+4/+6/+8) Burn for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 items for 1 second(s).",
@@ -14436,12 +14438,12 @@ export const items = {
       "Damage",
       "Shield"
     ],
-    "cooldown": 8,
+    "cooldown": 6,
     "ammo": null,
     "text": [
       "Deal (24/36/48) damage.",
       "Shield equal to this item's damage.",
-      "If you have another vehicle, reduce this item's cooldown by 50%."
+      "If you have another Vehicle or Large Item, reduce this item's cooldown by 50%."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -15704,7 +15706,7 @@ export const items = {
       "Damage",
       "Ammo"
     ],
-    "cooldown": 3,
+    "cooldown": 2,
     "ammo": 12,
     "text": [
       "Deal (2/4/8/16) damage."
@@ -16408,7 +16410,7 @@ export const items = {
       "DamageReference",
       "HealReference"
     ],
-    "cooldown": 7,
+    "cooldown": 6,
     "ammo": null,
     "text": [
       "Your weapons gain (+10/+15/+20/+25) Damage and your Heal items gain (+10/+15/+20/+25) Heal for the fight.",
@@ -16736,7 +16738,7 @@ export const items = {
     "cooldown": 7,
     "ammo": null,
     "text": [
-      "Freeze (1/2/3/4) small item(s) for 1 second(s).",
+      "Freeze 1 item for 1 second(s).",
       "When you freeze, adjacent Poison items gain (+1/+2/+3/+4) Poison for the fight."
     ],
     "enchants": {
