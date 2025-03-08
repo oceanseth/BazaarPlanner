@@ -11486,7 +11486,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Poison 10.",
-      "When you Haste, charge this {ability.1} second(s)."
+      "When you Haste, charge this 2 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",

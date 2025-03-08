@@ -1566,7 +1566,7 @@ export class Item {
                 const oldCooldown = this.cooldown;
                 this.cooldown += amount;
                 if(this.cooldown<1000) this.cooldown = 1000; //cooldown can't go below 1 second
-                this.log(this.name + " cooldown changed from " + (oldCooldown/1000).toFixed(1) + "s to " + (this.cooldown/1000).toFixed(1) + "s");
+                this.log((source?(source.name+" caused "):"")+this.name + " cooldown change from " + (oldCooldown/1000).toFixed(1) + "s to " + (this.cooldown/1000).toFixed(1) + "s");
                 break;
             case 'freezebonus':
                 this.freezeBonus += amount;
@@ -1620,7 +1620,7 @@ export class Item {
                 this.getAdjacentItems().forEach(item => this.applyFreezeTo(item,freezeDuration));
             };
         }
-
+/*
         //When an adjacent item gains Freeze, reduce its cooldown by (1/2) second(s) for the fight. from Ice Luge 
         regex = /^When an adjacent item gains Freeze, reduce its cooldown by (\([^)]+\)|\d+)\s*second\(?s\)?(?: for the fight)?\.?$/i;
         match = text.match(regex);
@@ -1633,6 +1633,18 @@ export class Item {
                 }
             });
             return () => {};
+        }
+            */
+        //Reduce the cooldown of adjacent items by (1/2) second(s) for the fight. from Ice Luge
+        regex = /^Reduce the cooldown of adjacent items by (\([^)]+\)|\d+)\s*second\(?s\)?(?: for the fight)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const cooldownReduction = getRarityValue(match[1], this.rarity);
+            return () => {
+                this.getAdjacentItems().forEach(item => {
+                    item.gain(-cooldownReduction*1000,'cooldown', this);
+                });
+            };
         }
         //Freeze 1 item of equal or smaller size for 1 second(s).
         regex = /^Freeze (\([^)]+\)|\d+) item(?:s)? of equal or smaller size for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
@@ -3061,17 +3073,42 @@ export class Item {
             this.board.player.hostileTarget.healthChanged(f);
             return;
          }
-         //If you have a Vehicle or Large item,
-         regex = /^If you have a ([^\s]+) (?:or ([^\s]+))? item, (.*)/i
+         //This has +1 Multicast if it is adjacent to a Friend. from Soldering Gun
+         regex = /^(.*) if it is adjacent to a ([^\s^\.]+)\.?$/i;
          match = text.match(regex);
          if(match) {
-            const tagToMatch = Item.getTagFromText(match[1]);
+            const tagToMatch = Item.getTagFromText(match[2]);
+            const f = this.getUndoableFunctionFromText(match[1],()=>{
+                return this.getAdjacentItems().some(item => item.tags.includes(tagToMatch));
+            });
+            this.board.itemDestroyedTriggers.set(f,f);
+            return;
+         }
+         //This has +1 Multicast if you have more health than your enemy. from Jaballian Longbow 
+         regex = /^(.*) if you have more health than your enemy\.?$/i;
+         match = text.match(regex);
+         if(match) {
+            const f = this.getUndoableFunctionFromText(match[1],()=>{
+                return this.board.player.health > this.board.player.hostileTarget.health;
+            });
+            this.board.player.healthChanged(f);
+            this.board.player.hostileTarget.healthChanged(f);
+            return;
+         }
+         //If you have a Vehicle or Large item,
+         regex = /^If you have a(nother)? ([^\s]+) (?:or ([^\s]+))? item, (.*)$/i
+         match = text.match(regex);
+         if(match) {
+            const another = match[1] ? true : false;
+            const tagToMatch = Item.getTagFromText(match[2]);
             const tagToMatch2 = Item.getTagFromText(match[3]);
             const comparisonFunction = () => this.board.activeItems.some(item => 
-                item.tags.includes(tagToMatch) || 
-                (tagToMatch2 && item.tags.includes(tagToMatch2))
+                (!another || item.id!=this.id) && (
+                    item.tags.includes(tagToMatch) || 
+                    (tagToMatch2 && item.tags.includes(tagToMatch2))
+                )
             );
-            this.board.itemDestroyedTriggers.set(this.id,this.getUndoableFunctionFromText(match[3], comparisonFunction));
+            this.board.itemDestroyedTriggers.set(comparisonFunction,this.getUndoableFunctionFromText(match[4], comparisonFunction));
             return;
         }
 
@@ -3372,13 +3409,17 @@ export class Item {
         
         //reduce this item's cooldown by 50%
         //Reduce this item's cooldown by ( 10% » 20% ) for the fight.
-        regex = /^reduce this item's cooldown by (\([^)]+\)|\d+)(?: for the fight)?\.?/i;
+        regex = /^reduce this item's cooldown by (\([^)]+\)|\d+)( second| seconds)?(?: for the fight)?\.?/i;
         match = text.match(regex);
 
         if(match) {          
             const cooldownReduction = getRarityValue(match[1], this.rarity);
             return () => {
-               this.gain(this.cooldown * (1-cooldownReduction/100)-this.cooldown,'cooldown');
+                if(match[2]) {
+                    this.gain(-cooldownReduction*1000,'cooldown');
+                } else {
+                    this.gain(this.cooldown * (1-cooldownReduction/100)-this.cooldown,'cooldown');
+                }
             }
         }
 
@@ -3959,6 +4000,14 @@ export class Item {
             };
         }
 
+        //This has +1 Multicast for each of its Types.
+        regex = /^\s*This has \+1 Multicast for each of its Types\.?/i;
+        match = text.match(regex);
+        if(match) {
+            this.gain(this.tags.filter(t=>Board.uniqueTypeTags.includes(t)).length,'multicast');
+            return () => {};
+        }
+
         //This has +1 Multicast for each Property you have.
         regex = /^\s*This has (\([^\)]+\)|\+?\d+) (Multicast|Max Ammo) for each (other )?([^\s^\.]+)(?: item)? you have\.?/i;
         match = text.match(regex);
@@ -4393,25 +4442,23 @@ export class Item {
                 });
             };
         }
-       
-        //For each adjacent Friend or Property, this gains ( +4 » +8 ) Burn.
-        regex = /^For each adjacent ([^\s]+)( or ([^\s]+))?, this gains (?:\(([^)]+)\)|(\d+)) ([^\s]+).*/i;
-        match = text.match(regex);
 
+        //For each adjacent Aquatic item, reduce this item's cooldown by 1 second.
+        regex = /^For each adjacent ([^\s]+)(?: item)?(?: or ([^\s]+))?, (.*)$/i;
+        match = text.match(regex);
         if(match) {
             const tagToMatch = Item.getTagFromText(match[1]);
             const tagToMatch2 = Item.getTagFromText(match[2]);
-            const gainAmount = match[3] ? getRarityValue(match[3], this.rarity) : parseInt(match[4]);
-            return () => {
-                this.getAdjacentItems().forEach(item => {
-
-                    if(item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2)) {
-                        item.gain(gainAmount,match[4].toLowerCase());
-                    }
-
-                });
-            }
+            const functionToRun = this.getTriggerFunctionFromText(match[3]);
+            this.getAdjacentItems().forEach(item => {
+                if(item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2)) {
+                    functionToRun(this);
+                }
+            });
+            return ()=>{};
         }
+       
+       
         //a weapon gains (  +5  » +10  » +15  » +20   ) damage for the fight.
         regex = /^a ([^\s]+)(?: item)? gains (?:\(([^)]+)\)|(\d+)) ([^\s]+) for the fight\.?$/i;
         match = text.match(regex);
