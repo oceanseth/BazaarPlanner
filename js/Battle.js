@@ -162,6 +162,7 @@ export class Battle {
                  //   console.log("Draws: " + numDraws);
                     this.players[0].board.winRateElement.innerHTML = ((numTopPlayerWins+numDraws)/numBattles*100).toFixed(0) + "%";
                     this.players[1].board.winRateElement.innerHTML = ((numBottomPlayerWins+numDraws)/numBattles*100).toFixed(0) + "%";
+                    console.log("bottom player win rate: " + this.players[1].name + " " + ((numBottomPlayerWins+numDraws)/numBattles*100).toFixed(0) + "%");
                     this.players[0].board.winRateElement.style.display = "block";
                     this.players[1].board.winRateElement.style.display = "block";
                     this.isCalculating = false;

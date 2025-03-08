@@ -87,6 +87,7 @@ export class Skill {
         const skillData = skills[this.name];
         skillData.rarity = this.rarity;
         skillData.name = this.name;
+        skillData.text = this.text;
         const newSkill= new Skill(skillData);
         newSkill.board = newBoard;
         return newSkill;
