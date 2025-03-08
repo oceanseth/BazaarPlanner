@@ -139,7 +139,7 @@ export class Skill {
             this.tier = this.editor.querySelector('#editor-rarity').value;
             this.rarity = Item.rarityLevels[parseInt(this.tier)];
             if(oldTier!=this.tier) {
-                Board.resetBoards();
+                this.board.player.battle.resetBattle();
                 updateUrlState();
             }
             this.editor.style.display = 'none';
@@ -152,7 +152,7 @@ export class Skill {
                 .map(s => s.trim() + '.');
             this.itemProxy.startItemData.text = this.text;
             this.editor.style.display = 'none';
-            Board.resetBoards();
+            this.board.player.battle.resetBattle();
             updateUrlState();
         };
        

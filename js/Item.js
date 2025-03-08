@@ -475,10 +475,6 @@ export class Item {
         // Sort the board's items array after changing an index
         if (this.board) {
             this.board.sortItems();
-
-//            Board.resetBoards(); //need to rerun the text functions for new position of item and reset player regen/life/etc
-  //          updateUrlState();
-
         }
     }
     calculateDamage() {
@@ -2095,7 +2091,7 @@ export class Item {
             const oldStartDataValue = this.startItemData.value||initialValueFromRarity;
             this.startItemData.rarity = popup.querySelector('#edit-rarity').value;
             this.startItemData.value = oldStartDataValue-initialValueFromRarity+newValueFromRarity;
-            Board.resetBoards();
+            this.board.player.battle.resetBattle();
             updateUrlState();
             popup.remove();            
         });
@@ -2109,13 +2105,13 @@ export class Item {
             const newValueFromEnchant = this.getInitialValue();
             const oldStartDataValue = this.startItemData.value||initialValueFromEnchant;
             this.startItemData.value = oldStartDataValue-initialValueFromEnchant+newValueFromEnchant;
-            Board.resetBoards();
+            this.board.player.battle.resetBattle();
             updateUrlState();
             popup.remove();            
         });
         
         popup.querySelector('.save-edit').addEventListener('click', () => {
-            Board.resetBoards();
+            this.board.player.battle.resetBattle();
             const enchant = popup.querySelector('#edit-enchant').value;
 
             // Update name with enchantment
@@ -2176,7 +2172,7 @@ export class Item {
                 this.startItemData.freezeBonus = parseFloat(popup.querySelector('#edit-freeze-bonus').value);
             }
             popup.remove();
-            Board.resetBoards();
+            this.board.player.battle.resetBattle();
 
             updateUrlState();
         });
