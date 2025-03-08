@@ -1448,15 +1448,19 @@ background-color: rgba(255, 0, 0, 0.2);
 
 #poll {
     position: absolute;
-    left: 5%;
+    left: 50%;
     top: 100px;
+    transform: translateX(-50%);
     z-index: 1000;
     background: var(--input-background);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
     width: 90%;
-    text-align: center;
+    max-width: 600px;
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;  /* Clean, readable base font */
+    line-height: 1.4;  /* Improved line height for readability */
 }
 
 #simulator.polling #simulator-controls,
@@ -1919,4 +1923,35 @@ select {
 }
 .twitter-icon {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'/%3E%3C/svg%3E");
+}
+
+.poll-section {
+    text-align: center;
+}
+
+.message-section blockquote {
+    margin: 20px 0;
+    padding: 15px;
+    border-left: 4px solid #6441A4;  /* Twitch purple for the quote */
+    background-color: rgba(100, 65, 164, 0.1);  /* Light purple background */
+    font-family: 'Roboto', sans-serif;  /* Different font for the quote */
+    color: #E6E6E6;  /* Slightly softer white */
+    font-size: 1.1em;
+    letter-spacing: 0.01em;
+}
+
+.poll-login, .poll-button-group {
+    margin: 20px 0;
+}
+
+.response-section p {
+    margin: 15px 0;
+}
+
+#poll h1 {
+    font-family: 'Montserrat', sans-serif;  /* Bold, clean font for headers */
+    font-weight: 600;
+    color: #E6E6E6;
+    margin-bottom: .2em;
+    margin-top: .2em;
 }

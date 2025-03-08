@@ -180,7 +180,7 @@ function setLoggedInUser (user) {
                 pollCheck();
             });
             // Hide the auth UI when signed in
-            document.getElementById('firebaseui-auth-container').style.display = 'none';
+            document.getElementById('auth-container').style.display = 'none';
         } else {
             // User is signed out
             const signInStatus = document.getElementById('sign-in-status');
@@ -270,6 +270,7 @@ window.onload = () => {
         };
         window.showLogin = function() {
             document.getElementById('auth-container').style.display = 'block';
+            window.scrollTo(0,0);
         }
 
         // Initialize the auth UI
@@ -421,19 +422,20 @@ emptyDragImage.style.top = '-9999px';
 emptyDragImage.style.opacity = '0';
 document.body.appendChild(emptyDragImage);
 
-window.showSection = function(sectionId,e) {
+window.showSection = function(sectionId) {
     document.querySelectorAll('.section').forEach(section => {
         section.style.display = 'none';
     });
     document.getElementById(sectionId).style.display = 'block';
     
-    
-    if(e) {
-        document.querySelectorAll('.section-header-selected').forEach(e => {
+
+    document.querySelectorAll('.section-header').forEach(e => {
+        if(e.id==sectionId+"-header") {
+            e.classList.add('section-header-selected');
+        } else {
             e.classList.remove('section-header-selected');
-        });
-        e.target.classList.add('section-header-selected');
-    }
+        }
+    });
 
     if(sectionId=='puzzle') {
         Puzzle.loadPuzzle();
