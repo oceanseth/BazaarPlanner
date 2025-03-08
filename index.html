@@ -37,22 +37,26 @@
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@400;500&family=Montserrat:wght@600&display=swap" rel="stylesheet">
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5415281723709994"
      crossorigin="anonymous"></script>
     </head>
     <body>
         <div id="Menu">
-            <button onclick="showSection('simulator',event)">Simulator</button>
-            <button class="section-header-selected" onclick="showSection('puzzle',event)">Daily Puzzle</button>
-            <button class="section-header" onclick="showSection('builds',event)">Top Builds</button>
-            <button onclick="showSection('about',event)">About</button>
-            <button onclick="showSection('faq',event)">FAQ</button>
+            <button id="simulator-header" class="section-header" onclick="showSection('simulator')">Simulator</button>
+            <button id="puzzle-header" class="section-header" onclick="showSection('puzzle')">Daily Puzzle</button>
+            <button id="builds-header" class="section-header" onclick="showSection('builds')">Top Builds</button>
+            <button id="about-header" class="section-header" onclick="showSection('about')">About</button>
+            <button id="faq-header" class="section-header" onclick="showSection('faq')">FAQ</button>
             
             <div id="poll-results" style="display: flex; align-items: center;"></div>
             <div class="section-header-right">
-            <div class="Heal" style="font-size: 10px;">Patch 0.1.8 - Mar 07</div>
-
-            
+            <!--<a href="https://www.twitch.tv/bazaarplanner" class="section-header-right twitch-icon no-underline" target="_blank">&nbsp;</a>
+            -->
+            <a href="https://discord.gg/8CJwZVj823" class="section-header-right discord-icon nounderline" target="_blank">&nbsp;</a>
+            <a href="https://www.youtube.com/@BazaarPlanner" class="section-header-right youtube-icon nounderline" target="_blank">&nbsp;</a>
+            <a href="https://x.com/BazaarPlanner" class="section-header-right twitter-icon nounderline" target="_blank">&nbsp;</a>
+            <div class="Heal" style="font-size: 10px;">Patch 0.1.8 - Mar 07</div>            
             <a href="javascript:showSection('settings',event)" class="section-header-right">⚙️</a>
         </div>
         </div>
@@ -219,27 +223,39 @@
         </div>
         <!-- Simulator Section -->
         <div id="simulator" class="section polling" style="display: none;">
-            <div id="poll">
-                <h1>Please Answer Poll Before Using</h1>
-                I received a message from Reynad, the developer of Bazaar.<br/><br/>
-                <i><b>"Hey, unfortunately we need you to take down bazaarplanner.com.<br/>Combat simulation is a red line for us with external tools because it will harm gameplay a lot in the long run."</b></i><br/><br/>
-                I think he's right that simulators can harm gameplay, but I'm not sure what we're doing here will do that. <br/>
-                As long as the simulator is external, and mostly a tool to learn, perhaps it will increase engagement, enjoyment, and entertainment within the game when you play!
-                <br><br>
-                Also, even if they aren't online for YOU to use, people will be using them and passing them around. It's better to make it public than give the few players an advantage who privately use them.<br/>
-                Check out <a href="https://www.twitch.tv/gaara/clip/ThoughtfulArtsyFiddleheadsPunchTrees-iOVtPoMxI5rSIU48">this reaction</a> from a pro hearthstone gamer when he found out the bazaartracker dev was banned from the subreddit for letting people know Reynad served a DMCA takedown.
-                <br/><br/>
-                <hr>
-                <br/><br/>
-                <h1>What do you think?</h1>
-                <font size="+1">Will this site harm gameplay or your enjoyment of the game?</font><br/>
-                <i>(you must login to vote - if you login with twitch, the only information given is your twitch user id, which is already public information on twitch)</i>
-                <div class="poll-login">
-                    <button class="editorOpener" onclick="showLogin()">Login</button>
-                </div>             
-                <div class="poll-button-group">
-                    <button onclick="poll(true)">Yes</button>
-                    <button onclick="poll(false)">No</button>          
+            <div id="poll" style="max-width: 600px; margin: 0 auto;">
+                <h1 style="text-align: center;">Please Answer Poll Before Using</h1>
+                
+                <div class="message-section">
+                    I received a message from Reynad, the developer of Bazaar:
+                    
+                    <blockquote style="margin: 20px 0; padding: 15px; border-left: 4px solid #ccc; background-color: rgba(0,0,0,0.1);">
+                        "Hey, unfortunately we need you to take down bazaarplanner.com.<br/>
+                        Combat simulation is a red line for us with external tools because it will harm gameplay a lot in the long run."
+                    </blockquote>
+                </div>
+
+                <div class="response-section">
+                    I think he's right that simulators can harm gameplay, but I'm not sure what we're doing here will do that.<br/><br/>
+                    Most people think the game of chess has been improved by engines, even though cheating is possible through their use.<br/><br/>
+                    As long as the simulator is external, and mostly a tool to learn, perhaps it will increase engagement, enjoyment, and entertainment within the game when you play!<br/><br/>
+                    Also, even if they aren't online for YOU to use, people will be using them and passing them around. It's better to make it public than give the few players an advantage who privately use them.
+                </div>
+
+                <hr style="margin: 30px 0;">
+
+                <div class="poll-section" style="text-align: center;">
+                    <h1>What do you think?</h1>
+                    <div style="font-size: 1.2em; margin-bottom: 15px;">Will this site harm gameplay or your enjoyment of the game?</div>
+                    <i>(you must login to vote - if you login with twitch, the only information given is your twitch user id, which is already public information on twitch)</i>
+                    
+                    <div class="poll-login" style="margin: 20px 0;">
+                        <button class="editorOpener" onclick="showLogin()">Login</button>
+                    </div>             
+                    <div class="poll-button-group">
+                        <button onclick="poll(true)">Yes</button>
+                        <button onclick="poll(false)">No</button>          
+                    </div>
                 </div>
             </div>
             <div id="monster-search-container">

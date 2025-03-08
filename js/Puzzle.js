@@ -45,6 +45,14 @@ export class Puzzle {
         }
         Puzzle.loadPuzzleBoards(); 
     }
+    static loadInSim() {
+        if(Puzzle.battle!=null) {
+            Puzzle.battle.resetBattle();
+        }
+        Puzzle.battle = new Battle([Puzzle.topPlayer, Puzzle.bottomPlayer], ()=>{},$("#puzzle-combatlog"));
+        window.location.hash = "#"+Puzzle.puzzleData.d;
+        window.showSection("simulator")
+    }
     static updateSelect() {
         if(!Puzzle.puzzleId) { return; }
         if(!Puzzle.selectElement) {
@@ -170,7 +178,8 @@ function showResults() {
         } else {
             html += `<p>You did not guess within 10 points of the actual result!</p>`;
         }
-        html+= `<button onclick="Puzzle.runBattle()">Run Battle</button>`;
+        html+= `<button onclick="Puzzle.runBattle()">Run Battle</button> `;
+        html+= `<button onclick="Puzzle.loadInSim()">Load in Simulator</button>`;
         html+="</div>";
         if(result.vod) {
             if(result.vod.includes("youtube.com")) {
