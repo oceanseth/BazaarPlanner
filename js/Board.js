@@ -174,7 +174,7 @@ class Board {
                 </div>
                 <div class="form-group">
                     <label>Filter:</label>
-                    <input type=text id='skill-selector-filter'>
+                    <input autocomplete="off" type=text id='skill-selector-filter'>
                 </div>
             </div>
             <div class="skill-selector-body">

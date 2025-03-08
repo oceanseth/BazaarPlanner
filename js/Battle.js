@@ -82,9 +82,12 @@ export class Battle {
         
         this.players.forEach(player => {
             player.reset();
-            player.setup();
         });
 
+        this.players.forEach(player => {
+            player.setup();
+        });
+        
         // Reset button
         if(this.battleButton) {
             this.battleButton.textContent = 'Start Battle';

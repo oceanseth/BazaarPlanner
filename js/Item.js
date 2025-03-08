@@ -3085,9 +3085,8 @@ export class Item {
     */
     whenItemTagTriggers(tag, func, board) {
         board = board || this.board;  // Set default value for board if not provided
-        board.itemTriggers.set(this.id,(item) => {
-            // Handle both string and array cases
-            const tags = Array.isArray(tag) ? tag : [tag];
+        const tags = Array.isArray(tag) ? tag : [tag];
+        board.itemTriggers.set(func,(item) => {            
             if (tag =="Item" || tags.some(t => item.tags.includes(t))) {
                 func(item);
             }
@@ -3100,7 +3099,7 @@ export class Item {
     */
     whenNonItemTagTriggers(tag, func, board) {
         board = board || this.board;  // Set default value for board if not provided
-        board.itemTriggers.set(this.id,(item) => {
+        board.itemTriggers.set(func,(item) => {
             // Handle both string and array cases
             if(!item.tags.includes(tag)) {
                 func(item);
@@ -3921,13 +3920,16 @@ export class Item {
         }
 
         //charge it ( 1 » 2 ) second(s). Belleista, Solar Farm, etc
-        regex = /^\s*charge (it|this)(?: for)? (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
+        regex = /^\s*charge (it|this)(?: for)? (\([^)]+\)|\d+) second\(?s?\)?\.?(?: and (.*))?/i;
         match = text.match(regex);
         if(match) {
             const it = match[1]=='it';
             const chargeDuration = getRarityValue(match[2], this.rarity);
+            const andFunction = match[3]?this.getTriggerFunctionFromText(match[3]):null;
+            
             return (item) => {
                 (it?item:this).chargeBy(chargeDuration,item||this);
+                if(andFunction) andFunction(item||this);
             };
         }
 
