@@ -201,8 +201,18 @@ export function loadFromUrl(hash) {
         });       
 
         boardsCleared.forEach((board) => {
-            board.reset();
-            board.setup();
+            if(board.player) {
+                board.player.reset();
+            } else {
+                board.reset();
+            }   
+        });
+        boardsCleared.forEach((board) => {
+            if(board.player) {
+                board.player.setup();
+            } else {
+                board.setup();
+            }
         });
     } catch (error) {
         console.error('Error loading board state from URL:', error);
