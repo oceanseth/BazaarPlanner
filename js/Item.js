@@ -3902,6 +3902,15 @@ export class Item {
             this.gain(getRarityValue(match[1], this.rarity),'multicast');
             return () => {};
         }
+
+        //Multicast 2
+        regex = /^Multicast (\([^\)]+\)|\+?\d+)\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const multicast = getRarityValue(match[1], this.rarity);
+            this.gain(multicast-1,'multicast');
+            return () => {};
+        }
         //Adjacent Toys have +1 Multicast.
         regex = /^\s*Adjacent ([^\s]+)s? have \+1 Multicast\.?/i;
         match = text.match(regex);
