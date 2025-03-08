@@ -13656,7 +13656,7 @@ export const items = {
     "cooldown": 4,
     "ammo": 1,
     "text": [
-      "Slow 1 the slowest enemy item for (3/4/5/6) second(s)."
+      "Slow the slowest enemy item for (3/4/5/6) second(s)."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
