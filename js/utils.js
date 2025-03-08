@@ -167,7 +167,7 @@ export function loadFromUrl(hash) {
                 const board = Board.getBoardFromId(boardId);
                 if(!boardsCleared.has(boardId)) {
                     board.clear();
-                    boardsCleared.set(boardId,true);
+                    boardsCleared.set(boardId,board);
                 }
                 board.player.startPlayerData.maxHealth = boardStateObject.health;
                 if(boardStateObject.playerName) board.player.startPlayerData.name = boardStateObject.playerName;
@@ -183,28 +183,33 @@ export function loadFromUrl(hash) {
                 return;
             }
             const { board, startIndex, name, ...itemWithoutBoardAndStartIndex} = boardStateObject;
-            if(!boardsCleared.has(board)) {
-                Board.getBoardFromId(board).clear();
-                boardsCleared.set(board,true);
+            const boardId = board;
+            const theBoard = Board.getBoardFromId(boardId);
+            if(!boardsCleared.has(boardId)) {
+                theBoard.clear();
+                boardsCleared.set(boardId,theBoard);
             }
 
             const [baseName, enchant] = Item.stripEnchantFromName(name);
 
             const newItemData = structuredClone(items[baseName]);
             Object.assign(newItemData, itemWithoutBoardAndStartIndex);
-            const newItem = new Item(newItemData, Board.getBoardFromId(board));
+            const newItem = new Item(newItemData, theBoard);
             newItem.enchant = enchant;
             newItem.name = name;
             newItem.setIndex(startIndex);
         });       
 
-        Board.resetBoards();
+        boardsCleared.forEach((board) => {
+            board.reset();
+            board.setup();
+        });
     } catch (error) {
         console.error('Error loading board state from URL:', error);
     }
 
     window.isLoadingFromUrl = false;
-    topPlayer.battle.calculateWinRate();
+    //topPlayer.battle.calculateWinRate();
 }
 
 export function setupChangeListeners(obj,arr) {

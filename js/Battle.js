@@ -79,7 +79,12 @@ export class Battle {
         this.isPaused=0;
         this.sandstormValue=1;
         this.battleInterval = null; // Clear the interval reference
-        Board.resetBoards();
+        
+        this.players.forEach(player => {
+            player.reset();
+            player.setup();
+        });
+
         // Reset button
         if(this.battleButton) {
             this.battleButton.textContent = 'Start Battle';
@@ -170,6 +175,7 @@ export class Battle {
             },null,100,null,false);
             testBattle.battleIntervalSpeedMultiplier = 100;
             testPlayers.forEach(player => player.battle=testBattle);
+            
             testBattle.startBattle();
             this.testBattleIntervals.push(testBattle.battleInterval);
         }

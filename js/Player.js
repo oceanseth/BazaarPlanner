@@ -97,7 +97,7 @@ export class Player {
             this.startPlayerData.regen = parseInt(this.editorElement.querySelector("#player-regen").value);
 
             this.editorElement.style.display = "none";
-            Board.resetBoards();
+            this.battle.resetBattle();
             updateUrlState();
         });
     }

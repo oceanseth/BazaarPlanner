@@ -18,12 +18,6 @@ class Board {
         this.reset();
     }
     
-    static resetBoards() {
-        const players = Array.from(Board.boards.values()).map(board=>board.player);
-        players.forEach(player=>player.reset());
-        players.forEach(player=>player.setup());
-    }
-
     static getBoardFromId(boardId) {
         if(Board.boards.has(boardId)) return Board.boards.get(boardId);
         console.log("Board not found: " + boardId);
@@ -203,7 +197,8 @@ class Board {
                 const rarity = this.skillSelector.querySelector('#skill-selector-rarity').value;
                 this.addSkill(skillName,{rarity:rarity});
                 this.skillSelector.style.display = 'none';
-                Board.resetBoards();
+                this.player.reset();
+                this.player.setup();
                 if(this.editable) updateUrlState();
             };
             skillItem.onmouseenter = (e) => {
@@ -469,7 +464,8 @@ class Board {
     removeSkill(skill) {
         this.skills = this.skills.filter(s => s !== skill);
         this.skillsElement.removeChild(skill.element);
-        Board.resetBoards();
+        this.player.reset();
+        this.player.setup();
         if(this.editable) updateUrlState();
     }
     createPlayerElement() {
@@ -818,7 +814,8 @@ class Board {
             }
             this.deleteZone.classList.remove('active');
             this.deleteZone.style.display = 'none';
-            Board.resetBoards();
+            this.reset();
+            this.setup();
             if(this.editable) updateUrlState();
         }); 
         this.element.appendChild(this.deleteZone);
@@ -876,7 +873,7 @@ class Board {
                 newItem.setIndex(startIndex);
             }
             targetBoard.sortItems();
-            Board.resetBoards();
+            this.player.battle.resetBattle();
             if(this.editable) updateUrlState();
         }
         document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
@@ -973,7 +970,8 @@ class Board {
                         this.addSkill(name,{rarity:rarity});
                     });
                     this.player.startPlayerData = data.player;
-                    Board.resetBoards();
+                    this.reset();
+                    this.setup();
                     if(this.editable) updateUrlState();
                 } catch (error) {
                     console.error('Error loading file:', error);
@@ -1103,7 +1101,7 @@ class Board {
         this.player.startPlayerData.maxHealth = monsterData.health;
         this.player.startPlayerData.name = monsterData.name;
 
-        Board.resetBoards();
+        this.battle.resetBattle();
         if(this.editable) updateUrlState();
     }
     itemTriggered(item) {    
