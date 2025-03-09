@@ -252,11 +252,16 @@ ItemFunction.items.set("Deed",(item)=>{
 
 
 //Destroy this and all smaller items for the fight. from Dam
+//When you use another Aquatic item, charge this (1 >> 2) seconds. from Dam
 ItemFunction.items.set("Dam",(item)=>{
+    const chargeDuration = getRarityValue("1 >> 2",item.rarity);
     item.triggerFunctions.push(()=>{
         [...item.board.items,...item.board.player.hostileTarget.board.items].forEach(i=>{
             if(i.size< item.size) i.destroy(item);
         });
+    });
+    item.whenItemTagTriggers(["Aquatic"], (i) => { 
+        item.chargeBy(chargeDuration,i);
     });
 });
 //Haste the Aquatic item to the right for ( 2 » 3 » 4 » 5 ) second(s). from Fishing Rod
