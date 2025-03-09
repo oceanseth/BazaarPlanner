@@ -2697,21 +2697,27 @@ export class Item {
                     return;
                 case "you use your slowest weapon":
                     let slowestWeaponCount = 0;
-                    let slowestWeapon = this.board.items.reduce((a,b)=>Math.min(a,b.cooldown),Infinity);
-                    let slowestWeaponCooldown = slowestWeapon.cooldown||Infinity;
-                    
+                    let slowestWeapon;
+                    let slowestWeaponCooldown;
+                    let updateSlowestWeapon = () => {
+                        slowestWeapon = this.board.items.filter(i=>i.tags.includes("Weapon")).reduce((a,b)=>{if(a.cooldown>b.cooldown) return a; return b;});
+                        slowestWeaponCooldown = slowestWeapon.cooldown||Infinity;
+                    }
+                    updateSlowestWeapon();
                     this.board.itemTriggers.set(this.id,(item)=>{
                         if(item.tags.includes("Weapon")) {
-                            if(item.cooldown < slowestWeaponCooldown) { 
-                                slowestWeapon = this.board.items.reduce((a,b)=>Math.min(a,b.cooldown),Infinity);
-                                slowestWeaponCooldown = slowestWeapon.cooldown;
-                                if(item.id==slowestWeapon.id) {
+                            updateSlowestWeapon();
+                            if(item.cooldown >= slowestWeaponCooldown) { 
                                     ntimesFunction(item);                                                           
                                     if(slowestWeaponCount++==numTimes) {
                                         this.board.itemTriggers.delete(this.id);
                                     }
-                                }
                             }
+                        }
+                    });
+                    this.board.itemDestroyedTriggers.set(this.id,(item)=>{
+                        if(item.tags.includes("Weapon")) {
+                            updateSlowestWeapon();
                         }
                     });
                     return;
