@@ -1148,7 +1148,7 @@ export class Item {
                 (orTagToMatch?item.tags.includes(orTagToMatch):false)
             ) : this.board.items;
             return ()=>{
-                this.pickRandom(itemsToHaste,numToHaste).forEach(item=>item.applyHaste(hasteAmount,this));
+                this.pickRandom(itemsToHaste,numToHaste).forEach(item=>this.applyHasteTo(item,hasteAmount));
             };
 
         }
@@ -4549,7 +4549,7 @@ export class Item {
                         if(i) {
                             i.applyHasteTo(item,seconds);
                         } else {
-                            item.applyHaste(seconds);
+                            this.applyHasteTo(item,seconds);
                         }
                     }
                 });

@@ -259,6 +259,7 @@ ItemFunction.items.set("Dam",(item)=>{
         [...item.board.items,...item.board.player.hostileTarget.board.items].forEach(i=>{
             if(i.size< item.size) i.destroy(item);
         });
+        item.destroy(item);
     });
     item.whenItemTagTriggers(["Aquatic"], (i) => { 
         item.chargeBy(chargeDuration,i);
