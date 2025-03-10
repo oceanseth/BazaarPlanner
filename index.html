@@ -56,7 +56,7 @@
             <a href="https://discord.gg/8CJwZVj823" class="section-header-right discord-icon nounderline" target="_blank">&nbsp;</a>
             <a href="https://www.youtube.com/@BazaarPlanner" class="section-header-right youtube-icon nounderline" target="_blank">&nbsp;</a>
             <a href="https://x.com/BazaarPlanner" class="section-header-right twitter-icon nounderline" target="_blank">&nbsp;</a>
-            <div class="Heal" style="font-size: 10px;">Patch 0.1.8 - Mar 07</div>            
+            <div class="section-header" style="font-size: 10px;">Patch 0.1.8 - Mar 07</div>            
             <a href="javascript:showSection('settings',event)" class="section-header-right">⚙️</a>
         </div>
         </div>
@@ -122,54 +122,72 @@
         </div>
         <!-- FAQ Section -->
         <div id="faq" class="section" style="display: none;">
-            <h1>FAQ</h1><ul class="faq-list">
-                <li>
-                <b>How do I use BazaarPlanner?</b><br>
-                I used to enjoy importing a run from <a href="https://bazaartracker.gg/">BazaarTracker</a>, (before it was taken down)which will bring all items/skills from the most recent battle in your current run.
-                <br>You can use the simulator to test out different positioning of items and see how they perform.
-                <br>
-                One great use would be someone sharing their build on youtube, and you want to try it out for yourself or tweak positioning of items, and learn why it works best one way over another.
-                After moving items around, run a battle and see if the dps is higher or lower than the original build.<br>
-                Remember, you can always add 'sparring partner' to the top board to test against a monster that will never die! How long can you survive the sandstorm?!
-            </li>
-            <li>
-                <b>What is DPS/HPS/SPS?</b><br>
-
-                DPS is damage per second, HPS is healing per second, and SPS is shield per second.<br>
-                You can pause battle at any time to see the current DPS/HPS/SPS for each board.
-            </li>
-            <li>
-                <b>How do I save my build?</b><br>
-                You can save your build by clicking the "Save" button on the bottom board, which saves a json file you can load later. 
-            </li>
-            <li>
-                <b>Why is the url changing?</b><br>
-                The url changes whenever you change the boards, skills, or player data. It allows you to share the current state of the boards with others. I recommend creating a url from <a href="http://tinyurl.com">tinyurl.com</a> to make a nice short url that you can share on youtube video descriptions, blogs, etc.
-            </li>
-            <li>
-                <b>Where can I get support/report bugs/ask questions?</b><br>
-                Strong's discord is the best place to get support. <a href="https://discord.gg/8CJwZVj823">https://discord.gg/8CJwZVj823</a>
-            </li>
-            <li><b>Why isn't it working on my mobile device?</b><br>
-                I have no plans to support mobile devices. 
-            </li>
-            <li>
-                <b>Can I run the battle 100 times to see the avg number of wins? Or avg dps across all battles?</b><br>
-                No, the simulator is designed to simulate a single battle. We don't want to affect the game negatively by, for example, identifying the optimal positioning by running such tasks in the background. This is up to you to discover/learn!
-            </li>
-            <li><b>Can you speed up the battle please? Or just give me a button to see the result?</b><br/>
-                No, the simulator is designed to simulate a single battle. We don't want to affect the game negatively by, for example, identifying the optimal positioning by running such tasks in the background. This is up to you to discover/learn!
-            </li>
+            <h1>FAQ</h1>
+            <ul class="faq-list">
+                <li class="faq-item">
+                    <div class="faq-question">How do I use BazaarPlanner?</div>
+                    <div class="faq-answer">
+                        I used to enjoy importing a run from <a href="https://bazaartracker.gg/">BazaarTracker</a>, (before it was taken down)which will bring all items/skills from the most recent battle in your current run.
+                        <br>You can use the simulator to test out different positioning of items and see how they perform.
+                        <br>
+                        One great use would be someone sharing their build on youtube, and you want to try it out for yourself or tweak positioning of items, and learn why it works best one way over another.
+                        After moving items around, run a battle and see if the dps is higher or lower than the original build.<br>
+                        Remember, you can always add 'sparring partner' to the top board to test against a monster that will never die! How long can you survive the sandstorm?!
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">When does the daily puzzle reset?</div>
+                    <div class="faq-answer">
+                        The daily puzzle resets at Midnight UTC every day.
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">What is DPS/HPS/SPS?</div>
+                    <div class="faq-answer">
+                        DPS is damage per second, HPS is healing per second, and SPS is shield per second.<br>
+                        You can pause battle at any time to see the current DPS/HPS/SPS for each board.
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">How do I save my build?</div>
+                    <div class="faq-answer">
+                        You can save your build by clicking the "Save" button on the bottom board, which saves a json file you can load later.
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">Why is the url changing?</div>
+                    <div class="faq-answer">
+                        The url changes whenever you change the boards, skills, or player data. It allows you to share the current state of the boards with others. I recommend clicking "get tiny url" to make a nice short url that you can share on youtube video descriptions, blogs, etc.
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">Where can I get support/report bugs/ask questions?</div>
+                    <div class="faq-answer">
+                        Strong's discord is the best place to get support. <a href="https://discord.gg/8CJwZVj823">https://discord.gg/8CJwZVj823</a>
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">Why isn't it working on my mobile device?</div>
+                    <div class="faq-answer">
+                        I have no plans to support mobile devices.
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">Can I run the battle 100 times to see the avg number of wins? Or avg dps across all battles?</div>
+                    <div class="faq-answer">
+                        No, the simulator is designed to simulate a single battle. We don't want to affect the game negatively by, for example, identifying the optimal positioning by running such tasks in the background. This is up to you to discover/learn!
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">Can you speed up the battle please? Or just give me a button to see the result?</div>
+                    <div class="faq-answer">
+                        No, the simulator is designed to simulate a single battle. We don't want to affect the game negatively by, for example, identifying the optimal positioning by running such tasks in the background. This is up to you to discover/learn!
+                    </div>
+                </li>
             </ul>
-
-
         </div>
         <!-- About Section -->
-
-
-
         <div id="about" class="section" style="display: none;">
-
             <h1>About</h1>
             <p>
                 BazaarPlanner is a simulator for <A href="http://www.playthebazaar.com">The Bazaar</A>.
@@ -193,7 +211,6 @@
                     </li>
                     <li>2. Some enchanted effects are not being parsed/triggering the same they do in game.
                          The game also has many bugs, for example an obsidian magma core works in the sim as expected, but in the game it's bugged and doens't do damage.</li>
-
             </ul>
             <h1>Coming Soon</h1>
             <p style="width:400px;">

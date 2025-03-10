@@ -321,6 +321,11 @@ window.onload = () => {
     } catch (error) {
         console.error("Firebase initialization error:", error);
     }        
+
+    document.querySelectorAll('.faq-item').forEach(item => {
+        const randomItem = items[Object.keys(items)[Math.floor(Math.random() * Object.keys(items).length)]];
+        item.style.backgroundImage = "url("+randomItem.icon+")";
+    });
 }
 
 window.toggleDarkMode = () => {
