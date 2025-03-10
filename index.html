@@ -98,20 +98,23 @@
             <div id="puzzle-content">
                 <h1 id="puzzle-title">Daily Puzzle</h1>
                 <p id="puzzle-description" align="center"></p>
-                <div class="puzzle-slider-container">
-                    <input type="range" id="puzzle-guess-slider" min="0" max="100" value="0" step="1" oninput="this.nextElementSibling.nextElementSibling.textContent = this.value">
-                    <div class="slider-labels">
-                        <span>0</span>
-                        <span>100</span>
-                    </div>
-                    <div style="text-align: center; margin-top: 5px;"><b id="slider-value">0</b></div>
-                    <br/><br/>
-                    <div style="text-align: center; margin-top: 5px;">
-                        <button class="editorOpener" onclick="Puzzle.submitGuess()">Submit</button>
-                    </div>
+                <div id="puzzle-slider-container">
+                        <input type="range" id="puzzle-guess-slider" min="0" max="100" value="0" step="1" oninput="this.nextElementSibling.nextElementSibling.textContent = this.value">
+                        <div class="slider-labels">
+                            <span>0</span>
+                            <span>100</span>
+                        </div>
+                    <div style="text-align: center; margin-top: 5px;"><b id="slider-value">0</b></div>            
+                </div>
+                <div id="puzzle-select-container">
+                    <select id="puzzle-select"></select>
+                </div>
+                <div style="text-align: center; margin-top: 5px;">
+                    <button class="editorOpener" onclick="Puzzle.submitGuess()">Submit</button>
                 </div>
             </div>   
-            
+
+    
             <div class="board-container">
                 <div id="puzzle-top" class="board"></div>
             </div>

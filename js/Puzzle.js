@@ -36,11 +36,8 @@ export class Puzzle {
                     Puzzle.guess = snapshot.val();
                     document.getElementById("puzzle-content").innerHTML = '';
                     showResults();
-                } else {
-                    document.getElementById("puzzle-content").innerHTML = Puzzle.initialContent;
                 }
-                Puzzle.isLoading = false;
-                
+                Puzzle.isLoading = false;                
             });                           
         }
         Puzzle.loadPuzzleBoards(); 
@@ -86,6 +83,7 @@ export class Puzzle {
         firebase.database().ref(`puzzles/${Puzzle.puzzleId}/data`).once('value').then(snapshot => {
             const data = snapshot.val();
             Puzzle.puzzleData = data;
+            document.getElementById("puzzle-content").innerHTML = Puzzle.initialContent;
             const titleElement = document.getElementById("puzzle-title");
             if(titleElement) titleElement.innerHTML = `Puzzle ${Puzzle.puzzleId}: ${data.title}`;
             let boardState = null;
@@ -115,6 +113,8 @@ export class Puzzle {
             }
             const stateStr = LZString.compressToEncodedURIComponent(JSON.stringify(boardState));
             loadFromUrl(stateStr);   
+            document.getElementById("puzzle-slider-container").style.display = "none";
+            document.getElementById("puzzle-select-container").style.display = "none";
             let html = "";
             switch(data.type) {
                 case 'vod':
@@ -123,15 +123,25 @@ export class Puzzle {
             Afer voting, we will reveal the answer, simulate the battle, and link to the vod.<br>
             If you guess within 10 of the correct answer, you will gain a point, be added to the leaderboard, and given the chance to submit your own puzzle!<br/><br/>
             <b>In 100 battles, how many times does the bottom board win?</b>`;
+            document.getElementById("puzzle-slider-container").style.display = "flex";
                     break;
                 case 'sim':
                     html =`
             The two boards below were created in the simulator.
-            Afer voting, we will reveal the answer and simulate the battle.
+            Afer gussing, we will reveal the answer and simulate the battle.
             If you guess within 10 of the correct answer, you will gain a point, be added to the leaderboard, and given the chance to submit your own puzzle!<br/><br/>
             <b>In 100 battles, how many times does the bottom board win?</b>`;
+            document.getElementById("puzzle-slider-container").style.display = "flex";
+                    break;
+                case 'select':
+                    html = data.desc+`<br/><br/><select id="puzzle-select-options"><option value="" disabled selected>Select one</option>
+                        ${data.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                    </select>`;
+                    document.getElementById("puzzle-select-container").style.display = "flex";
                     break;
             }
+            
+
             const descriptionElement = document.getElementById("puzzle-description");
             if(descriptionElement) descriptionElement.innerHTML = html;
         });
@@ -143,40 +153,81 @@ export class Puzzle {
             return;
         }
         if(Puzzle.isLoading) return;
-        Puzzle.guess = document.getElementById("puzzle-guess-slider").value;
-        firebase.database().ref(`puzzles/${Puzzle.puzzleId}/votes/${window.user.uid}`).set(Puzzle.guess);
-        Puzzle.solved = true;
-        showResults();
+        if(Puzzle.puzzleData.type == 'select') {
+            Puzzle.guess = document.getElementById("puzzle-select-options").value;
+        } else {
+            Puzzle.guess = document.getElementById("puzzle-guess-slider").value;
+        }
+        firebase.database().ref(`puzzles/${Puzzle.puzzleId}/votes/${window.user.uid}`).set(Puzzle.guess).then(()=>{
+            Puzzle.solved = true;
+            showResults();
+        });
     }
-
+    static runBattle() {
+        Puzzle.battle.resetBattle();
+        Puzzle.battle.startBattle();
+        Puzzle.bottomPlayer.board.winRateElement.innerHTML = Puzzle.result.b + "%";
+        Puzzle.topPlayer.board.winRateElement.innerHTML = Puzzle.result.t + "%";
+        Puzzle.bottomPlayer.board.winRateElement.style.display = "block";
+        Puzzle.topPlayer.board.winRateElement.style.display = "block";
+    }
+    static submitPuzzle() {
+        let html = `
+            <h1>Submit your own puzzle!</h1>
+            Coming soon!
+            <!--
+            <form onsubmit="Puzzle.submitPuzzleForm(event)">
+                <label>Title:</label> <input type="text" id="puzzle-title" placeholder="Title"><br/>
+                <label>Description:</label> <textarea id="puzzle-description" placeholder="Description"></textarea><br/>
+                <label>Vod URL:</label> <input type="text" id="puzzle-vod-url" placeholder="Vod URL"><br/>
+                <label>BazaarPlanner URL:</label> <input type="text" id="puzzle-bazaarplanner-url" placeholder="BazaarPlanner URL"><br/>
+                <button type="submit">Submit</button>
+            </form>
+            -->
+        `;
+        document.getElementById("puzzle-content").innerHTML = html;
+    }
+    static submitPuzzleForm(event) {
+        event.preventDefault();
+        const title = document.getElementById("puzzle-title").value;
+        const description = document.getElementById("puzzle-description").value;
+        const vodUrl = document.getElementById("puzzle-vod-url").value;
+        const bazaarplannerUrl = document.getElementById("puzzle-bazaarplanner-url").value;
+        const puzzle = { title, description, vodUrl, d:bazaarplannerUrl, by: window.user.displayName, byUID: window.user.uid };
+        firebase.database().ref(`puzzles/submissions`).push(puzzle).then(() => {
+            document.getElementById("puzzle-content").innerHTML = `
+                <h1>Puzzle submitted successfully!</h1>
+                <p>Your puzzle will be reviewed by the admins and selected at random to be used as a puzzle.</p>
+            `;
+        });
+    }    
 };
-Puzzle.runBattle = function() {
-    Puzzle.battle.resetBattle();
-    Puzzle.battle.startBattle();
-    Puzzle.bottomPlayer.board.winRateElement.innerHTML = Puzzle.result.b + "%";
-    Puzzle.topPlayer.board.winRateElement.innerHTML = Puzzle.result.t + "%";
-    Puzzle.bottomPlayer.board.winRateElement.style.display = "block";
-    Puzzle.topPlayer.board.winRateElement.style.display = "block";
-}
+
 function showResults() {
     firebase.database().ref(`puzzles/${Puzzle.puzzleId}/result`).once('value').then(snapshot => {
         const result = snapshot.val();
         Puzzle.result = result;
-        const win = Math.abs(Puzzle.guess -result.b)<=10;
+        let win = false;
+        if(Puzzle.puzzleData.type == 'select') {
+            win = Puzzle.guess == result.answer;
+        } else {
+            win = Math.abs(Puzzle.guess -result.b)<=10;
+        }
         let html = `<div class="puzzle-results"><div class="puzzle-results-left ${win?'puzzle-results-win':'puzzle-results-loss'}">
                         <h1>Puzzle ${Puzzle.puzzleId}</h1>
                         <p>${Puzzle.puzzleData.title} : submitted by ${Puzzle.puzzleData.by}</p>
-                        <p>Your guess: Bottom win rate ${Puzzle.guess}%.</p>
+                        <p>Your guess: ${Puzzle.guess}</p>
+                        <p>Correct answer: ${result.answer || result.b}</p>
                     `;
                 
  
         if(win) {
-            html += `<p>You guessed within 10 points of the actual result!<br/>
+            html += `<p>You guessed correctly!<br/>
             You have been awarded a point! (tracking and leaderboards will be updated soon)<br/>
             You are now eligible to <a href="javascript:Puzzle.submitPuzzle()">submit your own puzzle!</a></p>
             `;
         } else {
-            html += `<p>You did not guess within 10 points of the actual result!</p>`;
+            html += `<p>You did not guess correctly.</p>`;
         }
         html+= `<button onclick="Puzzle.runBattle()">Run Battle</button> `;
         html+= `<button onclick="Puzzle.loadInSim()">Load in Simulator</button>`;
@@ -195,11 +246,11 @@ function showResults() {
             </iframe></div></div>`;
             }
             if(result.desc) {
-                html+=`<div style="margin: 0 auto; width: 50%; background-color:rgba(0,0,0,.3); padding: 10px; border-radius: 10px;"><p><b>Analysis: </b> ${result.desc}</p></div>`;
+                html+=`<div style="margin: 0 auto; width: 70%; background-color:rgba(0,0,0,.3); padding: 10px; border-radius: 10px;"><p><b>Analysis: </b> ${result.desc}</p></div>`;
             }
         }   else {
             if(result.desc) {
-                html+= `<div style="justify-content: center; width: 50%; background-color:rgba(0,0,0,.3); padding: 10px; border-radius: 10px;"><p><b>Analysis: </b> ${result.desc}</p></div>`;
+                html+= `<div style="justify-content: center; width: 70%; background-color:rgba(0,0,0,.3); padding: 10px; border-radius: 10px;"><p><b>Analysis: </b> ${result.desc}</p></div>`;
             }
             html+="</div>";
         }
@@ -207,38 +258,6 @@ function showResults() {
         
         document.getElementById("puzzle-content").innerHTML = html;
         Puzzle.runBattle();
-    });
-}
-
-Puzzle.submitPuzzle = function() {
-    let html = `
-        <h1>Submit your own puzzle!</h1>
-        Coming soon!
-        <!--
-        <form onsubmit="Puzzle.submitPuzzleForm(event)">
-            <label>Title:</label> <input type="text" id="puzzle-title" placeholder="Title"><br/>
-            <label>Description:</label> <textarea id="puzzle-description" placeholder="Description"></textarea><br/>
-            <label>Vod URL:</label> <input type="text" id="puzzle-vod-url" placeholder="Vod URL"><br/>
-            <label>BazaarPlanner URL:</label> <input type="text" id="puzzle-bazaarplanner-url" placeholder="BazaarPlanner URL"><br/>
-            <button type="submit">Submit</button>
-        </form>
-        -->
-    `;
-    document.getElementById("puzzle-content").innerHTML = html;
-}
-
-Puzzle.submitPuzzleForm = function(event) {
-    event.preventDefault();
-    const title = document.getElementById("puzzle-title").value;
-    const description = document.getElementById("puzzle-description").value;
-    const vodUrl = document.getElementById("puzzle-vod-url").value;
-    const bazaarplannerUrl = document.getElementById("puzzle-bazaarplanner-url").value;
-    const puzzle = { title, description, vodUrl, d:bazaarplannerUrl, by: window.user.displayName, byUID: window.user.uid };
-    firebase.database().ref(`puzzles/submissions`).push(puzzle).then(() => {
-        document.getElementById("puzzle-content").innerHTML = `
-            <h1>Puzzle submitted successfully!</h1>
-            <p>Your puzzle will be reviewed by the admins and selected at random to be used as a puzzle.</p>
-        `;
     });
 }
 
