@@ -4091,7 +4091,7 @@ export class Item {
         regex = /^\s*Gain (Shield|Regeneration) (?:for the fight )?equal to this item's damage\.?/i;
         match = text.match(regex);
         if(match) {
-            const whatToGain = match[1].toLowerCase();
+            const whatToGain = match[1];
             return () => {
                 this["apply"+whatToGain](this.damage);
             };

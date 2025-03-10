@@ -1101,7 +1101,7 @@ class Board {
         this.player.startPlayerData.maxHealth = monsterData.health;
         this.player.startPlayerData.name = monsterData.name;
 
-        this.battle.resetBattle();
+        this.player.battle.resetBattle();
         if(this.editable) updateUrlState();
     }
     itemTriggered(item) {    
