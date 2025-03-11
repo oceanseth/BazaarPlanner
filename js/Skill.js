@@ -85,7 +85,7 @@ export class Skill {
     }
     clone(newBoard) {
         const skillData = skills[this.name];
-        skillData.rarity = this.rarity;
+        skillData.tier = this.tier;
         skillData.name = this.name;
         skillData.text = this.text;
         const newSkill= new Skill(skillData);

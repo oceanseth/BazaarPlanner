@@ -261,7 +261,7 @@ function getVodHTML(vodSlug,autoplay=false) {
         </div></div>`;
     } else {
     html+= `<div style="width: 100%;">
-    <iframe src="https://clips.twitch.tv/embed?clip=${vodSlug}&parent=`+window.location.hostname+`${autoplay ? "&autoplay=true" : ""}"
+    <iframe src="https://clips.twitch.tv/embed?clip=${vodSlug}&muted=false&parent=`+window.location.hostname+`${autoplay ? "&autoplay=true" : ""}"
     height="400"
     width="100%"
     allowfullscreen

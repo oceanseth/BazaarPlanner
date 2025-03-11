@@ -176,9 +176,7 @@ export class Battle {
                     this.isCalculating = false;
                 }
             },null,100,null,false);
-            testBattle.battleIntervalSpeedMultiplier = 100;
-            testPlayers.forEach(player => player.battle=testBattle);
-            
+            testBattle.battleIntervalSpeedMultiplier = 100;            
             testBattle.startBattle();
             this.testBattleIntervals.push(testBattle.battleInterval);
         }

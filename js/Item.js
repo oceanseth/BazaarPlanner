@@ -33,7 +33,7 @@ export class Item {
     }
 
     log(s) {
-            this.board.player.battle.log(s);
+           if(this.board.player.battle) this.board.player.battle.log(s);
     }
 
     constructor(itemData, board) {
