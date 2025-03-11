@@ -116,9 +116,12 @@ export class Puzzle {
             document.getElementById("puzzle-slider-container").style.display = "none";
             document.getElementById("puzzle-select-container").style.display = "none";
             let html = "";
+            if(data.vod) {
+                html += getVodHTML(data.vod,true);
+            }
             switch(data.type) {
                 case 'vod':
-                    html =`
+                    html +=`
             The two boards below are from a real player twitch vod sumission.<br/>
             Afer voting, we will reveal the answer, simulate the battle, and link to the vod.<br>
             If you guess within 10 of the correct answer, you will gain a point, be added to the leaderboard, and given the chance to submit your own puzzle!<br/><br/>
@@ -126,7 +129,7 @@ export class Puzzle {
             document.getElementById("puzzle-slider-container").style.display = "flex";
                     break;
                 case 'sim':
-                    html =`
+                    html +=`
             The two boards below were created in the simulator.
             Afer gussing, we will reveal the answer and simulate the battle.
             If you guess within 10 of the correct answer, you will gain a point, be added to the leaderboard, and given the chance to submit your own puzzle!<br/><br/>
@@ -134,13 +137,13 @@ export class Puzzle {
             document.getElementById("puzzle-slider-container").style.display = "flex";
                     break;
                 case 'select':
-                    html = data.desc+`<br/><br/><select id="puzzle-select-options"><option value="" disabled selected>Select one</option>
+                    html += data.desc+`<br/><br/><select id="puzzle-select-options"><option value="" disabled selected>Select one</option>
                         ${data.options.map(option => `<option value="${option}">${option}</option>`).join('')}
                     </select>`;
                     document.getElementById("puzzle-select-container").style.display = "flex";
                     break;
             }
-            
+           
 
             const descriptionElement = document.getElementById("puzzle-description");
             if(descriptionElement) descriptionElement.innerHTML = html;
@@ -228,23 +231,10 @@ function showResults() {
             `;
         } else {
             html += `<p>You did not guess correctly.</p>`;
-        }
-        html+= `<button onclick="Puzzle.runBattle()">Run Battle</button> `;
-        html+= `<button onclick="Puzzle.loadInSim()">Load in Simulator</button>`;
+        }    
         html+="</div>";
         if(result.vod) {
-            if(result.vod.includes("youtube.com")) {
-                html+= `<div style="width: 100%;">
-               <iframe width="560" height="315" src="${result.vod}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                </div></div>`;
-            } else {
-            html+= `<div style="width: 100%;">
-            <iframe src="https://clips.twitch.tv/embed?clip=${result.vod}&parent=`+window.location.hostname+`"
-            height="400"
-            width="100%"
-            allowfullscreen>
-            </iframe></div></div>`;
-            }
+            html+=getVodHTML(result.vod);
             if(result.desc) {
                 html+=`<div style="margin: 0 auto; width: 70%; background-color:rgba(0,0,0,.3); padding: 10px; border-radius: 10px;"><p><b>Analysis: </b> ${result.desc}</p></div>`;
             }
@@ -254,7 +244,8 @@ function showResults() {
             }
             html+="</div>";
         }
-        
+        html+= `<div style="display: flex; justify-content: center; gap: 10px;"><button onclick="Puzzle.runBattle()">Re-run Battle</button> `;
+        html+= `<button onclick="Puzzle.loadInSim()">Load in Simulator</button></div>`;
         
         document.getElementById("puzzle-content").innerHTML = html;
         Puzzle.runBattle();
@@ -262,3 +253,20 @@ function showResults() {
 }
 
 
+function getVodHTML(vodSlug,autoplay=false) {
+    let html = "";
+    if(vodSlug.includes("youtube.com")) {
+        html+= `<div style="width: 100%;">
+        <iframe width="560" height="315" src="${vodSlug}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div></div>`;
+    } else {
+    html+= `<div style="width: 100%;">
+    <iframe src="https://clips.twitch.tv/embed?clip=${vodSlug}&parent=`+window.location.hostname+`${autoplay ? "&autoplay=true" : ""}"
+    height="400"
+    width="100%"
+    allowfullscreen
+    >
+    </iframe></div></div>`;
+    }
+    return html;
+}
