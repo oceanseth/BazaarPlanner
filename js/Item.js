@@ -3393,7 +3393,7 @@ export class Item {
             return () => {
                 const targets = this.board.items.filter(item => item.tags.includes(tagToMatch));
                 if(targets.length>0) {
-                    Item.pickRandom(targets).destroy(this);
+                    this.pickRandom(targets).destroy(this);
                 }
             }
         }
@@ -3436,7 +3436,10 @@ export class Item {
             return () => {
                 const targets = this.board.items.filter(item => item.tags.includes("Property") && item.isChargeTargetable());
                 if(targets.length>0) {
-                    Item.pickRandom(targets).trigger();
+                    const target = this.pickRandom(targets);                    
+                    this.log(this.name + " used " + target.name);
+                    target.trigger();                    
+                    target.pendingMulticasts+=parseInt(target.multicast);
                 }
             }
         }
@@ -3497,7 +3500,7 @@ export class Item {
             return (i) => {
                 const item = this.pickRandom(this.board.items);
                 if(item) {
-                    item.gain(critChance,'crit',i||this);
+                    item.gain(critChance,'crit',this);
                 }
             }
         }
