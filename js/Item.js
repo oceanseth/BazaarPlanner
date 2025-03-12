@@ -55,8 +55,10 @@ export class Item {
         
         // Ensure text is always an array
         this.text = Array.isArray(this.text) ? this.text : [this.text].filter(Boolean);
-        for(let i=0;i<this.text.length;i++) {
-            this.text[i] = this.text[i].replace("Properties","Property items");            
+        if(this.text.length>0) {
+            for(let i=0;i<this.text.length;i++) {
+                this.text[i] = this.text[i].replace("Properties","Property items");            
+            }
         }
 
         this.isEditable = true;
@@ -2703,8 +2705,14 @@ export class Item {
                     let slowestWeapon;
                     let slowestWeaponCooldown;
                     let updateSlowestWeapon = () => {
-                        slowestWeapon = this.board.items.filter(i=>i.tags.includes("Weapon")).reduce((a,b)=>{if(a.cooldown>b.cooldown) return a; return b;});
-                        slowestWeaponCooldown = slowestWeapon.cooldown||Infinity;
+                        const weapons = this.board.items.filter(i=>i.tags.includes("Weapon"));
+                        if (weapons.length > 0) {
+                            slowestWeapon = weapons.reduce((a,b)=>{if(a.cooldown>b.cooldown) return a; return b;});
+                            slowestWeaponCooldown = slowestWeapon.cooldown||Infinity;
+                        } else {
+                            slowestWeapon = null;
+                            slowestWeaponCooldown = Infinity;
+                        }
                     }
                     updateSlowestWeapon();
                     this.board.itemTriggers.set(this.id,(item)=>{
