@@ -800,14 +800,16 @@ button:active {
     justify-content: center;
     gap: 4px; 
     position: absolute;
-    top: 2px;
+    top: -12px;
     height: 20px;
+    z-index: 1111;
 }
 .shield-element,
 .damage-element,
 .burn-element,
 .heal-element,
 .poison-element {
+    border: 1px solid var(--text-color);
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
     padding: 2px 4px;
@@ -1863,11 +1865,11 @@ select {
 .enchant-name {
     font-size: 14px;
     font-weight: bold;
-    color: var(--text-color);
+    color: white;
 }
 .enchant-description {
     font-size: 12px;
-    color: var(--text-color);
+    color: white;
 }
 
 #auth-container {
