@@ -5,7 +5,6 @@ import { Board } from './Board.js';
 import { Battle } from './Battle.js';
 
 export class Puzzle {
-    static firstPuzzleDate = new Date("Feb 28 2025");
     static solved=false;
     static isLoading=true;
     static puzzleId=0;
@@ -25,10 +24,13 @@ export class Puzzle {
         });        
     }
     static loadPuzzleById(puzzleId) {
+        Puzzle.solved = false;
+        Puzzle.isLoading = true;
+        Puzzle.puzzleId = puzzleId;
         if(Puzzle.battle!=null) {
             Puzzle.battle.resetBattle();
+            Puzzle.battle = null;
         }
-        Puzzle.puzzleId = puzzleId;
         if(Puzzle.puzzleId && window.user) {
             firebase.database().ref(`puzzles/${Puzzle.puzzleId}/votes/${window.user.uid}`).once('value').then(snapshot =>{                        
                 Puzzle.solved = snapshot.val()!=null;
