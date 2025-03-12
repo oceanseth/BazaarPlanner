@@ -125,7 +125,7 @@ export class Puzzle {
             The two boards below are from a real player twitch vod sumission.<br/>
             Afer voting, we will reveal the answer, simulate the battle, and link to the vod.<br>
             If you guess within 10 of the correct answer, you will gain a point, be added to the leaderboard, and given the chance to submit your own puzzle!<br/><br/>
-            <b>In 100 battles, how many times does the bottom board win?</b>`;
+            <b>In 100 battles, how many times does the bottom board win (or tie)?</b>`;
             document.getElementById("puzzle-slider-container").style.display = "flex";
                     break;
                 case 'sim':
@@ -133,7 +133,7 @@ export class Puzzle {
             The two boards below were created in the simulator.
             Afer gussing, we will reveal the answer and simulate the battle.
             If you guess within 10 of the correct answer, you will gain a point, be added to the leaderboard, and given the chance to submit your own puzzle!<br/><br/>
-            <b>In 100 battles, how many times does the bottom board win?</b>`;
+            <b>In 100 battles, how many times does the bottom board win (or tie)?</b>`;
             document.getElementById("puzzle-slider-container").style.display = "flex";
                     break;
                 case 'select':

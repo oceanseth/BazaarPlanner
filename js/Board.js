@@ -16,6 +16,7 @@ class Board {
         this.initialize();
         Board.boards.set(boardId,this);
         this.reset();
+        this.player.reset();
     }
     
     static getBoardFromId(boardId) {
@@ -446,7 +447,6 @@ class Board {
         clone.items = this.items.map(item => item.clone(clone));
         clone.skills = this.skills.map(skill => skill.clone(clone));
         clone.reset();
-        clone.setup();
         return clone;
     }
 

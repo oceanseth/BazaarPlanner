@@ -213,10 +213,10 @@ export class Player {
         this.healTriggers = new Map();
         this.destroyTriggers = new Map(); // triggered when this player destroys an item
 
-        this.board.reset();
+        if(this.board) this.board.reset();
     }
     setup() {
-        this.board.setup();
+        if(this.board) this.board.setup();
     }
     setIncome(income) {
         this.income = income;
