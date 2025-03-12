@@ -1886,14 +1886,51 @@ export const monsters = {
     "skills": [
       {
         "name": "Heat Lover",
-        "tier": 0
+        "tier": 2
       },
       {
         "name": "Fiery",
-        "tier": 0
+        "tier": 2
       }
     ],
-    "items": []
+    "items": [
+      {
+        "name": "Cinders",
+        "tier": 2
+      },
+      {
+        "name": "Nitro",
+        "tier": 1
+      },
+      {
+        "name": "Micro Dave",
+        "tier": 1
+      },
+      {
+        "name": "Bomb Squad",
+        "tier": 1
+      },
+      {
+        "name": "Char Cole",
+        "tier": 1
+      },
+      {
+        "name": "Curry",
+        "tier": 1
+      },
+      {
+        "name": "Hot Sauce",
+        "tier": 2
+      },
+      {
+        "name": "Black Pepper",
+        "tier": 1
+      },
+      {
+        "name": "Lighter",
+        "tier": 2
+      }
+    ]
   },
   "Shock Trooper": {
     "name": "Shock Trooper",
