@@ -27,6 +27,7 @@ export class Puzzle {
         Puzzle.solved = false;
         Puzzle.isLoading = true;
         Puzzle.puzzleId = puzzleId;
+        $("#puzzle-combatlog").val("");
         if(Puzzle.battle!=null) {
             Puzzle.battle.resetBattle();
             Puzzle.battle = null;
