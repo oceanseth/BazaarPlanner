@@ -9,6 +9,9 @@ export class Item {
     static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen'];
     static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle','Common'];
     static sizeTags = ['Small','Medium','Large'];
+    static allowedGainMap = {
+        "crit": ["Weapon","Poison","Burn","Shield","Heal"]
+    };
 
     static enchantTagMap = {
         'Toxic': 'Poison',
@@ -2667,7 +2670,8 @@ export class Item {
                         return;
                     case "use your leftmost item":
                         this.board.itemTriggers.set(this.id, (item) => {
-                            if(item.startIndex==0) {
+                            const leftmostItemWithCooldown = this.board.items.filter(i=>i.cooldown>0)[0];
+                            if(leftmostItemWithCooldown && item==leftmostItemWithCooldown) {
                                 triggerFunctionFromText(item);
                             }
                         });
@@ -3288,8 +3292,8 @@ export class Item {
             const seconds = parseInt(getRarityValue(match[3], this.rarity));
             return () => {
                 let validTargets = this.board.items.filter(item => item.isChargeTargetable());
-                if(match[2]=='leftmost'&&validTargets.length>0) validTargets = validTargets[0];
-                else if(match[2]=='rightmost'&&validTargets.length>0) validTargets = validTargets[validTargets.length-1];
+                if(match[2]=='leftmost'&&validTargets.length>0) validTargets = [validTargets[0]];
+                else if(match[2]=='rightmost'&&validTargets.length>0) validTargets = [validTargets[validTargets.length-1]];
                 else if(match[2]!='item') validTargets = validTargets.filter(item => item.tags.includes(match[2]));
 
                 for(let i=0;i<Math.min(numItemsToCharge,validTargets.length);i++) {
@@ -4710,24 +4714,6 @@ export class Item {
             return ()=>{};
         }
 
-        //Your leftmost Weapon deals (  +20  » +30  » +40  » +50   ) Damage.
-        //Your leftmost Poison item has (  +3  » +6  » +9  » +12   ) Poison.
-        regex = /^Your (leftmost|rightmost) ([^\s]+)(?: item)? (?:has|deals|gains)\s*\(([^)]+)\)\s*([^\s^\.]+)\.?.*/i;
-        match = text.match(regex);
-        if(match) {
-            const gainAmount = getRarityValue(match[3], this.rarity);
-            const matchingItem = match[1] == "leftmost" ?
-                this.board.items.filter(item => item.tags.includes(match[2]))
-                    .sort((a,b) => a.startIndex - b.startIndex)[0] :
-                this.board.items.filter(item => item.tags.includes(match[2]))
-                    .sort((a,b) => b.startIndex - a.startIndex)[0];
-            
-            if(matchingItem) {
-                matchingItem.gain(gainAmount, match[4].toLowerCase());
-            }
-
-            return ()=>{};
-        }
         //give it (  +2%  » +4%  » +6%  » +8%   ) crit Chance for the fight
         regex = /^(?:give it |it gains )(?:\(([^)]+)\)|(\d+)) ([^\s]+) (?:Chance) for the fight\.?$/i;
         match = text.match(regex);
@@ -4740,24 +4726,28 @@ export class Item {
             }
 
         }
-
+        
+        //Your leftmost Weapon deals (  +20  » +30  » +40  » +50   ) Damage.
         //Your leftmost Poison item has (  +3  » +6  » +9  » +12   ) Poison.
-        //Your leftmost item has (  +8%  » +16%  » +24%  » +32%   ) Crit chance.
-        regex = /^Your (leftmost|rightmost) ([^\s]+)?\s*item has (?:\(([^)]+)\)|(\d+))\s*([^\.]+)\.?.*/i;
+        regex = /^Your (leftmost|rightmost) ([^\s]+)(?: item)? (?:has|deals|gains)\s*\(([^)]+)\)\s*([^\s^\.]+)\.?.*/i;
         match = text.match(regex);
         if(match) {
-            const gainAmount = match[3] ? getRarityValue(match[3], this.rarity) : parseInt(match[4]);
-            const tagToMatch = match[2] ? Item.getTagFromText(match[2]) : null;
-            const matchingItems = tagToMatch?this.board.items.filter(item => item.tags.includes(tagToMatch)):this.board.items;
-
-            const matchingItem = match[1] == "leftmost" ?                
-                    matchingItems.sort((a,b) => a.startIndex - b.startIndex)[0] :
-                matchingItems.sort((a,b) => b.startIndex - a.startIndex)[0];
-
-
+            const gainAmount = getRarityValue(match[3], this.rarity);
+            const tagToMatch = match[2]=="item" ? null:Item.getTagFromText(match[2]);
+            let matchingItems = tagToMatch?this.board.items.filter(item => item.tags.includes(tagToMatch)):this.board.items;
+            const whatToGain = match[4].toLowerCase();
+            switch(whatToGain) 
+            {
+                case "crit":
+                    matchingItems = matchingItems.filter(item => Item.allowedGainMap['crit'].some(tag => item.tags.includes(tag)));
+                break;                    
+            }
+            const matchingItem = match[1] == "leftmost" ?matchingItems[0]:matchingItems[matchingItems.length-1];
+            
             if(matchingItem) {
-                matchingItem.gain(gainAmount, match[5].toLowerCase());
-            }   
+                matchingItem.gain(gainAmount, whatToGain);
+            }
+
             return ()=>{};
         }
 
