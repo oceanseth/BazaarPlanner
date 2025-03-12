@@ -223,15 +223,14 @@ function showResults() {
                         <p>Correct answer: ${result.answer || result.b}</p>
                     `;
                 
- 
+ /*
         if(win) {
             html += `<p>You guessed correctly!<br/>
             You have been awarded a point! (tracking and leaderboards will be updated soon)<br/>
             You are now eligible to <a href="javascript:Puzzle.submitPuzzle()">submit your own puzzle!</a></p>
             `;
-        } else {
-            html += `<p>You did not guess correctly.</p>`;
-        }    
+        }
+        */
         html+="</div>";
         if(result.vod) {
             html+=getVodHTML(result.vod);

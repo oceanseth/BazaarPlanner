@@ -57,7 +57,9 @@ export class Item {
         this.text = Array.isArray(this.text) ? this.text : [this.text].filter(Boolean);
         if(this.text.length>0) {
             for(let i=0;i<this.text.length;i++) {
-                this.text[i] = this.text[i].replace("Properties","Property items");            
+                this.text[i] = this.text[i].replace(/Properties/i, match => 
+                    match[0] === match[0].toUpperCase() ? "Property items" : "property items"
+                );            
             }
         }
 
