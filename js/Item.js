@@ -55,6 +55,9 @@ export class Item {
         
         // Ensure text is always an array
         this.text = Array.isArray(this.text) ? this.text : [this.text].filter(Boolean);
+        for(let i=0;i<this.text.length;i++) {
+            this.text[i] = this.text[i].replace("Properties","Property items");            
+        }
 
         this.isEditable = true;
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
