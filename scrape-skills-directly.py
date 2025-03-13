@@ -33,11 +33,19 @@ def transform_skill(skill_data):
         'Diamond': 3,
         'Legendary': 4
     }
-    tier = tier_mapping.get(skill_data['startingTier'], 0)  # Default to 0 if tier not found
+
+    # Process all unified tooltips
+    all_tooltips = []
+    for tooltip in skill_data['unifiedTooltips']:
+        # Remove [0] from the tooltip
+        tooltip = tooltip.replace('[0]', '')
+        # Split each tooltip by period and clean up each sentence
+        sentences = [s.strip() + '.' for s in tooltip.split('.') if s.strip()]
+        all_tooltips.extend(sentences)
 
     return {
-        'text': skill_data['unifiedTooltips'],
-        'tier': tier,  # Using the numeric tier value
+        'text': all_tooltips,
+        'tier': tier_mapping.get(skill_data['startingTier'], 0),  # Default to 0 if tier not found
         'tags': all_tags,
         'icon': icon_path
     }
