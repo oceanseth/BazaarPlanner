@@ -36,7 +36,7 @@ def transform_skill(skill_data):
     tier = tier_mapping.get(skill_data['startingTier'], 0)  # Default to 0 if tier not found
 
     return {
-        'text': [s.strip() + '.' for s in skill_data['unifiedTooltips'][0].split('.') if s.strip()],
+        'text': skill_data['unifiedTooltips'],
         'tier': tier,  # Using the numeric tier value
         'tags': all_tags,
         'icon': icon_path
