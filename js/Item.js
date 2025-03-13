@@ -1863,7 +1863,9 @@ export class Item {
             return () => {
                 const targets = match[3]=='right' ? 
                     pluralItems? this.board.activeItems.filter(i=>i.startIndex>this.startIndex && (!tagToMatch || i.tags.includes(tagToMatch))) : [this.getItemToTheRight()] :
-                    pluralItems? this.board.activeItems.filter(i=>i.startIndex<this.startIndex && (!tagToMatch || i.tags.includes(tagToMatch))) : [this.getItemToTheLeft()];
+                    match[3]=='left' ?
+                    pluralItems? this.board.activeItems.filter(i=>i.startIndex<this.startIndex && (!tagToMatch || i.tags.includes(tagToMatch))) : [this.getItemToTheLeft()] :
+                    this.board.activeItems;
                 targets.forEach(target => {
                     if(target) target.gain(amount,whatToGain.toLowerCase(), this);
                 });
@@ -4530,8 +4532,9 @@ export class Item {
         match = text.match(regex);
         if(match) {
             this.board.items.forEach(item => {
-                item.crit_multiplier = 0;
                 item.crit=0;
+                item.crit_multiplier = 0;
+                
             });
             this.board.startOfFightTriggers.set(this.id,() => {
                 this.board.items.forEach(item => {
@@ -4676,7 +4679,7 @@ export class Item {
             return ()=>{};
         }
         //Your leftmost item with Ammo has (  +1  » +2  » +3  » +4   ) Max Ammo.
-        regex = /^Your leftmost item with Ammo has (?:\(([^)]+)\)|(\d+)) Max Ammo\.?$/i;
+        regex = /^Your leftmost (?:item with Ammo|Ammo item) has (?:\(([^)]+)\)|(\d+)) Max Ammo\.?$/i;
         match = text.match(regex);
         if(match) {
             const gainAmount = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
