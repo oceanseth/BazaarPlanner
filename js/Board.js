@@ -61,9 +61,9 @@ class Board {
                 this.showSkillSelector();
             };
             this.element.appendChild(addSkillButton);
-            //this.importElement = document.createElement('div');
-            //this.importElement.className = 'import-element';
-            //this.element.appendChild(this.importElement);
+            this.importElement = document.createElement('div');
+            this.importElement.className = 'import-element';
+            this.element.appendChild(this.importElement);
             this.createDeleteZone();
         }
         this.createHealthElement();
@@ -325,7 +325,7 @@ class Board {
     updateIncomeElement() {
         this.incomeElement.textContent = "+" +this.player?.income;
     }
-    /*
+    
     updateImportElement() {
         if(!this.importedData) {return;}
         let encounterIndex=-1;
@@ -385,7 +385,8 @@ class Board {
             data.skills.forEach(skill => {
                 this.addSkill(skill.name,{rarity:Item.rarityLevels[parseInt(skill.tier)]});
             });
-            Board.resetBoards();
+            this.player.reset();
+            this.player.setup();
             data.hand.forEach(item => {
                 if(item.attributes.DamageAmount) {
                     item.itemAdded.startItemData.damage = parseInt(item.attributes.DamageAmount) - item.itemAdded.damage;
@@ -408,7 +409,8 @@ class Board {
         }
 
         
-        Board.resetBoards();
+        this.player.reset();
+        this.player.setup();
         window.isLoadingFromUrl = false;
         if(this.editable) updateUrlState();
     }
@@ -441,7 +443,7 @@ class Board {
 
         }    
     }
-    */
+    
     clone(newPlayer) {
         const clone = new Board("cloned-"+this.boardId,newPlayer);
         clone.items = this.items.map(item => item.clone(clone));

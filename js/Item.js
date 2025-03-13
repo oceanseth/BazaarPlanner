@@ -4525,6 +4525,21 @@ export class Item {
                this.gain(this.damage,'damage');
             }
         }
+        //Your items have 100% less crit chance. from Building Crescendo
+        regex = /^\s*Your items have 100% less crit chance\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            this.board.items.forEach(item => {
+                item.crit_multiplier = 0;
+                item.crit=0;
+            });
+            this.board.startOfFightTriggers.set(this.id,() => {
+                this.board.items.forEach(item => {
+                    item.crit_multiplier = 1;
+                });
+            });
+            return () => {};
+        }
 
         //Cleanse half your Burn.
         regex = /^\s*Cleanse half your Burn\.?$/i;
@@ -4533,6 +4548,18 @@ export class Item {
             return () => {
                 this.board.player.burn /= 2;
                 this.log(this.name + " cleansed half "+this.board.player.name+"'s Burn");
+            }
+        }
+        //Heal for 30% of your Max Health and Cleanse half your Burn and Poison. from Healthy Heart
+        regex = /^\s*Heal for 30% of your Max Health and Cleanse half your Burn and Poison\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                const healAmount = this.board.player.maxHealth*0.3;
+                this.applyHeal(healAmount);
+                if(this.board.player.burn>0) this.board.player.burn /= 2;
+                if(this.board.player.poison>0) this.board.player.poison /= 2;
+                this.log(this.name + " healed for "+healAmount+" and cleansed half "+this.board.player.name+"'s Burn and Poison");
             }
         }
         //reload 2 Ammo
