@@ -356,12 +356,12 @@ class Board {
         if(data.error) {
             alert(data.error);
         } else {
-            this.player.startData = {};
-            this.player.startData.gold = data.gold;
-            this.player.startData.level = data.level;
-            this.player.startData.name = data.heroName || data.name;
-            this.player.startData.maxHealth = data.maxHealth;
-            this.player.startData.health = data.maxHealth;
+            this.player.startPlayerData = {};
+            this.player.startPlayerData.gold = data.gold;
+            this.player.startPlayerData.level = data.level;
+            this.player.startPlayerData.name = data.heroName || data.name;
+            this.player.startPlayerData.maxHealth = data.maxHealth;
+            this.player.startPlayerData.health = data.maxHealth;
             this.clear();
             let currentIndex=0;
 
