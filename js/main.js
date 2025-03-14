@@ -87,13 +87,15 @@ window.poll = (answer) => {
 window.closePoll = function() {
     document.getElementById('poll').remove();
     document.getElementById('simulator').classList.remove('polling');
-    document.getElementById('poll-results').innerHTML = 'Does BazaarPlanner harm the game? Poll Results: Yes: <span id="yesResult"></span>&nbsp;&nbsp;&nbsp; No: <span id="noResult"></span>';
+    /*document.getElementById('poll-results').innerHTML = 'Does BazaarPlanner harm the game? Poll Results: Yes: <span id="yesResult"></span>&nbsp;&nbsp;&nbsp; No: <span id="noResult"></span>';
     firebase.database().ref('polls/harmpoll/counts').on('value', snapshot => {
         const counts = snapshot.val() || { yes: 0, no: 0 };
         document.getElementById('yesResult').innerHTML = counts.yes;
         document.getElementById('noResult').innerHTML = counts.no;
     });
+    */
 }
+/*
 window.pollCheck = function() {
     if(!window.user) {
         document.querySelector('.poll-login').style.display = 'block';
@@ -110,20 +112,22 @@ window.pollCheck = function() {
     ]).then(([yesSnapshot, noSnapshot]) => {
         if (yesSnapshot.exists() || noSnapshot.exists()) {
             closePoll();
-            const initialHash = window.location.hash.slice(1);
-            if (initialHash) {
-                // Replace the initial history entry and then immediately create a new one
-                window.history.replaceState(null, '', '/'); // Clear the initial entry
-                window.history.pushState({state: initialHash}, '', `#${initialHash}`);
-                //loadFromUrl(initialHash);
-            }
+            setupHash()
         }
         document.getElementById('simulator-search-input').focus();
     });
 }
 
-
-
+*/
+function setupHash() {
+    const initialHash = window.location.hash.slice(1);
+    if (initialHash) {
+        // Replace the initial history entry and then immediately create a new one
+        window.history.replaceState(null, '', '/'); // Clear the initial entry
+        window.history.pushState({state: initialHash}, '', `#${initialHash}`);
+        //loadFromUrl(initialHash);
+    }
+}
 
     // Initialize players
 
@@ -177,7 +181,8 @@ function setLoggedInUser (user) {
                 // Update status elements
                 updateUserInfo(user);
 
-                pollCheck();
+               // pollCheck();
+                setupHash();
             });
             // Hide the auth UI when signed in
             document.getElementById('auth-container').style.display = 'none';
@@ -284,7 +289,8 @@ window.onload = () => {
 
         // Track auth state
         function initApp() {
-            pollCheck();
+            //pollCheck();
+            setupHash();
             firebase.auth().onAuthStateChanged(setLoggedInUser);
         }
         window.login = function() {
