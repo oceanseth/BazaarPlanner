@@ -1354,14 +1354,14 @@ ItemFunction.items.set("Glass Cannon",(item)=>{
 //Reload all your items ( 1 » 2 » 3 ) Ammo and charge them 1 second(s). from Port
 ItemFunction.items.set("Port",(item)=>{
     const amount = getRarityValue("1 >> 2 >> 3",item.rarity);
-    return () => {
+    item.triggerFunctions.push(()=>{
         item.board.items.forEach(i=>{
             if(i.tags.includes("Ammo")) {
-                i.gain(amount,'ammo');
-                i.chargeBy(1);
+                i.gain(amount,'ammo', item);
+                i.chargeBy(1, item);
             }
         });
-    }
+    });
 });
 
 //Poison 10.
