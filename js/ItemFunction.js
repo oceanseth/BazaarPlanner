@@ -392,14 +392,20 @@ ItemFunction.items.set("Refractor",(item)=>{
 });
 
 ItemFunction.items.set("Flagship",(item)=>{
-        let multicast = item.multicast || 0;
-        item.board.items.forEach(i=>{
-            if(i.id!=item.id && i.tags.some(tag => ["Tool", "Friend", "Property","Ammo"].includes(tag))) multicast++;
-        });
-        item.multicast = multicast;
-        if(multicast>0) item.multicastElement.style.display = 'block';
-
-        item.setupTextFunctions(item.text[0]);
+    const uniqueTags = new Set();
+    item.board.items.forEach(i=>{
+        if(i.id!=item.id) {
+            ["Tool", "Friend", "Property", "Ammo"].forEach(tagType => {
+                if(i.tags.includes(tagType)) {
+                    uniqueTags.add(tagType);
+                }
+            });
+        }
+    });
+    if(uniqueTags.size>0) {
+        item.gain(uniqueTags.size,'multicast');
+    }
+    item.setupTextFunctions(item.text[0]);
 });
 
 //Reload your Potions 1 Ammo and Charge them 1 second(s). from Athanor

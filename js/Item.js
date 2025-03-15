@@ -1739,8 +1739,10 @@ export class Item {
         regex = /Gain Shield equal to your enemy's burn/i;
         match = text.match(regex);
         if(match) {
+            this.board.player.hostileTarget.burnChanged((newBurn,oldBurn)=>{
+                this.gain(newBurn-oldBurn,'shield');
+            }, this.id);
             return () => {
-                this.gain(this.board.player.hostileTarget.burn,'shield');
                 this.applyShield(this.shield);
             };
         }
