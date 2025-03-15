@@ -367,15 +367,18 @@ class Board {
 
 
             data.hand.forEach(item => {
-                let itemData = items[item.name];
+                let itemData = structuredClone(items[item.name]);
                 if(!itemData) {
                     console.log("Item not found: " + item.name);
                     return;
                 }
 
                 itemData.rarity = ["Bronze","Silver","Gold","Diamond","Legendary"][parseInt(item.tier)];
-                itemData.enchant = Item.possibleEnchants[parseInt(item.enchantment)];
-                let newItem = new Item(items[item.name], this);
+                let bazaartrackerEnchantList = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny', 'Tiny', 'Toxic', 'Turbo' ];
+                if(item.enchantment) {
+                    itemData.enchant = bazaartrackerEnchantList[parseInt(item.enchantment)];
+                }
+                let newItem = new Item(itemData, this);
                 //this.addItem(newItem);
                 item.itemAdded = newItem;
 
