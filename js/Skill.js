@@ -15,6 +15,7 @@ export class Skill {
             tags: this.tags,
             tier: this.tier
         });
+        this.itemProxy.isSkill = true;
         this.itemProxy.board = board;
         this.board = board;
 

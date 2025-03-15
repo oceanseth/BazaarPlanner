@@ -2546,6 +2546,12 @@ export class Item {
                     case "or your enemy burns":
                         this.board.player.hostileTarget.board.burnTriggers.set(this.id,triggerFunctionFromText);
                     case "burn with an item":
+                        this.board.itemTriggers.set(this.id+'-burn_with_an_item', (item) => {
+                            if(item.tags.includes("Burn")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
                     case "burn":
                         this.board.burnTriggers.set(this.id,triggerFunctionFromText);
                         return;
@@ -2582,6 +2588,12 @@ export class Item {
                     case "or your enemy poisons":
                         this.board.player.hostileTarget.board.poisonTriggers.set(this.id,triggerFunctionFromText);
                     case "poison with an item":
+                        this.board.itemTriggers.set(this.id+'-poison_with_an_item', (item) => {
+                            if(item.tags.includes("Poison")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
                     case "poison":
                         this.board.poisonTriggers.set(this.id, triggerFunctionFromText);
                         return;
@@ -3404,13 +3416,16 @@ export class Item {
 
         }
         
+        
+      
         //Destroy a small item.
         regex = /^\s*Destroy an? ([^\s]+)(?: enemy)? item(?: for the fight)?\.?/i;
         match = text.match(regex);
         if(match) {
             const tagToMatch = Item.getTagFromText(match[1]);
             return () => {
-                const targets = this.board.items.filter(item => item.tags.includes(tagToMatch));
+                let targets = this.board.player.hostileTarget.board.activeItems;
+                if(tagToMatch!='Enemy') targets = targets.filter(item => item.tags.includes(tagToMatch));
                 if(targets.length>0) {
                     this.pickRandom(targets).destroy(this);
                 }
@@ -4174,14 +4189,7 @@ export class Item {
                 this.log(this.name + " gained " + dmgGain + " damage");
             };
         }*/
-       //Destroy an enemy item for the fight.
-       regex = /^Destroy an enemy item for the fight\.?$/i;
-       match = text.match(regex);
-       if(match) {
-        return () => {
-            this.pickRandom(this.board.player.hostileTarget.board.items).destroy(this);
-        };
-       } 
+
 
 
         //Give the weapon to the left of this ( +10 » +20 » +30 ) damage for the fight
@@ -4974,15 +4982,7 @@ export class Item {
                 }
             }   
         }
-    //destroy an item for the fight. from Ravenous
-    regex = /^destroy an item for the fight\.?$/i;
-    match = text.match(regex);
-    if(match) {
-        return (item) => {
-            const randomItem = this.pickRandom(this.board.player.hostileTarget.board.activeItems);
-            randomItem.destroy(item||this);
-        }
-    }
+        
     //Reload (2/4/6/8) items. from Panic
     regex = /^Reload (\([^)]+\)|\d+) items\.?$/i;
     match = text.match(regex);
