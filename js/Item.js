@@ -4774,19 +4774,28 @@ export class Item {
         if(match) {
             const gainAmount = getRarityValue(match[3], this.rarity);
             const tagToMatch = match[2]=="item" ? null:Item.getTagFromText(match[2]);
-            let matchingItems = tagToMatch?this.board.items.filter(item => item.tags.includes(tagToMatch)):this.board.items;
             const whatToGain = match[4].toLowerCase();
-            switch(whatToGain) 
-            {
-                case "crit":
-                    matchingItems = matchingItems.filter(item => Item.allowedGainMap['crit'].some(tag => item.tags.includes(tag)));
-                break;                    
+            let itemGained = null;
+
+            let f = (itemDestroyed) => {
+                let matchingItems = tagToMatch?this.board.activeItems.filter(item => item.tags.includes(tagToMatch)):this.board.items;                
+                switch(whatToGain) 
+                {
+                    case "crit":
+                        matchingItems = matchingItems.filter(item => Item.allowedGainMap['crit'].some(tag => item.tags.includes(tag)));
+                    break;                    
+                }
+                let matchingItem = match[1] == "leftmost" ?matchingItems[0]:matchingItems[matchingItems.length-1];
+                if(matchingItem && matchingItem!=itemGained) {
+                    if(itemDestroyed != itemGained) {
+                        itemGained.gain(-gainAmount, whatToGain);
+                    }
+                    matchingItem.gain(gainAmount, whatToGain);
+                    itemGained = matchingItem;
+                }
             }
-            const matchingItem = match[1] == "leftmost" ?matchingItems[0]:matchingItems[matchingItems.length-1];
-            
-            if(matchingItem) {
-                matchingItem.gain(gainAmount, whatToGain);
-            }
+            f(null);
+            this.board.itemDestroyedTriggers.set(this.id,f);
 
             return ()=>{};
         }
