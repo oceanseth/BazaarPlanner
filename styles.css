@@ -798,24 +798,25 @@ button:active {
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 4px; 
+    gap: 2px; 
     position: absolute;
     top: -12px;
     height: 20px;
-    z-index: 1111;
+    z-index: 1112;
 }
 .shield-element,
 .damage-element,
 .burn-element,
 .heal-element,
+.regen-element,
 .poison-element {
     border: 1px solid var(--text-color);
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
-    padding: 2px 4px;
+    padding: 2px 2px;
     border-radius: 3px;
     font-size: 0.8em;
-    min-width: 20px;
+    
     text-align: center;
     text-shadow: 
         -0.5px -0.5px 0 #333,
@@ -858,7 +859,7 @@ button:active {
     color: rgb(255, 0, 0);
 }
 
-.heal-element,.Heal {
+.heal-element,.regen-element,.Heal,.Regeneration {
     color: rgb(0, 255, 0);
 }
 .Slow {
@@ -874,7 +875,6 @@ font.Crit:before, font.Slow:before, font.Haste:before, font.Charge:before, font.
     filter:drop-shadow(1px 1px 1px rgba(0, 0, 0, 1));
     margin-top: -2px;
 }
-
 font.Crit:before {
     background-image: url("data:image/svg+xml,%3Csvg height='12' width='12' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle fill='black' cx='9' cy='9' r='8'/%3E%3Ccircle fill='rgb(255,0,0)' cx='9' cy='9' r='6'/%3E%3Cpath fill='rgb(255,0,0)' d='M8 1h2v16H8z'/%3E%3Cpath fill='rgb(255,0,0)' d='M1 8h16v2H1z'/%3E%3Ccircle fill='black' cx='9' cy='9' r='4'/%3E%3Ccircle fill='rgb(255,0,0)' cx='9' cy='9' r='2'/%3E%3Ccircle fill='black' cx='9' cy='9' r='1'/%3E%3C/svg%3E");
 }
@@ -883,7 +883,7 @@ font.Haste:before,font.Charge:before {
     background-image: url("data:image/svg+xml,%3Csvg height='12' width='12' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath style='fill:rgb(0, 236, 195);' d='M14.868,6.191c-.213-.426-.642-.691-1.118-.691h-2.653l1.088-2.798c.149-.385,.099-.818-.134-1.159-.233-.34-.619-.543-1.031-.543H6.85c-.522,0-.994,.329-1.174,.819l-2.385,6.501c-.14,.383-.083,.812,.15,1.146,.234,.334,.617,.533,1.024,.533h3.79l-1.727,6.044c-.1,.348,.063,.717,.387,.878,.107,.053,.221,.078,.334,.078,.229,0,.454-.106,.6-.3L14.751,7.5c.285-.381,.33-.882,.117-1.309Z'%3E%3C/path%3E%3C/svg%3E");
 }
 
-font.Heal:before {
+font.Heal:before,font.Regeneration:before {
     background-image: url("data:image/svg+xml,%3Csvg height='12' width='12' viewBox='0 0 18 18' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='rgb(0, 255, 0)' d='M16.75 6h-4.75V1.25c0-0.414-0.336-0.75-0.75-0.75H6.75c-0.414 0-0.75 0.336-0.75 0.75V6H1.25c-0.414 0-0.75 0.336-0.75 0.75v4.5c0 0.414 0.336 0.75 0.75 0.75H6v4.75c0 0.414 0.336 0.75 0.75 0.75h4.5c0.414 0 0.75-0.336 0.75-0.75v-5h4.75c0.414 0 0.75-0.336 0.75-0.75V6.75c0-0.414-0.336-0.75-0.75-0.75Z'%3E%3C/path%3E%3C/svg%3E");
 }
 
@@ -1192,6 +1192,7 @@ font.Slow:before {
 .battle-stats .damage-element,
 .battle-stats .burn-element,
 .battle-stats .heal-element,
+.battle-stats .regen-element,
 .battle-stats .poison-element,
 .battle-stats .shield-element {
     position: relative;
@@ -1200,6 +1201,7 @@ font.Slow:before {
 .battle-stats .damage-element::before,
 .battle-stats .burn-element::before,
 .battle-stats .heal-element::before,
+.battle-stats .regen-element::before,
 .battle-stats .poison-element::before,
 .battle-stats .shield-element::before {
     content: "";
@@ -1216,7 +1218,7 @@ font.Slow:before {
 .battle-stats .burn-element::before {
     background-image: url('/images/17px-Burn.webp');
 }
-.battle-stats .heal-element::before {
+.battle-stats .heal-element::before,.battle-stats .regen-element::before {
     background-image: url('/images/17px-Heal.webp');
 }
 .battle-stats .shield-element::before {

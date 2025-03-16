@@ -7,7 +7,7 @@ import { Skill } from './Skill.js';
 export function colorTextArray(textArray, rarityIndex) {
     return Array.isArray(textArray) ? 
         textArray.map(line => {
-            line=line.replace(/(?:^|\s)(Ammo|Haste|Charge|Heal|Shield|Slow|Lifesteal|Freeze|Multicast|(?:\([^\)]+\)|\d+) Damage|Burn|Poison|Crit Chance|Value)( |\.|,|:|$)/gi," <font class='$1'>$1</font>$2");
+            line=line.replace(/(?:^|\s)(Ammo|Haste|Charge|Heal|Shield|Slow|Lifesteal|Freeze|Multicast|(?:\([^\)]+\)|\d+) Damage|Burn|Regeneration|Poison|Crit Chance|Value)( |\.|,|:|$)/gi," <font class='$1'>$1</font>$2");
          
             // Match patterns like ( X » Y » Z » W ) or ( X / Y / Z / W )
             return line.replace(/\(\s*((?:[^»)\/]+\s*[»\/]\s*)*[^»)\/]+)\s*\)/g, (match, values) => {

@@ -541,7 +541,7 @@ function search(searchString, section = 'all') {
         const listItems = container.querySelectorAll('.list-item');
         listItems.forEach(item => {
             const itemName = item.getAttribute('data-name') || '';
-            const itemText = (item.text || '')+ " " + (item.bottomtext||'');
+            const itemText = items[itemName].text?items[itemName].text.join('').toLowerCase():'';
             const itemData = items[itemName]; // Get item data for tag check
             let show = true;
             
@@ -550,7 +550,7 @@ function search(searchString, section = 'all') {
                 const matchesTag = itemData.tags && itemData.tags.some(tag => tag.toLowerCase() === searchString); // Check for tag match
             
                 if (itemName.toLowerCase().includes(searchString) || 
-                    itemText.toLowerCase().includes(searchString) || 
+                    itemText.includes(searchString) || 
                     matchesTag) { // Include tag match in the condition
                     show &= true;
                 } else {

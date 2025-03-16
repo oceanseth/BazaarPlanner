@@ -101,10 +101,10 @@ export class Item {
         this.battleStatsElement = document.createElement('div');
         this.battleStatsElement.className = 'battle-stats';
         this.battleStatsElement.innerHTML = `
+            <div class="heal-element"></div>    
             <div class="damage-element"></div>
             <div class="burn-element"></div>
-            <div class="poison-element"></div>
-            <div class="heal-element"></div>
+            <div class="poison-element"></div>            
             <div class="shield-element"></div>
             <div class="multicast-element"></div>
         `;
@@ -172,6 +172,12 @@ export class Item {
             this.multicastElement.textContent = "x"+Number(this.multicast+1).toFixed(0);
         }
         else this.multicastElement.style.display = 'none';
+
+        if(this.regen>0) {
+            this.regenElement.style.display ='block';
+            this.regenElement.textContent = formatNumber(this.regen);
+        }
+        else this.regenElement.style.display = 'none';
 
         if(this.lifesteal > 0) this.damageElement.classList.add('lifesteal');
         else this.damageElement.classList.remove('lifesteal');
@@ -341,11 +347,12 @@ export class Item {
     createElement() {
         const mergedSlot = document.createElement('div');
         mergedSlot.innerHTML = `<div class="trigger-values">
+            <div class="heal-element"></div>    
+            <div class="regen-element"></div>
             <div class="damage-element"></div>
-            <div class="burn-element"></div>
-            <div class="poison-element"></div>
-            <div class="heal-element"></div>
             <div class="shield-element"></div>
+            <div class="burn-element"></div>
+            <div class="poison-element"></div>                        
             <div class="multicast-element"></div>
             <div class="ammo-element"></div>
             </div>
@@ -359,6 +366,7 @@ export class Item {
         this.shieldElement = this.triggerValuesElement.querySelector('.shield-element');
         this.multicastElement = this.triggerValuesElement.querySelector('.multicast-element');
         this.ammoElement = this.triggerValuesElement.querySelector('.ammo-element');
+        this.regenElement = this.triggerValuesElement.querySelector('.regen-element');
         mergedSlot.className = 'merged-slot';
         if(this.editable) {
             mergedSlot.style.cursor='move';
@@ -1322,15 +1330,15 @@ export class Item {
     }
 
     getHealTriggerFunctionFromText(text) {
-        let regex = /Heal (?:\(([^)]+)\)|(\d+))/i;
+        let regex = /Heal (?:\(([^)]+)\)|(\d+))(?: and (.*))?$/i;
         let match = text.match(regex);
         if(match) {
             const healAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             this.gain(healAmount,'heal');
+            const andFunction = match[3] ? this.getTriggerFunctionFromText(match[3]) : null;
             return () => {                
                 this.applyHeal(this.heal);
-
-                this.log(this.name + " healed " + this.board.player.name + " for " + healAmount);
+                andFunction?.();
             };
         }
 
@@ -1357,7 +1365,7 @@ export class Item {
 
         //Heal equal to this item's Damage.
         //Deal damage equal to this item's Heal.
-        regex = /^(?:Deal )?(Heal|Shield|Burn|Poison|Damage) equal to (\([^)]+\)|\d+|double|triple)?(?: times)?\s*this item's (Heal|Shield|Burn|Poison|Damage|Value)/i;
+        regex = /^(?:Deal )?(Heal|Shield|Burn|Poison|Damage) equal to (\([^)]+\)|\d+|double|triple)?(?: times)?\s*this item's (Heal|Shield|Burn|Poison|Damage|Value|Regeneration)/i;
         match = text.match(regex);
         if(match) {
             const whatToGain = match[1].toLowerCase();
@@ -1559,8 +1567,10 @@ export class Item {
             case 'burn':
                 this.burn += amount;
                 break;
+            case 'regeneration':
             case 'regen':
                 this.regen += amount;
+                this.log((source?(source.name+" gave "):"") + this.name + " +" + amount.toFixed(0) + " Regeneration");
                 break;
                 
             case 'crit':
@@ -1855,7 +1865,7 @@ export class Item {
 
         //Your Shield item to the right of this gains ( +4 » +8 » +12 » +16 ) Shield for the fight. from Yellow Piggles R
         //Your Shield items gain ( +2 » +4 » +6 » +8 ) Shield for the fight. from Yellow Piggles X
-        regex = /(?:Your|The) ([^\s]+)? ?item(s)?(?: to the (right|left) of this)? gains? (\([^)]+\)|\+?\d+%?) ([^\s]+)(?: chance)? for the fight/i;
+        regex = /^(?:Your|The) ([^\s]+)? ?item(s)?(?: to the (right|left) of this)? gains? (\([^)]+\)|\+?\d+%?) ([^\s]+)(?: chance)? for the fight/i;
         match = text.match(regex);
         if (match) {
             const tagToMatch = Item.getTagFromText(match[1]);
@@ -2555,7 +2565,7 @@ export class Item {
                         });
                         return;
                     case "burn":
-                        this.board.burnTriggers.set(this.id,triggerFunctionFromText);
+                        this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),triggerFunctionFromText);
                         return;
                     case "haste":
                         this.board.hasteTriggers.set(this.id,(i,source) => {
@@ -2572,7 +2582,7 @@ export class Item {
                         this.board.player.hostileTarget.board.freezeTriggers.set(this.id,triggerFunctionFromText);
                         return;
                     case "freeze":
-                        this.board.freezeTriggers.set(this.id,(target,source)=>{
+                        this.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),(target,source)=>{
                                 triggerFunctionFromText(source);
                         });
                         return;
@@ -5131,9 +5141,10 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const gainAmount = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
+            this.gain(gainAmount,'regen');
            return ()=>{
-            this.board.player.gainRegen(gainAmount);
-            this.log(this.name + " added " + gainAmount + " Regeneration");
+            this.board.player.gainRegen(this.regen, this);
+            this.log(this.name + " added " + this.regen + " Regeneration");
            }
 
         }
