@@ -142,8 +142,9 @@ export class Player {
         this.heal(Math.round(healAmount));
     }
 
-    gainRegen(regenAmount) {
+    gainRegen(regenAmount, source) {
         this.regen += Math.round(regenAmount);
+        this.log((source?(source.name+" gave "):"") + this.name + " +" + regenAmount.toFixed(0) + " Regeneration");
     }
 
     updateBattle(timeDiff) {
