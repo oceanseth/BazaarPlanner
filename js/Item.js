@@ -48,7 +48,7 @@ export class Item {
         setupChangeListeners(this,Item.possibleChangeAttributes);
         this.startItemData = structuredClone(itemData);
         this.board = board;        
-        if(board) this.editable = board.editable;
+        if(board) this.editable = board.options.editable;
         else this.editable = true;
         Object.assign(this, this.startItemData);
         if(this.rarity == undefined && this.tier!=undefined) {
