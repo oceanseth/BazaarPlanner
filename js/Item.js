@@ -2816,7 +2816,7 @@ export class Item {
                     return;
                 case "you freeze":
                     let freezeCount = 0;
-                    this.board.player.hostileTarget.board.freezeTriggers.set(this.id,(item)=>{
+                    this.board.freezeTriggers.set(this.id,(item)=>{
                         if(freezeCount++<=numTimes) {
                             ntimesFunction(item);
                             if(freezeCount==numTimes) {

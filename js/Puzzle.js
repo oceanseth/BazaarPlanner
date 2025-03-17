@@ -139,6 +139,12 @@ export class Puzzle {
             <b>In 100 battles, how many times does the bottom board win (or tie)?</b>`;
             document.getElementById("puzzle-slider-container").style.display = "flex";
                     break;
+                case 'buildboard_npc':
+                    html += data.desc+`<br/><br/><b>Build a board that will give the best win chance vs the Dragon npc. We will reveal the optimal board, simulate the battle, and display the win rate.</b>`;
+                    document.getElementById("puzzle-slider-container").style.display = "flex";
+                    Puzzle.bottomPlayer.board.allowPositionChange = true;
+                    Puzzle.topPlayer.board.allowPositionChange = true;
+                    break;
                 case 'select':
                     html += data.desc+`<br/><br/><select id="puzzle-select-options"><option value="" disabled selected>Select one</option>
                         ${data.options.map(option => `<option value="${option}">${option}</option>`).join('')}

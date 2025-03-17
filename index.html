@@ -341,6 +341,17 @@
                             <button onclick="Board.getBoardFromId('b').importFromBazaarTracker()">Import</button>
                         </div>
                     </div>
+                    <div class="board-container" id="backpack-container" style="display: none;">
+                        <div id="backpack" class="board">
+                            <!-- Slots will be generated here -->                            
+                        </div>
+                        <div class="board-controls">
+                            <button onclick="Board.getBoardFromId('backpack').clear()">Clear</button>
+                            <button onclick="Board.getBoardFromId('backpack').save()">Save</button>
+                            <button onclick="Board.getBoardFromId('backpack').load()">Load</button>
+                            <button onclick="Board.getBoardFromId('backpack').importFromBazaarTracker()">Import</button>
+                        </div>
+                    </div>
                 </div>
                 
             </div>
