@@ -7,12 +7,12 @@ class Board {
     static boards = new Map();
     static uniqueTypeTags = ['Ammo','Apparel','Aquatic','Core','Dinosaur','Dragon','Food','Friend','Loot','Potion','Property','Ray','Tech','Tool','Toy','Vehicle','Weapon'];
 
-    constructor(boardId, player, editable=true) {
+    constructor(boardId, player, options={editable:true, skills: true}) {
         this.boardId = boardId;
         this.player = player;
         this.player.board = this;
         this.element = document.getElementById(boardId);
-        this.editable = editable;
+        this.options = options;
         this.initialize();
         Board.boards.set(boardId,this);
         this.reset();
@@ -52,7 +52,7 @@ class Board {
             this.element.appendChild(slot);
             this.slots.push(slot);
         }
-        if(this.editable) {
+        if(this.options.editable && this.options.skills) {
             const addSkillButton = document.createElement('div');
             addSkillButton.className = 'add-skill-button';
             addSkillButton.classList.add('editorOpener');
@@ -85,7 +85,7 @@ class Board {
         this.items = [];
         this.skills = [];
         this.reset();
-        if(this.editable)updateUrlState();
+        if(this.options.editable)updateUrlState();
     }
     get activeItems() {
         return this.items.filter(item => !item.isDestroyed);
@@ -157,7 +157,7 @@ class Board {
 
 
     showSkillSelector() {
-        if(!this.editable) return;
+        if(!this.options.editable) return;
         if(this.skillSelector) {
             document.body.removeChild(this.skillSelector);
         }
@@ -200,7 +200,7 @@ class Board {
                 this.skillSelector.style.display = 'none';
                 this.player.reset();
                 this.player.setup();
-                if(this.editable) updateUrlState();
+                if(this.options.editable) updateUrlState();
             };
             skillItem.onmouseenter = (e) => {
                 const skillSelectorTooltip = document.createElement('div');
@@ -301,7 +301,7 @@ class Board {
         } else {
             this.playerElement.style.backgroundImage = "none";
         }
-        if(this.editable) {
+        if(this.options.editable) {
             this.playerElement.classList.add('editorOpener');
             this.playerElement.onclick = () => {
                 this.player.openEditor();
@@ -415,7 +415,7 @@ class Board {
         this.player.reset();
         this.player.setup();
         window.isLoadingFromUrl = false;
-        if(this.editable) updateUrlState();
+        if(this.options.editable) updateUrlState();
     }
     importFromBazaarTracker() {        
         if(!window.isDoner) {
@@ -463,7 +463,7 @@ class Board {
         let newSkillData = structuredClone(skills[skillName]);
         newSkillData.name = skillName;
         Object.assign(newSkillData,skillData);
-        let newSkill = new Skill(newSkillData, this,this.editable);
+        let newSkill = new Skill(newSkillData, this,this.options.editable);
         this.skills.push(newSkill);
         this.skillsElement.appendChild(newSkill.element);
         newSkill.setup();
@@ -473,7 +473,7 @@ class Board {
         this.skillsElement.removeChild(skill.element);
         this.player.reset();
         this.player.setup();
-        if(this.editable) updateUrlState();
+        if(this.options.editable) updateUrlState();
     }
     createPlayerElement() {
         this.playerElement = document.createElement('div');
@@ -497,7 +497,7 @@ class Board {
 
         this.healthElement.className = 'health-element';
         
-        if(this.editable) {
+        if(this.options.editable) {
             this.healthElement.classList.add('editorOpener');
             this.healthElement.onclick = () => {
                 this.player.openEditor();
@@ -823,7 +823,7 @@ class Board {
             this.deleteZone.style.display = 'none';
             this.reset();
             this.setup();
-            if(this.editable) updateUrlState();
+            if(this.options.editable) updateUrlState();
         }); 
         this.element.appendChild(this.deleteZone);
     }
@@ -881,7 +881,7 @@ class Board {
             }
             targetBoard.sortItems();
             this.player.battle.resetBattle();
-            if(this.editable) updateUrlState();
+            if(this.options.editable) updateUrlState();
         }
         document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
             element.classList.remove('valid-drop', 'invalid-drop', 'dragging');
@@ -908,7 +908,7 @@ class Board {
     }
     removeItem(item) {
         this.items = this.items.filter(i => i !== item);
-        if(this.editable) updateUrlState();
+        if(this.options.editable) updateUrlState();
     }
     uniqueTypeTagCache = [];
     get uniqueTypeTags() {
@@ -979,7 +979,7 @@ class Board {
                     this.player.startPlayerData = data.player;
                     this.reset();
                     this.setup();
-                    if(this.editable) updateUrlState();
+                    if(this.options.editable) updateUrlState();
                 } catch (error) {
                     console.error('Error loading file:', error);
                     alert('Invalid file format');
@@ -1109,7 +1109,7 @@ class Board {
         this.player.startPlayerData.name = monsterData.name;
 
         this.player.battle.resetBattle();
-        if(this.editable) updateUrlState();
+        if(this.options.editable) updateUrlState();
     }
     itemTriggered(item) {    
         this.critPossible=false;

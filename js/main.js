@@ -681,3 +681,19 @@ document.addEventListener('click', (e) => {
     }
 
 });
+document.addEventListener('keyup', (e) => {
+    if(e.target!=document.body) return;
+    if(window.backpackBoard==null) {
+        window.backpackPlayer = new Player({name:"Backpack", maxHealth:1000}, 'backpack');
+        window.backpackBoard = new Board(document.getElementById('backpack'),window.backpackPlayer);
+        window.backpackBoard.reset();
+        window.backpackBoard.setup();
+    }
+    if(e.key==' ') {
+        const backpackContainer = document.getElementById('backpack-container');
+        if(backpackContainer) {
+            backpackContainer.style.display = backpackContainer.style.display == 'none' ? 'block' : 'none';
+        }
+    }
+});
+

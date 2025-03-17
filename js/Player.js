@@ -17,7 +17,7 @@ export class Player {
         if(!startPlayerData.regen) startPlayerData.regen = 0;
         Object.assign(this, startPlayerData);
         if(boardId) {
-            const board = new Board(boardId, this, editable);
+            const board = new Board(boardId, this, {editable:editable, skills:editable});
             this.board = board;
         }
     }
