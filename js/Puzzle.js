@@ -92,7 +92,9 @@ export class Puzzle {
             let boardState = null;
             if(data && data.d) {
                 boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(data.d));
-                
+                if(data.type=='buildboard_npc') {
+                    Puzzle.bottomPlayer.board.options.editable = true;
+                }
                 boardState.forEach(item => {  
                     if(item.name=='_b_t') {
                         item.name = '_b_puzzle-top';
@@ -110,12 +112,14 @@ export class Puzzle {
                         item.board='puzzle-bottom';
                         return;
                     }
-                });
+                });               
             } else {
-                alert("No puzzle for this date")
+                alert("No puzzle found.")
+                return;
             }
             const stateStr = LZString.compressToEncodedURIComponent(JSON.stringify(boardState));
             loadFromUrl(stateStr);   
+            Puzzle.bottomPlayer.board.options.editable = false;
             document.getElementById("puzzle-slider-container").style.display = "none";
             document.getElementById("puzzle-select-container").style.display = "none";
             let html = "";
@@ -140,8 +144,7 @@ export class Puzzle {
             document.getElementById("puzzle-slider-container").style.display = "flex";
                     break;
                 case 'buildboard_npc':
-                    html += data.desc+`<br/><br/><b>Build a board that will give the best win chance vs the Dragon npc. We will reveal the optimal board, simulate the battle, and display the win rate.</b>`;
-                    document.getElementById("puzzle-slider-container").style.display = "flex";
+                    html += data.desc+`<br/><br/><b>Drag items on the bottom board to change their position to give the best possible win chance.</b>`;
                     Puzzle.bottomPlayer.board.allowPositionChange = true;
                     Puzzle.topPlayer.board.allowPositionChange = true;
                     break;
@@ -167,6 +170,8 @@ export class Puzzle {
         if(Puzzle.isLoading) return;
         if(Puzzle.puzzleData.type == 'select') {
             Puzzle.guess = document.getElementById("puzzle-select-options").value;
+        } else if(Puzzle.puzzleData.type == 'buildboard_npc') {
+            Puzzle.guess =  JSON.stringify(Puzzle.bottomPlayer.board.items.map(item => item.name));
         } else {
             Puzzle.guess = document.getElementById("puzzle-guess-slider").value;
         }
@@ -222,6 +227,16 @@ function showResults() {
         let win = false;
         if(Puzzle.puzzleData.type == 'select') {
             win = Puzzle.guess == result.answer;
+        } else if(Puzzle.puzzleData.type == 'buildboard_npc') {
+            win = result.answer.some(v=>JSON.stringify(v)==Puzzle.guess);
+            let startIndex = 0;
+            result.answer[0].forEach(itemName => {
+                const foundItem =Puzzle.bottomPlayer.board.items.find(i=>i.name==itemName);
+                if(foundItem) {
+                    foundItem.setIndex(startIndex);
+                    startIndex += foundItem.size;
+                }
+            });
         } else {
             win = Math.abs(Puzzle.guess -result.b)<=10;
         }
@@ -229,7 +244,7 @@ function showResults() {
                         <h1>Puzzle ${Puzzle.puzzleId}</h1>
                         <p>${Puzzle.puzzleData.title} : submitted by ${Puzzle.puzzleData.by}</p>
                         <p>Your guess: ${Puzzle.guess}</p>
-                        <p>Correct answer: ${result.answer || result.b}</p>
+                        <p>Correct answer: ${result.answerDesc ||result.answer || result.b}</p>
                     `;
                 
  /*
