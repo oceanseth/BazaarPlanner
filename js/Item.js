@@ -38,6 +38,37 @@ export class Item {
     log(s) {
            if(this.board.player.battle) this.board.player.battle.log(s);
     }
+    _isEditable = false;
+    get editable() {
+        return this._isEditable;
+    }
+    set editable(value) {
+        if(value==this._isEditable) return;
+        this._isEditable = value?true:false;
+        this.setupEditableEvents();
+    }
+    setupEditableEvents() {
+        const e = this.element;  
+        if(this.editable && e) {
+            this.element.style.cursor='move';       
+            e.draggable = true;        
+            e.addEventListener('click', this.showEditor);
+
+            e.addEventListener('dragstart', Board.handleDragStart);
+            e.addEventListener('dragend', Board.handleDragEnd);
+            e.addEventListener('touchstart', Board.handleTouchStart);
+            e.addEventListener('touchend', Board.handleTouchEnd);
+        } else if(e) {
+            this.element.style.cursor='default';
+            e.draggable = false;
+            e.removeEventListener('click', this.showEditor);
+            e.removeEventListener('dragstart', Board.handleDragStart);
+            e.removeEventListener('dragend', Board.handleDragEnd);
+            e.removeEventListener('touchstart', Board.handleTouchStart);
+            e.removeEventListener('touchend', Board.handleTouchEnd);
+        }
+    }
+
 
     constructor(itemData, board) {
         if(!itemData) {
@@ -66,7 +97,6 @@ export class Item {
             }
         }
 
-        this.isEditable = true;
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
         if(this.startItemData.value==undefined) this.startItemData.value = this.getInitialValue();
         if(items[this.name] && items[this.name].value==undefined) items[this.name].value = this.startItemData.value;
@@ -75,6 +105,7 @@ export class Item {
         if(itemData.value==undefined) itemData.value = this.startItemData.value;
         this.resetCooldown();
         this.element = this.createElement();
+        this.setupEditableEvents();
 
         if(itemData.cooldown) {
             this.progressBar = document.createElement('div'); 
@@ -389,17 +420,6 @@ export class Item {
             mergedSlot.appendChild(icon);
         }
 
-        if(this.editable) {
-            mergedSlot.draggable = true;        
-            mergedSlot.addEventListener('click', () => {
-                this.showEditor();
-            });
-
-            mergedSlot.addEventListener('dragstart', Board.handleDragStart);
-            mergedSlot.addEventListener('dragend', Board.handleDragEnd);
-            mergedSlot.addEventListener('touchstart', Board.handleTouchStart);
-            mergedSlot.addEventListener('touchend', Board.handleTouchEnd);
-        }
         // Add event listeners
         mergedSlot.addEventListener('mouseenter', () => {
             if(this.isDestroyed) return;
@@ -1967,8 +1987,8 @@ export class Item {
             this.enchant = enchant=='None'?'':enchant;
         }
     }
-    showEditor() {
-        if(!this.isEditable || document.querySelector('.item-edit-popup')!=null) return;
+    showEditor = () => {
+        if(!this.editable || document.querySelector('.item-edit-popup')!=null) return;
         const itemData = this.startItemData;
         // List of available enchantments and rarities
         const enchantments = ['None',...Object.keys(items[itemData.name].enchants)];

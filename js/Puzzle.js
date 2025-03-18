@@ -235,6 +235,7 @@ function showResults() {
                 if(foundItem) {
                     foundItem.setIndex(startIndex);
                     startIndex += foundItem.size;
+                    foundItem.editable = false;
                 }
             });
         } else {
