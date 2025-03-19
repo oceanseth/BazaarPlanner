@@ -299,6 +299,9 @@ function showResults() {
         html+= `<button onclick="Puzzle.loadInSim()">Load in Simulator</button></div>`;
         
         document.getElementById("puzzle-content").innerHTML = html;
+        if(Puzzle.puzzleData.type == 'select_skill') {            
+            Puzzle.bottomPlayer.board.addSkill(result.answer,{tier:Puzzle.puzzleData.options.find(o=>o.name==result.answer).tier});
+        }
         Puzzle.runBattle();
     });
 }
