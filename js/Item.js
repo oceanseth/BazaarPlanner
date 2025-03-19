@@ -4222,8 +4222,18 @@ export class Item {
             };
         }*/
 
-
-
+            //Your Lifesteal weapons have double damage. from Runic Great Axe
+            regex = /^\s*Your Lifesteal weapons have double damage\.?/i;
+            match = text.match(regex);
+            if(match) {
+                this.board.items.forEach(item => {
+                    if(item.text.some(t=>t=="Lifesteal") && item.tags.includes("Weapon")) {
+                        item.damage += item.damage;
+                        item.damage_multiplier += 1;
+                    }
+                });
+                return () => {};
+            }
         //Give the weapon to the left of this ( +10 » +20 » +30 ) damage for the fight
         regex = /^(?:Give )?the weapon to the left of this(?: gains)? (\([^)]+\)|\+\d+) damage for the fight\.?/i;
         match = text.match(regex);

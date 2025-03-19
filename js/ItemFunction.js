@@ -913,23 +913,6 @@ ItemFunction.items.set("Scythe",(item)=>{
     });
 
 });
-ItemFunction.items.set("Runic Great Axe",(item)=>{
-    //Your Weapons with lifesteal gain ( +20 » +40 » +60 » +80 ) damage for the fight. from Runic Great Axe
-    const amount = getRarityValue("20 >> 40 >> 60 >> 80",item.rarity);
-    const dmg = getRarityValue("20 >> 40 >> 60 >> 80", item.rarity);
-    item.gain(dmg,'damage');
-    item.triggerFunctions.push(()=>{
-        item.board.items.forEach(i=>{
-            if(i.tags.includes("Weapon") && i.lifesteal) {
-
-                i.gain(amount,'damage');
-            }
-        });
-    });
-    item.lifesteal = true;
-
-
-});
 // Adjacent items have bonus damage, heal, or shield equal to their Crit Chance. from Swash Buckle
 ItemFunction.items.set("Swash Buckle",(item)=>{
     const adjacentItems = item.getAdjacentItems();
