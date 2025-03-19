@@ -3,6 +3,7 @@ import {loadFromUrl} from './utils.js';
 import { Player } from './Player.js';
 import { Board } from './Board.js';
 import { Battle } from './Battle.js';
+import { Skill } from './Skill.js';
 
 export class Puzzle {
     static solved=false;
@@ -154,11 +155,37 @@ export class Puzzle {
                     </select>`;
                     document.getElementById("puzzle-select-container").style.display = "flex";
                     break;
+                case 'select_skill':
+                    html += data.desc;
+                    html+=`<input type="hidden" id="puzzle-select-options">
+                    <div id="puzzle-select-skill" style="margin-top: 10px; width:100%; text-align: center; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;"></div>`;
+                    break;
             }
            
 
             const descriptionElement = document.getElementById("puzzle-description");
             if(descriptionElement) descriptionElement.innerHTML = html;
+
+            if(Puzzle.puzzleData.type == 'select_skill') {
+                const puzzleSelectSkill = document.getElementById("puzzle-select-skill");
+                data.options.forEach(option => {
+                    const newSkillData = structuredClone(skills[option.name]);
+                    newSkillData.name = option.name;
+                    newSkillData.tier = option.tier;
+                    const skill = new Skill(newSkillData,null,false);        
+                    skill.element.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        event.preventDefault();
+                        document.querySelectorAll(".puzzle-select-skill-selected").forEach(element => {
+                            element.classList.remove("puzzle-select-skill-selected");
+                        });
+                        skill.element.classList.add("puzzle-select-skill-selected");
+
+                        document.getElementById("puzzle-select-options").value = option.name;
+                    });            
+                    puzzleSelectSkill.appendChild(skill.element);
+                });
+            }
         });
     }
 
@@ -168,7 +195,7 @@ export class Puzzle {
             return;
         }
         if(Puzzle.isLoading) return;
-        if(Puzzle.puzzleData.type == 'select') {
+        if(Puzzle.puzzleData.type == 'select' || Puzzle.puzzleData.type == 'select_skill') {
             Puzzle.guess = document.getElementById("puzzle-select-options").value;
         } else if(Puzzle.puzzleData.type == 'buildboard_npc') {
             Puzzle.guess =  JSON.stringify(Puzzle.bottomPlayer.board.items.map(item => item.name));
@@ -225,7 +252,7 @@ function showResults() {
         const result = snapshot.val();
         Puzzle.result = result;
         let win = false;
-        if(Puzzle.puzzleData.type == 'select') {
+        if(Puzzle.puzzleData.type == 'select'||Puzzle.puzzleData.type == 'select_skill') {
             win = Puzzle.guess == result.answer;
         } else if(Puzzle.puzzleData.type == 'buildboard_npc') {
             win = result.answer.some(v=>JSON.stringify(v)==Puzzle.guess);

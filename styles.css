@@ -2032,3 +2032,6 @@ select {
         transparent
     );
 }
+.puzzle-select-skill-selected {
+    border: 2px solid var(--link-color);
+}
