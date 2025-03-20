@@ -294,7 +294,7 @@ export const monsters = {
       },
       {
         "name": "Sharpening Stone",
-        "tier": 2
+        "tier": 1
       }
     ]
   },
@@ -380,7 +380,7 @@ export const monsters = {
     "name": "Dabbling Apprentice",
     "icon": "images/monsters/DabblingApprentice.avif",
     "day": 3,
-    "health": 350,
+    "health": 300,
     "skills": [
       {
         "name": "Panic",
@@ -1177,11 +1177,11 @@ export const monsters = {
     "skills": [
       {
         "name": "Augmented Weaponry",
-        "tier": 0
+        "tier": 2
       },
       {
         "name": "Augmented Defenses",
-        "tier": 0
+        "tier": 2
       }
     ],
     "items": [
@@ -1191,7 +1191,8 @@ export const monsters = {
       },
       {
         "name": "Brass Knuckles",
-        "tier": 1
+        "tier": 1,
+        "enchant": "Shielded"
       },
       {
         "name": "Dog",
@@ -2394,7 +2395,7 @@ export const monsters = {
     "items": [
       {
         "name": "Dragon Wing",
-        "tier": 1
+        "tier": 2
       },
       {
         "name": "Fire Claw",
@@ -2410,7 +2411,7 @@ export const monsters = {
       },
       {
         "name": "Dragon Wing",
-        "tier": 1
+        "tier": 2
       }
     ]
   },
@@ -3086,7 +3087,7 @@ export const monsters = {
     "items": [
       {
         "name": "Iceberg",
-        "tier": 3
+        "tier": 2
       },
       {
         "name": "Nitrogen Hammer",
