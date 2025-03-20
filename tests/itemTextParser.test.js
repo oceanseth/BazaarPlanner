@@ -6,6 +6,9 @@ const mockBoardInstance = {
     addItem: () => {},
     items: [],
     activeItems: [],
+    options: {
+        editable: true,
+    },
     itemTriggers: new Map(),
     hasteTriggers: new Map(),
     slowTriggers: new Map(),
@@ -20,6 +23,9 @@ const mockBoardInstance = {
     itemDestroyedTriggers: new Map(),
     reloadTriggers: new Map(),
     uniqueTypeTags: [],
+    hasSlowedItemChanged: () => {},
+    hasHastedItemChanged: () => {},
+    hasFrozenItemChanged: () => {},
     updateHealthElement: () => {},
     player: {
         healthChanged: () => {},
@@ -119,6 +125,7 @@ describe('Item Text Parser Tests', () => {
         Object.entries(items).forEach(([itemName, itemData]) => {
             if(ItemFunction.doNothingItemNames.includes(itemName)) return;
             if(ItemFunction.items.get(itemName)) return;
+            let oldConsoleLogCount = consoleLogCount;
             try {
                 const item = new Item(itemData, mockBoardInstance); // Use mockBoardInstance here                
 
@@ -131,6 +138,9 @@ describe('Item Text Parser Tests', () => {
                 }
             } catch (error) {
                 console.log(`Error processing item ${itemName}:`, error);
+            }
+            if(consoleLogCount>oldConsoleLogCount) {
+                console.log(`Error processing item ${itemName}:`);
             }
         });
 

@@ -1,13 +1,16 @@
 import { Item } from './Item.js';
 import { Skill } from './Skill.js';
 import { updateUrlState } from './utils.js';
+import { setupChangeListeners } from './utils.js';
 
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
     static boards = new Map();
     static uniqueTypeTags = ['Ammo','Apparel','Aquatic','Core','Dinosaur','Dragon','Food','Friend','Loot','Potion','Property','Ray','Tech','Tool','Toy','Vehicle','Weapon'];
+    static possibleChangeAttributes = ['hasSlowedItem','hasHastedItem','hasFrozenItem'];
 
     constructor(boardId, player, options={editable:true, skills: true}) {
+        setupChangeListeners(this, Board.possibleChangeAttributes);
         this.boardId = boardId;
         this.player = player;
         this.player.board = this;
@@ -95,6 +98,7 @@ class Board {
     }
 
     reset() {
+        setupChangeListeners(this, Board.possibleChangeAttributes );
         this.critPossible=true;
         this.damageDealt = 0;
         this.itemTriggers = new Map(); //functions to call when any item on this board is triggered
@@ -821,8 +825,7 @@ class Board {
             }
             this.deleteZone.classList.remove('active');
             this.deleteZone.style.display = 'none';
-            this.reset();
-            this.setup();
+            this.player.battle.resetBattle();
             if(this.options.editable) updateUrlState();
         }); 
         this.element.appendChild(this.deleteZone);
