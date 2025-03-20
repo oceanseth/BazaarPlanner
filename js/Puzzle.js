@@ -194,6 +194,7 @@ export class Puzzle {
             window.showLogin();
             return;
         }
+        let noGuessAlertMsg = "Please make a selection.";
         if(Puzzle.isLoading) return;
         if(Puzzle.puzzleData.type == 'select' || Puzzle.puzzleData.type == 'select_skill') {
             Puzzle.guess = document.getElementById("puzzle-select-options").value;
@@ -201,6 +202,10 @@ export class Puzzle {
             Puzzle.guess =  JSON.stringify(Puzzle.bottomPlayer.board.items.map(item => item.name));
         } else {
             Puzzle.guess = document.getElementById("puzzle-guess-slider").value;
+        }
+        if(Puzzle.guess=="") {
+            alert(noGuessAlertMsg);
+            return;
         }
         firebase.database().ref(`puzzles/${Puzzle.puzzleId}/votes/${window.user.uid}`).set(Puzzle.guess).then(()=>{
             Puzzle.solved = true;

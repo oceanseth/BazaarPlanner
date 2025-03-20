@@ -8,6 +8,19 @@ def fetch_skills():
     response = requests.get(url)
     return response.json()['data']
 
+def download_image(url, local_path):
+    try:
+        response = requests.get(f"https://www.howbazaar.gg/{url}")
+        if response.status_code == 200:
+            os.makedirs(os.path.dirname(local_path), exist_ok=True)
+            with open(local_path, 'wb') as f:
+                f.write(response.content)
+            return True
+        return False
+    except Exception as e:
+        print(f"Error downloading image {url}: {str(e)}")
+        return False
+
 def transform_skill(skill_data):
     # Combine all tags into one list
     all_tags = (
@@ -21,6 +34,16 @@ def transform_skill(skill_data):
     # Create the icon path
     icon_name = re.sub(r'[ \'\"\(\)\-_\.\&]', '', skill_data['name'])
     icon_path = f"images/skills/{icon_name}.avif"
+    
+    # Check if image exists locally and download if it doesn't
+    local_path = f"./public/{icon_path}"
+    if not os.path.exists(local_path):
+        print(f"Downloading missing icon: {icon_path}")
+        if download_image(icon_path, local_path):
+            print(f"Successfully downloaded: {icon_path}")
+        else:
+            print(f"Failed to download: {icon_path}")
+
     if(len(skill_data['unifiedTooltips']) <= 0):
         print(f"No unified tooltips for {skill_data['name']}")
         return None
