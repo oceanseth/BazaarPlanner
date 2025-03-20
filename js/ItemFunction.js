@@ -4,7 +4,7 @@ export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
         "Epicurean Chocolate","Spare Change","Pelt","Candy Mail","Machine Learning","Iron Sharpens Iron","Chocoholic","Like Clockwork","Upgrade Hammer",
-    "Vending Machine","Piggy Bank","Cash Register","VIP Pass"];
+    "Vending Machine","Piggy Bank","Cash Register","VIP Pass","Cargo Shorts"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
             ItemFunction.items.set(itemName, (item) => {});
@@ -913,6 +913,7 @@ ItemFunction.items.set("Scythe",(item)=>{
     });
 
 });
+
 // Adjacent items have bonus damage, heal, or shield equal to their Crit Chance. from Swash Buckle
 ItemFunction.items.set("Swash Buckle",(item)=>{
     const adjacentItems = item.getAdjacentItems();
