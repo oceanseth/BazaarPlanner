@@ -249,15 +249,14 @@ export function setupChangeListeners(obj,arr) {
 
 
         Object.defineProperty(obj, key, {
-        get: function () { return value; },
-        set: function (v) {
-            const oldValue = value;
-            value = (v-oldValue)*obj[key+"_multiplier"]+oldValue;
-            if(obj[key+"_pauseChanged"]) return;
-            obj[key+"_changedMap"].forEach(f=>f(value, oldValue));
-            obj[key+"_changedArray"].forEach(f=>f(value, oldValue));
-        }
-
+            get: function () { return value; },
+            set: function (v) {
+                const oldValue = value;
+                value = (v-oldValue)*obj[key+"_multiplier"]+oldValue;
+                if(obj[key+"_pauseChanged"]) return;
+                obj[key+"_changedMap"].forEach(f=>f(value, oldValue));
+                obj[key+"_changedArray"].forEach(f=>f(value, oldValue));
+            }
         });
     });
 }
