@@ -3000,7 +3000,7 @@ export const monsters = {
         "tier": 3
       },
       {
-        "name": "Combat Medic",
+        "name": "Big Numbers",
         "tier": 2
       }
     ],
