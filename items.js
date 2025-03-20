@@ -688,9 +688,7 @@ export const items = {
     "text": [
       "Sells for gold"
     ],
-    "enchants": {
-      "Shiny": "This has double Value."
-    },
+    "enchants": {},
     "priorities": [
       0
     ]
@@ -1511,8 +1509,15 @@ export const items = {
       "When you sell this, your items gain (+1%/+2%/+3%/+4%) Crit Chance."
     ],
     "enchants": {
-      "Shiny": "This has double Crit Chance bonus.",
-      "Deadly": "This has double Crit Chance bonus."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "This has double Crit Chance bonus.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -2492,19 +2497,19 @@ export const items = {
       "Pygmalien",
       "Medium",
       "Apparel",
-      "Shield"
+      "Shield",
+      "Heal"
     ],
-    "cooldown": 7,
+    "cooldown": 6,
     "ammo": null,
     "text": [
-      "Heal (20/30/40/50).",
-      "Shield (20/30/40/50).",
-      "This has the Types of items you have in your Stash.",
-      "Your Apparel have -5% cooldown for each type this has."
+      "Heal (10/15/20/25) for each type this has.",
+      "Shield (10/15/20/25) for each type this has.",
+      "This has the Types of items you have in your Stash."
     ],
     "enchants": {
       "Heavy": "Slow 2 item for 2 second(s).",
-      "Icy": "Freeze 2 small or medium item for 1 second(s).",
+      "Icy": "Freeze 2 small item for 1 second(s).",
       "Turbo": "Haste 2 item for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "This has double Heal.",
@@ -2799,7 +2804,15 @@ export const items = {
       "When you sell this, permanently gain (10/20/30/40) Max Health."
     ],
     "enchants": {
-      "Shiny": "This has double Max Health bonus."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -2927,18 +2940,15 @@ export const items = {
       "When you sell this, your leftmost Burn item gains (+1/+2/+4) Burn."
     ],
     "enchants": {
-      "Golden": "...and Enchant the item with Golden if able.",
-      "Heavy": "...and Enchant the item with Heavy if able.",
-      "Icy": "...and Enchant the item with Icy if able.",
-      "Turbo": "...and Enchant the item with Turbo if able.",
-      "Shielded": "...and Enchant the item with Shielded if able.",
-      "Restorative": "...and Enchant the item with Restorative if able.",
-      "Toxic": "...and Enchant the item with Toxic if able.",
-      "Fiery": "...and Enchant the item with Fiery if able.",
-      "Shiny": "...and Enchant the item with Shiny if able.",
-      "Deadly": "...and Enchant the item with Deadly if able.",
-      "Radiant": "...and Enchant the item with Radiant if able.",
-      "Obsidian": "...and Enchant the item with Obsidian if able."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "This has double Burn bonus.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -2960,7 +2970,15 @@ export const items = {
       "When you sell this, permanently gain (1/2/3/4) Regeneration."
     ],
     "enchants": {
-      "Shiny": "This has double Regeneration bonus."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -3180,7 +3198,15 @@ export const items = {
       "When you sell this, permanently gain (10/20/30/40) Max Health."
     ],
     "enchants": {
-      "Shiny": "This has double Max Health bonus."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -4872,18 +4898,15 @@ export const items = {
       "When you sell this, your leftmost item gains (5%/10%/15%/20%) Crit Chance."
     ],
     "enchants": {
-      "Golden": "...and Enchant the item with Golden if able.",
-      "Shielded": "...and Enchant the item with Shielded if able.",
-      "Heavy": "...and Enchant the item with Heavy if able.",
-      "Icy": "...and Enchant the item with Icy if able.",
-      "Turbo": "...and Enchant the item with Turbo if able.",
-      "Restorative": "...and Enchant the item with Restorative if able.",
-      "Toxic": "...and Enchant the item with Toxic if able.",
-      "Fiery": "...and Enchant the item with Fiery if able.",
-      "Shiny": "...and Enchant the item with Shiny if able.",
-      "Deadly": "...and Enchant the item with Deadly if able.",
-      "Radiant": "...and Enchant the item with Radiant if able.",
-      "Obsidian": "...and Enchant the item with Obsidian if able."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "This has double Crit Chance bonus.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -5128,18 +5151,15 @@ export const items = {
       "When you sell this, your leftmost Poison item gains (+1/+2/+4) Poison."
     ],
     "enchants": {
-      "Golden": "...and Enchant the item with Golden if able.",
-      "Heavy": "...and Enchant the item with Heavy if able.",
-      "Icy": "...and Enchant the item with Icy if able.",
-      "Turbo": "...and Enchant the item with Turbo if able.",
-      "Shielded": "...and Enchant the item with Shielded if able.",
-      "Restorative": "...and Enchant the item with Restorative if able.",
-      "Toxic": "...and Enchant the item with Toxic if able.",
-      "Fiery": "...and Enchant the item with Fiery if able.",
-      "Shiny": "...and Enchant the item with Shiny if able.",
-      "Deadly": "...and Enchant the item with Deadly if able.",
-      "Radiant": "...and Enchant the item with Radiant if able.",
-      "Obsidian": "...and Enchant the item with Obsidian if able."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "This has double Poison bonus.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -5226,7 +5246,15 @@ export const items = {
       "When you sell this, reduce your items' cooldowns by (2%/4%/6%/8%)."
     ],
     "enchants": {
-      "Shiny": "This has double cooldown reduction bonus."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -5627,7 +5655,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Deal (2/4) damage.",
-      "Burn equal to (1/2) time(s) this item's damage."
+      "Burn equal to (1/2) times this item's damage."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -6173,7 +6201,15 @@ export const items = {
       "When you sell this, permanently gain (1/2/3/4) Regeneration."
     ],
     "enchants": {
-      "Shiny": "This has double Regeneration bonus."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -6400,7 +6436,15 @@ export const items = {
       "When you sell this, permanently gain (10/20/30/40) Max Health."
     ],
     "enchants": {
-      "Shiny": "This has double Max Health bonus."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -6525,18 +6569,16 @@ export const items = {
       "When you sell this, your leftmost Ammo item gains (1/2/3) Max Ammo."
     ],
     "enchants": {
-      "Golden": "...and Enchant the item with Golden if able.",
-      "Heavy": "...and Enchant the item with Heavy if able.",
-      "Icy": "...and Enchant the item with Icy if able.",
-      "Turbo": "...and Enchant the item with Turbo if able.",
-      "Shielded": "...and Enchant the item with Shielded if able.",
-      "Restorative": "...and Enchant the item with Restorative if able.",
-      "Toxic": "...and Enchant the item with Toxic if able.",
-      "Fiery": "...and Enchant the item with Fiery if able.",
-      "Shiny": "...and Enchant the item with Shiny if able.",
-      "Deadly": "...and Enchant the item with Deadly if able.",
-      "Radiant": "...and Enchant the item with Radiant if able.",
-      "Obsidian": "...and Enchant the item with Obsidian if able."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Shiny": "This has double Max Ammo bonus.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -6872,7 +6914,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Deal (6/12/24/48) damage.",
-      "When you buy this, get a Spare Change and a Truffle."
+      "When you buy this, get a Truffle."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -7555,7 +7597,7 @@ export const items = {
     "text": [
       "Deal (20/40/80/160) damage.",
       "Slow 2 items for (3/4/5/6) second(s).",
-      "When you sell this, your leftmost Slow item gains +1 Slow."
+      "When you sell this, your leftmost Slow item gains +1 Slow duration."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
@@ -7732,18 +7774,15 @@ export const items = {
       "When you sell this, reduce your leftmost item's cooldown by (3%/6%/9%/12%)."
     ],
     "enchants": {
-      "Golden": "...and Enchant the item with Golden if able.",
-      "Heavy": "...and Enchant the item with Heavy if able.",
-      "Icy": "...and Enchant the item with Icy if able.",
-      "Turbo": "...and Enchant the item with Turbo if able.",
-      "Shielded": "...and Enchant the item with Shielded if able.",
-      "Restorative": "...and Enchant the item with Restorative if able.",
-      "Toxic": "...and Enchant the item with Toxic if able.",
-      "Fiery": "...and Enchant the item with Fiery if able.",
-      "Shiny": "...and Enchant the item with Shiny if able.",
-      "Deadly": "...and Enchant the item with Deadly if able.",
-      "Radiant": "...and Enchant the item with Radiant if able.",
-      "Obsidian": "...and Enchant the item with Obsidian if able."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -9129,7 +9168,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Slow 1 item(s) for (1/2/3/4) second(s).",
-      "When you sell this, your leftmost Slow item gains (1/2/3/4) second to Slow."
+      "When you sell this, your leftmost Slow item gains (+1/+2/+3/+4) Slow duration."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
@@ -9360,18 +9399,15 @@ export const items = {
       "When you sell this, your leftmost Heal item gains (5/10/20/40) Heal."
     ],
     "enchants": {
-      "Restorative": "...and Enchant the item with Restorative if able.",
-      "Golden": "...and Enchant the item with Golden if able.",
-      "Icy": "...and Enchant the item with Icy if able.",
-      "Turbo": "...and Enchant the item with Turbo if able.",
-      "Shielded": "...and Enchant the item with Shielded if able.",
-      "Toxic": "...and Enchant the item with Toxic if able.",
-      "Fiery": "...and Enchant the item with Fiery if able.",
-      "Shiny": "...and Enchant the item with Shiny if able.",
-      "Deadly": "...and Enchant the item with Deadly if able.",
-      "Radiant": "...and Enchant the item with Radiant if able.",
-      "Obsidian": "...and Enchant the item with Obsidian if able.",
-      "Heavy": "...and Enchant the item with Heavy if able."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "This has double Heal bonus.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -10642,9 +10678,7 @@ export const items = {
     "text": [
       "Sells for gold"
     ],
-    "enchants": {
-      "Shiny": "This has triple value."
-    },
+    "enchants": {},
     "priorities": [
       1
     ]
@@ -11903,7 +11937,15 @@ export const items = {
       "When you sell this, your weapons gain (1/2/3/4) damage."
     ],
     "enchants": {
-      "Shiny": "This has double damage bonus."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "This has double damage bonus."
     },
     "priorities": [
       0
@@ -12920,18 +12962,15 @@ export const items = {
       "When you sell this, your leftmost Shield item gains (+3/+6/+12/+24) Shield."
     ],
     "enchants": {
-      "Golden": "...and Enchant the item with Golden if able.",
-      "Heavy": "...and Enchant the item with Heavy if able.",
-      "Icy": "...and Enchant the item with Icy if able.",
-      "Turbo": "...and Enchant the item with Turbo if able.",
-      "Shielded": "...and Enchant the item with Shielded if able.",
-      "Restorative": "...and Enchant the item with Restorative if able.",
-      "Toxic": "...and Enchant the item with Toxic if able.",
-      "Fiery": "...and Enchant the item with Fiery if able.",
-      "Shiny": "...and Enchant the item with Shiny if able.",
-      "Deadly": "...and Enchant the item with Deadly if able.",
-      "Radiant": "...and Enchant the item with Radiant if able.",
-      "Obsidian": "...and Enchant the item with Obsidian if able."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "This has double Shield bonus.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -13257,18 +13296,15 @@ export const items = {
       "When you sell this, your leftmost Weapon gains (5/10/15) Damage."
     ],
     "enchants": {
-      "Golden": "...and Enchant the Weapon with Golden if able.",
-      "Heavy": "...and Enchant the Weapon with Heavy if able.",
-      "Icy": "...and Enchant the Weapon with Icy if able.",
-      "Turbo": "...and Enchant the Weapon with Turbo if able.",
-      "Shielded": "...and Enchant the Weapon with Shielded if able.",
-      "Restorative": "...and Enchant the Weapon with Restorative if able.",
-      "Toxic": "...and Enchant the Weapon with Toxic if able.",
-      "Fiery": "...and Enchant the Weapon with Fiery if able.",
-      "Shiny": "...and Enchant the Weapon with Shiny if able.",
-      "Deadly": "...and Enchant the Weapon with Deadly if able.",
-      "Radiant": "...and Enchant the Weapon with Radiant if able.",
-      "Obsidian": "...and Enchant the Weapon with Obsidian if able."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "This has double damage bonus."
     },
     "priorities": [
       0
@@ -13852,21 +13888,18 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you sell this, your leftmost Freeze item gains +0.5 seconds to Freeze."
+      "When you sell this, your leftmost Freeze item gains +500 Freeze duration."
     ],
     "enchants": {
-      "Golden": "...and Enchant the item with Golden if able.",
-      "Heavy": "...and Enchant the item with Heavy if able.",
-      "Icy": "...and Enchant the item with Icy if able.",
-      "Turbo": "...and Enchant the item with Turbo if able.",
-      "Shielded": "...and Enchant the item with Shielded if able.",
-      "Restorative": "...and Enchant the item with Restorative if able.",
-      "Toxic": "...and Enchant the item with Toxic if able.",
-      "Fiery": "...and Enchant the item with Fiery if able.",
-      "Shiny": "...and Enchant the item with Shiny if able.",
-      "Deadly": "...and Enchant the item with Deadly if able.",
-      "Radiant": "...and Enchant the item with Radiant if able.",
-      "Obsidian": "...and Enchant the item with Obsidian if able."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "This has double Freeze bonus.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -14100,9 +14133,7 @@ export const items = {
     "text": [
       "Sells for gold"
     ],
-    "enchants": {
-      "Shiny": "This has triple value."
-    },
+    "enchants": {},
     "priorities": [
       0
     ]
@@ -15559,21 +15590,19 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you sell this, your leftmost item gains value equal to this item's value."
+      "When you sell this, your leftmost item (+1/+2/+3/+4) value."
     ],
     "enchants": {
-      "Golden": "...and Enchant the item with Golden if able.",
-      "Heavy": "...and Enchant the item with Heavy if able.",
-      "Icy": "...and Enchant the item with Icy if able.",
-      "Turbo": "...and Enchant the item with Turbo if able.",
-      "Shielded": "...and Enchant the item with Shielded if able.",
-      "Restorative": "...and Enchant the item with Restorative if able.",
-      "Toxic": "...and Enchant the item with Toxic if able.",
-      "Fiery": "...and Enchant the item with Fiery if able.",
-      "Shiny": "...and Enchant the item with Shiny if able.",
-      "Deadly": "...and Enchant the item with Deadly if able.",
-      "Radiant": "...and Enchant the item with Radiant if able.",
-      "Obsidian": "...and Enchant the item with Obsidian if able."
+      "Golden": "This has double value gain.",
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       1,
@@ -15669,17 +15698,15 @@ export const items = {
       "When you sell this, upgrade your leftmost (Bronze/Silver/Gold) (or lower)-tier item."
     ],
     "enchants": {
-      "Heavy": "...and Enchant the item with Heavy if able.",
-      "Icy": "...and Enchant the item with Icy if able.",
-      "Turbo": "...and Enchant the item with Turbo if able.",
-      "Shielded": "...and Enchant the item with Shielded if able.",
-      "Restorative": "...and Enchant the item with Restorative if able.",
-      "Toxic": "...and Enchant the item with Toxic if able.",
-      "Fiery": "...and Enchant the item with Fiery if able.",
-      "Shiny": "...and Enchant the item with Shiny if able.",
-      "Deadly": "...and Enchant the item with Deadly if able.",
-      "Radiant": "...and Enchant the item with Radiant if able.",
-      "Obsidian": "...and Enchant the item with Obsidian if able."
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
+      "Shielded": "When you sell this, your leftmost Shield item gains +20 Shield.",
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
@@ -16612,8 +16639,15 @@ export const items = {
       "When you sell this, your Shield items gain (1/2/3/4) Shield."
     ],
     "enchants": {
+      "Heavy": "When you sell this, your leftmost Slow item gains +1 Slow duration.",
+      "Icy": "When you sell this, your leftmost Freeze item gains +0.2 Freeze duration.",
+      "Turbo": "When you sell this, your leftmost Haste item gains +1 Haste duration.",
       "Shielded": "This has double Shield bonus.",
-      "Shiny": "This has double Shield bonus."
+      "Restorative": "When you sell this, your leftmost Heal item gains +30 Heal.",
+      "Toxic": "When you sell this, your leftmost Poison item gains +2 Poison.",
+      "Fiery": "When you sell this, your leftmost Burn item gains +2 Burn.",
+      "Deadly": "When you sell this, your leftmost item gains 10% Crit Chance.",
+      "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
       0
