@@ -5387,6 +5387,7 @@ export class Item {
         let regex = /^reduce this item's cooldown by (\d+)%.*/i;
         let match = text.match(regex);
         let doIt,undoIt;
+        let didIt = false;
         if(match) {
             const cooldownReduction = parseInt(match[1]);
             doIt = () => {
@@ -5492,16 +5493,16 @@ export class Item {
 
 
         if(checkComparison && comparisonFunction()) {
-            this.didIt=true;
+            didIt=true;
             doIt(item||this);
         } 
         return (...args)=>{
-            if(this.didIt && !comparisonFunction(...args)) {
+            if(didIt && !comparisonFunction(...args)) {
                 undoIt(...args);
-                this.didIt=false;
-            } else if(!this.didIt && comparisonFunction(...args)) {
+                didIt=false;
+            } else if(!didIt && comparisonFunction(...args)) {
                 doIt(...args);
-                this.didIt=true;
+                didIt=true;
             }
         };
     }
