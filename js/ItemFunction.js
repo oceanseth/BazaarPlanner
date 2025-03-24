@@ -665,12 +665,16 @@ ItemFunction.items.set("Weather Glass",(item)=>{
 
 ItemFunction.items.set("GPU",(item)=>{
     //Haste the Core for ( 1 » 2 » 3 » 4 ) second(s).
-    item.board.player.hostileTarget.board.items.forEach(i=>{
-        if(i.tags.includes("Core")) {
-            item.applyHasteTo(i,getRarityValue("1 >> 2 >> 3 >> 4",item.rarity));
-        }
+    const hasteDuration = getRarityValue("1 >> 2 >> 3 >> 4",item.rarity);
+    item.triggerFunctions.push(()=>{
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Core")) {
+                item.applyHasteTo(i,hasteDuration);
+            }
+        });
     });
 });
+
 ItemFunction.items.set("Metronome",(item)=>{
     let hasteDuration = getRarityValue("1 >> 2 >> 3",item.rarity);
     //When you use an adjacent item, give the other adjacent item haste for ( 1 » 2 » 3 ) second(s).

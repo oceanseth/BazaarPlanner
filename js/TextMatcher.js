@@ -156,5 +156,33 @@ TextMatcher.matchers.push({
         return ()=>{};
     },
 });
-
+TextMatcher.matchers.push({
+      // Haste (  2  » 4  » 6   ) items 2 second(s).  
+      regex: /^Haste (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?items?.* for (?:\(([^)]+)\)|(\d+)) second/i,
+      func: (item, match)=>{            
+          const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = match;
+              
+          const numItemsToHaste = itemsRange ? 
+              getRarityValue(itemsRange, item.rarity) : 
+              parseInt(singleItemCount);
+          const duration = durationRange ? 
+              getRarityValue(durationRange, item.rarity) : 
+              parseInt(singleDuration);
+          
+          return () => {
+              let items = Array.from(item.board.items);
+              items = items.filter(i => i.isHasteTargetable());        
+              if(requiredTag=='adjacent') {
+                items = items.filter(i => i.getAdjacentItems().includes(item));
+              } else if (requiredTag) {
+                  items = items.filter(i => i.tags && i.tags.includes(requiredTag));
+              }
+              const selectedItems = item.pickRandom(items,numItemsToHaste);
+          
+              selectedItems.forEach(i => {
+                  item.applyHasteTo(i,duration);
+              });
+          };
+      },
+});
 window.TextMatcher = TextMatcher;
