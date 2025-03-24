@@ -1862,6 +1862,7 @@ select {
     justify-content: left;
     gap: 10px;
     text-align: left;
+    margin-top:5px;
 }
 .enchant-name {
     font-size: 14px;

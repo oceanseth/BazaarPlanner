@@ -2527,7 +2527,7 @@ export class Item {
                         }
                         return;
                     case "use any item to the left of this":
-                        this.board.itemTriggers.set(this.id, (item)=> {
+                        this.board.itemTriggers.set(this.id+"_itemtotheleftuse", (item)=> {
                             if(item.startIndex < this.startIndex) {
                                 triggerFunctionFromText(item);
                                 if(ifFunction) ifFunction(item);
@@ -2535,7 +2535,7 @@ export class Item {
                         });
                         return;
                     case "use any item to the right of this":
-                        this.board.itemTriggers.set(this.id, (item)=> {
+                        this.board.itemTriggers.set(this.id+"_itemtotherightuse", (item)=> {
                             if(item.startIndex > this.startIndex) {
                                 triggerFunctionFromText(item);
                                 if(ifFunction) ifFunction(item);
