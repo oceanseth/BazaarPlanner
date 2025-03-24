@@ -460,19 +460,10 @@ function showItemPreview(e) {
     const item = e.target;
     const preview = document.createElement('div');
     preview.id = 'item-preview';
-    preview.classList.add('tooltip');
+ //   preview.classList.add('tooltip');
     const itemData = items[item.getAttribute('data-name')];
     const tempItem = new Item(itemData,null);
-    preview.innerHTML ="";// itemData.text.map((t,i) => `<div class="item-preview-text">${t}</div>`).join('');
-    if(itemData&& itemData.enchants) {
-        for(let i in itemData.enchants) {
-            preview.innerHTML += `<div class="enchant-preview-container">
-        <div class="enchant-name">${colorTextArray([i],itemData.tier)}</div>
-        <div class="enchant-description">${colorTextArray([itemData.enchants[i]],itemData.tier)}</div>
-    </div>
-        `;
-        }
-    }
+    preview.appendChild(tempItem.createEnchantPreviewElement());
     preview.appendChild(tempItem.createTooltipElement());
     preview.style.display = 'block';
     document.body.appendChild(preview);

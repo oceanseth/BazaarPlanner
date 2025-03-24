@@ -438,7 +438,23 @@ export class Item {
     
         return mergedSlot;
     }
-    
+    createEnchantPreviewElement() {
+        let html = "<div id='item-enchant-preview'>";
+        if(this.enchants) {
+            for(let i in this.enchants) {
+                html += `<div class="enchant-preview-container">
+            <div class="enchant-name">${colorTextArray([i],this.tier)}</div>
+            <div class="enchant-description">${colorTextArray([this.enchants[i]],this.tier)}</div>
+        </div>
+            `;
+            }
+        }
+        html += "</div>";
+        const preview = document.createElement('div');
+        preview.id = 'item-enchant-preview';
+        preview.innerHTML = html;
+        return preview;
+    }
     createTooltipElement() {
         const tooltip = document.createElement('div');
         tooltip.className = 'tooltip';
@@ -673,8 +689,7 @@ export class Item {
             }
             this.numTriggers =this.numTriggers+1;
             this.trigger();
-        }
-        if(this.pendingMulticasts>0) {
+        } else if(this.pendingMulticasts>0) {
             this.pendingMulticasts--;
             this.trigger();
         }
@@ -1079,32 +1094,7 @@ export class Item {
     }
 
     getHasteTriggerFunctionFromText(text) {      
-        // Haste (  2  » 4  » 6   ) items 2 second(s).  
-        let regex = /^Haste (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?items?.* for (?:\(([^)]+)\)|(\d+)) second/;
-        let match;
-        if (regex.test(text)) {                
-            const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = text.match(regex);
-                
-            const numItemsToHaste = itemsRange ? 
-                getRarityValue(itemsRange, this.rarity) : 
-                parseInt(singleItemCount);
-            const duration = durationRange ? 
-                getRarityValue(durationRange, this.rarity) : 
-                parseInt(singleDuration);
-            
-            return () => {
-                let items = Array.from(this.board.items);
-                items = items.filter(i => i.isHasteTargetable());        
-                if (requiredTag) {
-                    items = items.filter(i => i.tags && i.tags.includes(requiredTag));
-                }
-                const selectedItems = this.pickRandom(items,numItemsToHaste);
-            
-                selectedItems.forEach(i => {
-                    this.applyHasteTo(i,duration);
-                });
-            };
-        }
+       let regex,match;
         regex = /^Haste your(?: other)? items (?:for )?(\([^)]+\)|\d+) second/i;
         match = text.match(regex);
         if(match) {
