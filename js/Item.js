@@ -666,12 +666,10 @@ export class Item {
         if (!this.progressBar || this.isDestroyed) return;
 
         // Calculate effective time considering haste/slow
-        let effectiveTimeDiff = timeDiff;
-        if (this.hasteTimeRemaining > 0) {
+        let effectiveTimeDiff = timeDiff;        
+        if (this.hasteTimeRemaining > 0 && ! this.slowTimeRemaining>0) {
             effectiveTimeDiff *= this.cooldown>2000?2:this.cooldown/1000; // haste multiplier
-        }
-
-        if (this.slowTimeRemaining > 0) effectiveTimeDiff *= 0.5; // slow multiplier
+        } else if (this.slowTimeRemaining > 0) effectiveTimeDiff *= 0.5; // slow multiplier
 
         this.updateStatusDurations(timeDiff);
 
