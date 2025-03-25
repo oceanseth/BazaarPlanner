@@ -758,7 +758,7 @@ export class Item {
         if(doesCrit) {
             shieldAmount *= (1+this.critMultiplier/100);
         }
-        this.log(this.name + (doesCrit?" critically ":"")+" shielded " + this.board.player.name + " for " + shieldAmount);
+        this.log(this.name + (doesCrit?" critically":"")+" shielded " + this.board.player.name + " for " + shieldAmount);
         this.board.player.applyShield(shieldAmount);
         if(doesCrit) {
             this.board.itemDidCrit(this);
