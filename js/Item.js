@@ -669,7 +669,9 @@ export class Item {
         let effectiveTimeDiff = timeDiff;        
         if (this.hasteTimeRemaining > 0 && ! this.slowTimeRemaining>0) {
             effectiveTimeDiff *= this.cooldown>2000?2:this.cooldown/1000; // haste multiplier
-        } else if (this.slowTimeRemaining > 0) effectiveTimeDiff *= 0.5; // slow multiplier
+        } else if (this.slowTimeRemaining > 0 && !this.hasteTimeRemaining>0) {
+            effectiveTimeDiff *= 0.5; // slow multiplier
+        }
 
         this.updateStatusDurations(timeDiff);
 
