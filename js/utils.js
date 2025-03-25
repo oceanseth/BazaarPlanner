@@ -92,10 +92,10 @@ export function updateUrlState() {
         if(item.lifesteal) {
             toReturn.lifesteal = true;
         }
-        if(parseInt(item.getStartingCooldownFromText(baseItem.cooldown)) == parseInt(item.getStartingCooldownFromText(item.startItemData.cooldown)))
+        if(parseFloat(item.getStartingCooldownFromText(baseItem.cooldown)) == parseFloat(item.getStartingCooldownFromText(item.startItemData.cooldown)))
             delete toReturn.cooldown;
         else {
-            toReturn.cooldown = parseInt(item.startItemData.cooldown);
+            toReturn.cooldown = parseFloat(item.startItemData.cooldown);
         }
 
         return toReturn;
