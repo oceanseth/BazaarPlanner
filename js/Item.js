@@ -99,8 +99,12 @@ export class Item {
         }
 
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
-        if(this.startItemData.value==undefined) this.startItemData.value = this.getInitialValue();
-        if(items[this.name] && items[this.name].value==undefined) items[this.name].value = this.startItemData.value;
+        if(this.startItemData.value==undefined) {
+             this.startItemData.value = this.getInitialValue();
+             if(items[this.name] && items[this.name].value==undefined) {
+                items[this.name].value = this.startItemData.value;
+            }
+        }
 
         this.value = this.startItemData.value;
         if(itemData.value==undefined) itemData.value = this.startItemData.value;
@@ -758,7 +762,7 @@ export class Item {
         if(doesCrit) {
             shieldAmount *= (1+this.critMultiplier/100);
         }
-        this.log(this.name + (doesCrit?" critically ":"")+" shielded " + this.board.player.name + " for " + shieldAmount);
+        this.log(this.name + (doesCrit?" critically":"")+" shielded " + this.board.player.name + " for " + shieldAmount);
         this.board.player.applyShield(shieldAmount);
         if(doesCrit) {
             this.board.itemDidCrit(this);

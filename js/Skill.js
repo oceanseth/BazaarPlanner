@@ -7,6 +7,8 @@ export class Skill {
         Object.assign(this, skillData);
         if(this.tier) {
             this.rarity = Item.rarityLevels[parseInt(this.tier)];
+        } else if(this.rarity) {
+            this.tier = Item.rarityLevels.indexOf(this.rarity);
         }
         this.editable = editable;
         this.itemProxy = new Item({
