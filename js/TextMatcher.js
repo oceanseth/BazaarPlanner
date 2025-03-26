@@ -191,9 +191,10 @@ TextMatcher.matchers.push({
     regex: /^deal (\([^)]+\)|\d+) damage to the player with less health\.$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
+        item.gain(amount,'damage');
         return ()=>{
             const target = item.board.player.health<=item.board.player.hostileTarget.health?item.board.player:item.board.player.hostileTarget;
-            item.dealDamage(amount, target);
+            item.dealDamage(item.damage, target);
         };
     },
 });
