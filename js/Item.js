@@ -725,10 +725,10 @@ export class Item {
         }
         return false;
     }
-    applyDamage(damage) {
-        this.dealDamage(damage);
+    applyDamage(damage,target=this.board.player.hostileTarget) {
+        this.dealDamage(damage,target);
     }
-    dealDamage(damage) {
+    dealDamage(damage,target=this.board.player.hostileTarget) {
         damage = parseFloat(damage);
         if(isNaN(damage) || damage <=0) return;
         let doesCrit = this.doICrit();
@@ -738,10 +738,10 @@ export class Item {
             damage *= (1+this.critMultiplier/100);
         }
 
-       damage = this.board.player.hostileTarget.takeDamage(damage);
+       damage = target.takeDamage(damage);
         this.log(this.name + (doesCrit?" critically strikes and":"") +
             " deals "+ damage+" damage to " +
-            this.board.player.hostileTarget.name);            
+            target.name);            
         if(this.lifesteal >0) {
             let oldHealth = this.board.player.health;
             if(this.board.player.health +damage > this.board.player.maxHealth) {
@@ -1022,7 +1022,7 @@ export class Item {
         }
 
         //Deal ( 10 » 20 » 30 » 40 ) damage.
-        damageRegex = /^Deal (?:\(([^)]+)\)|(\d+)) damage/i;
+        damageRegex = /^Deal (?:\(([^)]+)\)|(\d+)) damage\.?$/i;
         match = text.match(damageRegex);
         if(match) {
             const damageValue = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
@@ -2613,7 +2613,7 @@ export class Item {
                         this.board.poisonTriggers.set(this.id, triggerFunctionFromText);
                         return;
                     case "haste":
-                        this.board.hasteTriggers.set(this.id,(i,source) => {
+                        this.board.hasteTriggers.set(this.id+"_whenyouhaste",(i,source) => {
                             triggerFunctionFromText(source);
                         });
                         return;

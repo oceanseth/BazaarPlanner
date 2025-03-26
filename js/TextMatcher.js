@@ -1,4 +1,5 @@
 import { getRarityValue } from "./utils.js";
+import { Item } from "./Item.js";
 
 export class TextMatcher {
     static comparitors = [];
@@ -184,5 +185,34 @@ TextMatcher.matchers.push({
               });
           };
       },
+});
+TextMatcher.matchers.push({
+    //Deal (500/1000) damage to the player with less health. from Gavel
+    regex: /^deal (\([^)]+\)|\d+) damage to the player with less health\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        return ()=>{
+            const target = item.board.player.health<=item.board.player.hostileTarget.health?item.board.player:item.board.player.hostileTarget;
+            item.dealDamage(amount, target);
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //Deal (15/20/25) damage for each Friend you have. from Nanobot, Junkyard Lance
+    regex: /^deal (\([^)]+\)|\d+) damage for each ([^\s]+)(?: item)? you have( \(including Stash\))?\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        const tag = Item.getTagFromText(match[2]);
+        const totalDamage = item.board.items.filter(i=>i.tags.includes(tag)).length*amount;
+        item.gain(totalDamage,'damage');
+        item.board.itemDestroyedTriggers.set(item.id,(i)=>{
+            if(i.tags.includes(tag)) {
+                item.gain(-amount,'damage');
+            }
+        });
+        return ()=>{
+            item.applyDamage(item.damage);
+        };
+    },
 });
 window.TextMatcher = TextMatcher;
