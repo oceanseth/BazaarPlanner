@@ -967,8 +967,8 @@ export class Item {
         if(match) {
             const itemType = match[2];
             const gainAmount = getRarityValue(match[4], this.rarity);            
-            return () => {
-                let adjacentItems = this.getAdjacentItems();
+            return (i) => {
+                let adjacentItems = (i||this).getAdjacentItems();
                 if(match[2]!="items") {
                     adjacentItems = adjacentItems.filter(item => item.tags.includes(Item.getTagFromText(itemType)));
                 }
