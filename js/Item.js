@@ -2823,7 +2823,8 @@ export class Item {
                 case "you use an item":
                     let itemCount = 0;
                     this.board.itemTriggers.set(this.id,(item)=>{
-                        if(itemCount++<=numTimes) {
+                        if(itemCount<numTimes) {
+                            itemCount++;
                             ntimesFunction(item);
                         }
                     });
