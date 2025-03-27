@@ -826,19 +826,6 @@ ItemFunction.items.set("Bonk",(item)=>{
         i.cooldown += 1000;
     });
 });
-ItemFunction.items.set("Big Guns",(item)=>{
-    //Double the damage of your Large weapons. from Big Guns
-    item.board.items.forEach(i=>{
-        if(i.tags.includes("Large")) {
-            i.gain(i.damage,'damage');
-            i.damageChanged((newValue,oldValue)=>{
-                i.damage_pauseChanged = true;
-                i.gain(newValue-oldValue,'damage');
-                i.damage_pauseChanged = false;
-            });
-        }
-    });
-});
 
 
 //Reduce the cooldown of your Properties by (  10%  » 15%   ). from Industrialist

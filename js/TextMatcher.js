@@ -216,4 +216,49 @@ TextMatcher.matchers.push({
         };
     },
 });
+TextMatcher.matchers.push({
+    //Double the damage of your Large weapons. from Big Guns
+    regex: /^double the damage of your ([^\s]+) weapons\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        item.board.items.forEach(i=>{
+        if(i.tags.includes(tag)) {
+            const oldMultiplier = i["damage_multiplier"];
+            i["damage_multiplier"] = 1;
+            i.gain(i.damage,'damage');
+            i["damage_multiplier"] = oldMultiplier+1;
+        }
+        });
+        return ()=>{};
+    },
+});
+TextMatcher.matchers.push({
+    //When (?:this|this item) gains (.*), (.*) Mech Moles
+    regex: /^When (?:this|this item) gains (.*), (.*)/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[2]);
+        const f2 = (item)=>{ if(item.id==item.id) f(item); };
+        switch(match[1].toLowerCase()) {
+            case "haste":
+                item.board.hasteTriggers.set(item.id+"_"+f.text,f2);
+                break;
+            case "slow":
+                item.board.slowTriggers.set(item.id+"_"+f.text,f2);
+                break;
+            case "damage":
+                item.board.damageTriggers.set(item.id+"_"+f.text,f2);
+                break;
+            case "freeze":
+                item.board.freezeTriggers.set(item.id+"_"+f.text,(target, source) =>{
+                    if(target.id==item.id) {
+                        f(item, source);
+                    }
+                });
+                break;
+            default:
+                console.log("Unknown when gain trigger: "+match[1]);
+        }
+        return ()=>{};
+    }
+});
 window.TextMatcher = TextMatcher;
