@@ -3096,30 +3096,7 @@ export class Item {
             this.board.startOfFightTriggers.set(this.id,f);
             return;
         }
-        regex = /^\s*When (?:this|this item) gains (.*), (.*)/i;
-        match = text.match(regex);
-        if(match) {
-            const f = this.getTriggerFunctionFromText(match[2]);
-            const f2 = (item)=>{ if(this.id==item.id) f(this); };
-            switch(match[1].toLowerCase()) {
-                case "haste":
-                    this.board.hasteTriggers.set(this.id,f2);
-                    return;
-                case "slow":
-                    this.board.slowTriggers.set(this.id,f2);
-                    return;
-                case "damage":
-                    this.board.damageTriggers.set(this.id,f2);
-                    return;
-                case "freeze":
-                    this.board.freezeTriggers.set(this.id,(target, source) =>{
-                        if(target.id==this.id) {
-                            f(this, source);
-                        }
-                    });
-                    return;
-            }
-        }
+       
         //When any item gains freeze, ...
         regex = /^\s*When any item gains freeze, (.*)/i;
         match = text.match(regex);
@@ -4624,8 +4601,13 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const whatToGain = match[1].toLowerCase();
+            this[whatToGain+"pauseChanged"] = true;
+            const oldMultiplier = this[whatToGain+"_multiplier"];
+            this[whatToGain+"_multiplier"] =1;
             this.gain(this[whatToGain],whatToGain);
-            this[whatToGain+"_multiplier"] = 2;
+            this[whatToGain+"pauseChanged"] = false;
+            this[whatToGain+"_multiplier"] = oldMultiplier+1;
+
             return ()=>{};
         }
         //Double this item's damage for the fight. from Atlas Stone
@@ -5359,7 +5341,7 @@ export class Item {
     
 
     getTriggerFunctionFromText(text) {
-        return TextMatcher.getTriggerFunctionFromText(text,this) ||
+        const f = TextMatcher.getTriggerFunctionFromText(text,this) ||
         this.getWeaponTriggerFunction(text) ||
         this.getSlowTriggerFunctionFromText(text) ||
         this.getShieldTriggerFunctionFromText(text) ||
@@ -5373,6 +5355,11 @@ export class Item {
         this.getAnonymousTriggerFunctionFromText(text) ||
         this.getCommaTriggerFunctionFromText(text) ||
         (() => { console.log("Could not parse "+ text+ " from "+this.name); return ()=>{};})();
+        if(f) {
+            f.text=text;
+            return f;
+        }
+        return null;
     }
     static getTagFromText(text) {
         if (!text) return null;
