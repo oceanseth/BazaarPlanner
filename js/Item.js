@@ -1055,7 +1055,7 @@ export class Item {
 
         
     getSlowTriggerFunctionFromText(text) {        
-        let regex = /Slow (?:\(([^)]+)\)|(\d+)|an) (?:(\w+) )?items?\(?s?\)?\s*for (?:\(([^)]+)\)|(\d+)) second/i;
+        let regex = /Slow (?:\(([^)]+)\)|(\d+)|an) (?:(\w+) )?items?\(?s?\)?\s*(?:for)? (?:\(([^)]+)\)|(\d+)) second/i;
         let match;
         if (regex.test(text)) {            
             let [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = text.match(regex);
@@ -2750,7 +2750,7 @@ export class Item {
                         this.board.reloadTriggers.set(this.id,triggerFunctionFromText);
                         return;
                     case "use your leftmost item":
-                        this.board.itemTriggers.set(this.id, (item) => {
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             const leftmostItemWithCooldown = this.board.items.filter(i=>i.cooldown>0)[0];
                             if(leftmostItemWithCooldown && item==leftmostItemWithCooldown) {
                                 triggerFunctionFromText(item);
