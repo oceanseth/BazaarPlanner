@@ -5409,7 +5409,7 @@ export class Item {
         if(match) {
             const gainAmount = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
             const whatToGain = match[4].toLowerCase();
-            const whichItems = match[1] ? this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[1]))) : this.board.items;
+            const whichItems = (match[1]&&match[1]!='item') ? this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[1]))) : this.board.items;
             doIt = () => {
                 whichItems.forEach(item => {
                     item.gain(gainAmount, whatToGain);

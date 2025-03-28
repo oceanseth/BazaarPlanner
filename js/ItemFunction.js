@@ -1058,15 +1058,18 @@ ItemFunction.items.set("Pet Rock",(item)=>{
     //"Deal ( 8 » 16 » 24 » 32 ) damage.",
     //"If this is your only friend, your items have ( +10% » +15% » +20% » +25% ) Crit Chance."
     const damage = getRarityValue("8 >> 16 >> 24 >> 32",item.rarity);
-    const critChance = getRarityValue("10 >> 15 >> 20 >> 25",item.rarity);
     item.gain(damage,'damage');
     item.triggerFunctions.push(()=>{
         item.dealDamage(item.damage);
     });
     const comparisonFunction = () => {
-        return item.board.items.filter(i=>i.tags.includes("Friend")).length==1;
+        const friends = item.board.activeItems.filter(i=>i.tags.includes("Friend"));
+        if(friends.length==1 && friends[0].id==item.id) {
+            return true;
+        }
+        return false;
     }
-    const undoableFunction = item.getUndoableFunctionFromText("your items have ( +10% » +15% » +20% » +25% ) Crit Chance.",comparisonFunction);
+    const undoableFunction = item.getUndoableFunctionFromText("your items have ( +10% » +15% » +20% » +25% ) Crit Chance.",comparisonFunction,true);
     item.board.itemDestroyedTriggers.set(item.id,undoableFunction);
 });
 
