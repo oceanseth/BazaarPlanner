@@ -13,7 +13,7 @@ export class ItemFunction {
 }
 //When you use an adjacent item,charge the other adjacent item for (1/2) second(s) and it gains (10%/20%) Crit Chance for the fight. from Pendulum
 ItemFunction.items.set("Pendulum",(item)=>{
-    const chargeAmount = getRarityValue("1/2",item.rarity);
+    item.charge = getRarityValue("1/2",item.rarity);
     const critChance = getRarityValue("10 >> 20",item.rarity);
     const adjacentItems = item.getAdjacentItems();
     if(adjacentItems.length==2) {
@@ -21,7 +21,7 @@ ItemFunction.items.set("Pendulum",(item)=>{
             if(adjacentItems.includes(i)) {
                 const otherItem = adjacentItems.find(j=>j.id!=i.id);
                 if(otherItem && !otherItem.isDestroyed) {
-                    otherItem.chargeBy(chargeAmount,item);
+                    item.applyChargeTo(otherItem);
                     otherItem.gain(critChance,'crit',item);
                 }
             }
@@ -32,11 +32,12 @@ ItemFunction.items.set("Pendulum",(item)=>{
 
 //When this gains Haste or when you Freeze, Charge this 2 second(s). from Snowmobile
 ItemFunction.items.set("Snowmobile",(item)=>{
+    item.charge = 2;
     item.board.freezeTriggers.set(item.id,(i)=>{
-        item.chargeBy(2);
+        item.applyChargeTo(item);
     });
     item.board.hasteTriggers.set(item.id,(i)=>{
-        if(item.id==i.id) item.chargeBy(2);
+        if(item.id==i.id) item.applyChargeTo(item);
     });
 });
 //While you have less health than your opponent, your items gain (10%/15%/20%) Crit Chance. from Desperate Strike
@@ -142,10 +143,10 @@ ItemFunction.items.set("Dual Wield",(item)=>{
 });
 //The first time you Freeze, Burn, Slow, Poison, and Haste each fight, Charge 1 item 2 » 4 second(s). from Neophiliac
 ItemFunction.items.set("Neophiliac",(item)=>{
-    const chargeDuration = getRarityValue("2 >> 4",item.rarity);
+    item.charge = getRarityValue("2 >> 4",item.rarity);
     [item.board.burnTriggers,item.board.poisonTriggers,item.board.freezeTriggers,item.board.slowTriggers,item.board.hasteTriggers].forEach(t=>{
         t.set(item.id,()=>{
-            item.pickRandom(item.board.activeItems.filter(i=>i.cooldown>0)).chargeBy(chargeDuration,item);
+            item.applyChargeTo(item.pickRandom(item.board.activeItems.filter(i=>i.cooldown>0)));
             t.delete(item.id);
         });
     });
@@ -210,10 +211,10 @@ ItemFunction.items.set("Cosmic Plumage",(item)=>{
 //Charge another small item ( 3 » 4 » 5 ) second(s). from Curry
 ItemFunction.items.set("Curry",(item)=>{
     const burn = getRarityValue("4 >> 6 >> 8",item.rarity);
-    const chargeDuration = getRarityValue("3 >> 4 >> 5",item.rarity);
+    item.charge = getRarityValue("3 >> 4 >> 5",item.rarity);
     item.gain(burn,'burn');
     item.triggerFunctions.push(()=>{
-        item.pickRandom(item.board.activeItems.filter(i=>i.id!=item.id && i.tags.includes("Small"))).chargeBy(chargeDuration);
+        item.applyChargeTo(item.pickRandom(item.board.activeItems.filter(i=>i.id!=item.id && i.tags.includes("Small"))));
         item.applyBurn(item.burn);
     });
 });
@@ -262,7 +263,7 @@ ItemFunction.items.set("Dam",(item)=>{
         item.destroy(item);
     });
     item.whenItemTagTriggers(["Aquatic"], (i) => { 
-        item.chargeBy(chargeDuration,i);
+        item.applyChargeTo(item, i);
     });
 });
 //Haste the Aquatic item to the right for ( 2 » 3 » 4 » 5 ) second(s). from Fishing Rod
@@ -364,9 +365,10 @@ ItemFunction.items.set("Motherboard",(item)=>{
 
 // When your opponent uses a Weapon or Burn item, Charge this 2 second(s). from Blast Doors
 ItemFunction.items.set("Blast Doors",(item)=>{
+    item.charge = 2;
     item.board.player.hostileTarget.board.itemTriggers.set(item.id,(i)=>{
         if(i.tags.includes("Weapon")||i.tags.includes("Burn")) {
-            item.chargeBy(2);
+            item.applyChargeTo(item, i);
         }
     });
 });
@@ -410,11 +412,12 @@ ItemFunction.items.set("Flagship",(item)=>{
 
 //Reload your Potions 1 Ammo and Charge them 1 second(s). from Athanor
 ItemFunction.items.set("Athanor",(item)=>{
-    return () => {
+    item.charge = 1;
+    return () => {        
         item.board.items.forEach(i=>{
             if(i.tags.includes("Potion")) {
                 i.gain(1,'ammo');
-                i.chargeBy(1,item);
+                item.applyChargeTo(i);
             }
         });
     }
@@ -467,14 +470,15 @@ ItemFunction.items.set("Antimatter Chamber",(item)=>{
 //"Deal 100 damage.",
 //"When you use another Toy, Friend or Ammo item, charge this 1 second(s)."
 ItemFunction.items.set("Teddy",(item)=>{
+    item.charge = 1;
     item.multicast = 2;
     item.gain(25,'critChance');
     item.gain(100,'damage');
     item.triggerFunctions.push(()=>{
-        item.chargeBy(1);
+        item.applyChargeTo(item);
     });
     item.whenItemTagTriggers(["Toy","Friend","Ammo"], (item) => { 
-        item.chargeBy(1,item);
+        item.applyChargeTo(item);
     });
 });
 
@@ -1338,11 +1342,12 @@ ItemFunction.items.set("Glass Cannon",(item)=>{
 //Reload all your items ( 1 » 2 » 3 ) Ammo and charge them 1 second(s). from Port
 ItemFunction.items.set("Port",(item)=>{
     const amount = getRarityValue("1 >> 2 >> 3",item.rarity);
+    item.charge = 1;
     item.triggerFunctions.push(()=>{
         item.board.items.forEach(i=>{
             if(i.tags.includes("Ammo")) {
                 i.gain(amount,'ammo', item);
-                i.chargeBy(1, item);
+                item.applyChargeTo(i);
             }
         });
     });
@@ -1350,17 +1355,18 @@ ItemFunction.items.set("Port",(item)=>{
 
 //Poison 10.
 //Gain 10 regeneration for the fight.
-//Could not parse When any non-weapon is used, Charge this 1 second(s). from Necronomicon
+//When any non-weapon is used, Charge this 1 second(s). from Necronomicon
 ItemFunction.items.set("Necronomicon",(item)=>{
+    item.charge = 1;
     item.gain(10,'poison');
     item.board.itemTriggers.set(item.id,(i)=>{
         if(!i.tags.includes("Weapon")) {
-            item.chargeBy(1);
+            item.applyChargeTo(item, i);
         }
     });
     item.board.player.hostileTarget.board.itemTriggers.set(item.id,(i)=>{
         if(!i.tags.includes("Weapon")) {
-            item.chargeBy(1);
+            item.applyChargeTo(item, i);
         }
     });
     item.triggerFunctions.push(()=>{
