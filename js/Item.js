@@ -7,7 +7,7 @@ export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny','Toxic', 'Turbo' ];
-    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen'];
+    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge'];
     static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle','Common'];
     static sizeTags = ['Small','Medium','Large'];
     static allowedGainMap = {
@@ -611,6 +611,11 @@ export class Item {
         this.log(this.name + " slowed " + item.name + " for " + duration + " seconds");
         this.board.slowTriggers.forEach(func => func(item,this));
     }
+
+    applyChargeTo(item,source=this) {
+        item.chargeBy(this.charge,source);
+    }
+
     reload(source) {
         this.ammo = this.maxAmmo;
         this.log((source?source.name:"") + " reloaded " + this.name);
@@ -2749,6 +2754,7 @@ export class Item {
                     case "reload":
                         this.board.reloadTriggers.set(this.id,triggerFunctionFromText);
                         return;
+                    case "use the leftmost item":
                     case "use your leftmost item":
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             const leftmostItemWithCooldown = this.board.items.filter(i=>i.cooldown>0)[0];
@@ -3271,11 +3277,11 @@ export class Item {
         regex = /^\s*charge your ([^\d]+)s ([\d]+) second\(?s?\)?/i;   
         match = text.match(regex);
         if(match) {
-            const seconds = parseInt(match[2]);
+            this.charge = parseInt(match[2]);
             return () => {
                 const itemsToCharge = this.board.items.filter(item => item.name.toLowerCase()==match[1].toLowerCase());
                 itemsToCharge.forEach(item=>{
-                    item.chargeBy(seconds,this);
+                    this.applyChargeTo(item);
                 });
             }
         }
@@ -3299,12 +3305,11 @@ export class Item {
         regex = /^\s*Charge the item to the (left|right) (?:of this|for)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?/i;
         match = text.match(regex);
         if(match) {
-            const seconds = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
+            this.charge = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
             return () => {
                 const itemToCharge = match[1]=='left'?this.getItemToTheLeft():this.getItemToTheRight();
                 if(itemToCharge) {
-                    itemToCharge.chargeBy(seconds);
-                    this.log(this.name + " charged " + itemToCharge.name + " for " + seconds + " second(s)");
+                    this.applyChargeTo(itemToCharge);
                 }
 
             }
@@ -3357,7 +3362,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const numItemsToCharge = match[1]=='a'?1:match[1]=='your'?Infinity:getRarityValue(match[1], this.rarity);
-            const seconds = parseInt(getRarityValue(match[3], this.rarity));
+            this.charge = parseInt(getRarityValue(match[3], this.rarity));
             return () => {
                 let validTargets = this.board.items.filter(item => item.isChargeTargetable());
                 if(match[2]=='leftmost'&&validTargets.length>0) validTargets = [validTargets[0]];
@@ -3367,7 +3372,7 @@ export class Item {
                 for(let i=0;i<Math.min(numItemsToCharge,validTargets.length);i++) {
                     const item = validTargets[Math.floor(this.battleRandom()*(validTargets.length))];
                     if(item) {
-                        item.chargeBy(seconds,this);
+                        this.applyChargeTo(item);
                     }   
                 }
             }
@@ -4062,11 +4067,11 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const it = match[1]=='it';
-            const chargeDuration = getRarityValue(match[2], this.rarity);
+            this.charge = getRarityValue(match[2], this.rarity);
             const andFunction = match[3]?this.getTriggerFunctionFromText(match[3]):null;
             
             return (item) => {
-                (it?item:this).chargeBy(chargeDuration,item||this);
+                this.applyChargeTo(it?item:this);
                 if(andFunction) andFunction(item||this);
             };
         }
@@ -4205,12 +4210,12 @@ export class Item {
         regex = /^\s*Charge your other non-weapon items (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const chargeDuration = getRarityValue(match[1], this.rarity);
+            this.charge =  getRarityValue(match[1], this.rarity);
            
             return () => {
                 this.board.items.forEach(item => {
                     if(item.id != this.id && item.cooldown>0 && !item.tags.includes("Weapon")) {
-                        item.chargeBy(chargeDuration);
+                        this.applyChargeTo(item);
                     }
                 });
             };
@@ -4318,7 +4323,7 @@ export class Item {
         }
 
         //Freeze 1 small? item for ( 1 » 2 ) second(s)
-        regex = /^\s*Freeze (?:(\([^)]+\)|\d+)|an|a) ([^\s]+)?(?: or ([^\s]+))?\s*item\(?s?\)?\s+(?:with a cooldown of (\d+) seconds or less )?for\s+(\([^)]+\)|\d+)\s+second\(?s?\)?\.?/i;
+        regex = /^\s*Freeze (?:(\([^)]+\)|\d+)|an|a) ([^\s]+)?(?: or ([^\s]+))?\s*item\(?s?\)?\s+(?:with a cooldown of (\d+) seconds or less )?(?:for )?(\([^)]+\)|\d+)\s+second\(?s?\)?\.?/i;
         match = text.match(regex);        
         if(match) {
             const seconds = getRarityValue(match[5], this.rarity);
@@ -4470,10 +4475,10 @@ export class Item {
         regex = /^Charge all items to the right of this (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            const seconds = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            this.charge = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             return () => {
                 this.board.items.filter(item => item.startIndex>this.startIndex).forEach(item => {
-                    item.chargeBy(seconds);
+                    this.applyChargeTo(item);
                 });
             };
         }
@@ -4481,12 +4486,12 @@ export class Item {
         regex = /^Charge adjacent\s*([^\s]+)? items (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            const seconds = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
-            const tagToMatch = Item.getTagFromText(match[1]);
-            const itemsToCharge = tagToMatch ? this.getAdjacentItems().filter(item => item.tags.includes(tagToMatch)) : this.getAdjacentItems();
+            this.charge = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
+            const tagToMatch = Item.getTagFromText(match[1]);            
             return () => {
+                const itemsToCharge = tagToMatch ? this.getAdjacentItems().filter(item => item.tags.includes(tagToMatch)) : this.getAdjacentItems();
                 itemsToCharge.forEach(item => {
-                    item.chargeBy(seconds);
+                    this.applyChargeTo(item);
                 });
             };
 

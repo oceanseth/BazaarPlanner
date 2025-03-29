@@ -261,4 +261,30 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+TextMatcher.matchers.push({
+    //Haste your rightmost item 1 second(s).
+    regex: /^Haste your (leftmost|rightmost) item (\d+) second\(?s?\)?\.$/i,
+    func: (item, match)=>{
+        const duration = getRarityValue(match[2], item.rarity);
+        const whichItem = match[1]=='leftmost'?item.board.items[0]:item.board.items[item.board.items.length-1];        
+        return ()=>{
+            item.applyHasteTo(whichItem, duration);
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //This has double charge amount. from Shiny fiber optic cable
+    regex: /^this has double charge amount\.$/i,
+    func: (item, match)=>{
+        item.charge_pauseChanged = true;
+        const oldChargeMultiplier = item.charge_multiplier;
+        item.charge_multiplier = 1;
+        item.charge*=2;
+        item.charge_pauseChanged = false;
+        item.charge_multiplier = oldChargeMultiplier;
+        item.charge_multiplier +=1 ;
+        return ()=>{};
+    },
+});
+
 window.TextMatcher = TextMatcher;
