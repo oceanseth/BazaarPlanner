@@ -43,6 +43,7 @@ body {
     background-attachment: fixed; 
     background-size: 100% 100%;
     transition: opacity 5s ease-in-out;
+    min-height: 100%;
 }
 .background-container {
     position: fixed;

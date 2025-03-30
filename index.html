@@ -45,7 +45,6 @@
         <div id="Menu">
             <button id="simulator-header" class="section-header" onclick="showSection('simulator')">Simulator</button>
             <button id="puzzle-header" class="section-header" onclick="showSection('puzzle')">Daily Puzzle</button>
-            <button id="builds-header" class="section-header" onclick="showSection('builds')">Top Builds</button>
             <button id="about-header" class="section-header" onclick="showSection('about')">About</button>
             <button id="faq-header" class="section-header" onclick="showSection('faq')">FAQ</button>
             
@@ -80,18 +79,6 @@
                 -->
                 <br/><br/>
                 <button onclick="logout()" style="margin-left: auto;">Logout</button>
-            </div>
-        </div>
-        <div id="builds" class="section" style="display: none;">
-            <h1>Top Builds</h1>
-            <div id="builds-content">
-                <h3>Coming Soon</h3>
-                <p style="width: 400px; text-align: left;">We're working on a leaderboard of the top 100 builds seen on each day, by simulating battles against all other builds on that day submitted since the last patch.
-                    To submit a build, you will need to create it in the simulator, save it, and upload the resulting file here, and link to a vod where you used it, mousing over all items and skills.
-                    After the build is verified we will simulate it vs all the others submitted.
-                    Make sure that in the vod it is clear what day the battle started on. 
-                </p>
-                <div id="builds-list"></div>
             </div>
         </div>
         <div id="puzzle" class="section">
