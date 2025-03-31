@@ -443,7 +443,7 @@ export class Item {
         return mergedSlot;
     }
     createEnchantPreviewElement() {
-        let html = "<div id='item-enchant-preview'>";
+        let html = "<div class='item-enchant-preview'>";
         if(this.enchants) {
             for(let i in this.enchants) {
                 html += `<div class="enchant-preview-container">
@@ -462,7 +462,6 @@ export class Item {
     createTooltipElement() {
         const tooltip = document.createElement('div');
         tooltip.className = 'tooltip';
-        tooltip.style.pointerEvents = 'none';
 
         // Filter out hidden tags
         let tagsArray = [];
@@ -477,7 +476,7 @@ export class Item {
         }
         let rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
         // Create HTML content with structured layout
-        let tooltipContent = `
+        let tooltipContent = `<div class="background-image" style="opacity:0.2;background-image:url('${this.icon}')"></div>
             <div class="tooltip-content">
                 ${this.ammo ? `
                     <div class="tooltip-ammo">
@@ -502,7 +501,7 @@ export class Item {
                     </div>
                 ` : ''}
                 </div>
-                <div class="tooltip-bottom">
+                <div class="tooltip-bottom ${this.rarity||'Bronze'}Border">
                     <div class="tooltip-bottom-text">
                         ${this.lifesteal>0?'Lifesteal<br>':''}
                         ${this.critMultiplier>100?'Crit Multiplier: '+this.critMultiplier+'%<br>':''}
@@ -516,6 +515,7 @@ export class Item {
         `;
         
         tooltip.innerHTML = tooltipContent;
+        if(!this.enchant && this._isEditable) tooltip.appendChild(this.createEnchantPreviewElement());
         return tooltip;
     }
 
@@ -973,7 +973,7 @@ export class Item {
             const itemType = match[2];
             const gainAmount = getRarityValue(match[4], this.rarity);            
             return (i) => {
-                let adjacentItems = (i||this).getAdjacentItems();
+                let adjacentItems = (((!match[1])&&i)?i:this).getAdjacentItems();
                 if(match[2]!="items") {
                     adjacentItems = adjacentItems.filter(item => item.tags.includes(Item.getTagFromText(itemType)));
                 }

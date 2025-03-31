@@ -463,7 +463,7 @@ function showItemPreview(e) {
  //   preview.classList.add('tooltip');
     const itemData = items[item.getAttribute('data-name')];
     const tempItem = new Item(itemData,null);
-    preview.appendChild(tempItem.createEnchantPreviewElement());
+//    preview.appendChild(tempItem.createEnchantPreviewElement());
     preview.appendChild(tempItem.createTooltipElement());
     preview.style.display = 'block';
     document.body.appendChild(preview);

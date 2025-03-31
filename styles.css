@@ -446,6 +446,7 @@ button:active {
     position: relative;
     display:block;
     z-index:1000;
+    align-self: flex-end; 
 }
 
 .merged-slot.removing {
@@ -575,11 +576,59 @@ button:active {
     justify-content: flex-end;
 }
 
+#item-preview {
+    position: absolute;
+    top: 400px;
+    left: 320px;
+    z-index: 1000;
+}
+.item-enchant-preview {
+    min-width: 300px;
+    text-align:left;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 1000;
+    background: radial-gradient(
+        circle at center,
+        #2b1810 40%,  /* Dark brown in the middle */
+        #1a1a1a 70%   /* Fading to black */
+    ), 
+    linear-gradient(
+        to right,
+        #1a1a1a 0%,   /* Black on the left */
+        #2b1810 50%,  /* Dark brown in the middle */
+        #1a1a1a 100%  /* Black on the right */
+    );
+}
+.enchant-preview-container {
+    display:flex;
+    flex-direction: row;
+    align-items: left;
+    justify-content: left;
+    gap: 10px;
+    text-align: left;
+    margin-top:5px;
+}
+.enchant-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    min-width: 80px;
+    text-align: right;
+}
+.enchant-description {
+    font-size: 12px;
+    color: white;
+    display:block;
+}
+
 .tooltip {
     position: absolute;
-    left: 50%;
+    left: 0;
     bottom: 100%;
-    transform: translateX(-50%);
+    transform: translateX(0);
     padding: 0px;
     margin: 0px;
     min-width: 200px;
@@ -587,7 +636,25 @@ button:active {
     color: rgb(251,233,192);
     z-index: 2000;
     font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: row;
     pointer-events: none;
+}
+
+.tooltip-content, #item-enchant-preview {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.tooltip-main {
+    flex: 1;  /* This allows the main content area to grow */
+}
+
+.item-enchant-preview {
+    height: 100%;  /* Make the preview fill the full height */
+    display: flex;
+    flex-direction: column;
 }
 
 .tooltip-tags {
@@ -705,10 +772,9 @@ button:active {
 
 .tooltip-ammo {
     position: absolute;
-    right: -25px;
-    top: 50%;
+    right: 0px;
+    top: 40px;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.8);
     padding: 5px 10px;
     border-radius: 5px;
     text-align: center;
@@ -1831,51 +1897,6 @@ select {
 
 .puzzle-results-left {
     position: relative;  /* Required for absolute positioning of pseudo-element */
-}
-
-
-#item-preview {
-    position: absolute;
-    text-align:left;
-    top: 250px;
-    left: 600px;
-    background-color: var(--background-color);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 10px;
-    z-index: 1000;
-    background: radial-gradient(
-        circle at center,
-        #2b1810 40%,  /* Dark brown in the middle */
-        #1a1a1a 70%   /* Fading to black */
-    ), 
-    linear-gradient(
-        to right,
-        #1a1a1a 0%,   /* Black on the left */
-        #2b1810 50%,  /* Dark brown in the middle */
-        #1a1a1a 100%  /* Black on the right */
-    );
-}
-.enchant-preview-container {
-    display:flex;
-    flex-direction: row;
-    align-items: left;
-    justify-content: left;
-    gap: 10px;
-    text-align: left;
-    margin-top:5px;
-}
-.enchant-name {
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    min-width: 80px;
-    text-align: right;
-}
-.enchant-description {
-    font-size: 12px;
-    color: white;
-    display:block;
 }
 
 #auth-container {
