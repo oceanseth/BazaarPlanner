@@ -353,17 +353,6 @@ ItemFunction.items.set("Phonograph",(item)=>{
         leftItem.gain(leftItem.cooldown*(1-cooldownReduction/100)-leftItem.cooldown,'cooldown');
     }
 });
-/*
-//Haste the Core for ( 2 » 3 » 4 ) second(s). from Motherboard
-ItemFunction.items.set("Motherboard",(item)=>{
-    const hasteDuration = getRarityValue("2 >> 3 >> 4",item.rarity);
-    item.board.player.hostileTarget.board.items.forEach(i=>{
-        if(i.tags.includes("Core")) {
-            item.applyHasteTo(i,hasteDuration);
-        }
-    });
-});
-*/
 
 // When your opponent uses a Weapon or Burn item, Charge this 2 second(s). from Blast Doors
 ItemFunction.items.set("Blast Doors",(item)=>{

@@ -2768,7 +2768,7 @@ export class Item {
 
                         return;
                     case "the core gains haste":
-                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text,(item)=>{
+                        this.board.hasteTriggers.set(this.id+"_"+triggerFunctionFromText.text,(item)=>{
                             if(item.tags.includes("Core")) {
                                 triggerFunctionFromText(item);
                             }
