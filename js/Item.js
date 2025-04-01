@@ -2280,7 +2280,7 @@ export class Item {
         if(text.match(/^At the start of each hour/i)) {
             return;
         }
-        let regex = /^\s*When (you|your enemy|any player|your items|your enemy's items)? ([^,]*), (.*)$/i;
+        let regex = /^\s*When (you|your enemy|any player|your items|your enemy's items|the core)? ([^,]*), (.*)$/i;
         let match = text.match(regex);
         let ifFunction = null;
         if(match) {
@@ -2294,7 +2294,10 @@ export class Item {
                 targetBoards.push(this.board.player.hostileTarget.board);
             } else if(enemyMatch=="your enemy's items") {
                 targetBoards.push(this.board.player.hostileTarget.board);
+            } else if(enemyMatch.toLowerCase()=="the core") {
+                conditionalMatch = "the core "+conditionalMatch;
             }
+
 
             if(ifmatch) {
                 textAfterComma = ifmatch[1];
@@ -2763,6 +2766,13 @@ export class Item {
                             }
                         });
 
+                        return;
+                    case "the core gains haste":
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text,(item)=>{
+                            if(item.tags.includes("Core")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
                         return;
                 }
                 console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"' from "+this.name);
