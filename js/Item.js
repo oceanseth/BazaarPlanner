@@ -313,8 +313,11 @@ export class Item {
 
         Object.assign(this, this.startItemData);
         this.tags = structuredClone(this.startItemData.tags);
-        if(this.enchant) this.name = this.enchant + ' ' + this.name;
-        if(this.enchant && Item.enchantTagMap[this.enchant] && !this.tags.includes(Item.enchantTagMap[this.enchant])) this.tags.push(Item.enchantTagMap[this.enchant]);
+        if(this.enchant) {
+            this.name = this.enchant + ' ' + this.name;
+            if(Item.enchantTagMap[this.enchant] && !this.tags.includes(Item.enchantTagMap[this.enchant])) this.tags.push(Item.enchantTagMap[this.enchant]);
+            this.tags.push("Enchanted");
+        }
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
         this.resetCooldown();
 
@@ -2387,7 +2390,7 @@ export class Item {
                 });
                 return;
             }
-            const whenmatch = conditionalMatch.match(/^uses? an? (non-)?([^\s]+)(?: item)?$/i);
+            const whenmatch = conditionalMatch.match(/^uses? an?(?:other)? (non-)?([^\s]+)(?: item)?$/i);
             if(whenmatch) {
                 const non = whenmatch[1];
                 const tagToMatch = Item.getTagFromText(whenmatch[2]);
