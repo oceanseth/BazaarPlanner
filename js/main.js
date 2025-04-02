@@ -167,17 +167,30 @@ function updateUserInfo(user) {
     firebase.database()
         .ref(`users/${user.uid}`)
         .once('value').then(snapshot => {
-            Object.assign(user,  snapshot.val());
+            Object.assign(user, snapshot.val());
     
-        document.getElementById('account-details').textContent = JSON.stringify({
-            displayName: user.displayName,
-            email: user.email,
-            emailVerified: user.emailVerified,
-            photoURL: user.photoURL,
-            uid: user.uid,
-            isDonor: user.isDonor
-        }, null, '  ');
-    });
+            document.getElementById('account-details').textContent = JSON.stringify({
+                displayName: user.displayName,
+                email: user.email,
+                emailVerified: user.emailVerified,
+                photoURL: user.photoURL,
+                uid: user.uid,
+                isDonor: user.isDonor
+            }, null, '  ');
+            
+            if(user.isDonor) {
+                // Remove explicit banner ad
+                const bannerAd = document.getElementById('top-banner-ad');
+                if(bannerAd) bannerAd.remove();
+                
+                // Remove all automatic Google ads
+                const googleAds = document.querySelectorAll('ins.adsbygoogle');
+                googleAds.forEach(ad => ad.remove());
+                
+                // Prevent future automatic ad insertion
+                window.adsbygoogle = [];
+            }
+        });
 }
 
 function setLoggedInUser (user) {        
