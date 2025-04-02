@@ -238,8 +238,8 @@
                 title:'PayPal - The safer, easier way to pay online!',
                 },
                 onComplete: function(params) {
-                    // This fires when payment is complete
-                   window.markUserAsPaid(window.user.uid);
+                    // params.amt contains the donation amount
+                    window.markUserAsPaid(window.user.uid, params.amt);
                 }
                 }).render('#donate-button-container');
                 </script>

@@ -769,11 +769,16 @@ window.showDonationRequiredAlert = () => {
     document.body.appendChild(dialog);
 };
 
-window.markUserAsPaid = async (userId) => {
+window.markUserAsPaid = async (userId, amount) => {
     try {
         await firebase.database().ref(`users/${userId}`).update({
             isDonor: true,
-            donationDate: firebase.database.ServerValue.TIMESTAMP
+            donationDate: firebase.database.ServerValue.TIMESTAMP,
+            donationAmount: amount,  // Store the donation amount
+            lastDonation: {
+                amount: amount,
+                date: firebase.database.ServerValue.TIMESTAMP
+            }
         });
         alert('Thank you for your donation! Refresh the page to activate premium features.');
     } catch (error) {
