@@ -1240,7 +1240,7 @@ export class Item {
                 this.applyHasteTo(itemToHaste,duration);
             };
         }
-        regex = /^Haste the (\w+)? item to the right(?: of this)? for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        regex = /^Haste the (\w+)?\s?item to the right(?: of this)? for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const tagToMatch = match[1] ? Item.getTagFromText(match[1]) : null;

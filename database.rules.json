@@ -1,5 +1,14 @@
 {
   "rules": {
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid",
+        "isDonor": {
+          ".validate": "!data.exists() || data.val() === true"
+        }
+      }
+    },
     "puzzles": {
       "current": {
         ".read": true,
