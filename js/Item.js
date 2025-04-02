@@ -591,6 +591,9 @@ export class Item {
         if(this.hasDoubleHasteDuration) {
             duration*=2;
         }
+        if(item.hasteTimeRemaining<=0) {
+            item.becameHastedOnEffectiveBattleTime = this.effectiveBattleTime ;
+        }
         item.applyHaste(duration);
         this.log(this.name + " hastened " + item.name + " for " + duration + " seconds");
         this.board.hasteTriggers.forEach(func => func(item,this));
@@ -628,28 +631,40 @@ export class Item {
         this.progressBar.style.bottom = `calc(${progress}% - 5px)`;        
         this.updateStatusIndicators();
     }
-    updateStatusDurations(timeDiff) {
-        // Update status durations
-        if(this.hasteTimeRemaining > 0) {
-            this.hasteTimeRemaining -= timeDiff;
-            if(this.hasteTimeRemaining <= 0) {
-                this.hasteTimeRemaining = 0;
-                this.isHasted = 0;
-                if(!this.board.items.some(i=>i.hasteTimeRemaining>0)) {
-                    this.board.hasHastedItem = 0;
+    progressHasteAndSlowAndReturnEffectiveTimeDiff(timeDiff) {        
+        // Calculate effective time considering haste/slow
+        // timediff has not yet been added to this.effectiveBattleTime for the current tick
+        let effectiveTimeDiff = timeDiff;        
+        if(this.becameHastedOnEffectiveBattleTime!=(this.effectiveBattleTime + this.board.player.battle.battleIntervalSpeed)) //make sure it didn't gain haste on this same tick)
+        { 
+            if(this.hasteTimeRemaining > 0 ) {
+                if(!this.slowTimeRemaining>0) effectiveTimeDiff *= this.cooldown>2000?2:this.cooldown/1000; // haste multiplier            
+                this.hasteTimeRemaining -= timeDiff;
+                if(this.hasteTimeRemaining <= 0) {
+                    this.hasteTimeRemaining = 0;
+                    this.isHasted = 0;
+                    if(!this.board.items.some(i=>i.hasteTimeRemaining>0)) {
+                        this.board.hasHastedItem = 0;
+                    }
                 }
             }
         }
-        if(this.slowTimeRemaining > 0) {
-            this.slowTimeRemaining -= timeDiff;
-            if(this.slowTimeRemaining <= 0) {
-                this.slowTimeRemaining = 0;
-                this.isSlowed = 0;
-                if(!this.board.items.some(i=>i.slowTimeRemaining>0)) {
-                    this.board.hasSlowedItem = 0;
+        if(this.becameSlowedOnEffectiveBattleTime!=(this.effectiveBattleTime + this.board.player.battle.battleIntervalSpeed)) //make sure it didn't gain slow on this same tick)
+        {
+            if (this.slowTimeRemaining > 0) {
+                if(!this.hasteTimeRemaining>0)effectiveTimeDiff *= 0.5; // slow multiplier                
+                this.slowTimeRemaining -= timeDiff;
+                if(this.slowTimeRemaining <= 0) {
+                    this.slowTimeRemaining = 0;
+                    this.isSlowed = 0;
+                    if(!this.board.items.some(i=>i.slowTimeRemaining>0)) {
+                        this.board.hasSlowedItem = 0;
+                    }
                 }
             }
         }
+
+        return effectiveTimeDiff;
     }
 
     updateBattle(timeDiff) {
@@ -661,7 +676,7 @@ export class Item {
                 this.freezeElement.classList.remove('hidden');
                 this.freezeElement.textContent = (this.freezeDurationRemaining/1000).toFixed(1);
 
-                this.updateStatusDurations(timeDiff);
+                this.progressHasteAndSlowAndReturnEffectiveTimeDiff(timeDiff);
 
                 return;
             }
@@ -677,15 +692,7 @@ export class Item {
         
         if (!this.progressBar || this.isDestroyed) return;
 
-        // Calculate effective time considering haste/slow
-        let effectiveTimeDiff = timeDiff;        
-        if (this.hasteTimeRemaining > 0 && ! this.slowTimeRemaining>0) {
-            effectiveTimeDiff *= this.cooldown>2000?2:this.cooldown/1000; // haste multiplier
-        } else if (this.slowTimeRemaining > 0 && !this.hasteTimeRemaining>0) {
-            effectiveTimeDiff *= 0.5; // slow multiplier
-        }
-
-        this.updateStatusDurations(timeDiff);
+        let effectiveTimeDiff = this.progressHasteAndSlowAndReturnEffectiveTimeDiff(timeDiff);
 
         if(this.maxAmmo && this.ammo<=0 && this.numTriggers < Math.floor((effectiveTimeDiff+this.effectiveBattleTime) / this.cooldown)) {
             //don't progress battle time if no ammo is remaining and the item is ready to trigger
@@ -693,10 +700,10 @@ export class Item {
         }
         this.effectiveBattleTime += effectiveTimeDiff;
         // Update progress and check for triggers
-        const progress = (this.effectiveBattleTime % this.cooldown) / this.cooldown * 100;
+        const progress = (this.effectiveBattleTime % (this.cooldown + this.cooldown/10)) / this.cooldown * this.board.player.battle.battleIntervalSpeed;
         this.updateProgressBar(progress);
 
-        const newTriggers = Math.floor(this.effectiveBattleTime / this.cooldown);
+        const newTriggers = Math.floor((this.effectiveBattleTime -(this.numTriggers*this.cooldown/10))/ this.cooldown);
         if (newTriggers > this.numTriggers && (!this.maxAmmo || this.ammo>0)) {
             if(this.maxAmmo) this.ammo--;
             if(this.multicast>0) {
@@ -1208,8 +1215,10 @@ export class Item {
             const numToHaste = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]?match[2]:1);
             const hasteAmount = parseInt(match[6] ? getRarityValue(match[6], this.rarity) : match[7]);
             const itemsToHaste = tagToMatch ? this.board.items.filter((item) => 
+                item.isHasteTargetable() &&(
                 item.tags.includes(tagToMatch)!==isNon ||
                 (orTagToMatch?item.tags.includes(orTagToMatch):false)
+                )
             ) : this.board.items;
             return ()=>{
                 this.pickRandom(itemsToHaste,numToHaste).forEach(item=>this.applyHasteTo(item,hasteAmount));
@@ -1231,10 +1240,13 @@ export class Item {
                 this.applyHasteTo(itemToHaste,duration);
             };
         }
-        regex = /^Haste the item to the right of this for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
-        if (regex.test(text)) {
-            const duration = getRarityValue(text.match(regex)[1], this.rarity);
+        regex = /^Haste the (\w+)? item to the right(?: of this)? for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = match[1] ? Item.getTagFromText(match[1]) : null;
+            const duration = getRarityValue(match[2], this.rarity);
             const itemToHaste = this.getItemToTheRight();
+            if(tagToMatch && itemToHaste && !itemToHaste.tags.includes(tagToMatch)) return ()=>{};
             return (item) => { 
                 if(itemToHaste) {
                     this.applyHasteTo(itemToHaste,duration);
@@ -1488,9 +1500,8 @@ export class Item {
         //Heal equal to your Shield.
         regex = /Heal equal to your Shield\.?/i;
         match = text.match(regex);
-
         if(match) {
-            this.board.player.shieldChanged((oldShield,newShield)=>{
+            this.board.player.shieldChanged((newShield,oldShield)=>{
                 this.gain(newShield-oldShield,'heal');
             });
             return () => {
@@ -2390,16 +2401,17 @@ export class Item {
                 });
                 return;
             }
-            const whenmatch = conditionalMatch.match(/^uses? an?(?:other)? (non-)?([^\s]+)(?: item)?$/i);
+            const whenmatch = conditionalMatch.match(/^uses? an?(other)? (non-)?([^\s]+)(?: item)?$/i);
             if(whenmatch) {
-                const non = whenmatch[1];
-                const tagToMatch = Item.getTagFromText(whenmatch[2]);
+                const other = whenmatch[1];
+                const non = whenmatch[2];
+                const tagToMatch = Item.getTagFromText(whenmatch[3]);
                 
                 targetBoards.forEach(board => {
                     if(non) {
-                        this.whenNonItemTagTriggers(tagToMatch, triggerFunctionFromText, board);
+                        this.whenNonItemTagTriggers(tagToMatch, triggerFunctionFromText, board, other?this:null);
                     } else {
-                        this.whenItemTagTriggers(tagToMatch, triggerFunctionFromText, board);
+                        this.whenItemTagTriggers(tagToMatch, triggerFunctionFromText, board, other?this:null);
                     }
                 });
                 return;
@@ -3230,11 +3242,10 @@ export class Item {
     When an item with a tag is used, trigger the given function
     tag can be a string or an array of strings
     */
-    whenItemTagTriggers(tag, func, board) {
-        board = board || this.board;  // Set default value for board if not provided
+    whenItemTagTriggers(tag, func, board=this.board, excludeitem=null) {
         const tags = Array.isArray(tag) ? tag : [tag];
         board.itemTriggers.set(func,(item) => {            
-            if (tag =="Item" || tags.some(t => item.tags.includes(t))) {
+            if (tag =="Item" || tags.some(t => item.tags.includes(t)) && item != excludeitem) {
                 func(item);
             }
         });
@@ -3244,11 +3255,10 @@ export class Item {
     When an item with a tag is used, trigger the given function
     tag can be a string or an array of strings
     */
-    whenNonItemTagTriggers(tag, func, board) {
-        board = board || this.board;  // Set default value for board if not provided
+    whenNonItemTagTriggers(tag, func, board=this.board, excludeitem=null) {
         board.itemTriggers.set(func,(item) => {
             // Handle both string and array cases
-            if(!item.tags.includes(tag)) {
+            if(!item.tags.includes(tag) && item != excludeitem) {
                 func(item);
             }
         });
@@ -4722,21 +4732,19 @@ export class Item {
         }
 
         //this gains ( 1 » 2 » 3 » 4 ) (tag)
-        regex = /^\s*this (?:permanently )?gains (\([^)]+\)|\d+) ([^\s]+)\.?/i;
+        regex = /^\s*this (?:permanently )?gains (\([^)]+\)|\d+) ([^\s^\.]+)\.?/i;
         match = text.match(regex);
         if(match) {
             const isPercentageBased = match[1].includes("%");
             const gainAmount = getRarityValue(match[1].replace("%",""), this.rarity);            
             const whatToGain = match[2].toLowerCase();
             if(isPercentageBased) {
-                return () => {
-                    this.gain(this[whatToGain]*gainAmount/100,whatToGain);
-                    this.log(this.name + " gained " + gainAmount + " " + whatToGain);
+                return (i) => {
+                    this.gain(this[whatToGain]*gainAmount/100,whatToGain,i||this);
                 }
             } else {
-                return () => {
-                    this[whatToGain] += gainAmount;
-                    this.log(this.name + " gained " + gainAmount + " " + whatToGain);
+                return (i) => {
+                    this.gain(gainAmount,whatToGain,i||this);
                 }        
             }
         }

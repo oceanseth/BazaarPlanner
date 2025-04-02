@@ -8,9 +8,10 @@ export class Battle {
         this.battleOverFunction = battleOverFunction;
         this.battleInterval = undefined;
         this.battleSeed = battleSeed;
+        this.lockedBattleSeed = battleSeed?true:false;
         this.logging = logging;
         this.sandstormValue = 1;
-        this.sandstormIncrement = .25;
+        this.sandstormIncrement = 2;
         this.battleIntervalSpeedMultiplier = 1;
         this.testBattleIntervals = [];
         this.winRateBattleCount = 100;
@@ -109,8 +110,10 @@ export class Battle {
         this.resetBattle();
         // Generate a random seed (32 characters)
         // Using ASCII printable characters (33-126)
-        this.battleSeed = [...crypto.getRandomValues(new Uint8Array(32))]
-        .reduce((acc, x) => acc + String.fromCharCode(33 + (x % 94)), '');
+        if(!this.lockedBattleSeed) {
+            this.battleSeed = [...crypto.getRandomValues(new Uint8Array(32))]
+            .reduce((acc, x) => acc + String.fromCharCode(33 + (x % 94)), '');
+        }
 
         // Initialize the RNG with the seed
         this.battleRNG = new Math.seedrandom(this.battleSeed);
@@ -211,11 +214,11 @@ export class Battle {
         
         this.updateBattle(this.battleIntervalSpeed);
     
-      if(this.battleTimeDiff>=30000) {
+      if(this.battleTimeDiff >= 34200 ) {
         let sandstormDmg = Math.floor(this.sandstormValue);
         this.log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
         this.players.forEach(player => player.takeDamage(sandstormDmg));
-        this.sandstormValue+=this.sandstormIncrement;
+        if(this.battleTimeDiff >= 35200) this.sandstormValue+=this.sandstormIncrement;
       }
 
     
