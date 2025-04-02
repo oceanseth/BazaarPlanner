@@ -191,6 +191,9 @@ function updateUserInfo(user) {
                 window.adsbygoogle = [];
             }
         });
+        setTimeout(() => {
+            updateUserInfo(user);
+        }, 60000);
 }
 function createCalculateBattleButton() {
     const calculateBattleButton = document.createElement('img');
