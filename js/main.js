@@ -168,7 +168,9 @@ function updateUserInfo(user) {
         .ref(`users/${user.uid}`)
         .once('value').then(snapshot => {
             Object.assign(user, snapshot.val());
-    
+            if(!snapshot.val().isDonor) {
+                user.isDonor = false;
+            }
             document.getElementById('account-details').textContent = JSON.stringify({
                 displayName: user.displayName,
                 email: user.email,
