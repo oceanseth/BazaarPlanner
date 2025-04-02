@@ -189,8 +189,6 @@ function updateUserInfo(user) {
                 
                 // Prevent future automatic ad insertion
                 window.adsbygoogle = [];
-
-                createCalculateBattleButton();
             }
         });
 }
@@ -398,6 +396,7 @@ window.toggleDarkMode = () => {
     }
     setInterval(backgroundFader,10000);
     backgroundFader();
+    createCalculateBattleButton();
   });
   window.backgroundFader = function() {
     // Create container if it doesn't exist
