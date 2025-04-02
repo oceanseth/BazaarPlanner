@@ -134,12 +134,9 @@ body {
     align-items: center;
     padding: 0px;
     margin: 1px 0;
-    background: var(--list-item-background);
-    border-radius: 4px;
     cursor: pointer;
     position: relative;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateZ(0);
     color: var(--text-color);
 }
 
@@ -389,9 +386,10 @@ button:active {
     background: var(--list-background);
 }
 #simulator-itemsList, #simulator-monsterList {
-    height: calc(50% - 50px);
+    height: calc(50% - 30px);
     overflow-y: scroll;
     overflow-x:hidden;
+    background-color: var(--list-background);
 }
 
 @keyframes tooltip-slide-down {
@@ -1682,10 +1680,8 @@ background-color: rgba(255, 0, 0, 0.2);
     padding: 0px;
 }
 .monster-dropdown-name {
-    font-size: 14px;
-    font-weight: bold;
     width: calc(100% - 45px);
-    margin-left: 5px;
+    margin-left: 10px;
     padding: 0px;
     /* Removed line-height since we're using flex alignment */
 }
