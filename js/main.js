@@ -34,7 +34,6 @@ window.Account = Account;
 topPlayer.hostileTarget = bottomPlayer;
 bottomPlayer.hostileTarget = topPlayer;
 
-//      initializeMonsterSearch();
 window.mainBattle = new Battle([topPlayer, bottomPlayer], (winner) => {}, $("#combat-log"));
 
 window.lastLogTimes = new Map();
@@ -273,6 +272,7 @@ window.onload = () => {
             loadMonsterBoard(monsters[selectedMonster]);
         }
     });
+    searchMonsters('');
 
     
     Object.entries(items).forEach(([id, item]) => {
@@ -524,7 +524,7 @@ window.showItemPreview = showItemPreview;
 
 function createListItem(data) {
     const item = document.createElement('div');
-    item.className = 'list-item';
+    item.className = 'list-item draggable';
     item.draggable = true;
     item.setAttribute('data-name', data.name);
     
@@ -650,7 +650,7 @@ function loadMonsterBoard(monsterData, boardId = 't') {
 }
 
 function searchMonsters(query) {
-    const dropdown = document.getElementById('monster-dropdown');
+    const dropdown = document.getElementById('simulator-monsterList');
     const searchInput = document.getElementById('monster-search');
     
     dropdown.innerHTML = '';
@@ -668,7 +668,6 @@ function searchMonsters(query) {
             div.onclick = () => {
                 searchInput.value = monster.name;
                 loadMonsterBoard(monster);
-                dropdown.style.display = 'none';
             };
             div.onmouseover = () => {
                 if(document.getElementById('monster-preview-img')==null) {
@@ -709,13 +708,7 @@ function searchMonsters(query) {
 
 // Add click handler to hide dropdown when clicking outside
 document.addEventListener('click', (e) => {
-    const dropdown = document.getElementById('monster-dropdown');
-    const searchContainer = e.target.closest('.search-container');
-    
-    if (!searchContainer && dropdown) {
-        dropdown.style.display = 'none';
-    }
-
+   
     if(e.target.closest('.editorOpener')==null && e.target.closest('.editor')==null) {
         document.querySelectorAll('.editor').forEach(editor => {
             editor.style.display = 'none';

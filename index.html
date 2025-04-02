@@ -293,27 +293,24 @@
                 </div>
             </div>
             <div id="monster-search-container">
-                <div class="search-container" style="width: 100%">
-                    <input type="text" 
-                           autocomplete="off" 
-                           class="search-input" 
-                           id="monster-search"
-                           onkeyup="searchMonsters(this.value)"
-                           onfocus="searchMonsters('')"
-                           onchange="if(monsters[this.value]){
-                             loadMonsterBoard(monsters[this.value]); 
-                             this.defaultValue = this.value;
-                           }"
-                           placeholder="Search monsters...">
-                    <div id="monster-dropdown" class="search-dropdown"></div>
-                    <!--coming soon
-                    <div id="import" class="import"><input type="text" id="import-input" placeholder="Import from bazaar insights" onChange="importFromBazaarInsights(this.value)"/></div>
-                    -->
-                </div>                         
+                                         
             </div>
             <div style="display: flex; gap: 20px;">
                 <div id="simulator-items">           
-                    <input type="text" style="width: calc(100% - 5px); height: 24px;margin-bottom:5px;" id="simulator-search-input" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" autocomplete="off" placeholder="Search items...">         
+                    <input type="text" 
+                            autocomplete="off" 
+                            class="search-input" 
+                            id="monster-search"
+                            onkeyup="searchMonsters(this.value)"
+                            onfocus="searchMonsters('')"
+                            onchange="if(monsters[this.value]){
+                                loadMonsterBoard(monsters[this.value]); 
+                                this.defaultValue = this.value;
+                            }"
+                            placeholder="Search monsters...">
+                        <div id="simulator-monsterList"></div>
+                        <div style="height: 20px; width: 100%; background-color: var(--background-color);"></div>
+                    <input type="text" id="simulator-search-input" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" autocomplete="off" placeholder="Search items...">         
                     <div id="simulator-itemsList"></div>
                 </div>
                 <div style="position: relative;">
