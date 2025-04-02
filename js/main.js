@@ -159,17 +159,25 @@ window.getTinyUrl = function() {
     });
 }
 
-window.updateUserInfo = function(user) {
-    if (user) {
-//        document.getElementById('sign-in-status').textContent = 'Signed in as ' + user.displayName;
+function updateUserInfo(user) {
+    if(!user) return;
+    document.getElementById('account-login').style.display = 'none';
+    document.getElementById('account-content').style.display = 'block';
+
+    firebase.database()
+        .ref(`users/${user.uid}`)
+        .once('value').then(snapshot => {
+            Object.assign(user,  snapshot.val());
+    
         document.getElementById('account-details').textContent = JSON.stringify({
             displayName: user.displayName,
             email: user.email,
             emailVerified: user.emailVerified,
             photoURL: user.photoURL,
-            uid: user.uid
+            uid: user.uid,
+            isDonor: user.isDonor
         }, null, '  ');
-    }
+    });
 }
 
 function setLoggedInUser (user) {        
@@ -180,7 +188,7 @@ function setLoggedInUser (user) {
                 window.isDoner = true;
                 // Update status elements
                 updateUserInfo(user);
-
+                
                // pollCheck();
                 setupHash();
             });
@@ -688,3 +696,39 @@ document.addEventListener('keyup', (e) => {
     }
 });
 
+function setupDonateButton() {
+    if(window.user) {
+    PayPal.Donation.Button({
+        env:'production',
+        hosted_button_id:'B4LEV6GZB6YP2',
+        image: {
+            src:'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif',
+            alt:'Donate with PayPal button',
+            title:'PayPal - The safer, easier way to pay online!',
+        },
+        onComplete: function(params) {
+            // This fires when payment is complete
+            markUserAsPaid(window.user.uid);
+        }
+    }).render('#donate-button');
+    } else {
+        document.getElementById('donate-button-container').onclick = (e) => {
+            e.stopPropagation();
+            window.showLogin();
+            return false;
+        };
+    }
+}
+
+async function markUserAsPaid(userId) {
+    try {
+        await firebase.database().ref(`users/${userId}`).update({
+            isDonor: true,
+            donationDate: firebase.database.ServerValue.TIMESTAMP
+        });
+        alert('Thank you for your donation! Refresh the page to activate premium features.');
+    } catch (error) {
+        console.error('Error updating paid status:', error);
+        alert('There was an error processing your donation. Please contact support.');
+    }
+}

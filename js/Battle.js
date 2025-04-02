@@ -147,7 +147,7 @@ export class Battle {
         this.players.forEach(player => {
             player.board.winRateElement.style.display = "none";
         });
-        if(!window.isPaidUser) return;
+        if(!window.user?.isDonor) return;
         if(this.testBattleIntervals.length>0) {
             this.stopCalculating();
         }
