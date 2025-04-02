@@ -2055,8 +2055,8 @@ select {
 
 .calculate-battle-button {
     position: absolute;
-    top: 330px;
-    left: 1180px;
+    top: 300px;
+    left: 1190px;
     width: 100px;
     height: 100px;
     cursor: pointer;
