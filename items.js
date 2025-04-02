@@ -16882,5 +16882,37 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     }
+  },
+  "Memento Mori": {
+    "name": "Memento Mori",
+    "icon": "images/items/MementoMori.avif",
+    "tier": "Gold",
+    "tags": [
+      "Mak",
+      "Medium",
+      "Heal"
+    ],
+    "cooldown": 7,
+    "ammo": null,
+    "text": [
+      "The first time you would die each fight, Heal for 1 and take no damage for 1 second(s)."
+    ],
+    "enchants": {
+      "Heavy": "Slow 2 items for 2 second(s).",
+      "Icy": "Freeze 1 medium or small item for 2 second(s).",
+      "Turbo": "Haste 2 items for 2 second(s).",
+      "Shielded": "This has double Shield.",
+      "Restorative": "This has double Heal.",
+      "Toxic": "Poison equal to 10% of this item's Shield.",
+      "Fiery": "Burn equal to 10% of this item's Shield.",
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Deadly": "+50% Crit Chance",
+      "Obsidian": "Deal damage equal to this item's Shield."
+    },
+    "priorities": [
+      1,
+      1
+    ]
   }
 };

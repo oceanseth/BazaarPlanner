@@ -282,5 +282,27 @@ TextMatcher.matchers.push({
         return ()=>{};
     },
 });
-
+TextMatcher.matchers.push({
+    //heal for 1 and take no damage for 1 second(s). from Memento Mori
+    regex: /^take no damage for (\([^)]+\)|\d+) second\(?s?\)?\.$/i,
+    func: (item, match)=>{
+       // const healAmount = getRarityValue(match[1], item.rarity);
+        const duration = 1000*getRarityValue(match[1], item.rarity);
+        let diedAtTime;
+        return ()=>{
+         //   item.board.player.health=0;
+       //     item.applyHeal(healAmount);
+            diedAtTime = item.board.player.battleTime;
+            item.board.player.healthChanged((newHealth,oldHealth)=>{
+                if(newHealth<oldHealth && diedAtTime >= item.board.player.battleTime - duration) {
+                    item.board.player.damage_pauseChanged = true;
+                    item.board.player.health += (oldHealth-newHealth); //undo the damage
+                    item.board.player.damage_pauseChanged = false;
+                } else if(diedAtTime < item.board.player.battleTime - duration) {
+                    item.board.player.healthCancelChanged(item.id);
+                }
+            },item.id);
+        };
+    },
+});
 window.TextMatcher = TextMatcher;

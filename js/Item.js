@@ -1390,7 +1390,7 @@ export class Item {
     }
 
     getHealTriggerFunctionFromText(text) {
-        let regex = /Heal (?:\(([^)]+)\)|(\d+))(?: and (.*))?$/i;
+        let regex = /Heal(?: for)? (?:\(([^)]+)\)|(\d+))(?: and (.*))?$/i;
         let match = text.match(regex);
         if(match) {
             const healAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);

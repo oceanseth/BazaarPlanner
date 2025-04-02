@@ -15,6 +15,7 @@ export class Battle {
         this.battleIntervalSpeedMultiplier = 1;
         this.testBattleIntervals = [];
         this.winRateBattleCount = 100;
+        this.battleTimeDiff = 0;
 
         this.startBattleTime = undefined;
         this.battleIntervalSpeed = battleIntervalSpeed;
