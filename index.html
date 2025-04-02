@@ -236,6 +236,10 @@
                 src:'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif',
                 alt:'Donate with PayPal button',
                 title:'PayPal - The safer, easier way to pay online!',
+                },
+                onComplete: function(params) {
+                    // This fires when payment is complete
+                   window.markUserAsPaid(window.user.uid);
                 }
                 }).render('#donate-button-container');
                 </script>
