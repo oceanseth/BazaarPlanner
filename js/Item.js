@@ -1008,6 +1008,7 @@ export class Item {
             this.gain(highestShieldValue,'damage');
 
             this.board.shieldValuesChangedTriggers.set(this.id, (shieldItem) => {
+                if(!this.board.items.includes(shieldItem)) return;
                 if(shieldItem.shield > highestShieldValue) {
                     let shieldDiff = shieldItem.shield - highestShieldValue;
                     highestShieldValue = shieldItem.shield;
