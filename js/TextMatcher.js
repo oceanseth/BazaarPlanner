@@ -237,7 +237,7 @@ TextMatcher.matchers.push({
     regex: /^When (?:this|this item) gains (.*), (.*)/i,
     func: (item, match)=>{
         const f = item.getTriggerFunctionFromText(match[2]);
-        const f2 = (item)=>{ if(item.id==item.id) f(item); };
+        const f2 = (i,source)=>{ if(i.id==item.id) f(i,source); };
         switch(match[1].toLowerCase()) {
             case "haste":
                 item.board.hasteTriggers.set(item.id+"_"+f.text,f2);
@@ -249,11 +249,7 @@ TextMatcher.matchers.push({
                 item.board.damageTriggers.set(item.id+"_"+f.text,f2);
                 break;
             case "freeze":
-                item.board.freezeTriggers.set(item.id+"_"+f.text,(target, source) =>{
-                    if(target.id==item.id) {
-                        f(item, source);
-                    }
-                });
+                item.board.freezeTriggers.set(item.id+"_"+f.text,f2);
                 break;
             default:
                 console.log("Unknown when gain trigger: "+match[1]);

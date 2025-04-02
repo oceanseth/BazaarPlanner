@@ -299,8 +299,16 @@
                 <div style="position: relative;">
                     <div class="battle-controls">
                         <div class="battle-buttons">
+                            <input type=text id="battleSeedText" style="display: none; position:absolute; top:-25px;" placeholder="Battle Seed" onChange="mainBattle.battleSeed=this.value; mainBattle.lockedBattleSeed=true;">
+                            <div style="cursor:pointer; width: 20px; height: 20px;" onClick="document.getElementById('battleSeedText').style.display=='none'?document.getElementById('battleSeedText').style.display='block':document.getElementById('battleSeedText').style.display='none';"></div>
                             <button onclick="mainBattle.startBattle()" class="battle-button">Start Battle</button>
                             <button onclick="mainBattle.resetBattle()" class="battle-button">Reset Battle</button>
+                            <select id="battle-speed-select" onchange="if(window.isPaidUser) mainBattle.battleIntervalSpeedMultiplier=parseInt(this.value); else { alert('Donate any amount to enable this feature. Thank you for your support!'); this.value='1';}">
+                                <option value="1">1x speed</option>
+                                <option value="2">2x speed</option>
+                                <option value="4">4x speed</option>
+                                <option value="8">8x speed</option>
+                            </select>
                         </div>
                         <div id="copy-url-container">
                             <button onclick="getTinyUrl()" class="battle-button">Get Tiny URL</button>

@@ -266,16 +266,6 @@ ItemFunction.items.set("Dam",(item)=>{
         item.applyChargeTo(item, i);
     });
 });
-//Haste the Aquatic item to the right for ( 2 » 3 » 4 » 5 ) second(s). from Fishing Rod
-ItemFunction.items.set("Fishing Rod",(item)=>{
-    const hasteDuration = getRarityValue("2 >> 3 >> 4 >> 5",item.rarity);
-    const rightItem = item.getItemToTheRight();
-    item.triggerFunctions.push(()=>{
-        if(rightItem && !rightItem.isDestroyed && rightItem.tags.includes("Aquatic")) {
-            rightItem.applyHasteTo(rightItem,hasteDuration);
-        }
-    });
-});
 
 //Deal 16 Damage.
 //Your Medium Weapons have ( +8 » +16 » +24 ) Damage for each Medium item you have. from Crook
@@ -517,12 +507,12 @@ ItemFunction.items.set("Mortar & Pestle",(item)=>{
 });
 
 ItemFunction.items.set("Balcony",(item)=>{
-    //The Property to the left of this has double value in combat and has its cooldown reduced by ( 10% » 20% » 30% ).
+    //The Property to the left of this has double value in combat and has its cooldown reduced by ( 5% » 10% » 15% ).
     const property = item.getItemToTheLeft();
     if(property && property.tags.includes("Property")) {
         property.gain(property.value,'value');
         property.value_multiplier += 1;
-        property.cooldown *= 1-(getRarityValue("10 >> 10 >> 20 >> 30",item.rarity)/100);
+        property.cooldown *= 1-(getRarityValue("5 >> 10 >> 15",item.rarity)/100);
     //    property.updateTriggerValuesElement();
 
     }
