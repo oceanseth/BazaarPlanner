@@ -85,7 +85,8 @@ window.poll = (answer) => {
         });
 }
 window.closePoll = function() {
-    document.getElementById('poll').remove();
+    const poll = document.getElementById('poll');
+    if(poll) poll.remove();
     document.getElementById('simulator').classList.remove('polling');
     /*document.getElementById('poll-results').innerHTML = 'Does BazaarPlanner harm the game? Poll Results: Yes: <span id="yesResult"></span>&nbsp;&nbsp;&nbsp; No: <span id="noResult"></span>';
     firebase.database().ref('polls/harmpoll/counts').on('value', snapshot => {
@@ -191,6 +192,7 @@ function updateUserInfo(user) {
                 
                 // Prevent future automatic ad insertion
                 window.adsbygoogle = [];
+                closePoll();
             }
         });
         setTimeout(() => {
@@ -767,35 +769,16 @@ window.showDonationRequiredAlert = () => {
     document.body.appendChild(dialog);
 };
 
-function setupDonateButton() {
-    if(window.user) {
-    PayPal.Donation.Button({
-        env:'production',
-        hosted_button_id:'B4LEV6GZB6YP2',
-        image: {
-            src:'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif',
-            alt:'Donate with PayPal button',
-            title:'PayPal - The safer, easier way to pay online!',
-        },
-        onComplete: function(params) {
-            // This fires when payment is complete
-            markUserAsPaid(window.user.uid);
-        }
-    }).render('#donate-button');
-    } else {
-        document.getElementById('donate-button-container').onclick = (e) => {
-            e.stopPropagation();
-            window.showLogin();
-            return false;
-        };
-    }
-}
-
-async function markUserAsPaid(userId) {
+window.markUserAsPaid = async (userId, amount) => {
     try {
         await firebase.database().ref(`users/${userId}`).update({
             isDonor: true,
-            donationDate: firebase.database.ServerValue.TIMESTAMP
+            donationDate: firebase.database.ServerValue.TIMESTAMP,
+            donationAmount: amount,  // Store the donation amount
+            lastDonation: {
+                amount: amount,
+                date: firebase.database.ServerValue.TIMESTAMP
+            }
         });
         alert('Thank you for your donation! Refresh the page to activate premium features.');
     } catch (error) {
