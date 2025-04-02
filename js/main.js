@@ -168,7 +168,7 @@ function updateUserInfo(user) {
         .ref(`users/${user.uid}`)
         .once('value').then(snapshot => {
             Object.assign(user, snapshot.val());
-            if(!snapshot.val().isDonor) {
+            if(!snapshot.val()?.isDonor) {
                 user.isDonor = false;
             }
             document.getElementById('account-details').textContent = JSON.stringify({
@@ -199,13 +199,13 @@ function updateUserInfo(user) {
 }
 function createCalculateBattleButton() {
     const calculateBattleButton = document.createElement('img');
-    calculateBattleButton.className = 'calculate-battle-button';
+    calculateBattleButton.className = 'calculate-battle-button editorOpener';
     calculateBattleButton.src = 'images/gem.png';
     calculateBattleButton.onclick = () => {
-        if(window.user.isDonor) {
+        if(window.user?.isDonor) {
             mainBattle.calculateWinRate();
         } else {
-            alert('You must be a donor to calculate the win rate.');
+            window.showDonationRequiredAlert();
         }
         // Force a reflow to restart the animation
         void calculateBattleButton.offsetWidth;
@@ -737,6 +737,35 @@ document.addEventListener('keyup', (e) => {
         }
     }
 });
+
+window.showDonationRequiredAlert = () => {
+    let donationDialog = document.getElementById('donation-dialog');
+    if(donationDialog) {
+        donationDialog.style.display = 'block';
+        return;
+    }
+    const dialog = document.createElement('div');
+    dialog.className = 'editor donation-dialog';
+    dialog.id = 'donation-dialog';
+    dialog.innerHTML = `
+        <div class="donation-content">
+            <img src="images/gem.png" class="donation-icon" alt="Donation Icon">
+            <h2>Premium Feature</h2>
+            <p>This feature is available to donors as a thank you for supporting BazaarPlanner.</p>
+            <p>Benefits include:</p>
+            <ul>
+                <li>✨ Calculating win rate</li>
+                <li>🚫 Remove all advertisements</li>
+                <li>🚀 Speed up the battle</li>
+                <li>💖 Support ongoing development</li>
+            </ul>
+            <button class="donate-button" onclick="if(window.user) document.getElementById('donate-button').click(); else window.showLogin();">
+                Donate Any Amount
+            </button>
+        </div>
+    `;
+    document.body.appendChild(dialog);
+};
 
 function setupDonateButton() {
     if(window.user) {
