@@ -2060,3 +2060,5 @@ select {
 .puzzle-select-skill-selected {
     border: 2px solid var(--link-color);
 }
+
+.responsive_header_unit { min-width: 550px; min-height: 50px; }
