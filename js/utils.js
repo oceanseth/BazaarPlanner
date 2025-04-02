@@ -47,7 +47,6 @@ export function getRarityValue(valueString, rarity) {
 
 export function updateUrlState() {        
     if(window.isLoadingFromUrl) { return; }
-    topPlayer.battle.calculateWinRate();
     const boardState = [topPlayer.board,bottomPlayer.board]
     .flatMap(board => board.items)
     .map(item => {
@@ -223,7 +222,6 @@ export function loadFromUrl(hash) {
     }
 
     window.isLoadingFromUrl = false;
-    //topPlayer.battle.calculateWinRate();
 }
 
 export function setupChangeListeners(obj,arr) {

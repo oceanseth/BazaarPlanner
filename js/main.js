@@ -189,8 +189,33 @@ function updateUserInfo(user) {
                 
                 // Prevent future automatic ad insertion
                 window.adsbygoogle = [];
+
+                createCalculateBattleButton();
             }
         });
+}
+function createCalculateBattleButton() {
+    const calculateBattleButton = document.createElement('img');
+    calculateBattleButton.className = 'calculate-battle-button';
+    calculateBattleButton.src = 'images/gem.png';
+    calculateBattleButton.onclick = () => {
+        if(window.user.isDonor) {
+            mainBattle.calculateWinRate();
+        } else {
+            alert('You must be a donor to calculate the win rate.');
+        }
+        // Force a reflow to restart the animation
+        void calculateBattleButton.offsetWidth;
+        
+        // Add the class back
+        calculateBattleButton.classList.add('spinning');
+        
+        // Remove the class when animation ends
+        calculateBattleButton.addEventListener('animationend', () => {
+            calculateBattleButton.classList.remove('spinning');
+        }, {once: true});
+    }
+    document.getElementById('simulator').appendChild(calculateBattleButton);
 }
 
 function setLoggedInUser (user) {        
