@@ -94,6 +94,9 @@ export class Battle {
             this.battleButton.textContent = 'Start Battle';
             this.battleButton.classList.remove('pause-battle');
         }
+        if(this.combatLog) {
+            this.combatLog.css('display','none');
+        }
     }
         
 
@@ -108,6 +111,9 @@ export class Battle {
         }
 
         this.resetBattle();
+        if(this.combatLog) {
+            this.combatLog.css('display','block');
+        }
         // Generate a random seed (32 characters)
         // Using ASCII printable characters (33-126)
         if(!this.lockedBattleSeed) {
@@ -118,7 +124,7 @@ export class Battle {
         // Initialize the RNG with the seed
         this.battleRNG = new Math.seedrandom(this.battleSeed);
         this.combatLogEntries = [];
-        this.log("Battle Started\nBattle Seed: " + this.battleSeed);
+        this.log("0: Battle started. Seed: " + this.battleSeed);
         
         this.players.forEach(player => player.board.startBattle());
         

@@ -1517,12 +1517,22 @@ background-color: rgba(255, 0, 0, 0.2);
 
 
 
+#simulator.polling > *:not(#poll) {
+    filter: blur(4px);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+#simulator.polling {
+    position: relative;  /* Keep this for proper stacking context */
+}
+
 #poll {
     position: absolute;
     left: 50%;
     top: 100px;
     transform: translateX(-50%);
-    z-index: 1000;
+    z-index: 4000;
     background: var(--input-background);
     padding: 20px;
     border-radius: 8px;
@@ -1530,21 +1540,8 @@ background-color: rgba(255, 0, 0, 0.2);
     width: 90%;
     max-width: 600px;
     text-align: left;
-    font-family: 'Open Sans', sans-serif;  /* Clean, readable base font */
-    line-height: 1.4;  /* Improved line height for readability */
-}
-
-#simulator.polling #simulator-controls,
-#simulator.polling .board-container,
-#simulator.polling .battle-button,
-#simulator.polling #combat-log-div {
-    filter: blur(4px);
-    opacity: 0.5;
-    pointer-events: none;
-}
-
-#simulator.polling {
-    position: relative;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.4;
 }
 .faq-list {
     list-style-type: none;
@@ -2062,3 +2059,31 @@ select {
 }
 
 .responsive_header_unit { min-width: 550px; min-height: 50px; }
+
+@keyframes spin360 {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.calculate-battle-button {
+    position: absolute;
+    top: 330px;
+    left: 1180px;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.calculate-battle-button:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.calculate-battle-button.spinning {
+    animation: spin360 1s linear;
+}
