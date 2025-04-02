@@ -479,20 +479,18 @@ export class Item {
         }
         let rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
         // Create HTML content with structured layout
-        let tooltipContent = `<div class="background-image" style="opacity:0.2;background-image:url('${this.icon}')"></div>
+        let tooltipContent = `<div class="background-image" style="opacity:0.2;background-image:url('${this.icon}'); background-size: cover; background-position: center;"></div>
             <div class="tooltip-content">
-                ${this.ammo ? `
+                <div class="tooltip-tags">
+                    ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag.toLowerCase()}">${tag}</span>`).join('')}
+                </div>
+                <div class="tooltip-name ${this.rarity||'Bronze'}Border">${this.name}
+                                ${this.ammo ? `
                     <div class="tooltip-ammo">
                         Ammo<br>${this.ammo}
                     </div>
                 ` : ''}
-                ${this.cooldown ? `
-                    <div class="tooltip-cooldown-circle ${this.rarity||'Bronze'}Border">${(this.cooldown/1000).toFixed(1)}<span class="unit">SEC</span></div>
-                ` : ''}
-                <div class="tooltip-tags">
-                    ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag.toLowerCase()}">${tag}</span>`).join('')}
                 </div>
-                <div class="tooltip-name ${this.rarity||'Bronze'}Border">${this.name}</div>
                 <div class="tooltip-main ${this.rarity||'Bronze'}Border">                    
                     <div class="tooltip-main-text">
                         ${colorTextArray(this.text,rarityIndex)}
@@ -514,6 +512,9 @@ export class Item {
                         ${this.freezeBonus>0?'Freeze Bonus: '+this.freezeBonus+'s<br>':''}
                     </div>
                 </div>
+                ${this.cooldown ? `
+                    <div class="tooltip-cooldown-circle ${this.rarity||'Bronze'}Border">${(this.cooldown/1000).toFixed(1)}<span class="unit">SEC</span></div>
+                ` : ''}
             </div>
         `;
         

@@ -441,6 +441,7 @@ button:active {
     display:block;
     z-index:1000;
     align-self: flex-end; 
+    max-width: 600px;
 }
 
 .merged-slot.removing {
@@ -579,22 +580,10 @@ button:active {
 .item-enchant-preview {
     min-width: 300px;
     text-align:left;
-    background-color: var(--background-color);
     border: 1px solid var(--border-color);
     border-radius: 10px;
     padding: 10px;
     z-index: 1000;
-    background: radial-gradient(
-        circle at center,
-        #2b1810 40%,  /* Dark brown in the middle */
-        #1a1a1a 70%   /* Fading to black */
-    ), 
-    linear-gradient(
-        to right,
-        #1a1a1a 0%,   /* Black on the left */
-        #2b1810 50%,  /* Dark brown in the middle */
-        #1a1a1a 100%  /* Black on the right */
-    );
 }
 .enchant-preview-container {
     display:flex;
@@ -633,6 +622,7 @@ button:active {
     display: flex;
     flex-direction: row;
     pointer-events: none;
+    background-color: black;
 }
 
 .tooltip-content, #item-enchant-preview {
@@ -653,6 +643,9 @@ button:active {
 
 .tooltip-tags {
     display: flex;
+    flex-wrap: wrap;
+    max-width: 400px;
+    min-width: 300px;
 }
 
 .tooltip-tags .tag {
@@ -678,6 +671,7 @@ button:active {
         #2b1810 50%,  /* Dark brown in the middle */
         #1a1a1a 100%  /* Black on the right */
     );
+    position: relative;
 }
 
 .tooltip-name,.tooltip-main,.tooltip-bottom {
@@ -767,10 +761,8 @@ button:active {
 .tooltip-ammo {
     position: absolute;
     right: 0px;
-    top: 40px;
-    transform: translateY(-50%);
-    padding: 5px 10px;
-    border-radius: 5px;
+    top: 0px;
+    padding: 5px;
     text-align: center;
     font-size: 12px;
     line-height: 1.2;
