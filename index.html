@@ -226,8 +226,7 @@
                 </ul>
                 <b>Send other ideas and things you might want to see to @Strong on <a href="https://discord.gg/AfYdzr2C">his discord</a>!</b>
             </p>
-            <div id="donate-button-container">
-                <div id="donate-button"></div>
+            <div id="donate-button-container" style="display: none;">
                 <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
                 <script>
                 PayPal.Donation.Button({
@@ -238,9 +237,12 @@
                 alt:'Donate with PayPal button',
                 title:'PayPal - The safer, easier way to pay online!',
                 }
-                }).render('#donate-button');
+                }).render('#donate-button-container');
                 </script>
             </div>
+            <button class="editorOpener donate-button" onclick="if(window.user) document.getElementById('donate-button').click(); else window.showLogin();">
+                Donate Any Amount
+            </button>
         </div>
         <!-- Simulator Section -->
         <div id="simulator" class="section polling" style="display: none;">
@@ -250,7 +252,7 @@
                 <div class="message-section">
                     I received a message from Reynad, the developer of Bazaar:
                     
-                    <blockquote style="margin: 20px 0; padding: 15px; border-left: 4px solid #ccc; background-color: rgba(0,0,0,0.1);">
+                    <blockquote style="margin: 20px 0; padding: 15px; border-left: 4px solid #ccc; color: var(--text-color); background-color: rgba(0,0,0,0.1);">
                         "Hey, unfortunately we need you to take down bazaarplanner.com.<br/>
                         Combat simulation is a red line for us with external tools because it will harm gameplay a lot in the long run."
                     </blockquote>
@@ -317,7 +319,7 @@
                             <div style="cursor:pointer; width: 20px; height: 20px;" onClick="document.getElementById('battleSeedText').style.display=='none'?document.getElementById('battleSeedText').style.display='block':document.getElementById('battleSeedText').style.display='none';"></div>
                             <button onclick="mainBattle.startBattle()" class="battle-button">Start Battle</button>
                             <button onclick="mainBattle.resetBattle()" class="battle-button">Reset Battle</button>
-                            <select id="battle-speed-select" onchange="if(window.user?.isDonor) mainBattle.battleIntervalSpeedMultiplier=parseInt(this.value); else { alert('Donate any amount to enable this feature. Thank you for your support!'); this.value='1';}">
+                            <select id="battle-speed-select" class="editorOpener" onchange="if(window.user?.isDonor) mainBattle.battleIntervalSpeedMultiplier=parseInt(this.value); else { window.showDonationRequiredAlert(); this.value='1';}">
                                 <option value="1">1x speed</option>
                                 <option value="2">2x speed</option>
                                 <option value="4">4x speed</option>
