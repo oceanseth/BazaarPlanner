@@ -21,6 +21,7 @@ const mockBoardInstance = {
     itemValuesChangedTriggers: new Map(),
     startOfFightTriggers: new Map(),
     itemDestroyedTriggers: new Map(),
+    transformTriggers: new Map(),
     reloadTriggers: new Map(),
     uniqueTypeTags: [],
     hasSlowedItemChanged: () => {},

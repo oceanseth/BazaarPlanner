@@ -282,5 +282,173 @@ TextMatcher.matchers.push({
         return ()=>{};
     },
 });
+TextMatcher.matchers.push({
+    //heal for 1 and take no damage for 1 second(s). from Memento Mori and Invulnerability Potion
+    regex: /^(?:you )?take no damage for (\([^)]+\)|\d+) second\(?s?\)?\.$/i,
+    func: (item, match)=>{
+       // const healAmount = getRarityValue(match[1], item.rarity);
+        const duration = 1000*getRarityValue(match[1], item.rarity);
+        let diedAtTime;
+        return ()=>{
+         //   item.board.player.health=0;
+       //     item.applyHeal(healAmount);
+            diedAtTime = item.board.player.battleTime;
+            item.board.player.healthChanged((newHealth,oldHealth)=>{
+                if(newHealth<oldHealth && diedAtTime >= item.board.player.battleTime - duration) {
+                    item.board.player.damage_pauseChanged = true;
+                    item.board.player.health += (oldHealth-newHealth); //undo the damage
+                    item.board.player.damage_pauseChanged = false;
+                } else if(diedAtTime < item.board.player.battleTime - duration) {
+                    item.board.player.healthCancelChanged(item.id);
+                }
+            },item.id);
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //The sandstorm begins!
+    regex: /^the sandstorm begins!/i,
+    func: (item, match)=>{
+        return ()=>{
+            item.board.player.battle.startSandstorm();
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //Enchant a non-enchanted item for the fight. From Laboratory
+    regex: /^Enchant a non-enchanted item for the fight\.$/i,
+    func: (item)=>{
+        return ()=>{
+            const nonEnchantedItems = item.board.items.filter(i=>!i.tags.includes("Enchanted"));
+            if(nonEnchantedItems.length>0) {
+                const target = item.pickRandom(nonEnchantedItems);
+                target.addRandomTemporaryEnchant();
+            }
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //Increase an enemy item's cooldown by ( 1 » 2 » 3 ) seconds for the fight.
+    regex: /^Increase (an enemy|this) item's cooldown by (\([^)]+\)|\d+) second\(?s?\)? for the fight\.$/i,
+    func: (item, match)=>{
+        const cooldownIncrease = parseInt(getRarityValue(match[2], item.rarity));
+        
+        return ()=>{
+            const target = match[1]=='this'?item:item.pickRandom(item.board.player.hostileTarget.board.items.filter(i=>i.cooldown>1000));
+            if(target) {
+                target.gain(1000*cooldownIncrease,'cooldown',item);
+            }
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //if you have a Large item.
+    regex: /^(.*) if you have a ([^\s]+) item\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[2]);
+        const f = item.getTriggerFunctionFromText(match[1]);
+        if(item.board.items.some(i=>i.tags.includes(tag))) {
+            f();
+        }
+        return ()=>{};
+    }
+});
+TextMatcher.matchers.push({
+    //While your enemy has Poison, this has ( +50% » +100% ) Crit Chance. from Basilisk Fang
+    regex: /^While your enemy has Poison, (.*)$/i,
+    func: (item, match)=>{
+        item.board.player.hostileTarget.poisonChanged(item.getUndoableFunctionFromText(match[1],
+            (newValue)=>{
+                if(newValue>0) return true; return false;
+            }
+        ));
+        return ()=>{};
+    },
+});
+TextMatcher.matchers.push({
+    //Your Weapons have + Damage equal to (1/2/3) times your Regeneration. from Staff of the Moose 
+    regex: /^Your Weapons have \+ Damage equal to (\([^)]+\)|\d+) times your Regeneration\.$/i,
+    func: (item, match)=>{
+        const damageMultiplier = getRarityValue(match[1], item.rarity);
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Weapon")) {
+                i.gain(item.board.player.regen*damageMultiplier,'damage');  
+            }
+        });
+        item.board.player.regenChanged((newRegen,oldRegen)=>{
+            item.board.items.forEach(i=>{
+                if(i.tags.includes("Weapon")) {
+                    i.gain((newRegen-oldRegen)*damageMultiplier,'damage');
+                }
+            });
+        });
+        return ()=>{};
+    },
+});
+TextMatcher.matchers.push({
+    //When this is transformed, (.*) from Sulphur
+    regex: /^When this is transformed, (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1]);
+        item.board.transformTriggers.set(item.id+"_"+f.text,
+            (i,source) => {
+                if(i.id==item.id) {
+                    f(i,source);
+                }
+            }
+        );
+        return ()=>{};
+    },
+});
+TextMatcher.matchers.push({
+    //Your Regeneration items have + Regeneration equal to (10%/20%) of this item's damage. from Viper Cane
+    //Your Heal items have +Heal equal to this item's value. from Vineyard
+    regex: /^Your (Regen|Poison|Heal)(?:eration)? items have \+\s?(Regen|Poison|Heal)(?:eration)? equal to (?:(\([^)]+\)|\d+%?) of )?this item's (\w+)\.$/i,
+    func: (item, match)=>{
+        const whatToGain = match[2];
+        const whatTag = Item.getTagFromText(match[1]);
+        const multiplier = match[3]?getRarityValue(match[3], item.rarity)/100:1;
+        const whatThing = Item.getTagFromText(match[4]).toLowerCase();
+        const f = (amount)=> {
+            item.board.items.forEach(i=>{
+                if(i.tags.includes(whatTag)) {
+                    i.gain(amount*multiplier, whatToGain);
+                }
+            });
+        };
+        f(item[whatThing]);
+        item[whatThing+"Changed"]((newVal,oldVal)=>{
+            f(newVal-oldVal);
+        });
+        return ()=>{};
+    },
+});
+
+TextMatcher.matchers.push({
+    //poison (1/2/3) for each type this has.
+    regex: /^(\w+) \(([^)]+)\) for each(?: unique)? type this has\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[2], item.rarity);
+        const typeCount = item.tags.filter(tag => Board.uniqueTypeTags.includes(tag)).length;
+        const whatToDo = Item.getTagFromText(match[1]);
+        item.gain(amount * typeCount, whatToDo);
+        return ()=>{
+            item["apply"+whatToDo](item[whatToDo.toLowerCase()]);
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //Reduce your enemy's Max Health by (10%/15%/20%) for the fight. from Shrinking Potion
+    regex: /^Reduce your enemy's Max Health by (\([^)]+\)|\d+)%? for the fight\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        return ()=>{
+            item.board.player.hostileTarget.maxHealth -= item.board.player.hostileTarget.maxHealth * amount / 100;
+            if(item.board.player.hostileTarget.maxHealth<item.board.player.hostileTarget.health) {
+                item.board.player.hostileTarget.health = item.board.player.hostileTarget.maxHealth;
+            }
+        };
+    },
+});
 
 window.TextMatcher = TextMatcher;

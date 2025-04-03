@@ -4,7 +4,7 @@ export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
         "Epicurean Chocolate","Spare Change","Pelt","Candy Mail","Machine Learning","Iron Sharpens Iron","Chocoholic","Like Clockwork","Upgrade Hammer",
-    "Vending Machine","Piggy Bank","Cash Register","VIP Pass","Cargo Shorts"];
+    "Vending Machine","Piggy Bank","Cash Register","VIP Pass","Cargo Shorts","Alembic","The Tome of Yyahan"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
             ItemFunction.items.set(itemName, (item) => {});
@@ -403,24 +403,7 @@ ItemFunction.items.set("Athanor",(item)=>{
         });
     }
 });
-//While your enemy has Poison, this has ( +50% » +100% ) Crit Chance. from Basilisk Fang
-ItemFunction.items.set("Basilisk Fang",(item)=>{
-    const critGain = getRarityValue("50 >> 100",item.rarity);
-    let gainedCrit = false;
-    item.board.player.poisonChanged((oldValue,newValue)=>{
-        if(newValue>0) {
-            if(!gainedCrit) {
-                item.gain(critGain,'crit');
-                gainedCrit = true;
-            }
-        } else {
-            if(gainedCrit) {
-                item.gain(-critGain,'crit');
-                gainedCrit = false;
-            }
-        }
-    });
-});
+
 
 //Weapon Properties adjacent to this have + Damage equal to ( 1x » 2x ) the value of your highest value item. from Open Sign                                        
 //Shield Properties adjacent to this have + Shield equal to ( 1x » 2x ) the value of your highest value item. from Open Sign   
@@ -707,20 +690,6 @@ ItemFunction.items.set("Cybersecurity",(item)=>{
             item.dealDamage(item.damage);
         }
       });
-});
-
-ItemFunction.items.set("Atomic Clock",(item)=>{
-//Increase an enemy item's cooldown by ( 1 » 2 » 3 ) seconds for the fight.
-    const cooldownIncrease = parseInt(getRarityValue("1 >> 2 >> 3",item.rarity));
-    item.triggerFunctions.push(()=>{
-        const itemToIncreaseCooldown = item.pickRandom(item.board.player.hostileTarget.board.items);
-        if(itemToIncreaseCooldown) {
-            itemToIncreaseCooldown.cooldown += 1000*cooldownIncrease;
-            item.log(item.name + " increased " + itemToIncreaseCooldown.name + " cooldown by " + cooldownIncrease + " seconds");
-        }
-    });
-
-
 });
 
 ItemFunction.items.set("Pulse Rifle",(item)=>{

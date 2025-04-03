@@ -15,6 +15,7 @@ export class Battle {
         this.battleIntervalSpeedMultiplier = 1;
         this.testBattleIntervals = [];
         this.winRateBattleCount = 100;
+        this.battleTimeDiff = 0;
 
         this.startBattleTime = undefined;
         this.battleIntervalSpeed = battleIntervalSpeed;
@@ -79,6 +80,7 @@ export class Battle {
         }
         this.isPaused=0;
         this.sandstormValue=1;
+        this.sandstormStartedTime = 0;
         this.battleInterval = null; // Clear the interval reference
         
         this.players.forEach(player => {
@@ -218,17 +220,24 @@ export class Battle {
         }
         this.battleTimeDiff += this.battleIntervalSpeed;
         
-        this.updateBattle(this.battleIntervalSpeed);
-    
-      if(this.battleTimeDiff >= 34200 ) {
-        let sandstormDmg = Math.floor(this.sandstormValue);
-        this.log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
-        this.players.forEach(player => player.takeDamage(sandstormDmg));
-        if(this.battleTimeDiff >= 35200) this.sandstormValue+=this.sandstormIncrement;
-      }
+        if(this.sandstormStartedTime==0 && this.battleTimeDiff >= 34200 ) {
+            this.startSandstorm();
+        }
+        if(this.sandstormStartedTime>0) {
+            let sandstormDmg = Math.floor(this.sandstormValue);
+            this.log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
+            this.players.forEach(player => player.takeDamage(sandstormDmg));
+            if(this.battleTimeDiff - this.sandstormStartedTime >= 1000) this.sandstormValue+=this.sandstormIncrement;
+        }
+        
 
-    
+        this.updateBattle(this.battleIntervalSpeed);      
+
       this.updateCombatLogDisplay();
+    }
+    startSandstorm() {
+        this.sandstormStartedTime = this.battleTimeDiff;
+        this.log("The Sandstorm Begins!");
     }
     battleRandom = (evaluateMe=false) =>{
         if (!this.battleRNG) {

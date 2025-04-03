@@ -109,8 +109,9 @@ class Board {
         this.slowTriggers = new Map(); //functions to call when slow is applied to any item on this board
         this.burnTriggers = new Map();
         this.poisonTriggers = new Map();
-        this.critTriggers = new Map();
+        this.critTriggers = new Map();        
         this.reloadTriggers = new Map(); //functions to call when any item on this board is reloaded
+        this.transformTriggers = new Map(); //functions to call when any item on this board is transformed
         this.startOfFightTriggers = new Map();
         this.itemDestroyedTriggers = new Map(); //functions to call when an item on this board is destroyed
         this.healTriggers = [];
