@@ -1173,6 +1173,18 @@ export class Item {
                 (item||this).getAdjacentItems().forEach(item => this.applyHasteTo(item,duration));
             };
         }
+        regex = /^poison \(([^)]+)\) for each type this has\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const poisonAmount = getRarityValue(match[1], this.rarity);
+            return () => {
+                // Temporarily count all non-size tags as types
+                const typeCount = this.tags.filter(tag => !Item.sizeTags.includes(tag)).length;
+                console.log('Type count:', typeCount);
+                console.log('Poison amount:', poisonAmount);
+                this.applyPoison(poisonAmount * typeCount, this);
+            };
+        }
 
         //slow all enemy items for ( 1 » 2 » 3 » 4 ) second(s).
         regex = /^(slow|freeze) all enemy (?:(\w+) )?items for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
