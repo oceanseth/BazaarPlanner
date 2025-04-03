@@ -3946,7 +3946,7 @@ export class Item {
         
 
         //Adjacent items have ( +1 » +2 » +3 » +4 ) Max Ammo
-        regex = /^\s*Adjacent items have (\([^)]+\)|\d+) Max Ammo\.?/i;
+        regex = /^\s*Adjacent items have (\([^)]+\)|\d+) (?:Max )?Ammo\.?/i;
         match = text.match(regex);
         if(match) {
             const maxAmmo = getRarityValue(match[1], this.rarity);
@@ -4254,7 +4254,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const whatToGain = match[1];
-            const whatToGain2 = match[2];
+            const whatToGain2 = match[2].toLowerCase();
             this.board.player.hostileTarget[whatToGain2+"Changed"]((newValue,oldValue)=>{
                 this.gain(newValue-oldValue,whatToGain.toLowerCase());
             });
@@ -5388,6 +5388,16 @@ export class Item {
     getCommaTriggerFunctionFromText(text) {
         let regex = /^([^,]+), (?:and )?(.*)$/i;
         let match = text.match(regex);
+        if(match) {
+            const f1 = this.getTriggerFunctionFromText(match[1]+".");
+            const f2 = this.getTriggerFunctionFromText(match[2]);
+            return () => {
+                f1();
+                f2();
+            }
+        }
+        regex = /^([^,]+) and (.*)$/i;
+        match = text.match(regex);
         if(match) {
             const f1 = this.getTriggerFunctionFromText(match[1]+".");
             const f2 = this.getTriggerFunctionFromText(match[2]);

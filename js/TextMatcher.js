@@ -365,4 +365,25 @@ TextMatcher.matchers.push({
         return ()=>{};
     },
 });
+TextMatcher.matchers.push({
+    //Your Weapons have + Damage equal to (1/2/3) times your Regeneration. from Staff of the Moose 
+    regex: /^Your Weapons have \+ Damage equal to (\([^)]+\)|\d+) times your Regeneration\.$/i,
+    func: (item, match)=>{
+        const damageMultiplier = getRarityValue(match[1], item.rarity);
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Weapon")) {
+                i.gain(item.board.player.regen*damageMultiplier,'damage');  
+            }
+        });
+        item.board.player.regenChanged((newRegen,oldRegen)=>{
+            item.board.items.forEach(i=>{
+                if(i.tags.includes("Weapon")) {
+                    i.gain((newRegen-oldRegen)*damageMultiplier,'damage');
+                }
+            });
+        });
+        return ()=>{};
+    },
+});
+
 window.TextMatcher = TextMatcher;
