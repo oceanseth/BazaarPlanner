@@ -1177,10 +1177,11 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const poisonAmount = getRarityValue(match[1], this.rarity);
+            const typeCount = this.tags.filter(tag => !Item.sizeTags.includes(tag)).length;
+            this.gain(poisonAmount * typeCount, poison)
             return () => {
                 // Temporarily count all non-size tags as types
-                const typeCount = this.tags.filter(tag => !Item.sizeTags.includes(tag)).length;
-                this.applyPoison(poisonAmount * typeCount, this);
+                this.applyPoison(poison, this);
             };
         }
 
