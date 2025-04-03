@@ -86,7 +86,7 @@ export const monsters = {
       },
       {
         "name": "Extract",
-        "tier": 1
+        "tier": 0
       }
     ]
   },
@@ -95,7 +95,12 @@ export const monsters = {
     "icon": "images/monsters/Banannabal.avif",
     "day": 1,
     "health": 100,
-    "skills": [],
+    "skills": [
+      {
+        "name": "Overheal Haste",
+        "tier": 2
+      }
+    ],
     "items": [
       {
         "name": "Med Kit",
@@ -125,7 +130,7 @@ export const monsters = {
     "items": [
       {
         "name": "Cinders",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Lighter",
@@ -133,7 +138,7 @@ export const monsters = {
       },
       {
         "name": "Cinders",
-        "tier": 1
+        "tier": 0
       }
     ]
   },
@@ -350,7 +355,7 @@ export const monsters = {
     "items": [
       {
         "name": "Cinders",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Bar of Gold",
@@ -705,7 +710,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Shield Potion",
+        "name": "Invulnerability Potion",
         "tier": 2
       }
     ]
@@ -744,7 +749,7 @@ export const monsters = {
       },
       {
         "name": "Cinders",
-        "tier": 1
+        "tier": 0
       }
     ]
   },
@@ -978,7 +983,7 @@ export const monsters = {
     "items": [
       {
         "name": "Fire Claw",
-        "tier": 0,
+        "tier": 1,
         "enchant": "Restorative"
       },
       {
@@ -995,7 +1000,7 @@ export const monsters = {
       },
       {
         "name": "Fire Claw",
-        "tier": 0,
+        "tier": 1,
         "enchant": "Restorative"
       }
     ]
@@ -1476,7 +1481,7 @@ export const monsters = {
     "items": [
       {
         "name": "Extract",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Bandages",
@@ -1664,7 +1669,7 @@ export const monsters = {
       },
       {
         "name": "Extract",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Venom",
@@ -1693,7 +1698,7 @@ export const monsters = {
       },
       {
         "name": "Extract",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Gland",
@@ -1843,7 +1848,7 @@ export const monsters = {
       },
       {
         "name": "Strength",
-        "tier": 0
+        "tier": 1
       }
     ],
     "items": [
@@ -1967,7 +1972,7 @@ export const monsters = {
       },
       {
         "name": "Incendiary Rounds",
-        "tier": 3
+        "tier": 1
       },
       {
         "name": "Induction Aegis",
@@ -2129,7 +2134,7 @@ export const monsters = {
       },
       {
         "name": "Incendiary Rounds",
-        "tier": 3
+        "tier": 2
       },
       {
         "name": "Pop Snappers",
@@ -2216,7 +2221,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Fossilized Femur",
+        "name": "Magnus' Femur",
         "tier": 2
       },
       {
@@ -2432,15 +2437,15 @@ export const monsters = {
     ],
     "items": [
       {
-        "name": "Captain's Wheel",
-        "tier": 2
-      },
-      {
         "name": "Crow's Nest",
         "tier": 2
       },
       {
-        "name": "Flagship",
+        "name": "Pesky Pete",
+        "tier": 2
+      },
+      {
+        "name": "Captain's Wheel",
         "tier": 2
       },
       {
@@ -2448,7 +2453,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Pesky Pete",
+        "name": "Flagship",
         "tier": 2
       }
     ]
@@ -3001,7 +3006,7 @@ export const monsters = {
       },
       {
         "name": "Big Numbers",
-        "tier": 2
+        "tier": 3
       }
     ],
     "items": [
@@ -3091,7 +3096,7 @@ export const monsters = {
       },
       {
         "name": "Nitrogen Hammer",
-        "tier": 3
+        "tier": 2
       },
       {
         "name": "Sapphire",
@@ -3386,6 +3391,18 @@ export const monsters = {
     "items": [
       {
         "name": "Incendiary Rounds",
+        "tier": 2
+      },
+      {
+        "name": "Incendiary Rounds",
+        "tier": 2
+      },
+      {
+        "name": "Incendiary Rounds",
+        "tier": 3
+      },
+      {
+        "name": "Tommoo Gun",
         "tier": 3
       },
       {
@@ -3406,23 +3423,11 @@ export const monsters = {
       },
       {
         "name": "Incendiary Rounds",
-        "tier": 3
-      },
-      {
-        "name": "Tommoo Gun",
-        "tier": 3
+        "tier": 2
       },
       {
         "name": "Incendiary Rounds",
-        "tier": 3
-      },
-      {
-        "name": "Incendiary Rounds",
-        "tier": 3
-      },
-      {
-        "name": "Incendiary Rounds",
-        "tier": 3
+        "tier": 2
       }
     ]
   },
@@ -3474,6 +3479,10 @@ export const monsters = {
     "day": "event",
     "health": 2750,
     "skills": [
+      {
+        "name": "Ravenous",
+        "tier": 4
+      },
       {
         "name": "Strength",
         "tier": 0
