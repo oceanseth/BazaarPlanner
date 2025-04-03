@@ -286,6 +286,7 @@ export class Item {
         this.regenChanged(f,s);
     }
     reset() {
+        this.removeTemporaryEnchant();
         this.textMatches = [];
         this.lifesteal = false;
         this.isDestroyed = false;
@@ -312,12 +313,8 @@ export class Item {
         setupChangeListeners(this,Item.possibleChangeAttributes);
 
         Object.assign(this, this.startItemData);
-        this.tags = structuredClone(this.startItemData.tags);
-        if(this.enchant) {
-            this.name = this.enchant + ' ' + this.name;
-            if(Item.enchantTagMap[this.enchant] && !this.tags.includes(Item.enchantTagMap[this.enchant])) this.tags.push(Item.enchantTagMap[this.enchant]);
-            this.tags.push("Enchanted");
-        }
+        this.tags = [...this.startItemData.tags];
+        this.resetEnchant();
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
         this.resetCooldown();
 
@@ -328,9 +325,6 @@ export class Item {
         this.freezeElement.classList.add('hidden');
         this.element.classList.remove('frozen',...Item.rarityLevels, ...Item.possibleEnchants);
         this.element.classList.add(this.rarity || 'Bronze');
-        if(this.enchant) {
-            this.element.classList.add(this.enchant);
-        }
     
         this.value = this.startItemData.value;
         this.damage = this.startItemData.damage||0;
@@ -353,6 +347,14 @@ export class Item {
             this.hasteIndicator.classList.add('hidden');
             this.slowIndicator.classList.add('hidden');             
         }            
+    }
+    resetEnchant() {
+        if(this.enchant) {
+            this.name = this.enchant + ' ' + this.name;
+            if(Item.enchantTagMap[this.enchant] && !this.tags.includes(Item.enchantTagMap[this.enchant])) this.tags.push(Item.enchantTagMap[this.enchant]);
+            this.tags.push("Enchanted");
+            this.element.classList.add(this.enchant);
+        }
     }
     setup() {
         if(!this.executeSpecificItemFunction()) {
@@ -1643,9 +1645,19 @@ export class Item {
             case 'cooldown':
                 if(this.cooldown<=0) return;
                 const oldCooldown = this.cooldown;
-                this.cooldown += amount;
+                this.cooldown += amount;                
                 if(this.cooldown<1000) this.cooldown = 1000; //cooldown can't go below 1 second
                 this.log((source?(source.name+" caused "):"")+this.name + " cooldown change from " + (oldCooldown/1000).toFixed(1) + "s to " + (this.cooldown/1000).toFixed(1) + "s");
+                //become a time bender
+                if(this.effectiveBattleTime>0) {
+                    const timeToTriggerNTimes = this.numTriggers * oldCooldown;
+                    const timeSpentInCurrentCooldown = this.effectiveBattleTime - timeToTriggerNTimes;
+                    const percentThroughCurrentCooldown = timeSpentInCurrentCooldown / oldCooldown;
+                    const battleTimeToAdd = this.cooldown*percentThroughCurrentCooldown;
+                    this.effectiveBattleTime = this.cooldown*this.numTriggers + battleTimeToAdd;
+                }
+
+
                 break;
             case 'freezebonus':
                 this.freezeBonus += amount;
@@ -2296,7 +2308,7 @@ export class Item {
         if(text.match(/^At the start of each hour/i)) {
             return;
         }
-        let regex = /^\s*When (you|your enemy|any player|your items|your enemy's items|the core)? ([^,]*), (.*)$/i;
+        let regex = /^\s*When (you|your enemy|any player|either player|your items|your enemy's items|the core|an adjacent item)? ([^,]*), (.*)$/i;
         let match = text.match(regex);
         let ifFunction = null;
         if(match) {
@@ -2306,12 +2318,14 @@ export class Item {
             let targetBoards = [this.board];
             if(enemyMatch=="your enemy") {
                 targetBoards = [this.board.player.hostileTarget.board];
-            } else if(enemyMatch=="any player") {
+            } else if(enemyMatch=="any player"||enemyMatch=="either player") {
                 targetBoards.push(this.board.player.hostileTarget.board);
             } else if(enemyMatch=="your enemy's items") {
                 targetBoards.push(this.board.player.hostileTarget.board);
             } else if(enemyMatch.toLowerCase()=="the core") {
                 conditionalMatch = "the core "+conditionalMatch;
+            } else if(enemyMatch=="an adjacent item") {
+                conditionalMatch = "an adjacent item "+conditionalMatch;
             }
 
 
@@ -2618,8 +2632,13 @@ export class Item {
                             }
                         );
                         return;
-                    case "or your enemy burns":
-                        this.board.player.hostileTarget.board.burnTriggers.set(this.id,triggerFunctionFromText);
+                    case "an adjacent item burns":
+                        this.board.itemTriggers.set(this.id, (item) => {
+                            if(item.id !== this.id && this.getAdjacentItems().some(i=>i==item)) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
                     case "burn with an item":
                         this.board.itemTriggers.set(this.id+'-burn_with_an_item', (item) => {
                             if(item.tags.includes("Burn")) {
@@ -2627,6 +2646,8 @@ export class Item {
                             }
                         });
                         return;
+                    case "or your enemy burns":
+                        this.board.player.hostileTarget.board.burnTriggers.set(this.id,triggerFunctionFromText);
                     case "burn":
                         this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),triggerFunctionFromText);
                         return;
@@ -2783,6 +2804,15 @@ export class Item {
                             }
                         });
 
+                        return;
+                    case "takes damage":
+                        targetBoards.forEach((board)=>{
+                            board.player.healthChanged((newValue,oldValue)=>{
+                                if(newValue<oldValue) {
+                                    triggerFunctionFromText(this,oldValue-newValue);
+                                }
+                            });
+                        });
                         return;
                     case "the core gains haste":
                         this.board.hasteTriggers.set(this.id+"_"+triggerFunctionFromText.text,(item)=>{
@@ -4047,10 +4077,10 @@ export class Item {
 
         //This has +1 Multicast for each adjacent Property.
         //For each adjacent Vehicle, this has +1 Multicast. from Sirens
-        regex = /^\s*(?:This has \+1 Multicast for each adjacent ([^\s^\.]+)|For each adjacent ([^\s^\,]+)(?: or ([^\s]+))?, this has \+1 Multicast)\.?/i;
+        regex = /^\s*(?:This has \+1 Multicast for each adjacent ([^\s^\.]+)(?: or ([^\s]+))?|For each adjacent ([^\s^\,]+)(?: or ([^\s]+))?, this has \+1 Multicast)\.?/i;
         match = text.match(regex);
         if(match) {
-            const tagsToMatch = match[1]?[Item.getTagFromText(match[1])]:[Item.getTagFromText(match[2]),Item.getTagFromText(match[3])];
+            const tagsToMatch = match[1]?[Item.getTagFromText(match[1],Item.getTagFromText(match[2]))]:[Item.getTagFromText(match[3],Item.getTagFromText(match[4]))];
             this.getAdjacentItems().forEach(item => {
                 if(tagsToMatch.some(tag=>tag&&item.tags.includes(tag))) {
                     this.gain(1,'multicast');
@@ -4220,14 +4250,16 @@ export class Item {
         }   
 
         //Heal equal to your opponent's Poison.
-        regex = /^\s*Heal equal to your enemy's Poison\.?/i;
+        regex = /^\s*(Heal|Burn|Shield|Poison) equal to your enemy's (Poison|Burn|Shield|Regen(?:eration)?)\.?/i;
         match = text.match(regex);
         if(match) {
-            this.board.player.hostileTarget.poisonChanged((newPoison,oldPoison)=>{
-                this.gain(newPoison-oldPoison,'heal');
+            const whatToGain = match[1];
+            const whatToGain2 = match[2];
+            this.board.player.hostileTarget[whatToGain2+"Changed"]((newValue,oldValue)=>{
+                this.gain(newValue-oldValue,whatToGain.toLowerCase());
             });
             return () => {
-                this.applyHeal(this.heal);
+                this["apply"+whatToGain](this[whatToGain.toLowerCase()]);
             };
         }
 
@@ -5518,5 +5550,21 @@ export class Item {
                 didIt=true;
             }
         };
+    }
+    addRandomTemporaryEnchant() {
+        if(this.enchant) { return; } // maybe later remove enchant first, for now skip.
+        this.enchant = this.pickRandom(Object.keys(this.enchants));       
+        this.enchantIsTemporary = true;
+        this.resetEnchant();
+        if(this.enchant!='Radiant') {
+            this.setupTextFunctions(this.enchants[this.enchant]);
+        }         
+    }
+    removeTemporaryEnchant() {
+        if(this.enchantIsTemporary) {
+            this.enchant=null;
+            this.tags = structuredClone(this.startItemData.tags);
+            this.enchantIsTemporary = false;
+        }
     }
 }

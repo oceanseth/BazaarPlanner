@@ -283,8 +283,8 @@ TextMatcher.matchers.push({
     },
 });
 TextMatcher.matchers.push({
-    //heal for 1 and take no damage for 1 second(s). from Memento Mori
-    regex: /^take no damage for (\([^)]+\)|\d+) second\(?s?\)?\.$/i,
+    //heal for 1 and take no damage for 1 second(s). from Memento Mori and Invulnerability Potion
+    regex: /^(?:you )?take no damage for (\([^)]+\)|\d+) second\(?s?\)?\.$/i,
     func: (item, match)=>{
        // const healAmount = getRarityValue(match[1], item.rarity);
         const duration = 1000*getRarityValue(match[1], item.rarity);
@@ -303,6 +303,66 @@ TextMatcher.matchers.push({
                 }
             },item.id);
         };
+    },
+});
+TextMatcher.matchers.push({
+    //The sandstorm begins!
+    regex: /^the sandstorm begins!/i,
+    func: (item, match)=>{
+        return ()=>{
+            item.board.player.battle.startSandstorm();
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //Enchant a non-enchanted item for the fight. From Laboratory
+    regex: /^Enchant a non-enchanted item for the fight\.$/i,
+    func: (item)=>{
+        return ()=>{
+            const nonEnchantedItems = item.board.items.filter(i=>!i.tags.includes("Enchanted"));
+            if(nonEnchantedItems.length>0) {
+                const target = item.pickRandom(nonEnchantedItems);
+                target.addRandomTemporaryEnchant();
+            }
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //Increase an enemy item's cooldown by ( 1 » 2 » 3 ) seconds for the fight.
+    regex: /^Increase (an enemy|this) item's cooldown by (\([^)]+\)|\d+) second\(?s?\)? for the fight\.$/i,
+    func: (item, match)=>{
+        const cooldownIncrease = parseInt(getRarityValue(match[2], item.rarity));
+        
+        return ()=>{
+            const target = match[1]=='this'?item:item.pickRandom(item.board.player.hostileTarget.board.items.filter(i=>i.cooldown>1000));
+            if(target) {
+                target.gain(1000*cooldownIncrease,'cooldown',item);
+            }
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //if you have a Large item.
+    regex: /^(.*) if you have a ([^\s]+) item\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[2]);
+        const f = item.getTriggerFunctionFromText(match[1]);
+        if(item.board.items.some(i=>i.tags.includes(tag))) {
+            f();
+        }
+        return ()=>{};
+    }
+});
+TextMatcher.matchers.push({
+    //While your enemy has Poison, this has ( +50% » +100% ) Crit Chance. from Basilisk Fang
+    regex: /^While your enemy has Poison, (.*)$/i,
+    func: (item, match)=>{
+        item.board.player.hostileTarget.poisonChanged(item.getUndoableFunctionFromText(match[1],
+            (newValue)=>{
+                if(newValue>0) return true; return false;
+            }
+        ));
+        return ()=>{};
     },
 });
 window.TextMatcher = TextMatcher;
