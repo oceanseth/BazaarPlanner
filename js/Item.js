@@ -1180,7 +1180,6 @@ export class Item {
             const typeCount = this.tags.filter(tag => !Item.sizeTags.includes(tag)).length;
             this.gain(poisonAmount * typeCount, poison)
             return () => {
-                // Temporarily count all non-size tags as types
                 this.applyPoison(poison, this);
             };
         }
