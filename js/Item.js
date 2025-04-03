@@ -1174,16 +1174,7 @@ export class Item {
                 (item||this).getAdjacentItems().forEach(item => this.applyHasteTo(item,duration));
             };
         }
-        regex = /^poison \(([^)]+)\) for each type this has\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            const poisonAmount = getRarityValue(match[1], this.rarity);
-            const typeCount = this.tags.filter(tag => !Item.sizeTags.includes(tag)).length;
-            this.gain(poisonAmount * typeCount, poison)
-            return () => {
-                this.applyPoison(this.poison);
-            };
-        }
+        
 
         //slow all enemy items for ( 1 » 2 » 3 » 4 ) second(s).
         regex = /^(slow|freeze) all enemy (?:(\w+) )?items for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;

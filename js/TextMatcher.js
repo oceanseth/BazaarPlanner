@@ -403,16 +403,16 @@ TextMatcher.matchers.push({
 TextMatcher.matchers.push({
     //Your Regeneration items have + Regeneration equal to (10%/20%) of this item's damage. from Viper Cane
     //Your Heal items have +Heal equal to this item's value. from Vineyard
-    regex: /^Your (Regeneration|Poison|Heal) items have \+\s?(Regeneration|Poison|Heal) equal to (?:(\([^)]+\)|\d+%?) of)? this item's (\w+)\.$/i,
+    regex: /^Your (Regen|Poison|Heal)(?:eration)? items have \+\s?(Regen|Poison|Heal)(?:eration)? equal to (?:(\([^)]+\)|\d+%?) of )?this item's (\w+)\.$/i,
     func: (item, match)=>{
         const whatToGain = match[2];
         const whatTag = Item.getTagFromText(match[1]);
-        const regenerationMultiplier = match[3]?getRarityValue(match[3], item.rarity)/100:1;
-        const whatThing = Item.getTagFromText(match[4]);
-        const f = (dmg)=> {
+        const multiplier = match[3]?getRarityValue(match[3], item.rarity)/100:1;
+        const whatThing = Item.getTagFromText(match[4]).toLowerCase();
+        const f = (amount)=> {
             item.board.items.forEach(i=>{
                 if(i.tags.includes(whatTag)) {
-                    i.gain(dmg*regenerationMultiplier,whatToGain);
+                    i.gain(amount*multiplier, whatToGain);
                 }
             });
         };
@@ -421,6 +421,31 @@ TextMatcher.matchers.push({
             f(newVal-oldVal);
         });
         return ()=>{};
+    },
+});
+/*
+regex = /^poison \(([^)]+)\) for each type this has\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const poisonAmount = getRarityValue(match[1], this.rarity);
+            const typeCount = this.tags.filter(tag => !Item.sizeTags.includes(tag)).length;
+            this.gain(poisonAmount * typeCount, 'poison')
+            return () => {
+                this.applyPoison(this.poison);
+            };
+        }
+            */
+TextMatcher.matchers.push({
+    //poison (1/2/3) for each type this has.
+    regex: /^(\w+) \(([^)]+)\) for each(?: unique)? type this has\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[2], item.rarity);
+        const typeCount = item.tags.filter(tag => Board.uniqueTypeTags.includes(tag)).length;
+        const whatToDo = Item.getTagFromText(match[1]);
+        item.gain(amount * typeCount, whatToDo);
+        return ()=>{
+            item["apply"+whatToDo](item[whatToDo.toLowerCase()]);
+        };
     },
 });
 
