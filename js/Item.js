@@ -628,6 +628,7 @@ export class Item {
     reload(source) {
         this.ammo = this.maxAmmo;
         this.log((source?source.name:"") + " reloaded " + this.name);
+        this.board.reloadTriggers.forEach(func => func(this,source));
     }
 
     updateProgressBar(progress) {
@@ -1173,16 +1174,7 @@ export class Item {
                 (item||this).getAdjacentItems().forEach(item => this.applyHasteTo(item,duration));
             };
         }
-        regex = /^poison \(([^)]+)\) for each type this has\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            const poisonAmount = getRarityValue(match[1], this.rarity);
-            const typeCount = this.tags.filter(tag => !Item.sizeTags.includes(tag)).length;
-            this.gain(poisonAmount * typeCount, poison)
-            return () => {
-                this.applyPoison(this.poison);
-            };
-        }
+        
 
         //slow all enemy items for ( 1 » 2 » 3 » 4 ) second(s).
         regex = /^(slow|freeze) all enemy (?:(\w+) )?items for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
@@ -2403,8 +2395,7 @@ export class Item {
                         textAfterComma = m[2];
                     }
                 } while(textAfterComma.includes(","));
-            }
-            
+            }            
 
             const triggerFunctionFromText = this.getTriggerFunctionFromText(textAfterComma);
 
@@ -2803,7 +2794,7 @@ export class Item {
                         this.board.player.healTriggers.set(this.id,triggerFunctionFromText);
                         return;
                     case "reload":
-                        this.board.reloadTriggers.set(this.id,triggerFunctionFromText);
+                        this.board.reloadTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
                         return;
                     case "use the leftmost item":
                     case "use your leftmost item":
@@ -2830,6 +2821,11 @@ export class Item {
                                 triggerFunctionFromText(item);
                             }
                         });
+                        return;
+                    case "reload or transform a potion":
+                        this.board.reloadTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
+                    case "transform a potion":
+                        this.board.transformTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
                         return;
                 }
                 console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"' from "+this.name);
@@ -3954,6 +3950,17 @@ export class Item {
             return () => {};
         }
         
+        //The potion to the left of this has (+1/+2/+3/+4) Ammo. from Tazidian Dagger
+        regex = /^\s*The potion to the left of this has (\([^)]+\)|\d+) Ammo\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const ammo = getRarityValue(match[1], this.rarity);
+            const leftItem = this.getItemToTheLeft();
+            if(leftItem&&leftItem.tags.includes("Potion")) {
+                leftItem.gain(ammo,'maxAmmo');
+            }
+            return () => {};
+        }
 
         //Adjacent items have ( +1 » +2 » +3 » +4 ) Max Ammo
         regex = /^\s*Adjacent items have (\([^)]+\)|\d+) (?:Max )?Ammo\.?/i;
