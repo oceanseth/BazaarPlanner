@@ -385,5 +385,43 @@ TextMatcher.matchers.push({
         return ()=>{};
     },
 });
+TextMatcher.matchers.push({
+    //When this is transformed, (.*) from Sulphur
+    regex: /^When this is transformed, (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1]);
+        item.board.transformTriggers.set(item.id+"_"+f.text,
+            (i,source) => {
+                if(i.id==item.id) {
+                    f(i,source);
+                }
+            }
+        );
+        return ()=>{};
+    },
+});
+TextMatcher.matchers.push({
+    //Your Regeneration items have + Regeneration equal to (10%/20%) of this item's damage. from Viper Cane
+    //Your Heal items have +Heal equal to this item's value. from Vineyard
+    regex: /^Your (Regeneration|Poison|Heal) items have \+\s?(Regeneration|Poison|Heal) equal to (?:(\([^)]+\)|\d+%?) of)? this item's (\w+)\.$/i,
+    func: (item, match)=>{
+        const whatToGain = match[2];
+        const whatTag = Item.getTagFromText(match[1]);
+        const regenerationMultiplier = match[3]?getRarityValue(match[3], item.rarity)/100:1;
+        const whatThing = Item.getTagFromText(match[4]);
+        const f = (dmg)=> {
+            item.board.items.forEach(i=>{
+                if(i.tags.includes(whatTag)) {
+                    i.gain(dmg*regenerationMultiplier,whatToGain);
+                }
+            });
+        };
+        f(item[whatThing]);
+        item[whatThing+"Changed"]((newVal,oldVal)=>{
+            f(newVal-oldVal);
+        });
+        return ()=>{};
+    },
+});
 
 window.TextMatcher = TextMatcher;

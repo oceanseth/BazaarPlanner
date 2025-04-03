@@ -227,8 +227,9 @@ export class Battle {
             let sandstormDmg = Math.floor(this.sandstormValue);
             this.log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
             this.players.forEach(player => player.takeDamage(sandstormDmg));
+            if(this.battleTimeDiff - this.sandstormStartedTime >= 1000) this.sandstormValue+=this.sandstormIncrement;
         }
-        if(this.battleTimeDiff - this.sandstormStartedTime >= 1000) this.sandstormValue+=this.sandstormIncrement;
+        
 
         this.updateBattle(this.battleIntervalSpeed);      
 
