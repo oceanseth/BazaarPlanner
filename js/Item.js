@@ -1251,7 +1251,9 @@ export class Item {
                 this.applyHasteTo(itemToHaste,duration);
             };
         }
-        regex = /^Haste the (\w+)?\s?item to the right(?: of this)? for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+
+        //Haste the Friend to the right of this for (2/2/2/5) second(s). from Sat-Comm
+        regex = /^Haste the (\w+)?\s?(?:item)? to the right(?: of this)? for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const tagToMatch = match[1] ? Item.getTagFromText(match[1]) : null;
@@ -1276,8 +1278,11 @@ export class Item {
             };
         }
 
-        regex = /^Haste the item to the left of this/i;
-        if (regex.test(text)) {
+        //Haste the item to the left of this for (1/2/3/4) second(s). from Smelling Salts
+        regex = /^Haste the item to the left of this for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const duration = getRarityValue(match[1], this.rarity);
             const itemToHaste = this.getItemToTheLeft();
             if(itemToHaste) {
                 this.applyHasteTo(itemToHaste,duration);
@@ -1744,8 +1749,9 @@ export class Item {
                 });
             };
         }
+        //Freeze 1 item(s) of equal or smaller size for 1 second(s). from Liquid Cooled
         //Freeze 1 item of equal or smaller size for 1 second(s).
-        regex = /^Freeze (\([^)]+\)|\d+) item(?:s)? of equal or smaller size for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        regex = /^Freeze (\([^)]+\)|\d+) item\(?s?\)? of equal or smaller size for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const numItems = getRarityValue(match[1], this.rarity);
@@ -2671,6 +2677,17 @@ export class Item {
                         });
                         return;
 
+                    case "slow or poison":
+                        targetBoards.forEach(board => {
+                            board.poisonTriggers.set(this.id+"_"+triggerFunctionFromText.text, ()=> {
+                                triggerFunctionFromText(this);
+                            });
+                            board.slowTriggers.set(this.id+"_"+triggerFunctionFromText.text, () => {
+                                triggerFunctionFromText(this);
+                            });
+                        });
+                        return;
+
                     case "slow":
                         this.board.slowTriggers.set(this.id,(i,source)=>{
                             triggerFunctionFromText(source);
@@ -2860,6 +2877,17 @@ export class Item {
                             if(shieldCount==numTimes) {
                                 this.board.shieldTriggers.delete(this.id);
                             }
+                        }
+                    });
+                    return;
+                case "you over-heal":
+                    let overhealCount = 0;
+                    this.board.player.overhealTriggers.set(this.id+"_"+ntimesFunction.text,()=> {
+                        overhealCount++;
+                        if(overhealCount<=numTimes) {
+                            ntimesFunction(this);
+                        } else {
+                            this.board.player.overhealTriggers.delete(this.id+"_"+ntimesFunction.text);
                         }
                     });
                     return;
@@ -5204,21 +5232,22 @@ export class Item {
             });
         }
     }
-    
+    //your Heal and Regeneration items have their cooldowns reduced by (5%/10%/15%). from Rapid Relief
     //your Weapons have their cooldowns reduced by (  5%  » 10%  » 20%   ).
     //Your Potions have their cooldowns reduced by 1 second. from Alchemical Precision
-    regex = /^your ([^\s]+)s?(?: items)? have their cooldowns reduced by (\([^)]+\)|(\d+)%?)( seconds?)?\.$/i;    
+    regex = /^your ([^\s]+)s?(?: and ([^\s]+))?(?: items)? have their cooldowns reduced by (\([^)]+\)|(\d+)%?)( seconds?)?\.$/i;    
     match = text.match(regex);
     if(match) {
         const tagToMatch = Item.getTagFromText(match[1]);
+        const tagToMatch2 = Item.getTagFromText(match[2]);
         const isSeconds = match[4] ? true : false;
-        const cooldownReduction = getRarityValue(match[2], this.rarity);
+        const cooldownReduction = getRarityValue(match[3], this.rarity);
         this.board.items.forEach(item => {
-            if(item.tags.includes(tagToMatch)) {
+            if(item.tags.includes(tagToMatch) || (tagToMatch2 && item.tags.includes(tagToMatch2))) {
                 if(isSeconds) {
                     item.gain(-cooldownReduction*1000,'cooldown');
                 } else {
-                    item.gain(item.cooldown * (1-cooldownReduction/100) - item.cooldown, "cooldown");
+                    item.gain(-item.cooldown * cooldownReduction/100, "cooldown");
                 }
             }
         });
@@ -5456,6 +5485,9 @@ export class Item {
     }
     static getTagFromText(text) {
         if (!text) return null;
+        if(text.match(/Regeneration/i)) {
+            return "Regen";
+        }
         text = text.replace(/s$/, ''); // Remove trailing 's' if present
         return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
     }
@@ -5528,18 +5560,20 @@ export class Item {
             };
         }
 
+        //your Heal and Regeneration items have their cooldowns reduced by (5%/10%/15%). from Rapid Relief
         //Your Weapons' cooldowns are reduced by (5%/10%/15%) from Frozen Shot
         //your Weapons have their cooldowns reduced by (  5%  » 10%  » 20%   ).
-        regex = /^your ([^\s]+?)s?'?(?: items)? (?:have their cooldowns|cooldowns are) reduced by (?:\(([^)]+)\)|(\d+)%?)( seconds?)?\.?$/i;    
+        regex = /^your ([^\s]+?)s?'?(?: and ([^\s]+)s?)?(?: items)? (?:have their cooldowns|cooldowns are) reduced by (\([^)]+\)|\d+%?)( seconds?)?\.?$/i;    
         match = text.match(regex);
         if(match) {
-            const cooldownReduction = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
+            const cooldownReduction = getRarityValue(match[3], this.rarity);
             const tagToMatch = Item.getTagFromText(match[1]);
+            const tagToMatch2 = Item.getTagFromText(match[2]);
             const isSeconds = match[4] ? true : false;
             let cooldownReducedBy = 0;
             doIt = () => {
                 this.board.items.forEach(item => {
-                    if(item.tags.includes(tagToMatch)) {
+                    if(item.tags.includes(tagToMatch) || (tagToMatch2 && item.tags.includes(tagToMatch2))) {
                         if(isSeconds) {
                             item.gain(-cooldownReduction*1000,'cooldown');
                         } else {
@@ -5552,7 +5586,7 @@ export class Item {
 
             undoIt = () => {
                 this.board.items.forEach(item => {
-                    if(item.tags.includes(tagToMatch)) {
+                    if(item.tags.includes(tagToMatch) || (tagToMatch2 && item.tags.includes(tagToMatch2))) {
                         if(isSeconds) {
                             item.gain(cooldownReduction*1000,'cooldown');
                         } else {

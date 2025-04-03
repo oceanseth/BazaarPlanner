@@ -214,7 +214,7 @@ export class Player {
         this.overhealTriggers = new Map();
         this.healTriggers = new Map();
         this.destroyTriggers = new Map(); // triggered when this player destroys an item
-
+        this.overhealTriggers = new Map();
         if(this.board) this.board.reset();
     }
     setup() {
