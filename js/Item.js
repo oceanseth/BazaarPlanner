@@ -334,6 +334,9 @@ export class Item {
 
         this.multicast = 0;
         this.maxAmmo = this.startItemData.ammo||0;
+        if(typeof this.maxAmmo === 'string') {
+            this.maxAmmo = getRarityValue(this.maxAmmo, this.rarity);
+        }
         this.ammo = this.maxAmmo;
 
         this.triggerFunctions = [];
@@ -1122,15 +1125,17 @@ export class Item {
 
     getHasteTriggerFunctionFromText(text) {      
        let regex,match;
-        regex = /^Haste your(?: other)? items (?:for )?(\([^)]+\)|\d+) second/i;
+        regex = /^(Haste|Slow) your( other)? items (?:for )?(\([^)]+\)|\d+) second/i;
         match = text.match(regex);
         if(match) {
-            const duration = getRarityValue(match[1], this.rarity);
-            const other = match[1]=='other';
+            const duration = getRarityValue(match[3], this.rarity);
+            const other = match[2]=='other';
+            const whatToDo = Item.getTagFromText(match[1]);
+            
             return () => {
                 this.board.items.forEach(i => {
                     if(other && i.id == this.id) return;
-                    this.applyHasteTo(i,duration);
+                    this["apply"+whatToDo+"To"](i,duration);
                 });
             };
         }
@@ -2380,6 +2385,7 @@ export class Item {
                 "upgrade a friend",
                 "sell a medium or large item",
                 "start a fight",
+                "sell a reagent",
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;

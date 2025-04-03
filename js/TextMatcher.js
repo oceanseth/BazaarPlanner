@@ -423,18 +423,7 @@ TextMatcher.matchers.push({
         return ()=>{};
     },
 });
-/*
-regex = /^poison \(([^)]+)\) for each type this has\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            const poisonAmount = getRarityValue(match[1], this.rarity);
-            const typeCount = this.tags.filter(tag => !Item.sizeTags.includes(tag)).length;
-            this.gain(poisonAmount * typeCount, 'poison')
-            return () => {
-                this.applyPoison(this.poison);
-            };
-        }
-            */
+
 TextMatcher.matchers.push({
     //poison (1/2/3) for each type this has.
     regex: /^(\w+) \(([^)]+)\) for each(?: unique)? type this has\.?$/i,
@@ -445,6 +434,19 @@ TextMatcher.matchers.push({
         item.gain(amount * typeCount, whatToDo);
         return ()=>{
             item["apply"+whatToDo](item[whatToDo.toLowerCase()]);
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //Reduce your enemy's Max Health by (10%/15%/20%) for the fight. from Shrinking Potion
+    regex: /^Reduce your enemy's Max Health by (\([^)]+\)|\d+)%? for the fight\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        return ()=>{
+            item.board.player.hostileTarget.maxHealth -= item.board.player.hostileTarget.maxHealth * amount / 100;
+            if(item.board.player.hostileTarget.maxHealth<item.board.player.hostileTarget.health) {
+                item.board.player.hostileTarget.health = item.board.player.hostileTarget.maxHealth;
+            }
         };
     },
 });
