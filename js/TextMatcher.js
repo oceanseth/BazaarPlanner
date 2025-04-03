@@ -462,4 +462,28 @@ TextMatcher.matchers.push({
         return ()=>{};
     },
 });
+//Your items gain +100% Crit Chance for (3/4/5) seconds. from Strength Potion
+TextMatcher.matchers.push({
+    regex: /^Your items gain \+100% Crit Chance for (\([^)]+\)|\d+) second\(?s?\)?\.$/i,
+    func: (item, match)=>{
+        const duration = getRarityValue(match[1], item.rarity)*1000;
+        return ()=>{
+            const timeToCancel = item.board.player.battleTime+duration;
+            item.board.items.forEach(i=>{
+                i.gain(100,'crit',item);
+            });
+            item.board.player.battleTimeChanged((newTime)=>{
+                if(newTime>=timeToCancel) {
+                    item.board.items.forEach(i=>{
+                        i.gain(-100,'crit',item);
+                    });
+                    item.board.player.battleTimeCancelChanged(item.id);
+                }
+            }, item.id);
+        };
+    },
+});
+
+
+
 window.TextMatcher = TextMatcher;

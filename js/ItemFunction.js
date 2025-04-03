@@ -1364,4 +1364,15 @@ ItemFunction.items.set("Crystal Bonsai", (item)=>{
     });
     item.triggerFunctions.push(item.getTriggerFunctionFromText("Heal equal to ( 1x » 2x » 3x » 4x ) this item's value."));
 });
+
+//When you use a Potion, transform it into a Potion for the fight and gain (1/2/3) Regeneration for the fight. from Recycling Bin
+ItemFunction.items.set("Recycling Bin",(item)=>{
+    item.regen = getRarityValue("1/2/3",item.rarity);
+    item.board.itemTriggers.set(item.id,(i)=>{
+        if(i.tags.includes("Potion")) {
+            item.applyRegen(item.regen);
+        }
+    });
+});
+
 ItemFunction.setupItems();

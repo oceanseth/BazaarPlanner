@@ -286,6 +286,7 @@ export class Item {
         this.regenChanged(f,s);
     }
     reset() {
+        this.critCheck = [];
         this.removeTemporaryEnchant();
         this.textMatches = [];
         this.lifesteal = false;
@@ -341,8 +342,6 @@ export class Item {
 
         this.triggerFunctions = [];
         this.adjacentItemTriggers = []; //functions to call when any item adjacent to this item is triggered
-        this.hasteTriggers = []; //functions to call when haste is applied to this item
-        this.slowTriggers = []; //functions to call when slow is applied to this item   
 
         if(this.progressBar) {
             this.progressBar.style.bottom = '-5px';
@@ -742,9 +741,12 @@ export class Item {
 
     doICrit() {
         if(!this.board.critPossible) return false;
+        if(this.critCheck[this.battleTime]!==undefined) return this.critCheck[this.battleTime];
         if(this.cooldown>0 && this.crit && this.battleRandom(this.crit / 100)) {
+            this.critCheck[this.battleTime] = true;
             return true;
         }
+        this.critCheck[this.battleTime] = false;
         return false;
     }
     applyDamage(damage,target=this.board.player.hostileTarget) {
@@ -765,13 +767,9 @@ export class Item {
             " deals "+ damage+" damage to " +
             target.name);            
         if(this.lifesteal >0) {
-            let oldHealth = this.board.player.health;
-            if(this.board.player.health +damage > this.board.player.maxHealth) {
-                this.board.player.health = this.board.player.maxHealth;
-            } else {
-                this.board.player.health += damage;
-            }
-            this.log(this.name + " lifesteals " + (this.board.player.health-oldHealth) + " health");
+            //let oldHealth = this.board.player.health;
+            this.applyHeal(damage);
+            //this.log(this.name + " lifesteals " + (this.board.player.health-oldHealth) + " health");
         }
         if(doesCrit) {
             this.board.itemDidCrit(this);
@@ -1252,14 +1250,15 @@ export class Item {
             };
         }
 
+        //Haste the item to the left of this for (1/2/3/4) second(s). from Smelling Salts
         //Haste the Friend to the right of this for (2/2/2/5) second(s). from Sat-Comm
-        regex = /^Haste the (\w+)?\s?(?:item)? to the right(?: of this)? for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        regex = /^Haste the (\w+)?\s?(?:item)? to the (left|right)(?: of this)? for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const tagToMatch = match[1] ? Item.getTagFromText(match[1]) : null;
-            const duration = getRarityValue(match[2], this.rarity);
-            const itemToHaste = this.getItemToTheRight();
-            if(tagToMatch && itemToHaste && !itemToHaste.tags.includes(tagToMatch)) return ()=>{};
+            const duration = getRarityValue(match[3], this.rarity);
+            const itemToHaste = match[2]=='left'?this.getItemToTheLeft():this.getItemToTheRight();
+            if(tagToMatch && itemToHaste && tagToMatch!='Item'&& !itemToHaste.tags.includes(tagToMatch)) return ()=>{};
             return (item) => { 
                 if(itemToHaste) {
                     this.applyHasteTo(itemToHaste,duration);
@@ -2850,6 +2849,20 @@ export class Item {
                     case "transform a potion":
                         this.board.transformTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
                         return;
+                    case "an adjacent item hastes or slows":
+                        const adjacentHastingOrSlowingItems = this.getAdjacentItems();
+                        this.board.hasteTriggers.set(this.id,(item,source)=>{
+                            if(adjacentHastingOrSlowingItems.some(i=>i.id==item.id)) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                        this.board.slowTriggers.set(this.id,(item,source)=>{
+                            if(adjacentHastingOrSlowingItems.some(i=>i.id==item.id)) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                        return;
+                        
                 }
                 console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"' from "+this.name);
 
@@ -4786,16 +4799,15 @@ export class Item {
             }
         }
         //Use the Core.
-        regex = /^\s*Use the Core\.?$/i;
+        regex = /^\s*Use a Core\.?$/i;
         match = text.match(regex);
         if(match) {
             return () => {
-                this.board.items.forEach(item=>{
-                    if(item.tags.includes("Core")) {
-                        this.log(this.name+" used "+item.name);
-                        item.trigger();
-                    }
-                });
+                const coreItems = this.board.activeItems.filter(item=>item.tags.includes("Core"));
+                const coreItem = this.pickRandom(coreItems);
+                if(coreItem) {
+                    coreItem.trigger();
+                }
             }
         }
         //Haste the Core for 2 second(s). from Letting off Steam
