@@ -50,6 +50,7 @@ const mockBoardInstance = {
         burnTriggers: new Map(),
         dieTriggers: new Map(),
         lostShieldTriggers: new Map(),    
+        overhealTriggers: new Map(),
         damageReduction:0,
         health:0,
         maxHealth:0,

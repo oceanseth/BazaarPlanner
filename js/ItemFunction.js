@@ -29,6 +29,25 @@ ItemFunction.items.set("Pendulum",(item)=>{
     }
 });
 
+//Charge adjacent items (1/2) second(s).
+//If you have the same amount of items on both sides of this, Charge all other items instead.
+ItemFunction.items.set("Scales",(item)=>{
+    item.charge = getRarityValue("1/2",item.rarity);
+    let chargeTargets = [];
+    const f = ()=>{
+        const sameAmountOnBothSides = item.board.activeItems.filter(i=>i.startIndex<item.startIndex).length == item.board.activeItems.filter(i=>i.startIndex>item.startIndex).length;
+        if(sameAmountOnBothSides) {
+            chargeTargets = item.board.activeItems;
+        } else chargeTargets = item.getAdjacentItems();
+    }
+
+    f();
+    item.board.itemDestroyedTriggers.set(item.id,f);
+    
+    item.triggerFunctions.push(()=>{
+        chargeTargets.forEach(i=>item.applyChargeTo(i));
+    });
+});
 
 //When this gains Haste or when you Freeze, Charge this 2 second(s). from Snowmobile
 ItemFunction.items.set("Snowmobile",(item)=>{

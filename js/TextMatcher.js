@@ -1,13 +1,9 @@
 import { getRarityValue } from "./utils.js";
 import { Item } from "./Item.js";
+import { Board } from "./Board.js";
 
 export class TextMatcher {
     static comparitors = [];
-    static regexps = [
-        //Your weapons have + damage equal to your Regeneration. from Essence Overflow
-        /^your weapons have \+ damage equal to your Regeneration\.$/i,
-
-    ];
     static getTriggerFunctionFromText(text, item) {
         for(let matcher of TextMatcher.matchers) {
             if(matcher.regex.test(text)) {                
@@ -450,5 +446,20 @@ TextMatcher.matchers.push({
         };
     },
 });
-
+TextMatcher.matchers.push({
+    //The item to the left of this has + Burn equal to your Regeneration. from Secret Formula
+    //The item to the Right of this has + Poison equal to your Regeneration. from Secret Formula
+    regex: /^The item to the (left|right) of this has \+\s?([^\s]+) equal to your (Burn|Poison|Regen)(?:eration)?\.$/i,
+    func: (item, match)=>{
+        const whatOfYours = match[3].toLowerCase();
+        const amount = item.board.player[whatOfYours];
+        const target = match[1]=='left'?item.getItemToTheLeft():item.getItemToTheRight();
+        const whatToGain = Item.getTagFromText(match[2]);
+        if(target) target.gain(amount,whatToGain);
+        item.board.player[whatOfYours+"Changed"]((newVal,oldVal)=>{
+            if(target) target.gain(newVal-oldVal,whatToGain);
+        });
+        return ()=>{};
+    },
+});
 window.TextMatcher = TextMatcher;
