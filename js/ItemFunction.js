@@ -1374,5 +1374,20 @@ ItemFunction.items.set("Recycling Bin",(item)=>{
         }
     });
 });
-
+//"Haste your Lifesteal weapons for (1/2/3/4) second(s)." from runic potion
+//"(1/2/3/4) of your weapons gain Lifesteal for the fight." from runic potion
+ItemFunction.items.set("Runic Potion",(item)=>{
+    const amount = getRarityValue("1/2/3/4",item.rarity);
+    item.triggerFunctions.push(()=>{
+        item.board.activeItems.forEach(i=>{
+            if(i.tags.includes("Weapon") && i.lifesteal) {
+                item.applyHasteTo(i,amount);
+            }
+        });
+        const lifestealNeedingWeapons = item.board.activeItems.filter(i=>i.tags.includes("Weapon") && !i.lifesteal);
+        item.pickRandom(lifestealNeedingWeapons,amount).forEach(i=>{
+            i.lifesteal=true;
+        });
+    });
+});
 ItemFunction.setupItems();

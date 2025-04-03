@@ -7,7 +7,7 @@ export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny','Toxic', 'Turbo' ];
-    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge'];
+    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal'];
     static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle','Common'];
     static sizeTags = ['Small','Medium','Large'];
     static allowedGainMap = {
@@ -289,7 +289,7 @@ export class Item {
         this.critCheck = [];
         this.removeTemporaryEnchant();
         this.textMatches = [];
-        this.lifesteal = false;
+        this.lifesteal = 0;
         this.isDestroyed = false;
         this.element.classList.remove('destroyed');
         this.hasteTimeRemaining = 0;
@@ -584,8 +584,7 @@ export class Item {
     }
 
     applyHaste(duration) {
-        this.hasteTimeRemaining += duration * 1000;
-        this.hasteTriggers.forEach(func => func(this));      
+        this.hasteTimeRemaining += duration * 1000; 
         this.board.hasHastedItem = 1;
     }
 
@@ -807,8 +806,14 @@ export class Item {
         this.battleStats.burn += burnAmount;
     }
     applyRegeneration(regenAmount) {
+        let doesCrit = this.doICrit();
+        if(doesCrit) {
+            regenAmount *= (1+this.critMultiplier/100);
+        }
         this.board.player.regen+=regenAmount;
-        this.log(this.name + " adds " + regenAmount + " regeneration");
+        this.log(this.name + (doesCrit?" critically ":"")+" adds " + regenAmount + " regeneration");
+        if(this.battleStats.regen == undefined) this.battleStats.regen = 0;
+        this.battleStats.regen += regenAmount;
     }
     applyHeal(healAmount) {
         healAmount = parseFloat(healAmount);
@@ -816,9 +821,9 @@ export class Item {
         let doesCrit = this.doICrit();
         if(doesCrit) {
             healAmount *= (1+this.critMultiplier/100);
-        }
+        }        
         this.log(this.name + (doesCrit?" critically ":"")+" healed " + this.board.player.name + " for " + healAmount);
-        this.board.player.heal(healAmount);
+        this.board.player.heal(healAmount,this);
         if(doesCrit) {
             this.board.itemDidCrit(this);
         }
@@ -929,7 +934,7 @@ export class Item {
         }
         //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
         //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
-        damageRegex = /^Your ([^\s]+)\s*(?:items)? (?:gain|get) (?:\(([^)]+)\)|(\d+))\s+([^\s]+)\s+for the fight\.?/i;
+        damageRegex = /^Your ([^\s]+)\s*(?:items)? (?:gain|get) \+?(?:\(([^)]+)\)|(\d+))\s+([^\s]+)\s+for the fight\.?/i;
         match = text.match(damageRegex);
 
         if(match) {
@@ -2267,7 +2272,7 @@ export class Item {
                 this.startItemData.burn = (this.startItemData.burn||0) + (newBurn - this.burn)/this.burn_multiplier;
             }
             if(popup.querySelector('#edit-lifesteal')) {
-                this.lifesteal = popup.querySelector('#edit-lifesteal').value == '1';
+                this.lifesteal = popup.querySelector('#edit-lifesteal').value == '1' ? 100 : 0;
                 this.startItemData.lifesteal = this.lifesteal;
             }
             if(popup.querySelector('#edit-shield')) {
@@ -2391,6 +2396,7 @@ export class Item {
                 "sell a medium or large item",
                 "start a fight",
                 "sell a reagent",
+                "transform a reagent"
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;
@@ -2634,6 +2640,13 @@ export class Item {
                                 if(item.id !== this.id) {
                                 triggerFunctionFromText(item);  
                                 }
+                            }
+                        );
+                        return;
+                    case "use a friend or the core":
+                        this.whenItemTagTriggers(["Friend", "Core"],
+                            (item) => {
+                                triggerFunctionFromText(item);  
                             }
                         );
                         return;
@@ -4135,7 +4148,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             return () => {
-                this.board.player.heal(this.board.player.maxHealth-this.board.player.health);
+                this.applyHeal(this.board.player.maxHealth-this.board.player.health);
             }
         }
 
@@ -4371,15 +4384,22 @@ export class Item {
             };
         }*/
 
-        //Your Lifesteal weapons have double damage. from Runic Great Axe
-        regex = /^\s*Your Lifesteal weapons have double damage\.?/i;
+        //Your Lifesteal weapons have +100% Crit Chance. from Runic Great Axe
+        regex = /^\s*Your Lifesteal weapons have \+?(\([^\)]+\)|\+?\d+%?) Crit Chance\.?/i;
         match = text.match(regex);
         if(match) {
+            const critChance = getRarityValue(match[1], this.rarity);
             this.board.items.forEach(item => {
-                if(item.text.some(t=>t=="Lifesteal") && item.tags.includes("Weapon")) {
-                    item.damage += item.damage;
-                    item.damage_multiplier += 1;
+                if(item.lifesteal && item.tags.includes("Weapon")) {
+                    item.gain(critChance,'crit');
                 }
+                item.lifestealChanged((newValue,oldValue)=>{
+                    if(!oldValue && newValue) {
+                        item.gain(critChance,'crit');
+                    } else if(oldValue && !newValue) {
+                        item.gain(-critChance,'crit');
+                    }
+                });
             });
             return () => {};
         }
@@ -5630,9 +5650,9 @@ export class Item {
             }
         };
     }
-    addRandomTemporaryEnchant() {
+    addTemporaryEnchant(enchant) {
         if(this.enchant) { return; } // maybe later remove enchant first, for now skip.
-        this.enchant = this.pickRandom(Object.keys(this.enchants));       
+        this.enchant = enchant||this.pickRandom(Object.keys(this.enchants));       
         this.enchantIsTemporary = true;
         this.resetEnchant();
         if(this.enchant!='Radiant') {

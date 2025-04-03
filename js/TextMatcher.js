@@ -318,7 +318,7 @@ TextMatcher.matchers.push({
             const nonEnchantedItems = item.board.items.filter(i=>!i.tags.includes("Enchanted"));
             if(nonEnchantedItems.length>0) {
                 const target = item.pickRandom(nonEnchantedItems);
-                target.addRandomTemporaryEnchant();
+                target.addTemporaryEnchant();
             }
         };
     },
@@ -483,7 +483,18 @@ TextMatcher.matchers.push({
         };
     },
 });
-
+TextMatcher.matchers.push({
+    //enchant it with ... if able
+    regex: /^enchant it with (.*) if able\.$/i,
+    func: (item, match)=>{
+        const enchant = Item.getTagFromText(match[1]);
+        return ()=>{
+            if(Object.keys(item.enchants).includes(enchant)) {
+                item.addTemporaryEnchant(enchant);
+            }
+        };
+    },
+});
 
 
 window.TextMatcher = TextMatcher;
