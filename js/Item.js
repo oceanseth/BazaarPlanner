@@ -2068,6 +2068,7 @@ export class Item {
         }
     }
     showEditor = () => {
+        //document.getElementsByClassName("editor").forEach(e=>e.remove());
         if(!this.editable || document.querySelector('.item-edit-popup')!=null) return;
         const itemData = this.startItemData;
         // List of available enchantments and rarities
@@ -2103,6 +2104,12 @@ export class Item {
                         `<option value="${r}" ${r === (itemData.rarity || 'Bronze') ? 'selected' : ''}>${r}</option>`
                     ).join('')}
                 </select>
+            </div>`;
+
+        popupHTML += `
+            <div class="form-group">
+                <label>Tags:</label>
+                <input type="text" id="edit-tags" value="${this.tags.join(', ')}">
             </div>`;
 
         popupHTML += `
@@ -2253,6 +2260,8 @@ export class Item {
             // Update name with enchantment
             this.name = enchant === 'None' ? baseName : `${enchant} ${baseName}`;
             this.setEnchant(enchant);
+
+            this.startItemData.tags = popup.querySelector('#edit-tags').value.split(',').map(t=>t.trim());
             
             // Only update fields that exist in the form
             if (popup.querySelector('#edit-damage')) {                
