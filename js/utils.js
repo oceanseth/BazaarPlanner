@@ -79,7 +79,7 @@ export function updateUrlState() {
         else {
             toReturn.cooldown = parseFloat(item.startItemData.cooldown);
         }
-
+        delete toReturn.rarity;
         return toReturn;
     });
     

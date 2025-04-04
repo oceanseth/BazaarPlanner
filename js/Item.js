@@ -84,7 +84,7 @@ export class Item {
         else this.editable = true;
         Object.assign(this, this.startItemData);
         if(this.rarity == undefined && this.tier!=undefined) {
-            this.rarity = Item.rarityLevels[Item.rarityLevels.indexOf(this.tier)];
+            this.rarity = Item.rarityLevels[this.tier];
             this.startItemData.rarity = this.rarity;
         }
         
