@@ -1059,6 +1059,16 @@ export class Item {
                 this.dealDamage(this.damage);        
             };
         }
+        //Damage ( 10 » 20 » 30 » 40 ).
+        damageRegex = /^Damage (\([^)]+\)|\d+)\./i;
+        match = text.match(damageRegex);
+        if(match) {
+            const damageValue =  getRarityValue(match[1], this.rarity);
+            this.gain(damageValue,'damage');
+            return () => {   
+                this.dealDamage(this.damage);        
+            };
+        }
 
         damageRegex = /^Crit chance (\([^)]+\)|\d+%?)/i;
         match = text.match(damageRegex);
@@ -5130,6 +5140,19 @@ export class Item {
                 }
             });
             return ()=>{};
+        }
+
+        //a random Potion gains +1 Multicast for the fight. from Brewmaster
+        regex = /^a random Potion gains \+1 Multicast for the fight\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return ()=>{
+                const potions = this.board.activeItems.filter(item => item.tags.includes("Potion"));
+                if(potions.length>0) {
+                    const randomPotion = this.pickRandom(potions);
+                    randomPotion.gain(1,'multicast');
+                }
+            }
         }
 
         //your other items gain Value equal to this item's Value for the fight.

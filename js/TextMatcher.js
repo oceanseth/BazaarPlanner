@@ -17,7 +17,16 @@ export class TextMatcher {
 }
 TextMatcher.comparitors["If you have exactly one weapon, "]= {
     test: (item) => {
-        return item.board.items.filter(i=>i.tags.includes("Weapon")).length==1;
+        return item.board.activeItems.filter(i=>i.tags.includes("Weapon")).length==1;
+    },
+    setup: (item,f) => {
+        item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
+        item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
+    }
+};
+TextMatcher.comparitors["If you have no other weapons, "]= {
+    test: (item) => {
+        return item.board.activeItems.filter(i=>i.tags.includes("Weapon")).length==0;
     },
     setup: (item,f) => {
         item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
@@ -53,6 +62,15 @@ TextMatcher.matchers.push({
         if(match[1]) {
             TextMatcher.comparitors[match[1]].setup(item,f);
         }
+        return ()=>{};
+    },
+});
+TextMatcher.matchers.push({
+    //If you have no other weapons, this has +1 multicast. from quill and ink
+    regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})(.*)$`, 'i'),
+    func: (item, match)=>{
+        const f = item.getUndoableFunctionFromText(match[2], ()=>(TextMatcher.comparitors[match[1]].test(item)));
+        TextMatcher.comparitors[match[1]].setup(item,f);
         return ()=>{};
     },
 });
