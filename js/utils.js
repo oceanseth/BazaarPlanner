@@ -58,7 +58,12 @@ export function updateUrlState() {
 
         
         for(const key in item.startItemData) {
-            if(item.startItemData[key] && baseItem[key] == undefined && testItem.startItemData[key] != item[key]) {
+            if(Array.isArray(item.startItemData[key])) {
+                toReturn[key] = item.startItemData[key].filter(tag=>!testItem[key].includes(tag));         
+                if(toReturn[key].length == 0) {
+                    delete toReturn[key];
+                }
+            } else if(item.startItemData[key] && baseItem[key] == undefined && testItem.startItemData[key] != item[key]) {
                 toReturn[key] = item.startItemData[key];
             }
         }
@@ -175,7 +180,13 @@ export function loadFromUrl(hash) {
             const [baseName, enchant] = Item.stripEnchantFromName(name);
 
             const newItemData = structuredClone(items[baseName]);
+            const tags = [...newItemData.tags];
             Object.assign(newItemData, itemWithoutBoardAndStartIndex);
+            tags.forEach(tag=>{
+               if(!newItemData.tags.includes(tag)) {
+                newItemData.tags.push(tag);
+               }
+            });
             const newItem = new Item(newItemData, theBoard);
             newItem.enchant = enchant;
             newItem.name = name;
