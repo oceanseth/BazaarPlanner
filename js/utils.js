@@ -51,32 +51,11 @@ export function updateUrlState() {
     .flatMap(board => board.items)
     .map(item => {
         let toReturn = {name: item.name, startIndex: item.startIndex, board: item.board.boardId};
-        if(item.rarity && item.rarity!='Bronze') toReturn.rarity = item.rarity;
+        if(item.rarity && item.rarity!='Bronze') toReturn.tier = Item.rarityLevels.indexOf(item.rarity);
         const [baseName] = Item.stripEnchantFromName(item.name);   
         const baseItem = structuredClone(items[baseName]);
         const testItem = new Item(baseItem);
 
-        for(const key in baseItem) {
-            if (Array.isArray(baseItem[key]) && Array.isArray(item[key])) {
-                // Compare arrays by checking if they have the same values
-                if (!baseItem[key].every((val, i) => val === item[key][i]) || 
-                    baseItem[key].length !== item[key].length) {
-                    toReturn[key] = item[key];
-                }
-            } else if (typeof baseItem[key] === 'object' && baseItem[key] !== null && 
-                        typeof item[key] === 'object' && item[key] !== null) {
-                // Deep compare objects
-                const baseKeys = Object.keys(baseItem[key]);
-                const itemKeys = Object.keys(item[key]);
-                
-                if (baseKeys.length !== itemKeys.length || 
-                    !baseKeys.every(k => baseItem[key][k] === item[key][k])) {
-                    toReturn[key] = item[key];
-                }
-            } else if(baseItem[key] != item[key]) {
-                toReturn[key] = item[key];
-            }
-        }
         
         for(const key in item.startItemData) {
             if(item.startItemData[key] && baseItem[key] == undefined && testItem.startItemData[key] != item[key]) {

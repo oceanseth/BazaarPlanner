@@ -315,6 +315,7 @@ export class Item {
 
         Object.assign(this, this.startItemData);
         this.tags = [...this.startItemData.tags];
+        this.element.classList.remove('frozen',...Item.rarityLevels, ...Item.possibleEnchants);
         this.resetEnchant();
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
         this.resetCooldown();
@@ -324,7 +325,6 @@ export class Item {
 
         this.freezeDurationRemaining = 0;
         this.freezeElement.classList.add('hidden');
-        this.element.classList.remove('frozen',...Item.rarityLevels, ...Item.possibleEnchants);
         this.element.classList.add(this.rarity || 'Bronze');
     
         this.value = this.startItemData.value;
@@ -2875,7 +2875,11 @@ export class Item {
                             }
                         });
                         return;
-                        
+                    case "use a relic or enchanted item":
+                        this.whenItemTagTriggers(["Relic", "Enchanted"], (item) => {
+                            triggerFunctionFromText(item);
+                        });
+                        return;
                 }
                 console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"' from "+this.name);
 
@@ -3395,12 +3399,15 @@ export class Item {
         }
    
         //charge your Busy Bees 2 second(s).
-        regex = /^\s*charge your ([^\d]+)s ([\d]+) second\(?s?\)?/i;   
+        regex = /^\s*charge your ([^(\d|\s+and\s+)]+)s?\s*(?:and\s+(\w+)\s+)?(?:items\s+)?(\([^)]+\)|\d+) second\(?s?\)?\.?/i;   
         match = text.match(regex);
         if(match) {
-            this.charge = parseInt(match[2]);
+            this.charge = getRarityValue(match[3], this.rarity);
+            const itemsToCharge = this.board.items.filter(item => item.name.toLowerCase()==match[1].toLowerCase()||item.tags.includes(Item.getTagFromText(match[1])));
+            if(match[2]) {
+                itemsToCharge.push(...this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[2]))));
+            }
             return () => {
-                const itemsToCharge = this.board.items.filter(item => item.name.toLowerCase()==match[1].toLowerCase());
                 itemsToCharge.forEach(item=>{
                     this.applyChargeTo(item);
                 });
