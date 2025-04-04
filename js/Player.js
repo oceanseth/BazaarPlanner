@@ -38,7 +38,7 @@ export class Player {
         if(this.health+healAmount>this.maxHealth) {
             const overheal = this.health+healAmount-this.maxHealth;
             healAmount -= overheal;
-            this.log(source?source.name+" ":""+"overhealed for "+overheal);
+            this.log((source?source.name+" ":"")+"overhealed for "+overheal);
             this.overhealTriggers.forEach(func => func(overheal));
         }
         this.healTriggers.forEach(func => func(healAmount));

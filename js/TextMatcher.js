@@ -17,7 +17,16 @@ export class TextMatcher {
 }
 TextMatcher.comparitors["If you have exactly one weapon, "]= {
     test: (item) => {
-        return item.board.items.filter(i=>i.tags.includes("Weapon")).length==1;
+        return item.board.activeItems.filter(i=>i.tags.includes("Weapon")).length==1;
+    },
+    setup: (item,f) => {
+        item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
+        item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
+    }
+};
+TextMatcher.comparitors["If you have no other weapons, "]= {
+    test: (item) => {
+        return item.board.activeItems.filter(i=>i.tags.includes("Weapon")).length==0;
     },
     setup: (item,f) => {
         item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
@@ -53,6 +62,15 @@ TextMatcher.matchers.push({
         if(match[1]) {
             TextMatcher.comparitors[match[1]].setup(item,f);
         }
+        return ()=>{};
+    },
+});
+TextMatcher.matchers.push({
+    //If you have no other weapons, this has +1 multicast. from quill and ink
+    regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})(.*)$`, 'i'),
+    func: (item, match)=>{
+        const f = item.getUndoableFunctionFromText(match[2], ()=>(TextMatcher.comparitors[match[1]].test(item)));
+        TextMatcher.comparitors[match[1]].setup(item,f);
         return ()=>{};
     },
 });
@@ -544,6 +562,68 @@ TextMatcher.matchers.push({
                 i.gain(amount,whatToGain,item);
             }
         });
+        return ()=>{};
+    },
+});
+TextMatcher.matchers.push({
+    //Charge another Tech item (1/2) second(s). from Lens
+    regex: /^Charge another ([^\s]+) item (\([^)]+\)|\d+) second\(?s\)?\.?$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);        
+        item.charge = getRarityValue(match[2], item.rarity)*1000;
+        return ()=>{
+            const target = item.pickRandom(item.board.activeItems.filter(i=>i.tags.includes(tag)));
+            if(target) {
+                item.applyChargeTo(target);
+            }
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //This loses 25% Crit Chance for the fight. from Letter Opener
+    regex: /^This loses (\d+)%? Crit Chance for the fight\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        return ()=>{
+            item.gain(-amount,'crit',item);
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //A Friend gains +1 Multicast for the fight. from Card Table
+    regex: /^A Friend gains \+1 Multicast for the fight\.$/i,
+    func: (item, match)=>{
+        return ()=>{
+            const friends = item.board.activeItems.filter(i=>i.tags.includes("Friend"));
+            if(friends.length>0) {
+                const friend = item.pickRandom(friends);
+                friend.gain(1,'multicast',item);
+            }
+        };
+    },
+});
+
+//charge the Core (1/2) second(s). from Dooltron Mainframe
+TextMatcher.matchers.push({
+    regex: /^charge the Core (\([^)]+\)|\d+) second\(?s\)?\.?$/i,
+    func: (item, match)=>{
+        item.charge = getRarityValue(match[1], item.rarity);
+        return ()=>{
+            item.board.activeItems.filter(i=>i.tags.includes("Core")).forEach(i=>{
+               item.applyChargeTo(i);
+            });
+           
+        };
+    },
+});
+//Your Dooltron has the Core type. from Dooltron Mainframe
+TextMatcher.matchers.push({
+    regex: /^Your Dooltron has the Core type\.$/i,
+    func: (item, match)=>{
+        const dooltron = item.board.items.filter(i=>i.name.endsWith("Dooltron"));
+        if(dooltron.length>0 && !dooltron[0].tags.includes("Core")) {
+            dooltron[0].tags.push("Core");
+        }
         return ()=>{};
     },
 });
