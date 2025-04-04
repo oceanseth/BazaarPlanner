@@ -565,4 +565,66 @@ TextMatcher.matchers.push({
         return ()=>{};
     },
 });
+TextMatcher.matchers.push({
+    //Charge another Tech item (1/2) second(s). from Lens
+    regex: /^Charge another ([^\s]+) item (\([^)]+\)|\d+) second\(?s\)?\.?$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);        
+        item.charge = getRarityValue(match[2], item.rarity)*1000;
+        return ()=>{
+            const target = item.pickRandom(item.board.activeItems.filter(i=>i.tags.includes(tag)));
+            if(target) {
+                item.applyChargeTo(target);
+            }
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //This loses 25% Crit Chance for the fight. from Letter Opener
+    regex: /^This loses (\d+)%? Crit Chance for the fight\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        return ()=>{
+            item.gain(-amount,'crit',item);
+        };
+    },
+});
+TextMatcher.matchers.push({
+    //A Friend gains +1 Multicast for the fight. from Card Table
+    regex: /^A Friend gains \+1 Multicast for the fight\.$/i,
+    func: (item, match)=>{
+        return ()=>{
+            const friends = item.board.activeItems.filter(i=>i.tags.includes("Friend"));
+            if(friends.length>0) {
+                const friend = item.pickRandom(friends);
+                friend.gain(1,'multicast',item);
+            }
+        };
+    },
+});
+
+//charge the Core (1/2) second(s). from Dooltron Mainframe
+TextMatcher.matchers.push({
+    regex: /^charge the Core (\([^)]+\)|\d+) second\(?s\)?\.?$/i,
+    func: (item, match)=>{
+        item.charge = getRarityValue(match[1], item.rarity);
+        return ()=>{
+            item.board.activeItems.filter(i=>i.tags.includes("Core")).forEach(i=>{
+               item.applyChargeTo(i);
+            });
+           
+        };
+    },
+});
+//Your Dooltron has the Core type. from Dooltron Mainframe
+TextMatcher.matchers.push({
+    regex: /^Your Dooltron has the Core type\.$/i,
+    func: (item, match)=>{
+        const dooltron = item.board.items.filter(i=>i.name.endsWith("Dooltron"));
+        if(dooltron.length>0 && !dooltron[0].tags.includes("Core")) {
+            dooltron[0].tags.push("Core");
+        }
+        return ()=>{};
+    },
+});
 window.TextMatcher = TextMatcher;

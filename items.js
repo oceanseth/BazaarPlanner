@@ -2842,7 +2842,8 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Haste 1 Vehicle for (2/3/4) second(s). Charge 1 Tool (1/2/3) second(s).",
+      "Haste 1 Vehicle for (2/3/4) second(s).",
+      "Charge 1 Tool (1/2/3) second(s).",
       "Reload 1 Ammo item (1/2/3) Ammo.",
       "A Weapon gains (+20/+30/+40) damage for the fight."
     ],

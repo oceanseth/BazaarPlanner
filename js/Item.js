@@ -792,7 +792,7 @@ export class Item {
         if(this.battleStats.shield == undefined) this.battleStats.shield = 0;
         this.battleStats.shield += shieldAmount;
     }
-    applyBurn(burnAmount, source,{selfTarget}={selfTarget:false}) {
+    applyBurn(burnAmount, source=this,{selfTarget}={selfTarget:false}) {
         let doesCrit = this.doICrit();
         if(doesCrit) {
             burnAmount *= (1+this.critMultiplier/100);
@@ -803,7 +803,7 @@ export class Item {
         if(doesCrit) {
             this.board.itemDidCrit(this);
         }
-        this.board.burnTriggers.forEach(func => func(this));
+        this.board.burnTriggers.forEach(func => func(this,source));
         if(this.battleStats.burn == undefined) this.battleStats.burn = 0;
         this.battleStats.burn += burnAmount;
     }
@@ -877,18 +877,18 @@ export class Item {
         this.isSlowed = 0;
         this.log(this.name + " was un-slowed");
     }
-    applyPoison(poisonAmount,source,{selfTarget}={selfTarget:false}) {
+    applyPoison(poisonAmount,source=this,{selfTarget}={selfTarget:false}) {
         let doesCrit = this.doICrit();
         if(doesCrit) {
             poisonAmount *= (1+this.critMultiplier/100);
         }
         const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
         this.log(this.name + (doesCrit?" critically ":"")+" poisoned " + target.name + " for " + poisonAmount.toFixed(0));
-        target.applyPoison(poisonAmount);
+        target.applyPoison(poisonAmount,source);
         if(doesCrit) {
             this.board.itemDidCrit(this);
         }
-        this.board.poisonTriggers.forEach(func => func(this));
+        this.board.poisonTriggers.forEach(func => func(this,source));
         if(this.battleStats.poison == undefined) this.battleStats.poison = 0;
         this.battleStats.poison += poisonAmount;
     }
@@ -2762,7 +2762,7 @@ export class Item {
                             }
                         });
                         return;
-                    case "use an adjacent or dragon item":
+                    case "use an adjacent item or dragon item":
                         const adjacentItems = this.getAdjacentItems();
                         this.board.itemTriggers.set(this.id,(item)=>{
                             if(adjacentItems.some(i=>i.id==item.id)||item.tags.includes("Dragon")) {
@@ -2887,9 +2887,61 @@ export class Item {
                             }
                         });
                         return;
-                    case "use a relic or enchanted item":
+                    case "use another relic or enchanted item":
                         this.whenItemTagTriggers(["Relic", "Enchanted"], (item) => {
-                            triggerFunctionFromText(item);
+                            if(item.id !== this.id) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return;
+                    case "an adjacent item poisons or burns":
+                        const adjPoisonBurnItems = this.getAdjacentItems();
+                        this.board.burnTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                            if(adjPoisonBurnItems.some(i=>i.id==source.id)) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                        this.board.player.hostileTarget.board.burnTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                            if(adjPoisonBurnItems.some(i=>i.id==source.id)) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                        //intending to skip return here
+                        case "an adjacent item poisons":
+                            this.board.poisonTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                                if(adjPoisonBurnItems.some(i=>i.id==source.id)) {
+                                    triggerFunctionFromText(source);
+                                }
+                            });
+    
+                        this.board.player.hostileTarget.board.poisonTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                            if(adjPoisonBurnItems.some(i=>i.id==source.id)) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                    return;
+
+                    case "an adjacent item slows or freezes":
+                        const adjItems = this.getAdjacentItems();
+                        this.board.slowTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                            if(adjItems.some(i=>i.id==source.id)) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                        this.board.freezeTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                            if(adjItems.some(i=>i.id==source.id)) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                        this.board.player.hostileTarget.board.freezeTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                            if(adjItems.some(i=>i.id==source.id)) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                        this.board.player.hostileTarget.board.slowTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                            if(adjItems.some(i=>i.id==source.id)) {
+                                triggerFunctionFromText(source);
+                            }
                         });
                         return;
                 }
@@ -3452,9 +3504,9 @@ export class Item {
 
         }
 
-
+        //parse charge the item to the right of this for (1/2) second(s). from Charging Station
         //Charge the item to the (left|right) of this ( 1 » 2 » 3 » 4 ) second(s).
-        regex = /^\s*Charge the item to the (left|right) (?:of this|for)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?/i;
+        regex = /^\s*Charge the item to the (left|right)(?: of this)?(?: for)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?/i;
         match = text.match(regex);
         if(match) {
             this.charge = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
@@ -3913,7 +3965,7 @@ export class Item {
         }
         
         //this and the weapon to the left gains ( 20 » 25 ) damage for the fight. from Claw Arm
-        regex = /^\s*this and the weapon to the left gains (\([^)]+\)|\d+) damage for the fight\.?/i;   
+        regex = /^\s*this and the weapon to the left of this gains (\([^)]+\)|\d+) damage for the fight\.?/i;   
         match = text.match(regex);
         if(match) {
             const damage = getRarityValue(match[1], this.rarity);
@@ -4077,6 +4129,18 @@ export class Item {
                     item.gain(ammo,'ammo',this);
                 });
             };
+        }
+        //Reload adjacent Potions. from Boiling Flask
+        regex = /^\s*Reload adjacent Potions\.?/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                this.getAdjacentItems().forEach(item => {
+                    if(item.tags.includes("Potion")) {
+                        item.reload(this);
+                    }
+                });
+            }
         }
 
         //remove freeze from your items
@@ -4253,7 +4317,32 @@ export class Item {
             });
             return () => {};
         }
-
+        //Your non-weapon items' cooldowns are decreased by (1/2) second(s). from Library
+        regex = /^\s*Your non-([^\s]+) items' cooldowns are decreased by (\([^)]+\)|\d+) second\(?s\)?\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const tag = Item.getTagFromText(match[1]);
+            const cooldownDecrease = getRarityValue(match[2], this.rarity);
+            this.board.items.forEach(item => {
+                if(!item.tags.includes(tag)) {
+                    item.gain(-cooldownDecrease*1000,'cooldown');
+                }
+            });
+            return () => {};
+        }
+        //ALL Weapon cooldowns are increased by (+1/+2) second(s). from Library 
+        regex = /^\s*ALL ([^\s]+) cooldowns are increased by (\([^)]+\)|\d+) second\(?s\)?\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const tag = Item.getTagFromText(match[1]);
+            const cooldownIncrease = getRarityValue(match[2], this.rarity);
+            [...this.board.items,...this.board.player.hostileTarget.board.items].forEach(item => {
+                if(item.tags.includes(tag)) {
+                    item.gain(cooldownIncrease*1000,'cooldown');
+                }
+            });
+            return () => {};
+        }
         //reduce your leftmost item's cooldown by ( 3% » 6% » 9% » 12% )
         regex = /^\s*reduce your leftmost item's cooldown by (\([^)]+\)|\d+%)/i;
         match = text.match(regex);
@@ -4971,18 +5060,20 @@ export class Item {
             };
         }
         //Your weapons have + damage equal to this item's value. from Lockbox
-        regex = /^Your weapons have \+ damage equal to this item's value\.?$/i;
+        regex = /^Your ([^\s]+)s?(?: items)? have \+?\s?(damage|shield) equal to this item's value\.?$/i;
         match = text.match(regex);
         if(match) {
+            const tag = Item.getTagFromText(match[1]);
+            const whatToGain = match[2].toLowerCase();
             this.board.items.forEach(item => {
-                if(item.tags.includes("Weapon")) {
-                    item.gain(this.value,'damage');
+                if(item.tags.includes(tag)) {
+                    item.gain(this.value,whatToGain);
                 }
             });
             this.valueChanged((newvalue,oldvalue) => {
                 this.board.items.forEach(item => {
-                    if(item.tags.includes("Weapon")) {
-                        item.gain(newvalue-oldvalue,'damage');
+                    if(item.tags.includes(tag)) {
+                        item.gain(newvalue-oldvalue,whatToGain);
                     }
                 });
             });
@@ -5525,7 +5616,7 @@ export class Item {
                 f2();
             }
         }
-        regex = /^([^,]+) and (.*)$/i;
+        regex = /^([^,]+)(?:(?: and )|(?:\. ))(.*)$/i;
         match = text.match(regex);
         if(match) {
             const f1 = this.getTriggerFunctionFromText(match[1]+".");
@@ -5601,6 +5692,19 @@ export class Item {
                 item.gain(cooldownReducedBy,'cooldown');
                 cooldownReducedBy = 0;
             };
+        }
+        
+        //this has (+50%/+100%) Crit Chance. from Basilisk Fang
+        regex = /^this has (\([^)]+\)|\d+)%? Crit Chance\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const critChance = getRarityValue(match[1], this.rarity);
+            doIt = () => {
+                this.gain(critChance,'crit');
+            }
+            undoIt = () => {
+                this.gain(-critChance,'crit');
+            }
         }
         
         
