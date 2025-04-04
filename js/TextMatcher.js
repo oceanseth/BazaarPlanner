@@ -397,7 +397,26 @@ TextMatcher.matchers.push({
     },
 });
 TextMatcher.matchers.push({
-    //Your Regeneration items have + Regeneration equal to (10%/20%) of this item's damage. from Viper Cane
+    //from Viper Cane
+    // "A Poison item gains + Poison equal to (10%/20%) of this item's damage for the fight.",
+    //"A Regeneration item gains + Regeneration equal to (10%/20%) of this item's damage for the fight."
+
+    regex: /^A ([^\s]+) item gains \+\s?([^\s]+) equal to (\([^)]+\)|\d+)%? of this item's ([^\s]+) for the fight\.$/i,
+    func: (item, match)=>{
+        const whatToGain = match[2];
+        const whatTag = Item.getTagFromText(match[1]);
+        const multiplier = getRarityValue(match[3], item.rarity)/100;
+        const whatThing = match[4].toLowerCase();
+        return ()=>{
+            const validTargets = item.board.activeItems.filter(i=>i.tags.includes(whatTag));
+            const target = item.pickRandom(validTargets);
+            if(target) {
+                target.gain(item[whatThing]*multiplier, whatToGain);
+            }
+        };
+    },
+});
+TextMatcher.matchers.push({    
     //Your Heal items have +Heal equal to this item's value. from Vineyard
     regex: /^Your (Regen|Poison|Heal)(?:eration)? items have \+\s?(Regen|Poison|Heal)(?:eration)? equal to (?:(\([^)]+\)|\d+%?) of )?this item's (\w+)\.$/i,
     func: (item, match)=>{
@@ -447,19 +466,19 @@ TextMatcher.matchers.push({
     },
 });
 TextMatcher.matchers.push({
-    //The item to the left of this has + Burn equal to your Regeneration. from Secret Formula
-    //The item to the Right of this has + Poison equal to your Regeneration. from Secret Formula
-    regex: /^The item to the (left|right) of this has \+\s?([^\s]+) equal to your (Burn|Poison|Regen)(?:eration)?\.$/i,
+    //The Burn item to the left of this gains + Burn equal to your Regeneration for the fight. from Secret Formula
+    //The Poison item to the right of this gains + Poison equal to your Regeneration for the fight. from Secret Formula
+    regex: /^The ([^\s]+) item to the (left|right) of this gains \+\s?([^\s]+) equal to your (Burn|Poison|Regen)(?:eration)? for the fight\.$/i,
     func: (item, match)=>{
-        const whatOfYours = match[3].toLowerCase();
-        const amount = item.board.player[whatOfYours];
-        const target = match[1]=='left'?item.getItemToTheLeft():item.getItemToTheRight();
-        const whatToGain = Item.getTagFromText(match[2]);
-        if(target) target.gain(amount,whatToGain);
-        item.board.player[whatOfYours+"Changed"]((newVal,oldVal)=>{
-            if(target) target.gain(newVal-oldVal,whatToGain);
-        });
-        return ()=>{};
+        const whatToGain = match[3].toLowerCase();
+        const tag = Item.getTagFromText(match[1]);
+        const whatOfYours = match[4].toLowerCase();
+        return ()=>{
+            let target = match[2]=='left'?item.getItemToTheLeft():item.getItemToTheRight();
+            if(target.tags.includes(tag)) {
+                target.gain(item.board.player[whatOfYours],whatToGain,item);
+            }
+        };
     },
 });
 //Your items gain +100% Crit Chance for (3/4/5) seconds. from Strength Potion
@@ -508,6 +527,22 @@ TextMatcher.matchers.push({
                 item.gain(multicastAddedShouldBe-multicastAdded,'multicast',item);
             }
             multicastAdded = multicastAddedShouldBe;
+        });
+        return ()=>{};
+    },
+});
+TextMatcher.matchers.push({
+    //When one of your Burn items gains Haste, if it already has Haste, it gains (1/2/3) Burn for the fight.
+    //When one of your Weapons gains Haste, if it already has Haste, it gains (+5/+10/+15) damage.
+    regex: /^When one of your ([^\s]+)s?(?: items)? gains Haste, if it already has Haste, it gains (\([^)]+\)|\d+) (\w+)(?: for the fight)?\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[2], item.rarity);
+        const tag = Item.getTagFromText(match[1]);
+        const whatToGain = match[3].toLowerCase();
+        item.board.hasteTriggers.set(item.id+"_"+whatToGain, (i,source,duration)=>{
+            if((tag=='Items'||i.tags.includes(tag) )&& i.hasteTimeRemaining>duration) {
+                i.gain(amount,whatToGain,item);
+            }
         });
         return ()=>{};
     },

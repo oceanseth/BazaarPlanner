@@ -86,8 +86,7 @@ export class Item {
         if(this.rarity == undefined && this.tier!=undefined) {
             this.rarity = Item.rarityLevels[this.tier];
             this.startItemData.rarity = this.rarity;
-        }
-        
+        } 
         // Ensure text is always an array
         this.text = Array.isArray(this.text) ? this.text : [this.text].filter(Boolean);
         if(this.text.length>0) {
@@ -286,6 +285,10 @@ export class Item {
         this.regenChanged(f,s);
     }
     reset() {
+        if(this.tooltip) {
+            this.tooltip.remove();
+            this.tooltip=null;
+        }
         this.critCheck = [];
         this.removeTemporaryEnchant();
         this.textMatches = [];
@@ -442,7 +445,6 @@ export class Item {
         
         mergedSlot.addEventListener('mouseleave', () => {
             if(this.tooltip) {
-                this.tooltip.style.display = 'none';
                 this.tooltip.remove();
             }
         });
@@ -481,7 +483,7 @@ export class Item {
                     .map(([key, _]) => key);
             }
         }
-        let rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
+        //let rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
         // Create HTML content with structured layout
         let tooltipContent = `<div class="background-image" style="opacity:0.2;background-image:url('${this.icon}'); background-size: cover; background-position: center;"></div>
             <div class="tooltip-content">
@@ -497,7 +499,7 @@ export class Item {
                 </div>
                 <div class="tooltip-main ${this.rarity||'Bronze'}Border">                    
                     <div class="tooltip-main-text">
-                        ${colorTextArray(this.text,rarityIndex)}
+                        ${colorTextArray(this.text,this.tier)}
                     </div>
                     ${this.crit ? `
                     <div class="tooltip-divider"></div>
@@ -600,7 +602,7 @@ export class Item {
         }
         item.applyHaste(duration);
         this.log(this.name + " hastened " + item.name + " for " + duration + " seconds");
-        this.board.hasteTriggers.forEach(func => func(item,this));
+        this.board.hasteTriggers.forEach(func => func(item, this, duration*1000));
     }
 
     applySlow(duration) {
@@ -2962,6 +2964,18 @@ export class Item {
                         }
                     });
                     return;
+                case "you use a potion":
+                    let potionCount = 0;
+                    this.whenItemTagTriggers("Potion",(item)=>{
+                        if(potionCount<numTimes) {
+                            ntimesFunction(item);
+                            potionCount++;
+                            if(potionCount==numTimes) {
+                                this.board.itemTriggers.delete(this.id);
+                            }
+                        }
+                    });
+                    return;
                 case "you use an aquatic item":
                     let aquaticItemCount = 0;
                     this.board.itemTriggers.set(this.id,(item)=>{
@@ -3399,7 +3413,7 @@ export class Item {
         }
    
         //charge your Busy Bees 2 second(s).
-        regex = /^\s*charge your ([^(\d|\s+and\s+)]+)s?\s*(?:and\s+(\w+)\s+)?(?:items\s+)?(\([^)]+\)|\d+) second\(?s?\)?\.?/i;   
+        regex = /^\s*charge your ([^0-9|and]+?)s?\s*(?:and\s+(\w+)\s+)?(?:items?\s+)?(\([^)]+\)|\d+) second\(?s?\)?\.?/i;   
         match = text.match(regex);
         if(match) {
             this.charge = getRarityValue(match[3], this.rarity);
@@ -3486,23 +3500,24 @@ export class Item {
         }
         //Charge 1 item 1 second(s). into a trigger function.
         //Charge 1 Weapon 1 second(s). into a trigger function.
-        regex = /^\s*Charge (\([^\)]+\)|\d+|a|your)? ([^\s^(]+)\(?s?\)? (?:item)?\s*(?:for)?\s*(?:by)?\s*(\([^)]+\)|\d+) second\(?s?\)?\.?/i;
+        regex = /^\s*Charge (\([^\)]+\)|\d+|a|your)? ([^\s^(]+)\(?s?\)?(?: or ([^\s]+))? (?:item)?\s*(?:for)?\s*(?:by)?\s*(\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
             const numItemsToCharge = match[1]=='a'?1:match[1]=='your'?Infinity:getRarityValue(match[1], this.rarity);
-            this.charge = parseInt(getRarityValue(match[3], this.rarity));
+            const tagToCharge = match[2]=='leftmost'?'left':match[2]=='rightmost'?'right':Item.getTagFromText(match[2]);
+            const tagToCharge2 = match[3]=='leftmost'?'left':match[3]=='rightmost'?'right':Item.getTagFromText(match[3]);
+            this.charge = getRarityValue(match[4], this.rarity);
             return () => {
                 let validTargets = this.board.items.filter(item => item.isChargeTargetable());
-                if(match[2]=='leftmost'&&validTargets.length>0) validTargets = [validTargets[0]];
-                else if(match[2]=='rightmost'&&validTargets.length>0) validTargets = [validTargets[validTargets.length-1]];
-                else if(match[2]!='item') validTargets = validTargets.filter(item => item.tags.includes(match[2]));
-
-                for(let i=0;i<Math.min(numItemsToCharge,validTargets.length);i++) {
-                    const item = validTargets[Math.floor(this.battleRandom()*(validTargets.length))];
-                    if(item) {
-                        this.applyChargeTo(item);
-                    }   
+                if(tagToCharge=='leftmost'&&validTargets.length>0) validTargets = [validTargets[0]];
+                else if(tagToCharge=='rightmost'&&validTargets.length>0) validTargets = [validTargets[validTargets.length-1]];
+                else if(tagToCharge!='item') validTargets = validTargets.filter(item => item.tags.includes(tagToCharge));
+                if(tagToCharge2) {
+                    validTargets.push(...this.board.activeItems.filter(item => !validTargets.includes(item)&&item.tags.includes(tagToCharge2)));
                 }
+                this.pickRandom(validTargets,numItemsToCharge).forEach(item=>{
+                    this.applyChargeTo(item);
+                });
             }
         }
         //double the damage of your leftmost Weapon for the fight.

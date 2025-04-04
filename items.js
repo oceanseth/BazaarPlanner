@@ -1,8 +1,37 @@
 export const items = {
+  "3D Printer": {
+    "name": "3D Printer",
+    "icon": "images/items/3DPrinter.avif",
+    "tier": 2,
+    "tags": [
+      "Dooley",
+      "Large",
+      "Tool",
+      "Tech"
+    ],
+    "cooldown": "(5/4)",
+    "ammo": null,
+    "text": [
+      "Transform into 3 copies of the small item to the left of this for the fight."
+    ],
+    "enchants": {
+      "Heavy": "...and Enchant the transformations with Heavy if able.",
+      "Icy": "...and Enchant the transformations with Icy if able.",
+      "Turbo": "...and Enchant the transformations with Turbo if able.",
+      "Shielded": "...and Enchant the transformations with Shielded if able.",
+      "Restorative": "...and Enchant the transformations with Restorative if able.",
+      "Toxic": "...and Enchant the transformations with Toxic if able.",
+      "Fiery": "...and Enchant the transformations with Fiery if able.",
+      "Shiny": "...and Enchant the transformations with Shiny if able.",
+      "Deadly": "...and Enchant the transformations with Deadly if able.",
+      "Radiant": "...and Enchant the transformations with Radiant if able.",
+      "Obsidian": "...and Enchant the transformations with Obsidian if able."
+    }
+  },
   "Abacus": {
     "name": "Abacus",
     "icon": "images/items/Abacus.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Small",
@@ -36,7 +65,7 @@ export const items = {
   "Agility Boots": {
     "name": "Agility Boots",
     "icon": "images/items/AgilityBoots.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -61,7 +90,7 @@ export const items = {
   "Alembic": {
     "name": "Alembic",
     "icon": "images/items/Alembic.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -70,7 +99,7 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you visit a Merchant, transform the small item to the left of this into a random Potion.",
+      "At the start of each day, transform the small item to the left of this into a random Potion.",
       "When you buy this, get a Small Reagent."
     ],
     "enchants": {
@@ -90,7 +119,7 @@ export const items = {
   "Alpha Ray": {
     "name": "Alpha Ray",
     "icon": "images/items/AlphaRay.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -125,7 +154,7 @@ export const items = {
   "Aludel": {
     "name": "Aludel",
     "icon": "images/items/Aludel.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Medium",
@@ -155,7 +184,7 @@ export const items = {
   "Amber": {
     "name": "Amber",
     "icon": "images/items/Amber.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -187,7 +216,7 @@ export const items = {
   "Ambergris": {
     "name": "Ambergris",
     "icon": "images/items/Ambergris.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -224,7 +253,7 @@ export const items = {
   "Anchor": {
     "name": "Anchor",
     "icon": "images/items/Anchor.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Medium",
@@ -260,7 +289,7 @@ export const items = {
   "Angry Balloon Bot": {
     "name": "Angry Balloon Bot",
     "icon": "images/items/AngryBalloonBot.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -296,7 +325,7 @@ export const items = {
   "Antimatter Chamber": {
     "name": "Antimatter Chamber",
     "icon": "images/items/AntimatterChamber.avif",
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Dooley",
       "Large",
@@ -326,7 +355,7 @@ export const items = {
   "Apothecary": {
     "name": "Apothecary",
     "icon": "images/items/Apothecary.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Large",
@@ -357,7 +386,7 @@ export const items = {
   "Apropos Chapeau": {
     "name": "Apropos Chapeau",
     "icon": "images/items/AproposChapeau.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -397,7 +426,7 @@ export const items = {
   "Arbalest": {
     "name": "Arbalest",
     "icon": "images/items/Arbalest.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -433,7 +462,7 @@ export const items = {
   "Arc Blaster": {
     "name": "Arc Blaster",
     "icon": "images/items/ArcBlaster.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -468,7 +497,7 @@ export const items = {
   "Arken's Ring": {
     "name": "Arken's Ring",
     "icon": "images/items/ArkensRing.avif",
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Common",
       "Small",
@@ -487,7 +516,7 @@ export const items = {
   "Armored Core": {
     "name": "Armored Core",
     "icon": "images/items/ArmoredCore.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -526,7 +555,7 @@ export const items = {
   "Astrolabe": {
     "name": "Astrolabe",
     "icon": "images/items/Astrolabe.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -560,7 +589,7 @@ export const items = {
   "Athanor": {
     "name": "Athanor",
     "icon": "images/items/Athanor.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Large",
@@ -572,9 +601,8 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Reload your items.",
-      "When you use a Potion, Burn (2/4/6/8).",
-      "At the start of each day, get a Small Potion."
+      "Reload (1/2/3/4) item(s).",
+      "When you use a Potion, Burn (2/4/6/8)."
     ],
     "enchants": {
       "Heavy": "When you use a Potion, Slow 1 item for 2 second(s).",
@@ -598,7 +626,7 @@ export const items = {
   "Atlas Stone": {
     "name": "Atlas Stone",
     "icon": "images/items/AtlasStone.avif",
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -632,7 +660,7 @@ export const items = {
   "Atlatl": {
     "name": "Atlatl",
     "icon": "images/items/Atlatl.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -667,7 +695,7 @@ export const items = {
   "ATM": {
     "name": "ATM",
     "icon": "images/items/ATM.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -705,7 +733,7 @@ export const items = {
   "Atomic Clock": {
     "name": "Atomic Clock",
     "icon": "images/items/AtomicClock.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -736,7 +764,7 @@ export const items = {
   "Aurora Dome": {
     "name": "Aurora Dome",
     "icon": "images/items/AuroraDome.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -767,7 +795,7 @@ export const items = {
   "Bag of Jewels": {
     "name": "Bag of Jewels",
     "icon": "images/items/BagofJewels.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -786,7 +814,7 @@ export const items = {
   "Balcony": {
     "name": "Balcony",
     "icon": "images/items/Balcony.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -820,7 +848,7 @@ export const items = {
   "Ballista": {
     "name": "Ballista",
     "icon": "images/items/Ballista.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Large",
@@ -855,7 +883,7 @@ export const items = {
   "Balloon Bot": {
     "name": "Balloon Bot",
     "icon": "images/items/BalloonBot.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -889,7 +917,7 @@ export const items = {
   "Bandages": {
     "name": "Bandages",
     "icon": "images/items/Bandages.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -923,7 +951,7 @@ export const items = {
   "Bar of Gold": {
     "name": "Bar of Gold",
     "icon": "images/items/BarofGold.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -943,7 +971,7 @@ export const items = {
   "Barbed Wire": {
     "name": "Barbed Wire",
     "icon": "images/items/BarbedWire.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -978,7 +1006,7 @@ export const items = {
   "Barrel": {
     "name": "Barrel",
     "icon": "images/items/Barrel.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -1011,7 +1039,7 @@ export const items = {
   "Basilisk Fang": {
     "name": "Basilisk Fang",
     "icon": "images/items/BasiliskFang.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Small",
@@ -1048,7 +1076,7 @@ export const items = {
   "Battery": {
     "name": "Battery",
     "icon": "images/items/Battery.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -1081,7 +1109,7 @@ export const items = {
   "Bayonet": {
     "name": "Bayonet",
     "icon": "images/items/Bayonet.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -1113,7 +1141,7 @@ export const items = {
   "Beach Ball": {
     "name": "Beach Ball",
     "icon": "images/items/BeachBall.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -1146,7 +1174,7 @@ export const items = {
   "Beast of Burden": {
     "name": "Beast of Burden",
     "icon": "images/items/BeastofBurden.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Large",
@@ -1185,7 +1213,7 @@ export const items = {
   "Beehive": {
     "name": "Beehive",
     "icon": "images/items/Beehive.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -1220,7 +1248,7 @@ export const items = {
   "Bellelista": {
     "name": "Bellelista",
     "icon": "images/items/Bellelista.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -1258,7 +1286,7 @@ export const items = {
   "Belt": {
     "name": "Belt",
     "icon": "images/items/Belt.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -1278,7 +1306,7 @@ export const items = {
   "Beta Ray": {
     "name": "Beta Ray",
     "icon": "images/items/BetaRay.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Small",
@@ -1311,7 +1339,7 @@ export const items = {
   "Bill Dozer": {
     "name": "Bill Dozer",
     "icon": "images/items/BillDozer.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Large",
@@ -1350,14 +1378,15 @@ export const items = {
   "Billboard": {
     "name": "Billboard",
     "icon": "images/items/Billboard.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Large",
       "Property",
       "Crit",
       "EconomyReference",
-      "Value"
+      "Value",
+      "Shield"
     ],
     "cooldown": 7,
     "ammo": null,
@@ -1388,7 +1417,7 @@ export const items = {
   "Black Ice": {
     "name": "Black Ice",
     "icon": "images/items/BlackIce.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -1422,7 +1451,7 @@ export const items = {
   "Black Pepper": {
     "name": "Black Pepper",
     "icon": "images/items/BlackPepper.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Jules",
       "Small",
@@ -1459,7 +1488,7 @@ export const items = {
   "Black Rose": {
     "name": "Black Rose",
     "icon": "images/items/BlackRose.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -1493,7 +1522,7 @@ export const items = {
   "Blast Doors": {
     "name": "Blast Doors",
     "icon": "images/items/BlastDoors.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -1528,7 +1557,7 @@ export const items = {
   "BLK-SP1D3R": {
     "name": "BLK-SP1D3R",
     "icon": "images/items/BLKSP1D3R.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -1560,7 +1589,7 @@ export const items = {
   "Blow Torch": {
     "name": "Blow Torch",
     "icon": "images/items/BlowTorch.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Stelle",
       "Small",
@@ -1592,7 +1621,7 @@ export const items = {
   "Blowgun": {
     "name": "Blowgun",
     "icon": "images/items/Blowgun.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Small",
@@ -1627,7 +1656,7 @@ export const items = {
   "BLU-B33TL3": {
     "name": "BLU-B33TL3",
     "icon": "images/items/BLUB33TL3.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -1658,7 +1687,7 @@ export const items = {
   "Blue Gumball": {
     "name": "Blue Gumball",
     "icon": "images/items/BlueGumball.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -1687,7 +1716,7 @@ export const items = {
   "Blue Piggles A": {
     "name": "Blue Piggles A",
     "icon": "images/items/BluePigglesA.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -1719,7 +1748,7 @@ export const items = {
   "Blue Piggles L": {
     "name": "Blue Piggles L",
     "icon": "images/items/BluePigglesL.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -1751,7 +1780,7 @@ export const items = {
   "Blue Piggles R": {
     "name": "Blue Piggles R",
     "icon": "images/items/BluePigglesR.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -1783,7 +1812,7 @@ export const items = {
   "Blue Piggles X": {
     "name": "Blue Piggles X",
     "icon": "images/items/BluePigglesX.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -1815,7 +1844,7 @@ export const items = {
   "Bluenanas": {
     "name": "Bluenanas",
     "icon": "images/items/Bluenanas.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -1850,7 +1879,7 @@ export const items = {
   "Blunderbuss": {
     "name": "Blunderbuss",
     "icon": "images/items/Blunderbuss.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Medium",
@@ -1886,7 +1915,7 @@ export const items = {
   "Boiling Flask": {
     "name": "Boiling Flask",
     "icon": "images/items/BoilingFlask.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -1916,7 +1945,7 @@ export const items = {
   "Bolas": {
     "name": "Bolas",
     "icon": "images/items/Bolas.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -1952,7 +1981,7 @@ export const items = {
   "Bomb Squad": {
     "name": "Bomb Squad",
     "icon": "images/items/BombSquad.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -1987,7 +2016,7 @@ export const items = {
   "Booby Trap": {
     "name": "Booby Trap",
     "icon": "images/items/BoobyTrap.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -2021,7 +2050,7 @@ export const items = {
   "Boomerang": {
     "name": "Boomerang",
     "icon": "images/items/Boomerang.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -2055,7 +2084,7 @@ export const items = {
   "Bootstraps": {
     "name": "Bootstraps",
     "icon": "images/items/Bootstraps.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -2087,7 +2116,7 @@ export const items = {
   "Bottled Explosion": {
     "name": "Bottled Explosion",
     "icon": "images/items/BottledExplosion.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -2119,7 +2148,7 @@ export const items = {
   "Bottled Lightning": {
     "name": "Bottled Lightning",
     "icon": "images/items/BottledLightning.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -2158,7 +2187,7 @@ export const items = {
   "Bottled Tornado": {
     "name": "Bottled Tornado",
     "icon": "images/items/BottledTornado.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -2187,7 +2216,7 @@ export const items = {
   "Brass Knuckles": {
     "name": "Brass Knuckles",
     "icon": "images/items/BrassKnuckles.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -2221,7 +2250,7 @@ export const items = {
   "Brick Buddy": {
     "name": "Brick Buddy",
     "icon": "images/items/BrickBuddy.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -2256,7 +2285,7 @@ export const items = {
   "Briefcase": {
     "name": "Briefcase",
     "icon": "images/items/Briefcase.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -2292,7 +2321,7 @@ export const items = {
   "Broken Shackles": {
     "name": "Broken Shackles",
     "icon": "images/items/BrokenShackles.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Small",
@@ -2326,7 +2355,7 @@ export const items = {
   "Bunker": {
     "name": "Bunker",
     "icon": "images/items/Bunker.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Large",
@@ -2359,7 +2388,7 @@ export const items = {
   "Bushel": {
     "name": "Bushel",
     "icon": "images/items/Bushel.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -2394,7 +2423,7 @@ export const items = {
   "Business Card": {
     "name": "Business Card",
     "icon": "images/items/BusinessCard.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Small",
@@ -2418,7 +2447,7 @@ export const items = {
   "Busy Bee": {
     "name": "Busy Bee",
     "icon": "images/items/BusyBee.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Small",
@@ -2451,7 +2480,7 @@ export const items = {
   "Butter": {
     "name": "Butter",
     "icon": "images/items/Butter.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Jules",
       "Small",
@@ -2485,7 +2514,7 @@ export const items = {
   "Butterfly Swords": {
     "name": "Butterfly Swords",
     "icon": "images/items/ButterflySwords.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Small",
@@ -2519,18 +2548,18 @@ export const items = {
   "Calcinator": {
     "name": "Calcinator",
     "icon": "images/items/Calcinator.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Medium",
       "Tool",
       "Burn"
     ],
-    "cooldown": 8,
+    "cooldown": 6,
     "ammo": null,
     "text": [
-      "Burn 8.",
-      "When you transform a Reagent, this permanently gains (+2/+3/+4/+5) Burn.",
+      "Burn 6.",
+      "When you transform a Reagent, this permanently gains (+4/+6/+8/+10) Burn.",
       "At the start of each day, get a Chunk of Lead."
     ],
     "enchants": {
@@ -2550,7 +2579,7 @@ export const items = {
   "Calico": {
     "name": "Calico",
     "icon": "images/items/Calico.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -2583,7 +2612,7 @@ export const items = {
   "Caltrops": {
     "name": "Caltrops",
     "icon": "images/items/Caltrops.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -2614,7 +2643,7 @@ export const items = {
   "Candles": {
     "name": "Candles",
     "icon": "images/items/Candles.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Medium",
@@ -2643,7 +2672,7 @@ export const items = {
   "Candy Mail": {
     "name": "Candy Mail",
     "icon": "images/items/CandyMail.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -2666,7 +2695,7 @@ export const items = {
   "Cannon": {
     "name": "Cannon",
     "icon": "images/items/Cannon.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -2702,7 +2731,7 @@ export const items = {
   "Cannonade": {
     "name": "Cannonade",
     "icon": "images/items/Cannonade.avif",
-    "tier": "Gold",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Large",
@@ -2712,7 +2741,7 @@ export const items = {
     "cooldown": 7,
     "ammo": null,
     "text": [
-      "Deal (200/300) Damage.",
+      "Deal (100/200/300) Damage.",
       "When you use another Weapon, Charge this 2 second(s)."
     ],
     "enchants": {
@@ -2736,7 +2765,7 @@ export const items = {
   "Cannonball": {
     "name": "Cannonball",
     "icon": "images/items/Cannonball.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -2767,7 +2796,7 @@ export const items = {
   "Capacitor": {
     "name": "Capacitor",
     "icon": "images/items/Capacitor.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -2799,7 +2828,7 @@ export const items = {
   "Captain's Quarters": {
     "name": "Captain's Quarters",
     "icon": "images/items/CaptainsQuarters.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Large",
@@ -2834,7 +2863,7 @@ export const items = {
   "Captain's Wheel": {
     "name": "Captain's Wheel",
     "icon": "images/items/CaptainsWheel.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -2868,7 +2897,7 @@ export const items = {
   "Card Table": {
     "name": "Card Table",
     "icon": "images/items/CardTable.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium"
@@ -2896,7 +2925,7 @@ export const items = {
   "Cargo Shorts": {
     "name": "Cargo Shorts",
     "icon": "images/items/CargoShorts.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -2932,7 +2961,7 @@ export const items = {
   "Cash Cannon": {
     "name": "Cash Cannon",
     "icon": "images/items/CashCannon.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -2968,7 +2997,7 @@ export const items = {
   "Cash Register": {
     "name": "Cash Register",
     "icon": "images/items/CashRegister.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -2992,7 +3021,7 @@ export const items = {
   "Catalyst": {
     "name": "Catalyst",
     "icon": "images/items/Catalyst.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -3001,7 +3030,7 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "After you buy 3 Reagents, transform this and enchant it."
+      "After you buy or sell 3 Reagents, transform this and enchant it."
     ],
     "enchants": {},
     "priorities": [
@@ -3011,7 +3040,7 @@ export const items = {
   "Catfish": {
     "name": "Catfish",
     "icon": "images/items/Catfish.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -3024,7 +3053,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Poison 3.",
-      "When this gains Haste, this gains (+3/+6/+9/+12) Poison for the fight."
+      "When this gains Haste, this gains (+2/+4/+6/+8) Poison for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -3047,7 +3076,7 @@ export const items = {
   "Cauldron": {
     "name": "Cauldron",
     "icon": "images/items/Cauldron.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -3083,7 +3112,7 @@ export const items = {
   "Cellar": {
     "name": "Cellar",
     "icon": "images/items/Cellar.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -3114,7 +3143,7 @@ export const items = {
   "Char Cole": {
     "name": "Char Cole",
     "icon": "images/items/CharCole.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -3148,7 +3177,7 @@ export const items = {
   "Charging Station": {
     "name": "Charging Station",
     "icon": "images/items/ChargingStation.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Medium",
@@ -3182,7 +3211,7 @@ export const items = {
   "Chemsnail": {
     "name": "Chemsnail",
     "icon": "images/items/Chemsnail.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -3217,7 +3246,7 @@ export const items = {
   "Chocolate Bar": {
     "name": "Chocolate Bar",
     "icon": "images/items/ChocolateBar.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -3247,7 +3276,7 @@ export const items = {
   "Chris Army Knife": {
     "name": "Chris Army Knife",
     "icon": "images/items/ChrisArmyKnife.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -3284,7 +3313,7 @@ export const items = {
   "Chronobarrier": {
     "name": "Chronobarrier",
     "icon": "images/items/Chronobarrier.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Medium",
@@ -3319,7 +3348,7 @@ export const items = {
   "Chum": {
     "name": "Chum",
     "icon": "images/items/Chum.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -3353,7 +3382,7 @@ export const items = {
   "Chunk of Gold": {
     "name": "Chunk of Gold",
     "icon": "images/items/ChunkofGold.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -3379,7 +3408,7 @@ export const items = {
   "Chunk of Lead": {
     "name": "Chunk of Lead",
     "icon": "images/items/ChunkofLead.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -3407,7 +3436,7 @@ export const items = {
   "Cinders": {
     "name": "Cinders",
     "icon": "images/items/Cinders.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -3437,7 +3466,7 @@ export const items = {
   "Citrus": {
     "name": "Citrus",
     "icon": "images/items/Citrus.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -3467,7 +3496,7 @@ export const items = {
   "Clamera": {
     "name": "Clamera",
     "icon": "images/items/Clamera.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -3500,7 +3529,7 @@ export const items = {
   "Claw Arm": {
     "name": "Claw Arm",
     "icon": "images/items/ClawArm.avif",
-    "tier": "Gold",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -3513,7 +3542,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Deal 20 damage.",
-      "When this gains Haste, this and the weapon to the left of this gains (40/60) damage for the fight."
+      "When this gains Haste, this and the weapon to the left of this gains (20/40/60) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -3536,7 +3565,7 @@ export const items = {
   "Clawrence": {
     "name": "Clawrence",
     "icon": "images/items/Clawrence.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -3571,7 +3600,7 @@ export const items = {
   "Claws": {
     "name": "Claws",
     "icon": "images/items/Claws.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -3605,7 +3634,7 @@ export const items = {
   "Clockwork Blades": {
     "name": "Clockwork Blades",
     "icon": "images/items/ClockworkBlades.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -3640,7 +3669,7 @@ export const items = {
   "Closed Sign": {
     "name": "Closed Sign",
     "icon": "images/items/ClosedSign.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -3666,7 +3695,7 @@ export const items = {
   "Coconut": {
     "name": "Coconut",
     "icon": "images/items/Coconut.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -3696,7 +3725,7 @@ export const items = {
   "Cog": {
     "name": "Cog",
     "icon": "images/items/Cog.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -3727,7 +3756,7 @@ export const items = {
   "Cold Room": {
     "name": "Cold Room",
     "icon": "images/items/ColdRoom.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -3759,7 +3788,7 @@ export const items = {
   "Colossal Popsicle": {
     "name": "Colossal Popsicle",
     "icon": "images/items/ColossalPopsicle.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Large",
@@ -3797,7 +3826,7 @@ export const items = {
   "Combat Core": {
     "name": "Combat Core",
     "icon": "images/items/CombatCore.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Large",
@@ -3839,7 +3868,7 @@ export const items = {
   "Companion Core": {
     "name": "Companion Core",
     "icon": "images/items/CompanionCore.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -3877,7 +3906,7 @@ export const items = {
   "Concealed Dagger": {
     "name": "Concealed Dagger",
     "icon": "images/items/ConcealedDagger.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Small",
@@ -3913,7 +3942,7 @@ export const items = {
   "Cookies": {
     "name": "Cookies",
     "icon": "images/items/Cookies.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Jules",
       "Small",
@@ -3937,7 +3966,7 @@ export const items = {
   "Cool LEDs": {
     "name": "Cool LEDs",
     "icon": "images/items/CoolLEDs.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -3970,7 +3999,7 @@ export const items = {
   "Coolant": {
     "name": "Coolant",
     "icon": "images/items/Coolant.avif",
-    "tier": "Bronze",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -3979,7 +4008,7 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Freeze (1/2/3/3) item(s) for (1/1/1/4) second(s).",
+      "Freeze (1/2/3) item(s) for 1 second(s).",
       "Cleanse half your Burn."
     ],
     "enchants": {
@@ -4002,7 +4031,7 @@ export const items = {
   "Cooling Fan": {
     "name": "Cooling Fan",
     "icon": "images/items/CoolingFan.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -4037,7 +4066,7 @@ export const items = {
   "Copper Ed": {
     "name": "Copper Ed",
     "icon": "images/items/CopperEd.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -4072,7 +4101,7 @@ export const items = {
   "Coral": {
     "name": "Coral",
     "icon": "images/items/Coral.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -4106,7 +4135,7 @@ export const items = {
   "Coral Armor": {
     "name": "Coral Armor",
     "icon": "images/items/CoralArmor.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -4141,7 +4170,7 @@ export const items = {
   "Cosmic Amulet": {
     "name": "Cosmic Amulet",
     "icon": "images/items/CosmicAmulet.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Common",
       "Small",
@@ -4176,7 +4205,7 @@ export const items = {
   "Cosmic Plumage": {
     "name": "Cosmic Plumage",
     "icon": "images/items/CosmicPlumage.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Medium",
@@ -4211,7 +4240,7 @@ export const items = {
   "Cove": {
     "name": "Cove",
     "icon": "images/items/Cove.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Large",
@@ -4249,7 +4278,7 @@ export const items = {
   "Covetous Raven": {
     "name": "Covetous Raven",
     "icon": "images/items/CovetousRaven.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -4257,7 +4286,7 @@ export const items = {
       "Weapon",
       "Damage"
     ],
-    "cooldown": 6,
+    "cooldown": 8,
     "ammo": null,
     "text": [
       "Deal (60/80/100) damage.",
@@ -4272,7 +4301,7 @@ export const items = {
       "Toxic": "Poison equal to 10% of this item's damage.",
       "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "This has double Crit Chance bonus.",
+      "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     }
@@ -4280,7 +4309,7 @@ export const items = {
   "Crane": {
     "name": "Crane",
     "icon": "images/items/Crane.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Large",
@@ -4318,7 +4347,7 @@ export const items = {
   "Critical Core": {
     "name": "Critical Core",
     "icon": "images/items/CriticalCore.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -4360,7 +4389,7 @@ export const items = {
   "Crocodile Tears": {
     "name": "Crocodile Tears",
     "icon": "images/items/CrocodileTears.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -4373,7 +4402,7 @@ export const items = {
     "ammo": 1,
     "text": [
       "Deal 1 Damage.",
-      "When your enemy takes damage, this gains (+4/+6/+8) Damage for the fight."
+      "When your enemy takes damage, this gains (+10/+20/+30) Damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 5 second(s).",
@@ -4392,7 +4421,7 @@ export const items = {
   "Crook": {
     "name": "Crook",
     "icon": "images/items/Crook.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -4428,7 +4457,7 @@ export const items = {
   "Crow's Nest": {
     "name": "Crow's Nest",
     "icon": "images/items/CrowsNest.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Large",
@@ -4463,7 +4492,7 @@ export const items = {
   "Crusher Claw": {
     "name": "Crusher Claw",
     "icon": "images/items/CrusherClaw.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -4499,7 +4528,7 @@ export const items = {
   "Cryosleeve": {
     "name": "Cryosleeve",
     "icon": "images/items/Cryosleeve.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Medium",
@@ -4535,7 +4564,7 @@ export const items = {
   "Cryosphere": {
     "name": "Cryosphere",
     "icon": "images/items/Cryosphere.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Medium",
@@ -4566,7 +4595,7 @@ export const items = {
   "Crypto": {
     "name": "Crypto",
     "icon": "images/items/Crypto.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -4590,7 +4619,7 @@ export const items = {
   "Crystal Bonsai": {
     "name": "Crystal Bonsai",
     "icon": "images/items/CrystalBonsai.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Small",
@@ -4628,7 +4657,7 @@ export const items = {
   "Curry": {
     "name": "Curry",
     "icon": "images/items/Curry.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Jules",
       "Small",
@@ -4663,7 +4692,7 @@ export const items = {
   "Cutlass": {
     "name": "Cutlass",
     "icon": "images/items/Cutlass.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -4700,7 +4729,7 @@ export const items = {
   "Cybersecurity": {
     "name": "Cybersecurity",
     "icon": "images/items/Cybersecurity.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -4735,7 +4764,7 @@ export const items = {
   "Dam": {
     "name": "Dam",
     "icon": "images/items/Dam.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Large",
@@ -4769,7 +4798,7 @@ export const items = {
   "Darkwater Anglerfish": {
     "name": "Darkwater Anglerfish",
     "icon": "images/items/DarkwaterAnglerfish.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -4801,7 +4830,7 @@ export const items = {
   "Death Caps": {
     "name": "Death Caps",
     "icon": "images/items/DeathCaps.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -4836,7 +4865,7 @@ export const items = {
   "Defense Matrix": {
     "name": "Defense Matrix",
     "icon": "images/items/DefenseMatrix.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -4867,7 +4896,7 @@ export const items = {
   "Diana-Saur": {
     "name": "Diana-Saur",
     "icon": "images/items/DianaSaur.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -4905,7 +4934,7 @@ export const items = {
   "Disguise": {
     "name": "Disguise",
     "icon": "images/items/Disguise.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -4938,7 +4967,7 @@ export const items = {
   "Dishwasher": {
     "name": "Dishwasher",
     "icon": "images/items/Dishwasher.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Jules",
       "Large",
@@ -4973,7 +5002,7 @@ export const items = {
   "Dive Weights": {
     "name": "Dive Weights",
     "icon": "images/items/DiveWeights.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Small",
@@ -5008,7 +5037,7 @@ export const items = {
   "Diving Helmet": {
     "name": "Diving Helmet",
     "icon": "images/items/DivingHelmet.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -5041,7 +5070,7 @@ export const items = {
   "DJ Rob0t": {
     "name": "DJ Rob0t",
     "icon": "images/items/DJRob0t.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -5076,7 +5105,7 @@ export const items = {
   "Dock Lines": {
     "name": "Dock Lines",
     "icon": "images/items/DockLines.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -5108,7 +5137,7 @@ export const items = {
   "Dog": {
     "name": "Dog",
     "icon": "images/items/Dog.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -5144,7 +5173,7 @@ export const items = {
   "Dooley's Scarf": {
     "name": "Dooley's Scarf",
     "icon": "images/items/DooleysScarf.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -5179,7 +5208,7 @@ export const items = {
   "Dooltron": {
     "name": "Dooltron",
     "icon": "images/items/Dooltron.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Large",
@@ -5191,7 +5220,8 @@ export const items = {
       "HasteReference",
       "SlowReference",
       "Damage",
-      "Charge"
+      "Charge",
+      "Shield"
     ],
     "cooldown": 30,
     "ammo": null,
@@ -5204,7 +5234,7 @@ export const items = {
       "Heavy": "Slow 3 items for 10 second(s).",
       "Icy": "Freeze 1 item for 15 second(s).",
       "Turbo": "Haste 3 items for 10 second(s).",
-      "Shielded": "Shield equal to this item's damage.",
+      "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's damage.",
       "Toxic": "Poison equal to 10% of this item's damage.",
       "Fiery": "Burn equal to 10% of this item's damage.",
@@ -5217,7 +5247,7 @@ export const items = {
   "Dooltron Mainframe": {
     "name": "Dooltron Mainframe",
     "icon": "images/items/DooltronMainframe.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Medium",
@@ -5249,7 +5279,7 @@ export const items = {
   "Double Barrel": {
     "name": "Double Barrel",
     "icon": "images/items/DoubleBarrel.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -5284,7 +5314,7 @@ export const items = {
   "Double Whammy": {
     "name": "Double Whammy",
     "icon": "images/items/DoubleWhammy.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Large",
@@ -5319,7 +5349,7 @@ export const items = {
   "Dragon Heart": {
     "name": "Dragon Heart",
     "icon": "images/items/DragonHeart.avif",
-    "tier": "Legendary",
+    "tier": 4,
     "tags": [
       "Common",
       "Medium",
@@ -5353,7 +5383,7 @@ export const items = {
   "Dragon Tooth": {
     "name": "Dragon Tooth",
     "icon": "images/items/DragonTooth.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Small",
@@ -5391,7 +5421,7 @@ export const items = {
   "Dragon Whelp": {
     "name": "Dragon Whelp",
     "icon": "images/items/DragonWhelp.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Small",
@@ -5428,7 +5458,7 @@ export const items = {
   "Dragon Wing": {
     "name": "Dragon Wing",
     "icon": "images/items/DragonWing.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Medium",
@@ -5464,7 +5494,7 @@ export const items = {
   "Dragon's Breath": {
     "name": "Dragon's Breath",
     "icon": "images/items/DragonsBreath.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -5477,7 +5507,7 @@ export const items = {
     "ammo": 1,
     "text": [
       "Burn 10.",
-      "When you use an adjacent or Dragon item, this gains (+6/+8/+10) Burn for the fight."
+      "When you use an adjacent item or Dragon item, this gains (+6/+8/+10) Burn for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 4 second(s).",
@@ -5500,7 +5530,7 @@ export const items = {
   "Duct Tape": {
     "name": "Duct Tape",
     "icon": "images/items/DuctTape.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Small",
@@ -5534,7 +5564,7 @@ export const items = {
   "Eagle Talisman": {
     "name": "Eagle Talisman",
     "icon": "images/items/EagleTalisman.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -5564,7 +5594,7 @@ export const items = {
   "Earrings": {
     "name": "Earrings",
     "icon": "images/items/Earrings.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -5600,7 +5630,7 @@ export const items = {
   "Ectoplasm": {
     "name": "Ectoplasm",
     "icon": "images/items/Ectoplasm.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Small",
@@ -5634,7 +5664,7 @@ export const items = {
   "Electric Eels": {
     "name": "Electric Eels",
     "icon": "images/items/ElectricEels.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Large",
@@ -5673,7 +5703,7 @@ export const items = {
   "Elemental Depth Charge": {
     "name": "Elemental Depth Charge",
     "icon": "images/items/ElementalDepthCharge.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -5707,7 +5737,7 @@ export const items = {
   "Emerald": {
     "name": "Emerald",
     "icon": "images/items/Emerald.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -5740,7 +5770,7 @@ export const items = {
   "Energy Potion": {
     "name": "Energy Potion",
     "icon": "images/items/EnergyPotion.avif",
-    "tier": "Bronze",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -5748,14 +5778,14 @@ export const items = {
       "Haste",
       "Ammo"
     ],
-    "cooldown": 5,
+    "cooldown": 6,
     "ammo": 1,
     "text": [
-      "Haste your items for (1/2/3/4) second(s)."
+      "Haste your other items for (1/2/3) second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow all enemy items for 2 second(s).",
-      "Icy": "Freeze all small enemy items for 2 second(s).",
+      "Heavy": "Slow 1 item for 2 second(s).",
+      "Icy": "Freeze all small enemy items for 0.5 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 40.",
       "Restorative": "Heal 60.",
@@ -5772,7 +5802,7 @@ export const items = {
   "Epicurean Chocolate": {
     "name": "Epicurean Chocolate",
     "icon": "images/items/EpicureanChocolate.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -5795,7 +5825,7 @@ export const items = {
   "Exoskeleton": {
     "name": "Exoskeleton",
     "icon": "images/items/Exoskeleton.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -5821,7 +5851,7 @@ export const items = {
   "Extract": {
     "name": "Extract",
     "icon": "images/items/Extract.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -5851,7 +5881,7 @@ export const items = {
   "Eye of the Colossus": {
     "name": "Eye of the Colossus",
     "icon": "images/items/EyeoftheColossus.avif",
-    "tier": "Legendary",
+    "tier": 4,
     "tags": [
       "Common",
       "Large",
@@ -5884,7 +5914,7 @@ export const items = {
   "Fang": {
     "name": "Fang",
     "icon": "images/items/Fang.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -5916,7 +5946,7 @@ export const items = {
   "Feather": {
     "name": "Feather",
     "icon": "images/items/Feather.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -5946,7 +5976,7 @@ export const items = {
   "Fiber Optics": {
     "name": "Fiber Optics",
     "icon": "images/items/FiberOptics.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Small",
@@ -5978,7 +6008,7 @@ export const items = {
   "Figurehead": {
     "name": "Figurehead",
     "icon": "images/items/Figurehead.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -6013,7 +6043,7 @@ export const items = {
   "Fire Claw": {
     "name": "Fire Claw",
     "icon": "images/items/FireClaw.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -6046,7 +6076,7 @@ export const items = {
   "Fire Potion": {
     "name": "Fire Potion",
     "icon": "images/items/FirePotion.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -6079,7 +6109,7 @@ export const items = {
   "Fireflies": {
     "name": "Fireflies",
     "icon": "images/items/Fireflies.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -6087,7 +6117,7 @@ export const items = {
       "Burn",
       "SlowReference"
     ],
-    "cooldown": 9,
+    "cooldown": 7,
     "ammo": null,
     "text": [
       "Burn (3/4/5/6).",
@@ -6110,7 +6140,7 @@ export const items = {
   "First Aiden": {
     "name": "First Aiden",
     "icon": "images/items/FirstAiden.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -6145,7 +6175,7 @@ export const items = {
   "Fishing Net": {
     "name": "Fishing Net",
     "icon": "images/items/FishingNet.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -6180,7 +6210,7 @@ export const items = {
   "Fishing Rod": {
     "name": "Fishing Rod",
     "icon": "images/items/FishingRod.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -6215,7 +6245,7 @@ export const items = {
   "Fixer Upper": {
     "name": "Fixer Upper",
     "icon": "images/items/FixerUpper.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Large",
@@ -6251,7 +6281,7 @@ export const items = {
   "Flagship": {
     "name": "Flagship",
     "icon": "images/items/Flagship.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Large",
@@ -6288,7 +6318,7 @@ export const items = {
   "Flail": {
     "name": "Flail",
     "icon": "images/items/Flail.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -6322,7 +6352,7 @@ export const items = {
   "Flamberge": {
     "name": "Flamberge",
     "icon": "images/items/Flamberge.avif",
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Common",
       "Large",
@@ -6356,7 +6386,7 @@ export const items = {
   "Flamethrower": {
     "name": "Flamethrower",
     "icon": "images/items/Flamethrower.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Medium",
@@ -6392,7 +6422,7 @@ export const items = {
   "Flashbang": {
     "name": "Flashbang",
     "icon": "images/items/Flashbang.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Stelle",
       "Small",
@@ -6423,7 +6453,7 @@ export const items = {
   "Floor Spike": {
     "name": "Floor Spike",
     "icon": "images/items/FloorSpike.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -6455,7 +6485,7 @@ export const items = {
   "Force Field": {
     "name": "Force Field",
     "icon": "images/items/ForceField.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Large",
@@ -6491,7 +6521,7 @@ export const items = {
   "Forklift": {
     "name": "Forklift",
     "icon": "images/items/Forklift.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Large",
@@ -6528,7 +6558,7 @@ export const items = {
   "Fort": {
     "name": "Fort",
     "icon": "images/items/Fort.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Large",
@@ -6564,7 +6594,7 @@ export const items = {
   "Frost Potion": {
     "name": "Frost Potion",
     "icon": "images/items/FrostPotion.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -6596,7 +6626,7 @@ export const items = {
   "Frozen Bludgeon": {
     "name": "Frozen Bludgeon",
     "icon": "images/items/FrozenBludgeon.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -6633,7 +6663,7 @@ export const items = {
   "Frozen Flame": {
     "name": "Frozen Flame",
     "icon": "images/items/FrozenFlame.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Large",
@@ -6650,7 +6680,7 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 10 item for 1 second(s).",
+      "Icy": "This has double Freeze duration.",
       "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to 10 times this item's Burn.",
       "Restorative": "Heal equal to 10 times this item's Burn.",
@@ -6665,7 +6695,7 @@ export const items = {
   "Gamma Ray": {
     "name": "Gamma Ray",
     "icon": "images/items/GammaRay.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -6699,7 +6729,7 @@ export const items = {
   "Ganjo": {
     "name": "Ganjo",
     "icon": "images/items/Ganjo.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -6736,7 +6766,7 @@ export const items = {
   "Gatling Gun": {
     "name": "Gatling Gun",
     "icon": "images/items/GatlingGun.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Stelle",
       "Medium",
@@ -6770,7 +6800,7 @@ export const items = {
   "Gavel": {
     "name": "Gavel",
     "icon": "images/items/Gavel.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Small",
@@ -6803,7 +6833,7 @@ export const items = {
   "Gearnola Bar": {
     "name": "Gearnola Bar",
     "icon": "images/items/GearnolaBar.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -6837,7 +6867,7 @@ export const items = {
   "Genie Lamp": {
     "name": "Genie Lamp",
     "icon": "images/items/GenieLamp.avif",
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Common",
       "Small",
@@ -6857,7 +6887,7 @@ export const items = {
   "Giant Ice Club": {
     "name": "Giant Ice Club",
     "icon": "images/items/GiantIceClub.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Large",
@@ -6894,7 +6924,7 @@ export const items = {
   "Gland": {
     "name": "Gland",
     "icon": "images/items/Gland.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -6924,7 +6954,7 @@ export const items = {
   "Globe": {
     "name": "Globe",
     "icon": "images/items/Globe.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -6956,7 +6986,7 @@ export const items = {
   "Goggles": {
     "name": "Goggles",
     "icon": "images/items/Goggles.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Stelle",
       "Small",
@@ -6993,7 +7023,7 @@ export const items = {
   "Golf Clubs": {
     "name": "Golf Clubs",
     "icon": "images/items/GolfClubs.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -7028,7 +7058,7 @@ export const items = {
   "Goop Flail": {
     "name": "Goop Flail",
     "icon": "images/items/GoopFlail.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Large",
@@ -7060,7 +7090,7 @@ export const items = {
   "GPU": {
     "name": "GPU",
     "icon": "images/items/GPU.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -7091,7 +7121,7 @@ export const items = {
   "Grapeshot": {
     "name": "Grapeshot",
     "icon": "images/items/Grapeshot.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Small",
@@ -7126,7 +7156,7 @@ export const items = {
   "Grappling Hook": {
     "name": "Grappling Hook",
     "icon": "images/items/GrapplingHook.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -7162,7 +7192,7 @@ export const items = {
   "Green Gumball": {
     "name": "Green Gumball",
     "icon": "images/items/GreenGumball.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -7191,7 +7221,7 @@ export const items = {
   "Grenade": {
     "name": "Grenade",
     "icon": "images/items/Grenade.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -7226,7 +7256,7 @@ export const items = {
   "Grindstone": {
     "name": "Grindstone",
     "icon": "images/items/Grindstone.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -7258,7 +7288,7 @@ export const items = {
   "GRN-W4SP": {
     "name": "GRN-W4SP",
     "icon": "images/items/GRNW4SP.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -7290,7 +7320,7 @@ export const items = {
   "Gumball Machine": {
     "name": "Gumball Machine",
     "icon": "images/items/GumballMachine.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -7326,7 +7356,7 @@ export const items = {
   "Gunpowder": {
     "name": "Gunpowder",
     "icon": "images/items/Gunpowder.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Small",
@@ -7356,7 +7386,7 @@ export const items = {
   "Hacksaw": {
     "name": "Hacksaw",
     "icon": "images/items/Hacksaw.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Medium",
@@ -7391,7 +7421,7 @@ export const items = {
   "Hakurvian Launcher": {
     "name": "Hakurvian Launcher",
     "icon": "images/items/HakurvianLauncher.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Large",
@@ -7427,7 +7457,7 @@ export const items = {
   "Haladie": {
     "name": "Haladie",
     "icon": "images/items/Haladie.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -7461,7 +7491,7 @@ export const items = {
   "Hammer": {
     "name": "Hammer",
     "icon": "images/items/Hammer.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Stelle",
       "Small",
@@ -7497,7 +7527,7 @@ export const items = {
   "Hammlet": {
     "name": "Hammlet",
     "icon": "images/items/Hammlet.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -7534,7 +7564,7 @@ export const items = {
   "Hammock": {
     "name": "Hammock",
     "icon": "images/items/Hammock.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -7568,7 +7598,7 @@ export const items = {
   "Handaxe": {
     "name": "Handaxe",
     "icon": "images/items/Handaxe.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -7603,7 +7633,7 @@ export const items = {
   "Harmadillo": {
     "name": "Harmadillo",
     "icon": "images/items/Harmadillo.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -7639,7 +7669,7 @@ export const items = {
   "Harpoon": {
     "name": "Harpoon",
     "icon": "images/items/Harpoon.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -7670,7 +7700,7 @@ export const items = {
   "Hatchet": {
     "name": "Hatchet",
     "icon": "images/items/Hatchet.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -7706,7 +7736,7 @@ export const items = {
   "Hemlock": {
     "name": "Hemlock",
     "icon": "images/items/Hemlock.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -7739,7 +7769,7 @@ export const items = {
   "Hogwash": {
     "name": "Hogwash",
     "icon": "images/items/Hogwash.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Large",
@@ -7774,7 +7804,7 @@ export const items = {
   "Holsters": {
     "name": "Holsters",
     "icon": "images/items/Holsters.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Small",
@@ -7805,7 +7835,7 @@ export const items = {
   "Honing Steel": {
     "name": "Honing Steel",
     "icon": "images/items/HoningSteel.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -7837,7 +7867,7 @@ export const items = {
   "Hot Sauce": {
     "name": "Hot Sauce",
     "icon": "images/items/HotSauce.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Jules",
       "Small",
@@ -7871,7 +7901,7 @@ export const items = {
   "Hot Springs": {
     "name": "Hot Springs",
     "icon": "images/items/HotSprings.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Large",
@@ -7904,7 +7934,7 @@ export const items = {
   "Hot Stones": {
     "name": "Hot Stones",
     "icon": "images/items/HotStones.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -7934,7 +7964,7 @@ export const items = {
   "Hourglass": {
     "name": "Hourglass",
     "icon": "images/items/Hourglass.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -7963,7 +7993,7 @@ export const items = {
   "Hydraulic Squeezer": {
     "name": "Hydraulic Squeezer",
     "icon": "images/items/HydraulicSqueezer.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Stelle",
       "Medium",
@@ -8000,7 +8030,7 @@ export const items = {
   "Ice 9000": {
     "name": "Ice 9000",
     "icon": "images/items/Ice9000.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -8037,7 +8067,7 @@ export const items = {
   "Ice Claw": {
     "name": "Ice Claw",
     "icon": "images/items/IceClaw.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Medium",
@@ -8069,7 +8099,7 @@ export const items = {
   "Ice Cream Truck": {
     "name": "Ice Cream Truck",
     "icon": "images/items/IceCreamTruck.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Large",
@@ -8105,7 +8135,7 @@ export const items = {
   "Ice Cubes": {
     "name": "Ice Cubes",
     "icon": "images/items/IceCubes.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Jules",
       "Small",
@@ -8136,7 +8166,7 @@ export const items = {
   "Ice Luge": {
     "name": "Ice Luge",
     "icon": "images/items/IceLuge.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Small",
@@ -8167,7 +8197,7 @@ export const items = {
   "Ice Pick": {
     "name": "Ice Pick",
     "icon": "images/items/IcePick.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Small",
@@ -8205,7 +8235,7 @@ export const items = {
   "Iceberg": {
     "name": "Iceberg",
     "icon": "images/items/Iceberg.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Large",
@@ -8238,7 +8268,7 @@ export const items = {
   "Icebreaker": {
     "name": "Icebreaker",
     "icon": "images/items/Icebreaker.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Medium",
@@ -8277,7 +8307,7 @@ export const items = {
   "Icicle": {
     "name": "Icicle",
     "icon": "images/items/Icicle.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -8306,7 +8336,7 @@ export const items = {
   "Igloo": {
     "name": "Igloo",
     "icon": "images/items/Igloo.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Large",
@@ -8343,7 +8373,7 @@ export const items = {
   "Ignition Core": {
     "name": "Ignition Core",
     "icon": "images/items/IgnitionCore.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -8382,7 +8412,7 @@ export const items = {
   "IllusoRay": {
     "name": "IllusoRay",
     "icon": "images/items/IllusoRay.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -8418,7 +8448,7 @@ export const items = {
   "Improvised Bludgeon": {
     "name": "Improvised Bludgeon",
     "icon": "images/items/ImprovisedBludgeon.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -8455,7 +8485,7 @@ export const items = {
   "Incendiary Rounds": {
     "name": "Incendiary Rounds",
     "icon": "images/items/IncendiaryRounds.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Small",
@@ -8489,7 +8519,7 @@ export const items = {
   "Incense": {
     "name": "Incense",
     "icon": "images/items/Incense.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -8499,7 +8529,7 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Slow 1 item(s) for (1/2/3/4) second(s).",
+      "Slow (1/2/3/4) item(s) for 1 second(s).",
       "Gain (1/3/5/7) Regeneration for the fight."
     ],
     "enchants": {
@@ -8523,7 +8553,7 @@ export const items = {
   "Induction Aegis": {
     "name": "Induction Aegis",
     "icon": "images/items/InductionAegis.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -8558,7 +8588,7 @@ export const items = {
   "Infernal Greatsword": {
     "name": "Infernal Greatsword",
     "icon": "images/items/InfernalGreatsword.avif",
-    "tier": "Legendary",
+    "tier": 4,
     "tags": [
       "Common",
       "Large",
@@ -8595,7 +8625,7 @@ export const items = {
   "Infinite Potion": {
     "name": "Infinite Potion",
     "icon": "images/items/InfinitePotion.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -8626,7 +8656,7 @@ export const items = {
   "Insect Wing": {
     "name": "Insect Wing",
     "icon": "images/items/InsectWing.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -8656,7 +8686,7 @@ export const items = {
   "Invulnerability Potion": {
     "name": "Invulnerability Potion",
     "icon": "images/items/InvulnerabilityPotion.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Small",
@@ -8685,7 +8715,7 @@ export const items = {
   "Isochoric Freezer": {
     "name": "Isochoric Freezer",
     "icon": "images/items/IsochoricFreezer.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -8716,7 +8746,7 @@ export const items = {
   "Jabalian Drum": {
     "name": "Jabalian Drum",
     "icon": "images/items/JabalianDrum.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Large",
@@ -8746,7 +8776,7 @@ export const items = {
   "Jabalian Longbow": {
     "name": "Jabalian Longbow",
     "icon": "images/items/JabalianLongbow.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -8778,7 +8808,7 @@ export const items = {
   "Javelin": {
     "name": "Javelin",
     "icon": "images/items/Javelin.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -8814,7 +8844,7 @@ export const items = {
   "Jellyfish": {
     "name": "Jellyfish",
     "icon": "images/items/Jellyfish.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -8850,7 +8880,7 @@ export const items = {
   "Jewelry": {
     "name": "Jewelry",
     "icon": "images/items/Jewelry.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -8884,7 +8914,7 @@ export const items = {
   "Jitte": {
     "name": "Jitte",
     "icon": "images/items/Jitte.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Small",
@@ -8921,7 +8951,7 @@ export const items = {
   "Junkyard Catapult": {
     "name": "Junkyard Catapult",
     "icon": "images/items/JunkyardCatapult.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Large",
@@ -8959,7 +8989,7 @@ export const items = {
   "Junkyard Club": {
     "name": "Junkyard Club",
     "icon": "images/items/JunkyardClub.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -8994,7 +9024,7 @@ export const items = {
   "Junkyard Lance": {
     "name": "Junkyard Lance",
     "icon": "images/items/JunkyardLance.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Large",
@@ -9026,7 +9056,7 @@ export const items = {
   "Junkyard Repairbot": {
     "name": "Junkyard Repairbot",
     "icon": "images/items/JunkyardRepairbot.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -9061,7 +9091,7 @@ export const items = {
   "Katana": {
     "name": "Katana",
     "icon": "images/items/Katana.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -9093,7 +9123,7 @@ export const items = {
   "Keychain": {
     "name": "Keychain",
     "icon": "images/items/Keychain.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Small"
@@ -9122,7 +9152,7 @@ export const items = {
   "Kinetic Cannon": {
     "name": "Kinetic Cannon",
     "icon": "images/items/KineticCannon.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Large",
@@ -9157,7 +9187,7 @@ export const items = {
   "Knee Brace": {
     "name": "Knee Brace",
     "icon": "images/items/KneeBrace.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -9179,7 +9209,7 @@ export const items = {
   "Knife Set": {
     "name": "Knife Set",
     "icon": "images/items/KnifeSet.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Jules",
       "Medium",
@@ -9214,7 +9244,7 @@ export const items = {
   "Kukri": {
     "name": "Kukri",
     "icon": "images/items/Kukri.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -9249,7 +9279,7 @@ export const items = {
   "Laboratory": {
     "name": "Laboratory",
     "icon": "images/items/Laboratory.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Large",
@@ -9279,7 +9309,7 @@ export const items = {
   "Landscraper": {
     "name": "Landscraper",
     "icon": "images/items/Landscraper.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Large",
@@ -9317,7 +9347,7 @@ export const items = {
   "Langxian": {
     "name": "Langxian",
     "icon": "images/items/Langxian.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -9351,7 +9381,7 @@ export const items = {
   "Laser Pistol": {
     "name": "Laser Pistol",
     "icon": "images/items/LaserPistol.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -9384,7 +9414,7 @@ export const items = {
   "Laser Security System": {
     "name": "Laser Security System",
     "icon": "images/items/LaserSecuritySystem.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -9418,7 +9448,7 @@ export const items = {
   "Ledger": {
     "name": "Ledger",
     "icon": "images/items/Ledger.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -9438,7 +9468,7 @@ export const items = {
   "Leeches": {
     "name": "Leeches",
     "icon": "images/items/Leeches.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Medium",
@@ -9476,7 +9506,7 @@ export const items = {
   "Lemonade Stand": {
     "name": "Lemonade Stand",
     "icon": "images/items/LemonadeStand.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Large",
@@ -9512,7 +9542,7 @@ export const items = {
   "Lens": {
     "name": "Lens",
     "icon": "images/items/Lens.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Small",
@@ -9548,7 +9578,7 @@ export const items = {
   "Letter Opener": {
     "name": "Letter Opener",
     "icon": "images/items/LetterOpener.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -9559,7 +9589,7 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Crit Chance 100%",
+      "Crit Chance (100%/125%/150%/175%)",
       "Deal (10/20/30/40) damage.",
       "This loses 25% Crit Chance for the fight."
     ],
@@ -9580,7 +9610,7 @@ export const items = {
   "Library": {
     "name": "Library",
     "icon": "images/items/Library.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Large",
@@ -9610,7 +9640,7 @@ export const items = {
   "Life Preserver": {
     "name": "Life Preserver",
     "icon": "images/items/LifePreserver.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -9645,7 +9675,7 @@ export const items = {
   "Lifting Gloves": {
     "name": "Lifting Gloves",
     "icon": "images/items/LiftingGloves.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -9679,7 +9709,7 @@ export const items = {
   "Lightbulb": {
     "name": "Lightbulb",
     "icon": "images/items/Lightbulb.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -9711,7 +9741,7 @@ export const items = {
   "Lighter": {
     "name": "Lighter",
     "icon": "images/items/Lighter.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -9743,7 +9773,7 @@ export const items = {
   "Lighthouse": {
     "name": "Lighthouse",
     "icon": "images/items/Lighthouse.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Large",
@@ -9779,7 +9809,7 @@ export const items = {
   "Lightning Rod": {
     "name": "Lightning Rod",
     "icon": "images/items/LightningRod.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Stelle",
       "Large",
@@ -9816,7 +9846,7 @@ export const items = {
   "Lion Cane": {
     "name": "Lion Cane",
     "icon": "images/items/LionCane.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -9851,7 +9881,7 @@ export const items = {
   "Lockbox": {
     "name": "Lockbox",
     "icon": "images/items/Lockbox.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -9887,7 +9917,7 @@ export const items = {
   "Loupe": {
     "name": "Loupe",
     "icon": "images/items/Loupe.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Small",
@@ -9909,7 +9939,7 @@ export const items = {
   "Lumboars": {
     "name": "Lumboars",
     "icon": "images/items/Lumboars.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -9945,7 +9975,7 @@ export const items = {
   "Luxury Kiuas": {
     "name": "Luxury Kiuas",
     "icon": "images/items/LuxuryKiuas.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -9978,7 +10008,7 @@ export const items = {
   "Luxury Tents": {
     "name": "Luxury Tents",
     "icon": "images/items/LuxuryTents.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Large",
@@ -10013,7 +10043,7 @@ export const items = {
   "Magic Carpet": {
     "name": "Magic Carpet",
     "icon": "images/items/MagicCarpet.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Medium",
@@ -10049,7 +10079,7 @@ export const items = {
   "Magician's Top Hat": {
     "name": "Magician's Top Hat",
     "icon": "images/items/MagiciansTopHat.avif",
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Common",
       "Medium",
@@ -10071,7 +10101,7 @@ export const items = {
   "Magma Core": {
     "name": "Magma Core",
     "icon": "images/items/MagmaCore.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -10099,7 +10129,7 @@ export const items = {
   "Magnifying Glass": {
     "name": "Magnifying Glass",
     "icon": "images/items/MagnifyingGlass.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -10134,7 +10164,7 @@ export const items = {
   "Magnus' Femur": {
     "name": "Magnus' Femur",
     "icon": "images/items/MagnusFemur.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Large",
@@ -10166,7 +10196,7 @@ export const items = {
   "Makeshift Barricade": {
     "name": "Makeshift Barricade",
     "icon": "images/items/MakeshiftBarricade.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -10198,7 +10228,7 @@ export const items = {
   "Mantis Shrimp": {
     "name": "Mantis Shrimp",
     "icon": "images/items/MantisShrimp.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -10233,7 +10263,7 @@ export const items = {
   "Marble Scalemail": {
     "name": "Marble Scalemail",
     "icon": "images/items/MarbleScalemail.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -10267,7 +10297,7 @@ export const items = {
   "Marbles": {
     "name": "Marbles",
     "icon": "images/items/Marbles.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -10300,7 +10330,7 @@ export const items = {
   "Masterpiece": {
     "name": "Masterpiece",
     "icon": "images/items/Masterpiece.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -10322,7 +10352,7 @@ export const items = {
   "Matchbox": {
     "name": "Matchbox",
     "icon": "images/items/Matchbox.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -10355,7 +10385,7 @@ export const items = {
   "Mech-Moles": {
     "name": "Mech-Moles",
     "icon": "images/items/MechMoles.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -10394,7 +10424,7 @@ export const items = {
   "Med Kit": {
     "name": "Med Kit",
     "icon": "images/items/MedKit.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -10424,7 +10454,7 @@ export const items = {
   "Memento Mori": {
     "name": "Memento Mori",
     "icon": "images/items/MementoMori.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Medium",
@@ -10451,7 +10481,7 @@ export const items = {
   "Memory Card": {
     "name": "Memory Card",
     "icon": "images/items/MemoryCard.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -10487,7 +10517,7 @@ export const items = {
   "Metronome": {
     "name": "Metronome",
     "icon": "images/items/Metronome.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -10518,7 +10548,7 @@ export const items = {
   "Micro Dave": {
     "name": "Micro Dave",
     "icon": "images/items/MicroDave.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -10552,7 +10582,7 @@ export const items = {
   "Mirror": {
     "name": "Mirror",
     "icon": "images/items/Mirror.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Medium"
@@ -10579,7 +10609,7 @@ export const items = {
   "Miss Isles": {
     "name": "Miss Isles",
     "icon": "images/items/MissIsles.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -10617,7 +10647,7 @@ export const items = {
   "Model Ship": {
     "name": "Model Ship",
     "icon": "images/items/ModelShip.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -10653,7 +10683,7 @@ export const items = {
   "Momma-Saur": {
     "name": "Momma-Saur",
     "icon": "images/items/MommaSaur.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Large",
@@ -10691,7 +10721,7 @@ export const items = {
   "Money Tree": {
     "name": "Money Tree",
     "icon": "images/items/MoneyTree.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Large",
@@ -10729,7 +10759,7 @@ export const items = {
   "Monitor Lizard": {
     "name": "Monitor Lizard",
     "icon": "images/items/MonitorLizard.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -10764,7 +10794,7 @@ export const items = {
   "Monocle": {
     "name": "Monocle",
     "icon": "images/items/Monocle.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Small",
@@ -10799,7 +10829,7 @@ export const items = {
   "Mortal Coil": {
     "name": "Mortal Coil",
     "icon": "images/items/MortalCoil.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Common",
       "Medium",
@@ -10837,7 +10867,7 @@ export const items = {
   "Mortar & Pestle": {
     "name": "Mortar & Pestle",
     "icon": "images/items/MortarPestle.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Medium",
@@ -10871,7 +10901,7 @@ export const items = {
   "Motherboard": {
     "name": "Motherboard",
     "icon": "images/items/Motherboard.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -10906,7 +10936,7 @@ export const items = {
   "Mothmeal": {
     "name": "Mothmeal",
     "icon": "images/items/Mothmeal.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -10936,7 +10966,7 @@ export const items = {
   "Mr. Richardson": {
     "name": "Mr. Richardson",
     "icon": "images/items/MrRichardson.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Small",
@@ -10968,7 +10998,7 @@ export const items = {
   "Multitool": {
     "name": "Multitool",
     "icon": "images/items/Multitool.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Stelle",
       "Small",
@@ -11003,7 +11033,7 @@ export const items = {
   "Musket": {
     "name": "Musket",
     "icon": "images/items/Musket.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -11041,7 +11071,7 @@ export const items = {
   "Myrrh": {
     "name": "Myrrh",
     "icon": "images/items/Myrrh.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -11075,7 +11105,7 @@ export const items = {
   "Nanobot": {
     "name": "Nanobot",
     "icon": "images/items/Nanobot.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Small",
@@ -11087,7 +11117,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Deal (15/20/25) damage for each Friend you have.",
-      "This item's cooldown is reducd by 1 second for each adjacent Friend."
+      "This item's cooldown is reduced by 1 second for each adjacent Friend."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -11106,7 +11136,7 @@ export const items = {
   "Nargile": {
     "name": "Nargile",
     "icon": "images/items/Nargile.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Common",
       "Medium",
@@ -11142,7 +11172,7 @@ export const items = {
   "Narwhal": {
     "name": "Narwhal",
     "icon": "images/items/Narwhal.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -11176,7 +11206,7 @@ export const items = {
   "Necronomicon": {
     "name": "Necronomicon",
     "icon": "images/items/Necronomicon.avif",
-    "tier": "Legendary",
+    "tier": 4,
     "tags": [
       "Common",
       "Medium",
@@ -11212,7 +11242,7 @@ export const items = {
   "Nesting Doll": {
     "name": "Nesting Doll",
     "icon": "images/items/NestingDoll.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Small",
@@ -11247,7 +11277,7 @@ export const items = {
   "Neural Toxin": {
     "name": "Neural Toxin",
     "icon": "images/items/NeuralToxin.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Small",
@@ -11277,7 +11307,7 @@ export const items = {
   "Nightshade": {
     "name": "Nightshade",
     "icon": "images/items/Nightshade.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Medium",
@@ -11314,7 +11344,7 @@ export const items = {
   "Nitro": {
     "name": "Nitro",
     "icon": "images/items/Nitro.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -11349,7 +11379,7 @@ export const items = {
   "Nitrogen Hammer": {
     "name": "Nitrogen Hammer",
     "icon": "images/items/NitrogenHammer.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Medium",
@@ -11386,7 +11416,7 @@ export const items = {
   "Noxious Potion": {
     "name": "Noxious Potion",
     "icon": "images/items/NoxiousPotion.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -11419,7 +11449,7 @@ export const items = {
   "Octopus": {
     "name": "Octopus",
     "icon": "images/items/Octopus.avif",
-    "tier": "Legendary",
+    "tier": 4,
     "tags": [
       "Common",
       "Medium",
@@ -11455,7 +11485,7 @@ export const items = {
   "Oil Lantern": {
     "name": "Oil Lantern",
     "icon": "images/items/OilLantern.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -11486,7 +11516,7 @@ export const items = {
   "Oinkment": {
     "name": "Oinkment",
     "icon": "images/items/Oinkment.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Small",
@@ -11518,7 +11548,7 @@ export const items = {
   "Old Saltclaw": {
     "name": "Old Saltclaw",
     "icon": "images/items/OldSaltclaw.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Small",
@@ -11552,7 +11582,7 @@ export const items = {
   "Old Sword": {
     "name": "Old Sword",
     "icon": "images/items/OldSword.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -11587,7 +11617,7 @@ export const items = {
   "Omega Ray": {
     "name": "Omega Ray",
     "icon": "images/items/OmegaRay.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -11621,7 +11651,7 @@ export const items = {
   "Open Sign": {
     "name": "Open Sign",
     "icon": "images/items/OpenSign.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -11649,7 +11679,7 @@ export const items = {
   "Orange Julian": {
     "name": "Orange Julian",
     "icon": "images/items/OrangeJulian.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -11680,7 +11710,7 @@ export const items = {
   "Orbital Polisher": {
     "name": "Orbital Polisher",
     "icon": "images/items/OrbitalPolisher.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Stelle",
       "Small",
@@ -11714,7 +11744,7 @@ export const items = {
   "Ouroboros Statue": {
     "name": "Ouroboros Statue",
     "icon": "images/items/OuroborosStatue.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -11749,7 +11779,7 @@ export const items = {
   "Oven Mitts": {
     "name": "Oven Mitts",
     "icon": "images/items/OvenMitts.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Jules",
       "Medium",
@@ -11787,7 +11817,7 @@ export const items = {
   "Palanquin": {
     "name": "Palanquin",
     "icon": "images/items/Palanquin.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Large",
@@ -11823,7 +11853,7 @@ export const items = {
   "Pawn Shop": {
     "name": "Pawn Shop",
     "icon": "images/items/PawnShop.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Large",
@@ -11857,7 +11887,7 @@ export const items = {
   "Pearl": {
     "name": "Pearl",
     "icon": "images/items/Pearl.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -11891,7 +11921,7 @@ export const items = {
   "Pelt": {
     "name": "Pelt",
     "icon": "images/items/Pelt.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -11910,7 +11940,7 @@ export const items = {
   "Pendulum": {
     "name": "Pendulum",
     "icon": "images/items/Pendulum.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Medium",
@@ -11944,7 +11974,7 @@ export const items = {
   "Pepper Spray": {
     "name": "Pepper Spray",
     "icon": "images/items/PepperSpray.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -11979,7 +12009,7 @@ export const items = {
   "Pesky Pete": {
     "name": "Pesky Pete",
     "icon": "images/items/PeskyPete.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Small",
@@ -12013,7 +12043,7 @@ export const items = {
   "Pet Rock": {
     "name": "Pet Rock",
     "icon": "images/items/PetRock.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -12050,7 +12080,7 @@ export const items = {
   "Philosopher's Stone": {
     "name": "Philosopher's Stone",
     "icon": "images/items/PhilosophersStone.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -12080,7 +12110,7 @@ export const items = {
   "Phonograph": {
     "name": "Phonograph",
     "icon": "images/items/Phonograph.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -12111,7 +12141,7 @@ export const items = {
   "Piano": {
     "name": "Piano",
     "icon": "images/items/Piano.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Medium",
@@ -12141,7 +12171,7 @@ export const items = {
   "Pickled Peppers": {
     "name": "Pickled Peppers",
     "icon": "images/items/PickledPeppers.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Jules",
       "Medium",
@@ -12175,7 +12205,7 @@ export const items = {
   "Pierre Conditioner": {
     "name": "Pierre Conditioner",
     "icon": "images/items/PierreConditioner.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Medium",
@@ -12208,7 +12238,7 @@ export const items = {
   "Piggles": {
     "name": "Piggles",
     "icon": "images/items/Piggles.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -12242,7 +12272,7 @@ export const items = {
   "Piggy Bank": {
     "name": "Piggy Bank",
     "icon": "images/items/PiggyBank.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -12269,7 +12299,7 @@ export const items = {
   "Pinata": {
     "name": "Pinata",
     "icon": "images/items/Pinata.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -12298,7 +12328,7 @@ export const items = {
   "Piranha": {
     "name": "Piranha",
     "icon": "images/items/Piranha.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -12336,7 +12366,7 @@ export const items = {
   "Pistol Sword": {
     "name": "Pistol Sword",
     "icon": "images/items/PistolSword.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Medium",
@@ -12371,7 +12401,7 @@ export const items = {
   "Pitchfork": {
     "name": "Pitchfork",
     "icon": "images/items/Pitchfork.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -12400,7 +12430,7 @@ export const items = {
   "Plague Glaive": {
     "name": "Plague Glaive",
     "icon": "images/items/PlagueGlaive.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Large",
@@ -12434,7 +12464,7 @@ export const items = {
   "Plasma Grenade": {
     "name": "Plasma Grenade",
     "icon": "images/items/PlasmaGrenade.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -12469,7 +12499,7 @@ export const items = {
   "Plasma Rifle": {
     "name": "Plasma Rifle",
     "icon": "images/items/PlasmaRifle.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -12504,7 +12534,7 @@ export const items = {
   "Pop Snappers": {
     "name": "Pop Snappers",
     "icon": "images/items/PopSnappers.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -12537,7 +12567,7 @@ export const items = {
   "Poppy Field": {
     "name": "Poppy Field",
     "icon": "images/items/PoppyField.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Large",
@@ -12572,7 +12602,7 @@ export const items = {
   "Port": {
     "name": "Port",
     "icon": "images/items/Port.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Large",
@@ -12607,7 +12637,7 @@ export const items = {
   "Potion Distillery": {
     "name": "Potion Distillery",
     "icon": "images/items/PotionDistillery.avif",
-    "tier": "Bronze",
+    "tier": 1,
     "tags": [
       "Mak",
       "Large",
@@ -12618,8 +12648,8 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "Your Potions have (+1/+2/+3/+4) Ammo.",
-      "Your Potions have their cooldowns reduced by (10%/15%/20%/25%).",
+      "Your Potions have (+1/+2/+3) Ammo.",
+      "Your Potions have their cooldowns reduced by (10%/15%/20%).",
       "When you visit a Merchant, transform the small item to the left of this into a random Potion."
     ],
     "enchants": {
@@ -12639,7 +12669,7 @@ export const items = {
   "Potion Potion": {
     "name": "Potion Potion",
     "icon": "images/items/PotionPotion.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Medium",
@@ -12667,7 +12697,7 @@ export const items = {
   "Powder Flask": {
     "name": "Powder Flask",
     "icon": "images/items/PowderFlask.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -12699,7 +12729,7 @@ export const items = {
   "Powder Keg": {
     "name": "Powder Keg",
     "icon": "images/items/PowderKeg.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -12734,7 +12764,7 @@ export const items = {
   "Power Drill": {
     "name": "Power Drill",
     "icon": "images/items/PowerDrill.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -12774,7 +12804,7 @@ export const items = {
   "Power Sander": {
     "name": "Power Sander",
     "icon": "images/items/PowerSander.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -12809,7 +12839,7 @@ export const items = {
   "Private Hot Springs": {
     "name": "Private Hot Springs",
     "icon": "images/items/PrivateHotSprings.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Large",
@@ -12843,7 +12873,7 @@ export const items = {
   "Proboscis": {
     "name": "Proboscis",
     "icon": "images/items/Proboscis.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -12874,7 +12904,7 @@ export const items = {
   "Propane Tank": {
     "name": "Propane Tank",
     "icon": "images/items/PropaneTank.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Stelle",
       "Medium",
@@ -12911,7 +12941,7 @@ export const items = {
   "Pufferfish": {
     "name": "Pufferfish",
     "icon": "images/items/Pufferfish.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -12947,7 +12977,7 @@ export const items = {
   "Pulse Rifle": {
     "name": "Pulse Rifle",
     "icon": "images/items/PulseRifle.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -12981,7 +13011,7 @@ export const items = {
   "Pyg's Gym": {
     "name": "Pyg's Gym",
     "icon": "images/items/PygsGym.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Large",
@@ -13019,7 +13049,7 @@ export const items = {
   "Pygmalien's Dagger": {
     "name": "Pygmalien's Dagger",
     "icon": "images/items/PygmaliensDagger.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -13056,7 +13086,7 @@ export const items = {
   "Pylon": {
     "name": "Pylon",
     "icon": "images/items/Pylon.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Large",
@@ -13091,7 +13121,7 @@ export const items = {
   "Pyrocarbon": {
     "name": "Pyrocarbon",
     "icon": "images/items/Pyrocarbon.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Medium",
@@ -13126,7 +13156,7 @@ export const items = {
   "Quicksilver": {
     "name": "Quicksilver",
     "icon": "images/items/Quicksilver.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small"
@@ -13134,7 +13164,7 @@ export const items = {
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Transform into a random small item you have for the fight."
+      "Transform into another small item you have for the fight."
     ],
     "enchants": {
       "Heavy": "...and Enchant the transformation with Heavy if able.",
@@ -13153,7 +13183,7 @@ export const items = {
   "Quill and Ink": {
     "name": "Quill and Ink",
     "icon": "images/items/QuillandInk.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -13166,7 +13196,7 @@ export const items = {
     "text": [
       "Poison (1/2/3/4).",
       "Gain (1/2/3/4) Regeneration for the fight.",
-      "If you have no weapons, this has +1 Multicast."
+      "If you have no other weapons, this has +1 Multicast."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
@@ -13185,7 +13215,7 @@ export const items = {
   "Race Carl": {
     "name": "Race Carl",
     "icon": "images/items/RaceCarl.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -13222,7 +13252,7 @@ export const items = {
   "Railgun": {
     "name": "Railgun",
     "icon": "images/items/Railgun.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Large",
@@ -13257,7 +13287,7 @@ export const items = {
   "Rainbow Potion": {
     "name": "Rainbow Potion",
     "icon": "images/items/RainbowPotion.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -13297,7 +13327,7 @@ export const items = {
   "Ramrod": {
     "name": "Ramrod",
     "icon": "images/items/Ramrod.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -13333,7 +13363,7 @@ export const items = {
   "Recycling Bin": {
     "name": "Recycling Bin",
     "icon": "images/items/RecyclingBin.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -13343,7 +13373,7 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you use a Potion, transform it into a Potion for the fight and gain (1/2/3) Regeneration for the fight."
+      "When you use a Potion, transform it into a Potion for the fight and gain (2/3/4) Regeneration for the fight."
     ],
     "enchants": {
       "Heavy": "When you use a Potion, Slow 1 item for 2 second(s).",
@@ -13362,7 +13392,7 @@ export const items = {
   "Red Button": {
     "name": "Red Button",
     "icon": "images/items/RedButton.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -13394,7 +13424,7 @@ export const items = {
   "Red Gumball": {
     "name": "Red Gumball",
     "icon": "images/items/RedGumball.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -13423,7 +13453,7 @@ export const items = {
   "Red Piggles A": {
     "name": "Red Piggles A",
     "icon": "images/items/RedPigglesA.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -13455,7 +13485,7 @@ export const items = {
   "Red Piggles L": {
     "name": "Red Piggles L",
     "icon": "images/items/RedPigglesL.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -13487,7 +13517,7 @@ export const items = {
   "Red Piggles R": {
     "name": "Red Piggles R",
     "icon": "images/items/RedPigglesR.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -13519,7 +13549,7 @@ export const items = {
   "Red Piggles X": {
     "name": "Red Piggles X",
     "icon": "images/items/RedPigglesX.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -13551,7 +13581,7 @@ export const items = {
   "RED-F1R3FLY": {
     "name": "RED-F1R3FLY",
     "icon": "images/items/REDF1R3FLY.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -13583,7 +13613,7 @@ export const items = {
   "Refractor": {
     "name": "Refractor",
     "icon": "images/items/Refractor.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Medium",
@@ -13621,7 +13651,7 @@ export const items = {
   "Regal Blade": {
     "name": "Regal Blade",
     "icon": "images/items/RegalBlade.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -13656,7 +13686,7 @@ export const items = {
   "Regeneration Potion": {
     "name": "Regeneration Potion",
     "icon": "images/items/RegenerationPotion.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -13686,7 +13716,7 @@ export const items = {
   "Remote Control": {
     "name": "Remote Control",
     "icon": "images/items/RemoteControl.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -13717,7 +13747,7 @@ export const items = {
   "Repeater": {
     "name": "Repeater",
     "icon": "images/items/Repeater.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -13752,18 +13782,18 @@ export const items = {
   "Retort": {
     "name": "Retort",
     "icon": "images/items/Retort.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Medium",
       "Tool",
       "Poison"
     ],
-    "cooldown": 7,
+    "cooldown": 6,
     "ammo": null,
     "text": [
-      "Poison 4.",
-      "When you transform a Reagent, this permanently gains (+1/+2/+3/+4) Poison.",
+      "Poison 6.",
+      "When you transform a Reagent, this permanently gains (+4/+6/+8/+10) Poison.",
       "At the start of each day, get a Chunk of Lead."
     ],
     "enchants": {
@@ -13783,7 +13813,7 @@ export const items = {
   "Revolver": {
     "name": "Revolver",
     "icon": "images/items/Revolver.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -13821,7 +13851,7 @@ export const items = {
   "Rewards Card": {
     "name": "Rewards Card",
     "icon": "images/items/RewardsCard.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -13844,7 +13874,7 @@ export const items = {
   "Rifle": {
     "name": "Rifle",
     "icon": "images/items/Rifle.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -13879,7 +13909,7 @@ export const items = {
   "Ritual Dagger": {
     "name": "Ritual Dagger",
     "icon": "images/items/RitualDagger.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Small",
@@ -13914,7 +13944,7 @@ export const items = {
   "Rivet Gun": {
     "name": "Rivet Gun",
     "icon": "images/items/RivetGun.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Stelle",
       "Small",
@@ -13950,7 +13980,7 @@ export const items = {
   "Robe": {
     "name": "Robe",
     "icon": "images/items/Robe.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -13984,7 +14014,7 @@ export const items = {
   "Robotic Factory": {
     "name": "Robotic Factory",
     "icon": "images/items/RoboticFactory.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Large",
@@ -14017,7 +14047,7 @@ export const items = {
   "Rocket Boots": {
     "name": "Rocket Boots",
     "icon": "images/items/RocketBoots.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -14051,7 +14081,7 @@ export const items = {
   "Rocket Launcher": {
     "name": "Rocket Launcher",
     "icon": "images/items/RocketLauncher.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -14089,7 +14119,7 @@ export const items = {
   "Rolling Pin": {
     "name": "Rolling Pin",
     "icon": "images/items/RollingPin.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Jules",
       "Medium",
@@ -14125,7 +14155,7 @@ export const items = {
   "Rowboat": {
     "name": "Rowboat",
     "icon": "images/items/Rowboat.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -14159,7 +14189,7 @@ export const items = {
   "Ruby": {
     "name": "Ruby",
     "icon": "images/items/Ruby.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -14192,7 +14222,7 @@ export const items = {
   "Rune Axe": {
     "name": "Rune Axe",
     "icon": "images/items/RuneAxe.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -14227,7 +14257,7 @@ export const items = {
   "Runic Blade": {
     "name": "Runic Blade",
     "icon": "images/items/RunicBlade.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Medium",
@@ -14259,7 +14289,7 @@ export const items = {
   "Runic Daggers": {
     "name": "Runic Daggers",
     "icon": "images/items/RunicDaggers.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -14292,7 +14322,7 @@ export const items = {
   "Runic Double Bow": {
     "name": "Runic Double Bow",
     "icon": "images/items/RunicDoubleBow.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -14331,7 +14361,7 @@ export const items = {
   "Runic Great Axe": {
     "name": "Runic Great Axe",
     "icon": "images/items/RunicGreatAxe.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Large",
@@ -14367,7 +14397,7 @@ export const items = {
   "Runic Potion": {
     "name": "Runic Potion",
     "icon": "images/items/RunicPotion.avif",
-    "tier": "Bronze",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -14376,10 +14406,10 @@ export const items = {
       "Ammo"
     ],
     "cooldown": 4,
-    "ammo": 1,
+    "ammo": "(1/2/3)",
     "text": [
-      "Haste your Lifesteal weapons for (1/2/3/4) second(s).",
-      "(1/2/3/4) of your weapons gain Lifesteal for the fight."
+      "Haste your Lifesteal weapons for 1 second(s).",
+      "A Weapon gains Lifesteal for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -14398,7 +14428,7 @@ export const items = {
   "Safe": {
     "name": "Safe",
     "icon": "images/items/Safe.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -14419,7 +14449,7 @@ export const items = {
   "Salamander Pup": {
     "name": "Salamander Pup",
     "icon": "images/items/SalamanderPup.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -14453,7 +14483,7 @@ export const items = {
   "Salt": {
     "name": "Salt",
     "icon": "images/items/Salt.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Jules",
       "Small",
@@ -14485,7 +14515,7 @@ export const items = {
   "Sapphire": {
     "name": "Sapphire",
     "icon": "images/items/Sapphire.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -14517,7 +14547,7 @@ export const items = {
   "Sat-Comm": {
     "name": "Sat-Comm",
     "icon": "images/items/SatComm.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -14547,7 +14577,7 @@ export const items = {
   "Satchel": {
     "name": "Satchel",
     "icon": "images/items/Satchel.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -14584,7 +14614,7 @@ export const items = {
   "Sauna": {
     "name": "Sauna",
     "icon": "images/items/Sauna.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -14616,7 +14646,7 @@ export const items = {
   "Scales": {
     "name": "Scales",
     "icon": "images/items/Scales.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Medium",
@@ -14645,7 +14675,7 @@ export const items = {
   "Schematics": {
     "name": "Schematics",
     "icon": "images/items/Schematics.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -14677,7 +14707,7 @@ export const items = {
   "Scrap": {
     "name": "Scrap",
     "icon": "images/items/Scrap.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -14707,7 +14737,7 @@ export const items = {
   "Scrap Metal": {
     "name": "Scrap Metal",
     "icon": "images/items/ScrapMetal.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Dooley",
       "Medium",
@@ -14738,7 +14768,7 @@ export const items = {
   "Scythe": {
     "name": "Scythe",
     "icon": "images/items/Scythe.avif",
-    "tier": "Legendary",
+    "tier": 4,
     "tags": [
       "Common",
       "Medium",
@@ -14770,7 +14800,7 @@ export const items = {
   "Sea Shell": {
     "name": "Sea Shell",
     "icon": "images/items/SeaShell.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -14802,7 +14832,7 @@ export const items = {
   "Seadog's Saloon": {
     "name": "Seadog's Saloon",
     "icon": "images/items/SeadogsSaloon.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Large",
@@ -14835,7 +14865,7 @@ export const items = {
   "Seashadow": {
     "name": "Seashadow",
     "icon": "images/items/Seashadow.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -14866,7 +14896,7 @@ export const items = {
   "Seaweed": {
     "name": "Seaweed",
     "icon": "images/items/Seaweed.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -14900,7 +14930,7 @@ export const items = {
   "Secret Formula": {
     "name": "Secret Formula",
     "icon": "images/items/SecretFormula.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Medium",
@@ -14908,12 +14938,12 @@ export const items = {
       "BurnReference",
       "PoisonReference"
     ],
-    "cooldown": 12,
+    "cooldown": "(12/10)",
     "ammo": null,
     "text": [
-      "Gain (4/8) Regeneration for the fight.",
-      "The item to the left of this has + Burn equal to your Regeneration.",
-      "The item to the Right of this has + Poison equal to your Regeneration."
+      "Gain (5/10) Regeneration for the fight.",
+      "The Burn item to the left of this gains + Burn equal to your Regeneration for the fight.",
+      "The Poison item to the right of this gains + Poison equal to your Regeneration for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 4 second(s).",
@@ -14932,7 +14962,7 @@ export const items = {
   "Security Camera": {
     "name": "Security Camera",
     "icon": "images/items/SecurityCamera.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -14967,7 +14997,7 @@ export const items = {
   "Sextant": {
     "name": "Sextant",
     "icon": "images/items/Sextant.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -15003,7 +15033,7 @@ export const items = {
   "Shadowed Cloak": {
     "name": "Shadowed Cloak",
     "icon": "images/items/ShadowedCloak.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -15034,7 +15064,7 @@ export const items = {
   "Sharkclaws": {
     "name": "Sharkclaws",
     "icon": "images/items/Sharkclaws.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -15069,7 +15099,7 @@ export const items = {
   "Sharkray": {
     "name": "Sharkray",
     "icon": "images/items/Sharkray.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -15107,7 +15137,7 @@ export const items = {
   "Sharpening Stone": {
     "name": "Sharpening Stone",
     "icon": "images/items/SharpeningStone.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -15137,7 +15167,7 @@ export const items = {
   "Shipment": {
     "name": "Shipment",
     "icon": "images/items/Shipment.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Large",
@@ -15169,7 +15199,7 @@ export const items = {
   "Shipwreck": {
     "name": "Shipwreck",
     "icon": "images/items/Shipwreck.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Large",
@@ -15203,7 +15233,7 @@ export const items = {
   "Shoe Blade": {
     "name": "Shoe Blade",
     "icon": "images/items/ShoeBlade.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -15238,7 +15268,7 @@ export const items = {
   "Shot Glasses": {
     "name": "Shot Glasses",
     "icon": "images/items/ShotGlasses.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Small",
@@ -15269,7 +15299,7 @@ export const items = {
   "Shovel": {
     "name": "Shovel",
     "icon": "images/items/Shovel.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -15304,7 +15334,7 @@ export const items = {
   "Show Globe": {
     "name": "Show Globe",
     "icon": "images/items/ShowGlobe.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -15335,7 +15365,7 @@ export const items = {
   "Shrinking Potion": {
     "name": "Shrinking Potion",
     "icon": "images/items/ShrinkingPotion.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -15362,7 +15392,7 @@ export const items = {
   "Sifting Pan": {
     "name": "Sifting Pan",
     "icon": "images/items/SiftingPan.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -15381,7 +15411,7 @@ export const items = {
   "Signet Ring": {
     "name": "Signet Ring",
     "icon": "images/items/SignetRing.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Small",
@@ -15408,7 +15438,7 @@ export const items = {
   "Silencer": {
     "name": "Silencer",
     "icon": "images/items/Silencer.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -15442,7 +15472,7 @@ export const items = {
   "Silk Scarf": {
     "name": "Silk Scarf",
     "icon": "images/items/SilkScarf.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -15477,7 +15507,7 @@ export const items = {
   "Singularity": {
     "name": "Singularity",
     "icon": "images/items/Singularity.avif",
-    "tier": "Legendary",
+    "tier": 4,
     "tags": [
       "Common",
       "Small",
@@ -15507,7 +15537,7 @@ export const items = {
   "Sirens": {
     "name": "Sirens",
     "icon": "images/items/Sirens.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Stelle",
       "Medium",
@@ -15543,7 +15573,7 @@ export const items = {
   "Skillet": {
     "name": "Skillet",
     "icon": "images/items/Skillet.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Jules",
       "Medium",
@@ -15577,7 +15607,7 @@ export const items = {
   "Skyscraper": {
     "name": "Skyscraper",
     "icon": "images/items/Skyscraper.avif",
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Pygmalien",
       "Large",
@@ -15616,7 +15646,7 @@ export const items = {
   "Sleeping Potion": {
     "name": "Sleeping Potion",
     "icon": "images/items/SleepingPotion.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -15647,7 +15677,7 @@ export const items = {
   "Slingshot": {
     "name": "Slingshot",
     "icon": "images/items/Slingshot.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -15684,7 +15714,7 @@ export const items = {
   "Slumbering Primordial": {
     "name": "Slumbering Primordial",
     "icon": "images/items/SlumberingPrimordial.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Large",
@@ -15720,7 +15750,7 @@ export const items = {
   "Smelling Salts": {
     "name": "Smelling Salts",
     "icon": "images/items/SmellingSalts.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -15749,7 +15779,7 @@ export const items = {
   "Sniper Rifle": {
     "name": "Sniper Rifle",
     "icon": "images/items/SniperRifle.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -15783,7 +15813,7 @@ export const items = {
   "Snow Globe": {
     "name": "Snow Globe",
     "icon": "images/items/SnowGlobe.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -15818,7 +15848,7 @@ export const items = {
   "Snowflake": {
     "name": "Snowflake",
     "icon": "images/items/Snowflake.avif",
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Common",
       "Small",
@@ -15847,7 +15877,7 @@ export const items = {
   "Snowmobile": {
     "name": "Snowmobile",
     "icon": "images/items/Snowmobile.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -15881,7 +15911,7 @@ export const items = {
   "Solar Farm": {
     "name": "Solar Farm",
     "icon": "images/items/SolarFarm.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Large",
@@ -15920,7 +15950,7 @@ export const items = {
   "Soldering Gun": {
     "name": "Soldering Gun",
     "icon": "images/items/SolderingGun.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -15956,7 +15986,7 @@ export const items = {
   "Soul of the District": {
     "name": "Soul of the District",
     "icon": "images/items/SouloftheDistrict.avif",
-    "tier": "Legendary",
+    "tier": 4,
     "tags": [
       "Common",
       "Medium",
@@ -15991,7 +16021,7 @@ export const items = {
   "Soul Ring": {
     "name": "Soul Ring",
     "icon": "images/items/SoulRing.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Small",
@@ -16026,7 +16056,7 @@ export const items = {
   "Spacescraper": {
     "name": "Spacescraper",
     "icon": "images/items/Spacescraper.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Large",
@@ -16062,7 +16092,7 @@ export const items = {
   "Spare Change": {
     "name": "Spare Change",
     "icon": "images/items/SpareChange.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -16081,7 +16111,7 @@ export const items = {
   "Spices": {
     "name": "Spices",
     "icon": "images/items/Spices.avif",
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Pygmalien",
       "Small",
@@ -16113,7 +16143,7 @@ export const items = {
   "Spider Mace": {
     "name": "Spider Mace",
     "icon": "images/items/SpiderMace.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -16144,7 +16174,7 @@ export const items = {
   "Spiked Buckler": {
     "name": "Spiked Buckler",
     "icon": "images/items/SpikedBuckler.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -16181,7 +16211,7 @@ export const items = {
   "Spiky Shield": {
     "name": "Spiky Shield",
     "icon": "images/items/SpikyShield.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -16216,7 +16246,7 @@ export const items = {
   "Spyglass": {
     "name": "Spyglass",
     "icon": "images/items/Spyglass.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Medium",
@@ -16251,7 +16281,7 @@ export const items = {
   "Staff of the Moose": {
     "name": "Staff of the Moose",
     "icon": "images/items/StaffoftheMoose.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Large",
@@ -16284,7 +16314,7 @@ export const items = {
   "Stained Glass Window": {
     "name": "Stained Glass Window",
     "icon": "images/items/StainedGlassWindow.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -16312,7 +16342,7 @@ export const items = {
   "Star Chart": {
     "name": "Star Chart",
     "icon": "images/items/StarChart.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -16347,7 +16377,7 @@ export const items = {
   "Steam Ladle": {
     "name": "Steam Ladle",
     "icon": "images/items/SteamLadle.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -16378,7 +16408,7 @@ export const items = {
   "Stinger": {
     "name": "Stinger",
     "icon": "images/items/Stinger.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -16415,7 +16445,7 @@ export const items = {
   "Stopwatch": {
     "name": "Stopwatch",
     "icon": "images/items/Stopwatch.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Small",
@@ -16447,7 +16477,7 @@ export const items = {
   "Strength Potion": {
     "name": "Strength Potion",
     "icon": "images/items/StrengthPotion.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Small",
@@ -16477,7 +16507,7 @@ export const items = {
   "Submarine": {
     "name": "Submarine",
     "icon": "images/items/Submarine.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Large",
@@ -16515,7 +16545,7 @@ export const items = {
   "Submersible": {
     "name": "Submersible",
     "icon": "images/items/Submersible.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -16550,7 +16580,7 @@ export const items = {
   "Subscraper": {
     "name": "Subscraper",
     "icon": "images/items/Subscraper.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Large",
@@ -16587,7 +16617,7 @@ export const items = {
   "Succulents": {
     "name": "Succulents",
     "icon": "images/items/Succulents.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -16620,7 +16650,7 @@ export const items = {
   "Sulphur": {
     "name": "Sulphur",
     "icon": "images/items/Sulphur.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -16650,7 +16680,7 @@ export const items = {
   "Sunderer": {
     "name": "Sunderer",
     "icon": "images/items/Sunderer.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -16684,7 +16714,7 @@ export const items = {
   "Sunlight Spear": {
     "name": "Sunlight Spear",
     "icon": "images/items/SunlightSpear.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -16723,7 +16753,7 @@ export const items = {
   "Super Syrup": {
     "name": "Super Syrup",
     "icon": "images/items/SuperSyrup.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Medium",
@@ -16746,7 +16776,7 @@ export const items = {
   "Swash Buckle": {
     "name": "Swash Buckle",
     "icon": "images/items/SwashBuckle.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Medium",
@@ -16775,7 +16805,7 @@ export const items = {
   "Switchblade": {
     "name": "Switchblade",
     "icon": "images/items/Switchblade.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -16809,7 +16839,7 @@ export const items = {
   "Sword Cane": {
     "name": "Sword Cane",
     "icon": "images/items/SwordCane.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Medium",
@@ -16842,7 +16872,7 @@ export const items = {
   "Tazidian Dagger": {
     "name": "Tazidian Dagger",
     "icon": "images/items/TazidianDagger.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -16877,7 +16907,7 @@ export const items = {
   "Tea Set": {
     "name": "Tea Set",
     "icon": "images/items/TeaSet.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -16911,7 +16941,7 @@ export const items = {
   "Teddy": {
     "name": "Teddy",
     "icon": "images/items/Teddy.avif",
-    "tier": "Legendary",
+    "tier": 4,
     "tags": [
       "Common",
       "Medium",
@@ -16952,7 +16982,7 @@ export const items = {
   "Temporary Shelter": {
     "name": "Temporary Shelter",
     "icon": "images/items/TemporaryShelter.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Large",
@@ -16986,7 +17016,7 @@ export const items = {
   "Tesla Coil": {
     "name": "Tesla Coil",
     "icon": "images/items/TeslaCoil.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -17021,7 +17051,7 @@ export const items = {
   "Textiles": {
     "name": "Textiles",
     "icon": "images/items/Textiles.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -17055,7 +17085,7 @@ export const items = {
   "The Boulder": {
     "name": "The Boulder",
     "icon": "images/items/TheBoulder.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Large",
@@ -17088,7 +17118,7 @@ export const items = {
   "The Core": {
     "name": "The Core",
     "icon": "images/items/TheCore.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -17128,7 +17158,7 @@ export const items = {
   "The Eclipse": {
     "name": "The Eclipse",
     "icon": "images/items/TheEclipse.avif",
-    "tier": "Legendary",
+    "tier": 4,
     "tags": [
       "Common",
       "Large",
@@ -17166,7 +17196,7 @@ export const items = {
   "The Tome of Yyahan": {
     "name": "The Tome of Yyahan",
     "icon": "images/items/TheTomeofYyahan.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -17194,7 +17224,7 @@ export const items = {
   "Thermal Lance": {
     "name": "Thermal Lance",
     "icon": "images/items/ThermalLance.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -17229,7 +17259,7 @@ export const items = {
   "Thieves Guild Medallion": {
     "name": "Thieves Guild Medallion",
     "icon": "images/items/ThievesGuildMedallion.avif",
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Common",
       "Small"
@@ -17247,7 +17277,7 @@ export const items = {
   "Throwing Knives": {
     "name": "Throwing Knives",
     "icon": "images/items/ThrowingKnives.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Small",
@@ -17283,7 +17313,7 @@ export const items = {
   "Thrown Net": {
     "name": "Thrown Net",
     "icon": "images/items/ThrownNet.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Medium",
@@ -17315,7 +17345,7 @@ export const items = {
   "Thrusters": {
     "name": "Thrusters",
     "icon": "images/items/Thrusters.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -17350,7 +17380,7 @@ export const items = {
   "Thurible": {
     "name": "Thurible",
     "icon": "images/items/Thurible.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -17386,7 +17416,7 @@ export const items = {
   "Tiny Cutlass": {
     "name": "Tiny Cutlass",
     "icon": "images/items/TinyCutlass.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -17423,7 +17453,7 @@ export const items = {
   "Tommoo Gun": {
     "name": "Tommoo Gun",
     "icon": "images/items/TommooGun.avif",
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Common",
       "Small",
@@ -17456,7 +17486,7 @@ export const items = {
   "Toolbox": {
     "name": "Toolbox",
     "icon": "images/items/Toolbox.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Stelle",
       "Medium",
@@ -17491,7 +17521,7 @@ export const items = {
   "Torpedo": {
     "name": "Torpedo",
     "icon": "images/items/Torpedo.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -17530,7 +17560,7 @@ export const items = {
   "Tourist Chariot": {
     "name": "Tourist Chariot",
     "icon": "images/items/TouristChariot.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Large",
@@ -17565,7 +17595,7 @@ export const items = {
   "Trained Spider": {
     "name": "Trained Spider",
     "icon": "images/items/TrainedSpider.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -17599,7 +17629,7 @@ export const items = {
   "Trebuchet": {
     "name": "Trebuchet",
     "icon": "images/items/Trebuchet.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Large",
@@ -17637,7 +17667,7 @@ export const items = {
   "Tripwire": {
     "name": "Tripwire",
     "icon": "images/items/Tripwire.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Medium",
@@ -17667,7 +17697,7 @@ export const items = {
   "Tropical Island": {
     "name": "Tropical Island",
     "icon": "images/items/TropicalIsland.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Large",
@@ -17703,7 +17733,7 @@ export const items = {
   "Truffles": {
     "name": "Truffles",
     "icon": "images/items/Truffles.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -17737,7 +17767,7 @@ export const items = {
   "Turtle Shell": {
     "name": "Turtle Shell",
     "icon": "images/items/TurtleShell.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Vanessa",
       "Medium",
@@ -17773,7 +17803,7 @@ export const items = {
   "Tusked Helm": {
     "name": "Tusked Helm",
     "icon": "images/items/TuskedHelm.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -17811,7 +17841,7 @@ export const items = {
   "Upgrade Hammer": {
     "name": "Upgrade Hammer",
     "icon": "images/items/UpgradeHammer.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Small",
@@ -17840,7 +17870,7 @@ export const items = {
   "Uwashiwali Bird": {
     "name": "Uwashiwali Bird",
     "icon": "images/items/UwashiwaliBird.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -17874,7 +17904,7 @@ export const items = {
   "Uzi": {
     "name": "Uzi",
     "icon": "images/items/Uzi.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -17907,7 +17937,7 @@ export const items = {
   "Vanessa's Amulet": {
     "name": "Vanessa's Amulet",
     "icon": "images/items/VanessasAmulet.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -17939,7 +17969,7 @@ export const items = {
   "Vat of Acid": {
     "name": "Vat of Acid",
     "icon": "images/items/VatofAcid.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Large",
@@ -17970,7 +18000,7 @@ export const items = {
   "Vending Machine": {
     "name": "Vending Machine",
     "icon": "images/items/VendingMachine.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -17999,7 +18029,7 @@ export const items = {
   "Venom": {
     "name": "Venom",
     "icon": "images/items/Venom.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -18008,20 +18038,19 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you use an adjacent Weapon, Poison (1/2/3/4)."
+      "When you use the weapon to the left of this, Poison (2/3/4/5)."
     ],
     "enchants": {
-      "Heavy": "When you use an adjacent Weapon, Slow 1 item for 1 second(s).",
-      "Icy": "When you use an adjacent Weapon, Freeze 1 small item for 1 second(s).",
-      "Turbo": "When you use an adjacent Weapon, Haste 1 item for 1 second(s).",
-      "Shielded": "When you use an adjacent Weapon, Shield equal to 10 times this item's Poison.",
-      "Restorative": "When you use an adjacent Weapon, Heal equal to 10 times this item's Poison.",
+      "Heavy": "When you use the weapon to the left of this, Slow 1 item for 1 second(s).",
+      "Icy": "When you use the weapon to the left of this, Freeze 1 small item for 1 second(s).",
+      "Turbo": "When you use the weapon to the left of this, Haste 1 item for 1 second(s).",
+      "Shielded": "When you use the weapon to the left of this, Shield equal to 10 times this item's Poison.",
+      "Restorative": "When you use the weapon to the left of this, Heal equal to 10 times this item's Poison.",
       "Toxic": "This has double Poison.",
-      "Fiery": "When you use an adjacent Weapon, Burn equal to this item's Poison.",
-      "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance",
+      "Fiery": "When you use the weapon to the left of this, Burn equal to this item's Poison.",
+      "Deadly": "The Weapon to the left has +50% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
-      "Obsidian": "When you use an adjacent Weapon, Deal damage equal to 10 times this item's Poison."
+      "Obsidian": "When you use the weapon to the left of this, Deal damage equal to 10 times this item's Poison."
     },
     "priorities": [
       0,
@@ -18031,7 +18060,7 @@ export const items = {
   "Venomander": {
     "name": "Venomander",
     "icon": "images/items/Venomander.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Mak",
       "Small",
@@ -18066,7 +18095,7 @@ export const items = {
   "Vial Launcher": {
     "name": "Vial Launcher",
     "icon": "images/items/VialLauncher.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -18097,7 +18126,7 @@ export const items = {
   "Vial of Blood": {
     "name": "Vial of Blood",
     "icon": "images/items/VialofBlood.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Common",
       "Small",
@@ -18119,7 +18148,7 @@ export const items = {
   "Vineyard": {
     "name": "Vineyard",
     "icon": "images/items/Vineyard.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Large",
@@ -18157,7 +18186,7 @@ export const items = {
   "VIP Pass": {
     "name": "VIP Pass",
     "icon": "images/items/VIPPass.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Small",
@@ -18189,7 +18218,7 @@ export const items = {
   "Viper Cane": {
     "name": "Viper Cane",
     "icon": "images/items/ViperCane.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Medium",
@@ -18203,8 +18232,8 @@ export const items = {
     "ammo": null,
     "text": [
       "Deal 25 damage.",
-      "Your Poison items have + Poison equal to (10%/20%) of this item's damage.",
-      "Your Regeneration items have + Regeneration equal to (10%/20%) of this item's damage."
+      "A Poison item gains + Poison equal to (10%/20%) of this item's damage for the fight.",
+      "A Regeneration item gains + Regeneration equal to (10%/20%) of this item's damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -18223,7 +18252,7 @@ export const items = {
   "Virus": {
     "name": "Virus",
     "icon": "images/items/Virus.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -18259,7 +18288,7 @@ export const items = {
   "Vitality Potion": {
     "name": "Vitality Potion",
     "icon": "images/items/VitalityPotion.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Mak",
       "Small",
@@ -18277,19 +18306,19 @@ export const items = {
       "Heavy": "Slow 1 item for 4 second(s).",
       "Icy": "Freeze 1 small item for 3 second(s).",
       "Turbo": "Haste 1 item for 4 second(s).",
-      "Shielded": "Shield equal to this item's Heal.",
+      "Shielded": "Shield equal to half of this item's Heal.",
       "Restorative": "Gain 8 Regeneration for the fight.",
-      "Toxic": "Poison equal to 10% of this item's Heal.",
-      "Fiery": "Burn equal to 10% of this item's Heal.",
+      "Toxic": "Poison equal to 5% of this item's Heal.",
+      "Fiery": "Burn equal to 5% of this item's Heal.",
       "Shiny": "This has double Ammo.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
-      "Obsidian": "Deal damage equal to this item's Heal."
+      "Obsidian": "Deal damage equal to half of this item's Heal."
     }
   },
   "Void Ray": {
     "name": "Void Ray",
     "icon": "images/items/VoidRay.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Common",
       "Medium",
@@ -18326,7 +18355,7 @@ export const items = {
   "Void Shield": {
     "name": "Void Shield",
     "icon": "images/items/VoidShield.avif",
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Common",
       "Medium",
@@ -18360,7 +18389,7 @@ export const items = {
   "Volcanic Vents": {
     "name": "Volcanic Vents",
     "icon": "images/items/VolcanicVents.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Medium",
@@ -18390,7 +18419,7 @@ export const items = {
   "Wallace": {
     "name": "Wallace",
     "icon": "images/items/Wallace.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -18424,7 +18453,7 @@ export const items = {
   "Walter Cooler": {
     "name": "Walter Cooler",
     "icon": "images/items/WalterCooler.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -18457,7 +18486,7 @@ export const items = {
   "Wand": {
     "name": "Wand",
     "icon": "images/items/Wand.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Common",
       "Small",
@@ -18488,7 +18517,7 @@ export const items = {
   "Wanted Poster": {
     "name": "Wanted Poster",
     "icon": "images/items/WantedPoster.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -18522,7 +18551,7 @@ export const items = {
   "Water Wheel": {
     "name": "Water Wheel",
     "icon": "images/items/WaterWheel.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Large",
@@ -18557,7 +18586,7 @@ export const items = {
   "Weakpoint Detector": {
     "name": "Weakpoint Detector",
     "icon": "images/items/WeakpointDetector.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -18593,7 +18622,7 @@ export const items = {
   "Weaponized Core": {
     "name": "Weaponized Core",
     "icon": "images/items/WeaponizedCore.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -18633,7 +18662,7 @@ export const items = {
   "Weaselpede": {
     "name": "Weaselpede",
     "icon": "images/items/Weaselpede.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -18664,7 +18693,7 @@ export const items = {
   "Weather Glass": {
     "name": "Weather Glass",
     "icon": "images/items/WeatherGlass.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Vanessa",
       "Medium",
@@ -18703,7 +18732,7 @@ export const items = {
   "Weather Machine": {
     "name": "Weather Machine",
     "icon": "images/items/WeatherMachine.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Stelle",
       "Large",
@@ -18743,7 +18772,7 @@ export const items = {
   "Weights": {
     "name": "Weights",
     "icon": "images/items/Weights.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
@@ -18778,7 +18807,7 @@ export const items = {
   "Welding Helmet": {
     "name": "Welding Helmet",
     "icon": "images/items/WeldingHelmet.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -18812,7 +18841,7 @@ export const items = {
   "Welding Torch": {
     "name": "Welding Torch",
     "icon": "images/items/WeldingTorch.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Medium",
@@ -18847,7 +18876,7 @@ export const items = {
   "Windmill": {
     "name": "Windmill",
     "icon": "images/items/Windmill.avif",
-    "tier": "Diamond",
+    "tier": 3,
     "tags": [
       "Pygmalien",
       "Large",
@@ -18881,7 +18910,7 @@ export const items = {
   "Wrench": {
     "name": "Wrench",
     "icon": "images/items/Wrench.avif",
-    "tier": "Gold",
+    "tier": 2,
     "tags": [
       "Stelle",
       "Small",
@@ -18917,7 +18946,7 @@ export const items = {
   "Yellow Gumball": {
     "name": "Yellow Gumball",
     "icon": "images/items/YellowGumball.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Common",
       "Small",
@@ -18946,7 +18975,7 @@ export const items = {
   "Yellow Piggles A": {
     "name": "Yellow Piggles A",
     "icon": "images/items/YellowPigglesA.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -18978,7 +19007,7 @@ export const items = {
   "Yellow Piggles L": {
     "name": "Yellow Piggles L",
     "icon": "images/items/YellowPigglesL.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -19010,7 +19039,7 @@ export const items = {
   "Yellow Piggles R": {
     "name": "Yellow Piggles R",
     "icon": "images/items/YellowPigglesR.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -19042,7 +19071,7 @@ export const items = {
   "Yellow Piggles X": {
     "name": "Yellow Piggles X",
     "icon": "images/items/YellowPigglesX.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -19074,7 +19103,7 @@ export const items = {
   "Yeti Crab": {
     "name": "Yeti Crab",
     "icon": "images/items/YetiCrab.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",
@@ -19106,7 +19135,7 @@ export const items = {
   "YLW-M4NT1S": {
     "name": "YLW-M4NT1S",
     "icon": "images/items/YLWM4NT1S.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Dooley",
       "Small",
@@ -19117,7 +19146,7 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Haste (1/2/3/4) item(s) for 1 second(s).",
+      "Haste (2/3/4/5) item(s) for 1 second(s).",
       "When an adjacent item Burns, charge this 1 second(s)."
     ],
     "enchants": {
@@ -19137,7 +19166,7 @@ export const items = {
   "Yo-Yo": {
     "name": "Yo-Yo",
     "icon": "images/items/YoYo.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Small",
@@ -19172,7 +19201,7 @@ export const items = {
   "Z-Shield": {
     "name": "Z-Shield",
     "icon": "images/items/ZShield.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -19205,7 +19234,7 @@ export const items = {
   "Z-Sword": {
     "name": "Z-Sword",
     "icon": "images/items/ZSword.avif",
-    "tier": "Silver",
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -19238,7 +19267,7 @@ export const items = {
   "Zoarcid": {
     "name": "Zoarcid",
     "icon": "images/items/Zoarcid.avif",
-    "tier": "Bronze",
+    "tier": 0,
     "tags": [
       "Vanessa",
       "Small",

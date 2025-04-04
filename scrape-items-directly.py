@@ -45,7 +45,7 @@ def process_item(item):
     processed = {
         "name": item["name"],
         "icon": f"images/items/{re.sub(r'[ \'\"\(\)\-_\.\&]', '', item['name'])}.avif",
-        "tier": item["startingTier"],
+        "tier": {"Bronze": 0, "Silver": 1, "Gold": 2, "Diamond": 3, "Legendary": 4}[item["startingTier"]],
         "tags": [],
         "cooldown": None,
         "ammo": None,
