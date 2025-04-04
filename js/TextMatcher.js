@@ -495,6 +495,21 @@ TextMatcher.matchers.push({
         };
     },
 });
-
-
+TextMatcher.matchers.push({
+    //For every (1/2/3) poison on the enemy, this has +1 multicast  from Plauge Glaive
+    regex: /^For every (\([^)]+\)|\d+) (burn|poison|regen)(?:eration)? on the enemy, this has \+1 multicast\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        const whatToDo = match[2].toLowerCase();
+        let multicastAdded = 0;
+        item.board.player.hostileTarget[whatToDo+"Changed"]((newAmount) => {
+            const multicastAddedShouldBe = Math.floor(newAmount/amount);
+            if(multicastAddedShouldBe!=multicastAdded) {
+                item.gain(multicastAddedShouldBe-multicastAdded,'multicast',item);
+            }
+            multicastAdded = multicastAddedShouldBe;
+        });
+        return ()=>{};
+    },
+});
 window.TextMatcher = TextMatcher;
