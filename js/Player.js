@@ -5,7 +5,7 @@ export class Player {
     hostileTarget = null;
     static playerId = 0;
     static players = new Map();
-    static possibleChangeAttributes = ['health','shield','gold','maxHealth','burn','poison','regen'];
+    static possibleChangeAttributes = ['health','shield','gold','maxHealth','burn','poison','regen','battleTime'];
    
     constructor(startPlayerData={}, boardId=null, editable=true) {
         setupChangeListeners(this, Player.possibleChangeAttributes );
@@ -33,11 +33,13 @@ export class Player {
         this.board.updateGoldElement();
     }
 
-    heal(healAmount) {
+    heal(healAmount,source) {
         this.board.healingApplied += healAmount;
         if(this.health+healAmount>this.maxHealth) {
-            healAmount = this.maxHealth-this.health;
-            this.overhealTriggers.forEach(func => func(healAmount));
+            const overheal = this.health+healAmount-this.maxHealth;
+            healAmount -= overheal;
+            this.log(source?source.name+" ":""+"overhealed for "+overheal);
+            this.overhealTriggers.forEach(func => func(overheal));
         }
         this.healTriggers.forEach(func => func(healAmount));
         this.health += healAmount;

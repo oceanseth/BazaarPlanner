@@ -1608,26 +1608,26 @@ export const monsters = {
     "health": 1900,
     "skills": [
       {
-        "name": "Chilling Touch",
-        "tier": 1
-      },
-      {
         "name": "Petrifying Gaze",
         "tier": 2
+      },
+      {
+        "name": "Chilling Touch",
+        "tier": 1
       }
     ],
     "items": [
       {
         "name": "Cauldron",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Ectoplasm",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Icicle",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Necronomicon",
@@ -1635,7 +1635,7 @@ export const monsters = {
       },
       {
         "name": "Icicle",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Wand",
@@ -1643,7 +1643,7 @@ export const monsters = {
       },
       {
         "name": "Emerald",
-        "tier": 1
+        "tier": 2
       },
       {
         "name": "Soul Ring",
@@ -1823,7 +1823,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Bushel",
+        "name": "Floor Spike",
         "tier": 1
       },
       {
@@ -3363,19 +3363,6 @@ export const monsters = {
         "tier": 3
       }
     ]
-  },
-  "Sparring Partner": {
-    "name": "Sparring Partner",
-    "icon": "images/monsters/SparringPartner.avif",
-    "day": "event",
-    "health": 1000,
-    "skills": [
-      {
-        "name": "Sparring Partner",
-        "tier": 4
-      }
-    ],
-    "items": []
   },
   "Mr. Moo": {
     "name": "Mr. Moo",

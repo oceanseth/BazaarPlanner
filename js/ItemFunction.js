@@ -1364,4 +1364,30 @@ ItemFunction.items.set("Crystal Bonsai", (item)=>{
     });
     item.triggerFunctions.push(item.getTriggerFunctionFromText("Heal equal to ( 1x » 2x » 3x » 4x ) this item's value."));
 });
+
+//When you use a Potion, transform it into a Potion for the fight and gain (1/2/3) Regeneration for the fight. from Recycling Bin
+ItemFunction.items.set("Recycling Bin",(item)=>{
+    item.regen = getRarityValue("1/2/3",item.rarity);
+    item.board.itemTriggers.set(item.id,(i)=>{
+        if(i.tags.includes("Potion")) {
+            item.applyRegen(item.regen);
+        }
+    });
+});
+//"Haste your Lifesteal weapons for (1/2/3/4) second(s)." from runic potion
+//"(1/2/3/4) of your weapons gain Lifesteal for the fight." from runic potion
+ItemFunction.items.set("Runic Potion",(item)=>{
+    const amount = getRarityValue("1/2/3/4",item.rarity);
+    item.triggerFunctions.push(()=>{
+        item.board.activeItems.forEach(i=>{
+            if(i.tags.includes("Weapon") && i.lifesteal) {
+                item.applyHasteTo(i,amount);
+            }
+        });
+        const lifestealNeedingWeapons = item.board.activeItems.filter(i=>i.tags.includes("Weapon") && !i.lifesteal);
+        item.pickRandom(lifestealNeedingWeapons,amount).forEach(i=>{
+            i.lifesteal=true;
+        });
+    });
+});
 ItemFunction.setupItems();
