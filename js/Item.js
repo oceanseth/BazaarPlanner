@@ -2194,6 +2194,13 @@ export class Item {
                 </div>`;
 
         }
+        if(this.regen>0) {
+            popupHTML += `
+                <div class="form-group">
+                    <label>Regen:</label>
+                    <input type="number" id="edit-regen" value="${this.regen}">
+                </div>`;
+        }
         
 
         // Add crit chance field only if item has damage, shield, burn, poison, or heal, or is a weapon
@@ -2232,7 +2239,7 @@ export class Item {
             this.rarity = popup.querySelector('#edit-rarity').value;
             const newValueFromRarity = this.getInitialValue();
             const oldStartDataValue = this.startItemData.value||initialValueFromRarity;
-            this.startItemData.rarity = popup.querySelector('#edit-rarity').value;
+            this.startItemData.tier = Item.rarityLevels.indexOf(popup.querySelector('#edit-rarity').value);
             this.startItemData.value = oldStartDataValue-initialValueFromRarity+newValueFromRarity;
             this.board.player.battle.resetBattle();
             updateUrlState();
@@ -2256,6 +2263,10 @@ export class Item {
         popup.querySelector('.save-edit').addEventListener('click', () => {
             this.board.player.battle.resetBattle();
             const enchant = popup.querySelector('#edit-enchant').value;
+            const playerCopy = this.board.player.clone();
+            const itemCopy = new Item(structuredClone(items[this.name]),playerCopy.board);
+
+            itemCopy.setup();
 
             // Update name with enchantment
             this.name = enchant === 'None' ? baseName : `${enchant} ${baseName}`;
@@ -2315,6 +2326,9 @@ export class Item {
             }
             if(popup.querySelector('#edit-freeze-bonus')) {
                 this.startItemData.freezeBonus = parseFloat(popup.querySelector('#edit-freeze-bonus').value);
+            }
+            if(popup.querySelector('#edit-regen')) {
+                this.startItemData.regen = parseFloat(popup.querySelector('#edit-regen').value) - parseInt(itemCopy.regen);
             }
             popup.remove();
             this.board.player.battle.resetBattle();
