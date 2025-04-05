@@ -88,7 +88,7 @@ export class Item {
             this.startItemData.rarity = this.rarity;
         } 
         // Ensure text is always an array
-        this.text = Array.isArray(this.text) ? this.text : [this.text].filter(Boolean);
+        this.text = Array.isArray(this.text) ? this.text : this.text?[this.text].filter(Boolean):[];
         if(this.text.length>0) {
             for(let i=0;i<this.text.length;i++) {
                 this.text[i] = this.text[i].replace(/Properties/i, match => 
@@ -2264,7 +2264,8 @@ export class Item {
             this.board.player.battle.resetBattle();
             const enchant = popup.querySelector('#edit-enchant').value;
             const playerCopy = this.board.player.clone();
-            const itemCopy = new Item(structuredClone(items[this.name]),playerCopy.board);
+            const [startingName] = Item.stripEnchantFromName(this.name);
+            const itemCopy = new Item(structuredClone(items[startingName]),playerCopy.board);
 
             itemCopy.setup();
 
