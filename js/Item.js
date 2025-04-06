@@ -2240,6 +2240,7 @@ export class Item {
             const newValueFromRarity = this.getInitialValue();
             const oldStartDataValue = this.startItemData.value||initialValueFromRarity;
             this.startItemData.tier = Item.rarityLevels.indexOf(popup.querySelector('#edit-rarity').value);
+            this.startItemData.rarity = popup.querySelector('#edit-rarity').value;
             this.startItemData.value = oldStartDataValue-initialValueFromRarity+newValueFromRarity;
             this.board.player.battle.resetBattle();
             updateUrlState();
