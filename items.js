@@ -2842,8 +2842,7 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Haste 1 Vehicle for (2/3/4) second(s).",
-      "Charge 1 Tool (1/2/3) second(s).",
+      "Haste 1 Vehicle for (2/3/4) second(s). Charge 1 Tool (1/2/3) second(s).",
       "Reload 1 Ammo item (1/2/3) Ammo.",
       "A Weapon gains (+20/+30/+40) damage for the fight."
     ],
@@ -3297,7 +3296,7 @@ export const items = {
       "Heavy": "Slow 1 item for 2 second(s).",
       "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield equal to this item's damage.",
+      "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Damage.",
       "Toxic": "Poison equal to 10% of this item's damage.",
       "Fiery": "Burn equal to 10% of this item's damage.",
@@ -5785,8 +5784,8 @@ export const items = {
       "Haste your other items for (1/2/3) second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze all small enemy items for 0.5 second(s).",
+      "Heavy": "Slow all enemy items for 1 second(s).",
+      "Icy": "Freeze all enemy items for 0.5 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield 40.",
       "Restorative": "Heal 60.",
