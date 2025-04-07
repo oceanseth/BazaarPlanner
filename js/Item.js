@@ -4010,6 +4010,23 @@ export class Item {
             });
             return () => {};
         }
+        //Your weapons have + Damage equal to (50/75/100) of the Poison on your enemy. from Poppy Field
+        regex = /^\s*Your ([^\s]+)s?(?: items)? have \+ (\w+) equal to (\([^)]+\)|\d+%?) of the (\w+) on your enemy\.?/i;
+        match = text.match(regex);
+        if(match) {            
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const whatToGain = match[2];
+            const multiplier = getRarityValue(match[3], this.rarity)/100;
+            const whatToTrack = match[4];
+            const targetItems = tagToMatch=='Items'?this.board.items:this.board.items.filter(item =>item.tags.includes(tagToMatch));
+            this.board.player.hostileTarget[whatToTrack.toLowerCase()+"Changed"]((newAmount,oldAmount)=>{
+                targetItems.forEach(item => {
+                    item.gain((newAmount-oldAmount)*multiplier,whatToGain);
+                });
+            });
+            return () => {};
+        }
+        
 
         //Shield equal to (2/3/4) times the Poison on your opponent. from Toxic Shield
         regex = /^\s*(Shield|Heal) equal to (\([^)]+\)|\d+) times the Poison on your opponent\.?/i;
