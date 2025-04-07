@@ -192,21 +192,25 @@ export function loadFromUrl(hash) {
             newItem.name = name;
             newItem.setIndex(startIndex);
         });       
+        let refreshBoards = () =>{
+            boardsCleared.forEach((board) => {
+                if(board.player) {
+                    board.player.reset();
+                } else {
+                    board.reset();
+                }   
+            });
+            boardsCleared.forEach((board) => {
+                if(board.player) {
+                    board.player.setup();
+                } else {
+                    board.setup();
+                }
+            });
+        };
 
-        boardsCleared.forEach((board) => {
-            if(board.player) {
-                board.player.reset();
-            } else {
-                board.reset();
-            }   
-        });
-        boardsCleared.forEach((board) => {
-            if(board.player) {
-                board.player.setup();
-            } else {
-                board.setup();
-            }
-        });
+        refreshBoards();
+
         [...topPlayer.board.items,...bottomPlayer.board.items].forEach(item=>{
             Item.possibleChangeAttributes.forEach(attribute=>{
                 if(item[attribute+"Final"] != undefined) {
@@ -215,7 +219,8 @@ export function loadFromUrl(hash) {
                 }
             });
         });
-        topPlayer.battle.resetBattle();
+
+        refreshBoards();
     } catch (error) {
         console.error('Error loading board state from URL:', error);
     }
