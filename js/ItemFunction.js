@@ -343,17 +343,6 @@ ItemFunction.items.set("Hammock",(item)=>{
     item.gain(-largeItemCount*5*1000,'cooldown');
 });
 
-//If you have no weapons, your items have their cooldowns reduced by ( 5% » 10% » 15% » 20% ). from Poppy Field
-ItemFunction.items.set("Poppy Field",(item)=>{
-    const cooldownReduction = getRarityValue("5 >> 10 >> 15 >> 20",item.rarity);
-    const weaponCount = item.board.items.filter(i=>i.tags.includes("Weapon")).length;
-    if(weaponCount==0) {
-        item.board.items.forEach(i=>{
-            i.gain(i.cooldown*(1-cooldownReduction/100)-i.cooldown,'cooldown');
-        });
-    }
-});
-
 //The item to the left of this has its cooldown reduced by ( 25% » 50% ). from Phonograph
 ItemFunction.items.set("Phonograph",(item)=>{   
     const cooldownReduction = getRarityValue("25 >> 50",item.rarity);
