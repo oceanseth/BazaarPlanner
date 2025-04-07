@@ -207,6 +207,15 @@ export function loadFromUrl(hash) {
                 board.setup();
             }
         });
+        [...topPlayer.board.items,...bottomPlayer.board.items].forEach(item=>{
+            Item.possibleChangeAttributes.forEach(attribute=>{
+                if(item[attribute+"Final"] != undefined) {
+                    item.startItemData[attribute] = item[attribute+"Final"] - item[attribute];
+                    delete item.startItemData[attribute+"Final"];
+                }
+            });
+        });
+        topPlayer.battle.resetBattle();
     } catch (error) {
         console.error('Error loading board state from URL:', error);
     }
