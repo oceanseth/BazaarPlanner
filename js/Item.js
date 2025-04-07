@@ -2266,7 +2266,7 @@ export class Item {
             const enchant = popup.querySelector('#edit-enchant').value;
             const playerCopy = this.board.player.clone();
             playerCopy.hostileTarget = this.board.player.hostileTarget.clone();
-            this.board.player.hostileTarget.hostileTarget = playerCopy;
+            playerCopy.hostileTarget.hostileTarget = playerCopy;
             const [startingName] = Item.stripEnchantFromName(this.name);
             const itemCopy = new Item(structuredClone(items[startingName]),playerCopy.board);
 
