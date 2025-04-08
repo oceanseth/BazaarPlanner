@@ -742,12 +742,12 @@ export class Item {
 
     doICrit() {
         if(!this.board.critPossible) return false;
-        if(this.critCheck[this.battleTime]!==undefined) return this.critCheck[this.battleTime];
+        if(this.critCheck[this.effectiveBattleTime]!==undefined) return this.critCheck[this.effectiveBattleTime];
         if(this.cooldown>0 && this.crit && this.battleRandom(this.crit / 100)) {
-            this.critCheck[this.battleTime] = true;
+            this.critCheck[this.effectiveBattleTime] = true;
             return true;
         }
-        this.critCheck[this.battleTime] = false;
+        this.critCheck[this.effectiveBattleTime] = false;
         return false;
     }
     applyDamage(damage,target=this.board.player.hostileTarget) {
