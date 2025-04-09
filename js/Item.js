@@ -1714,7 +1714,7 @@ export class Item {
         }
         
         //Freeze 1 item for (  3  » 4  » 5   ) second(s). from Quick Freeze
-        regex = /^Freeze (\([^)]+\)|\d+)(?: items?)? for (\([^)]+\)|\d+) second\(?s\)?\.?$/i;
+        regex = /^Freeze (\([^)]+\)|\d+)(?: item\(?s?\)?)? for (\([^)]+\)|[\d\.]+) second\(?s\)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const numItems = getRarityValue(match[1], this.rarity);
@@ -2922,27 +2922,26 @@ export class Item {
                         });
                         return;
                     case "an adjacent item poisons or burns":
-                        const adjPoisonBurnItems = this.getAdjacentItems();
                         this.board.burnTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
-                            if(adjPoisonBurnItems.some(i=>i.id==source.id)) {
+                            if(this.getAdjacentItems().some(i=>i.id==source.id)) {
                                 triggerFunctionFromText(source);
                             }
                         });
                         this.board.player.hostileTarget.board.burnTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
-                            if(adjPoisonBurnItems.some(i=>i.id==source.id)) {
+                            if(this.getAdjacentItems().some(i=>i.id==source.id)) {
                                 triggerFunctionFromText(source);
                             }
                         });
                         //intending to skip return here
-                        case "an adjacent item poisons":
+                        case "an adjacent item poisons":                            
                             this.board.poisonTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
-                                if(adjPoisonBurnItems.some(i=>i.id==source.id)) {
+                                if(this.getAdjacentItems().some(i=>i.id==source.id)) {
                                     triggerFunctionFromText(source);
                                 }
                             });
     
                         this.board.player.hostileTarget.board.poisonTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
-                            if(adjPoisonBurnItems.some(i=>i.id==source.id)) {
+                            if(this.getAdjacentItems().some(i=>i.id==source.id)) {
                                 triggerFunctionFromText(source);
                             }
                         });
@@ -4799,7 +4798,9 @@ export class Item {
             return () => {
                 const itemsToCharge = tagToMatch ? this.getAdjacentItems().filter(item => item.tags.includes(tagToMatch)) : this.getAdjacentItems();
                 itemsToCharge.forEach(item => {
-                    this.applyChargeTo(item);
+                    if(item.cooldown>0) {
+                        this.applyChargeTo(item);
+                    }
                 });
             };
 

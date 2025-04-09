@@ -141,6 +141,12 @@ class Board {
         this.setupItems();
     }
     setupItems() {
+        if(this.items.length>0 && !this.items[this.items.length-1].tags.includes("Rightmost")) {
+            this.items[this.items.length-1].tags.push("Rightmost");
+        }
+        if(this.items.length>0 && !this.items[0].tags.includes("Leftmost")) {
+            this.items[0].tags.push("Leftmost");
+        }
         this.items.forEach(item => item.setup());
         this.setupSkills();
         this.items.forEach(item => item.updateTriggerValuesElement());
