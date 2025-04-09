@@ -3366,7 +3366,7 @@ export const skills = {
   },
   "Stocked": {
     "text": [
-      "Your Potions have (+1/+2/+3) Ammo."
+      "Your Potions have (+1/+2/+3) Max Ammo."
     ],
     "tier": 1,
     "tags": [

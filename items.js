@@ -15651,7 +15651,8 @@ export const items = {
       "Mak",
       "Small",
       "Potion",
-      "Slow"
+      "Slow",
+      "Ammo"
     ],
     "cooldown": 4,
     "ammo": 1,

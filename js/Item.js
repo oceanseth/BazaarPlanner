@@ -4126,12 +4126,13 @@ export class Item {
         }
 
         //Your items have (+1/+2/+3) Max Ammo. from Gunner
-        regex = /^\s*Your items have (\([^)]+\)|\d+) Max Ammo\.?/i;
+        regex = /^\s*Your (\w+)(?: item)?s? have (\([^)]+\)|\d+) (?:Max )?Ammo\.?/i;
         match = text.match(regex);
         if(match) {
-            const maxAmmo = getRarityValue(match[1], this.rarity);
+            const maxAmmo = getRarityValue(match[2], this.rarity);
+            const tag = Item.getTagFromText(match[1]);
             this.board.items.forEach(item => {
-                if(item.tags.includes("Ammo")) {
+                if(item.tags.includes("Ammo") && (tag=="Item"||item.tags.includes(tag))) {
                     item.gain(maxAmmo,'maxAmmo');
                 }
             });

@@ -56,4 +56,9 @@ Created by Seth Caldwell
 ## 🔮 Future Plans
 - See the About section for more information.
 
+## Email Documentation
+Emails received by the support email address are saved in s3 bucket bazaarplanner.com/emails. We still need to write a lambda to forward these to our team email address.
+To send an email from the console as our team staff, use the following command:
+aws ses send-email --from "support@bazaarplanner.com" --destination "ToAddresses=someemail@somedomain.com" --message "{\"Subject\": {\"Data\": \"testing email from console\"},\"Body\":{\"Text\":{\"Data\":\"lets see if this works\"}}}"
+
 Feel free to star ⭐ the repo if you find it useful!
