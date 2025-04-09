@@ -4132,7 +4132,7 @@ export class Item {
             const maxAmmo = getRarityValue(match[2], this.rarity);
             const tag = Item.getTagFromText(match[1]);
             this.board.items.forEach(item => {
-                if(item.tags.includes("Ammo") && (tag=="Items"||item.tags.includes(tag))) {
+                if(item.tags.includes("Ammo") && (tag=="Item"||item.tags.includes(tag))) {
                     item.gain(maxAmmo,'maxAmmo');
                 }
             });
