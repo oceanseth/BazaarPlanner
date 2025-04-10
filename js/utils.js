@@ -145,6 +145,7 @@ export function loadFromUrl(hash) {
         window.previouslyLoadedHash = window.location.hash;
         
         let newItems = [];
+        let skillFunctions = [];
         // Decompress the state string
         const boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(hash));
         // Add items from URL state
@@ -158,11 +159,14 @@ export function loadFromUrl(hash) {
                 }
                 board.player.startPlayerData.maxHealth = boardStateObject.health;
                 if(boardStateObject.playerName) board.player.startPlayerData.name = boardStateObject.playerName;
+                if(boardStateObject.hero) board.player.startPlayerData.hero = boardStateObject.hero;
                 if(boardStateObject.regen) board.player.startPlayerData.regen = boardStateObject.regen;
                     
                 if(boardStateObject.skills) {
                     boardStateObject.skills.forEach(skill => {
-                        board.addSkill(skill.name,skill);
+                        //skillFunctions.push(()=>{
+                            board.addSkill(skill.name,skill);
+                        //});
                     });
                 }
 
@@ -214,12 +218,14 @@ export function loadFromUrl(hash) {
         [...topPlayer.board.items,...bottomPlayer.board.items].forEach(item=>{
             Item.possibleChangeAttributes.forEach(attribute=>{
                 if(item[attribute+"Final"] != undefined) {
-                    item.startItemData[attribute] = item[attribute+"Final"] - item[attribute];
+                    item.startItemData[attribute] = (item[attribute+"Final"] - item[attribute])/item[attribute+"_multiplier"];
                     delete item.startItemData[attribute+"Final"];
+                    item.reset();
+                    item.setup();
                 }
             });
         });
-
+        skillFunctions.forEach(f=>f());
         refreshBoards();
     } catch (error) {
         console.error('Error loading board state from URL:', error);

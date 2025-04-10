@@ -98,7 +98,10 @@ export class Item {
         }
 
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
+        
+        /*
         if(this.startItemData.value==undefined) {
+            this.startItemData.value = 0;
              this.startItemData.value = this.getInitialValue();
              if(items[this.name] && items[this.name].value==undefined) {
                 items[this.name].value = this.startItemData.value;
@@ -106,7 +109,9 @@ export class Item {
         }
 
         this.value = this.startItemData.value;
+        
         if(itemData.value==undefined) itemData.value = this.startItemData.value;
+        */
         this.resetCooldown();
         this.element = this.createElement();
         this.setupEditableEvents();
@@ -294,6 +299,7 @@ export class Item {
         this.textMatches = [];
         this.lifesteal = 0;
         this.isDestroyed = false;
+        this.value = this.startItemData.value + this.getInitialValue();
         this.element.classList.remove('destroyed');
         this.hasteTimeRemaining = 0;
         this.hasDoubleHasteDuration = false;

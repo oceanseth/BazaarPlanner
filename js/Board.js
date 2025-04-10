@@ -308,7 +308,9 @@ class Board {
             this.playerElement.style.backgroundImage = `url(${monsters[this.player?.name].icon})`;
         } else if(Item.characterTags.includes(this.player?.name)) {
             this.playerElement.style.backgroundImage = `url(images/fromBT/${this.player?.name}.png)`;
-        } else {
+        } else if(Item.characterTags.includes(this.player?.hero)) {
+            this.playerElement.style.backgroundImage = `url(images/fromBT/${this.player?.hero}.png)`;
+        }else {
             this.playerElement.style.backgroundImage = "none";
         }
         if(this.options.editable) {
