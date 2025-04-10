@@ -2738,7 +2738,13 @@ export class Item {
                             });
                         });
                         return;
-
+                    case "slow with an item":
+                        this.board.slowTriggers.set(this.id+triggerFunctionFromText.text, (target, source) => {
+                            if(this.board.items.some(i=>i.id==source.id)) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                        return;
                     case "slow":
                         this.board.slowTriggers.set(this.id,(i,source)=>{
                             triggerFunctionFromText(source);
@@ -2748,8 +2754,15 @@ export class Item {
                         this.board.player.hostileTarget.board.freezeTriggers.set(this.id,triggerFunctionFromText);
                         return;
                     case "freeze":
-                        this.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),(target,source)=>{
+                        this.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
                                 triggerFunctionFromText(source);
+                        });
+                        return;
+                    case "freeze with an item":
+                        this.board.freezeTriggers.set(this.id+triggerFunctionFromText.text, (target, source) => {
+                            if(this.board.items.some(i=>i.id==source.id)) {
+                                triggerFunctionFromText(source);
+                            }
                         });
                         return;
                     case "crit":

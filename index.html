@@ -336,6 +336,7 @@
                             <!-- Slots will be generated here -->
                         </div>
                         <div class="board-controls">
+                            <input type="checkbox" id="board-t-follow-checkbox" onclick="topPlayer.board.follow =this.checked">Follow
                             <button onclick="Board.getBoardFromId('t').clear()">Clear</button>
                             <button onclick="Board.getBoardFromId('t').save()">Save</button>
                             <button onclick="Board.getBoardFromId('t').load()">Load</button>
@@ -347,6 +348,7 @@
                             <!-- Slots will be generated here -->
                         </div>
                         <div class="board-controls">
+                            <input type="checkbox" id="board-b-follow-checkbox" onclick="bottomPlayer.board.follow = this.checked">Follow
                             <button onclick="Board.getBoardFromId('b').clear()">Clear</button>
                             <button onclick="Board.getBoardFromId('b').save()">Save</button>
                             <button onclick="Board.getBoardFromId('b').load()">Load</button>

@@ -365,7 +365,7 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Gain (3/6/9) Regeneration for the fight.",
+      "Gain (5/10/15) Regeneration for the fight.",
       "When you Haste, Slow, Poison, or Burn, charge this 1 second(s).",
       "At the start of each day, get a Reagent."
     ],
@@ -589,20 +589,19 @@ export const items = {
   "Athanor": {
     "name": "Athanor",
     "icon": "images/items/Athanor.avif",
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Mak",
       "Large",
       "Property",
       "Burn",
-      "Charge",
       "AmmoReference"
     ],
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Reload (1/2/3/4) item(s).",
-      "When you use a Potion, Burn (2/4/6/8)."
+      "Reload adjacent Potions.",
+      "When you use a Potion, Burn (8/12/16)."
     ],
     "enchants": {
       "Heavy": "When you use a Potion, Slow 1 item for 2 second(s).",
@@ -612,7 +611,7 @@ export const items = {
       "Restorative": "When you use a Potion, Heal equal to 10 times this item's Burn.",
       "Toxic": "When you use a Potion, Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
-      "Shiny": "This has +1 Multicast.",
+      "Shiny": "Adjacent Potions have +1 Multicast.",
       "Deadly": "Your Potions have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "When you use a Potion, deal damage equal to 10 times this item's Burn."
@@ -5228,7 +5227,7 @@ export const items = {
     "text": [
       "Deal (1000/2000) damage.",
       "When you Haste, Slow, Poison, Freeze, or Burn, charge this (1/2) second(s).",
-      "When you use a Friend, Shield (100/200)."
+      "When you use a Friend, Shield (50/100)."
     ],
     "enchants": {
       "Heavy": "Slow 3 items for 10 second(s).",
@@ -5503,7 +5502,7 @@ export const items = {
       "Burn",
       "Ammo"
     ],
-    "cooldown": 12,
+    "cooldown": 10,
     "ammo": 1,
     "text": [
       "Burn 10.",
@@ -5616,7 +5615,7 @@ export const items = {
       "Shielded": "Shield 20.",
       "Restorative": "Heal 30.",
       "Toxic": "Poison 2.",
-      "Fiery": "When you Slow, Burn 3.",
+      "Fiery": "Burn 3.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "Your items gain 10% Crit Chance for the fight.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
@@ -6461,12 +6460,12 @@ export const items = {
       "Damage",
       "Poison"
     ],
-    "cooldown": 10,
+    "cooldown": 9,
     "ammo": null,
     "text": [
       "Deal (20/40/60) damage.",
       "Poison (2/4/6).",
-      "When either player uses a weapon, charge this 2 second(s)."
+      "When either player uses a weapon, charge this 1 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 4 second(s).",
@@ -7081,7 +7080,7 @@ export const items = {
       "Restorative": "Heal equal to this item's Damage.",
       "Toxic": "This has double Poison.",
       "Fiery": "Burn equal to this item's Poison.",
-      "Shiny": "This has +3 Multicast.",
+      "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
@@ -9289,8 +9288,8 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Enchant a non-enchanted item for the fight.",
-      "Charge your Relics and Enchanted items (1/2) second(s)."
+      "Enchant another non-enchanted item for the fight.",
+      "Charge your other Relics and Enchanted items (1/2) second(s)."
     ],
     "enchants": {
       "Heavy": "When you use a Relic or Enchanted item, Slow 1 items for 3 second(s).",
@@ -9477,7 +9476,7 @@ export const items = {
       "Damage",
       "PoisonReference"
     ],
-    "cooldown": 9,
+    "cooldown": 8,
     "ammo": null,
     "text": [
       "Lifesteal",
@@ -9624,17 +9623,17 @@ export const items = {
       "Your non-weapon items' cooldowns are decreased by (1/2) second(s)."
     ],
     "enchants": {
-      "Heavy": "The first time you fall below half health each fight, Slow 3 items for 6 second(s).",
-      "Icy": "The first time you fall below half health each fight, Freeze 2 items for 5 second(s).",
-      "Turbo": "The first time you fall below half health each fight, Haste 3 items for 6 second(s).",
-      "Shielded": "The first time you fall below half health each fight, Shield 180.",
-      "Restorative": "The first time you fall below half health each fight, Heal 120.",
-      "Toxic": "The first time you fall below half health each fight, poison 18.",
-      "Fiery": "The first time you fall below half health each fight, burn 18.",
-      "Shiny": "This has double cooldown increase and double cooldown reduction.",
-      "Deadly": "Your Properties have +25% Crit Chance.",
+      "Heavy": "When you use a non-Weapon item, Slow 1 item for 1 second(s).",
+      "Icy": "When you use a non-Weapon item, Freeze 1 item for 1 second(s).",
+      "Turbo": "When you use a non-Weapon item, Haste 1 item for 1 second(s).",
+      "Shielded": "When you use a non-Weapon item, Shield 25.",
+      "Restorative": "When you use a non-Weapon item, Heal 40.",
+      "Toxic": "When you use a non-Weapon item, Poison 2.",
+      "Fiery": "When you use a non-Weapon item, Burn 2.",
+      "Shiny": "This has +1 second cooldown increase and decrease.",
+      "Deadly": "Your non-Weapon items have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
-      "Obsidian": "The first time you fall below half health each fight, Deal 180 damage."
+      "Obsidian": "When you use a non-Weapon item, Deal 25 damage."
     }
   },
   "Life Preserver": {
@@ -10051,7 +10050,7 @@ export const items = {
       "Weapon",
       "Damage"
     ],
-    "cooldown": 7,
+    "cooldown": 6,
     "ammo": null,
     "text": [
       "Deal (50/100/150/200) Damage.",
@@ -12084,6 +12083,7 @@ export const items = {
     "tags": [
       "Mak",
       "Small",
+      "Relic",
       "Regen"
     ],
     "cooldown": 5,
@@ -12448,9 +12448,9 @@ export const items = {
       "For every 20 Poison on the enemy, this has +1 Multicast."
     ],
     "enchants": {
-      "Heavy": "Slow 3 items for 3 second(s).",
-      "Icy": "Freeze 1 item for 6 second(s).",
-      "Turbo": "Haste 3 items for 3 second(s).",
+      "Heavy": "Slow 1 items for 1 second(s).",
+      "Icy": "Freeze 1 item for 1 second(s).",
+      "Turbo": "Haste 1 items for 1 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
       "Toxic": "Poison equal to 10% of this item's damage.",
@@ -12582,13 +12582,13 @@ export const items = {
       "Your Weapons have + Damage equal to (50%/75%/100%) of the Poison on your enemy."
     ],
     "enchants": {
-      "Heavy": "When you use a Weapon, Slow 1 item for 3 second(s).",
-      "Icy": "When you use a Weapon, Freeze 1 item for 2 second(s).",
-      "Turbo": "When you use a Weapon, Haste 1 item for 3 second(s).",
+      "Heavy": "When you use a Weapon, Slow 1 item for 1 second(s).",
+      "Icy": "When you use a Weapon, Freeze 1 item for 1 second(s).",
+      "Turbo": "When you use a Weapon, Haste 1 item for 1 second(s).",
       "Shielded": "When you use a Weapon, Shield equal to 10 times this item's Poison.",
-      "Restorative": "When you use a Weapon, Heal 0.",
+      "Restorative": "When you use a Weapon, Heal equal to 10 times this item's Poison.",
       "Toxic": "This has double Poison.",
-      "Fiery": "When you use a Weapon, Burn 0.",
+      "Fiery": "When you use a Weapon, Burn equal to this item's Poison.",
       "Shiny": "This has double Poison and double Damage bonus",
       "Deadly": "Your Weapons have + Crit Chance % equal to Poison on your enemy.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
@@ -12642,7 +12642,6 @@ export const items = {
       "Mak",
       "Large",
       "Tool",
-      "Haste",
       "AmmoReference"
     ],
     "cooldown": null,
@@ -13376,17 +13375,17 @@ export const items = {
       "When you use a Potion, transform it into a Potion for the fight and gain (2/3/4) Regeneration for the fight."
     ],
     "enchants": {
-      "Heavy": "When you use a Potion, Slow 1 item for 2 second(s).",
-      "Icy": "When you use a Potion, Freeze 1 medium or small item for 1 second(s).",
-      "Turbo": "When you use a Potion, Haste 1 item for 2 second(s).",
-      "Shielded": "When you use a Potion, Shield 20.",
-      "Restorative": "When you use a Potion, Heal 30.",
-      "Toxic": "When you use a Potion, Poison 2.",
-      "Fiery": "When you use a Potion, Burn 2.",
+      "Heavy": "When you use a Potion, Slow 1 item for 1 second(s).",
+      "Icy": "When you use a Potion, Freeze 1 medium or small item for 0.5 second(s).",
+      "Turbo": "When you use a Potion, Haste 1 item for 1 second(s).",
+      "Shielded": "When you use a Potion, Shield equal to 10 times this item's Regeneration.",
+      "Restorative": "When you use a Potion, Heal equal to 10 times this item's Regeneration.",
+      "Toxic": "When you use a Potion, Poison equal to this item's Regeneration.",
+      "Fiery": "When you use a Potion, Burn equal to this item's Regeneration.",
       "Shiny": "This has double Regeneration.",
       "Deadly": "Your Potions have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
-      "Obsidian": "When you use a Potion, Deal 20 Damage."
+      "Obsidian": "When you use a Potion, Deal Damage equal to 10 times this item's Regeneration."
     }
   },
   "Red Button": {
@@ -14297,7 +14296,7 @@ export const items = {
       "Damage",
       "CritReference"
     ],
-    "cooldown": 7,
+    "cooldown": 6,
     "ammo": null,
     "text": [
       "Multicast 2",
@@ -14329,7 +14328,7 @@ export const items = {
       "Weapon",
       "Damage"
     ],
-    "cooldown": 8,
+    "cooldown": 7,
     "ammo": null,
     "text": [
       "Multicast 2",
@@ -14585,12 +14584,12 @@ export const items = {
       "AmmoReference",
       "Regen"
     ],
-    "cooldown": 8,
+    "cooldown": "(8/7/6)",
     "ammo": null,
     "text": [
       "Reload 2 items.",
-      "When you reload, gain (2/6/10) Regeneration for the fight.",
-      "When you buy a Potion, increase this item's +Regeneration by (+1/+2/+3)."
+      "When you reload, gain 2 Regeneration for the fight.",
+      "When you buy a Potion, increase this item's Regeneration by (+2/+4/+6)."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -14938,7 +14937,7 @@ export const items = {
       "BurnReference",
       "PoisonReference"
     ],
-    "cooldown": "(12/10)",
+    "cooldown": "(10/8)",
     "ammo": null,
     "text": [
       "Gain (5/10) Regeneration for the fight.",
@@ -15055,11 +15054,43 @@ export const items = {
       "Toxic": "When you use the item to the right of this, poison 2.",
       "Fiery": "When you use the item to the right of this, burn 3.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
-      "Obsidian": "When you use the item to the right of this, deal 20 damage."
+      "Obsidian": "This has double damage bonus."
     },
     "priorities": [
       0
     ]
+  },
+  "Shard of Obsidian": {
+    "name": "Shard of Obsidian",
+    "icon": "images/items/ShardofObsidian.avif",
+    "tier": 0,
+    "tags": [
+      "Mak",
+      "Small",
+      "Weapon",
+      "Reagent",
+      "Damage"
+    ],
+    "cooldown": 4,
+    "ammo": null,
+    "text": [
+      "Lifesteal",
+      "Deal (5/10/15/20) damage.",
+      "When this is transformed, enchant it with Obsidian if able."
+    ],
+    "enchants": {
+      "Heavy": "Slow 1 item for 2 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
+      "Turbo": "Haste 1 item for 2 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "This has double Damage."
+    }
   },
   "Sharkclaws": {
     "name": "Sharkclaws",
@@ -15651,8 +15682,7 @@ export const items = {
       "Mak",
       "Small",
       "Potion",
-      "Slow",
-      "Ammo"
+      "Slow"
     ],
     "cooldown": 4,
     "ammo": 1,
@@ -15766,12 +15796,12 @@ export const items = {
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "When you Slow, Freeze 1 small item for 2 second(s).",
+      "Icy": "When you Slow, Freeze 1 small item for 0.5 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "When you Slow, Shield 10.",
       "Restorative": "When you Slow, Heal 15.",
-      "Toxic": "When you Slow, Poison 3.",
-      "Fiery": "When you Slow, Burn 3.",
+      "Toxic": "When you Slow, Poison 1.",
+      "Fiery": "When you Slow, Burn 1.",
       "Shiny": "This has +1 Multicast.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "When you Slow, Deal 10 Damage."
@@ -16152,16 +16182,16 @@ export const items = {
       "Damage",
       "SlowReference"
     ],
-    "cooldown": 8,
+    "cooldown": 10,
     "ammo": null,
     "text": [
-      "Deal (15/25/35/50) Damage.",
+      "Deal (10/20/30/40) Damage.",
       "When you Slow or Poison, Charge this 2 second(s)."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 4 second(s).",
-      "Icy": "Freeze 1 small item for 2 second(s).",
-      "Turbo": "Haste 1 item for 4 second(s).",
+      "Heavy": "Slow 1 item for 2 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
+      "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
       "Toxic": "Poison equal to 10% of this item's Damage.",
@@ -16290,13 +16320,13 @@ export const items = {
       "Damage",
       "Regen"
     ],
-    "cooldown": 13,
+    "cooldown": 10,
     "ammo": null,
     "text": [
       "Multicast 2",
-      "Deal (150/200/250) damage.",
-      "The first time you fall below half Health each fight, you take no damage for 1 second and gain 25 Regeneration for the fight.",
-      "Your Weapons have + Damage equal to (1/2/3) times your Regeneration."
+      "Deal 200 damage.",
+      "The first time you fall below half Health each fight, you take no damage for (1/1.5/2) second(s) and gain (25/50/75) Regeneration for the fight.",
+      "Your Weapons have + Damage equal to your Regeneration."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 6 second(s).",
@@ -17219,7 +17249,8 @@ export const items = {
       "Fiery": "The first time you fall below half health each fight, burn 18.",
       "Shiny": "This has double Regeneration.",
       "Deadly": "Your Regeneration items have +25% Crit Chance.",
-      "Radiant": "This cannot be Frozen, Slowed or Destroyed."
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "The first time you fall below half health each fight, Deal 120 damage."
     }
   },
   "Thermal Lance": {
@@ -17981,7 +18012,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Poison (3/6/9) for each type this has.",
-      "Burn equal to your enemy's Poison.",
+      "Burn (3/6/9) for each type this has.",
       "When you sell an item, this gains that item's type(s)."
     ],
     "enchants": {
@@ -18229,12 +18260,12 @@ export const items = {
       "PoisonReference",
       "RegenReference"
     ],
-    "cooldown": 5,
+    "cooldown": 7,
     "ammo": null,
     "text": [
       "Deal 25 damage.",
-      "A Poison item gains + Poison equal to (10%/20%) of this item's damage for the fight.",
-      "A Regeneration item gains + Regeneration equal to (10%/20%) of this item's damage for the fight."
+      "A Poison item gains + Poison equal to (15%/25%) of this item's damage for the fight.",
+      "A Regeneration item gains + Regeneration equal to (15%/25%) of this item's damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",

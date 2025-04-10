@@ -3817,7 +3817,7 @@ export const skills = {
   },
   "Vital Renewal": {
     "text": [
-      "When you Slow, Freeze, Poison or Burn with an item, a Regeneration item gains (1/2/3) Regeneration for the fight."
+      "When you Slow with an item, Freeze with an item, Poison with an item, or Burn with an item, a Regeneration item gains (1/2/3) Regeneration for the fight."
     ],
     "tier": 1,
     "tags": [

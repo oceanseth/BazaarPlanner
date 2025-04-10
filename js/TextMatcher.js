@@ -330,10 +330,10 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Enchant a non-enchanted item for the fight. From Laboratory
-    regex: /^Enchant a non-enchanted item for the fight\.$/i,
+    regex: /^Enchant another non-enchanted item for the fight\.$/i,
     func: (item)=>{
         return ()=>{
-            const nonEnchantedItems = item.board.items.filter(i=>!i.tags.includes("Enchanted"));
+            const nonEnchantedItems = item.board.items.filter(i=>i.id!=item.id && !i.tags.includes("Enchanted"));
             if(nonEnchantedItems.length>0) {
                 const target = item.pickRandom(nonEnchantedItems);
                 target.addTemporaryEnchant();

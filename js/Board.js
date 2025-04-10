@@ -136,7 +136,6 @@ class Board {
         this.updateGoldElement();
         this.updateIncomeElement();
     }
-    
     setup() {
         this.setupItems();
     }
