@@ -230,6 +230,7 @@ function createCalculateBattleButton() {
 function followBoards(run) {
     if(run && run.d && (bottomPlayer.board.follow || topPlayer.board.follow)) {
         loadFromUrl(run.d);
+        window.history.pushState({state: run.d}, '', `#${run.d}`);
     }        
 }
 

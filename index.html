@@ -45,6 +45,8 @@
         <div id="Menu">
             <button id="simulator-header" class="section-header" onclick="showSection('simulator')">Simulator</button>
             <button id="puzzle-header" class="section-header" onclick="showSection('puzzle')">Daily Puzzle</button>
+            <button id="topbuilds-header" class="section-header" onclick="showSection('topbuilds')">Top Builds</button>
+            <button id="mybuilds-header" class="section-header" onclick="showSection('mybuilds')">My Builds</button>
             <button id="about-header" class="section-header" onclick="showSection('about')">About</button>
             <button id="faq-header" class="section-header" onclick="showSection('faq')">FAQ</button>
             <div id="top-banner-ad" style="display:block; width: calc(100% - 560px); height: 100px;">
@@ -68,7 +70,21 @@
             <a href="https://x.com/BazaarPlanner" class="section-header-right twitter-icon nounderline" target="_blank">&nbsp;</a>
             <div class="section-header" style="font-size: 10px;">Patch 0.1.9<br/>Mar 20</div>            
             <a href="javascript:showSection('settings',event)" class="section-header-right">⚙️</a>
+            </div>
         </div>
+        <div id="topbuilds" class="section" style="display: none;">
+            <h1>Top Builds</h1>
+            <div id="topbuilds-content">
+                Rank Means nothing other than how often you play.  
+                Whats the best build you've ever created? 
+                We will show which board you've created with the highest win rate vs the top builds seen.
+                <hr>
+                Currently collecting data, and will show the top builds and users seen on each day. The more people that run the tracker, the more data and accuracy this leaderboard will be.
+            </div>
+        </div>
+        <div id="mybuilds" class="section" style="display: none;">
+            <h1>My Builds</h1>
+            <div id="mybuilds-content"></div>
         </div>
         <div id="settings" class="section" style="display: none;">
             <h1>Mode</h1>

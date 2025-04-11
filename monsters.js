@@ -758,12 +758,7 @@ export const monsters = {
     "icon": "images/monsters/Ahexa.avif",
     "day": 4,
     "health": 900,
-    "skills": [
-      {
-        "name": "Flanking Toxins",
-        "tier": 1
-      }
-    ],
+    "skills": [],
     "items": [
       {
         "name": "Crypto",

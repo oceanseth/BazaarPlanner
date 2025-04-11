@@ -160,7 +160,12 @@ export function loadFromUrl(hash) {
                 board.player.startPlayerData.maxHealth = boardStateObject.health;
                 if(boardStateObject.playerName) board.player.startPlayerData.name = boardStateObject.playerName;
                 if(boardStateObject.hero) board.player.startPlayerData.hero = boardStateObject.hero;
-                if(boardStateObject.regen) board.player.startPlayerData.regen = boardStateObject.regen;
+                if(boardStateObject.regen!==undefined) board.player.startPlayerData.regen = boardStateObject.regen;
+                else board.player.startPlayerData.regen = 0;
+                if(boardStateObject.gold!==undefined) board.player.startPlayerData.gold = boardStateObject.gold;
+                else board.player.startPlayerData.gold = 0;
+                if(boardStateObject.income!==undefined) board.player.startPlayerData.income = boardStateObject.income;
+                else board.player.startPlayerData.income = 0;
                     
                 if(boardStateObject.skills) {
                     boardStateObject.skills.forEach(skill => {
