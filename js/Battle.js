@@ -245,7 +245,7 @@ export class Battle {
             console.error('Battle RNG not initialized!');
             return Math.random(); // Fallback to regular random
         }
-        if(evaluateMe) {
+        if(evaluateMe!==false) {
             return this.battleRNG() < evaluateMe;
         }
         return this.battleRNG();

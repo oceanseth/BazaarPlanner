@@ -10,6 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 import re
+import os
 
 # Priority mapping
 PRIORITY_MAP = {
@@ -32,8 +33,8 @@ def get_priority(driver, item_name):
         print(f"\nNavigating to search page: {search_url}")
         driver.get(search_url)
         
-        # Wait for Cloudflare
-        time.sleep(2)
+        # Wait for Cloudflare and initial page load
+        time.sleep(5)  # Increased initial wait time
         
         # Check if we're still on the Cloudflare page
         if "Just a moment..." in driver.title or "Verify you are human" in driver.page_source:
@@ -42,23 +43,37 @@ def get_priority(driver, item_name):
         
         print(f"Current URL: {driver.current_url}")
         
-        # Look for the card link
+        # Wait for and click the item image with better error handling
         wait = WebDriverWait(driver, 30)
-        card_container = wait.until(
-            EC.presence_of_element_located((By.CLASS_NAME, "CardList_cardContainer__pES_C"))
-        )
-        
-        # Find the first card link
-        card_link = card_container.find_element(By.TAG_NAME, "a")
-        item_url = card_link.get_attribute("href")
-        
-        print(f"Found item URL: {item_url}")
-        driver.get(item_url)
-        
-        # Wait for page load after redirect
-        time.sleep(2)
-        
-        print(f"Current URL after redirect: {driver.current_url}")
+        try:
+            # First wait for the page to be in a stable state
+            wait.until(lambda d: d.execute_script("return document.readyState") == "complete")
+            
+            # Then wait for the specific image
+            item_image = wait.until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, f"img[alt='{item_name}']"))
+            )
+            try:
+                driver.execute_script("arguments[0].scrollIntoView(true);", item_image)
+                time.sleep(1)  # Brief pause after scroll
+                item_image.click()
+            except Exception as click_error:
+                print(f"Standard click failed, trying JavaScript click: {click_error}")
+                driver.execute_script("arguments[0].click();", item_image)
+            
+            # Verify we've navigated to a new URL
+            time.sleep(2)
+            if "search" in driver.current_url:
+                print("Warning: Still on search page after click attempt")
+                return None
+            
+        except Exception as e:
+            print(f"Error during image click attempt: {str(e)}")
+            if "search" in driver.current_url:
+                print("Failed to navigate to item page")
+                return None
+
+        print(f"Current URL after clicking: {driver.current_url}")
 
         print("Waiting for page to load...")
         wait = WebDriverWait(driver, 30)
@@ -68,14 +83,22 @@ def get_priority(driver, item_name):
             EC.presence_of_element_located((By.ID, "engine-basic"))
         )
         html = basic_container.get_attribute("innerHTML")
-        regex = r'<div style="padding:4px;color:var\(--secondary\);font-size:14px">(Medium|Low|High|Immediate)</div>'
-        match = re.search(regex, html)
-        if match:
+        
+        #<div style="color: var(--secondary); font-size: 14px; text-align: center; text-decoration: underline dotted;">Medium</div>
+        #<div style="color: var(--secondary); font-size: 14px; text-align: center; text-decoration: underline dotted;">Medium</div>
+        # Modified regex to find all priority matches with escaped special characters
+        regex = r'<div style="color: var\(--secondary\); font-size: 14px; text-align: center; text-decoration: underline dotted;">(Medium|Low|High|Immediate)</div>'
+        matches = re.finditer(regex, html)
+        priorities = []
+        for match in matches:
             priority_text = match.group(1)
+            priorities.append(PRIORITY_MAP[priority_text])
             print(f"Found priority: {priority_text}")
-            return PRIORITY_MAP[priority_text]
+        
+        if priorities:
+            return priorities
         else:
-            print("No priority match found in HTML:", html)
+            print("No priority matches found in HTML:", html)
             return None
         
             
@@ -90,53 +113,73 @@ def get_priority(driver, item_name):
         return None
 
 def main():
-    # Initialize undetected-chromedriver with modified options
-    options = uc.ChromeOptions()
-    # options.add_argument('--headless')  # Remove headless mode to allow manual solving
-    options.add_argument('--disable-blink-features=AutomationControlled')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    driver = uc.Chrome(options=options)
-    
     try:
-        # Read items.js
-        with open('items.js', 'r') as f:
-            content = f.read()
+        # Get the current directory where the script is running
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        items_js_path = os.path.join(current_dir, 'items.js')
+        
+        # Store the updated items in memory
+        updated_items = None
+        items_json = None
+        
+        # Read items.js first and store in memory
+        print(f"Reading items.js from {items_js_path}...")
+        with open(items_js_path, 'r', encoding='utf-8') as read_file:
+            content = read_file.read()
             items_json = json.loads(content.replace('export const items = ', '').rstrip(';'))
         
-        # Process each item
-        for item_name, item_data in items_json.items():
-            print(f"Processing {item_name}...")
-            
-            num_text_lines = len(item_data['text'])
-            
-            if 'priorities' not in item_data:
-                item_data['priorities'] = []
-                
-            for i in range(num_text_lines):
-                priority = get_priority(driver, item_name)
-                if priority is None:
-                    print(f"Warning: Using default priority 0 for {item_name} text line {i+1}")
-                    priority = 0
-                
-                if i < len(item_data['priorities']):
-                    item_data['priorities'][i] = priority
-                else:
-                    item_data['priorities'].append(priority)
-                    
-            if len(item_data['priorities']) > num_text_lines:
-                item_data['priorities'] = item_data['priorities'][:num_text_lines]
-            
-            # Add delay to avoid overwhelming the server
-            time.sleep(1)
+        # Initialize Chrome after file read is complete
+        options = uc.ChromeOptions()
+        options.add_argument('--disable-blink-features=AutomationControlled')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--headless')  
+        driver = uc.Chrome(options=options, version_main=134)
         
-        # Write updated items.js file
-        with open('items-test.js', 'w') as f:
-            f.write('export const items = ')
-            json.dump(items_json, f, indent=2)
-            f.write(';')
-    finally:
-        driver.quit()
+        try:
+            # Process first 5 items
+            for i, (item_name, item_data) in enumerate(items_json.items()):               
+                    
+                print(f"\nProcessing item {i+1}/5: {item_name}...")
+                
+                num_text_lines = len(item_data['text'])
+                priorities = get_priority(driver, item_name)
+                
+                if priorities is None:
+                    print(f"Warning: Using default priorities [0] * {num_text_lines} for {item_name}")
+                    priorities = [0] * num_text_lines
+                elif len(priorities) != num_text_lines:
+                    print(f"Warning: Number of priorities ({len(priorities)}) doesn't match number of text lines ({num_text_lines})")
+                    priorities.extend([0] * (num_text_lines - len(priorities)))
+                
+                # Update the priorities list
+                item_data['priorities'] = priorities[:num_text_lines]
+                print(f"Saved priorities for {item_name}: {priorities[:num_text_lines]}")
+                
+                # Add delay to avoid overwhelming the server
+                time.sleep(1)
+            
+            # Store the updated items
+            updated_items = items_json
+            
+        finally:
+            driver.quit()
+        
+        # Save file after all processing is complete
+        if updated_items is not None:
+            print(f"\nSaving to items.js...")
+            
+            # Prepare the content as a string
+            output_content = 'export const items = ' + json.dumps(updated_items, indent=2) + ';'
+            
+            # Write to items-test.js
+            with open(os.path.join(current_dir, 'items.js'), 'w', encoding='utf-8') as write_file:
+                write_file.write(output_content)
+            print("Save completed!")
+            
+    except Exception as e:
+        print(f"Error in main: {str(e)}")
+        raise
 
 if __name__ == "__main__":
     main()

@@ -45,6 +45,7 @@ def process_monster(monster):
         "icon": f"images/monsters/{re.sub(r'[ \'\"\(\)\-_\.]', '', monster['cardName'])}.avif",
         "day": monster["day"],
         "health": monster["health"],
+        "level": monster["level"],
         "skills": [],
         "items": []
     }

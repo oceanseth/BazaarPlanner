@@ -2,6 +2,7 @@ import { Item } from './Item.js';
 import { Skill } from './Skill.js';
 import { updateUrlState } from './utils.js';
 import { setupChangeListeners } from './utils.js';
+import { loadFromUrl } from './utils.js';
 
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
@@ -20,8 +21,58 @@ class Board {
         Board.boards.set(boardId,this);
         this.reset();
         this.player.reset();
+    }    
+    loadEncounter(encounter) {
+        loadFromUrl(encounter.d);
+        window.history.pushState({state: encounter.d}, '', `#${encounter.d}`);
     }
-    
+    loadRun(run) {
+        if(run && run.d && (bottomPlayer.board.follow || topPlayer.board.follow)) {
+            loadFromUrl(run.d);
+            window.history.pushState({state: run.d}, '', `#${run.d}`);
+        }        
+    }
+    loadFullRun(run) {
+        //const currentEncounter = run.currentEncounter;
+        this.fullRunData = run;
+        if(run.encounters) {
+        let html = '<select id="run-select"><option disabled>Encounters</option>';
+            run.encounters.forEach( (e,i)=> {
+                html += `<option style="background-color: ${e.v=="0"?"#aa4444":"#44aa44"};" value="${i}">${e.v=="0"?"Loss":"Win"} - ${e.name}</option>`;
+            });
+            html += '</select>';
+            this.importElement.innerHTML = html;
+            this.importElement.querySelector('#run-select').onchange = (e) => {      
+                this.loadEncounter(run.encounters[e.target.value]);
+            };
+        }
+    }
+    _followingCurrentRunId = null;
+    set follow(value) {
+        //only follow ourselves for now
+        this._follow = value;
+        if(value) {
+            firebase.database().ref('users/'+user.uid+"/currentrun").on('value', snapshot => {
+                const runValue = snapshot.val();
+                this.loadRun(runValue);
+                if(this._followingCurrentRunId!==runValue.id) {
+                    if(this._followingCurrentRunId) {
+                        firebase.database().ref('users/'+user.uid+"/runs/"+this._followingCurrentRunId).off();
+                    }
+                    this._followingCurrentRunId = runValue.id;
+                        
+                    firebase.database().ref('users/'+user.uid+"/runs/"+runValue.id).on('value', snapshot => {
+                        this.loadFullRun(snapshot.val());
+                    });
+                }
+            });
+        } else {
+            firebase.database().ref('users/'+user.uid+"/currentrun").off();
+        }
+    }
+    get follow() {
+        return this._follow;
+    }
     static getBoardFromId(boardId) {
         if(Board.boards.has(boardId)) return Board.boards.get(boardId);
         console.log("Board not found: " + boardId);
@@ -136,7 +187,6 @@ class Board {
         this.updateGoldElement();
         this.updateIncomeElement();
     }
-    
     setup() {
         this.setupItems();
     }
@@ -309,7 +359,9 @@ class Board {
             this.playerElement.style.backgroundImage = `url(${monsters[this.player?.name].icon})`;
         } else if(Item.characterTags.includes(this.player?.name)) {
             this.playerElement.style.backgroundImage = `url(images/fromBT/${this.player?.name}.png)`;
-        } else {
+        } else if(Item.characterTags.includes(this.player?.hero)) {
+            this.playerElement.style.backgroundImage = `url(images/fromBT/${this.player?.hero}.png)`;
+        }else {
             this.playerElement.style.backgroundImage = "none";
         }
         if(this.options.editable) {
@@ -1117,6 +1169,7 @@ class Board {
 
         this.player.startPlayerData.maxHealth = monsterData.health;
         this.player.startPlayerData.name = monsterData.name;
+        this.player.startPlayerData.regen = monsterData.regen||0;
 
         this.player.battle.resetBattle();
         if(this.options.editable) updateUrlState();

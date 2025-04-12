@@ -98,7 +98,10 @@ export class Item {
         }
 
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
+        
+        /*
         if(this.startItemData.value==undefined) {
+            this.startItemData.value = 0;
              this.startItemData.value = this.getInitialValue();
              if(items[this.name] && items[this.name].value==undefined) {
                 items[this.name].value = this.startItemData.value;
@@ -106,7 +109,9 @@ export class Item {
         }
 
         this.value = this.startItemData.value;
+        
         if(itemData.value==undefined) itemData.value = this.startItemData.value;
+        */
         this.resetCooldown();
         this.element = this.createElement();
         this.setupEditableEvents();
@@ -294,6 +299,7 @@ export class Item {
         this.textMatches = [];
         this.lifesteal = 0;
         this.isDestroyed = false;
+        this.value = this.startItemData.value + this.getInitialValue();
         this.element.classList.remove('destroyed');
         this.hasteTimeRemaining = 0;
         this.hasDoubleHasteDuration = false;
@@ -1629,6 +1635,10 @@ export class Item {
                 
             case 'damage':
                 this.damage += amount;
+                if(source && source.hasDoubleDamageBonus) {
+                    this.damage += amount;
+                    this.log(this.name + " gained " + amount.toFixed(0) + "damage (double damage bonus) from " + source.name);
+                }
                 // this.board.damageChangedTriggers.forEach(func => func(this));
                 break;
                 
@@ -2738,7 +2748,13 @@ export class Item {
                             });
                         });
                         return;
-
+                    case "slow with an item":
+                        this.board.slowTriggers.set(this.id+triggerFunctionFromText.text, (target, source) => {
+                            if(this.board.items.some(i=>i.id==source.id)) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                        return;
                     case "slow":
                         this.board.slowTriggers.set(this.id,(i,source)=>{
                             triggerFunctionFromText(source);
@@ -2748,8 +2764,15 @@ export class Item {
                         this.board.player.hostileTarget.board.freezeTriggers.set(this.id,triggerFunctionFromText);
                         return;
                     case "freeze":
-                        this.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),(target,source)=>{
+                        this.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
                                 triggerFunctionFromText(source);
+                        });
+                        return;
+                    case "freeze with an item":
+                        this.board.freezeTriggers.set(this.id+triggerFunctionFromText.text, (target, source) => {
+                            if(this.board.items.some(i=>i.id==source.id)) {
+                                triggerFunctionFromText(source);
+                            }
                         });
                         return;
                     case "crit":
@@ -4606,10 +4629,10 @@ export class Item {
                 if(item.tags.includes(match[1])) {
                     switch(match[3]) {
                         case "Slow":    
-                            item.slow += value;
+                            item.slowBonus += value;
                             break;
                         case "Haste":
-                            item.haste += value;
+                            item.hasteBonus += value;
                             break;                            
                         default:
                             item.gain(value,match[3].toLowerCase());

@@ -228,8 +228,10 @@ function createCalculateBattleButton() {
     document.getElementById('simulator').appendChild(calculateBattleButton);
 }
 
+
 function setLoggedInUser (user) {        
         if (user) {
+            $(".requireLogin").removeClass("requireLogin");
             // User is signed in
             user.getIdToken().then(function(accessToken) {
                 window.user = user;
@@ -254,7 +256,6 @@ function setLoggedInUser (user) {
             loadFromUrl();            
         } else {
             showSection('puzzle');
-            Puzzle.loadPuzzle();
         }
 }
 

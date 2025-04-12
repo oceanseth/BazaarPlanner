@@ -330,10 +330,10 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Enchant a non-enchanted item for the fight. From Laboratory
-    regex: /^Enchant a non-enchanted item for the fight\.$/i,
+    regex: /^Enchant another non-enchanted item for the fight\.$/i,
     func: (item)=>{
         return ()=>{
-            const nonEnchantedItems = item.board.items.filter(i=>!i.tags.includes("Enchanted"));
+            const nonEnchantedItems = item.board.items.filter(i=>i.id!=item.id && !i.tags.includes("Enchanted"));
             if(nonEnchantedItems.length>0) {
                 const target = item.pickRandom(nonEnchantedItems);
                 target.addTemporaryEnchant();
@@ -624,6 +624,19 @@ TextMatcher.matchers.push({
         if(dooltron.length>0 && !dooltron[0].tags.includes("Core")) {
             dooltron[0].tags.push("Core");
         }
+        return ()=>{};
+    },
+});
+TextMatcher.matchers.push({
+    //This has double damage bonus.
+    regex: /^This has double damage bonus\.$/i,
+    func: (item, match)=>{
+        const [strippedName] = Item.stripEnchantFromName(item.name);
+        //remove the weapon tag given by obsidian assuming this text came from that enchant
+        if(!items[strippedName].tags.includes("Weapon") && item.tags.includes("Weapon")) {
+            item.tags = item.tags.filter(tag => tag !== "Weapon");
+        }
+        item.hasDoubleDamageBonus = true;
         return ()=>{};
     },
 });

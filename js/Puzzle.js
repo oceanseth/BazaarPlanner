@@ -56,6 +56,10 @@ export class Puzzle {
     }
     static updateSelect() {
         if(!Puzzle.puzzleId) { return; }
+        if(Puzzle.selectElement) {
+            Puzzle.selectElement.remove();
+            Puzzle.selectElement = null;
+        }
         if(!Puzzle.selectElement) {
             Puzzle.selectElement = document.createElement("select");
             Puzzle.selectElement.id = "puzzle-select";
@@ -86,6 +90,14 @@ export class Puzzle {
         }
         firebase.database().ref(`puzzles/${Puzzle.puzzleId}/data`).once('value').then(snapshot => {
             const data = snapshot.val();
+            if(data==null) {
+                Puzzle.currentPuzzleId = Puzzle.puzzleId-1;
+                Puzzle.puzzleId = Puzzle.currentPuzzleId;
+                console.log("No puzzle data found for puzzle "+Puzzle.puzzleId);
+                Puzzle.updateSelect();
+                Puzzle.loadPuzzleById(Puzzle.currentPuzzleId);                
+                return;
+            }
             Puzzle.puzzleData = data;
             document.getElementById("puzzle-content").innerHTML = Puzzle.initialContent;
             const titleElement = document.getElementById("puzzle-title");

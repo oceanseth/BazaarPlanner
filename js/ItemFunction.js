@@ -361,6 +361,10 @@ ItemFunction.items.set("Blast Doors",(item)=>{
         }
     });
 });
+//"When you Slow with an item, Freeze with an item, Poison with an item, or Burn with an item, a Regeneration item gains (1/2/3) Regeneration for the fight." from Vital Renewal
+ItemFunction.items.set("Vital Renewal",(item)=>{
+    item.setupTextFunctions("When you Slow with an item, Freeze with an item, Poison with an item, or Burn with an item, a Regeneration item gains (1/2/3) Regeneration for the fight.");    
+});
 
 //Deal 20 damage
 //When you Freeze, Burn or Poison, this gains ( 10 » 20 » 30 ) damage for the fight. from Refractor

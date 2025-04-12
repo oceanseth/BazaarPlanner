@@ -186,11 +186,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Poison."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Amber": {
     "name": "Amber",
@@ -221,7 +217,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Ambergris": {
@@ -258,7 +254,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Anchor": {
@@ -294,7 +290,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Angry Balloon Bot": {
@@ -330,7 +326,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Antimatter Chamber": {
@@ -392,12 +388,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Deal damage equal to 10 times this item's Regeneration."
-    },
-    "priorities": [
-      1,
-      0,
-      0
-    ]
+    }
   },
   "Apropos Chapeau": {
     "name": "Apropos Chapeau",
@@ -436,7 +427,7 @@ export const items = {
       2,
       2,
       2,
-      0
+      2
     ]
   },
   "Arbalest": {
@@ -472,7 +463,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Arc Blaster": {
@@ -507,7 +498,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Arken's Ring": {
@@ -564,8 +555,8 @@ export const items = {
     },
     "priorities": [
       1,
-      2,
-      0
+      1,
+      1
     ]
   },
   "Astrolabe": {
@@ -634,7 +625,8 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1,
+      1
     ]
   },
   "Atlas Stone": {
@@ -668,7 +660,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Atlatl": {
@@ -703,7 +695,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "ATM": {
@@ -804,11 +796,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to this item's Shield."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Bag of Jewels": {
     "name": "Bag of Jewels",
@@ -895,7 +883,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Balloon Bot": {
@@ -929,7 +917,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Bandages": {
@@ -1051,7 +1039,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Basilisk Fang": {
@@ -1087,8 +1075,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Battery": {
@@ -1224,8 +1212,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Beehive": {
@@ -1297,8 +1285,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Belt": {
@@ -1351,7 +1339,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Bill Dozer": {
@@ -1389,8 +1377,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Billboard": {
@@ -1429,8 +1417,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1
     ]
   },
   "Black Ice": {
@@ -1464,7 +1451,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Black Pepper": {
@@ -1500,7 +1487,7 @@ export const items = {
     },
     "priorities": [
       0,
-      2,
+      0,
       0
     ]
   },
@@ -1535,7 +1522,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Blast Doors": {
@@ -1570,7 +1557,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "BLK-SP1D3R": {
@@ -1603,11 +1590,7 @@ export const items = {
       "Deadly": "Your Friends have +20% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 20 Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Blow Torch": {
     "name": "Blow Torch",
@@ -1705,11 +1688,7 @@ export const items = {
       "Deadly": "Your Friends have +20% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 20 Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Blue Gumball": {
     "name": "Blue Gumball",
@@ -1900,7 +1879,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Blunderbuss": {
@@ -1936,7 +1915,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Boiling Flask": {
@@ -1967,11 +1946,7 @@ export const items = {
       "Deadly": "Adjacent Potions have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 30 Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Bolas": {
     "name": "Bolas",
@@ -2041,7 +2016,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Booby Trap": {
@@ -2109,7 +2084,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Bootstraps": {
@@ -2174,11 +2149,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      2
-    ]
+    }
   },
   "Bottled Lightning": {
     "name": "Bottled Lightning",
@@ -2216,7 +2187,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "Bottled Tornado": {
@@ -2246,11 +2217,7 @@ export const items = {
       "Fiery": "Burn 9.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 60 Damage."
-    },
-    "priorities": [
-      1,
-      1
-    ]
+    }
   },
   "Brass Knuckles": {
     "name": "Brass Knuckles",
@@ -2283,7 +2250,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Brick Buddy": {
@@ -2318,7 +2285,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Briefcase": {
@@ -2354,7 +2321,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Broken Shackles": {
@@ -2388,7 +2355,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Bunker": {
@@ -2421,7 +2388,6 @@ export const items = {
       "Obsidian": "The first time you fall below half health each fight, Deal 300 damage."
     },
     "priorities": [
-      0,
       0
     ]
   },
@@ -2457,7 +2423,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Business Card": {
@@ -2481,7 +2447,7 @@ export const items = {
     },
     "priorities": [
       2,
-      1
+      2
     ]
   },
   "Busy Bee": {
@@ -2582,7 +2548,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Calcinator": {
@@ -2614,12 +2580,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      2,
-      1
-    ]
+    }
   },
   "Calico": {
     "name": "Calico",
@@ -2652,12 +2613,7 @@ export const items = {
       "Deadly": "This has double Crit Chance bonus.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0,
-      0
-    ]
+    }
   },
   "Caltrops": {
     "name": "Caltrops",
@@ -2717,11 +2673,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Candy Mail": {
     "name": "Candy Mail",
@@ -2743,7 +2695,7 @@ export const items = {
     "enchants": {},
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Cannon": {
@@ -2779,7 +2731,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Cannonade": {
@@ -2912,12 +2864,7 @@ export const items = {
       "Deadly": "Your items have +20% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double damage bonus."
-    },
-    "priorities": [
-      0,
-      0,
-      0
-    ]
+    }
   },
   "Captain's Wheel": {
     "name": "Captain's Wheel",
@@ -2949,8 +2896,8 @@ export const items = {
       "Obsidian": "Deal 20 Damage."
     },
     "priorities": [
-      0,
-      0
+      2,
+      2
     ]
   },
   "Card Table": {
@@ -2979,11 +2926,7 @@ export const items = {
       "Deadly": "Your Friends gain +10% Crit Chance for the fight.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 40 Damage."
-    },
-    "priorities": [
-      0,
-      3
-    ]
+    }
   },
   "Cargo Shorts": {
     "name": "Cargo Shorts",
@@ -3018,8 +2961,7 @@ export const items = {
     },
     "priorities": [
       1,
-      1,
-      0
+      1
     ]
   },
   "Cash Cannon": {
@@ -3055,7 +2997,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Cash Register": {
@@ -3134,7 +3076,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Cauldron": {
@@ -3170,8 +3112,7 @@ export const items = {
     },
     "priorities": [
       1,
-      1,
-      0
+      1
     ]
   },
   "Cellar": {
@@ -3203,11 +3144,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Deal damage equal to 10 times this item's Regeneration."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Char Cole": {
     "name": "Char Cole",
@@ -3240,7 +3177,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Charging Station": {
@@ -3274,7 +3211,7 @@ export const items = {
     },
     "priorities": [
       2,
-      1
+      2
     ]
   },
   "Chemsnail": {
@@ -3411,7 +3348,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Chum": {
@@ -3445,7 +3382,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Chunk of Gold": {
@@ -3472,10 +3409,7 @@ export const items = {
       "Fiery": "When you sell this, your leftmost Burn item gains +1 Burn.",
       "Deadly": "When you sell this, your leftmost item gains 2% Crit Chance.",
       "Obsidian": "When you sell this, your leftmost Weapon item gains +10 damage."
-    },
-    "priorities": [
-      0
-    ]
+    }
   },
   "Chunk of Lead": {
     "name": "Chunk of Lead",
@@ -3503,10 +3437,7 @@ export const items = {
       "Deadly": "...and Enchant the transformation with Deadly if able.",
       "Radiant": "...and Enchant the transformation with Radiant if able.",
       "Obsidian": "...and Enchant the transformation with Obsidian if able."
-    },
-    "priorities": [
-      0
-    ]
+    }
   },
   "Cinders": {
     "name": "Cinders",
@@ -3634,7 +3565,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Clawrence": {
@@ -3669,7 +3600,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Claws": {
@@ -3703,7 +3634,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Clockwork Blades": {
@@ -3738,7 +3669,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Closed Sign": {
@@ -3858,12 +3789,7 @@ export const items = {
       "Deadly": "When you Freeze, your items gain +10% Crit Chance for the fight.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "When you Freeze, Deal damage equal to 10 times this item's Regeneration."
-    },
-    "priorities": [
-      1,
-      0,
-      0
-    ]
+    }
   },
   "Colossal Popsicle": {
     "name": "Colossal Popsicle",
@@ -3980,7 +3906,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Concealed Dagger": {
@@ -4040,7 +3966,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Cool LEDs": {
@@ -4073,7 +3999,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Coolant": {
@@ -4105,7 +4031,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Cooling Fan": {
@@ -4140,7 +4066,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Copper Ed": {
@@ -4209,7 +4135,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Coral Armor": {
@@ -4244,7 +4170,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Cosmic Amulet": {
@@ -4279,7 +4205,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Cosmic Plumage": {
@@ -4352,7 +4278,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Covetous Raven": {
@@ -4384,11 +4310,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Crane": {
     "name": "Crane",
@@ -4424,8 +4346,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Critical Core": {
@@ -4465,9 +4387,9 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0,
-      0
+      1,
+      1,
+      1
     ]
   },
   "Crocodile Tears": {
@@ -4500,11 +4422,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Crook": {
     "name": "Crook",
@@ -4539,7 +4457,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Crow's Nest": {
@@ -4610,7 +4528,7 @@ export const items = {
     },
     "priorities": [
       2,
-      1
+      2
     ]
   },
   "Cryosleeve": {
@@ -4646,7 +4564,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      3
+      1
     ]
   },
   "Cryosphere": {
@@ -4739,7 +4657,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      2
+      1
     ]
   },
   "Curry": {
@@ -4774,7 +4692,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Cutlass": {
@@ -4810,8 +4728,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Cybersecurity": {
@@ -4846,7 +4764,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Dam": {
@@ -4913,11 +4831,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      0,
-      0
-    ]
+    }
   },
   "Death Caps": {
     "name": "Death Caps",
@@ -4951,8 +4865,7 @@ export const items = {
     },
     "priorities": [
       1,
-      1,
-      0
+      1
     ]
   },
   "Defense Matrix": {
@@ -4984,11 +4897,7 @@ export const items = {
       "Deadly": "Adjacent items have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "When you use an adjacent item, deal Damage 10."
-    },
-    "priorities": [
-      2,
-      0
-    ]
+    }
   },
   "Diana-Saur": {
     "name": "Diana-Saur",
@@ -5129,12 +5038,7 @@ export const items = {
       "Deadly": "If both adjacent items are Aquatic, they have 50% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 30 Damage."
-    },
-    "priorities": [
-      1,
-      0,
-      0
-    ]
+    }
   },
   "Diving Helmet": {
     "name": "Diving Helmet",
@@ -5167,12 +5071,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "Adjacent Aquatic items have +25% Crit Chance.",
       "Obsidian": "Deal damage equal to this item's Shield."
-    },
-    "priorities": [
-      1,
-      0,
-      0
-    ]
+    }
   },
   "DJ Rob0t": {
     "name": "DJ Rob0t",
@@ -5206,8 +5105,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0,
-      0
+      2
     ]
   },
   "Dock Lines": {
@@ -5275,7 +5173,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Dooley's Scarf": {
@@ -5309,8 +5207,8 @@ export const items = {
       "Obsidian": "Deal damage equal to this item's Shield."
     },
     "priorities": [
-      0,
-      0
+      1,
+      1
     ]
   },
   "Dooltron": {
@@ -5350,12 +5248,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0,
-      0
-    ]
+    }
   },
   "Dooltron Mainframe": {
     "name": "Dooltron Mainframe",
@@ -5387,11 +5280,7 @@ export const items = {
       "Deadly": "Your Friends have +20% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "When you use a Friend, Deal 20 Damage."
-    },
-    "priorities": [
-      0,
-      0
-    ]
+    }
   },
   "Double Barrel": {
     "name": "Double Barrel",
@@ -5425,7 +5314,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Double Whammy": {
@@ -5460,7 +5349,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Dragon Heart": {
@@ -5494,7 +5383,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Dragon Tooth": {
@@ -5532,7 +5421,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Dragon Whelp": {
@@ -5605,7 +5494,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Dragon's Breath": {
@@ -5640,8 +5529,8 @@ export const items = {
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
     },
     "priorities": [
-      0,
-      0
+      1,
+      1
     ]
   },
   "Duct Tape": {
@@ -5675,7 +5564,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Eagle Talisman": {
@@ -5741,7 +5630,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Ectoplasm": {
@@ -5849,11 +5738,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 20 damage."
-    },
-    "priorities": [
-      1,
-      1
-    ]
+    }
   },
   "Emerald": {
     "name": "Emerald",
@@ -5885,7 +5770,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Energy Potion": {
@@ -5940,7 +5825,7 @@ export const items = {
     "enchants": {},
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Exoskeleton": {
@@ -6029,7 +5914,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Fang": {
@@ -6191,7 +6076,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Fire Potion": {
@@ -6256,11 +6141,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      1
-    ]
+    }
   },
   "First Aiden": {
     "name": "First Aiden",
@@ -6294,7 +6175,7 @@ export const items = {
     },
     "priorities": [
       0,
-      2
+      0
     ]
   },
   "Fishing Net": {
@@ -6364,7 +6245,7 @@ export const items = {
     },
     "priorities": [
       2,
-      1
+      2
     ]
   },
   "Fixer Upper": {
@@ -6400,7 +6281,7 @@ export const items = {
     },
     "priorities": [
       1,
-      3
+      1
     ]
   },
   "Flagship": {
@@ -6437,7 +6318,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Flail": {
@@ -6471,7 +6352,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Flamberge": {
@@ -6505,7 +6386,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Flamethrower": {
@@ -6605,12 +6486,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      1,
-      0
-    ]
+    }
   },
   "Force Field": {
     "name": "Force Field",
@@ -6645,7 +6521,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Forklift": {
@@ -6682,7 +6558,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Fort": {
@@ -6717,8 +6593,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Frost Potion": {
@@ -6787,7 +6663,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "Frozen Flame": {
@@ -6820,12 +6696,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      1,
-      0
-    ]
+    }
   },
   "Gamma Ray": {
     "name": "Gamma Ray",
@@ -6858,7 +6729,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Ganjo": {
@@ -6929,7 +6800,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Gavel": {
@@ -6996,7 +6867,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Genie Lamp": {
@@ -7053,7 +6924,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      3
+      1
     ]
   },
   "Gland": {
@@ -7152,7 +7023,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Golf Clubs": {
@@ -7187,7 +7058,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Goop Flail": {
@@ -7220,12 +7091,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      1,
-      0
-    ]
+    }
   },
   "GPU": {
     "name": "GPU",
@@ -7290,7 +7156,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Grappling Hook": {
@@ -7390,7 +7256,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Grindstone": {
@@ -7455,11 +7321,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Poison."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Gumball Machine": {
     "name": "Gumball Machine",
@@ -7595,7 +7457,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Haladie": {
@@ -7629,7 +7491,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Hammer": {
@@ -7665,7 +7527,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Hammlet": {
@@ -7702,7 +7564,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Hammock": {
@@ -7736,7 +7598,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Handaxe": {
@@ -7771,7 +7633,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Harmadillo": {
@@ -7807,7 +7669,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Harpoon": {
@@ -7874,7 +7736,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Hemlock": {
@@ -7907,8 +7769,7 @@ export const items = {
       "Obsidian": "Deal damage equal to 10 times this item's Poison."
     },
     "priorities": [
-      1,
-      0
+      1
     ]
   },
   "Hogwash": {
@@ -7943,7 +7804,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Holsters": {
@@ -8040,7 +7901,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Hot Springs": {
@@ -8073,7 +7934,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Hot Stones": {
@@ -8104,11 +7965,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Hourglass": {
     "name": "Hourglass",
@@ -8137,10 +7994,7 @@ export const items = {
       "Deadly": "Your Tools have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "The first time you fall below half health each fight, Deal 60 damage."
-    },
-    "priorities": [
-      0
-    ]
+    }
   },
   "Hydraulic Squeezer": {
     "name": "Hydraulic Squeezer",
@@ -8175,8 +8029,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Ice 9000": {
@@ -8212,7 +8066,7 @@ export const items = {
     },
     "priorities": [
       0,
-      1,
+      0,
       0
     ]
   },
@@ -8246,12 +8100,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      1,
-      0
-    ]
+    }
   },
   "Ice Cream Truck": {
     "name": "Ice Cream Truck",
@@ -8286,7 +8135,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Ice Cubes": {
@@ -8317,7 +8166,7 @@ export const items = {
       "Obsidian": "Deal 60 Damage."
     },
     "priorities": [
-      0
+      1
     ]
   },
   "Ice Luge": {
@@ -8349,11 +8198,7 @@ export const items = {
       "Deadly": "When an adjacent item gains Freeze, it gains 10% Crit Chance for the fight.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 40 Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Ice Pick": {
     "name": "Ice Pick",
@@ -8390,7 +8235,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "Iceberg": {
@@ -8461,8 +8306,8 @@ export const items = {
     "priorities": [
       1,
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Icicle": {
@@ -8527,8 +8372,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Ignition Core": {
@@ -8566,8 +8411,8 @@ export const items = {
     },
     "priorities": [
       1,
-      2,
-      0
+      1,
+      1
     ]
   },
   "IllusoRay": {
@@ -8603,7 +8448,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Improvised Bludgeon": {
@@ -8640,7 +8485,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "Incendiary Rounds": {
@@ -8708,7 +8553,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Induction Aegis": {
@@ -8812,11 +8657,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Deal damage equal to 10 times this item's Regeneration."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Insect Wing": {
     "name": "Insect Wing",
@@ -8875,11 +8716,7 @@ export const items = {
       "Shiny": "This has +1 Multicast.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 40 Damage."
-    },
-    "priorities": [
-      1,
-      1
-    ]
+    }
   },
   "Isochoric Freezer": {
     "name": "Isochoric Freezer",
@@ -8940,11 +8777,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "When you use a Weapon, it gains +10% Crit Chance for the fight.",
       "Obsidian": "When you use a Weapon, Deal 30 Damage."
-    },
-    "priorities": [
-      0,
-      0
-    ]
+    }
   },
   "Jabalian Longbow": {
     "name": "Jabalian Longbow",
@@ -8976,12 +8809,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0,
-      0
-    ]
+    }
   },
   "Javelin": {
     "name": "Javelin",
@@ -9016,7 +8844,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Jellyfish": {
@@ -9052,7 +8880,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Jewelry": {
@@ -9123,7 +8951,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "Junkyard Catapult": {
@@ -9196,7 +9024,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Junkyard Lance": {
@@ -9263,7 +9091,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Katana": {
@@ -9359,7 +9187,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Knee Brace": {
@@ -9416,7 +9244,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Kukri": {
@@ -9451,7 +9279,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Laboratory": {
@@ -9482,11 +9310,7 @@ export const items = {
       "Deadly": "Your Relics and Enchanted items have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "When you use a Relic or Enchanted item, deal 30 Damage."
-    },
-    "priorities": [
-      2,
-      0
-    ]
+    }
   },
   "Landscraper": {
     "name": "Landscraper",
@@ -9522,8 +9346,8 @@ export const items = {
     },
     "priorities": [
       0,
-      3,
-      1
+      0,
+      0
     ]
   },
   "Langxian": {
@@ -9557,7 +9381,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Laser Pistol": {
@@ -9624,7 +9448,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Ledger": {
@@ -9645,10 +9469,7 @@ export const items = {
       "Golden": "The sell requirement is reduced by 5.",
       "Shiny": "This has double value gain.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed."
-    },
-    "priorities": [
-      3
-    ]
+    }
   },
   "Leeches": {
     "name": "Leeches",
@@ -9684,8 +9505,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Lemonade Stand": {
@@ -9721,7 +9542,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Lens": {
@@ -9757,7 +9578,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Letter Opener": {
@@ -9790,12 +9611,7 @@ export const items = {
       "Deadly": "This no longer loses Crit Chance on use.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      1,
-      0
-    ]
+    }
   },
   "Library": {
     "name": "Library",
@@ -9825,11 +9641,7 @@ export const items = {
       "Deadly": "Your non-Weapon items have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "When you use a non-Weapon item, Deal 25 damage."
-    },
-    "priorities": [
-      0,
-      0
-    ]
+    }
   },
   "Life Preserver": {
     "name": "Life Preserver",
@@ -9897,7 +9709,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Lightbulb": {
@@ -10033,8 +9845,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Lion Cane": {
@@ -10069,7 +9881,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Lockbox": {
@@ -10162,8 +9974,8 @@ export const items = {
     },
     "priorities": [
       1,
-      2,
-      0
+      1,
+      1
     ]
   },
   "Luxury Kiuas": {
@@ -10197,11 +10009,7 @@ export const items = {
       "Deadly": "When you sell a Property, this item gains 5% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Luxury Tents": {
     "name": "Luxury Tents",
@@ -10235,7 +10043,7 @@ export const items = {
     },
     "priorities": [
       1,
-      3
+      1
     ]
   },
   "Magic Carpet": {
@@ -10270,7 +10078,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1,
+      1
     ]
   },
   "Magician's Top Hat": {
@@ -10355,7 +10164,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Magnus' Femur": {
@@ -10388,11 +10197,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      0,
-      0
-    ]
+    }
   },
   "Makeshift Barricade": {
     "name": "Makeshift Barricade",
@@ -10423,7 +10228,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Mantis Shrimp": {
@@ -10459,12 +10264,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      1,
-      1
-    ]
+    }
   },
   "Marble Scalemail": {
     "name": "Marble Scalemail",
@@ -10497,7 +10297,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Marbles": {
@@ -10530,7 +10330,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Masterpiece": {
@@ -10623,8 +10423,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Med Kit": {
@@ -10682,10 +10482,7 @@ export const items = {
       "Deadly": "The first time you would die each fight, your items gain +25% Crit Chance for the fight.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "The first time you would die each fight, deal Damage equal to this item's Heal."
-    },
-    "priorities": [
-      1
-    ]
+    }
   },
   "Memory Card": {
     "name": "Memory Card",
@@ -10720,7 +10517,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Metronome": {
@@ -10785,7 +10582,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Mirror": {
@@ -10813,10 +10610,7 @@ export const items = {
       "Deadly": "...and Enchant the transformation with Deadly if able.",
       "Radiant": "...and Enchant the transformation with Radiant if able.",
       "Obsidian": "...and Enchant the transformation with Obsidian if able."
-    },
-    "priorities": [
-      1
-    ]
+    }
   },
   "Miss Isles": {
     "name": "Miss Isles",
@@ -10852,8 +10646,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Model Ship": {
@@ -10964,8 +10758,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Monitor Lizard": {
@@ -11000,7 +10794,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Monocle": {
@@ -11072,8 +10866,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Mortar & Pestle": {
@@ -11107,7 +10901,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Motherboard": {
@@ -11173,11 +10967,7 @@ export const items = {
       "Deadly": "Your items have +10% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 25 Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Mr. Richardson": {
     "name": "Mr. Richardson",
@@ -11209,11 +10999,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to this item's Shield."
-    },
-    "priorities": [
-      1,
-      2
-    ]
+    }
   },
   "Multitool": {
     "name": "Multitool",
@@ -11247,7 +11033,7 @@ export const items = {
     },
     "priorities": [
       2,
-      1
+      2
     ]
   },
   "Musket": {
@@ -11284,8 +11070,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Myrrh": {
@@ -11319,7 +11105,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Nanobot": {
@@ -11351,11 +11137,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Nargile": {
     "name": "Nargile",
@@ -11389,8 +11171,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Narwhal": {
@@ -11562,8 +11344,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2,
-      2
+      1
     ]
   },
   "Nitro": {
@@ -11598,7 +11379,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Nitrogen Hammer": {
@@ -11635,7 +11416,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "Noxious Potion": {
@@ -11704,7 +11485,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Oil Lantern": {
@@ -11736,11 +11517,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      1
-    ]
+    }
   },
   "Oinkment": {
     "name": "Oinkment",
@@ -11806,11 +11583,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      2
-    ]
+    }
   },
   "Old Sword": {
     "name": "Old Sword",
@@ -11844,7 +11617,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Omega Ray": {
@@ -11878,7 +11651,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Open Sign": {
@@ -11938,11 +11711,7 @@ export const items = {
       "Deadly": "Your Weapons gain 10% Crit Chance for the fight.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage bonus"
-    },
-    "priorities": [
-      1,
-      2
-    ]
+    }
   },
   "Orbital Polisher": {
     "name": "Orbital Polisher",
@@ -12010,7 +11779,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Oven Mitts": {
@@ -12203,6 +11972,8 @@ export const items = {
       "Obsidian": "When you use an adjacent item, deal Damage 10."
     },
     "priorities": [
+      0,
+      0,
       0
     ]
   },
@@ -12226,7 +11997,7 @@ export const items = {
     "enchants": {
       "Heavy": "This has double Slow duration.",
       "Icy": "The first time you fall below half health each fight, Freeze 1 small item for 4 second(s).",
-      "Turbo": "The first time you fall below half health each fight, Haste 2 items for 4 second(s).",
+      "Turbo": "The time you fall below half health each fight, Haste 2 items for 4 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
       "Toxic": "Poison equal to 10% of this item's damage.",
@@ -12272,7 +12043,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Pet Rock": {
@@ -12309,7 +12080,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Philosopher's Stone": {
@@ -12341,12 +12112,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Deal damage equal to 10 times this item's Regeneration."
-    },
-    "priorities": [
-      0,
-      0,
-      0
-    ]
+    }
   },
   "Phonograph": {
     "name": "Phonograph",
@@ -12407,11 +12173,7 @@ export const items = {
       "Deadly": "Your Friends have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "When you use a Friend, Deal 10 Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Pickled Peppers": {
     "name": "Pickled Peppers",
@@ -12444,7 +12206,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Pierre Conditioner": {
@@ -12511,7 +12273,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Piggy Bank": {
@@ -12538,7 +12300,7 @@ export const items = {
     },
     "priorities": [
       0,
-      1
+      0
     ]
   },
   "Pinata": {
@@ -12604,8 +12366,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Pistol Sword": {
@@ -12640,7 +12402,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Pitchfork": {
@@ -12670,11 +12432,7 @@ export const items = {
       "Fiery": "...and Enchant the item with Fiery if able.",
       "Deadly": "...and Enchant the item with Deadly if able.",
       "Obsidian": "...and Enchant the item with Obsidian if able."
-    },
-    "priorities": [
-      1,
-      1
-    ]
+    }
   },
   "Plague Glaive": {
     "name": "Plague Glaive",
@@ -12708,13 +12466,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0,
-      0,
-      0
-    ]
+    }
   },
   "Plasma Grenade": {
     "name": "Plasma Grenade",
@@ -12783,7 +12535,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Pop Snappers": {
@@ -12851,7 +12603,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Port": {
@@ -12886,7 +12638,7 @@ export const items = {
     },
     "priorities": [
       0,
-      1
+      0
     ]
   },
   "Potion Distillery": {
@@ -12918,12 +12670,7 @@ export const items = {
       "Deadly": "...and Enchant the item with Deadly if able.",
       "Radiant": "...and Enchant the item with Radiant if able.",
       "Obsidian": "...and Enchant the item with Obsidian if able."
-    },
-    "priorities": [
-      1,
-      0,
-      0
-    ]
+    }
   },
   "Potion Potion": {
     "name": "Potion Potion",
@@ -12951,10 +12698,7 @@ export const items = {
       "Deadly": "...and Enchant the transformations with Deadly if able.",
       "Radiant": "...and Enchant the transformations with Radiant if able.",
       "Obsidian": "...and Enchant the transformations with Obsidian if able."
-    },
-    "priorities": [
-      1
-    ]
+    }
   },
   "Powder Flask": {
     "name": "Powder Flask",
@@ -13020,7 +12764,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Power Drill": {
@@ -13060,7 +12804,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Power Sander": {
@@ -13130,13 +12874,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      0,
-      0,
-      3
-    ]
+    }
   },
   "Proboscis": {
     "name": "Proboscis",
@@ -13202,7 +12940,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
+      1,
       1
     ]
   },
@@ -13239,7 +12977,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Pulse Rifle": {
@@ -13273,7 +13011,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Pyg's Gym": {
@@ -13347,8 +13085,8 @@ export const items = {
       "Obsidian": "This has double Damage."
     },
     "priorities": [
-      0,
-      0
+      1,
+      1
     ]
   },
   "Pylon": {
@@ -13383,7 +13121,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Pyrocarbon": {
@@ -13446,10 +13184,7 @@ export const items = {
       "Deadly": "...and Enchant the transformation with Deadly if able.",
       "Radiant": "...and Enchant the transformation with Radiant if able.",
       "Obsidian": "...and Enchant the transformation with Obsidian if able."
-    },
-    "priorities": [
-      1
-    ]
+    }
   },
   "Quill and Ink": {
     "name": "Quill and Ink",
@@ -13481,12 +13216,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Poison."
-    },
-    "priorities": [
-      1,
-      0,
-      0
-    ]
+    }
   },
   "Race Carl": {
     "name": "Race Carl",
@@ -13522,7 +13252,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Railgun": {
@@ -13557,7 +13287,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Rainbow Potion": {
@@ -13663,10 +13393,7 @@ export const items = {
       "Deadly": "Your Potions have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "When you use a Potion, Deal Damage equal to 10 times this item's Regeneration."
-    },
-    "priorities": [
-      1
-    ]
+    }
   },
   "Red Button": {
     "name": "Red Button",
@@ -13854,7 +13581,7 @@ export const items = {
       "Obsidian": "This has double damage bonus."
     },
     "priorities": [
-      0
+      2
     ]
   },
   "RED-F1R3FLY": {
@@ -13887,11 +13614,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Refractor": {
     "name": "Refractor",
@@ -13928,7 +13651,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Regal Blade": {
@@ -13963,7 +13686,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Regeneration Potion": {
@@ -13994,10 +13717,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Deal damage equal to 10 times this item's Regeneration."
-    },
-    "priorities": [
-      2
-    ]
+    }
   },
   "Remote Control": {
     "name": "Remote Control",
@@ -14062,7 +13782,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Retort": {
@@ -14094,12 +13814,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Poison."
-    },
-    "priorities": [
-      1,
-      2,
-      1
-    ]
+    }
   },
   "Revolver": {
     "name": "Revolver",
@@ -14135,8 +13850,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Rewards Card": {
@@ -14194,7 +13909,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Ritual Dagger": {
@@ -14229,7 +13944,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Rivet Gun": {
@@ -14265,7 +13980,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Robe": {
@@ -14299,7 +14014,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Robotic Factory": {
@@ -14332,7 +14047,6 @@ export const items = {
       "Obsidian": "When you use a Friend, Deal 30 Damage."
     },
     "priorities": [
-      0,
       0
     ]
   },
@@ -14367,7 +14081,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Rocket Launcher": {
@@ -14405,7 +14119,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "Rolling Pin": {
@@ -14441,7 +14155,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Rowboat": {
@@ -14475,7 +14189,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Ruby": {
@@ -14508,7 +14222,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Rune Axe": {
@@ -14543,7 +14257,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Runic Blade": {
@@ -14576,12 +14290,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0,
-      0
-    ]
+    }
   },
   "Runic Daggers": {
     "name": "Runic Daggers",
@@ -14614,13 +14323,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      2,
-      0,
-      0
-    ]
+    }
   },
   "Runic Double Bow": {
     "name": "Runic Double Bow",
@@ -14655,9 +14358,10 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0,
-      0
+      1,
+      1,
+      1,
+      1
     ]
   },
   "Runic Great Axe": {
@@ -14692,8 +14396,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Runic Potion": {
@@ -14725,11 +14429,7 @@ export const items = {
       "Deadly": "Your Lifesteal Weapons have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 20 Damage."
-    },
-    "priorities": [
-      2,
-      0
-    ]
+    }
   },
   "Safe": {
     "name": "Safe",
@@ -14783,7 +14483,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Salt": {
@@ -14847,7 +14547,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Sat-Comm": {
@@ -14878,11 +14578,7 @@ export const items = {
       "Deadly": "...and Enchant the item with Deadly if able.",
       "Radiant": "...and Enchant the item with Radiant if able.",
       "Obsidian": "...and Enchant the item with Obsidian if able."
-    },
-    "priorities": [
-      2,
-      1
-    ]
+    }
   },
   "Satchel": {
     "name": "Satchel",
@@ -14951,11 +14647,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Scales": {
     "name": "Scales",
@@ -14984,11 +14676,7 @@ export const items = {
       "Shiny": "This has +1 Multicast.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 50 Damage."
-    },
-    "priorities": [
-      2,
-      2
-    ]
+    }
   },
   "Schematics": {
     "name": "Schematics",
@@ -15178,12 +14866,7 @@ export const items = {
       "Deadly": "Your Friends have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 30 Damage."
-    },
-    "priorities": [
-      0,
-      0,
-      0
-    ]
+    }
   },
   "Seashadow": {
     "name": "Seashadow",
@@ -15214,11 +14897,7 @@ export const items = {
       "Deadly": "Your items have +20% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 60 Damage."
-    },
-    "priorities": [
-      1,
-      3
-    ]
+    }
   },
   "Seaweed": {
     "name": "Seaweed",
@@ -15251,7 +14930,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Secret Formula": {
@@ -15284,12 +14963,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Regeneration."
-    },
-    "priorities": [
-      1,
-      1,
-      1
-    ]
+    }
   },
   "Security Camera": {
     "name": "Security Camera",
@@ -15323,7 +14997,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Sextant": {
@@ -15423,12 +15097,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0,
-      0
-    ]
+    }
   },
   "Sharkclaws": {
     "name": "Sharkclaws",
@@ -15462,7 +15131,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Sharkray": {
@@ -15500,7 +15169,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Sharpening Stone": {
@@ -15596,7 +15265,6 @@ export const items = {
       "Obsidian": "When you use an Aquatic item, Deal 20 Damage."
     },
     "priorities": [
-      0,
       0
     ]
   },
@@ -15632,7 +15300,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Shot Glasses": {
@@ -15664,11 +15332,7 @@ export const items = {
       "Deadly": "Your small items have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 20 damage."
-    },
-    "priorities": [
-      1,
-      2
-    ]
+    }
   },
   "Shovel": {
     "name": "Shovel",
@@ -15734,12 +15398,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      1,
-      0
-    ]
+    }
   },
   "Shrinking Potion": {
     "name": "Shrinking Potion",
@@ -15766,10 +15425,7 @@ export const items = {
       "Fiery": "Burn 7.",
       "Shiny": "This has +1 Multicast.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed."
-    },
-    "priorities": [
-      0
-    ]
+    }
   },
   "Sifting Pan": {
     "name": "Sifting Pan",
@@ -15788,11 +15444,7 @@ export const items = {
       "At the start of each day, get a Small Reagent.",
       "When you sell a Reagent, permanently gain (1/2/3) Regeneration."
     ],
-    "enchants": {},
-    "priorities": [
-      1,
-      1
-    ]
+    "enchants": {}
   },
   "Signet Ring": {
     "name": "Signet Ring",
@@ -15818,7 +15470,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Silencer": {
@@ -15887,7 +15539,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Singularity": {
@@ -15952,8 +15604,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Skillet": {
@@ -15987,7 +15639,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Skyscraper": {
@@ -16026,7 +15678,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "Sleeping Potion": {
@@ -16094,7 +15746,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Slumbering Primordial": {
@@ -16131,11 +15783,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Smelling Salts": {
     "name": "Smelling Salts",
@@ -16164,11 +15812,7 @@ export const items = {
       "Shiny": "This has +1 Multicast.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "When you Slow, Deal 10 Damage."
-    },
-    "priorities": [
-      1,
-      1
-    ]
+    }
   },
   "Sniper Rifle": {
     "name": "Sniper Rifle",
@@ -16201,7 +15845,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Snow Globe": {
@@ -16236,7 +15880,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Snowflake": {
@@ -16300,12 +15944,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0,
-      1
-    ]
+    }
   },
   "Solar Farm": {
     "name": "Solar Farm",
@@ -16342,8 +15981,8 @@ export const items = {
     },
     "priorities": [
       2,
-      1,
-      0
+      2,
+      2
     ]
   },
   "Soldering Gun": {
@@ -16378,8 +16017,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Soul of the District": {
@@ -16449,7 +16088,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Spacescraper": {
@@ -16568,11 +16207,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Spiked Buckler": {
     "name": "Spiked Buckler",
@@ -16608,7 +16243,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "Spiky Shield": {
@@ -16643,7 +16278,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Spyglass": {
@@ -16712,13 +16347,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0,
-      0,
-      0
-    ]
+    }
   },
   "Stained Glass Window": {
     "name": "Stained Glass Window",
@@ -16745,7 +16374,7 @@ export const items = {
     "priorities": [
       2,
       2,
-      0
+      2
     ]
   },
   "Star Chart": {
@@ -16812,11 +16441,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      1
-    ]
+    }
   },
   "Stinger": {
     "name": "Stinger",
@@ -16852,7 +16477,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "Stopwatch": {
@@ -16915,10 +16540,7 @@ export const items = {
       "Deadly": "This has double Crit Chance bonus.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 50 Damage."
-    },
-    "priorities": [
-      2
-    ]
+    }
   },
   "Submarine": {
     "name": "Submarine",
@@ -16991,12 +16613,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      1,
-      0
-    ]
+    }
   },
   "Subscraper": {
     "name": "Subscraper",
@@ -17065,7 +16682,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Sulphur": {
@@ -17096,11 +16713,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Sunderer": {
     "name": "Sunderer",
@@ -17133,7 +16746,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Sunlight Spear": {
@@ -17170,9 +16783,9 @@ export const items = {
       "Obsidian": "This has double Damage."
     },
     "priorities": [
-      1,
-      1,
-      0
+      2,
+      2,
+      2
     ]
   },
   "Super Syrup": {
@@ -17195,7 +16808,7 @@ export const items = {
     "enchants": {},
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Swash Buckle": {
@@ -17258,7 +16871,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Sword Cane": {
@@ -17292,11 +16905,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Tazidian Dagger": {
     "name": "Tazidian Dagger",
@@ -17330,7 +16939,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Tea Set": {
@@ -17364,7 +16973,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Teddy": {
@@ -17403,9 +17012,9 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0,
-      0
+      1,
+      1,
+      1
     ]
   },
   "Temporary Shelter": {
@@ -17439,7 +17048,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Tesla Coil": {
@@ -17474,7 +17083,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Textiles": {
@@ -17580,8 +17189,8 @@ export const items = {
     },
     "priorities": [
       1,
-      2,
-      0
+      1,
+      1
     ]
   },
   "The Eclipse": {
@@ -17618,8 +17227,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "The Tome of Yyahan": {
@@ -17649,10 +17258,7 @@ export const items = {
       "Deadly": "Your Regeneration items have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "The first time you fall below half health each fight, Deal 120 damage."
-    },
-    "priorities": [
-      0
-    ]
+    }
   },
   "Thermal Lance": {
     "name": "Thermal Lance",
@@ -17686,7 +17292,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Thieves Guild Medallion": {
@@ -17740,7 +17346,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Thrown Net": {
@@ -17772,7 +17378,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Thrusters": {
@@ -17879,8 +17485,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Tommoo Gun": {
@@ -17948,7 +17554,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Torpedo": {
@@ -17986,8 +17592,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Tourist Chariot": {
@@ -18022,7 +17628,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Trained Spider": {
@@ -18056,7 +17662,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Trebuchet": {
@@ -18094,7 +17700,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "Tripwire": {
@@ -18160,7 +17766,7 @@ export const items = {
     },
     "priorities": [
       0,
-      1
+      0
     ]
   },
   "Truffles": {
@@ -18193,7 +17799,8 @@ export const items = {
       "Obsidian": "When you sell this, your leftmost Weapon item gains +20 damage."
     },
     "priorities": [
-      0
+      1,
+      1
     ]
   },
   "Turtle Shell": {
@@ -18228,7 +17835,7 @@ export const items = {
     },
     "priorities": [
       0,
-      1,
+      0,
       0
     ]
   },
@@ -18267,7 +17874,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "Upgrade Hammer": {
@@ -18330,7 +17937,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Uzi": {
@@ -18427,12 +18034,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      1,
-      0
-    ]
+    }
   },
   "Vending Machine": {
     "name": "Vending Machine",
@@ -18490,6 +18092,7 @@ export const items = {
       "Obsidian": "When you use the weapon to the left of this, Deal damage equal to 10 times this item's Poison."
     },
     "priorities": [
+      0,
       0
     ]
   },
@@ -18525,7 +18128,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Vial Launcher": {
@@ -18557,11 +18160,7 @@ export const items = {
       "Deadly": "Your Potions have +25% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Vial of Blood": {
     "name": "Vial of Blood",
@@ -18619,8 +18218,8 @@ export const items = {
     },
     "priorities": [
       0,
-      3,
-      1
+      0,
+      0
     ]
   },
   "VIP Pass": {
@@ -18653,11 +18252,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "Adjacent properties have +25% Crit Chance.",
       "Obsidian": "Deal 30 Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Viper Cane": {
     "name": "Viper Cane",
@@ -18691,12 +18286,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      1,
-      1
-    ]
+    }
   },
   "Virus": {
     "name": "Virus",
@@ -18762,10 +18352,7 @@ export const items = {
       "Shiny": "This has double Ammo.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to half of this item's Heal."
-    },
-    "priorities": [
-      1
-    ]
+    }
   },
   "Void Ray": {
     "name": "Void Ray",
@@ -18800,8 +18387,8 @@ export const items = {
     },
     "priorities": [
       1,
-      0,
-      0
+      1,
+      1
     ]
   },
   "Void Shield": {
@@ -18835,7 +18422,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Volcanic Vents": {
@@ -18866,11 +18453,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Wallace": {
     "name": "Wallace",
@@ -18903,7 +18486,7 @@ export const items = {
     },
     "priorities": [
       1,
-      2
+      1
     ]
   },
   "Walter Cooler": {
@@ -18936,7 +18519,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Wand": {
@@ -19036,7 +18619,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Weakpoint Detector": {
@@ -19072,7 +18655,7 @@ export const items = {
     },
     "priorities": [
       2,
-      0
+      2
     ]
   },
   "Weaponized Core": {
@@ -19111,8 +18694,8 @@ export const items = {
     },
     "priorities": [
       1,
-      2,
-      0
+      1,
+      1
     ]
   },
   "Weaselpede": {
@@ -19144,11 +18727,7 @@ export const items = {
       "Shiny": "This has +1 Multicast.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 18 Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Weather Glass": {
     "name": "Weather Glass",
@@ -19186,7 +18765,7 @@ export const items = {
     "priorities": [
       1,
       1,
-      0
+      1
     ]
   },
   "Weather Machine": {
@@ -19295,7 +18874,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Welding Torch": {
@@ -19330,7 +18909,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Windmill": {
@@ -19590,11 +19169,7 @@ export const items = {
       "Shiny": "This has +1 Multicast.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 30 Damage."
-    },
-    "priorities": [
-      1,
-      1
-    ]
+    }
   },
   "YLW-M4NT1S": {
     "name": "YLW-M4NT1S",
@@ -19625,11 +19200,7 @@ export const items = {
       "Deadly": "Your Friends have +20% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 20 Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
+    }
   },
   "Yo-Yo": {
     "name": "Yo-Yo",
@@ -19663,7 +19234,7 @@ export const items = {
     },
     "priorities": [
       1,
-      0
+      1
     ]
   },
   "Z-Shield": {
@@ -19697,13 +19268,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Deal damage equal to this item's Shield."
-    },
-    "priorities": [
-      1,
-      1,
-      0,
-      0
-    ]
+    }
   },
   "Z-Sword": {
     "name": "Z-Sword",
@@ -19736,13 +19301,7 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      1,
-      0,
-      0
-    ]
+    }
   },
   "Zoarcid": {
     "name": "Zoarcid",
@@ -19777,11 +19336,6 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      1,
-      0
-    ]
+    }
   }
 };
