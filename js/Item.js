@@ -341,6 +341,7 @@ export class Item {
         this.shield = this.startItemData.shield||0;
         this.burn = this.startItemData.burn||0;
         this.poison = this.startItemData.poison||0;
+        this.damageBonus = this.startItemData.damageBonus||0;
 
         this.multicast = 0;
         this.maxAmmo = this.startItemData.ammo||0;
@@ -522,6 +523,7 @@ export class Item {
                         ${this.hasteBonus>0?'Haste Bonus: '+this.hasteBonus+'s<br>':''}
                         ${this.slowBonus>0?'Slow Bonus: '+this.slowBonus+'s<br>':''}
                         ${this.freezeBonus>0?'Freeze Bonus: '+this.freezeBonus+'s<br>':''}
+                        ${this.damageBonus>0?'Damage Bonus: '+this.damageBonus+'<br>':''}
                     </div>
                 </div>
                 ${this.cooldown ? `
@@ -944,14 +946,15 @@ export class Item {
         //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
         damageRegex = /^Your ([^\s]+)\s*(?:items)? (?:gain|get) \+?(?:\(([^)]+)\)|(\d+))\s+([^\s]+)\s+for the fight\.?/i;
         match = text.match(damageRegex);
-
         if(match) {
             const gainAmount = match[2]?getRarityValue(match[2], this.rarity):parseInt(match[3]);
+            if(match[4]=='damage') {
+                this.damageBonus += gainAmount;
+            }
             return () => {
                 this.board.items.forEach(item => {
                     if(item.tags.includes(Item.getTagFromText(match[1]))) {
-                        item.gain(gainAmount,match[4].toLowerCase());
-
+                        item.gain(match[4]=='damage'?0:gainAmount,match[4].toLowerCase(),this);
                     }
                 });
             };
@@ -1633,12 +1636,14 @@ export class Item {
                 this.board.shieldValuesChangedTriggers.forEach(func => func(this));
                 break;
                 
-            case 'damage':
-                this.damage += amount;
-                if(source && source.hasDoubleDamageBonus) {
-                    this.damage += amount;
-                    this.log(this.name + " gained " + amount.toFixed(0) + "damage (double damage bonus) from " + source.name);
+            case 'damage':                
+                if(source && source.damageBonus) {
+                    amount += source.damageBonus;
                 }
+                if(source && source.hasDoubleDamageBonus) {
+                    amount *= 2;
+                }
+                this.damage += amount;
                 // this.board.damageChangedTriggers.forEach(func => func(this));
                 break;
                 
@@ -2211,6 +2216,13 @@ export class Item {
                     <input type="number" id="edit-regen" value="${this.regen}">
                 </div>`;
         }
+        if(this.damageBonus>0) {
+            popupHTML += `
+                <div class="form-group">
+                    <label>Damage Bonus:</label>
+                    <input type="number" id="edit-damage-bonus" value="${this.damageBonus}">
+                </div>`;
+        }
         
 
         // Add crit chance field only if item has damage, shield, burn, poison, or heal, or is a weapon
@@ -2305,6 +2317,10 @@ export class Item {
                     delete this.startItemData.crit;
                 }
             }            
+            if (popup.querySelector('#edit-damage-bonus')) {
+                const newDamageBonus = parseFloat(popup.querySelector('#edit-damage-bonus').value);
+                this.startItemData.damageBonus = (this.startItemData.damageBonus||0) + (newDamageBonus - this.damageBonus);
+            }
             if (popup.querySelector('#edit-value')) {
                 const newValue = parseFloat(popup.querySelector('#edit-value').value);
                 this.startItemData.value = (this.startItemData.value||0) + (newValue - this.value)/this.value_multiplier;
@@ -4943,7 +4959,7 @@ export class Item {
             this[whatToGain+"_multiplier"] =1;
             this.gain(this[whatToGain],whatToGain);
             this[whatToGain+"pauseChanged"] = false;
-            this[whatToGain+"_multiplier"] = oldMultiplier+1;
+            this[whatToGain+"_multiplier"] = oldMultiplier*2;
 
             return ()=>{};
         }
