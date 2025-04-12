@@ -956,13 +956,9 @@ ItemFunction.items.set("Fort",(item)=>{
 //This deals ( 3 » 5 » 10 ) times more damage if it is your only weapon. from Sniper Rifle
 ItemFunction.items.set("Sniper Rifle",(item)=>{
     const amount = getRarityValue("3 >> 5 >> 10",item.rarity);
-    item.damageChanged((newDamage,oldDamage)=>{
-        if(item.board.items.filter(i=>i.tags.includes("Weapon")).length==1) {
-            item.damage_pauseChanged = true;
-            item.gain((newDamage-oldDamage)*amount,'damage');
-            item.damage_pauseChanged = false;
-        }
-    });
+    if(item.board.items.filter(i=>i.tags.includes("Weapon")).length==1) {
+        item.damage_multiplier *= amount;
+    }
     item.gain(100,'damage');
 
     item.triggerFunctions.push(()=>{
