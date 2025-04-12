@@ -158,8 +158,19 @@ export function loadFromUrl(hash) {
                     boardsCleared.set(boardId,board);
                 }
                 board.player.startPlayerData.maxHealth = boardStateObject.health;
-                if(boardStateObject.playerName) board.player.startPlayerData.name = boardStateObject.playerName;
-                if(boardStateObject.hero) board.player.startPlayerData.hero = boardStateObject.hero;
+                if(boardStateObject.hero=='Common') {
+                    for(const monsterIndex in window.monsters) {
+                        const monster = window.monsters[monsterIndex];
+                        if(monster.day == boardStateObject.day && monster.level==boardStateObject.level && monster.health==boardStateObject.health) {
+                            board.player.startPlayerData.name = monster.name;
+                            board.player.startPlayerData.hero = monster.name;
+                            break;
+                        }
+                    }
+                } else {
+                    if(boardStateObject.playerName) board.player.startPlayerData.name = boardStateObject.playerName;
+                    if(boardStateObject.hero) board.player.startPlayerData.hero = boardStateObject.hero;
+                }
                 if(boardStateObject.regen!==undefined) board.player.startPlayerData.regen = boardStateObject.regen;
                 else board.player.startPlayerData.regen = 0;
                 if(boardStateObject.gold!==undefined) board.player.startPlayerData.gold = boardStateObject.gold;

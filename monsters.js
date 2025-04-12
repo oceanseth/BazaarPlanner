@@ -4,6 +4,7 @@ export const monsters = {
     "icon": "images/monsters/FangedInglet.avif",
     "day": 1,
     "health": 100,
+    "level": 1,
     "skills": [
       {
         "name": "Deadly Eye",
@@ -34,6 +35,7 @@ export const monsters = {
     "icon": "images/monsters/KyverDrone.avif",
     "day": 1,
     "health": 100,
+    "level": 1,
     "skills": [
       {
         "name": "Trained",
@@ -64,6 +66,7 @@ export const monsters = {
     "icon": "images/monsters/Viper.avif",
     "day": 1,
     "health": 75,
+    "level": 1,
     "skills": [
       {
         "name": "Lash Out",
@@ -95,6 +98,7 @@ export const monsters = {
     "icon": "images/monsters/Banannabal.avif",
     "day": 1,
     "health": 100,
+    "level": 1,
     "skills": [
       {
         "name": "Overheal Haste",
@@ -121,6 +125,7 @@ export const monsters = {
     "icon": "images/monsters/Pyro.avif",
     "day": 1,
     "health": 100,
+    "level": 1,
     "skills": [
       {
         "name": "Fiery",
@@ -147,6 +152,7 @@ export const monsters = {
     "icon": "images/monsters/HauntedKimono.avif",
     "day": 1,
     "health": 100,
+    "level": 1,
     "skills": [],
     "items": [
       {
@@ -168,6 +174,7 @@ export const monsters = {
     "icon": "images/monsters/CoconutCrab.avif",
     "day": 2,
     "health": 200,
+    "level": 2,
     "skills": [
       {
         "name": "Hard Shell",
@@ -194,6 +201,7 @@ export const monsters = {
     "icon": "images/monsters/GiantMosquito.avif",
     "day": 2,
     "health": 250,
+    "level": 2,
     "skills": [
       {
         "name": "Rush",
@@ -228,6 +236,7 @@ export const monsters = {
     "icon": "images/monsters/CovetousThief.avif",
     "day": 2,
     "health": 400,
+    "level": 3,
     "skills": [
       {
         "name": "Pickpocket",
@@ -266,6 +275,7 @@ export const monsters = {
     "icon": "images/monsters/Boarrior.avif",
     "day": 2,
     "health": 300,
+    "level": 3,
     "skills": [
       {
         "name": "Frontal Shielding",
@@ -308,6 +318,7 @@ export const monsters = {
     "icon": "images/monsters/RogueScrapper.avif",
     "day": 2,
     "health": 450,
+    "level": 4,
     "skills": [
       {
         "name": "Rust",
@@ -346,6 +357,7 @@ export const monsters = {
     "icon": "images/monsters/TempestFlamedancer.avif",
     "day": 3,
     "health": 300,
+    "level": 3,
     "skills": [
       {
         "name": "Flamedancer",
@@ -386,6 +398,7 @@ export const monsters = {
     "icon": "images/monsters/DabblingApprentice.avif",
     "day": 3,
     "health": 300,
+    "level": 3,
     "skills": [
       {
         "name": "Panic",
@@ -419,7 +432,8 @@ export const monsters = {
     "name": "Frost Street Challenger",
     "icon": "images/monsters/FrostStreetChallenger.avif",
     "day": 3,
-    "health": 550,
+    "health": 450,
+    "level": 4,
     "skills": [
       {
         "name": "Snowstorm",
@@ -454,6 +468,7 @@ export const monsters = {
     "icon": "images/monsters/StreetGamer.avif",
     "day": 3,
     "health": 450,
+    "level": 4,
     "skills": [
       {
         "name": "Small Refresh",
@@ -488,6 +503,7 @@ export const monsters = {
     "icon": "images/monsters/ScoutTrooper.avif",
     "day": 3,
     "health": 650,
+    "level": 5,
     "skills": [
       {
         "name": "Gunner",
@@ -530,6 +546,7 @@ export const monsters = {
     "icon": "images/monsters/EccentricEtherwright.avif",
     "day": 3,
     "health": 650,
+    "level": 5,
     "skills": [
       {
         "name": "Rigged",
@@ -560,6 +577,7 @@ export const monsters = {
     "icon": "images/monsters/BoilerroomBrawler.avif",
     "day": 4,
     "health": 450,
+    "level": 4,
     "skills": [
       {
         "name": "Time to Tinker",
@@ -606,6 +624,7 @@ export const monsters = {
     "icon": "images/monsters/OutlandsDervish.avif",
     "day": 4,
     "health": 450,
+    "level": 4,
     "skills": [
       {
         "name": "Keen Eye",
@@ -644,6 +663,7 @@ export const monsters = {
     "icon": "images/monsters/Retiree.avif",
     "day": 4,
     "health": 650,
+    "level": 5,
     "skills": [
       {
         "name": "Extreme Comfort",
@@ -682,6 +702,7 @@ export const monsters = {
     "icon": "images/monsters/BloodreefRaider.avif",
     "day": 4,
     "health": 650,
+    "level": 5,
     "skills": [
       {
         "name": "Ammo Stash",
@@ -720,6 +741,7 @@ export const monsters = {
     "icon": "images/monsters/FlameJuggler.avif",
     "day": 4,
     "health": 900,
+    "level": 6,
     "skills": [
       {
         "name": "Burst of Flame",
@@ -758,6 +780,7 @@ export const monsters = {
     "icon": "images/monsters/Ahexa.avif",
     "day": 4,
     "health": 900,
+    "level": 6,
     "skills": [],
     "items": [
       {
@@ -791,6 +814,7 @@ export const monsters = {
     "icon": "images/monsters/Hellbilly.avif",
     "day": 4,
     "health": 900,
+    "level": 6,
     "skills": [
       {
         "name": "Left-Handed",
@@ -825,6 +849,7 @@ export const monsters = {
     "icon": "images/monsters/PrinceMarianas.avif",
     "day": 4,
     "health": 1200,
+    "level": 7,
     "skills": [
       {
         "name": "Slowed Targets",
@@ -871,6 +896,7 @@ export const monsters = {
     "icon": "images/monsters/PreeningDuelist.avif",
     "day": 5,
     "health": 650,
+    "level": 5,
     "skills": [
       {
         "name": "All Talk",
@@ -913,6 +939,7 @@ export const monsters = {
     "icon": "images/monsters/Sabretooth.avif",
     "day": 5,
     "health": 650,
+    "level": 5,
     "skills": [
       {
         "name": "Diamond Fangs",
@@ -969,6 +996,7 @@ export const monsters = {
     "icon": "images/monsters/InfernalEnvoy.avif",
     "day": 5,
     "health": 900,
+    "level": 6,
     "skills": [
       {
         "name": "Vengeance",
@@ -1005,6 +1033,7 @@ export const monsters = {
     "icon": "images/monsters/HakurvianRocketTrooper.avif",
     "day": 5,
     "health": 900,
+    "level": 6,
     "skills": [
       {
         "name": "Flashy Reload",
@@ -1047,6 +1076,7 @@ export const monsters = {
     "icon": "images/monsters/KyverCommander.avif",
     "day": 5,
     "health": 900,
+    "level": -1,
     "skills": [
       {
         "name": "Counterstrike",
@@ -1085,6 +1115,7 @@ export const monsters = {
     "icon": "images/monsters/ModSquad.avif",
     "day": 5,
     "health": 1200,
+    "level": 7,
     "skills": [
       {
         "name": "Beautiful Friendship",
@@ -1127,6 +1158,7 @@ export const monsters = {
     "icon": "images/monsters/GorgonNoble.avif",
     "day": 5,
     "health": 1200,
+    "level": 7,
     "skills": [
       {
         "name": "Petrifying Gaze",
@@ -1174,6 +1206,7 @@ export const monsters = {
     "icon": "images/monsters/TrashtownMayor.avif",
     "day": 5,
     "health": 1200,
+    "level": 3,
     "skills": [
       {
         "name": "Augmented Weaponry",
@@ -1213,6 +1246,7 @@ export const monsters = {
     "icon": "images/monsters/Scovyle.avif",
     "day": 5,
     "health": 1400,
+    "level": -1,
     "skills": [
       {
         "name": "Fiery",
@@ -1251,6 +1285,7 @@ export const monsters = {
     "icon": "images/monsters/DireInglet.avif",
     "day": 6,
     "health": 900,
+    "level": 6,
     "skills": [
       {
         "name": "Aggressive",
@@ -1299,6 +1334,7 @@ export const monsters = {
     "icon": "images/monsters/Zookeeper.avif",
     "day": 6,
     "health": 900,
+    "level": 6,
     "skills": [
       {
         "name": "Toxic Friendship",
@@ -1341,6 +1377,7 @@ export const monsters = {
     "icon": "images/monsters/DireMosquito.avif",
     "day": 6,
     "health": 900,
+    "level": 6,
     "skills": [
       {
         "name": "Paralyzing Rush",
@@ -1387,6 +1424,7 @@ export const monsters = {
     "icon": "images/monsters/TrashGolem.avif",
     "day": 6,
     "health": 1400,
+    "level": 7,
     "skills": [
       {
         "name": "Jury Rigger",
@@ -1429,6 +1467,7 @@ export const monsters = {
     "icon": "images/monsters/Foreman.avif",
     "day": 6,
     "health": 1200,
+    "level": 7,
     "skills": [
       {
         "name": "Flashy Mechanic",
@@ -1467,6 +1506,7 @@ export const monsters = {
     "icon": "images/monsters/EnclaveWeeper.avif",
     "day": 6,
     "health": 1550,
+    "level": 8,
     "skills": [
       {
         "name": "Exposing Toxins",
@@ -1513,6 +1553,7 @@ export const monsters = {
     "icon": "images/monsters/LoanShark.avif",
     "day": 6,
     "health": 1550,
+    "level": 8,
     "skills": [
       {
         "name": "Power Broker",
@@ -1551,6 +1592,7 @@ export const monsters = {
     "icon": "images/monsters/Infernal.avif",
     "day": 6,
     "health": 1925,
+    "level": 9,
     "skills": [
       {
         "name": "Burning Rage",
@@ -1601,6 +1643,7 @@ export const monsters = {
     "icon": "images/monsters/Lich.avif",
     "day": 6,
     "health": 1900,
+    "level": 10,
     "skills": [
       {
         "name": "Petrifying Gaze",
@@ -1651,6 +1694,7 @@ export const monsters = {
     "icon": "images/monsters/ViperTyrant.avif",
     "day": 7,
     "health": 1200,
+    "level": 7,
     "skills": [
       {
         "name": "Poison Tyrant",
@@ -1706,6 +1750,7 @@ export const monsters = {
     "icon": "images/monsters/SergeantSuds.avif",
     "day": 7,
     "health": 1200,
+    "level": 7,
     "skills": [
       {
         "name": "Clean Storefront",
@@ -1740,6 +1785,7 @@ export const monsters = {
     "icon": "images/monsters/CosmicRoc.avif",
     "day": 7,
     "health": 1550,
+    "level": 8,
     "skills": [
       {
         "name": "Cosmic Wind",
@@ -1790,6 +1836,7 @@ export const monsters = {
     "icon": "images/monsters/JoyfulJack.avif",
     "day": 7,
     "health": 1550,
+    "level": 8,
     "skills": [
       {
         "name": "Equivalent Exchange",
@@ -1836,6 +1883,7 @@ export const monsters = {
     "icon": "images/monsters/Thug.avif",
     "day": 7,
     "health": 1550,
+    "level": 8,
     "skills": [
       {
         "name": "Bonk",
@@ -1884,6 +1932,7 @@ export const monsters = {
     "icon": "images/monsters/GhostPepper.avif",
     "day": 7,
     "health": 1550,
+    "level": -1,
     "skills": [
       {
         "name": "Heat Lover",
@@ -1938,6 +1987,7 @@ export const monsters = {
     "icon": "images/monsters/ShockTrooper.avif",
     "day": 7,
     "health": 1925,
+    "level": 9,
     "skills": [
       {
         "name": "Tracer Fire",
@@ -1980,6 +2030,7 @@ export const monsters = {
     "icon": "images/monsters/ChillyCharles.avif",
     "day": 7,
     "health": 1925,
+    "level": 9,
     "skills": [
       {
         "name": "Reaching the Summit",
@@ -2015,6 +2066,7 @@ export const monsters = {
     "icon": "images/monsters/TreasureTurtle.avif",
     "day": 7,
     "health": 1925,
+    "level": 9,
     "skills": [
       {
         "name": "Hunker Down",
@@ -2069,6 +2121,7 @@ export const monsters = {
     "icon": "images/monsters/RadiantCorsair.avif",
     "day": 7,
     "health": 3200,
+    "level": 12,
     "skills": [
       {
         "name": "Fiery Rebirth",
@@ -2108,6 +2161,7 @@ export const monsters = {
     "icon": "images/monsters/InfernalFrigate.avif",
     "day": 8,
     "health": 1925,
+    "level": 9,
     "skills": [
       {
         "name": "Firestarter",
@@ -2150,6 +2204,7 @@ export const monsters = {
     "icon": "images/monsters/CarConductor.avif",
     "day": 8,
     "health": 1925,
+    "level": 9,
     "skills": [
       {
         "name": "Expert Pilot",
@@ -2192,6 +2247,7 @@ export const monsters = {
     "icon": "images/monsters/OasisGuardian.avif",
     "day": 8,
     "health": 1925,
+    "level": 9,
     "skills": [
       {
         "name": "Waters of Infinity",
@@ -2230,6 +2286,7 @@ export const monsters = {
     "icon": "images/monsters/DrVortex.avif",
     "day": 8,
     "health": 2325,
+    "level": 10,
     "skills": [
       {
         "name": "Neophiliac",
@@ -2264,6 +2321,7 @@ export const monsters = {
     "icon": "images/monsters/Bouncertron.avif",
     "day": 8,
     "health": 2325,
+    "level": 10,
     "skills": [
       {
         "name": "Sharpened Steel",
@@ -2302,6 +2360,7 @@ export const monsters = {
     "icon": "images/monsters/WanderingShoal.avif",
     "day": 8,
     "health": 2325,
+    "level": 10,
     "skills": [
       {
         "name": "Thick Hide",
@@ -2348,6 +2407,7 @@ export const monsters = {
     "icon": "images/monsters/BurninatorBot.avif",
     "day": 8,
     "health": 2325,
+    "level": 10,
     "skills": [
       {
         "name": "Slow Burn",
@@ -2382,6 +2442,7 @@ export const monsters = {
     "icon": "images/monsters/Dragon.avif",
     "day": 8,
     "health": 3675,
+    "level": 13,
     "skills": [
       {
         "name": "Draconic Rage",
@@ -2420,6 +2481,7 @@ export const monsters = {
     "icon": "images/monsters/BloodreefCaptain.avif",
     "day": 9,
     "health": 1925,
+    "level": 9,
     "skills": [
       {
         "name": "Full Arsenal",
@@ -2458,6 +2520,7 @@ export const monsters = {
     "icon": "images/monsters/EliteDuelist.avif",
     "day": 9,
     "health": 2325,
+    "level": 9,
     "skills": [
       {
         "name": "Big Ego",
@@ -2512,6 +2575,7 @@ export const monsters = {
     "icon": "images/monsters/FerrosKhan.avif",
     "day": 9,
     "health": 2325,
+    "level": 10,
     "skills": [
       {
         "name": "One Shot, One Kill",
@@ -2558,6 +2622,7 @@ export const monsters = {
     "icon": "images/monsters/Yerdan.avif",
     "day": 9,
     "health": 2325,
+    "level": -1,
     "skills": [
       {
         "name": "Tools of the Trade",
@@ -2610,6 +2675,7 @@ export const monsters = {
     "icon": "images/monsters/RoamingIsle.avif",
     "day": 9,
     "health": 2750,
+    "level": 11,
     "skills": [
       {
         "name": "Shored Up",
@@ -2664,6 +2730,7 @@ export const monsters = {
     "icon": "images/monsters/WeaponsPlatform.avif",
     "day": 9,
     "health": 2750,
+    "level": 11,
     "skills": [
       {
         "name": "Distributed Systems",
@@ -2714,6 +2781,7 @@ export const monsters = {
     "icon": "images/monsters/EnclaveRevenant.avif",
     "day": 9,
     "health": 3200,
+    "level": 12,
     "skills": [
       {
         "name": "Exposing Toxins",
@@ -2764,6 +2832,7 @@ export const monsters = {
     "icon": "images/monsters/DeathKnightReaper.avif",
     "day": 9,
     "health": 3675,
+    "level": 13,
     "skills": [
       {
         "name": "Hypnotic Drain",
@@ -2806,6 +2875,7 @@ export const monsters = {
     "icon": "images/monsters/HulkingExperiment.avif",
     "day": 10,
     "health": 2325,
+    "level": 10,
     "skills": [
       {
         "name": "Adaptive Ordinance",
@@ -2856,6 +2926,7 @@ export const monsters = {
     "icon": "images/monsters/BossHarrow.avif",
     "day": 10,
     "health": 2325,
+    "level": 10,
     "skills": [
       {
         "name": "Assault Focus",
@@ -2906,6 +2977,7 @@ export const monsters = {
     "icon": "images/monsters/MasterAlchemist.avif",
     "day": 10,
     "health": 2325,
+    "level": 10,
     "skills": [
       {
         "name": "Retool",
@@ -2944,6 +3016,7 @@ export const monsters = {
     "icon": "images/monsters/TrashTitan.avif",
     "day": 10,
     "health": 2750,
+    "level": 11,
     "skills": [
       {
         "name": "Juggler",
@@ -2990,6 +3063,7 @@ export const monsters = {
     "icon": "images/monsters/PropertyBaron.avif",
     "day": 10,
     "health": 2500,
+    "level": 11,
     "skills": [
       {
         "name": "Master Salesman",
@@ -3028,6 +3102,7 @@ export const monsters = {
     "icon": "images/monsters/VolkasEnforcer.avif",
     "day": 10,
     "health": 3200,
+    "level": 12,
     "skills": [
       {
         "name": "Cryomastery",
@@ -3074,6 +3149,7 @@ export const monsters = {
     "icon": "images/monsters/FrostStreetChampion.avif",
     "day": 10,
     "health": 3200,
+    "level": 12,
     "skills": [
       {
         "name": "Blizzard",
@@ -3116,6 +3192,7 @@ export const monsters = {
     "icon": "images/monsters/VoidGolem.avif",
     "day": 10,
     "health": 3675,
+    "level": 12,
     "skills": [
       {
         "name": "Into the Void",
@@ -3158,6 +3235,7 @@ export const monsters = {
     "icon": "images/monsters/VeteranOctopus.avif",
     "day": 10,
     "health": 8888,
+    "level": 13,
     "skills": [
       {
         "name": "Arms Race",
@@ -3212,6 +3290,7 @@ export const monsters = {
     "icon": "images/monsters/AwakenedDistrict.avif",
     "day": 10,
     "health": 4700,
+    "level": 15,
     "skills": [
       {
         "name": "Prosperity",
@@ -3250,6 +3329,7 @@ export const monsters = {
     "icon": "images/monsters/LordArken.avif",
     "day": 10,
     "health": 4700,
+    "level": 15,
     "skills": [
       {
         "name": "Unwavering",
@@ -3288,6 +3368,7 @@ export const monsters = {
     "icon": "images/monsters/VoidColossus.avif",
     "day": 10,
     "health": 4700,
+    "level": 15,
     "skills": [
       {
         "name": "Void Energy",
@@ -3326,6 +3407,7 @@ export const monsters = {
     "icon": "images/monsters/LordoftheWastes.avif",
     "day": 10,
     "health": 3675,
+    "level": 15,
     "skills": [
       {
         "name": "Foreboding Winds",
@@ -3364,6 +3446,7 @@ export const monsters = {
     "icon": "images/monsters/MrMoo.avif",
     "day": "event",
     "health": 2325,
+    "level": 10,
     "skills": [
       {
         "name": "Dual Wield",
@@ -3418,6 +3501,7 @@ export const monsters = {
     "icon": "images/monsters/BountyHunter.avif",
     "day": "event",
     "health": 1550,
+    "level": 9,
     "skills": [
       {
         "name": "Ambush",
@@ -3460,6 +3544,7 @@ export const monsters = {
     "icon": "images/monsters/Mimic.avif",
     "day": "event",
     "health": 2750,
+    "level": 11,
     "skills": [
       {
         "name": "Ravenous",

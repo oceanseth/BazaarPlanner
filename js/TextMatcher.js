@@ -627,4 +627,17 @@ TextMatcher.matchers.push({
         return ()=>{};
     },
 });
+TextMatcher.matchers.push({
+    //This has double damage bonus.
+    regex: /^This has double damage bonus\.$/i,
+    func: (item, match)=>{
+        const [strippedName] = Item.stripEnchantFromName(item.name);
+        //remove the weapon tag given by obsidian assuming this text came from that enchant
+        if(!items[strippedName].tags.includes("Weapon") && item.tags.includes("Weapon")) {
+            item.tags = item.tags.filter(tag => tag !== "Weapon");
+        }
+        item.hasDoubleDamageBonus = true;
+        return ()=>{};
+    },
+});
 window.TextMatcher = TextMatcher;

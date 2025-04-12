@@ -1635,6 +1635,10 @@ export class Item {
                 
             case 'damage':
                 this.damage += amount;
+                if(source && source.hasDoubleDamageBonus) {
+                    this.damage += amount;
+                    this.log(this.name + " gained " + amount.toFixed(0) + "damage (double damage bonus) from " + source.name);
+                }
                 // this.board.damageChangedTriggers.forEach(func => func(this));
                 break;
                 
@@ -4625,10 +4629,10 @@ export class Item {
                 if(item.tags.includes(match[1])) {
                     switch(match[3]) {
                         case "Slow":    
-                            item.slow += value;
+                            item.slowBonus += value;
                             break;
                         case "Haste":
-                            item.haste += value;
+                            item.hasteBonus += value;
                             break;                            
                         default:
                             item.gain(value,match[3].toLowerCase());

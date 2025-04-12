@@ -227,15 +227,11 @@ function createCalculateBattleButton() {
     }
     document.getElementById('simulator').appendChild(calculateBattleButton);
 }
-function followBoards(run) {
-    if(run && run.d && (bottomPlayer.board.follow || topPlayer.board.follow)) {
-        loadFromUrl(run.d);
-        window.history.pushState({state: run.d}, '', `#${run.d}`);
-    }        
-}
+
 
 function setLoggedInUser (user) {        
         if (user) {
+            $(".requireLogin").removeClass("requireLogin");
             // User is signed in
             user.getIdToken().then(function(accessToken) {
                 window.user = user;
@@ -248,9 +244,6 @@ function setLoggedInUser (user) {
             });
             // Hide the auth UI when signed in
             document.getElementById('auth-container').style.display = 'none';
-            firebase.database().ref('users/'+user.uid+"/currentrun").on('value', snapshot => {
-                followBoards(snapshot.val());
-            });
         } else {
             // User is signed out
             const signInStatus = document.getElementById('sign-in-status');
@@ -263,7 +256,6 @@ function setLoggedInUser (user) {
             loadFromUrl();            
         } else {
             showSection('puzzle');
-            Puzzle.loadPuzzle();
         }
 }
 
