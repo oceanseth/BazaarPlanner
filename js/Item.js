@@ -2943,12 +2943,12 @@ export class Item {
                     case "an adjacent item hastes or slows":
                         const adjacentHastingOrSlowingItems = this.getAdjacentItems();
                         this.board.hasteTriggers.set(this.id,(item,source)=>{
-                            if(adjacentHastingOrSlowingItems.some(i=>i.id==item.id)) {
+                            if(adjacentHastingOrSlowingItems.some(i=>i.id==source.id)) {
                                 triggerFunctionFromText(source);
                             }
                         });
                         this.board.slowTriggers.set(this.id,(item,source)=>{
-                            if(adjacentHastingOrSlowingItems.some(i=>i.id==item.id)) {
+                            if(adjacentHastingOrSlowingItems.some(i=>i.id==source.id)) {
                                 triggerFunctionFromText(source);
                             }
                         });
