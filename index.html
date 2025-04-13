@@ -357,7 +357,7 @@
                             <!-- Slots will be generated here -->
                         </div>
                         <div class="board-controls">
-                            <div class="requireLogin"><input type="checkbox" id="board-b-follow-checkbox" onclick="bottomPlayer.board.follow = this.checked">Follow</div>
+                            <div class="requireLogin"><button onclick="this.style.display='none'; bottomPlayer.board.follow = true">Follow</button></div>
                             <button onclick="Board.getBoardFromId('b').clear()">Clear</button>
                             <button onclick="Board.getBoardFromId('b').save()">Save</button>
                             <button onclick="Board.getBoardFromId('b').load()">Load</button>
