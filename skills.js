@@ -1590,7 +1590,7 @@ export const skills = {
   },
   "Hardly Workin'": {
     "text": [
-      "The first (5/10/15) times times you slow each fight, Charge 1 Regeneration item 1 second(s)."
+      "The first (5/10/15) times you slow each fight, Charge 1 Regeneration item 1 second(s)."
     ],
     "tier": 1,
     "tags": [
