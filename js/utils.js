@@ -94,6 +94,10 @@ export function updateUrlState() {
             health: board.player.maxHealth,
             regen: board.player.regen,
             playerName: board.player.name,
+            hero: board.player.hero,
+            level: board.player.level,
+            gold: board.player.gold,
+            income: board.player.income,
             skills: board.skills.map(skill => {
                 const skillData = {name: skill.name};
                 if(skills[skill.name].tier != skill.tier) {
