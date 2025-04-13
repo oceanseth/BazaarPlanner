@@ -236,12 +236,23 @@ export function loadFromUrl(hash) {
         refreshBoards();
 
         [...topPlayer.board.items,...bottomPlayer.board.items].forEach(item=>{
+            let numTries = 0;
+            while(Item.possibleChangeAttributes.some(attribute=>item[attribute+"Final"] != undefined && item[attribute+"Final"] != item[attribute])) {
+                Item.possibleChangeAttributes.forEach(attribute=>{
+                    if(item[attribute+"Final"] != undefined && item[attribute+"Final"] != item[attribute]) {
+                        item.startItemData[attribute] = (item[attribute+"Final"] - item[attribute])/item[attribute+"_multiplier"];
+                        refreshBoards();
+                    }
+                });
+                numTries++;
+                if(numTries > 100) {
+                    console.log("Failed to equalize item attributes with those given from game",item.name);
+                    break;
+                }
+            }
             Item.possibleChangeAttributes.forEach(attribute=>{
                 if(item[attribute+"Final"] != undefined) {
-                    item.startItemData[attribute] = (item[attribute+"Final"] - item[attribute])/item[attribute+"_multiplier"];
                     delete item.startItemData[attribute+"Final"];
-                    item.reset();
-                    item.setup();
                 }
             });
         });
