@@ -27,7 +27,7 @@ class Board {
         window.history.pushState({state: encounter.d}, '', `#${encounter.d}`);
     }
     loadRun(run) {
-        if(run && run.d && (bottomPlayer.board.follow || topPlayer.board.follow)) {
+        if(run && run.d && this.follow) {
             loadFromUrl(run.d);
             window.history.pushState({state: run.d}, '', `#${run.d}`);
         }        
@@ -52,7 +52,7 @@ class Board {
         //only follow ourselves for now
         this._follow = value;
         if(value) {
-            firebase.database().ref('users/'+user.uid+"/currentrun").on('value', snapshot => {
+            firebase.database().ref('users/'+value+"/currentrun").on('value', snapshot => {
                 const runValue = snapshot.val();
                 this.loadRun(runValue);
                 if(this._followingCurrentRunId!==runValue.id) {
@@ -61,13 +61,13 @@ class Board {
                     }
                     this._followingCurrentRunId = runValue.id;
                         
-                    firebase.database().ref('users/'+user.uid+"/runs/"+runValue.id).on('value', snapshot => {
+                    firebase.database().ref('users/'+value+"/runs/"+runValue.id).on('value', snapshot => {
                         this.loadFullRun(snapshot.val());
                     });
                 }
             });
         } else {
-            firebase.database().ref('users/'+user.uid+"/currentrun").off();
+            firebase.database().ref('users/'+value+"/currentrun").off();
         }
     }
     get follow() {
