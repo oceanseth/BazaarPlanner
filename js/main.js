@@ -3,14 +3,11 @@ import { skills } from '../skills.js';
 import { items } from '../items.js';
 import { Board, getSizeValue } from './Board.js';
 import { Player } from './Player.js';
-import { Skill } from './Skill.js';
 import { Item } from './Item.js';
-import { ItemFunction } from './ItemFunction.js';
 import { getRarityValue, loadFromUrl, updateUrlState } from './utils.js';
 import { Battle } from './Battle.js';
 import { Puzzle } from './Puzzle.js';
 import { Account } from './Account.js';
-import { colorTextArray } from './utils.js';
 // Make necessary functions/classes available globally
 if(window.location.hostname == "bazaarplanner.com") {
     window.location.href = "https://www.bazaarplanner.com/"+window.location.hash;
@@ -204,6 +201,7 @@ function updateUserInfo(user) {
             updateUserInfo(user);
         }, 60000);
 }
+window.updateUserInfo = updateUserInfo;
 function createCalculateBattleButton() {
     const calculateBattleButton = document.createElement('img');
     calculateBattleButton.className = 'calculate-battle-button editorOpener';
@@ -779,4 +777,15 @@ window.markUserAsPaid = async (userId, amount) => {
         console.error('Error updating paid status:', error);
         alert('There was an error processing your donation. Please contact support.');
     }
+}
+window.exportBazaarPlannerConfig = () => {
+    const configFile = `[Authentication]
+Uid = ${window.user.uid}
+RefreshToken = ${window.user.refreshToken}`;
+    const blob = new Blob([configFile], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'BazaarPlanner.config';
+    a.click();
 }

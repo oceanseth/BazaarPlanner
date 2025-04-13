@@ -161,7 +161,7 @@ export function loadFromUrl(hash) {
                 if(boardStateObject.hero=='Common') {
                     for(const monsterIndex in window.monsters) {
                         const monster = window.monsters[monsterIndex];
-                        if(monster.day == boardStateObject.day && monster.level==boardStateObject.level && monster.health==boardStateObject.health) {
+                        if(monster.day == boardStateObject.day && monster.level==boardStateObject.level && monster.health==boardStateObject.health && (monster.skills.length==0 || boardStateObject.skills.some(skill=>skill.name==monster.skills[0].name))) {
                             board.player.startPlayerData.name = monster.name;
                             board.player.startPlayerData.hero = monster.name;
                             break;
