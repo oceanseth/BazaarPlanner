@@ -5560,7 +5560,7 @@ export class Item {
         regex = /^Lifesteal\.?$/i;
         match = text.match(regex);
         if(match) {
-            this.lifesteal = true;
+            this.lifesteal = 100;
             return ()=>{};
         }
        
