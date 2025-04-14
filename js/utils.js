@@ -241,7 +241,11 @@ export function loadFromUrl(hash) {
                 Item.possibleChangeAttributes.forEach(attribute=>{
                     if(item[attribute+"Final"] != undefined && item[attribute+"Final"] != item[attribute]) {
                         item.startItemData[attribute] = (item[attribute+"Final"] - item[attribute])/item[attribute+"_multiplier"];
-                        refreshBoards();
+                        item[attribute] = item[attribute+"Final"];
+                        item[attribute+"Changed"]((newValue,oldValue)=>{
+                            item.startItemData[attribute] -= (newValue-oldValue)/item[attribute+"_multiplier"];
+                        });
+                        //refreshBoards();
                     }
                 });
                 numTries++;
@@ -250,11 +254,13 @@ export function loadFromUrl(hash) {
                     break;
                 }
             }
+            
             Item.possibleChangeAttributes.forEach(attribute=>{
                 if(item[attribute+"Final"] != undefined) {
                     delete item.startItemData[attribute+"Final"];
                 }
             });
+            refreshBoards();
         });
         skillFunctions.forEach(f=>f());
         refreshBoards();

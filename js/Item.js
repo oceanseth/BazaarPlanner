@@ -290,6 +290,7 @@ export class Item {
         this.regenChanged(f,s);
     }
     reset() {
+        this.pendingCharges = [];
         if(this.tooltip) {
             this.tooltip.remove();
             this.tooltip=null;
@@ -708,6 +709,10 @@ export class Item {
         if (!this.progressBar || this.isDestroyed) return;
 
         let effectiveTimeDiff = this.progressHasteAndSlowAndReturnEffectiveTimeDiff(timeDiff);
+        if(this.pendingCharges.length>0) {
+            let charge = this.pendingCharges.pop();
+            this.chargeBy(charge.seconds,charge.source);
+        }
 
         if(this.maxAmmo && this.ammo<=0 && this.numTriggers < Math.floor((effectiveTimeDiff+this.effectiveBattleTime) / this.cooldown)) {
             //don't progress battle time if no ammo is remaining and the item is ready to trigger
@@ -715,10 +720,10 @@ export class Item {
         }
         this.effectiveBattleTime += effectiveTimeDiff;
         // Update progress and check for triggers
-        const progress = (this.effectiveBattleTime % (this.cooldown + this.cooldown/10)) / this.cooldown * this.board.player.battle.battleIntervalSpeed;
+        const progress = (this.effectiveBattleTime % (this.cooldown /*+ this.cooldown/10*/)) / this.cooldown * this.board.player.battle.battleIntervalSpeed;
         this.updateProgressBar(progress);
 
-        const newTriggers = Math.floor((this.effectiveBattleTime -(this.numTriggers*this.cooldown/10))/ this.cooldown);
+        const newTriggers = Math.floor((this.effectiveBattleTime /*-(this.numTriggers*this.cooldown/10)*/)/ this.cooldown);
         if (newTriggers > this.numTriggers && (!this.maxAmmo || this.ammo>0)) {
             if(this.maxAmmo) this.ammo--;
             if(this.multicast>0) {
@@ -737,6 +742,7 @@ export class Item {
         this.board.itemTriggered(this);
         this.getAdjacentItems().forEach(item => item.adjacentItemTriggered(this));
         this.battleStats.useCount++;
+        /*
         if(this.pendingCharge) {
             if(this.pendingCharge >= this.cooldown) {
                 this.pendingCharge -= this.cooldown-1;
@@ -745,7 +751,7 @@ export class Item {
                 this.effectiveBattleTime += this.pendingCharge;
                 this.pendingCharge = 0;
             }
-        }
+        }*/
     }
 
     doICrit() {
@@ -3517,7 +3523,11 @@ export class Item {
             this.effectiveBattleTime += seconds*1000;
             return;
         }
-        this.pendingCharge = (this.pendingCharge||0) + (seconds*1000 - timeToNextTrigger);
+        if(timeToNextTrigger<=0) {
+            this.pendingCharges.push({seconds:seconds,source:source});
+            return;
+        }
+        
         this.effectiveBattleTime += timeToNextTrigger;
         
     }
