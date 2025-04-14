@@ -290,6 +290,7 @@ export class Item {
         this.regenChanged(f,s);
     }
     reset() {
+        setupChangeListeners(this,Item.possibleChangeAttributes);
         this.pendingCharges = [];
         if(this.tooltip) {
             this.tooltip.remove();
@@ -321,7 +322,7 @@ export class Item {
         } else {
             this.priority = 0;
         }
-        setupChangeListeners(this,Item.possibleChangeAttributes);
+
 
         Object.assign(this, this.startItemData);
         this.tags = [...this.startItemData.tags];
@@ -5212,7 +5213,7 @@ export class Item {
         
         //Your leftmost Weapon deals (  +20  » +30  » +40  » +50   ) Damage.
         //Your leftmost Poison item has (  +3  » +6  » +9  » +12   ) Poison.
-        regex = /^Your (leftmost|rightmost) ([^\s]+)(?: item)? (?:has|deals|gains)\s*\(([^)]+)\)\s*([^\s^\.]+)\.?.*/i;
+        regex = /^Your (leftmost|rightmost) ([^\s]+)(?: item)? (?:has|deals|gains)\s*\+?(\([^)]+\)|\d+)\s*([^\s^\.]+)\.?.*/i;
         match = text.match(regex);
         if(match) {
             const gainAmount = getRarityValue(match[3], this.rarity);
