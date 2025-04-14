@@ -1748,6 +1748,7 @@ background-color: rgba(255, 0, 0, 0.2);
 #puzzle-guess-slider {
     width: 80%;
     -webkit-appearance: none;
+    appearance: none;
     height: 25px;
     background: #444;
     outline: none;
@@ -1755,8 +1756,7 @@ background-color: rgba(255, 0, 0, 0.2);
 }
 
 #puzzle-guess-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
+    appearance: none;   
     width: 100px;
     height: 25px;
     background: #666;
