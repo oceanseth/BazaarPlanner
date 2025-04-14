@@ -235,13 +235,21 @@ export function loadFromUrl(hash) {
 
         refreshBoards();
 
-        [...topPlayer.board.items,...bottomPlayer.board.items].forEach(item=>{
+        let itemsToEvaluate = [...topPlayer.board.items,...bottomPlayer.board.items];
+        itemsToEvaluate.forEach(item=>{
             let numTries = 0;
             while(Item.possibleChangeAttributes.some(attribute=>item[attribute+"Final"] != undefined && item[attribute+"Final"] != item[attribute])) {
+                console.log("Evaluating item",item.name);
                 Item.possibleChangeAttributes.forEach(attribute=>{
                     if(item[attribute+"Final"] != undefined && item[attribute+"Final"] != item[attribute]) {
                         item.startItemData[attribute] = (item[attribute+"Final"] - item[attribute])/item[attribute+"_multiplier"];
-                        refreshBoards();
+                        item[attribute] = item[attribute+"Final"];
+                        item[attribute+"Changed"]((newValue,oldValue)=>{
+                            item[attribute+"CancelChanged"]("removeMe");
+                            item.startItemData[attribute] -= (newValue-oldValue)/item[attribute+"_multiplier"];
+                            itemsToEvaluate.push(item);
+                        },"removeMe");
+                        //refreshBoards();
                     }
                 });
                 numTries++;
@@ -250,11 +258,13 @@ export function loadFromUrl(hash) {
                     break;
                 }
             }
+            
             Item.possibleChangeAttributes.forEach(attribute=>{
                 if(item[attribute+"Final"] != undefined) {
                     delete item.startItemData[attribute+"Final"];
                 }
             });
+            //refreshBoards();
         });
         skillFunctions.forEach(f=>f());
         refreshBoards();

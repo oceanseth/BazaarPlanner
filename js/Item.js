@@ -290,6 +290,8 @@ export class Item {
         this.regenChanged(f,s);
     }
     reset() {
+        setupChangeListeners(this,Item.possibleChangeAttributes);
+        this.pendingCharges = [];
         if(this.tooltip) {
             this.tooltip.remove();
             this.tooltip=null;
@@ -320,7 +322,7 @@ export class Item {
         } else {
             this.priority = 0;
         }
-        setupChangeListeners(this,Item.possibleChangeAttributes);
+
 
         Object.assign(this, this.startItemData);
         this.tags = [...this.startItemData.tags];
@@ -708,6 +710,10 @@ export class Item {
         if (!this.progressBar || this.isDestroyed) return;
 
         let effectiveTimeDiff = this.progressHasteAndSlowAndReturnEffectiveTimeDiff(timeDiff);
+        if(this.pendingCharges.length>0) {
+            let charge = this.pendingCharges.pop();
+            this.chargeBy(charge.seconds,charge.source);
+        }
 
         if(this.maxAmmo && this.ammo<=0 && this.numTriggers < Math.floor((effectiveTimeDiff+this.effectiveBattleTime) / this.cooldown)) {
             //don't progress battle time if no ammo is remaining and the item is ready to trigger
@@ -715,10 +721,10 @@ export class Item {
         }
         this.effectiveBattleTime += effectiveTimeDiff;
         // Update progress and check for triggers
-        const progress = (this.effectiveBattleTime % (this.cooldown + this.cooldown/10)) / this.cooldown * this.board.player.battle.battleIntervalSpeed;
+        const progress = (this.effectiveBattleTime % (this.cooldown /*+ this.cooldown/10*/)) / this.cooldown * this.board.player.battle.battleIntervalSpeed;
         this.updateProgressBar(progress);
 
-        const newTriggers = Math.floor((this.effectiveBattleTime -(this.numTriggers*this.cooldown/10))/ this.cooldown);
+        const newTriggers = Math.floor((this.effectiveBattleTime /*-(this.numTriggers*this.cooldown/10)*/)/ this.cooldown);
         if (newTriggers > this.numTriggers && (!this.maxAmmo || this.ammo>0)) {
             if(this.maxAmmo) this.ammo--;
             if(this.multicast>0) {
@@ -737,6 +743,7 @@ export class Item {
         this.board.itemTriggered(this);
         this.getAdjacentItems().forEach(item => item.adjacentItemTriggered(this));
         this.battleStats.useCount++;
+        /*
         if(this.pendingCharge) {
             if(this.pendingCharge >= this.cooldown) {
                 this.pendingCharge -= this.cooldown-1;
@@ -745,7 +752,7 @@ export class Item {
                 this.effectiveBattleTime += this.pendingCharge;
                 this.pendingCharge = 0;
             }
-        }
+        }*/
     }
 
     doICrit() {
@@ -1249,7 +1256,7 @@ export class Item {
             const orTagToMatch = Item.getTagFromText(match[5]);
             const numToHaste = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]?match[2]:1);
             const hasteAmount = parseInt(match[6] ? getRarityValue(match[6], this.rarity) : match[7]);
-            const itemsToHaste = tagToMatch ? this.board.items.filter((item) => 
+            const itemsToHaste = tagToMatch&&tagToMatch!='Item' ? this.board.items.filter((item) => 
                 item.isHasteTargetable() &&(
                 item.tags.includes(tagToMatch)!==isNon ||
                 (orTagToMatch?item.tags.includes(orTagToMatch):false)
@@ -3517,7 +3524,11 @@ export class Item {
             this.effectiveBattleTime += seconds*1000;
             return;
         }
-        this.pendingCharge = (this.pendingCharge||0) + (seconds*1000 - timeToNextTrigger);
+        if(timeToNextTrigger<=0) {
+            this.pendingCharges.push({seconds:seconds,source:source});
+            return;
+        }
+        
         this.effectiveBattleTime += timeToNextTrigger;
         
     }
@@ -5202,7 +5213,7 @@ export class Item {
         
         //Your leftmost Weapon deals (  +20  » +30  » +40  » +50   ) Damage.
         //Your leftmost Poison item has (  +3  » +6  » +9  » +12   ) Poison.
-        regex = /^Your (leftmost|rightmost) ([^\s]+)(?: item)? (?:has|deals|gains)\s*\(([^)]+)\)\s*([^\s^\.]+)\.?.*/i;
+        regex = /^Your (leftmost|rightmost) ([^\s]+)(?: item)? (?:has|deals|gains)\s*\+?(\([^)]+\)|\d+)\s*([^\s^\.]+)\.?.*/i;
         match = text.match(regex);
         if(match) {
             const gainAmount = getRarityValue(match[3], this.rarity);
@@ -5560,7 +5571,7 @@ export class Item {
         regex = /^Lifesteal\.?$/i;
         match = text.match(regex);
         if(match) {
-            this.lifesteal = true;
+            this.lifesteal = 100;
             return ()=>{};
         }
        

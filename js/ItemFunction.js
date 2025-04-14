@@ -3,7 +3,7 @@ import { getRarityValue } from "./utils.js";
 export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
-        "Epicurean Chocolate","Spare Change","Pelt","Candy Mail","Machine Learning","Iron Sharpens Iron","Chocoholic","Like Clockwork","Upgrade Hammer",
+        "Epicurean Chocolate","Spare Change","Pelt","Candy Mail","Machine Learning","Chocoholic","Like Clockwork","Upgrade Hammer",
     "Vending Machine","Piggy Bank","Cash Register","VIP Pass","Cargo Shorts","Alembic","The Tome of Yyahan","Catalyst","Chunk of Lead","Chunk of Gold"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
@@ -1130,15 +1130,16 @@ ItemFunction.items.set("Silencer",(item)=>{
     });
 
 //Burn (3 >> 6 >> 9 >> 12)
-//This has + Burn equal to the Burn of your non-Fire Claw items. [0] from Fire Claw
+//This has + Burn equal to (50%/75%/100%) of the Burn of your non-Fire Claw items.from Fire Claw
 ItemFunction.items.set("Fire Claw",(item)=>{
-    const burnAmount = getRarityValue("3 >> 6 >> 9 >> 12",item.rarity);
-    const nonFireClawItems = item.board.items.filter(i=>!i.name.includes("Fire Claw"));
+    const burnAmount = getRarityValue("6 >> 9 >> 12", item.rarity);
+    const burnPercentage = getRarityValue("50 >> 75 >> 100", item.rarity);
+    const nonFireClawItems = item.board.items.filter(i=>!i.name.includes("Fire Claw") && i.tags.includes("Burn"));
     item.gain(burnAmount,'burn');
-    item.gain(nonFireClawItems.reduce((acc,i)=>acc+i.burn,0),'burn');
+    item.gain(nonFireClawItems.reduce((acc,i)=>acc+i.burn,0)*burnPercentage/100,'burn');
     nonFireClawItems.forEach(i=>{
         i.burnChanged((newBurn,oldBurn)=>{
-            item.gain(newBurn-oldBurn,'burn');
+            item.gain((newBurn-oldBurn)*burnPercentage/100,'burn');
         });
     });
     item.triggerFunctions.push(()=>{
