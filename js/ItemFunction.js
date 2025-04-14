@@ -1132,8 +1132,8 @@ ItemFunction.items.set("Silencer",(item)=>{
 //Burn (3 >> 6 >> 9 >> 12)
 //This has + Burn equal to the Burn of your non-Fire Claw items. [0] from Fire Claw
 ItemFunction.items.set("Fire Claw",(item)=>{
-    const burnAmount = getRarityValue("3 >> 6 >> 9 >> 12",item.rarity);
-    const nonFireClawItems = item.board.items.filter(i=>!i.name.includes("Fire Claw"));
+    const burnAmount = getRarityValue("6 >> 9 >> 12", item.rarity);
+    const nonFireClawItems = item.board.items.filter(i=>!i.name.includes("Fire Claw") && i.tags.includes("Burn"));
     item.gain(burnAmount,'burn');
     item.gain(nonFireClawItems.reduce((acc,i)=>acc+i.burn,0),'burn');
     nonFireClawItems.forEach(i=>{

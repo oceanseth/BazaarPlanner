@@ -1249,7 +1249,7 @@ export class Item {
             const orTagToMatch = Item.getTagFromText(match[5]);
             const numToHaste = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]?match[2]:1);
             const hasteAmount = parseInt(match[6] ? getRarityValue(match[6], this.rarity) : match[7]);
-            const itemsToHaste = tagToMatch ? this.board.items.filter((item) => 
+            const itemsToHaste = tagToMatch&&tagToMatch!='Item' ? this.board.items.filter((item) => 
                 item.isHasteTargetable() &&(
                 item.tags.includes(tagToMatch)!==isNon ||
                 (orTagToMatch?item.tags.includes(orTagToMatch):false)
