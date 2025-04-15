@@ -104,34 +104,19 @@ export class Puzzle {
             if(titleElement) titleElement.innerHTML = `Puzzle ${Puzzle.puzzleId}: ${data.title}`;
             let boardState = null;
             if(data && data.d) {
-                boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(data.d));
+                
                 if(data.type=='buildboard_npc') {
                     Puzzle.bottomPlayer.board.options.editable = true;
                 }
-                boardState.forEach(item => {  
-                    if(item.name=='_b_t') {
-                        item.name = '_b_puzzle-top';
-                        return;
-                    }
-                    if(item.name=='_b_b') {
-                        item.name = '_b_puzzle-bottom';
-                        return;
-                    }
-                    if(item.board=='t') {
-                        item.board='puzzle-top';
-                        return;
-                    }
-                    if(item.board=='b') {
-                        item.board='puzzle-bottom';
-                        return;
-                    }
-                });               
+                data.d = Board.transformBoardId(data.d,{'t':'puzzle-top','b':'puzzle-bottom'});
+                loadFromUrl(data.d);   
+                
+                
             } else {
                 alert("No puzzle found.")
                 return;
             }
-            const stateStr = LZString.compressToEncodedURIComponent(JSON.stringify(boardState));
-            loadFromUrl(stateStr);   
+               
             Puzzle.bottomPlayer.board.options.editable = false;
             document.getElementById("puzzle-slider-container").style.display = "none";
             document.getElementById("puzzle-select-container").style.display = "none";

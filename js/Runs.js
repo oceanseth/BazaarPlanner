@@ -2,6 +2,7 @@ import { Run } from './Run.js';
 export class Runs {
     static runs = {};
     static loadRuns() {
+        window.Runs = Runs;
         if(window.user==null) {
             $("#runs-content").html("<button onclick='window.showLogin()'>Login</button>");
             return;
@@ -29,7 +30,7 @@ export class Runs {
                         .once('value')
                         .then(snap => ({
                             id: runId,
-                            t: parseInt(snap.val())
+                            t: snap.val()?parseInt(snap.val()):null
                         }))
                 );
 
@@ -37,16 +38,17 @@ export class Runs {
             })
             .then(runDataArray => {
                 if (!runDataArray) return;
-                
+                runDataArray.sort((a, b) => b.t - a.t);
                 runDataArray.forEach(runData => {
+                    if(runData.t==null) return;
                     Runs.runs[runData.id] = new Run(runData);
                 });
                 
                 // Create the select dropdown using Object.values to convert object to array
                 const selectHtml = `
-                    <select id="run-selector">
+                    <select id="run-selector"><option value="null" disabled selected>Select a run</option>
                         ${Object.values(Runs.runs).map(run => 
-                            `<option value="${run.id}">${(new Date(parseInt(run.t))).toLocaleString()}</option>`
+                            `<option value="${run.id}">${(new Date(run.t)).toLocaleString()}</option>`
                         ).join('\n')}
                     </select>
                     <div id="selected-run-content"></div>
@@ -58,9 +60,12 @@ export class Runs {
                 $("#run-selector").on('change', (e) => {
                     const selectedRun = Runs.runs[e.target.value];
                     if (selectedRun) {
-                        selectedRun.loadEncounters().then(async () => {
-                            $("#selected-run-content").html(await selectedRun.getHtml());
-                        });
+                        selectedRun.loadData().then(
+                            () => {                                
+                                document.getElementById("selected-run-content").appendChild(selectedRun.element);
+                                selectedRun.loadEncounter();
+                            }
+                        );                        
                     }
                 });
             });

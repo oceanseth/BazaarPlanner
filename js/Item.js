@@ -99,7 +99,7 @@ export class Item {
 
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
         
-        /*
+        
         if(this.startItemData.value==undefined) {
             this.startItemData.value = 0;
              this.startItemData.value = this.getInitialValue();
@@ -110,8 +110,8 @@ export class Item {
 
         this.value = this.startItemData.value;
         
-        if(itemData.value==undefined) itemData.value = this.startItemData.value;
-        */
+        //if(itemData.value==undefined) itemData.value = this.startItemData.value;
+        
         this.resetCooldown();
         this.element = this.createElement();
         this.setupEditableEvents();
@@ -301,7 +301,7 @@ export class Item {
         this.textMatches = [];
         this.lifesteal = 0;
         this.isDestroyed = false;
-        this.value = this.startItemData.value + this.getInitialValue();
+        this.value = this.startItemData.value;
         this.element.classList.remove('destroyed');
         this.hasteTimeRemaining = 0;
         this.hasDoubleHasteDuration = false;
@@ -390,8 +390,7 @@ export class Item {
     }
 
     getInitialValue() {
-        const rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
-        return  (this.enchant?2:1) * this.size * Math.pow(2, rarityIndex);           
+        return  (this.enchant?2:1) * this.size * Math.pow(2, this.tier);
     }
 
     adjacentItemTriggered(item) {
