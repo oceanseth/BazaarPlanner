@@ -1112,6 +1112,8 @@ font.Slow:before {
 
 .health-element > * {
     position: relative;
+    display: inline-block;
+    padding-right: 5px;
     z-index: 2;  /* Add z-index to position content above ::before */
 }
 
