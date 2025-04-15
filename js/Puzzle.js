@@ -145,7 +145,9 @@ export class Puzzle {
             Afer gussing, we will reveal the answer and simulate the battle.
             If you guess within 10 of the correct answer, you will gain a point, be added to the leaderboard, and given the chance to submit your own puzzle!<br/><br/>
             <b>In 100 battles, how many times does the bottom board win (or tie)?</b>`;
-            document.getElementById("puzzle-slider-container").style.display = "flex";
+            if(document.getElementById("puzzle-slider-container")) {
+                document.getElementById("puzzle-slider-container").style.display = "flex";
+            }
                     break;
                 case 'buildboard_npc':
                     html += data.desc+`<br/><br/><b>Drag items on the bottom board to change their position to give the best possible win chance.</b>`;
