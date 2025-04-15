@@ -1094,12 +1094,27 @@ font.Slow:before {
     -0.5px 0.5px 0 #333,
     0.5px 0.5px 0 #333,
     1px 1px 1px rgba(0, 0, 0, 1);
+    border-radius: 5px;
 }
-.health-element > div {
-    display: inline-block;
-    padding-right: 5px;
-    cursor: pointer;
+
+.health-element::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/images/healthbar.png');
+    background-size: 100% 100%;
+    opacity: 0.5;
+    z-index: 1;  /* Add z-index to position above background */
 }
+
+.health-element > * {
+    position: relative;
+    z-index: 2;  /* Add z-index to position content above ::before */
+}
+
 .health-element-regen {
     color: rgb(0, 255, 0);
     padding: 2px 4px;
