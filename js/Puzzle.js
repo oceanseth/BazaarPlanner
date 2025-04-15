@@ -120,8 +120,10 @@ export class Puzzle {
             }
                
             Puzzle.bottomPlayer.board.options.editable = false;
-            document.getElementById("puzzle-slider-container").style.display = "none";
-            document.getElementById("puzzle-select-container").style.display = "none";
+            if(document.getElementById("puzzle-slider-container")) {
+                document.getElementById("puzzle-slider-container").style.display = "none";
+                document.getElementById("puzzle-select-container").style.display = "none";
+            }
             let html = "";
             if(data.vod) {
                 html += getVodHTML(data.vod,true);
@@ -133,7 +135,9 @@ export class Puzzle {
             After voting, we will reveal the answer, simulate the battle, and link to the vod.<br>
             If you guess within 10 of the correct answer, you will gain a point, be added to the leaderboard, and given the chance to submit your own puzzle!<br/><br/>
             <b>In 100 battles, how many times does the bottom board win (or tie)?</b>`;
-            document.getElementById("puzzle-slider-container").style.display = "flex";
+            if(document.getElementById("puzzle-slider-container")) {
+                document.getElementById("puzzle-slider-container").style.display = "flex";
+            }
                     break;
                 case 'sim':
                     html +=`
