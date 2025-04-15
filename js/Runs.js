@@ -19,9 +19,14 @@ export class Runs {
             .limitToLast(50)
             .once("value")
             .then((snapshot) => {
-                let runIds = snapshot.val() ? Object.keys(snapshot.val()) : [];
+                let runIds = snapshot.val() ? Object.keys(snapshot.val()) : null;
                 if(!runIds) {
-                    $("#runs-content").html(`Your account has not tracked any runs yet. Download the tracker program <a href="${window.trackerUrl}">here</a> and start tracking your runs!`);
+                    $("#runs-content").html(`
+                        Your account has not tracked any runs yet.<br/><br/>
+                        Download the tracker program <a href="${window.trackerUrl}">here</a> and start tracking your runs!<br/><br/>
+                        This page will then look something like this:<br/><br/>
+                        <img src="/images/faq-runs.png" style="width:50%;"/>
+                        `);
                     return;
                 }
 
