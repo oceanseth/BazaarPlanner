@@ -7,6 +7,9 @@ export class Runs {
             $("#runs-content").html("<button onclick='window.showLogin()'>Login</button>");
             return;
         }
+        if(document.getElementById("run-selector")!=null) {
+            return;
+        }
         
         // Create a query that excludes the encounters field by specifying the path
         const runsRef = firebase.database().ref("/users/"+user.uid+"/runs");
@@ -62,7 +65,7 @@ export class Runs {
                     if (selectedRun) {
                         selectedRun.loadData().then(
                             () => {                                
-                                document.getElementById("selected-run-content").appendChild(selectedRun.element);
+                                document.getElementById("selected-run-content").replaceChildren(selectedRun.element);
                                 selectedRun.loadEncounter();
                             }
                         );                        
