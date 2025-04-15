@@ -16,7 +16,9 @@ export class Puzzle {
     constructor() {
     }
     static loadPuzzle() {
-        Puzzle.initialContent = document.getElementById("puzzle-content").innerHTML;
+        if(Puzzle.initialContent==null) {
+            Puzzle.initialContent = document.getElementById("puzzle-content").innerHTML;
+        }
         firebase.database().ref(`puzzles/current`).once('value').then(snapshot => {
             Puzzle.currentPuzzleId = snapshot.val();
             Puzzle.puzzleId = Puzzle.currentPuzzleId;
