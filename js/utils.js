@@ -237,12 +237,16 @@ export function loadFromUrl(hash) {
 
         let itemsToEvaluate = [...topPlayer.board.items,...bottomPlayer.board.items];
         itemsToEvaluate.forEach(item=>{
+            if(item.cooldownFinal != undefined) {  
+                if(item.cooldownFinal < 100) item.cooldownFinal *= 1000; //fix anyone running previous version of importer, can remove this in a month or so
+                item.startItemData.cooldown = (item.startItemData.cooldown || 0) + ((item.cooldownFinal - item.cooldown)/ 1000);
+            }
             let numTries = 0;
             while(Item.possibleChangeAttributes.some(attribute=>item[attribute+"Final"] != undefined && item[attribute+"Final"] != item[attribute])) {
                 console.log("Evaluating item",item.name);
                 Item.possibleChangeAttributes.forEach(attribute=>{
                     if(item[attribute+"Final"] != undefined && item[attribute+"Final"] != item[attribute]) {
-                        item.startItemData[attribute] = (item[attribute+"Final"] - item[attribute])/item[attribute+"_multiplier"];
+                        item.startItemData[attribute] = item.startItemData[attribute]||0 + (item[attribute+"Final"] - item[attribute])/item[attribute+"_multiplier"];
                         item[attribute] = item[attribute+"Final"];
                         item[attribute+"Changed"]((newValue,oldValue)=>{
                             item[attribute+"CancelChanged"]("removeMe");

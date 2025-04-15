@@ -8,7 +8,9 @@ import { getRarityValue, loadFromUrl, updateUrlState } from './utils.js';
 import { Battle } from './Battle.js';
 import { Puzzle } from './Puzzle.js';
 import { Account } from './Account.js';
+import { Runs } from './Runs.js';
 // Make necessary functions/classes available globally
+window.trackerUrl = "https://github.com/oceanseth/BazaarPlannerMod/releases/download/1.0.0/BazaarPlannerModInstaller-1.0.zip";
 if(window.location.hostname == "bazaarplanner.com") {
     window.location.href = "https://www.bazaarplanner.com/"+window.location.hash;
 }
@@ -229,7 +231,8 @@ function createCalculateBattleButton() {
 
 function setLoggedInUser (user) {        
         if (user) {
-            $(".requireLogin").removeClass("requireLogin");
+            $(".requireLogin").show();
+            $(".requireLogout").hide();
             // User is signed in
             user.getIdToken().then(function(accessToken) {
                 window.user = user;
@@ -243,6 +246,8 @@ function setLoggedInUser (user) {
             // Hide the auth UI when signed in
             document.getElementById('auth-container').style.display = 'none';
         } else {
+            $(".requireLogin").hide();
+            $(".requireLogout").show();
             // User is signed out
             const signInStatus = document.getElementById('sign-in-status');
             if(signInStatus) signInStatus.textContent = '';
@@ -489,8 +494,10 @@ emptyDragImage.style.position = 'absolute';
 emptyDragImage.style.top = '-9999px';
 emptyDragImage.style.opacity = '0';
 document.body.appendChild(emptyDragImage);
-
+let _currentSection = null;
 window.showSection = function(sectionId) {
+    const oldSection = _currentSection;
+    _currentSection = sectionId;
     document.querySelectorAll('.section').forEach(section => {
         section.style.display = 'none';
     });
@@ -507,11 +514,13 @@ window.showSection = function(sectionId) {
 
     if(sectionId=='puzzle') {
         Puzzle.loadPuzzle();
-    } else {
-        if(Puzzle.battle!=null) {
-            Puzzle.battle.resetBattle();
-        }
+    } else if(sectionId=='runs') {
+        Runs.loadRuns();
     }
+    if(oldSection=='puzzle') {
+        Puzzle.battle.resetBattle();
+    }
+
 }
 function showItemPreview(e) {
     const item = e.target;
