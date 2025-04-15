@@ -3,6 +3,7 @@ import { Skill } from './Skill.js';
 import { updateUrlState } from './utils.js';
 import { setupChangeListeners } from './utils.js';
 import { loadFromUrl } from './utils.js';
+import LZString from 'lz-string';
 
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
@@ -22,6 +23,27 @@ class Board {
         this.reset();
         this.player.reset();
     }    
+    static transformBoardIds(stateString,transformations) {
+        if(!stateString) return stateString;
+        let boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(stateString));
+        Object.entries(transformations).forEach(([oldBoardId, newBoardId]) => {
+            if(newBoardId) {
+                boardState.forEach(item => {  
+                    if(item.name=='_b_'+oldBoardId) {
+                        item.name = '_b_'+newBoardId;
+                        return;
+                    }                 
+                    if(item.board==oldBoardId) {
+                        item.board=newBoardId;
+                        return;
+                    }
+                });            
+            } else {
+                boardState = boardState.filter(item => item.board!=oldBoardId);
+            }
+        });
+        return LZString.compressToEncodedURIComponent(JSON.stringify(boardState));
+    }
     loadEncounter(encounter) {
         loadFromUrl(encounter.d);
         window.history.pushState({state: encounter.d}, '', `#${encounter.d}`);

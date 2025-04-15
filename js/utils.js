@@ -241,6 +241,9 @@ export function loadFromUrl(hash) {
                 if(item.cooldownFinal < 100) item.cooldownFinal *= 1000; //fix anyone running previous version of importer, can remove this in a month or so
                 item.startItemData.cooldown = (item.startItemData.cooldown || 0) + ((item.cooldownFinal - item.cooldown)/ 1000);
             }
+            if(item.valueFinal != undefined) {
+                item.startItemData.value = (item.startItemData.value || 0) + (item.valueFinal - item.value);
+            }
             let numTries = 0;
             while(Item.possibleChangeAttributes.some(attribute=>item[attribute+"Final"] != undefined && item[attribute+"Final"] != item[attribute])) {
                 console.log("Evaluating item",item.name);
@@ -248,6 +251,9 @@ export function loadFromUrl(hash) {
                     if(item[attribute+"Final"] != undefined && item[attribute+"Final"] != item[attribute]) {
                         item.startItemData[attribute] = item.startItemData[attribute]||0 + (item[attribute+"Final"] - item[attribute])/item[attribute+"_multiplier"];
                         item[attribute] = item[attribute+"Final"];
+                       // item.reset();
+                       // item.setup();
+                        
                         item[attribute+"Changed"]((newValue,oldValue)=>{
                             item[attribute+"CancelChanged"]("removeMe");
                             item.startItemData[attribute] -= (newValue-oldValue)/item[attribute+"_multiplier"];
