@@ -3935,13 +3935,21 @@ export class Item {
             }
         }
         //Your other Friends' cooldowns are reduced by ( 10% » 20% » 30% )
-        regex = /^\s*Your other Friends' cooldowns are reduced by (\([^)]+\)|\d+%?)/i;
+        regex = /^\s*Your (other )?(\w+)s?'?(?: items)?(?: have their cooldowns|cooldowns are)? (reduced|increased) by (\([^)]+\)|\d+%)( second\(?s?\)?)?\.?/i;
         match = text.match(regex);
         if(match) {
-            const cooldownReduction = getRarityValue(match[1], this.rarity);
+            const other = match[1] ? true : false;
+            const tagToMatch = Item.getTagFromText(match[2]);
+            const cooldownReduction = getRarityValue(match[4], this.rarity);
+            const isReduced = match[3] == "reduced" ? true : false;
+            const isSeconds = match[5] ? true : false;
             this.board.items.forEach(item => {  
-                if(item.id !== this.id && item.tags.includes("Friend")) {
-                    item.gain(-item.cooldown * (cooldownReduction/100),'cooldown');
+                if(item.id !== this.id && item.tags.includes(tagToMatch)) {
+                    if(isSeconds) {
+                        item.gain((isReduced?-1:1)*cooldownReduction*1000,'cooldown');
+                    } else {
+                        item.gain((isReduced?-1:1)*item.cooldown * (cooldownReduction/100),'cooldown');
+                    }
                 }
             });
             return () => {};
@@ -4858,16 +4866,20 @@ export class Item {
 
         //Burn items to the right of this gain ( 1 » 2 » 3 » 4 ) Burn for the fight
 
-        regex = /^(?:the )?([^\s]+)(?: item)?s? to the right of this gains? (?:\(([^)]+)\)|(\d+)) ([^\s]+).*/i;
+        regex = /^(This and )?(?:the )?([^\s]+)(?: item)?s? to the right of this gains? (\([^)]+\)|\d+) ([^\s]+).*/i;
         match = text.match(regex);
 
         if(match) {
-            const gainAmount = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
-            const tagToMatch = Item.getTagFromText(match[1]);
+            const thisAnd = match[1] ? true : false;
+            const tagToMatch = Item.getTagFromText(match[2]);
+            const gainAmount = getRarityValue(match[3], this.rarity);
+            const whatToGain = match[4].toLowerCase();
             return () => {
+                if(thisAnd) {
+                    this.gain(gainAmount,whatToGain,this);
+                }
                 this.board.items.filter(item => item.startIndex>this.startIndex && item.tags.includes(tagToMatch)).forEach(item => {
-                    item.gain(gainAmount,match[4].toLowerCase());
-                    this.log(this.name + " gave " + item.name + " " + gainAmount + " " + match[4]);
+                    item.gain(gainAmount,whatToGain,this);
                 });
             };
         }
@@ -5008,15 +5020,23 @@ export class Item {
             }
         }
         //Heal for 30% of your Max Health and Cleanse half your Burn and Poison. from Healthy Heart
-        regex = /^\s*Heal for 30% of your Max Health and Cleanse half your Burn and Poison\.?$/i;
+        regex = /^\s*Heal for 30% of your Max Health\.?$/i;
         match = text.match(regex);
         if(match) {
             return () => {
                 const healAmount = this.board.player.maxHealth*0.3;
                 this.applyHeal(healAmount);
+                this.log(this.name + " healed for "+healAmount);
+            }
+        }
+        //Cleanse half your Burn and Poison
+        regex = /^\s*Cleanse half your Burn and Poison\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
                 if(this.board.player.burn>0) this.board.player.burn /= 2;
                 if(this.board.player.poison>0) this.board.player.poison /= 2;
-                this.log(this.name + " healed for "+healAmount+" and cleansed half "+this.board.player.name+"'s Burn and Poison");
+                this.log(this.name + " cleansed half "+this.board.player.name+"'s Burn and Poison");
             }
         }
         //reload 2 Ammo
@@ -5701,7 +5721,7 @@ export class Item {
         return false;
     }
 
-    getCommaTriggerFunctionFromText(text) {
+    getCommaTriggerFunctionFromText(text) {      
         let regex = /^([^,]+), (?:and )?(.*)$/i;
         let match = text.match(regex);
         if(match) {
@@ -5840,22 +5860,23 @@ export class Item {
         //your Heal and Regeneration items have their cooldowns reduced by (5%/10%/15%). from Rapid Relief
         //Your Weapons' cooldowns are reduced by (5%/10%/15%) from Frozen Shot
         //your Weapons have their cooldowns reduced by (  5%  » 10%  » 20%   ).
-        regex = /^your ([^\s]+?)s?'?(?: and ([^\s]+)s?)?(?: items)? (?:have their cooldowns|cooldowns are) reduced by (\([^)]+\)|\d+%?)( seconds?)?\.?$/i;    
+        regex = /^your ([^\s]+?)s?'?(?: and ([^\s]+)s?)?(?: items)? (?:have their cooldowns|cooldowns are) (increased|reduced) by (\([^)]+\)|\d+%?)( second\(?s?\)?)?\.?$/i;    
         match = text.match(regex);
         if(match) {
-            const cooldownReduction = getRarityValue(match[3], this.rarity);
+            const cooldownReduction = getRarityValue(match[4], this.rarity);
             const tagToMatch = Item.getTagFromText(match[1]);
             const tagToMatch2 = Item.getTagFromText(match[2]);
-            const isSeconds = match[4] ? true : false;
+            const isSeconds = match[5] ? true : false;
+            const isReduced = match[3] == "reduced" ? true : false;
             let cooldownReducedBy = 0;
             doIt = () => {
                 this.board.items.forEach(item => {
                     if(item.tags.includes(tagToMatch) || (tagToMatch2 && item.tags.includes(tagToMatch2))) {
                         if(isSeconds) {
-                            item.gain(-cooldownReduction*1000,'cooldown');
+                            item.gain((isReduced?-1:1)*cooldownReduction*1000,'cooldown');
                         } else {
                             cooldownReducedBy = item.cooldown * cooldownReduction/100;
-                            item.gain(-cooldownReducedBy, "cooldown");
+                            item.gain((isReduced?-1:1)*cooldownReducedBy, "cooldown");
                         }
                     }
                 });
@@ -5865,9 +5886,9 @@ export class Item {
                 this.board.items.forEach(item => {
                     if(item.tags.includes(tagToMatch) || (tagToMatch2 && item.tags.includes(tagToMatch2))) {
                         if(isSeconds) {
-                            item.gain(cooldownReduction*1000,'cooldown');
+                            item.gain((isReduced?1:-1)*cooldownReduction*1000,'cooldown');
                         } else {
-                            item.gain(cooldownReducedBy, "cooldown");
+                            item.gain((isReduced?1:-1)*cooldownReducedBy, "cooldown");
                         }
                     }
                 });
