@@ -204,7 +204,7 @@ export function loadFromUrl(hash) {
             const [baseName, enchant] = Item.stripEnchantFromName(name);
 
             const newItemData = structuredClone(items[baseName]);
-            const tags = [...newItemData.tags];
+            const tags = newItemData.tags?[...newItemData.tags]:[];
             Object.assign(newItemData, itemWithoutBoardAndStartIndex);
             tags.forEach(tag=>{
                if(!newItemData.tags.includes(tag)) {
