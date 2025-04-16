@@ -1,6 +1,7 @@
 import { Board } from './Board.js';
 export class Battle {
     static id=0;
+    static sandstormStartTime = 32000;
     constructor(players,battleOverFunction,combatLogElement=null,battleIntervalSpeed=100,battleSeed=null,logging=true) { 
         this.id = Battle.id++;
         this.players = players;
@@ -220,7 +221,7 @@ export class Battle {
         }
         this.battleTimeDiff += this.battleIntervalSpeed;
         
-        if(this.sandstormStartedTime==0 && this.battleTimeDiff >= 34200 ) {
+        if(this.sandstormStartedTime==0 && this.battleTimeDiff >= Battle.sandstormStartTime ) {
             this.startSandstorm();
         }
         if(this.sandstormStartedTime>0) {

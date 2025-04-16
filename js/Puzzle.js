@@ -16,7 +16,7 @@ export class Puzzle {
     constructor() {
     }
     static loadPuzzle() {
-        if(Puzzle.initialContent==null) {
+        if(Puzzle.initialContent=="") {
             Puzzle.initialContent = document.getElementById("puzzle-content").innerHTML;
         }
         firebase.database().ref(`puzzles/current`).once('value').then(snapshot => {
@@ -158,7 +158,9 @@ export class Puzzle {
                     html += data.desc+`<br/><br/><select id="puzzle-select-options"><option value="" disabled selected>Select one</option>
                         ${data.options.map(option => `<option value="${option}">${option}</option>`).join('')}
                     </select>`;
-                    document.getElementById("puzzle-select-container").style.display = "flex";
+                    if(document.getElementById("puzzle-select-container")) {
+                        document.getElementById("puzzle-select-container").style.display = "flex";
+                    }
                     break;
                 case 'select_skill':
                     html += data.desc;
