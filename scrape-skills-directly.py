@@ -10,7 +10,7 @@ def fetch_skills():
 
 def download_image(url, local_path):
     try:
-        response = requests.get(f"https://www.howbazaar.gg/{url}")
+        response = requests.get(f"https://howbazaar-images.b-cdn.net/{url}")
         if response.status_code == 200:
             os.makedirs(os.path.dirname(local_path), exist_ok=True)
             with open(local_path, 'wb') as f:
@@ -31,9 +31,8 @@ def transform_skill(skill_data):
     # Remove empty strings and duplicates
     all_tags = list(set(tag for tag in all_tags if tag))
 
-    # Create the icon path
-    icon_name = re.sub(r'[ \'\"\(\)\-_\.\&]', '', skill_data['name'])
-    icon_path = f"images/skills/{icon_name}.avif"
+    # Use skill ID for the icon path
+    icon_path = f"images/skills/{skill_data['id']}.avif"
     
     # Check if image exists locally and download if it doesn't
     local_path = f"./public/{icon_path}"

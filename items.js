@@ -1,5 +1,6 @@
 export const items = {
   "3D Printer": {
+    "id": "723880db-8a97-4833-a9a1-80c75cde4c17",
     "name": "3D Printer",
     "icon": "images/items/3DPrinter.avif",
     "tier": 2,
@@ -12,7 +13,7 @@ export const items = {
     "cooldown": "(5/4)",
     "ammo": null,
     "text": [
-      "Transform into 3 copies of the small item to the left of this for the fight."
+      "Transform into 3 (Gold/Diamond) copies of the small, non-legendary item to the left of this for the fight."
     ],
     "enchants": {
       "Heavy": "...and Enchant the transformations with Heavy if able.",
@@ -32,6 +33,7 @@ export const items = {
     ]
   },
   "Abacus": {
+    "id": "a05d23cb-af36-42fa-aab1-568aba7f30c6",
     "name": "Abacus",
     "icon": "images/items/Abacus.avif",
     "tier": 2,
@@ -66,6 +68,7 @@ export const items = {
     ]
   },
   "Agility Boots": {
+    "id": "f98213d6-2c40-45a7-ac35-f5eca615d9cd",
     "name": "Agility Boots",
     "icon": "images/items/AgilityBoots.avif",
     "tier": 0,
@@ -91,6 +94,7 @@ export const items = {
     ]
   },
   "Alembic": {
+    "id": "b6b210e5-0e56-4c82-9165-7f526dd5c9ea",
     "name": "Alembic",
     "icon": "images/items/Alembic.avif",
     "tier": 1,
@@ -102,7 +106,7 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "At the start of each day, transform the small item to the left of this into a random Potion.",
+      "At the start of each day, transform the small item to the left of this into a random Potion and get a Catalyst.",
       "When you buy this, get a Small Reagent."
     ],
     "enchants": {
@@ -124,6 +128,7 @@ export const items = {
     ]
   },
   "Alpha Ray": {
+    "id": "8ff354c3-1ffa-4251-9323-272f5e9f7312",
     "name": "Alpha Ray",
     "icon": "images/items/AlphaRay.avif",
     "tier": 0,
@@ -159,6 +164,7 @@ export const items = {
     ]
   },
   "Aludel": {
+    "id": "d5a56d21-6892-4a08-b57a-1af53687ff37",
     "name": "Aludel",
     "icon": "images/items/Aludel.avif",
     "tier": 0,
@@ -172,7 +178,8 @@ export const items = {
     "ammo": null,
     "text": [
       "Poison (4/8/12/16).",
-      "This has +1 Multicast for each adjacent Potion or Reagent."
+      "This has +1 Multicast for each adjacent Potion or Reagent.",
+      "At the start of each day, get a Catalyst."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -193,6 +200,7 @@ export const items = {
     ]
   },
   "Amber": {
+    "id": "26ddca65-5309-4600-88f7-1eb5ffbb5788",
     "name": "Amber",
     "icon": "images/items/Amber.avif",
     "tier": 1,
@@ -225,6 +233,7 @@ export const items = {
     ]
   },
   "Ambergris": {
+    "id": "42f78ed2-0141-47f3-9bcd-71b433b1273b",
     "name": "Ambergris",
     "icon": "images/items/Ambergris.avif",
     "tier": 0,
@@ -262,6 +271,7 @@ export const items = {
     ]
   },
   "Anchor": {
+    "id": "20d85338-b625-4b9a-95a7-8a60805e061f",
     "name": "Anchor",
     "icon": "images/items/Anchor.avif",
     "tier": 2,
@@ -298,6 +308,7 @@ export const items = {
     ]
   },
   "Angry Balloon Bot": {
+    "id": "84650135-9f2d-4ee6-b1e5-a011a256ce0d",
     "name": "Angry Balloon Bot",
     "icon": "images/items/AngryBalloonBot.avif",
     "tier": 1,
@@ -334,6 +345,7 @@ export const items = {
     ]
   },
   "Antimatter Chamber": {
+    "id": "405245d8-b81d-4015-8ed9-70e80f5eb980",
     "name": "Antimatter Chamber",
     "icon": "images/items/AntimatterChamber.avif",
     "tier": 3,
@@ -364,6 +376,7 @@ export const items = {
     ]
   },
   "Apothecary": {
+    "id": "9bf2d4d3-d753-4419-8f6f-d56686e967b8",
     "name": "Apothecary",
     "icon": "images/items/Apothecary.avif",
     "tier": 1,
@@ -378,7 +391,7 @@ export const items = {
     "text": [
       "Gain (5/10/15) Regeneration for the fight.",
       "When you Haste, Slow, Poison, or Burn, charge this 1 second(s).",
-      "At the start of each day, get a Reagent."
+      "At the start of each day, get a Reagent or Catalyst."
     ],
     "enchants": {
       "Heavy": "Slow 3 items for 1 second(s).",
@@ -400,6 +413,7 @@ export const items = {
     ]
   },
   "Apropos Chapeau": {
+    "id": "2abed747-432d-4307-98ce-0a0ec244d904",
     "name": "Apropos Chapeau",
     "icon": "images/items/AproposChapeau.avif",
     "tier": 1,
@@ -440,6 +454,7 @@ export const items = {
     ]
   },
   "Arbalest": {
+    "id": "214d9c9d-d222-4afa-b63e-ca028c859647",
     "name": "Arbalest",
     "icon": "images/items/Arbalest.avif",
     "tier": 1,
@@ -476,6 +491,7 @@ export const items = {
     ]
   },
   "Arc Blaster": {
+    "id": "aaa7d8fc-dd1b-42b3-9ea0-3b982f2f3790",
     "name": "Arc Blaster",
     "icon": "images/items/ArcBlaster.avif",
     "tier": 0,
@@ -486,7 +502,7 @@ export const items = {
       "Tech",
       "Damage"
     ],
-    "cooldown": 7,
+    "cooldown": 6,
     "ammo": null,
     "text": [
       "Deal (20/40/60/80) damage.",
@@ -511,6 +527,7 @@ export const items = {
     ]
   },
   "Arken's Ring": {
+    "id": "c9a88c39-28e0-4618-907d-aec77f44d817",
     "name": "Arken's Ring",
     "icon": "images/items/ArkensRing.avif",
     "tier": 3,
@@ -530,23 +547,23 @@ export const items = {
     ]
   },
   "Armored Core": {
+    "id": "88ca9279-a62c-4bdb-ba2c-06871a7c5b7d",
     "name": "Armored Core",
     "icon": "images/items/ArmoredCore.avif",
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
       "Core",
       "Tech",
       "Shield",
-      "Charge",
-      "Unsellable"
+      "Charge"
     ],
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Shield (20/30/40/50).",
-      "Shield items to the right of this gain (+10/+15/+20/+25) Shield for the fight.",
+      "Shield 20.",
+      "This and shield items to the right of this gain (+20/+30/+40) Shield for the fight.",
       "When you use any item to the left of this, Charge this 1 second(s)."
     ],
     "enchants": {
@@ -569,6 +586,7 @@ export const items = {
     ]
   },
   "Astrolabe": {
+    "id": "844f0836-fa5f-485d-83ba-e0795dd3c937",
     "name": "Astrolabe",
     "icon": "images/items/Astrolabe.avif",
     "tier": 1,
@@ -603,6 +621,7 @@ export const items = {
     ]
   },
   "Athanor": {
+    "id": "3718910f-3b43-4c4b-8904-d1dbfce56c13",
     "name": "Athanor",
     "icon": "images/items/Athanor.avif",
     "tier": 1,
@@ -616,8 +635,9 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Reload adjacent Potions.",
-      "When you use a Potion, Burn (8/12/16)."
+      "Reload adjacent items.",
+      "When you use a Potion, Burn (8/12/16).",
+      "At the start of each day, get a Catalyst."
     ],
     "enchants": {
       "Heavy": "When you use a Potion, Slow 1 item for 2 second(s).",
@@ -638,6 +658,7 @@ export const items = {
     ]
   },
   "Atlas Stone": {
+    "id": "c39eed44-0e6a-4720-9d70-817b737449ec",
     "name": "Atlas Stone",
     "icon": "images/items/AtlasStone.avif",
     "tier": 3,
@@ -672,6 +693,7 @@ export const items = {
     ]
   },
   "Atlatl": {
+    "id": "b2681448-9dec-47c7-bb4f-58c51830735d",
     "name": "Atlatl",
     "icon": "images/items/Atlatl.avif",
     "tier": 0,
@@ -707,6 +729,7 @@ export const items = {
     ]
   },
   "ATM": {
+    "id": "c926fac8-f9ba-4430-a01a-a71a32c501c7",
     "name": "ATM",
     "icon": "images/items/ATM.avif",
     "tier": 0,
@@ -745,6 +768,7 @@ export const items = {
     ]
   },
   "Atomic Clock": {
+    "id": "86769097-271e-46ee-8d42-317c6d8a7a09",
     "name": "Atomic Clock",
     "icon": "images/items/AtomicClock.avif",
     "tier": 1,
@@ -776,6 +800,7 @@ export const items = {
     ]
   },
   "Aurora Dome": {
+    "id": "bb101259-4d30-4d93-9d69-b99c08f17488",
     "name": "Aurora Dome",
     "icon": "images/items/AuroraDome.avif",
     "tier": 1,
@@ -789,8 +814,8 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Shield (5/10/15).",
-      "When you Freeze, your Shield items get (+5/+10/+15) Shield for the fight."
+      "Shield 20.",
+      "When you Freeze, your Shield items get (+10/+20/+30) Shield for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
@@ -811,6 +836,7 @@ export const items = {
     ]
   },
   "Bag of Jewels": {
+    "id": "5ded844c-5279-4c30-9198-309fba0b651b",
     "name": "Bag of Jewels",
     "icon": "images/items/BagofJewels.avif",
     "tier": 0,
@@ -830,6 +856,7 @@ export const items = {
     ]
   },
   "Balcony": {
+    "id": "d7a66bfb-963f-4c13-8c2b-0bef35a650c8",
     "name": "Balcony",
     "icon": "images/items/Balcony.avif",
     "tier": 1,
@@ -864,6 +891,7 @@ export const items = {
     ]
   },
   "Ballista": {
+    "id": "096e4b73-803c-4405-9710-db71b20fb183",
     "name": "Ballista",
     "icon": "images/items/Ballista.avif",
     "tier": 2,
@@ -899,6 +927,7 @@ export const items = {
     ]
   },
   "Balloon Bot": {
+    "id": "c9dd4c7b-d2c0-491a-95b6-d1a163e9d755",
     "name": "Balloon Bot",
     "icon": "images/items/BalloonBot.avif",
     "tier": 1,
@@ -933,6 +962,7 @@ export const items = {
     ]
   },
   "Bandages": {
+    "id": "09132149-783d-4d5a-900c-31135bffab44",
     "name": "Bandages",
     "icon": "images/items/Bandages.avif",
     "tier": 0,
@@ -967,6 +997,7 @@ export const items = {
     ]
   },
   "Bar of Gold": {
+    "id": "5a9bd869-4614-4edf-941d-5f44e0bb1519",
     "name": "Bar of Gold",
     "icon": "images/items/BarofGold.avif",
     "tier": 0,
@@ -987,6 +1018,7 @@ export const items = {
     ]
   },
   "Barbed Wire": {
+    "id": "1bdbc6f6-2690-445a-877e-90dbbd5e4658",
     "name": "Barbed Wire",
     "icon": "images/items/BarbedWire.avif",
     "tier": 1,
@@ -1022,6 +1054,7 @@ export const items = {
     ]
   },
   "Barrel": {
+    "id": "35ca6175-1317-4f32-b953-dbe6c9acd8cd",
     "name": "Barrel",
     "icon": "images/items/Barrel.avif",
     "tier": 0,
@@ -1055,6 +1088,7 @@ export const items = {
     ]
   },
   "Basilisk Fang": {
+    "id": "2c79dcd7-3205-4d41-85e9-daecb8d1c7c5",
     "name": "Basilisk Fang",
     "icon": "images/items/BasiliskFang.avif",
     "tier": 2,
@@ -1092,6 +1126,7 @@ export const items = {
     ]
   },
   "Battery": {
+    "id": "b769eef3-b324-4704-91fd-3a971c6f47b4",
     "name": "Battery",
     "icon": "images/items/Battery.avif",
     "tier": 0,
@@ -1125,6 +1160,7 @@ export const items = {
     ]
   },
   "Bayonet": {
+    "id": "6146cacd-202c-489f-88c0-f77ef3e0fda6",
     "name": "Bayonet",
     "icon": "images/items/Bayonet.avif",
     "tier": 0,
@@ -1157,6 +1193,7 @@ export const items = {
     ]
   },
   "Beach Ball": {
+    "id": "7efc7f90-e89c-4d26-b881-65f7d2d3bdd2",
     "name": "Beach Ball",
     "icon": "images/items/BeachBall.avif",
     "tier": 0,
@@ -1170,7 +1207,7 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Haste (1/2/3/4) Aquatic or Toy item(s) for 2 second(s)."
+      "Haste (2/3/4/5) Aquatic or Toy item(s) for 2 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
@@ -1190,6 +1227,7 @@ export const items = {
     ]
   },
   "Beast of Burden": {
+    "id": "d7cef361-2948-4b18-ad44-9c8b145d22ac",
     "name": "Beast of Burden",
     "icon": "images/items/BeastofBurden.avif",
     "tier": 1,
@@ -1229,6 +1267,7 @@ export const items = {
     ]
   },
   "Beehive": {
+    "id": "6676145e-d1e2-469a-b111-d5c4edfc0a30",
     "name": "Beehive",
     "icon": "images/items/Beehive.avif",
     "tier": 1,
@@ -1264,6 +1303,7 @@ export const items = {
     ]
   },
   "Bellelista": {
+    "id": "628cd703-f0c6-4c76-b5bd-72c8aebf5314",
     "name": "Bellelista",
     "icon": "images/items/Bellelista.avif",
     "tier": 1,
@@ -1302,6 +1342,7 @@ export const items = {
     ]
   },
   "Belt": {
+    "id": "4f8bc475-212c-49cf-b3e5-d1f971897a24",
     "name": "Belt",
     "icon": "images/items/Belt.avif",
     "tier": 1,
@@ -1322,6 +1363,7 @@ export const items = {
     ]
   },
   "Beta Ray": {
+    "id": "e7cc828b-4a2b-4207-9a6a-c955553c632d",
     "name": "Beta Ray",
     "icon": "images/items/BetaRay.avif",
     "tier": 2,
@@ -1355,6 +1397,7 @@ export const items = {
     ]
   },
   "Bill Dozer": {
+    "id": "c9f75211-7012-418d-b53f-3f5ac5959b62",
     "name": "Bill Dozer",
     "icon": "images/items/BillDozer.avif",
     "tier": 1,
@@ -1394,6 +1437,7 @@ export const items = {
     ]
   },
   "Billboard": {
+    "id": "18e2e46f-6419-44b3-80fa-11b13bc7b831",
     "name": "Billboard",
     "icon": "images/items/Billboard.avif",
     "tier": 2,
@@ -1434,6 +1478,7 @@ export const items = {
     ]
   },
   "Black Ice": {
+    "id": "f0a58209-1a26-42ac-a243-7c2fd9d6ce33",
     "name": "Black Ice",
     "icon": "images/items/BlackIce.avif",
     "tier": 1,
@@ -1468,6 +1513,7 @@ export const items = {
     ]
   },
   "Black Pepper": {
+    "id": "e6d331a7-c0e3-4619-9eee-c7c5023969bb",
     "name": "Black Pepper",
     "icon": "images/items/BlackPepper.avif",
     "tier": 1,
@@ -1505,6 +1551,7 @@ export const items = {
     ]
   },
   "Black Rose": {
+    "id": "1afb5eef-e964-4767-b9a6-8d1a76cef645",
     "name": "Black Rose",
     "icon": "images/items/BlackRose.avif",
     "tier": 1,
@@ -1539,6 +1586,7 @@ export const items = {
     ]
   },
   "Blast Doors": {
+    "id": "26cd871b-5fc4-4b8a-a4cf-6d33d5462c22",
     "name": "Blast Doors",
     "icon": "images/items/BlastDoors.avif",
     "tier": 0,
@@ -1574,9 +1622,10 @@ export const items = {
     ]
   },
   "BLK-SP1D3R": {
+    "id": "f2bb81c1-926e-447b-89aa-8c981604570c",
     "name": "BLK-SP1D3R",
     "icon": "images/items/BLKSP1D3R.avif",
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -1588,7 +1637,7 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Slow (1/2/3/4) item(s) for 1 second(s).",
+      "Slow (1/2/3) item(s) for 1 second(s).",
       "When an adjacent item Poisons or Burns, charge this 1 second(s)."
     ],
     "enchants": {
@@ -1610,6 +1659,7 @@ export const items = {
     ]
   },
   "Blow Torch": {
+    "id": "302d710c-335d-4fd4-af3c-34789e55acd3",
     "name": "Blow Torch",
     "icon": "images/items/BlowTorch.avif",
     "tier": 0,
@@ -1642,6 +1692,7 @@ export const items = {
     ]
   },
   "Blowgun": {
+    "id": "35355805-5d48-4a42-bb7b-68d240d9a306",
     "name": "Blowgun",
     "icon": "images/items/Blowgun.avif",
     "tier": 2,
@@ -1677,9 +1728,10 @@ export const items = {
     ]
   },
   "BLU-B33TL3": {
+    "id": "5795875a-9917-46a6-9334-ee835e4caefc",
     "name": "BLU-B33TL3",
     "icon": "images/items/BLUB33TL3.avif",
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -1690,7 +1742,7 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Freeze (1/2/3/4) item(s) for 0.5 second(s).",
+      "Freeze (1/2/3) item(s) for 0.5 second(s).",
       "When an adjacent item Poisons, charge this 1 second(s)."
     ],
     "enchants": {
@@ -1712,6 +1764,7 @@ export const items = {
     ]
   },
   "Blue Gumball": {
+    "id": "73998555-1f68-440b-b28f-84c0f9f07579",
     "name": "Blue Gumball",
     "icon": "images/items/BlueGumball.avif",
     "tier": 0,
@@ -1741,6 +1794,7 @@ export const items = {
     ]
   },
   "Blue Piggles A": {
+    "id": "ce7ff94f-29e4-4f2d-bca9-cca83eacf774",
     "name": "Blue Piggles A",
     "icon": "images/items/BluePigglesA.avif",
     "tier": 0,
@@ -1773,6 +1827,7 @@ export const items = {
     ]
   },
   "Blue Piggles L": {
+    "id": "2df8f38b-bb9f-4247-afe9-525067c9e29e",
     "name": "Blue Piggles L",
     "icon": "images/items/BluePigglesL.avif",
     "tier": 0,
@@ -1805,6 +1860,7 @@ export const items = {
     ]
   },
   "Blue Piggles R": {
+    "id": "1d8d4dea-aaf9-4041-aa54-ae133f552d55",
     "name": "Blue Piggles R",
     "icon": "images/items/BluePigglesR.avif",
     "tier": 0,
@@ -1837,6 +1893,7 @@ export const items = {
     ]
   },
   "Blue Piggles X": {
+    "id": "8124f91b-3b4f-40ae-9493-057a0be7feb9",
     "name": "Blue Piggles X",
     "icon": "images/items/BluePigglesX.avif",
     "tier": 0,
@@ -1869,6 +1926,7 @@ export const items = {
     ]
   },
   "Bluenanas": {
+    "id": "3890374d-4952-471d-b550-e230d0ce5343",
     "name": "Bluenanas",
     "icon": "images/items/Bluenanas.avif",
     "tier": 0,
@@ -1904,6 +1962,7 @@ export const items = {
     ]
   },
   "Blunderbuss": {
+    "id": "d6a5d92f-113e-4a1e-96ec-99f04ea29992",
     "name": "Blunderbuss",
     "icon": "images/items/Blunderbuss.avif",
     "tier": 2,
@@ -1940,20 +1999,21 @@ export const items = {
     ]
   },
   "Boiling Flask": {
+    "id": "ad779fb4-0001-4406-8aac-a5f5ce6580eb",
     "name": "Boiling Flask",
     "icon": "images/items/BoilingFlask.avif",
-    "tier": 1,
+    "tier": 2,
     "tags": [
       "Mak",
       "Medium",
       "Tool",
       "AmmoReference"
     ],
-    "cooldown": "(11/10/9)",
+    "cooldown": 8,
     "ammo": null,
     "text": [
       "Reload adjacent Potions.",
-      "Adjacent potions have +1 Multicast."
+      "Adjacent potions have +1 Multicast and their cooldowns increased by (2/1) second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -1974,6 +2034,7 @@ export const items = {
     ]
   },
   "Bolas": {
+    "id": "b89ae3b6-6383-47a3-94fe-2571d30a564a",
     "name": "Bolas",
     "icon": "images/items/Bolas.avif",
     "tier": 0,
@@ -2010,6 +2071,7 @@ export const items = {
     ]
   },
   "Bomb Squad": {
+    "id": "894df8d8-e6a5-4310-919e-7a6d85fc7e49",
     "name": "Bomb Squad",
     "icon": "images/items/BombSquad.avif",
     "tier": 0,
@@ -2020,11 +2082,11 @@ export const items = {
       "Burn",
       "Haste"
     ],
-    "cooldown": 9,
+    "cooldown": "(10/8/6/4)",
     "ammo": null,
     "text": [
-      "Burn (4/5/6/7).",
-      "When you use an adjacent friend, Haste this (1/2/3/4) second(s)."
+      "Burn 6.",
+      "When you use an adjacent friend, Haste this 2 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -2045,6 +2107,7 @@ export const items = {
     ]
   },
   "Booby Trap": {
+    "id": "fe1a40e3-cedc-4a7f-83f0-998286f71725",
     "name": "Booby Trap",
     "icon": "images/items/BoobyTrap.avif",
     "tier": 1,
@@ -2079,6 +2142,7 @@ export const items = {
     ]
   },
   "Boomerang": {
+    "id": "af43730d-efaa-4a1d-adeb-bf31d536acf0",
     "name": "Boomerang",
     "icon": "images/items/Boomerang.avif",
     "tier": 0,
@@ -2113,6 +2177,7 @@ export const items = {
     ]
   },
   "Bootstraps": {
+    "id": "9c97827a-f6c3-4abd-b7c1-bc1b37cc82f0",
     "name": "Bootstraps",
     "icon": "images/items/Bootstraps.avif",
     "tier": 1,
@@ -2145,6 +2210,7 @@ export const items = {
     ]
   },
   "Bottled Explosion": {
+    "id": "c9140667-2263-4b58-b479-3fec3a3779ba",
     "name": "Bottled Explosion",
     "icon": "images/items/BottledExplosion.avif",
     "tier": 1,
@@ -2181,6 +2247,7 @@ export const items = {
     ]
   },
   "Bottled Lightning": {
+    "id": "df87dc00-f0fe-4e47-b864-ad6b4bfea81a",
     "name": "Bottled Lightning",
     "icon": "images/items/BottledLightning.avif",
     "tier": 0,
@@ -2220,6 +2287,7 @@ export const items = {
     ]
   },
   "Bottled Tornado": {
+    "id": "c8a322c7-a8f9-49e3-90e5-3a348d0fe5fc",
     "name": "Bottled Tornado",
     "icon": "images/items/BottledTornado.avif",
     "tier": 1,
@@ -2253,6 +2321,7 @@ export const items = {
     ]
   },
   "Brass Knuckles": {
+    "id": "3b924a0a-f423-4286-8d08-9ade57b2ebae",
     "name": "Brass Knuckles",
     "icon": "images/items/BrassKnuckles.avif",
     "tier": 0,
@@ -2287,6 +2356,7 @@ export const items = {
     ]
   },
   "Brick Buddy": {
+    "id": "62595dd0-5df0-4f2a-92bb-2be97f10d3fd",
     "name": "Brick Buddy",
     "icon": "images/items/BrickBuddy.avif",
     "tier": 0,
@@ -2322,6 +2392,7 @@ export const items = {
     ]
   },
   "Briefcase": {
+    "id": "0c99ece6-4aa5-40ac-a663-dc81df03a694",
     "name": "Briefcase",
     "icon": "images/items/Briefcase.avif",
     "tier": 0,
@@ -2358,6 +2429,7 @@ export const items = {
     ]
   },
   "Broken Shackles": {
+    "id": "7f706346-b364-4791-a104-ed6fe03e87e1",
     "name": "Broken Shackles",
     "icon": "images/items/BrokenShackles.avif",
     "tier": 1,
@@ -2392,6 +2464,7 @@ export const items = {
     ]
   },
   "Bunker": {
+    "id": "e923019b-fd40-487c-85af-edaa930095b8",
     "name": "Bunker",
     "icon": "images/items/Bunker.avif",
     "tier": 2,
@@ -2426,6 +2499,7 @@ export const items = {
     ]
   },
   "Bushel": {
+    "id": "843ddc82-9d87-4995-b81c-bf31ae45fd30",
     "name": "Bushel",
     "icon": "images/items/Bushel.avif",
     "tier": 0,
@@ -2461,6 +2535,7 @@ export const items = {
     ]
   },
   "Business Card": {
+    "id": "b553bdf2-bde8-408b-9e78-336eab394546",
     "name": "Business Card",
     "icon": "images/items/BusinessCard.avif",
     "tier": 1,
@@ -2485,6 +2560,7 @@ export const items = {
     ]
   },
   "Busy Bee": {
+    "id": "94e28682-a012-4dd0-8ce8-7fe180aa6127",
     "name": "Busy Bee",
     "icon": "images/items/BusyBee.avif",
     "tier": 1,
@@ -2518,6 +2594,7 @@ export const items = {
     ]
   },
   "Butter": {
+    "id": "63356fed-efeb-461b-a57d-e9d61c821bc8",
     "name": "Butter",
     "icon": "images/items/Butter.avif",
     "tier": 0,
@@ -2552,6 +2629,7 @@ export const items = {
     ]
   },
   "Butterfly Swords": {
+    "id": "9e5e3d9e-ad05-4340-9071-4fccecb79695",
     "name": "Butterfly Swords",
     "icon": "images/items/ButterflySwords.avif",
     "tier": 1,
@@ -2586,6 +2664,7 @@ export const items = {
     ]
   },
   "Calcinator": {
+    "id": "3e3bda1d-81ba-4719-8772-417d8b834e99",
     "name": "Calcinator",
     "icon": "images/items/Calcinator.avif",
     "tier": 0,
@@ -2622,6 +2701,7 @@ export const items = {
     ]
   },
   "Calico": {
+    "id": "2d395818-28b0-46b5-87a8-bf384c846344",
     "name": "Calico",
     "icon": "images/items/Calico.avif",
     "tier": 0,
@@ -2660,6 +2740,7 @@ export const items = {
     ]
   },
   "Caltrops": {
+    "id": "a0c3a02b-4d29-4159-805e-3501463d1ca1",
     "name": "Caltrops",
     "icon": "images/items/Caltrops.avif",
     "tier": 2,
@@ -2691,6 +2772,7 @@ export const items = {
     ]
   },
   "Candles": {
+    "id": "375ffe99-c6a2-4ab0-b328-051847259adb",
     "name": "Candles",
     "icon": "images/items/Candles.avif",
     "tier": 0,
@@ -2724,6 +2806,7 @@ export const items = {
     ]
   },
   "Candy Mail": {
+    "id": "9b499211-2c75-4781-a0e2-a0dab7d5dc5a",
     "name": "Candy Mail",
     "icon": "images/items/CandyMail.avif",
     "tier": 0,
@@ -2747,6 +2830,7 @@ export const items = {
     ]
   },
   "Cannon": {
+    "id": "c74239b9-563c-4672-b664-9c9f22329f19",
     "name": "Cannon",
     "icon": "images/items/Cannon.avif",
     "tier": 0,
@@ -2783,6 +2867,7 @@ export const items = {
     ]
   },
   "Cannonade": {
+    "id": "c264f900-4482-4f8c-b99d-22a5a529fb2a",
     "name": "Cannonade",
     "icon": "images/items/Cannonade.avif",
     "tier": 1,
@@ -2817,6 +2902,7 @@ export const items = {
     ]
   },
   "Cannonball": {
+    "id": "55377bdf-359b-495c-895c-c7852511c915",
     "name": "Cannonball",
     "icon": "images/items/Cannonball.avif",
     "tier": 0,
@@ -2848,6 +2934,7 @@ export const items = {
     ]
   },
   "Capacitor": {
+    "id": "f16526f8-f3f7-4b79-aec0-b6bd729806a1",
     "name": "Capacitor",
     "icon": "images/items/Capacitor.avif",
     "tier": 1,
@@ -2880,6 +2967,7 @@ export const items = {
     ]
   },
   "Captain's Quarters": {
+    "id": "8908d2d1-1a7e-4f97-8ecb-6834e96b1eab",
     "name": "Captain's Quarters",
     "icon": "images/items/CaptainsQuarters.avif",
     "tier": 1,
@@ -2920,6 +3008,7 @@ export const items = {
     ]
   },
   "Captain's Wheel": {
+    "id": "6870c295-6a4d-4175-b378-c961df9933de",
     "name": "Captain's Wheel",
     "icon": "images/items/CaptainsWheel.avif",
     "tier": 1,
@@ -2954,6 +3043,7 @@ export const items = {
     ]
   },
   "Card Table": {
+    "id": "9b44aac3-173a-4d22-92f7-e2678b33c230",
     "name": "Card Table",
     "icon": "images/items/CardTable.avif",
     "tier": 1,
@@ -2986,6 +3076,7 @@ export const items = {
     ]
   },
   "Cargo Shorts": {
+    "id": "783cda9d-1550-42d5-9651-51883da5ad66",
     "name": "Cargo Shorts",
     "icon": "images/items/CargoShorts.avif",
     "tier": 0,
@@ -3023,6 +3114,7 @@ export const items = {
     ]
   },
   "Cash Cannon": {
+    "id": "8f61677c-aa75-4275-b8b4-3cbaca1fdcbf",
     "name": "Cash Cannon",
     "icon": "images/items/CashCannon.avif",
     "tier": 1,
@@ -3059,6 +3151,7 @@ export const items = {
     ]
   },
   "Cash Register": {
+    "id": "4c8c35c4-ab16-465c-92be-0113dd99d3df",
     "name": "Cash Register",
     "icon": "images/items/CashRegister.avif",
     "tier": 0,
@@ -3083,18 +3176,19 @@ export const items = {
     ]
   },
   "Catalyst": {
+    "id": "694a08fe-e8ff-4a45-9693-4c68f11a1f8b",
     "name": "Catalyst",
     "icon": "images/items/Catalyst.avif",
-    "tier": 1,
+    "tier": 0,
     "tags": [
-      "Mak",
+      "Common",
       "Small",
-      "Reagent"
+      "Loot"
     ],
     "cooldown": null,
     "ammo": null,
     "text": [
-      "After you buy or sell 3 Reagents, transform this and enchant it."
+      "When you sell this, transform your leftmost Small item."
     ],
     "enchants": {},
     "priorities": [
@@ -3102,6 +3196,7 @@ export const items = {
     ]
   },
   "Catfish": {
+    "id": "b325d26f-0625-406c-89d4-30e011b30b9e",
     "name": "Catfish",
     "icon": "images/items/Catfish.avif",
     "tier": 0,
@@ -3138,6 +3233,7 @@ export const items = {
     ]
   },
   "Cauldron": {
+    "id": "ad02d867-252b-45b5-9625-4480807caeff",
     "name": "Cauldron",
     "icon": "images/items/Cauldron.avif",
     "tier": 1,
@@ -3175,6 +3271,7 @@ export const items = {
     ]
   },
   "Cellar": {
+    "id": "da0ac18a-ddcc-441f-8f90-c3b17db1b28a",
     "name": "Cellar",
     "icon": "images/items/Cellar.avif",
     "tier": 1,
@@ -3210,6 +3307,7 @@ export const items = {
     ]
   },
   "Char Cole": {
+    "id": "83fae686-a12e-4626-8574-e6141f611fbc",
     "name": "Char Cole",
     "icon": "images/items/CharCole.avif",
     "tier": 1,
@@ -3244,6 +3342,7 @@ export const items = {
     ]
   },
   "Charging Station": {
+    "id": "fcd72525-0b3f-4472-a7cc-0e4e5750acdd",
     "name": "Charging Station",
     "icon": "images/items/ChargingStation.avif",
     "tier": 2,
@@ -3278,6 +3377,7 @@ export const items = {
     ]
   },
   "Chemsnail": {
+    "id": "0e02eed0-3d9b-4651-8ce8-a48ee1c59fdf",
     "name": "Chemsnail",
     "icon": "images/items/Chemsnail.avif",
     "tier": 0,
@@ -3288,11 +3388,11 @@ export const items = {
       "Poison",
       "Slow"
     ],
-    "cooldown": 5,
+    "cooldown": 6,
     "ammo": null,
     "text": [
-      "Poison (3/6/9/12).",
-      "Slow 1 item for (1/2/3/4) second(s)."
+      "Poison (4/8/12/16).",
+      "Slow (1/2/3/4) item for 1 second(s)."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
@@ -3313,6 +3413,7 @@ export const items = {
     ]
   },
   "Chocolate Bar": {
+    "id": "1a3d4cde-333c-4936-b147-263d73f6d200",
     "name": "Chocolate Bar",
     "icon": "images/items/ChocolateBar.avif",
     "tier": 0,
@@ -3343,6 +3444,7 @@ export const items = {
     ]
   },
   "Chris Army Knife": {
+    "id": "f07fc136-5917-4915-a9d5-2246cb290b0d",
     "name": "Chris Army Knife",
     "icon": "images/items/ChrisArmyKnife.avif",
     "tier": 0,
@@ -3355,11 +3457,11 @@ export const items = {
       "Damage",
       "Shield"
     ],
-    "cooldown": 6,
+    "cooldown": "(7/6/5/4)",
     "ammo": null,
     "text": [
-      "Deal (6/12/18/24) damage.",
-      "Shield (6/12/18/24)."
+      "Deal 15 damage.",
+      "Shield 15."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -3380,6 +3482,7 @@ export const items = {
     ]
   },
   "Chronobarrier": {
+    "id": "fea7450f-bc68-4bf9-8d34-99acd9399cbe",
     "name": "Chronobarrier",
     "icon": "images/items/Chronobarrier.avif",
     "tier": 2,
@@ -3415,6 +3518,7 @@ export const items = {
     ]
   },
   "Chum": {
+    "id": "c7435ab5-dd8b-4c78-a5a4-6b2795dacaf3",
     "name": "Chum",
     "icon": "images/items/Chum.avif",
     "tier": 0,
@@ -3449,6 +3553,7 @@ export const items = {
     ]
   },
   "Chunk of Gold": {
+    "id": "0c8298ad-3001-4631-9bed-df11a7425ced",
     "name": "Chunk of Gold",
     "icon": "images/items/ChunkofGold.avif",
     "tier": 0,
@@ -3478,6 +3583,7 @@ export const items = {
     ]
   },
   "Chunk of Lead": {
+    "id": "ef20ec33-7990-41b8-8d8e-47514b503612",
     "name": "Chunk of Lead",
     "icon": "images/items/ChunkofLead.avif",
     "tier": 0,
@@ -3509,6 +3615,7 @@ export const items = {
     ]
   },
   "Cinders": {
+    "id": "d45bb1dd-5342-4c69-b7fe-f56d3fac7d1f",
     "name": "Cinders",
     "icon": "images/items/Cinders.avif",
     "tier": 0,
@@ -3539,6 +3646,7 @@ export const items = {
     ]
   },
   "Citrus": {
+    "id": "deaad0b0-27bc-4800-928f-0fdf443d2c2d",
     "name": "Citrus",
     "icon": "images/items/Citrus.avif",
     "tier": 0,
@@ -3569,6 +3677,7 @@ export const items = {
     ]
   },
   "Clamera": {
+    "id": "46b1261c-a04c-4a35-8a9e-6763a5d85c43",
     "name": "Clamera",
     "icon": "images/items/Clamera.avif",
     "tier": 0,
@@ -3602,6 +3711,7 @@ export const items = {
     ]
   },
   "Claw Arm": {
+    "id": "fec7b75b-980f-4744-b1c1-19ce00b117e8",
     "name": "Claw Arm",
     "icon": "images/items/ClawArm.avif",
     "tier": 1,
@@ -3638,6 +3748,7 @@ export const items = {
     ]
   },
   "Clawrence": {
+    "id": "da73d4b8-d857-4121-9a6f-c621546d36e3",
     "name": "Clawrence",
     "icon": "images/items/Clawrence.avif",
     "tier": 1,
@@ -3673,6 +3784,7 @@ export const items = {
     ]
   },
   "Claws": {
+    "id": "d66bcc8c-a817-4b0c-bda1-eb13b28acb2b",
     "name": "Claws",
     "icon": "images/items/Claws.avif",
     "tier": 0,
@@ -3707,6 +3819,7 @@ export const items = {
     ]
   },
   "Clockwork Blades": {
+    "id": "af24dea0-6cc9-49dc-acec-d90313b46b72",
     "name": "Clockwork Blades",
     "icon": "images/items/ClockworkBlades.avif",
     "tier": 0,
@@ -3742,6 +3855,7 @@ export const items = {
     ]
   },
   "Closed Sign": {
+    "id": "a21b1e80-c633-487b-9292-7552519198c8",
     "name": "Closed Sign",
     "icon": "images/items/ClosedSign.avif",
     "tier": 2,
@@ -3768,6 +3882,7 @@ export const items = {
     ]
   },
   "Coconut": {
+    "id": "9ad15f24-4def-4d82-8545-d73794cfbaf2",
     "name": "Coconut",
     "icon": "images/items/Coconut.avif",
     "tier": 0,
@@ -3798,6 +3913,7 @@ export const items = {
     ]
   },
   "Cog": {
+    "id": "ca77281c-f912-4db3-86ce-64842a4ccdaa",
     "name": "Cog",
     "icon": "images/items/Cog.avif",
     "tier": 1,
@@ -3829,6 +3945,7 @@ export const items = {
     ]
   },
   "Cold Room": {
+    "id": "6546e26d-d3a2-4b57-96ca-357f4be5c375",
     "name": "Cold Room",
     "icon": "images/items/ColdRoom.avif",
     "tier": 1,
@@ -3866,6 +3983,7 @@ export const items = {
     ]
   },
   "Colossal Popsicle": {
+    "id": "793b64b2-20a8-42ca-a592-54c9c3f814f8",
     "name": "Colossal Popsicle",
     "icon": "images/items/ColossalPopsicle.avif",
     "tier": 1,
@@ -3904,6 +4022,7 @@ export const items = {
     ]
   },
   "Combat Core": {
+    "id": "cfc3db0f-c8f2-4acf-bf9b-80e170ca3120",
     "name": "Combat Core",
     "icon": "images/items/CombatCore.avif",
     "tier": 1,
@@ -3946,9 +4065,10 @@ export const items = {
     ]
   },
   "Companion Core": {
+    "id": "44366f1e-a46b-4b41-9bf7-a1dec75bb6d6",
     "name": "Companion Core",
     "icon": "images/items/CompanionCore.avif",
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -3956,13 +4076,12 @@ export const items = {
       "Tech",
       "Friend",
       "Haste",
-      "Charge",
-      "Unsellable"
+      "Charge"
     ],
-    "cooldown": 6,
+    "cooldown": "(6/5/4)",
     "ammo": null,
     "text": [
-      "Haste adjacent items (2/3/4/5) second(s).",
+      "Haste adjacent items (2/3/4) second(s).",
       "When you use another Friend, Charge this 1 second(s)."
     ],
     "enchants": {
@@ -3984,6 +4103,7 @@ export const items = {
     ]
   },
   "Concealed Dagger": {
+    "id": "5e17cfc3-25c0-4a74-8a33-07ee972e6f6e",
     "name": "Concealed Dagger",
     "icon": "images/items/ConcealedDagger.avif",
     "tier": 1,
@@ -4007,7 +4127,7 @@ export const items = {
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison equal to 10% of this item's Damage.",
+      "Toxic": "Poison equal to 10% 0f this item's Damage.",
       "Fiery": "Burn equal to 10% of this item's Damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
@@ -4020,6 +4140,7 @@ export const items = {
     ]
   },
   "Cookies": {
+    "id": "367c2ad9-94b3-4f01-a130-a673922244ef",
     "name": "Cookies",
     "icon": "images/items/Cookies.avif",
     "tier": 0,
@@ -4044,6 +4165,7 @@ export const items = {
     ]
   },
   "Cool LEDs": {
+    "id": "434ba656-da96-429a-9db1-c22ef271cd1f",
     "name": "Cool LEDs",
     "icon": "images/items/CoolLEDs.avif",
     "tier": 1,
@@ -4077,6 +4199,7 @@ export const items = {
     ]
   },
   "Coolant": {
+    "id": "d576f5e8-abfb-44cb-a777-be7cf714e02d",
     "name": "Coolant",
     "icon": "images/items/Coolant.avif",
     "tier": 1,
@@ -4109,6 +4232,7 @@ export const items = {
     ]
   },
   "Cooling Fan": {
+    "id": "a541c31d-7b4b-45f6-bceb-c9971f8b06b5",
     "name": "Cooling Fan",
     "icon": "images/items/CoolingFan.avif",
     "tier": 1,
@@ -4144,6 +4268,7 @@ export const items = {
     ]
   },
   "Copper Ed": {
+    "id": "c0eb01d3-5f8e-4271-8045-ec283a47bcaa",
     "name": "Copper Ed",
     "icon": "images/items/CopperEd.avif",
     "tier": 0,
@@ -4154,11 +4279,11 @@ export const items = {
       "Poison",
       "Shield"
     ],
-    "cooldown": 7,
+    "cooldown": "(7/6/5/4)",
     "ammo": null,
     "text": [
-      "Poison (1/2/3/4).",
-      "Shield (5/10/15/20)."
+      "Poison 3.",
+      "Shield 15."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -4179,6 +4304,7 @@ export const items = {
     ]
   },
   "Coral": {
+    "id": "bdb95fa6-1607-4fd6-a78b-063f826df717",
     "name": "Coral",
     "icon": "images/items/Coral.avif",
     "tier": 0,
@@ -4213,6 +4339,7 @@ export const items = {
     ]
   },
   "Coral Armor": {
+    "id": "40814ac2-ee63-4482-8f3b-d2242750fbd8",
     "name": "Coral Armor",
     "icon": "images/items/CoralArmor.avif",
     "tier": 0,
@@ -4248,6 +4375,7 @@ export const items = {
     ]
   },
   "Cosmic Amulet": {
+    "id": "39f47d29-2ef3-4057-bb60-33acd3dd12a2",
     "name": "Cosmic Amulet",
     "icon": "images/items/CosmicAmulet.avif",
     "tier": 2,
@@ -4283,6 +4411,7 @@ export const items = {
     ]
   },
   "Cosmic Plumage": {
+    "id": "c45a7c22-ae24-4246-bb6c-a83324a8546c",
     "name": "Cosmic Plumage",
     "icon": "images/items/CosmicPlumage.avif",
     "tier": 1,
@@ -4318,6 +4447,7 @@ export const items = {
     ]
   },
   "Cove": {
+    "id": "813e44ee-d4a8-4d94-9a78-101004c5eded",
     "name": "Cove",
     "icon": "images/items/Cove.avif",
     "tier": 0,
@@ -4356,6 +4486,7 @@ export const items = {
     ]
   },
   "Covetous Raven": {
+    "id": "08ebe48b-29d0-4129-952d-7d140e54e7c5",
     "name": "Covetous Raven",
     "icon": "images/items/CovetousRaven.avif",
     "tier": 1,
@@ -4391,6 +4522,7 @@ export const items = {
     ]
   },
   "Crane": {
+    "id": "a7ceeecc-d802-4bbf-9521-afe89db4af45",
     "name": "Crane",
     "icon": "images/items/Crane.avif",
     "tier": 2,
@@ -4429,9 +4561,10 @@ export const items = {
     ]
   },
   "Critical Core": {
+    "id": "a5fda359-ceb0-4b00-bcac-810c9cecef8e",
     "name": "Critical Core",
     "icon": "images/items/CriticalCore.avif",
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -4439,14 +4572,13 @@ export const items = {
       "Tech",
       "Weapon",
       "Damage",
-      "Crit",
-      "Unsellable"
+      "Crit"
     ],
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Deal (20/30/40/50) damage.",
-      "This and items to the right of this have (+15%/+20%/+25%/+30%) Crit Chance.",
+      "Deal 50 damage.",
+      "This and items to the right of this have (+30%/+45%/+60%) Crit Chance.",
       "When you use any item to the left of this, Charge this 1 second(s).",
       "When you Crit with any item, Charge this 1 second(s)."
     ],
@@ -4471,6 +4603,7 @@ export const items = {
     ]
   },
   "Crocodile Tears": {
+    "id": "c0da70d5-3332-4d10-9f75-3b907fb2f287",
     "name": "Crocodile Tears",
     "icon": "images/items/CrocodileTears.avif",
     "tier": 1,
@@ -4507,6 +4640,7 @@ export const items = {
     ]
   },
   "Crook": {
+    "id": "d903dda8-9c30-4325-a727-c885ad972025",
     "name": "Crook",
     "icon": "images/items/Crook.avif",
     "tier": 1,
@@ -4543,6 +4677,7 @@ export const items = {
     ]
   },
   "Crow's Nest": {
+    "id": "4a30e8b0-f1d1-44c0-b2a7-0a8d12c1e297",
     "name": "Crow's Nest",
     "icon": "images/items/CrowsNest.avif",
     "tier": 0,
@@ -4578,6 +4713,7 @@ export const items = {
     ]
   },
   "Crusher Claw": {
+    "id": "95ff786e-b6bf-4bad-9d5c-6b2b41e9f0c3",
     "name": "Crusher Claw",
     "icon": "images/items/CrusherClaw.avif",
     "tier": 0,
@@ -4614,6 +4750,7 @@ export const items = {
     ]
   },
   "Cryosleeve": {
+    "id": "1179ed38-2357-4718-a0c7-c30d56493d08",
     "name": "Cryosleeve",
     "icon": "images/items/Cryosleeve.avif",
     "tier": 1,
@@ -4650,6 +4787,7 @@ export const items = {
     ]
   },
   "Cryosphere": {
+    "id": "e5c4c116-32ca-4856-83d2-721e0e751b2e",
     "name": "Cryosphere",
     "icon": "images/items/Cryosphere.avif",
     "tier": 2,
@@ -4681,6 +4819,7 @@ export const items = {
     ]
   },
   "Crypto": {
+    "id": "2434460c-af35-4dde-a69f-1f8781c807d2",
     "name": "Crypto",
     "icon": "images/items/Crypto.avif",
     "tier": 0,
@@ -4705,6 +4844,7 @@ export const items = {
     ]
   },
   "Crystal Bonsai": {
+    "id": "7da204dd-87ed-45cb-b62b-61904b41baa4",
     "name": "Crystal Bonsai",
     "icon": "images/items/CrystalBonsai.avif",
     "tier": 1,
@@ -4743,6 +4883,7 @@ export const items = {
     ]
   },
   "Curry": {
+    "id": "8ff7ebb6-a783-403a-ae29-7e89d0c90040",
     "name": "Curry",
     "icon": "images/items/Curry.avif",
     "tier": 1,
@@ -4778,6 +4919,7 @@ export const items = {
     ]
   },
   "Cutlass": {
+    "id": "1b955b8d-0ea6-4437-935c-d588be5898c1",
     "name": "Cutlass",
     "icon": "images/items/Cutlass.avif",
     "tier": 0,
@@ -4815,6 +4957,7 @@ export const items = {
     ]
   },
   "Cybersecurity": {
+    "id": "9e0bca07-56bd-4217-b258-ef1dabd42209",
     "name": "Cybersecurity",
     "icon": "images/items/Cybersecurity.avif",
     "tier": 1,
@@ -4850,6 +4993,7 @@ export const items = {
     ]
   },
   "Dam": {
+    "id": "627ce721-2f70-454d-9aa2-5895ece3e6ee",
     "name": "Dam",
     "icon": "images/items/Dam.avif",
     "tier": 2,
@@ -4884,6 +5028,7 @@ export const items = {
     ]
   },
   "Darkwater Anglerfish": {
+    "id": "961e974b-5472-4298-b66b-e1f74c167c26",
     "name": "Darkwater Anglerfish",
     "icon": "images/items/DarkwaterAnglerfish.avif",
     "tier": 1,
@@ -4895,10 +5040,10 @@ export const items = {
       "Burn",
       "SlowReference"
     ],
-    "cooldown": "(10/9/8)",
+    "cooldown": 8,
     "ammo": null,
     "text": [
-      "Burn 10.",
+      "Burn (10/20/30).",
       "When you Slow, charge this 2 seconds."
     ],
     "enchants": {
@@ -4920,6 +5065,7 @@ export const items = {
     ]
   },
   "Death Caps": {
+    "id": "35e2a1dd-739d-4434-95c5-2b9ce5f07a5c",
     "name": "Death Caps",
     "icon": "images/items/DeathCaps.avif",
     "tier": 1,
@@ -4956,6 +5102,7 @@ export const items = {
     ]
   },
   "Defense Matrix": {
+    "id": "b9d4df16-0876-45ee-a35e-700d7b68cb6f",
     "name": "Defense Matrix",
     "icon": "images/items/DefenseMatrix.avif",
     "tier": 1,
@@ -4991,6 +5138,7 @@ export const items = {
     ]
   },
   "Diana-Saur": {
+    "id": "59a494e4-66b2-4412-8934-dcf7d19585bf",
     "name": "Diana-Saur",
     "icon": "images/items/DianaSaur.avif",
     "tier": 1,
@@ -5029,6 +5177,7 @@ export const items = {
     ]
   },
   "Disguise": {
+    "id": "905f9340-4272-4f82-88e4-4a2f79f1be96",
     "name": "Disguise",
     "icon": "images/items/Disguise.avif",
     "tier": 1,
@@ -5062,6 +5211,7 @@ export const items = {
     ]
   },
   "Dishwasher": {
+    "id": "027ef534-d047-4e18-8496-d9fd4773e15d",
     "name": "Dishwasher",
     "icon": "images/items/Dishwasher.avif",
     "tier": 0,
@@ -5097,6 +5247,7 @@ export const items = {
     ]
   },
   "Dive Weights": {
+    "id": "ce6769db-f9a6-44a8-b915-afec472a2ea3",
     "name": "Dive Weights",
     "icon": "images/items/DiveWeights.avif",
     "tier": 1,
@@ -5111,7 +5262,7 @@ export const items = {
       "Ammo"
     ],
     "cooldown": 8,
-    "ammo": 3,
+    "ammo": 4,
     "text": [
       "Haste 1 item(s) for (1/2/3) second(s).",
       "For each adjacent Aquatic item, reduce this item's cooldown by 1 second.",
@@ -5137,6 +5288,7 @@ export const items = {
     ]
   },
   "Diving Helmet": {
+    "id": "fb6e6b16-d6d0-4493-ac3f-46c26afe6c51",
     "name": "Diving Helmet",
     "icon": "images/items/DivingHelmet.avif",
     "tier": 1,
@@ -5152,7 +5304,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Shield 25.",
-      "When you use an Aquatic item, this gains (+5/+10/+15) Shield for the fight.",
+      "When you use an Aquatic item, this gains (+10/+20/+30) Shield for the fight.",
       "Adjacent items are Aquatic."
     ],
     "enchants": {
@@ -5175,6 +5327,7 @@ export const items = {
     ]
   },
   "DJ Rob0t": {
+    "id": "49f2d11c-6c2b-465f-a7f4-90315dee7670",
     "name": "DJ Rob0t",
     "icon": "images/items/DJRob0t.avif",
     "tier": 1,
@@ -5211,6 +5364,7 @@ export const items = {
     ]
   },
   "Dock Lines": {
+    "id": "9ede03ef-5257-4a77-a725-5c4713662208",
     "name": "Dock Lines",
     "icon": "images/items/DockLines.avif",
     "tier": 1,
@@ -5243,6 +5397,7 @@ export const items = {
     ]
   },
   "Dog": {
+    "id": "6965d291-610d-46b7-a10d-83578b0e1981",
     "name": "Dog",
     "icon": "images/items/Dog.avif",
     "tier": 0,
@@ -5279,6 +5434,7 @@ export const items = {
     ]
   },
   "Dooley's Scarf": {
+    "id": "f2b5c675-6dc3-4c92-89b6-5d6da1e99006",
     "name": "Dooley's Scarf",
     "icon": "images/items/DooleysScarf.avif",
     "tier": 1,
@@ -5314,6 +5470,7 @@ export const items = {
     ]
   },
   "Dooltron": {
+    "id": "41bc6bab-d7a6-42e4-9815-546de8640d4e",
     "name": "Dooltron",
     "icon": "images/items/Dooltron.avif",
     "tier": 2,
@@ -5358,6 +5515,7 @@ export const items = {
     ]
   },
   "Dooltron Mainframe": {
+    "id": "85fc3511-fd04-45ed-b273-e3dece9cd77f",
     "name": "Dooltron Mainframe",
     "icon": "images/items/DooltronMainframe.avif",
     "tier": 2,
@@ -5394,6 +5552,7 @@ export const items = {
     ]
   },
   "Double Barrel": {
+    "id": "3c9fb662-4088-47f6-a927-0b064154bbbb",
     "name": "Double Barrel",
     "icon": "images/items/DoubleBarrel.avif",
     "tier": 0,
@@ -5429,6 +5588,7 @@ export const items = {
     ]
   },
   "Double Whammy": {
+    "id": "e37638c3-4e5c-472c-96f9-b503a86e0fe3",
     "name": "Double Whammy",
     "icon": "images/items/DoubleWhammy.avif",
     "tier": 1,
@@ -5464,6 +5624,7 @@ export const items = {
     ]
   },
   "Dragon Heart": {
+    "id": "2f4625b6-42e1-42e8-9f50-82edf038fac1",
     "name": "Dragon Heart",
     "icon": "images/items/DragonHeart.avif",
     "tier": 4,
@@ -5498,6 +5659,7 @@ export const items = {
     ]
   },
   "Dragon Tooth": {
+    "id": "3b32361e-2ddc-47b6-bcce-0ac560cb407b",
     "name": "Dragon Tooth",
     "icon": "images/items/DragonTooth.avif",
     "tier": 2,
@@ -5536,6 +5698,7 @@ export const items = {
     ]
   },
   "Dragon Whelp": {
+    "id": "1ff59248-bf6c-49e1-9c45-59989df19693",
     "name": "Dragon Whelp",
     "icon": "images/items/DragonWhelp.avif",
     "tier": 1,
@@ -5573,6 +5736,7 @@ export const items = {
     ]
   },
   "Dragon Wing": {
+    "id": "292115b4-a145-476e-b3a7-0fe199b5c1af",
     "name": "Dragon Wing",
     "icon": "images/items/DragonWing.avif",
     "tier": 1,
@@ -5609,6 +5773,7 @@ export const items = {
     ]
   },
   "Dragon's Breath": {
+    "id": "5a94a820-1b13-4164-bae9-f6abbd59eb2d",
     "name": "Dragon's Breath",
     "icon": "images/items/DragonsBreath.avif",
     "tier": 1,
@@ -5645,6 +5810,7 @@ export const items = {
     ]
   },
   "Duct Tape": {
+    "id": "0966f887-5aaf-44a5-90fa-ecb194270513",
     "name": "Duct Tape",
     "icon": "images/items/DuctTape.avif",
     "tier": 1,
@@ -5679,6 +5845,7 @@ export const items = {
     ]
   },
   "Eagle Talisman": {
+    "id": "0022c409-c839-41e8-8022-65a407457dfe",
     "name": "Eagle Talisman",
     "icon": "images/items/EagleTalisman.avif",
     "tier": 0,
@@ -5709,6 +5876,7 @@ export const items = {
     ]
   },
   "Earrings": {
+    "id": "1e9649ce-e350-4c0b-b763-5e4c7e038010",
     "name": "Earrings",
     "icon": "images/items/Earrings.avif",
     "tier": 1,
@@ -5745,6 +5913,7 @@ export const items = {
     ]
   },
   "Ectoplasm": {
+    "id": "7b731de3-3598-46f4-b61f-75b7a0065d8a",
     "name": "Ectoplasm",
     "icon": "images/items/Ectoplasm.avif",
     "tier": 1,
@@ -5779,6 +5948,7 @@ export const items = {
     ]
   },
   "Electric Eels": {
+    "id": "c6ab4982-da6c-4a1a-934d-820c45014646",
     "name": "Electric Eels",
     "icon": "images/items/ElectricEels.avif",
     "tier": 1,
@@ -5818,6 +5988,7 @@ export const items = {
     ]
   },
   "Elemental Depth Charge": {
+    "id": "b18e28e6-69a3-455a-8a5a-1a3170c76bb7",
     "name": "Elemental Depth Charge",
     "icon": "images/items/ElementalDepthCharge.avif",
     "tier": 1,
@@ -5831,7 +6002,7 @@ export const items = {
       "Freeze",
       "Ammo"
     ],
-    "cooldown": "(12/11/10)",
+    "cooldown": "(12/10/8)",
     "ammo": 1,
     "text": [
       "Poison 4, Burn 4, and Freeze 1 medium or small item for 1 second(s).",
@@ -5856,6 +6027,7 @@ export const items = {
     ]
   },
   "Emerald": {
+    "id": "c553a41a-1e8a-48c5-8b04-df60451b7795",
     "name": "Emerald",
     "icon": "images/items/Emerald.avif",
     "tier": 0,
@@ -5889,6 +6061,7 @@ export const items = {
     ]
   },
   "Energy Potion": {
+    "id": "54040bca-14e5-4f6d-bfa8-b67658adda0b",
     "name": "Energy Potion",
     "icon": "images/items/EnergyPotion.avif",
     "tier": 1,
@@ -5921,6 +6094,7 @@ export const items = {
     ]
   },
   "Epicurean Chocolate": {
+    "id": "ca45968e-c996-412b-b359-7bfc3e70e893",
     "name": "Epicurean Chocolate",
     "icon": "images/items/EpicureanChocolate.avif",
     "tier": 0,
@@ -5944,6 +6118,7 @@ export const items = {
     ]
   },
   "Exoskeleton": {
+    "id": "20300be0-939f-4a1f-ba8a-eb0f778675a2",
     "name": "Exoskeleton",
     "icon": "images/items/Exoskeleton.avif",
     "tier": 0,
@@ -5970,6 +6145,7 @@ export const items = {
     ]
   },
   "Extract": {
+    "id": "562d768a-6aaf-4704-be8b-4dc9e6311b11",
     "name": "Extract",
     "icon": "images/items/Extract.avif",
     "tier": 0,
@@ -6000,6 +6176,7 @@ export const items = {
     ]
   },
   "Eye of the Colossus": {
+    "id": "3373c95c-6910-4414-8134-abf2ff1c90fa",
     "name": "Eye of the Colossus",
     "icon": "images/items/EyeoftheColossus.avif",
     "tier": 4,
@@ -6033,6 +6210,7 @@ export const items = {
     ]
   },
   "Fang": {
+    "id": "7cbc8056-482b-4ccf-887a-ddb2702c856c",
     "name": "Fang",
     "icon": "images/items/Fang.avif",
     "tier": 0,
@@ -6065,6 +6243,7 @@ export const items = {
     ]
   },
   "Feather": {
+    "id": "55f11b65-77fa-4d70-9250-8a40d03961ad",
     "name": "Feather",
     "icon": "images/items/Feather.avif",
     "tier": 0,
@@ -6095,6 +6274,7 @@ export const items = {
     ]
   },
   "Fiber Optics": {
+    "id": "7d270d9f-9201-4e1a-9d66-467e11d4b5c1",
     "name": "Fiber Optics",
     "icon": "images/items/FiberOptics.avif",
     "tier": 2,
@@ -6127,6 +6307,7 @@ export const items = {
     ]
   },
   "Figurehead": {
+    "id": "953402e4-1430-48ab-8156-6193c9d8a7d4",
     "name": "Figurehead",
     "icon": "images/items/Figurehead.avif",
     "tier": 1,
@@ -6162,6 +6343,7 @@ export const items = {
     ]
   },
   "Fire Claw": {
+    "id": "e3070870-881c-497d-879f-2d91e962e0e2",
     "name": "Fire Claw",
     "icon": "images/items/FireClaw.avif",
     "tier": 1,
@@ -6195,6 +6377,7 @@ export const items = {
     ]
   },
   "Fire Potion": {
+    "id": "cf3a7956-f400-42e1-bae1-d3678d76fd01",
     "name": "Fire Potion",
     "icon": "images/items/FirePotion.avif",
     "tier": 0,
@@ -6228,6 +6411,7 @@ export const items = {
     ]
   },
   "Fireflies": {
+    "id": "573e24c0-8013-4974-bcc1-de9145892f07",
     "name": "Fireflies",
     "icon": "images/items/Fireflies.avif",
     "tier": 0,
@@ -6263,6 +6447,7 @@ export const items = {
     ]
   },
   "First Aiden": {
+    "id": "bfa02e6a-1e0d-4e88-830e-850097026a02",
     "name": "First Aiden",
     "icon": "images/items/FirstAiden.avif",
     "tier": 0,
@@ -6298,6 +6483,7 @@ export const items = {
     ]
   },
   "Fishing Net": {
+    "id": "63e5a09e-ad7c-44ee-ba7d-d1b515ae8e9e",
     "name": "Fishing Net",
     "icon": "images/items/FishingNet.avif",
     "tier": 0,
@@ -6333,6 +6519,7 @@ export const items = {
     ]
   },
   "Fishing Rod": {
+    "id": "bb1b65d5-ead6-4828-adb9-688c7e2aabb6",
     "name": "Fishing Rod",
     "icon": "images/items/FishingRod.avif",
     "tier": 0,
@@ -6368,6 +6555,7 @@ export const items = {
     ]
   },
   "Fixer Upper": {
+    "id": "43190b98-4f7f-4b2e-b92e-32b07b7fc2e1",
     "name": "Fixer Upper",
     "icon": "images/items/FixerUpper.avif",
     "tier": 0,
@@ -6404,6 +6592,7 @@ export const items = {
     ]
   },
   "Flagship": {
+    "id": "865a673a-beae-4f5c-b04a-dd3fd026bc6d",
     "name": "Flagship",
     "icon": "images/items/Flagship.avif",
     "tier": 1,
@@ -6441,6 +6630,7 @@ export const items = {
     ]
   },
   "Flail": {
+    "id": "cbe0436a-3573-4bbb-968b-9bb61343c2a7",
     "name": "Flail",
     "icon": "images/items/Flail.avif",
     "tier": 0,
@@ -6475,6 +6665,7 @@ export const items = {
     ]
   },
   "Flamberge": {
+    "id": "8938035e-be96-4827-bd34-7258253bd942",
     "name": "Flamberge",
     "icon": "images/items/Flamberge.avif",
     "tier": 3,
@@ -6509,6 +6700,7 @@ export const items = {
     ]
   },
   "Flamethrower": {
+    "id": "dccb72af-f46b-4a84-a0d1-918c8d285c4e",
     "name": "Flamethrower",
     "icon": "images/items/Flamethrower.avif",
     "tier": 2,
@@ -6545,6 +6737,7 @@ export const items = {
     ]
   },
   "Flashbang": {
+    "id": "c5362859-48d7-4f5e-84ed-f8430b84a8ae",
     "name": "Flashbang",
     "icon": "images/items/Flashbang.avif",
     "tier": 1,
@@ -6576,6 +6769,7 @@ export const items = {
     ]
   },
   "Floor Spike": {
+    "id": "c65e6801-7d3d-43e0-907e-ff7260efaf58",
     "name": "Floor Spike",
     "icon": "images/items/FloorSpike.avif",
     "tier": 1,
@@ -6613,6 +6807,7 @@ export const items = {
     ]
   },
   "Force Field": {
+    "id": "85f59c88-c391-4a03-8c3b-f312518e81de",
     "name": "Force Field",
     "icon": "images/items/ForceField.avif",
     "tier": 1,
@@ -6649,6 +6844,7 @@ export const items = {
     ]
   },
   "Forklift": {
+    "id": "74d0780a-4d98-478e-b136-f1810bc88346",
     "name": "Forklift",
     "icon": "images/items/Forklift.avif",
     "tier": 2,
@@ -6686,6 +6882,7 @@ export const items = {
     ]
   },
   "Fort": {
+    "id": "fb9bc349-bc38-40f4-a67e-a9c580e1e681",
     "name": "Fort",
     "icon": "images/items/Fort.avif",
     "tier": 2,
@@ -6722,6 +6919,7 @@ export const items = {
     ]
   },
   "Frost Potion": {
+    "id": "28db3caa-7727-4d1c-9758-df42975e4811",
     "name": "Frost Potion",
     "icon": "images/items/FrostPotion.avif",
     "tier": 1,
@@ -6754,6 +6952,7 @@ export const items = {
     ]
   },
   "Frozen Bludgeon": {
+    "id": "53b62ecb-bcbc-4a86-bd6f-027467970109",
     "name": "Frozen Bludgeon",
     "icon": "images/items/FrozenBludgeon.avif",
     "tier": 0,
@@ -6791,6 +6990,7 @@ export const items = {
     ]
   },
   "Frozen Flame": {
+    "id": "2ce8a344-8688-4db5-b00f-03217990e4c7",
     "name": "Frozen Flame",
     "icon": "images/items/FrozenFlame.avif",
     "tier": 1,
@@ -6828,6 +7028,7 @@ export const items = {
     ]
   },
   "Gamma Ray": {
+    "id": "0229faa7-2eec-4746-9134-ade4f3aebe45",
     "name": "Gamma Ray",
     "icon": "images/items/GammaRay.avif",
     "tier": 1,
@@ -6862,6 +7063,7 @@ export const items = {
     ]
   },
   "Ganjo": {
+    "id": "c9c9a413-59b3-4fc8-b4ab-dcfac0a44e90",
     "name": "Ganjo",
     "icon": "images/items/Ganjo.avif",
     "tier": 0,
@@ -6899,6 +7101,7 @@ export const items = {
     ]
   },
   "Gatling Gun": {
+    "id": "6e576444-85ce-4922-84e1-8ad88c5b83f1",
     "name": "Gatling Gun",
     "icon": "images/items/GatlingGun.avif",
     "tier": 2,
@@ -6933,6 +7136,7 @@ export const items = {
     ]
   },
   "Gavel": {
+    "id": "8ae203cd-a429-4ade-b5e3-a612a906d71a",
     "name": "Gavel",
     "icon": "images/items/Gavel.avif",
     "tier": 2,
@@ -6966,6 +7170,7 @@ export const items = {
     ]
   },
   "Gearnola Bar": {
+    "id": "8bbfd341-660f-4b9f-9c95-2e40c7d05c1f",
     "name": "Gearnola Bar",
     "icon": "images/items/GearnolaBar.avif",
     "tier": 0,
@@ -7000,6 +7205,7 @@ export const items = {
     ]
   },
   "Genie Lamp": {
+    "id": "ac92c118-c073-465c-8d89-abafa0dcb144",
     "name": "Genie Lamp",
     "icon": "images/items/GenieLamp.avif",
     "tier": 3,
@@ -7020,6 +7226,7 @@ export const items = {
     ]
   },
   "Giant Ice Club": {
+    "id": "60fc7e96-c754-40be-803b-e9237aeb920d",
     "name": "Giant Ice Club",
     "icon": "images/items/GiantIceClub.avif",
     "tier": 2,
@@ -7057,6 +7264,7 @@ export const items = {
     ]
   },
   "Gland": {
+    "id": "638a6b50-7803-4da5-9514-ca0627fd7b5f",
     "name": "Gland",
     "icon": "images/items/Gland.avif",
     "tier": 0,
@@ -7087,6 +7295,7 @@ export const items = {
     ]
   },
   "Globe": {
+    "id": "07df297d-e116-42a4-9596-4af674764d1b",
     "name": "Globe",
     "icon": "images/items/Globe.avif",
     "tier": 1,
@@ -7119,6 +7328,7 @@ export const items = {
     ]
   },
   "Goggles": {
+    "id": "f8b41c46-8adc-4e84-835a-831e2e3d84d1",
     "name": "Goggles",
     "icon": "images/items/Goggles.avif",
     "tier": 0,
@@ -7156,6 +7366,7 @@ export const items = {
     ]
   },
   "Golf Clubs": {
+    "id": "26621cbf-809d-4522-ad24-34443af96f27",
     "name": "Golf Clubs",
     "icon": "images/items/GolfClubs.avif",
     "tier": 0,
@@ -7191,6 +7402,7 @@ export const items = {
     ]
   },
   "Goop Flail": {
+    "id": "3efd3236-c768-4995-a47d-dbd8dea00d13",
     "name": "Goop Flail",
     "icon": "images/items/GoopFlail.avif",
     "tier": 1,
@@ -7228,6 +7440,7 @@ export const items = {
     ]
   },
   "GPU": {
+    "id": "af085ed1-25e7-49a6-b72f-9bf8e4779132",
     "name": "GPU",
     "icon": "images/items/GPU.avif",
     "tier": 0,
@@ -7259,6 +7472,7 @@ export const items = {
     ]
   },
   "Grapeshot": {
+    "id": "e6a183ce-0ea9-4981-bbfb-95be32b93de2",
     "name": "Grapeshot",
     "icon": "images/items/Grapeshot.avif",
     "tier": 1,
@@ -7294,6 +7508,7 @@ export const items = {
     ]
   },
   "Grappling Hook": {
+    "id": "44710a21-395d-4f78-bdaf-e562c544ae91",
     "name": "Grappling Hook",
     "icon": "images/items/GrapplingHook.avif",
     "tier": 0,
@@ -7330,6 +7545,7 @@ export const items = {
     ]
   },
   "Green Gumball": {
+    "id": "d0a15bf6-fc3a-47c5-84c5-7c34c6996598",
     "name": "Green Gumball",
     "icon": "images/items/GreenGumball.avif",
     "tier": 0,
@@ -7359,6 +7575,7 @@ export const items = {
     ]
   },
   "Grenade": {
+    "id": "2fcdf96f-e1c4-45cd-8efd-0b8352267483",
     "name": "Grenade",
     "icon": "images/items/Grenade.avif",
     "tier": 0,
@@ -7394,6 +7611,7 @@ export const items = {
     ]
   },
   "Grindstone": {
+    "id": "893f5fec-30ed-4a1e-b896-5b086d952da4",
     "name": "Grindstone",
     "icon": "images/items/Grindstone.avif",
     "tier": 1,
@@ -7426,6 +7644,7 @@ export const items = {
     ]
   },
   "GRN-W4SP": {
+    "id": "c7c21196-e41e-4569-a579-25826648cdc6",
     "name": "GRN-W4SP",
     "icon": "images/items/GRNW4SP.avif",
     "tier": 0,
@@ -7462,6 +7681,7 @@ export const items = {
     ]
   },
   "Gumball Machine": {
+    "id": "c53eff8b-0407-4e8c-adaf-70b2a66b3528",
     "name": "Gumball Machine",
     "icon": "images/items/GumballMachine.avif",
     "tier": 1,
@@ -7498,6 +7718,7 @@ export const items = {
     ]
   },
   "Gunpowder": {
+    "id": "3e563d2a-87e7-4e9a-bfa2-3268b27b7447",
     "name": "Gunpowder",
     "icon": "images/items/Gunpowder.avif",
     "tier": 1,
@@ -7528,6 +7749,7 @@ export const items = {
     ]
   },
   "Hacksaw": {
+    "id": "d50bb808-14f8-4554-950d-d0630899ba85",
     "name": "Hacksaw",
     "icon": "images/items/Hacksaw.avif",
     "tier": 2,
@@ -7562,43 +7784,8 @@ export const items = {
       1
     ]
   },
-  "Hakurvian Launcher": {
-    "name": "Hakurvian Launcher",
-    "icon": "images/items/HakurvianLauncher.avif",
-    "tier": 0,
-    "tags": [
-      "Common",
-      "Large",
-      "Weapon",
-      "HasteReference",
-      "Damage",
-      "Crit"
-    ],
-    "cooldown": 9,
-    "ammo": 2,
-    "text": [
-      "Deal (75/150/300/600) damage.",
-      "When this gains Haste, it also gains (5%/10%/15%/20%) Crit Chance for the fight."
-    ],
-    "enchants": {
-      "Heavy": "Slow 3 items for 4 second(s).",
-      "Icy": "Freeze 1 item for 6 second(s).",
-      "Turbo": "Haste 3 items for 4 second(s).",
-      "Shielded": "Shield equal to this item's damage.",
-      "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison equal to 10% of this item's damage.",
-      "Fiery": "Burn equal to 10% of this item's damage.",
-      "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance",
-      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
-      "Obsidian": "This has double Damage."
-    },
-    "priorities": [
-      1,
-      0
-    ]
-  },
   "Haladie": {
+    "id": "a490a838-37ed-4812-88fa-9e9a88d2eb8d",
     "name": "Haladie",
     "icon": "images/items/Haladie.avif",
     "tier": 0,
@@ -7633,6 +7820,7 @@ export const items = {
     ]
   },
   "Hammer": {
+    "id": "f8dd1239-f4a3-4bca-b975-2125906e7fcb",
     "name": "Hammer",
     "icon": "images/items/Hammer.avif",
     "tier": 1,
@@ -7669,6 +7857,7 @@ export const items = {
     ]
   },
   "Hammlet": {
+    "id": "ab8a9c5e-3d2a-45e6-9d65-ddd0fdfdac01",
     "name": "Hammlet",
     "icon": "images/items/Hammlet.avif",
     "tier": 0,
@@ -7706,6 +7895,7 @@ export const items = {
     ]
   },
   "Hammock": {
+    "id": "a4b48bb6-180a-49fd-bb1c-c6beb372b6de",
     "name": "Hammock",
     "icon": "images/items/Hammock.avif",
     "tier": 2,
@@ -7740,6 +7930,7 @@ export const items = {
     ]
   },
   "Handaxe": {
+    "id": "b02a2b57-da9c-4ad6-88ac-219b3bfec103",
     "name": "Handaxe",
     "icon": "images/items/Handaxe.avif",
     "tier": 0,
@@ -7774,7 +7965,41 @@ export const items = {
       0
     ]
   },
+  "Harkuvian Launcher": {
+    "id": "3e97f309-24f2-4850-ab35-6eb6c1fe832f",
+    "name": "Harkuvian Launcher",
+    "icon": "images/items/HarkuvianLauncher.avif",
+    "tier": 0,
+    "tags": [
+      "Common",
+      "Large",
+      "Weapon",
+      "HasteReference",
+      "Damage",
+      "Crit"
+    ],
+    "cooldown": 9,
+    "ammo": 2,
+    "text": [
+      "Deal (75/150/300/600) damage.",
+      "When this gains Haste, it also gains (5%/10%/15%/20%) Crit Chance for the fight."
+    ],
+    "enchants": {
+      "Heavy": "Slow 3 items for 4 second(s).",
+      "Icy": "Freeze 1 item for 6 second(s).",
+      "Turbo": "Haste 3 items for 4 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "This has double Damage."
+    }
+  },
   "Harmadillo": {
+    "id": "6b8ca1d0-f4ff-440d-8a9e-51efc4d7ce01",
     "name": "Harmadillo",
     "icon": "images/items/Harmadillo.avif",
     "tier": 0,
@@ -7811,6 +8036,7 @@ export const items = {
     ]
   },
   "Harpoon": {
+    "id": "899bc2a7-eec8-42e5-9c99-49b592617114",
     "name": "Harpoon",
     "icon": "images/items/Harpoon.avif",
     "tier": 0,
@@ -7842,6 +8068,7 @@ export const items = {
     ]
   },
   "Hatchet": {
+    "id": "349fc81f-2b3a-4d39-beaa-6a0d5105a19a",
     "name": "Hatchet",
     "icon": "images/items/Hatchet.avif",
     "tier": 0,
@@ -7878,6 +8105,7 @@ export const items = {
     ]
   },
   "Hemlock": {
+    "id": "0b4d7632-b3b4-42ce-a5fc-3fafb8f1c409",
     "name": "Hemlock",
     "icon": "images/items/Hemlock.avif",
     "tier": 0,
@@ -7912,6 +8140,7 @@ export const items = {
     ]
   },
   "Hogwash": {
+    "id": "c2a74791-1d79-45bd-841d-2e3f2a61da8f",
     "name": "Hogwash",
     "icon": "images/items/Hogwash.avif",
     "tier": 1,
@@ -7947,6 +8176,7 @@ export const items = {
     ]
   },
   "Holsters": {
+    "id": "2aab9da1-bfd1-4f3f-8cda-69f3c909158b",
     "name": "Holsters",
     "icon": "images/items/Holsters.avif",
     "tier": 1,
@@ -7978,6 +8208,7 @@ export const items = {
     ]
   },
   "Honing Steel": {
+    "id": "b23c5988-7091-4b77-a7fb-134c0d0a3285",
     "name": "Honing Steel",
     "icon": "images/items/HoningSteel.avif",
     "tier": 0,
@@ -8010,6 +8241,7 @@ export const items = {
     ]
   },
   "Hot Sauce": {
+    "id": "c0455f22-2fb9-4ce6-a65f-e874e3d86ff0",
     "name": "Hot Sauce",
     "icon": "images/items/HotSauce.avif",
     "tier": 2,
@@ -8044,6 +8276,7 @@ export const items = {
     ]
   },
   "Hot Springs": {
+    "id": "b6cd2ee1-f44f-44a5-9652-c577800a427f",
     "name": "Hot Springs",
     "icon": "images/items/HotSprings.avif",
     "tier": 0,
@@ -8077,6 +8310,7 @@ export const items = {
     ]
   },
   "Hot Stones": {
+    "id": "cdea14ac-23d0-43c2-95b3-12cedab1795a",
     "name": "Hot Stones",
     "icon": "images/items/HotStones.avif",
     "tier": 0,
@@ -8111,6 +8345,7 @@ export const items = {
     ]
   },
   "Hourglass": {
+    "id": "1e4af679-7905-44b2-8f31-f9830fec069e",
     "name": "Hourglass",
     "icon": "images/items/Hourglass.avif",
     "tier": 0,
@@ -8143,6 +8378,7 @@ export const items = {
     ]
   },
   "Hydraulic Squeezer": {
+    "id": "3866978f-da19-45a8-9f28-d03b6d3aafc4",
     "name": "Hydraulic Squeezer",
     "icon": "images/items/HydraulicSqueezer.avif",
     "tier": 1,
@@ -8180,6 +8416,7 @@ export const items = {
     ]
   },
   "Ice 9000": {
+    "id": "1fbbefea-2da0-46a5-b60d-dad9478ade86",
     "name": "Ice 9000",
     "icon": "images/items/Ice9000.avif",
     "tier": 1,
@@ -8217,6 +8454,7 @@ export const items = {
     ]
   },
   "Ice Claw": {
+    "id": "7616c8b5-17d0-40fb-bc34-d663b8633e84",
     "name": "Ice Claw",
     "icon": "images/items/IceClaw.avif",
     "tier": 0,
@@ -8254,6 +8492,7 @@ export const items = {
     ]
   },
   "Ice Cream Truck": {
+    "id": "012658f4-b289-4f10-917c-a9a1f3f9ca03",
     "name": "Ice Cream Truck",
     "icon": "images/items/IceCreamTruck.avif",
     "tier": 1,
@@ -8290,6 +8529,7 @@ export const items = {
     ]
   },
   "Ice Cubes": {
+    "id": "ba625e9a-9c8b-4c21-bf6e-e7a6ff264019",
     "name": "Ice Cubes",
     "icon": "images/items/IceCubes.avif",
     "tier": 2,
@@ -8321,6 +8561,7 @@ export const items = {
     ]
   },
   "Ice Luge": {
+    "id": "9d31868e-1c69-4186-a3df-8ca10dc2a80f",
     "name": "Ice Luge",
     "icon": "images/items/IceLuge.avif",
     "tier": 2,
@@ -8356,6 +8597,7 @@ export const items = {
     ]
   },
   "Ice Pick": {
+    "id": "a8664dac-7a88-4af0-990e-afe7217e123f",
     "name": "Ice Pick",
     "icon": "images/items/IcePick.avif",
     "tier": 1,
@@ -8394,6 +8636,7 @@ export const items = {
     ]
   },
   "Iceberg": {
+    "id": "7326c177-d5c8-4e27-b8b4-acf565745019",
     "name": "Iceberg",
     "icon": "images/items/Iceberg.avif",
     "tier": 2,
@@ -8427,6 +8670,7 @@ export const items = {
     ]
   },
   "Icebreaker": {
+    "id": "4bb254dc-4b02-4c4b-8198-a310bdb122e4",
     "name": "Icebreaker",
     "icon": "images/items/Icebreaker.avif",
     "tier": 1,
@@ -8466,6 +8710,7 @@ export const items = {
     ]
   },
   "Icicle": {
+    "id": "e21985a8-fe05-4142-ab65-93c110545ec3",
     "name": "Icicle",
     "icon": "images/items/Icicle.avif",
     "tier": 0,
@@ -8495,6 +8740,7 @@ export const items = {
     ]
   },
   "Igloo": {
+    "id": "acaebb2b-fe63-4de0-9d9e-949673c08a47",
     "name": "Igloo",
     "icon": "images/items/Igloo.avif",
     "tier": 1,
@@ -8532,23 +8778,23 @@ export const items = {
     ]
   },
   "Ignition Core": {
+    "id": "9b9ea23a-408c-4e08-9b09-9f791285d16c",
     "name": "Ignition Core",
     "icon": "images/items/IgnitionCore.avif",
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
       "Core",
       "Tech",
       "Burn",
-      "Charge",
-      "Unsellable"
+      "Charge"
     ],
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Burn (4/7/10/13).",
-      "Burn items to the right of this gain (1/2/3/4) Burn for the fight.",
+      "Burn 4.",
+      "This and Burn items to the right of this gain (2/4/6) Burn for the fight.",
       "When you use any item to the left of this, Charge this 1 second(s)."
     ],
     "enchants": {
@@ -8571,6 +8817,7 @@ export const items = {
     ]
   },
   "IllusoRay": {
+    "id": "e75ea50a-e67c-47e4-a4b1-304b87b90cf9",
     "name": "IllusoRay",
     "icon": "images/items/IllusoRay.avif",
     "tier": 0,
@@ -8607,6 +8854,7 @@ export const items = {
     ]
   },
   "Improvised Bludgeon": {
+    "id": "d022cc12-8fe2-442c-af6e-165eb97ed055",
     "name": "Improvised Bludgeon",
     "icon": "images/items/ImprovisedBludgeon.avif",
     "tier": 0,
@@ -8644,6 +8892,7 @@ export const items = {
     ]
   },
   "Incendiary Rounds": {
+    "id": "14b297c5-db65-492d-aad7-9ffe101cae5f",
     "name": "Incendiary Rounds",
     "icon": "images/items/IncendiaryRounds.avif",
     "tier": 1,
@@ -8663,8 +8912,8 @@ export const items = {
       "Heavy": "When you use an adjacent item, slow 1 item for 1 second(s).",
       "Icy": "When you use an adjacent item, freeze 1 small item for 1 second(s).",
       "Turbo": "When you use an adjacent item, haste it for 1 second(s).",
-      "Shielded": "When you use an adjacent item, shield 10.",
-      "Restorative": "When you use an adjacent item, heal 15.",
+      "Shielded": "When you use an adjacent item, shield equal to 10 times this item's Burn.",
+      "Restorative": "When you use an adjacent item, heal equal to 10 times this item's Burn.",
       "Toxic": "When you use an adjacent item, Poison equal to this item's Burn.",
       "Fiery": "This has double Burn.",
       "Shiny": "This has double Max Ammo bonus.",
@@ -8678,6 +8927,7 @@ export const items = {
     ]
   },
   "Incense": {
+    "id": "95640018-a5d3-4119-8c4f-5509e161c689",
     "name": "Incense",
     "icon": "images/items/Incense.avif",
     "tier": 0,
@@ -8712,6 +8962,7 @@ export const items = {
     ]
   },
   "Induction Aegis": {
+    "id": "eed2dc49-267a-4e8c-8ea6-d37dff677e8c",
     "name": "Induction Aegis",
     "icon": "images/items/InductionAegis.avif",
     "tier": 0,
@@ -8722,11 +8973,11 @@ export const items = {
       "Shield",
       "Burn"
     ],
-    "cooldown": 6,
+    "cooldown": "(7/6/5/4)",
     "ammo": null,
     "text": [
-      "Shield (10/15/20/25).",
-      "Burn (1/2/3/4)."
+      "Shield 20.",
+      "Burn 2."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -8747,6 +8998,7 @@ export const items = {
     ]
   },
   "Infernal Greatsword": {
+    "id": "3c9c0a73-ea2e-4ff2-be75-fd4363f72d37",
     "name": "Infernal Greatsword",
     "icon": "images/items/InfernalGreatsword.avif",
     "tier": 4,
@@ -8784,6 +9036,7 @@ export const items = {
     ]
   },
   "Infinite Potion": {
+    "id": "d18ea11d-941d-446e-806f-523384eda6f2",
     "name": "Infinite Potion",
     "icon": "images/items/InfinitePotion.avif",
     "tier": 1,
@@ -8819,6 +9072,7 @@ export const items = {
     ]
   },
   "Insect Wing": {
+    "id": "4826832f-f3a5-4c40-b8fa-737f002074fa",
     "name": "Insect Wing",
     "icon": "images/items/InsectWing.avif",
     "tier": 0,
@@ -8849,6 +9103,7 @@ export const items = {
     ]
   },
   "Invulnerability Potion": {
+    "id": "4fdc947b-3646-429e-ba4e-bb693fe44bc2",
     "name": "Invulnerability Potion",
     "icon": "images/items/InvulnerabilityPotion.avif",
     "tier": 2,
@@ -8882,6 +9137,7 @@ export const items = {
     ]
   },
   "Isochoric Freezer": {
+    "id": "a5f3616b-ad8c-434a-89d0-311698061bd4",
     "name": "Isochoric Freezer",
     "icon": "images/items/IsochoricFreezer.avif",
     "tier": 1,
@@ -8913,6 +9169,7 @@ export const items = {
     ]
   },
   "Jabalian Drum": {
+    "id": "9ab4ba04-0c08-4374-b86e-e94dcaaca334",
     "name": "Jabalian Drum",
     "icon": "images/items/JabalianDrum.avif",
     "tier": 1,
@@ -8947,6 +9204,7 @@ export const items = {
     ]
   },
   "Jabalian Longbow": {
+    "id": "a4cb5a88-1abb-4fb0-b4dc-a1b7eedebd64",
     "name": "Jabalian Longbow",
     "icon": "images/items/JabalianLongbow.avif",
     "tier": 0,
@@ -8984,6 +9242,7 @@ export const items = {
     ]
   },
   "Javelin": {
+    "id": "2a7c377e-5ab7-4e27-bd03-ecaa29b69131",
     "name": "Javelin",
     "icon": "images/items/Javelin.avif",
     "tier": 1,
@@ -9020,6 +9279,7 @@ export const items = {
     ]
   },
   "Jellyfish": {
+    "id": "b4ccf465-fbf6-4fd4-b4ed-515594ed8722",
     "name": "Jellyfish",
     "icon": "images/items/Jellyfish.avif",
     "tier": 0,
@@ -9034,7 +9294,7 @@ export const items = {
     "cooldown": 7,
     "ammo": null,
     "text": [
-      "Poison (3/4/5/6).",
+      "Poison (3/6/9/12).",
       "When you use an adjacent Aquatic item, this gains Haste for (1/2/3/4) second(s)."
     ],
     "enchants": {
@@ -9056,6 +9316,7 @@ export const items = {
     ]
   },
   "Jewelry": {
+    "id": "b4462dd4-2a2d-412b-b532-c47bba6f93c1",
     "name": "Jewelry",
     "icon": "images/items/Jewelry.avif",
     "tier": 0,
@@ -9090,6 +9351,7 @@ export const items = {
     ]
   },
   "Jitte": {
+    "id": "e041875b-2949-4c56-8e01-ac50dbb06af6",
     "name": "Jitte",
     "icon": "images/items/Jitte.avif",
     "tier": 1,
@@ -9127,6 +9389,7 @@ export const items = {
     ]
   },
   "Junkyard Catapult": {
+    "id": "3d766165-a7f8-4286-8d37-976d5e101522",
     "name": "Junkyard Catapult",
     "icon": "images/items/JunkyardCatapult.avif",
     "tier": 1,
@@ -9165,6 +9428,7 @@ export const items = {
     ]
   },
   "Junkyard Club": {
+    "id": "bede53aa-8d47-4d6c-b302-2e684e8c3fcf",
     "name": "Junkyard Club",
     "icon": "images/items/JunkyardClub.avif",
     "tier": 0,
@@ -9200,6 +9464,7 @@ export const items = {
     ]
   },
   "Junkyard Lance": {
+    "id": "f7241086-8b2d-4882-80c9-a0ddb46910ad",
     "name": "Junkyard Lance",
     "icon": "images/items/JunkyardLance.avif",
     "tier": 0,
@@ -9232,6 +9497,7 @@ export const items = {
     ]
   },
   "Junkyard Repairbot": {
+    "id": "51696368-e409-4771-8baf-22c6da533cd8",
     "name": "Junkyard Repairbot",
     "icon": "images/items/JunkyardRepairbot.avif",
     "tier": 0,
@@ -9267,6 +9533,7 @@ export const items = {
     ]
   },
   "Katana": {
+    "id": "54f957f2-9522-486b-a7c6-bb234f74846c",
     "name": "Katana",
     "icon": "images/items/Katana.avif",
     "tier": 0,
@@ -9299,6 +9566,7 @@ export const items = {
     ]
   },
   "Keychain": {
+    "id": "6aa8be90-55f4-4fec-bd92-811e175657a1",
     "name": "Keychain",
     "icon": "images/items/Keychain.avif",
     "tier": 2,
@@ -9328,6 +9596,7 @@ export const items = {
     ]
   },
   "Kinetic Cannon": {
+    "id": "c39f3c39-77d9-49ee-9850-400e7d5fe484",
     "name": "Kinetic Cannon",
     "icon": "images/items/KineticCannon.avif",
     "tier": 1,
@@ -9363,6 +9632,7 @@ export const items = {
     ]
   },
   "Knee Brace": {
+    "id": "d5e2cff2-31b5-48eb-86ff-9543ea0c6d40",
     "name": "Knee Brace",
     "icon": "images/items/KneeBrace.avif",
     "tier": 0,
@@ -9385,6 +9655,7 @@ export const items = {
     ]
   },
   "Knife Set": {
+    "id": "dc0a123c-61df-44c5-9281-41d0430b4123",
     "name": "Knife Set",
     "icon": "images/items/KnifeSet.avif",
     "tier": 1,
@@ -9420,6 +9691,7 @@ export const items = {
     ]
   },
   "Kukri": {
+    "id": "03b1fd16-6b0d-4847-a76f-6c586f7c5958",
     "name": "Kukri",
     "icon": "images/items/Kukri.avif",
     "tier": 0,
@@ -9455,6 +9727,7 @@ export const items = {
     ]
   },
   "Laboratory": {
+    "id": "2289a804-892a-4e0a-bfb5-a73bba94dbb9",
     "name": "Laboratory",
     "icon": "images/items/Laboratory.avif",
     "tier": 2,
@@ -9468,7 +9741,8 @@ export const items = {
     "ammo": null,
     "text": [
       "Enchant another non-enchanted item for the fight.",
-      "Charge your other Relics and Enchanted items (1/2) second(s)."
+      "Charge your other Relics and Enchanted items (1/2) second(s).",
+      "At the start of each day, get a Catalyst."
     ],
     "enchants": {
       "Heavy": "When you use a Relic or Enchanted item, Slow 1 items for 3 second(s).",
@@ -9489,6 +9763,7 @@ export const items = {
     ]
   },
   "Landscraper": {
+    "id": "530b642b-4a31-4cc4-a7ae-ea22d607ad4d",
     "name": "Landscraper",
     "icon": "images/items/Landscraper.avif",
     "tier": 1,
@@ -9527,6 +9802,7 @@ export const items = {
     ]
   },
   "Langxian": {
+    "id": "53099361-599f-4c1a-ad4a-d2fbb491b756",
     "name": "Langxian",
     "icon": "images/items/Langxian.avif",
     "tier": 0,
@@ -9561,6 +9837,7 @@ export const items = {
     ]
   },
   "Laser Pistol": {
+    "id": "7bff4c56-752c-47f3-89d0-e85aa917319f",
     "name": "Laser Pistol",
     "icon": "images/items/LaserPistol.avif",
     "tier": 0,
@@ -9571,7 +9848,7 @@ export const items = {
       "Tech",
       "Damage"
     ],
-    "cooldown": 5,
+    "cooldown": 4,
     "ammo": null,
     "text": [
       "Deal (8/16/24/32) damage."
@@ -9594,6 +9871,7 @@ export const items = {
     ]
   },
   "Laser Security System": {
+    "id": "111a690e-0afc-41f1-adb5-c8c055b64627",
     "name": "Laser Security System",
     "icon": "images/items/LaserSecuritySystem.avif",
     "tier": 0,
@@ -9628,6 +9906,7 @@ export const items = {
     ]
   },
   "Ledger": {
+    "id": "5a4c4c98-d41e-43f8-aa39-a74847e2ff3c",
     "name": "Ledger",
     "icon": "images/items/Ledger.avif",
     "tier": 1,
@@ -9651,6 +9930,7 @@ export const items = {
     ]
   },
   "Leeches": {
+    "id": "8019736a-bb1e-4cbd-a3f8-2bfa9b943b6f",
     "name": "Leeches",
     "icon": "images/items/Leeches.avif",
     "tier": 0,
@@ -9689,6 +9969,7 @@ export const items = {
     ]
   },
   "Lemonade Stand": {
+    "id": "832afbee-fdb4-47e2-b4ac-0206b8955816",
     "name": "Lemonade Stand",
     "icon": "images/items/LemonadeStand.avif",
     "tier": 1,
@@ -9725,6 +10006,7 @@ export const items = {
     ]
   },
   "Lens": {
+    "id": "71231a4d-4ba5-48ee-8d6d-4a533d08bebf",
     "name": "Lens",
     "icon": "images/items/Lens.avif",
     "tier": 2,
@@ -9761,6 +10043,7 @@ export const items = {
     ]
   },
   "Letter Opener": {
+    "id": "2989cfa7-86d3-40f7-9946-e417a25d9535",
     "name": "Letter Opener",
     "icon": "images/items/LetterOpener.avif",
     "tier": 0,
@@ -9798,6 +10081,7 @@ export const items = {
     ]
   },
   "Library": {
+    "id": "cc25c553-c676-4b7b-a6a0-509da0512614",
     "name": "Library",
     "icon": "images/items/Library.avif",
     "tier": 2,
@@ -9832,6 +10116,7 @@ export const items = {
     ]
   },
   "Life Preserver": {
+    "id": "44c8a733-c1ae-4815-88b8-070aaa45037c",
     "name": "Life Preserver",
     "icon": "images/items/LifePreserver.avif",
     "tier": 0,
@@ -9867,6 +10152,7 @@ export const items = {
     ]
   },
   "Lifting Gloves": {
+    "id": "ba6ba8f6-7076-406a-89e6-ddaa39044959",
     "name": "Lifting Gloves",
     "icon": "images/items/LiftingGloves.avif",
     "tier": 0,
@@ -9901,6 +10187,7 @@ export const items = {
     ]
   },
   "Lightbulb": {
+    "id": "2e4c2528-f3e8-4743-a1c9-637012d9eb76",
     "name": "Lightbulb",
     "icon": "images/items/Lightbulb.avif",
     "tier": 0,
@@ -9933,6 +10220,7 @@ export const items = {
     ]
   },
   "Lighter": {
+    "id": "3d212e22-12eb-427e-ab96-e7baf1229a7b",
     "name": "Lighter",
     "icon": "images/items/Lighter.avif",
     "tier": 0,
@@ -9945,7 +10233,7 @@ export const items = {
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Burn (1/2/3/5)."
+      "Burn (2/4/6/8)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -9965,6 +10253,7 @@ export const items = {
     ]
   },
   "Lighthouse": {
+    "id": "36211e0c-1806-4234-b661-3c05e2625a0a",
     "name": "Lighthouse",
     "icon": "images/items/Lighthouse.avif",
     "tier": 1,
@@ -9976,10 +10265,10 @@ export const items = {
       "Burn",
       "SlowReference"
     ],
-    "cooldown": 7,
+    "cooldown": "(10/8/6)",
     "ammo": null,
     "text": [
-      "Burn (12/16/20).",
+      "Burn 20.",
       "When you Slow, charge this 2 second(s)."
     ],
     "enchants": {
@@ -10001,6 +10290,7 @@ export const items = {
     ]
   },
   "Lightning Rod": {
+    "id": "0930fbea-e3ae-45d4-a1c7-a26c5abb63aa",
     "name": "Lightning Rod",
     "icon": "images/items/LightningRod.avif",
     "tier": 2,
@@ -10038,6 +10328,7 @@ export const items = {
     ]
   },
   "Lion Cane": {
+    "id": "9a7d5711-930a-4815-86cc-4e357680730c",
     "name": "Lion Cane",
     "icon": "images/items/LionCane.avif",
     "tier": 2,
@@ -10073,6 +10364,7 @@ export const items = {
     ]
   },
   "Lockbox": {
+    "id": "ae142862-37fd-42b6-b131-48977d29595e",
     "name": "Lockbox",
     "icon": "images/items/Lockbox.avif",
     "tier": 1,
@@ -10109,6 +10401,7 @@ export const items = {
     ]
   },
   "Loupe": {
+    "id": "234ae6aa-b94b-456d-a2fb-f0cbcaa9c655",
     "name": "Loupe",
     "icon": "images/items/Loupe.avif",
     "tier": 2,
@@ -10131,6 +10424,7 @@ export const items = {
     ]
   },
   "Lumboars": {
+    "id": "9d289951-bda7-4f74-a5cf-dbe350c0cae5",
     "name": "Lumboars",
     "icon": "images/items/Lumboars.avif",
     "tier": 0,
@@ -10167,6 +10461,7 @@ export const items = {
     ]
   },
   "Luxury Kiuas": {
+    "id": "25035a36-1105-4ef9-81b0-c5bb6926415b",
     "name": "Luxury Kiuas",
     "icon": "images/items/LuxuryKiuas.avif",
     "tier": 0,
@@ -10178,14 +10473,14 @@ export const items = {
       "Value",
       "EconomyReference"
     ],
-    "cooldown": 8,
+    "cooldown": 7,
     "ammo": null,
     "text": [
       "Burn equal to this item's value.",
-      "When you sell a Property, this item gains (1/2/3/4) value."
+      "When you sell a Property, this item gains (3/6/9/12) value."
     ],
     "enchants": {
-      "Golden": "When you buy a Property, this item gains 1 value.",
+      "Golden": "When you buy a Property, this item gains 3 value.",
       "Heavy": "Slow 2 items for 3 second(s).",
       "Icy": "Freeze 1 medium or small item for 3 second(s).",
       "Turbo": "Haste 2 items for 3 second(s).",
@@ -10204,6 +10499,7 @@ export const items = {
     ]
   },
   "Luxury Tents": {
+    "id": "3b1e3858-93d4-45c8-892b-b66aec1b14a9",
     "name": "Luxury Tents",
     "icon": "images/items/LuxuryTents.avif",
     "tier": 2,
@@ -10239,6 +10535,7 @@ export const items = {
     ]
   },
   "Magic Carpet": {
+    "id": "fd95b873-24a4-4af6-8b08-296f24a3576c",
     "name": "Magic Carpet",
     "icon": "images/items/MagicCarpet.avif",
     "tier": 0,
@@ -10274,6 +10571,7 @@ export const items = {
     ]
   },
   "Magician's Top Hat": {
+    "id": "a1a898d3-4e07-41bb-a293-bb41fa39a6df",
     "name": "Magician's Top Hat",
     "icon": "images/items/MagiciansTopHat.avif",
     "tier": 3,
@@ -10296,6 +10594,7 @@ export const items = {
     ]
   },
   "Magma Core": {
+    "id": "8535493a-67ae-4248-a34d-176549948686",
     "name": "Magma Core",
     "icon": "images/items/MagmaCore.avif",
     "tier": 0,
@@ -10324,6 +10623,7 @@ export const items = {
     ]
   },
   "Magnifying Glass": {
+    "id": "aaf1216d-69b6-406e-98af-6a9bec12c8b4",
     "name": "Magnifying Glass",
     "icon": "images/items/MagnifyingGlass.avif",
     "tier": 0,
@@ -10359,6 +10659,7 @@ export const items = {
     ]
   },
   "Magnus' Femur": {
+    "id": "da049bef-7176-4226-b078-dac37a503835",
     "name": "Magnus' Femur",
     "icon": "images/items/MagnusFemur.avif",
     "tier": 1,
@@ -10395,6 +10696,7 @@ export const items = {
     ]
   },
   "Makeshift Barricade": {
+    "id": "0da76b08-b287-4b9b-b57b-305af8848a81",
     "name": "Makeshift Barricade",
     "icon": "images/items/MakeshiftBarricade.avif",
     "tier": 0,
@@ -10427,6 +10729,7 @@ export const items = {
     ]
   },
   "Mantis Shrimp": {
+    "id": "d5110378-323c-4af3-93e5-dca3451b3ea8",
     "name": "Mantis Shrimp",
     "icon": "images/items/MantisShrimp.avif",
     "tier": 0,
@@ -10467,6 +10770,7 @@ export const items = {
     ]
   },
   "Marble Scalemail": {
+    "id": "a3d3bf9c-5b26-405d-881d-c9aa6283f142",
     "name": "Marble Scalemail",
     "icon": "images/items/MarbleScalemail.avif",
     "tier": 0,
@@ -10501,6 +10805,7 @@ export const items = {
     ]
   },
   "Marbles": {
+    "id": "a87c42a5-b21e-4179-9827-ceea46c25033",
     "name": "Marbles",
     "icon": "images/items/Marbles.avif",
     "tier": 0,
@@ -10534,6 +10839,7 @@ export const items = {
     ]
   },
   "Masterpiece": {
+    "id": "1e46dbf7-2fe0-4ec1-a657-c3c623eeca6e",
     "name": "Masterpiece",
     "icon": "images/items/Masterpiece.avif",
     "tier": 1,
@@ -10556,6 +10862,7 @@ export const items = {
     ]
   },
   "Matchbox": {
+    "id": "64c62815-9c8a-40fa-a963-3fc09a46bbae",
     "name": "Matchbox",
     "icon": "images/items/Matchbox.avif",
     "tier": 0,
@@ -10589,6 +10896,7 @@ export const items = {
     ]
   },
   "Mech-Moles": {
+    "id": "a99be8d9-006d-4c3d-8f79-cf3a8ea65bbd",
     "name": "Mech-Moles",
     "icon": "images/items/MechMoles.avif",
     "tier": 1,
@@ -10628,6 +10936,7 @@ export const items = {
     ]
   },
   "Med Kit": {
+    "id": "da766a09-0352-4966-829f-20bda8da48d7",
     "name": "Med Kit",
     "icon": "images/items/MedKit.avif",
     "tier": 0,
@@ -10658,6 +10967,7 @@ export const items = {
     ]
   },
   "Memento Mori": {
+    "id": "34618f7b-f262-4d49-b395-de92bef0508c",
     "name": "Memento Mori",
     "icon": "images/items/MementoMori.avif",
     "tier": 2,
@@ -10688,6 +10998,7 @@ export const items = {
     ]
   },
   "Memory Card": {
+    "id": "566b5c63-4201-41d3-b6d5-0eb527db396a",
     "name": "Memory Card",
     "icon": "images/items/MemoryCard.avif",
     "tier": 0,
@@ -10724,6 +11035,7 @@ export const items = {
     ]
   },
   "Metronome": {
+    "id": "bccd64e7-750d-4150-977e-943b8a5d74bf",
     "name": "Metronome",
     "icon": "images/items/Metronome.avif",
     "tier": 1,
@@ -10755,6 +11067,7 @@ export const items = {
     ]
   },
   "Micro Dave": {
+    "id": "1abd962d-8628-47ac-a5ad-5ae02c1afc86",
     "name": "Micro Dave",
     "icon": "images/items/MicroDave.avif",
     "tier": 0,
@@ -10789,6 +11102,7 @@ export const items = {
     ]
   },
   "Mirror": {
+    "id": "3172cda6-0ebd-4663-a6d6-f72a3d7c4b2c",
     "name": "Mirror",
     "icon": "images/items/Mirror.avif",
     "tier": 2,
@@ -10799,7 +11113,7 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Transform into the medium item to the left of this for the fight."
+      "Transform into a (Gold/Diamond) copy of the medium, non-legendary item to the left of this for the fight."
     ],
     "enchants": {
       "Heavy": "...and Enchant the transformation with Heavy if able.",
@@ -10819,6 +11133,7 @@ export const items = {
     ]
   },
   "Miss Isles": {
+    "id": "0ff18fe4-b105-4118-8d6c-8852140b5146",
     "name": "Miss Isles",
     "icon": "images/items/MissIsles.avif",
     "tier": 1,
@@ -10857,6 +11172,7 @@ export const items = {
     ]
   },
   "Model Ship": {
+    "id": "c14e76be-2dd6-4d0b-8652-04c6b46412d5",
     "name": "Model Ship",
     "icon": "images/items/ModelShip.avif",
     "tier": 1,
@@ -10893,6 +11209,7 @@ export const items = {
     ]
   },
   "Momma-Saur": {
+    "id": "d06e3d7d-24a9-4fec-a9a4-55a710484382",
     "name": "Momma-Saur",
     "icon": "images/items/MommaSaur.avif",
     "tier": 2,
@@ -10931,6 +11248,7 @@ export const items = {
     ]
   },
   "Money Tree": {
+    "id": "49895243-8b5d-407f-9c8c-efdd05b3a34a",
     "name": "Money Tree",
     "icon": "images/items/MoneyTree.avif",
     "tier": 0,
@@ -10939,14 +11257,16 @@ export const items = {
       "Large",
       "Property",
       "Heal",
+      "Value",
       "EconomyReference"
     ],
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Heal 40.",
+      "Heal equal to this item's Value.",
       "When you Level Up, get a Spare Change.",
-      "When you sell a Spare Change, this gains (+10/+20/+30/+40) Heal."
+      "When you sell a Spare Change, this gains (+1/+2/+3/+4) Value.",
+      "This item's cooldown is reduced by 1% for every value it has."
     ],
     "enchants": {
       "Golden": "Your Spare Change(s) have +1 value.",
@@ -10969,6 +11289,7 @@ export const items = {
     ]
   },
   "Monitor Lizard": {
+    "id": "b263ef6f-02a9-449b-b9c5-74ec0e6cbfc9",
     "name": "Monitor Lizard",
     "icon": "images/items/MonitorLizard.avif",
     "tier": 0,
@@ -11004,6 +11325,7 @@ export const items = {
     ]
   },
   "Monocle": {
+    "id": "ec5e8e2a-c35e-4098-bdae-63ea9f3d6fd3",
     "name": "Monocle",
     "icon": "images/items/Monocle.avif",
     "tier": 1,
@@ -11039,6 +11361,7 @@ export const items = {
     ]
   },
   "Mortal Coil": {
+    "id": "86f9a35d-73d6-456c-b56d-ddb6adc64175",
     "name": "Mortal Coil",
     "icon": "images/items/MortalCoil.avif",
     "tier": 2,
@@ -11077,6 +11400,7 @@ export const items = {
     ]
   },
   "Mortar & Pestle": {
+    "id": "57842875-bc49-4ec9-af82-29c2dbed4087",
     "name": "Mortar & Pestle",
     "icon": "images/items/MortarPestle.avif",
     "tier": 0,
@@ -11090,7 +11414,8 @@ export const items = {
     "ammo": null,
     "text": [
       "Your Lifesteal Weapons gain (+10/+15/+20/+25) damage for the fight.",
-      "The weapon to the right of this has Lifesteal."
+      "The weapon to the right of this has Lifesteal.",
+      "At the start of each day, get a Catalyst."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -11111,6 +11436,7 @@ export const items = {
     ]
   },
   "Motherboard": {
+    "id": "7d64073a-816f-476d-b704-e58b539b9b7a",
     "name": "Motherboard",
     "icon": "images/items/Motherboard.avif",
     "tier": 1,
@@ -11146,6 +11472,7 @@ export const items = {
     ]
   },
   "Mothmeal": {
+    "id": "f7172454-64f0-41be-954f-be57c70c3c3e",
     "name": "Mothmeal",
     "icon": "images/items/Mothmeal.avif",
     "tier": 0,
@@ -11180,6 +11507,7 @@ export const items = {
     ]
   },
   "Mr. Richardson": {
+    "id": "273f7009-d835-49a9-99c9-589fdb7c4593",
     "name": "Mr. Richardson",
     "icon": "images/items/MrRichardson.avif",
     "tier": 1,
@@ -11216,6 +11544,7 @@ export const items = {
     ]
   },
   "Multitool": {
+    "id": "189c31f3-1641-4e05-bf78-800e71ffc0e7",
     "name": "Multitool",
     "icon": "images/items/Multitool.avif",
     "tier": 0,
@@ -11251,6 +11580,7 @@ export const items = {
     ]
   },
   "Musket": {
+    "id": "5e7abe19-0087-4bb1-a8bf-617706cc67c9",
     "name": "Musket",
     "icon": "images/items/Musket.avif",
     "tier": 1,
@@ -11289,6 +11619,7 @@ export const items = {
     ]
   },
   "Myrrh": {
+    "id": "01f6e150-ba23-429c-a43b-2508f63fc798",
     "name": "Myrrh",
     "icon": "images/items/Myrrh.avif",
     "tier": 0,
@@ -11323,6 +11654,7 @@ export const items = {
     ]
   },
   "Nanobot": {
+    "id": "764ad6f5-f9a0-4edc-8692-fa166abe2ba3",
     "name": "Nanobot",
     "icon": "images/items/Nanobot.avif",
     "tier": 1,
@@ -11358,6 +11690,7 @@ export const items = {
     ]
   },
   "Nargile": {
+    "id": "f76338d5-e09b-4319-8914-c35043d464fc",
     "name": "Nargile",
     "icon": "images/items/Nargile.avif",
     "tier": 2,
@@ -11394,6 +11727,7 @@ export const items = {
     ]
   },
   "Narwhal": {
+    "id": "00e3a7ff-af5e-47ce-a2c0-2d4ec31ac7d7",
     "name": "Narwhal",
     "icon": "images/items/Narwhal.avif",
     "tier": 0,
@@ -11428,6 +11762,7 @@ export const items = {
     ]
   },
   "Necronomicon": {
+    "id": "5aa3022a-2e75-46a8-9cfb-983a97139d05",
     "name": "Necronomicon",
     "icon": "images/items/Necronomicon.avif",
     "tier": 4,
@@ -11464,6 +11799,7 @@ export const items = {
     ]
   },
   "Nesting Doll": {
+    "id": "c65da89e-3504-40e7-87a8-10defcb7f07b",
     "name": "Nesting Doll",
     "icon": "images/items/NestingDoll.avif",
     "tier": 1,
@@ -11499,6 +11835,7 @@ export const items = {
     ]
   },
   "Neural Toxin": {
+    "id": "9bdc7dad-5016-4743-9b44-1e20b03a1961",
     "name": "Neural Toxin",
     "icon": "images/items/NeuralToxin.avif",
     "tier": 1,
@@ -11529,6 +11866,7 @@ export const items = {
     ]
   },
   "Nightshade": {
+    "id": "0bf49a3b-e610-4f2b-8420-1a8a7d48e70a",
     "name": "Nightshade",
     "icon": "images/items/Nightshade.avif",
     "tier": 0,
@@ -11567,6 +11905,7 @@ export const items = {
     ]
   },
   "Nitro": {
+    "id": "ae039b3e-ef98-4dc7-a97c-1e06d2627e57",
     "name": "Nitro",
     "icon": "images/items/Nitro.avif",
     "tier": 1,
@@ -11602,6 +11941,7 @@ export const items = {
     ]
   },
   "Nitrogen Hammer": {
+    "id": "bfb765fc-764c-4e16-aa17-0e10efda4b5b",
     "name": "Nitrogen Hammer",
     "icon": "images/items/NitrogenHammer.avif",
     "tier": 2,
@@ -11617,7 +11957,7 @@ export const items = {
     "text": [
       "Deal 200 damage.",
       "Freeze 1 item for (1/2) second(s).",
-      "When you freeze, charge this 1 second and this gains (100/200) damage for the fight."
+      "When you freeze, charge this 1 second this gains (100/200) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -11639,6 +11979,7 @@ export const items = {
     ]
   },
   "Noxious Potion": {
+    "id": "f6f7b04f-9e4c-4107-af98-5288e8c568fd",
     "name": "Noxious Potion",
     "icon": "images/items/NoxiousPotion.avif",
     "tier": 0,
@@ -11672,6 +12013,7 @@ export const items = {
     ]
   },
   "Octopus": {
+    "id": "82d41afc-d1a9-41ee-a03d-fd9305bef8b5",
     "name": "Octopus",
     "icon": "images/items/Octopus.avif",
     "tier": 4,
@@ -11708,6 +12050,7 @@ export const items = {
     ]
   },
   "Oil Lantern": {
+    "id": "7db3c773-acb1-4cd9-a40d-8661a521a801",
     "name": "Oil Lantern",
     "icon": "images/items/OilLantern.avif",
     "tier": 1,
@@ -11743,6 +12086,7 @@ export const items = {
     ]
   },
   "Oinkment": {
+    "id": "64e3569f-e023-49a5-ab75-f9613c338d53",
     "name": "Oinkment",
     "icon": "images/items/Oinkment.avif",
     "tier": 1,
@@ -11755,7 +12099,8 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Heal equal to (1/2/3) times your gold."
+      "Heal equal to (1/2/3) times your gold.",
+      "Cleanse half your Burn and Poison."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -11775,6 +12120,7 @@ export const items = {
     ]
   },
   "Old Saltclaw": {
+    "id": "47e97343-d790-4ecc-8ccd-d2f7e9949494",
     "name": "Old Saltclaw",
     "icon": "images/items/OldSaltclaw.avif",
     "tier": 1,
@@ -11813,6 +12159,7 @@ export const items = {
     ]
   },
   "Old Sword": {
+    "id": "529a7e95-b350-4fd6-96fd-fef80d4c1462",
     "name": "Old Sword",
     "icon": "images/items/OldSword.avif",
     "tier": 0,
@@ -11848,6 +12195,7 @@ export const items = {
     ]
   },
   "Omega Ray": {
+    "id": "c1c4f8fc-548d-4ae6-bfca-1c7ea2aca212",
     "name": "Omega Ray",
     "icon": "images/items/OmegaRay.avif",
     "tier": 1,
@@ -11882,6 +12230,7 @@ export const items = {
     ]
   },
   "Open Sign": {
+    "id": "6d529d36-e679-4124-8a96-d0b74dc767ee",
     "name": "Open Sign",
     "icon": "images/items/OpenSign.avif",
     "tier": 2,
@@ -11910,6 +12259,7 @@ export const items = {
     ]
   },
   "Orange Julian": {
+    "id": "f3c0551a-782b-44e3-b0da-e3825366d20e",
     "name": "Orange Julian",
     "icon": "images/items/OrangeJulian.avif",
     "tier": 0,
@@ -11945,6 +12295,7 @@ export const items = {
     ]
   },
   "Orbital Polisher": {
+    "id": "d619c665-1d58-46e8-828f-6e7e36a86a7d",
     "name": "Orbital Polisher",
     "icon": "images/items/OrbitalPolisher.avif",
     "tier": 2,
@@ -11979,6 +12330,7 @@ export const items = {
     ]
   },
   "Ouroboros Statue": {
+    "id": "f08af933-8712-44fe-9542-338e0fec0a45",
     "name": "Ouroboros Statue",
     "icon": "images/items/OuroborosStatue.avif",
     "tier": 1,
@@ -12014,6 +12366,7 @@ export const items = {
     ]
   },
   "Oven Mitts": {
+    "id": "b91bfce3-8b58-44a3-8250-ca91c3100598",
     "name": "Oven Mitts",
     "icon": "images/items/OvenMitts.avif",
     "tier": 1,
@@ -12052,6 +12405,7 @@ export const items = {
     ]
   },
   "Palanquin": {
+    "id": "a4475e25-4562-4228-9e36-99ae0986b23c",
     "name": "Palanquin",
     "icon": "images/items/Palanquin.avif",
     "tier": 1,
@@ -12088,6 +12442,7 @@ export const items = {
     ]
   },
   "Pawn Shop": {
+    "id": "31b35938-9402-4990-b4d9-473ce5887af9",
     "name": "Pawn Shop",
     "icon": "images/items/PawnShop.avif",
     "tier": 1,
@@ -12122,6 +12477,7 @@ export const items = {
     ]
   },
   "Pearl": {
+    "id": "1312cf29-3dbb-446f-88b2-0d4999e68d78",
     "name": "Pearl",
     "icon": "images/items/Pearl.avif",
     "tier": 0,
@@ -12156,6 +12512,7 @@ export const items = {
     ]
   },
   "Pelt": {
+    "id": "fb41fdef-d83b-4674-8cb3-9a224aa8f84a",
     "name": "Pelt",
     "icon": "images/items/Pelt.avif",
     "tier": 0,
@@ -12175,6 +12532,7 @@ export const items = {
     ]
   },
   "Pendulum": {
+    "id": "25545684-3fd5-4adf-abcc-0e2bb6c500c1",
     "name": "Pendulum",
     "icon": "images/items/Pendulum.avif",
     "tier": 2,
@@ -12207,6 +12565,7 @@ export const items = {
     ]
   },
   "Pepper Spray": {
+    "id": "dcd24486-3e93-4428-a414-caeba6720237",
     "name": "Pepper Spray",
     "icon": "images/items/PepperSpray.avif",
     "tier": 0,
@@ -12226,7 +12585,7 @@ export const items = {
     "enchants": {
       "Heavy": "This has double Slow duration.",
       "Icy": "The first time you fall below half health each fight, Freeze 1 small item for 4 second(s).",
-      "Turbo": "The first time you fall below half health each fight, Haste 2 items for 4 second(s).",
+      "Turbo": "The time you fall below half health each fight, Haste 2 items for 4 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
       "Toxic": "Poison equal to 10% of this item's damage.",
@@ -12242,6 +12601,7 @@ export const items = {
     ]
   },
   "Pesky Pete": {
+    "id": "bbf63b5c-57c3-4412-beb5-18bfec2372e6",
     "name": "Pesky Pete",
     "icon": "images/items/PeskyPete.avif",
     "tier": 2,
@@ -12276,6 +12636,7 @@ export const items = {
     ]
   },
   "Pet Rock": {
+    "id": "0abf14a3-8a87-4c87-a7a9-793a3fa3d4db",
     "name": "Pet Rock",
     "icon": "images/items/PetRock.avif",
     "tier": 0,
@@ -12313,6 +12674,7 @@ export const items = {
     ]
   },
   "Philosopher's Stone": {
+    "id": "85605c06-1990-4803-8ec5-ac49cefa5adc",
     "name": "Philosopher's Stone",
     "icon": "images/items/PhilosophersStone.avif",
     "tier": 0,
@@ -12327,7 +12689,7 @@ export const items = {
     "text": [
       "Gain 1 Regeneration for the fight.",
       "When you transform a Reagent, this permanently gains (+2/+4/+6/+8) Regeneration.",
-      "When you buy this, get a Chunk of Lead."
+      "When you buy this, get a Catalyst."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -12349,6 +12711,7 @@ export const items = {
     ]
   },
   "Phonograph": {
+    "id": "b6afda86-9dec-4580-b1e3-4d1cc59c3029",
     "name": "Phonograph",
     "icon": "images/items/Phonograph.avif",
     "tier": 2,
@@ -12380,6 +12743,7 @@ export const items = {
     ]
   },
   "Piano": {
+    "id": "f04739ec-b829-46a6-b821-e153dc25e668",
     "name": "Piano",
     "icon": "images/items/Piano.avif",
     "tier": 2,
@@ -12414,6 +12778,7 @@ export const items = {
     ]
   },
   "Pickled Peppers": {
+    "id": "069755d6-fa1b-4c09-a7c9-31c3338184f3",
     "name": "Pickled Peppers",
     "icon": "images/items/PickledPeppers.avif",
     "tier": 2,
@@ -12448,6 +12813,7 @@ export const items = {
     ]
   },
   "Pierre Conditioner": {
+    "id": "ac596c59-295e-491f-8503-172b094e9773",
     "name": "Pierre Conditioner",
     "icon": "images/items/PierreConditioner.avif",
     "tier": 2,
@@ -12481,6 +12847,7 @@ export const items = {
     ]
   },
   "Piggles": {
+    "id": "7fa2b9c8-f038-44f9-8143-a4f8ee7f34bf",
     "name": "Piggles",
     "icon": "images/items/Piggles.avif",
     "tier": 0,
@@ -12515,6 +12882,7 @@ export const items = {
     ]
   },
   "Piggy Bank": {
+    "id": "855cf2a5-930b-43db-b388-9f814f80a4fb",
     "name": "Piggy Bank",
     "icon": "images/items/PiggyBank.avif",
     "tier": 0,
@@ -12542,6 +12910,7 @@ export const items = {
     ]
   },
   "Pinata": {
+    "id": "08d9f6b5-c5ab-4e5b-8c1e-9a5edebb8618",
     "name": "Pinata",
     "icon": "images/items/Pinata.avif",
     "tier": 0,
@@ -12571,6 +12940,7 @@ export const items = {
     ]
   },
   "Piranha": {
+    "id": "840b6bc5-4786-40bc-b864-cc5c2b78641a",
     "name": "Piranha",
     "icon": "images/items/Piranha.avif",
     "tier": 0,
@@ -12609,6 +12979,7 @@ export const items = {
     ]
   },
   "Pistol Sword": {
+    "id": "65527be1-b100-4a4c-98d1-4f8975368b5b",
     "name": "Pistol Sword",
     "icon": "images/items/PistolSword.avif",
     "tier": 2,
@@ -12644,6 +13015,7 @@ export const items = {
     ]
   },
   "Pitchfork": {
+    "id": "ce0ee6fc-ff37-488c-95e1-f975339dec75",
     "name": "Pitchfork",
     "icon": "images/items/Pitchfork.avif",
     "tier": 0,
@@ -12677,6 +13049,7 @@ export const items = {
     ]
   },
   "Plague Glaive": {
+    "id": "2cc61633-0c53-4308-907c-45d00e2a3e49",
     "name": "Plague Glaive",
     "icon": "images/items/PlagueGlaive.avif",
     "tier": 2,
@@ -12717,6 +13090,7 @@ export const items = {
     ]
   },
   "Plasma Grenade": {
+    "id": "a35ea0aa-ff0f-4366-b3dd-561cae7ed725",
     "name": "Plasma Grenade",
     "icon": "images/items/PlasmaGrenade.avif",
     "tier": 0,
@@ -12752,6 +13126,7 @@ export const items = {
     ]
   },
   "Plasma Rifle": {
+    "id": "98f9fc74-145f-4d13-85bf-3229b9257aa0",
     "name": "Plasma Rifle",
     "icon": "images/items/PlasmaRifle.avif",
     "tier": 1,
@@ -12787,6 +13162,7 @@ export const items = {
     ]
   },
   "Pop Snappers": {
+    "id": "13f852ba-1d3d-4c1a-b6db-79072e0b19d0",
     "name": "Pop Snappers",
     "icon": "images/items/PopSnappers.avif",
     "tier": 0,
@@ -12820,6 +13196,7 @@ export const items = {
     ]
   },
   "Poppy Field": {
+    "id": "1ce6ea48-4049-4e66-b792-d360ae9ffedf",
     "name": "Poppy Field",
     "icon": "images/items/PoppyField.avif",
     "tier": 1,
@@ -12855,6 +13232,7 @@ export const items = {
     ]
   },
   "Port": {
+    "id": "17b00db1-57cd-40f1-ac4a-302915939b97",
     "name": "Port",
     "icon": "images/items/Port.avif",
     "tier": 1,
@@ -12890,6 +13268,7 @@ export const items = {
     ]
   },
   "Potion Distillery": {
+    "id": "028d89ac-b4c4-4d3c-ba31-71b57aa33bed",
     "name": "Potion Distillery",
     "icon": "images/items/PotionDistillery.avif",
     "tier": 1,
@@ -12926,6 +13305,7 @@ export const items = {
     ]
   },
   "Potion Potion": {
+    "id": "bef0a78b-b3b4-4e7b-85d3-7c42aca6379f",
     "name": "Potion Potion",
     "icon": "images/items/PotionPotion.avif",
     "tier": 0,
@@ -12957,6 +13337,7 @@ export const items = {
     ]
   },
   "Powder Flask": {
+    "id": "03e4c71d-5317-4c35-a0fb-5348356edc03",
     "name": "Powder Flask",
     "icon": "images/items/PowderFlask.avif",
     "tier": 0,
@@ -12989,6 +13370,7 @@ export const items = {
     ]
   },
   "Powder Keg": {
+    "id": "5b4ff0c0-ca13-4606-9db3-4219d33ab2a0",
     "name": "Powder Keg",
     "icon": "images/items/PowderKeg.avif",
     "tier": 1,
@@ -13024,6 +13406,7 @@ export const items = {
     ]
   },
   "Power Drill": {
+    "id": "63f124c0-f94c-4850-8522-215d2e72a815",
     "name": "Power Drill",
     "icon": "images/items/PowerDrill.avif",
     "tier": 0,
@@ -13064,6 +13447,7 @@ export const items = {
     ]
   },
   "Power Sander": {
+    "id": "33c9b825-946c-45f8-a0f3-8c0f493dbc45",
     "name": "Power Sander",
     "icon": "images/items/PowerSander.avif",
     "tier": 0,
@@ -13074,7 +13458,7 @@ export const items = {
       "ShieldReference",
       "DamageReference"
     ],
-    "cooldown": 5,
+    "cooldown": 4,
     "ammo": null,
     "text": [
       "Adjacent weapons gain (3/6/9/12) damage for the fight.",
@@ -13099,6 +13483,7 @@ export const items = {
     ]
   },
   "Private Hot Springs": {
+    "id": "2e0be4f0-0472-444a-a541-09f1ba464c64",
     "name": "Private Hot Springs",
     "icon": "images/items/PrivateHotSprings.avif",
     "tier": 2,
@@ -13139,6 +13524,7 @@ export const items = {
     ]
   },
   "Proboscis": {
+    "id": "ffcc9b4e-24f2-479b-ab80-7bfbaec664f2",
     "name": "Proboscis",
     "icon": "images/items/Proboscis.avif",
     "tier": 0,
@@ -13170,6 +13556,7 @@ export const items = {
     ]
   },
   "Propane Tank": {
+    "id": "18100c8e-24db-4568-bd8c-4c8914557e11",
     "name": "Propane Tank",
     "icon": "images/items/PropaneTank.avif",
     "tier": 1,
@@ -13207,6 +13594,7 @@ export const items = {
     ]
   },
   "Pufferfish": {
+    "id": "91766035-9d5c-49df-b6b1-25ff7328af5b",
     "name": "Pufferfish",
     "icon": "images/items/Pufferfish.avif",
     "tier": 1,
@@ -13218,10 +13606,10 @@ export const items = {
       "Poison",
       "HasteReference"
     ],
-    "cooldown": "(10/9/8)",
+    "cooldown": 8,
     "ammo": null,
     "text": [
-      "Poison 10.",
+      "Poison (10/20/30).",
       "When you Haste, charge this 2 second(s)."
     ],
     "enchants": {
@@ -13243,6 +13631,7 @@ export const items = {
     ]
   },
   "Pulse Rifle": {
+    "id": "cc0c3ddc-c4c4-4b2a-beb4-142973639f44",
     "name": "Pulse Rifle",
     "icon": "images/items/PulseRifle.avif",
     "tier": 0,
@@ -13277,6 +13666,7 @@ export const items = {
     ]
   },
   "Pyg's Gym": {
+    "id": "3d185981-0b60-47ce-9ed3-58be5d7b2737",
     "name": "Pyg's Gym",
     "icon": "images/items/PygsGym.avif",
     "tier": 1,
@@ -13315,6 +13705,7 @@ export const items = {
     ]
   },
   "Pygmalien's Dagger": {
+    "id": "9ca6a93b-10e9-4138-abd1-0ff2e7c2c985",
     "name": "Pygmalien's Dagger",
     "icon": "images/items/PygmaliensDagger.avif",
     "tier": 2,
@@ -13352,6 +13743,7 @@ export const items = {
     ]
   },
   "Pylon": {
+    "id": "0e66c016-9a8b-4aa0-8f01-b5a5fb739da4",
     "name": "Pylon",
     "icon": "images/items/Pylon.avif",
     "tier": 1,
@@ -13387,6 +13779,7 @@ export const items = {
     ]
   },
   "Pyrocarbon": {
+    "id": "23960499-a306-44f3-bab4-8c901ff37dc3",
     "name": "Pyrocarbon",
     "icon": "images/items/Pyrocarbon.avif",
     "tier": 2,
@@ -13422,6 +13815,7 @@ export const items = {
     ]
   },
   "Quicksilver": {
+    "id": "4fb9fa4a-6250-4132-a7cb-9a4b874b0bdc",
     "name": "Quicksilver",
     "icon": "images/items/Quicksilver.avif",
     "tier": 1,
@@ -13432,7 +13826,7 @@ export const items = {
     "cooldown": 3,
     "ammo": null,
     "text": [
-      "Transform into another small item you have for the fight."
+      "Transform into a (Silver/Gold/Diamond) copy of another small, non-legendary item you have for the fight."
     ],
     "enchants": {
       "Heavy": "...and Enchant the transformation with Heavy if able.",
@@ -13452,6 +13846,7 @@ export const items = {
     ]
   },
   "Quill and Ink": {
+    "id": "d7c87f38-276a-4d40-a297-fe75422c93a9",
     "name": "Quill and Ink",
     "icon": "images/items/QuillandInk.avif",
     "tier": 0,
@@ -13489,6 +13884,7 @@ export const items = {
     ]
   },
   "Race Carl": {
+    "id": "3de8a2de-9ae9-4e68-ac2a-0987a7fa8717",
     "name": "Race Carl",
     "icon": "images/items/RaceCarl.avif",
     "tier": 1,
@@ -13526,6 +13922,7 @@ export const items = {
     ]
   },
   "Railgun": {
+    "id": "e6451368-8fdf-48ae-8369-cb09cca48749",
     "name": "Railgun",
     "icon": "images/items/Railgun.avif",
     "tier": 1,
@@ -13561,6 +13958,7 @@ export const items = {
     ]
   },
   "Rainbow Potion": {
+    "id": "2974e199-fa53-4d40-87a6-0ec6722a4aef",
     "name": "Rainbow Potion",
     "icon": "images/items/RainbowPotion.avif",
     "tier": 1,
@@ -13601,6 +13999,7 @@ export const items = {
     ]
   },
   "Ramrod": {
+    "id": "fcdd6627-8a87-4c3d-8bc9-59f6742da494",
     "name": "Ramrod",
     "icon": "images/items/Ramrod.avif",
     "tier": 1,
@@ -13637,6 +14036,7 @@ export const items = {
     ]
   },
   "Recycling Bin": {
+    "id": "8f6eebd6-db14-48f8-9407-5962772e7dec",
     "name": "Recycling Bin",
     "icon": "images/items/RecyclingBin.avif",
     "tier": 1,
@@ -13669,6 +14069,7 @@ export const items = {
     ]
   },
   "Red Button": {
+    "id": "8eb91c44-0e07-4e89-8cad-dfe99b8ef443",
     "name": "Red Button",
     "icon": "images/items/RedButton.avif",
     "tier": 1,
@@ -13701,6 +14102,7 @@ export const items = {
     ]
   },
   "Red Gumball": {
+    "id": "6d6199b4-82a4-441d-9329-f4164737ac6b",
     "name": "Red Gumball",
     "icon": "images/items/RedGumball.avif",
     "tier": 0,
@@ -13730,6 +14132,7 @@ export const items = {
     ]
   },
   "Red Piggles A": {
+    "id": "844efa15-de6f-4fec-a438-21904969577b",
     "name": "Red Piggles A",
     "icon": "images/items/RedPigglesA.avif",
     "tier": 0,
@@ -13762,6 +14165,7 @@ export const items = {
     ]
   },
   "Red Piggles L": {
+    "id": "b3c06ff9-f0e1-4527-81aa-2f71d7bf6503",
     "name": "Red Piggles L",
     "icon": "images/items/RedPigglesL.avif",
     "tier": 0,
@@ -13794,6 +14198,7 @@ export const items = {
     ]
   },
   "Red Piggles R": {
+    "id": "b57d9963-d241-40c9-8f9f-f9925a2da661",
     "name": "Red Piggles R",
     "icon": "images/items/RedPigglesR.avif",
     "tier": 0,
@@ -13826,6 +14231,7 @@ export const items = {
     ]
   },
   "Red Piggles X": {
+    "id": "48d24eb0-d953-409c-9602-1d3d4c4278c5",
     "name": "Red Piggles X",
     "icon": "images/items/RedPigglesX.avif",
     "tier": 0,
@@ -13858,6 +14264,7 @@ export const items = {
     ]
   },
   "RED-F1R3FLY": {
+    "id": "d4c0cf1e-7856-4e40-877f-c77b34f596ed",
     "name": "RED-F1R3FLY",
     "icon": "images/items/REDF1R3FLY.avif",
     "tier": 0,
@@ -13894,6 +14301,7 @@ export const items = {
     ]
   },
   "Refractor": {
+    "id": "cb519fbf-1f2c-4dd1-ba9b-3dc031fd7cbe",
     "name": "Refractor",
     "icon": "images/items/Refractor.avif",
     "tier": 0,
@@ -13932,6 +14340,7 @@ export const items = {
     ]
   },
   "Regal Blade": {
+    "id": "6ada601b-88a5-4eaf-8813-805bd51c7f9b",
     "name": "Regal Blade",
     "icon": "images/items/RegalBlade.avif",
     "tier": 0,
@@ -13967,6 +14376,7 @@ export const items = {
     ]
   },
   "Regeneration Potion": {
+    "id": "16b0d645-3a47-45a1-be2a-1e3ee311f33e",
     "name": "Regeneration Potion",
     "icon": "images/items/RegenerationPotion.avif",
     "tier": 1,
@@ -14000,6 +14410,7 @@ export const items = {
     ]
   },
   "Remote Control": {
+    "id": "5bd6513a-85ab-4ba6-b82d-af875da697cf",
     "name": "Remote Control",
     "icon": "images/items/RemoteControl.avif",
     "tier": 1,
@@ -14031,6 +14442,7 @@ export const items = {
     ]
   },
   "Repeater": {
+    "id": "60a1f7ce-4685-4f4c-86f2-5e0f23b60da0",
     "name": "Repeater",
     "icon": "images/items/Repeater.avif",
     "tier": 1,
@@ -14066,6 +14478,7 @@ export const items = {
     ]
   },
   "Retort": {
+    "id": "c2cc691a-8f35-43be-8951-c65911b08865",
     "name": "Retort",
     "icon": "images/items/Retort.avif",
     "tier": 0,
@@ -14102,6 +14515,7 @@ export const items = {
     ]
   },
   "Revolver": {
+    "id": "92e7ab18-a035-43c7-a53c-965aeecbe357",
     "name": "Revolver",
     "icon": "images/items/Revolver.avif",
     "tier": 0,
@@ -14140,6 +14554,7 @@ export const items = {
     ]
   },
   "Rewards Card": {
+    "id": "45defd20-6c4e-40a7-b2eb-4c4d2284eabd",
     "name": "Rewards Card",
     "icon": "images/items/RewardsCard.avif",
     "tier": 0,
@@ -14163,6 +14578,7 @@ export const items = {
     ]
   },
   "Rifle": {
+    "id": "1dcc7604-4f84-46e9-bbd1-2456317ec0ed",
     "name": "Rifle",
     "icon": "images/items/Rifle.avif",
     "tier": 0,
@@ -14198,6 +14614,7 @@ export const items = {
     ]
   },
   "Ritual Dagger": {
+    "id": "6076200d-dc08-47a2-a7d2-dfa2e484422a",
     "name": "Ritual Dagger",
     "icon": "images/items/RitualDagger.avif",
     "tier": 2,
@@ -14233,6 +14650,7 @@ export const items = {
     ]
   },
   "Rivet Gun": {
+    "id": "ae6ddbd0-d007-482a-8d2a-d3f6a5a1b29e",
     "name": "Rivet Gun",
     "icon": "images/items/RivetGun.avif",
     "tier": 2,
@@ -14269,31 +14687,32 @@ export const items = {
     ]
   },
   "Robe": {
+    "id": "c9930f2d-507e-4187-8889-b55bbd88ea18",
     "name": "Robe",
     "icon": "images/items/Robe.avif",
-    "tier": 1,
+    "tier": 0,
     "tags": [
       "Pygmalien",
       "Medium",
       "Apparel",
       "Shield"
     ],
-    "cooldown": 6,
+    "cooldown": "(7/6/5/4)",
     "ammo": null,
     "text": [
-      "Shield 20.",
-      "Your Shield items gain (5/10/15) Shield for the fight."
+      "Shield 100.",
+      "When you use an adjacent item, charge this 1 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
       "Icy": "Freeze 1 medium or small item for 2 second(s).",
       "Turbo": "Haste 2 items for 2 second(s).",
-      "Shielded": "This has double Shield bonus.",
+      "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
       "Toxic": "Poison equal to 10% of this item's Shield.",
       "Fiery": "Burn equal to 10% of this item's Shield.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your Shield items gain +10% Crit Chance for the fight.",
+      "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to this item's Shield."
     },
@@ -14303,6 +14722,7 @@ export const items = {
     ]
   },
   "Robotic Factory": {
+    "id": "11a5306d-f114-4f8d-abcc-442c3a979317",
     "name": "Robotic Factory",
     "icon": "images/items/RoboticFactory.avif",
     "tier": 2,
@@ -14315,8 +14735,7 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "Your Friends items have (+10%/+20%) Crit Chance.",
-      "Your Friends have +1 Multicast."
+      "Your Friends have +1 Multicast and their cooldowns increased by (2/1) second(s)."
     ],
     "enchants": {
       "Heavy": "When you use a Friend, slow 1 item for 3 second(s).",
@@ -14337,6 +14756,7 @@ export const items = {
     ]
   },
   "Rocket Boots": {
+    "id": "4e1770dd-2a10-440c-924a-c80afbbb269a",
     "name": "Rocket Boots",
     "icon": "images/items/RocketBoots.avif",
     "tier": 0,
@@ -14371,6 +14791,7 @@ export const items = {
     ]
   },
   "Rocket Launcher": {
+    "id": "2a1ae50b-6d0d-48a8-9f68-b804e8793030",
     "name": "Rocket Launcher",
     "icon": "images/items/RocketLauncher.avif",
     "tier": 0,
@@ -14409,6 +14830,7 @@ export const items = {
     ]
   },
   "Rolling Pin": {
+    "id": "20198f06-d36f-4abe-88a5-c2d6b936742c",
     "name": "Rolling Pin",
     "icon": "images/items/RollingPin.avif",
     "tier": 0,
@@ -14445,6 +14867,7 @@ export const items = {
     ]
   },
   "Rowboat": {
+    "id": "430ed105-2d64-4f3b-afd1-73ed0db39217",
     "name": "Rowboat",
     "icon": "images/items/Rowboat.avif",
     "tier": 1,
@@ -14479,6 +14902,7 @@ export const items = {
     ]
   },
   "Ruby": {
+    "id": "37222f02-3767-44ef-a8ed-000c90d3330e",
     "name": "Ruby",
     "icon": "images/items/Ruby.avif",
     "tier": 0,
@@ -14512,6 +14936,7 @@ export const items = {
     ]
   },
   "Rune Axe": {
+    "id": "cd651487-174f-49dd-9022-c27e1fcd2f7c",
     "name": "Rune Axe",
     "icon": "images/items/RuneAxe.avif",
     "tier": 0,
@@ -14547,6 +14972,7 @@ export const items = {
     ]
   },
   "Runic Blade": {
+    "id": "11a79e75-592d-4e39-8fb1-f8da7f3ae135",
     "name": "Runic Blade",
     "icon": "images/items/RunicBlade.avif",
     "tier": 2,
@@ -14584,6 +15010,7 @@ export const items = {
     ]
   },
   "Runic Daggers": {
+    "id": "68fac67c-8319-40be-a86b-8c2cda5559e5",
     "name": "Runic Daggers",
     "icon": "images/items/RunicDaggers.avif",
     "tier": 1,
@@ -14623,6 +15050,7 @@ export const items = {
     ]
   },
   "Runic Double Bow": {
+    "id": "f43844fe-cefa-40c7-ba86-e601c3596064",
     "name": "Runic Double Bow",
     "icon": "images/items/RunicDoubleBow.avif",
     "tier": 1,
@@ -14661,6 +15089,7 @@ export const items = {
     ]
   },
   "Runic Great Axe": {
+    "id": "a0345f93-0c0a-44fa-a7e4-2135acb16bcc",
     "name": "Runic Great Axe",
     "icon": "images/items/RunicGreatAxe.avif",
     "tier": 1,
@@ -14686,7 +15115,7 @@ export const items = {
       "Toxic": "Poison equal to 10% of this item's damage.",
       "Fiery": "Burn equal to 10% of this item's damage.",
       "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance",
+      "Deadly": "This deals double Crit damage.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
@@ -14697,6 +15126,7 @@ export const items = {
     ]
   },
   "Runic Potion": {
+    "id": "19199531-1aff-47ce-bdfc-1188cb3efec2",
     "name": "Runic Potion",
     "icon": "images/items/RunicPotion.avif",
     "tier": 1,
@@ -14732,6 +15162,7 @@ export const items = {
     ]
   },
   "Safe": {
+    "id": "15a2cf7d-4e08-4358-8bd1-730919719023",
     "name": "Safe",
     "icon": "images/items/Safe.avif",
     "tier": 0,
@@ -14753,6 +15184,7 @@ export const items = {
     ]
   },
   "Salamander Pup": {
+    "id": "41dea658-7e38-471a-aa20-e018734526f0",
     "name": "Salamander Pup",
     "icon": "images/items/SalamanderPup.avif",
     "tier": 0,
@@ -14787,6 +15219,7 @@ export const items = {
     ]
   },
   "Salt": {
+    "id": "f1c04562-6db4-45d5-a056-a4df9d185faf",
     "name": "Salt",
     "icon": "images/items/Salt.avif",
     "tier": 1,
@@ -14819,6 +15252,7 @@ export const items = {
     ]
   },
   "Sapphire": {
+    "id": "447c40e6-7aec-4391-8be7-df4952815d40",
     "name": "Sapphire",
     "icon": "images/items/Sapphire.avif",
     "tier": 1,
@@ -14851,6 +15285,7 @@ export const items = {
     ]
   },
   "Sat-Comm": {
+    "id": "b3ab39e0-c40c-44e7-bda7-09cf9ad63ec9",
     "name": "Sat-Comm",
     "icon": "images/items/SatComm.avif",
     "tier": 0,
@@ -14885,6 +15320,7 @@ export const items = {
     ]
   },
   "Satchel": {
+    "id": "3ce7312c-aa95-4711-9a2b-827609a380b4",
     "name": "Satchel",
     "icon": "images/items/Satchel.avif",
     "tier": 1,
@@ -14922,6 +15358,7 @@ export const items = {
     ]
   },
   "Sauna": {
+    "id": "21c858b6-6f6e-4bc5-9e84-3722b3dd813a",
     "name": "Sauna",
     "icon": "images/items/Sauna.avif",
     "tier": 1,
@@ -14937,7 +15374,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Burn (4/5/6).",
-      "When you Burn, Heal (10/20/30) and gain (1/2/3) Regeneration for the fight."
+      "When you Burn, Heal (15/30/45) and gain (2/4/6) Regeneration for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -14958,6 +15395,7 @@ export const items = {
     ]
   },
   "Scales": {
+    "id": "11071142-5633-4b4c-8d11-7d62038bdb61",
     "name": "Scales",
     "icon": "images/items/Scales.avif",
     "tier": 2,
@@ -14991,6 +15429,7 @@ export const items = {
     ]
   },
   "Schematics": {
+    "id": "f4827638-60ff-4101-a52f-037c04791ee5",
     "name": "Schematics",
     "icon": "images/items/Schematics.avif",
     "tier": 1,
@@ -15023,6 +15462,7 @@ export const items = {
     ]
   },
   "Scrap": {
+    "id": "6ba3778c-e760-44f3-b3b4-a4b4ca267cc2",
     "name": "Scrap",
     "icon": "images/items/Scrap.avif",
     "tier": 0,
@@ -15053,6 +15493,7 @@ export const items = {
     ]
   },
   "Scrap Metal": {
+    "id": "a167bf66-e29e-43d2-b30e-a480600c992d",
     "name": "Scrap Metal",
     "icon": "images/items/ScrapMetal.avif",
     "tier": 2,
@@ -15084,6 +15525,7 @@ export const items = {
     ]
   },
   "Scythe": {
+    "id": "0c710f33-d0fd-40c8-aa2d-34fc20f23140",
     "name": "Scythe",
     "icon": "images/items/Scythe.avif",
     "tier": 4,
@@ -15116,6 +15558,7 @@ export const items = {
     ]
   },
   "Sea Shell": {
+    "id": "eda51b14-8420-4da4-ba82-89513e5deaa2",
     "name": "Sea Shell",
     "icon": "images/items/SeaShell.avif",
     "tier": 0,
@@ -15148,6 +15591,7 @@ export const items = {
     ]
   },
   "Seadog's Saloon": {
+    "id": "7ccaa9ae-c915-49f2-863a-aa333c41b7fb",
     "name": "Seadog's Saloon",
     "icon": "images/items/SeadogsSaloon.avif",
     "tier": 1,
@@ -15186,6 +15630,7 @@ export const items = {
     ]
   },
   "Seashadow": {
+    "id": "c20cf1f9-63af-4672-92de-08a6e6110e43",
     "name": "Seashadow",
     "icon": "images/items/Seashadow.avif",
     "tier": 1,
@@ -15221,6 +15666,7 @@ export const items = {
     ]
   },
   "Seaweed": {
+    "id": "88e65c34-6865-4222-8eec-c18d48b2aa8d",
     "name": "Seaweed",
     "icon": "images/items/Seaweed.avif",
     "tier": 0,
@@ -15255,6 +15701,7 @@ export const items = {
     ]
   },
   "Secret Formula": {
+    "id": "23a2d299-ccca-4bdc-b72e-d55321e552d4",
     "name": "Secret Formula",
     "icon": "images/items/SecretFormula.avif",
     "tier": 2,
@@ -15292,6 +15739,7 @@ export const items = {
     ]
   },
   "Security Camera": {
+    "id": "acfdf9cc-6a8c-43ef-8b30-14f4843b2f28",
     "name": "Security Camera",
     "icon": "images/items/SecurityCamera.avif",
     "tier": 0,
@@ -15327,6 +15775,7 @@ export const items = {
     ]
   },
   "Sextant": {
+    "id": "f0590898-273f-479e-b74e-3472ecfbc02f",
     "name": "Sextant",
     "icon": "images/items/Sextant.avif",
     "tier": 1,
@@ -15363,6 +15812,7 @@ export const items = {
     ]
   },
   "Shadowed Cloak": {
+    "id": "6f70e0cf-8349-4f14-a121-6c9065dc514c",
     "name": "Shadowed Cloak",
     "icon": "images/items/ShadowedCloak.avif",
     "tier": 0,
@@ -15394,6 +15844,7 @@ export const items = {
     ]
   },
   "Shard of Obsidian": {
+    "id": "8981892b-ce2a-43dc-a08e-2b5e8f8884fc",
     "name": "Shard of Obsidian",
     "icon": "images/items/ShardofObsidian.avif",
     "tier": 0,
@@ -15431,6 +15882,7 @@ export const items = {
     ]
   },
   "Sharkclaws": {
+    "id": "edd857da-ac11-4640-bc1a-217ef8385f72",
     "name": "Sharkclaws",
     "icon": "images/items/Sharkclaws.avif",
     "tier": 0,
@@ -15466,6 +15918,7 @@ export const items = {
     ]
   },
   "Sharkray": {
+    "id": "2834ede9-01e9-4b68-8f1f-70f83187c78f",
     "name": "Sharkray",
     "icon": "images/items/Sharkray.avif",
     "tier": 1,
@@ -15504,6 +15957,7 @@ export const items = {
     ]
   },
   "Sharpening Stone": {
+    "id": "dc3bf5cb-45fa-46c7-9a0e-3f3bfb01697d",
     "name": "Sharpening Stone",
     "icon": "images/items/SharpeningStone.avif",
     "tier": 0,
@@ -15534,6 +15988,7 @@ export const items = {
     ]
   },
   "Shipment": {
+    "id": "103cd65b-0b3d-418d-92d8-0dfa5f19d7c4",
     "name": "Shipment",
     "icon": "images/items/Shipment.avif",
     "tier": 1,
@@ -15566,6 +16021,7 @@ export const items = {
     ]
   },
   "Shipwreck": {
+    "id": "ea887c05-b3e9-4a3c-abc6-0181bdf6bc5a",
     "name": "Shipwreck",
     "icon": "images/items/Shipwreck.avif",
     "tier": 2,
@@ -15579,8 +16035,7 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "Your Aquatic items have (+10%/+20%) Crit Chance.",
-      "Your Aquatic items have +1 Multicast."
+      "Your Aquatic items have +1 Multicast and their cooldowns increased by (2/1) second(s)."
     ],
     "enchants": {
       "Heavy": "When you use an aquatic item, slow 1 item for 3 second(s).",
@@ -15601,6 +16056,7 @@ export const items = {
     ]
   },
   "Shoe Blade": {
+    "id": "8391a75d-56e7-4206-a16e-62dbd986925f",
     "name": "Shoe Blade",
     "icon": "images/items/ShoeBlade.avif",
     "tier": 0,
@@ -15636,6 +16092,7 @@ export const items = {
     ]
   },
   "Shot Glasses": {
+    "id": "7d3b7b54-382d-4991-997d-2f78381d7690",
     "name": "Shot Glasses",
     "icon": "images/items/ShotGlasses.avif",
     "tier": 1,
@@ -15671,6 +16128,7 @@ export const items = {
     ]
   },
   "Shovel": {
+    "id": "7d55da10-108e-43b6-bf86-4893f5b9060d",
     "name": "Shovel",
     "icon": "images/items/Shovel.avif",
     "tier": 0,
@@ -15706,6 +16164,7 @@ export const items = {
     ]
   },
   "Show Globe": {
+    "id": "6b49b81d-aac0-4fb6-95f4-5bfc32a19dd3",
     "name": "Show Globe",
     "icon": "images/items/ShowGlobe.avif",
     "tier": 1,
@@ -15720,7 +16179,7 @@ export const items = {
     "text": [
       "Burn 3.",
       "Gain 3 Regeneration for the fight.",
-      "When you use a potion, this gains (+1/+2/+3) Burn and (+1/+2/+3) Regeneration for the fight."
+      "When you use a potion, this gains (+3/+6/+9) Burn and (+3/+6/+9) Regeneration for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -15742,6 +16201,7 @@ export const items = {
     ]
   },
   "Shrinking Potion": {
+    "id": "8d0795b4-92f2-4191-978a-b8989046b12f",
     "name": "Shrinking Potion",
     "icon": "images/items/ShrinkingPotion.avif",
     "tier": 1,
@@ -15772,6 +16232,7 @@ export const items = {
     ]
   },
   "Sifting Pan": {
+    "id": "22df5bb1-baf3-42f7-aa79-c1a33b22083f",
     "name": "Sifting Pan",
     "icon": "images/items/SiftingPan.avif",
     "tier": 1,
@@ -15785,8 +16246,8 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "At the start of each day, get a Small Reagent.",
-      "When you sell a Reagent, permanently gain (1/2/3) Regeneration."
+      "At the start of each day, get a Catalyst.",
+      "When you sell Catalyst, gain (1/2/3) Regeneration."
     ],
     "enchants": {},
     "priorities": [
@@ -15795,6 +16256,7 @@ export const items = {
     ]
   },
   "Signet Ring": {
+    "id": "c9beb35d-e6c6-4e3a-ad2c-1d64db11be07",
     "name": "Signet Ring",
     "icon": "images/items/SignetRing.avif",
     "tier": 1,
@@ -15822,6 +16284,7 @@ export const items = {
     ]
   },
   "Silencer": {
+    "id": "02fa39ce-6cc0-4ad2-bd35-5c70a47354d6",
     "name": "Silencer",
     "icon": "images/items/Silencer.avif",
     "tier": 0,
@@ -15856,6 +16319,7 @@ export const items = {
     ]
   },
   "Silk Scarf": {
+    "id": "aff2d8f4-528a-4229-8175-8901fcadcb70",
     "name": "Silk Scarf",
     "icon": "images/items/SilkScarf.avif",
     "tier": 0,
@@ -15869,7 +16333,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Shield (10/20/40/80).",
-      "When you sell another non-weapon item, this gains Shield (4/8/12/16)."
+      "When you sell another non-weapon item, this gains Shield (6/12/18/24)."
     ],
     "enchants": {
       "Golden": "Your non-weapon items have +1 value.",
@@ -15891,6 +16355,7 @@ export const items = {
     ]
   },
   "Singularity": {
+    "id": "cb766f97-21b4-43b9-af0e-c47bc7a3b4fd",
     "name": "Singularity",
     "icon": "images/items/Singularity.avif",
     "tier": 4,
@@ -15921,6 +16386,7 @@ export const items = {
     ]
   },
   "Sirens": {
+    "id": "223bc3f1-8dc6-429b-8c17-af64b24836ec",
     "name": "Sirens",
     "icon": "images/items/Sirens.avif",
     "tier": 1,
@@ -15957,6 +16423,7 @@ export const items = {
     ]
   },
   "Skillet": {
+    "id": "0d227497-f57f-44ef-98a8-15791e710fb6",
     "name": "Skillet",
     "icon": "images/items/Skillet.avif",
     "tier": 1,
@@ -15991,6 +16458,7 @@ export const items = {
     ]
   },
   "Skyscraper": {
+    "id": "fc01f3c3-5562-4616-aa12-005834d6647f",
     "name": "Skyscraper",
     "icon": "images/items/Skyscraper.avif",
     "tier": 3,
@@ -16030,6 +16498,7 @@ export const items = {
     ]
   },
   "Sleeping Potion": {
+    "id": "f42936ef-6efd-478a-9ed2-fd759df65f97",
     "name": "Sleeping Potion",
     "icon": "images/items/SleepingPotion.avif",
     "tier": 0,
@@ -16061,6 +16530,7 @@ export const items = {
     ]
   },
   "Slingshot": {
+    "id": "0fc3f9d6-01ce-4793-8ece-b0e05ef6441e",
     "name": "Slingshot",
     "icon": "images/items/Slingshot.avif",
     "tier": 0,
@@ -16098,6 +16568,7 @@ export const items = {
     ]
   },
   "Slumbering Primordial": {
+    "id": "9b739ba9-9278-45cb-9635-9ae48ac942c7",
     "name": "Slumbering Primordial",
     "icon": "images/items/SlumberingPrimordial.avif",
     "tier": 2,
@@ -16138,6 +16609,7 @@ export const items = {
     ]
   },
   "Smelling Salts": {
+    "id": "c61942c5-71b4-4761-9bfa-745107aa9cc3",
     "name": "Smelling Salts",
     "icon": "images/items/SmellingSalts.avif",
     "tier": 0,
@@ -16171,6 +16643,7 @@ export const items = {
     ]
   },
   "Sniper Rifle": {
+    "id": "fc8eb8ad-f5bd-495b-a157-e813dbe748bf",
     "name": "Sniper Rifle",
     "icon": "images/items/SniperRifle.avif",
     "tier": 1,
@@ -16205,6 +16678,7 @@ export const items = {
     ]
   },
   "Snow Globe": {
+    "id": "4680e750-4ea4-421a-b486-194c805ad6a8",
     "name": "Snow Globe",
     "icon": "images/items/SnowGlobe.avif",
     "tier": 1,
@@ -16240,6 +16714,7 @@ export const items = {
     ]
   },
   "Snowflake": {
+    "id": "9f478d9d-cc98-4ff2-926a-5eeb09bd044c",
     "name": "Snowflake",
     "icon": "images/items/Snowflake.avif",
     "tier": 3,
@@ -16269,6 +16744,7 @@ export const items = {
     ]
   },
   "Snowmobile": {
+    "id": "6c0af8cf-273f-43c5-afb5-ef00c87ffcc8",
     "name": "Snowmobile",
     "icon": "images/items/Snowmobile.avif",
     "tier": 1,
@@ -16308,6 +16784,7 @@ export const items = {
     ]
   },
   "Solar Farm": {
+    "id": "552247e1-74f8-4414-88bb-1b868f3f296d",
     "name": "Solar Farm",
     "icon": "images/items/SolarFarm.avif",
     "tier": 1,
@@ -16325,7 +16802,7 @@ export const items = {
     "text": [
       "Haste your other items for (1/2/3) second(s).",
       "Gain (6/9/12) Regeneration for the fight.",
-      "When you Burn, charge this for 2 seconds."
+      "When you Burn, charge this 2 seconds."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 3 second(s).",
@@ -16347,6 +16824,7 @@ export const items = {
     ]
   },
   "Soldering Gun": {
+    "id": "666f4084-48cc-4558-b678-a46ba18c1bf2",
     "name": "Soldering Gun",
     "icon": "images/items/SolderingGun.avif",
     "tier": 1,
@@ -16383,6 +16861,7 @@ export const items = {
     ]
   },
   "Soul of the District": {
+    "id": "d154b0ed-4fe3-4abe-a08c-fbc622a64500",
     "name": "Soul of the District",
     "icon": "images/items/SouloftheDistrict.avif",
     "tier": 4,
@@ -16418,6 +16897,7 @@ export const items = {
     ]
   },
   "Soul Ring": {
+    "id": "b642b5dd-180e-4980-bffd-c90110fdc96f",
     "name": "Soul Ring",
     "icon": "images/items/SoulRing.avif",
     "tier": 2,
@@ -16453,6 +16933,7 @@ export const items = {
     ]
   },
   "Spacescraper": {
+    "id": "40d8b44a-8e2f-4081-8163-043d76ddbafa",
     "name": "Spacescraper",
     "icon": "images/items/Spacescraper.avif",
     "tier": 2,
@@ -16489,6 +16970,7 @@ export const items = {
     ]
   },
   "Spare Change": {
+    "id": "f212afe2-08d1-40e3-978b-762d345bc7e5",
     "name": "Spare Change",
     "icon": "images/items/SpareChange.avif",
     "tier": 0,
@@ -16508,6 +16990,7 @@ export const items = {
     ]
   },
   "Spices": {
+    "id": "c05828f1-39e6-47aa-9041-216dfa60d83d",
     "name": "Spices",
     "icon": "images/items/Spices.avif",
     "tier": 3,
@@ -16540,6 +17023,7 @@ export const items = {
     ]
   },
   "Spider Mace": {
+    "id": "dfb80133-6125-4e28-bec0-d3f715f21344",
     "name": "Spider Mace",
     "icon": "images/items/SpiderMace.avif",
     "tier": 0,
@@ -16575,6 +17059,7 @@ export const items = {
     ]
   },
   "Spiked Buckler": {
+    "id": "1cce58b4-701c-46c0-aec7-c41f81186b61",
     "name": "Spiked Buckler",
     "icon": "images/items/SpikedBuckler.avif",
     "tier": 0,
@@ -16612,6 +17097,7 @@ export const items = {
     ]
   },
   "Spiky Shield": {
+    "id": "8ec1c3f9-6220-431b-b3b0-52b3be2e20f5",
     "name": "Spiky Shield",
     "icon": "images/items/SpikyShield.avif",
     "tier": 0,
@@ -16647,6 +17133,7 @@ export const items = {
     ]
   },
   "Spyglass": {
+    "id": "a043f66d-2320-46f6-8bac-131afeb770d2",
     "name": "Spyglass",
     "icon": "images/items/Spyglass.avif",
     "tier": 2,
@@ -16682,6 +17169,7 @@ export const items = {
     ]
   },
   "Staff of the Moose": {
+    "id": "c135f23d-b8b4-4aa8-9a11-b288ae05908c",
     "name": "Staff of the Moose",
     "icon": "images/items/StaffoftheMoose.avif",
     "tier": 1,
@@ -16721,6 +17209,7 @@ export const items = {
     ]
   },
   "Stained Glass Window": {
+    "id": "6c77228f-9a62-4274-a4a5-cee77f88f6ec",
     "name": "Stained Glass Window",
     "icon": "images/items/StainedGlassWindow.avif",
     "tier": 2,
@@ -16749,6 +17238,7 @@ export const items = {
     ]
   },
   "Star Chart": {
+    "id": "5abf3441-11cb-4dbd-8d69-d4829f8df687",
     "name": "Star Chart",
     "icon": "images/items/StarChart.avif",
     "tier": 0,
@@ -16784,6 +17274,7 @@ export const items = {
     ]
   },
   "Steam Ladle": {
+    "id": "194572c8-39b0-4dea-92d5-2c97f8d59554",
     "name": "Steam Ladle",
     "icon": "images/items/SteamLadle.avif",
     "tier": 0,
@@ -16819,6 +17310,7 @@ export const items = {
     ]
   },
   "Stinger": {
+    "id": "5a162b5d-4802-4f56-a30e-19b3c8ef677c",
     "name": "Stinger",
     "icon": "images/items/Stinger.avif",
     "tier": 0,
@@ -16856,6 +17348,7 @@ export const items = {
     ]
   },
   "Stopwatch": {
+    "id": "428de0f0-bf0d-4da6-9abe-dde8f2174aa9",
     "name": "Stopwatch",
     "icon": "images/items/Stopwatch.avif",
     "tier": 2,
@@ -16888,6 +17381,7 @@ export const items = {
     ]
   },
   "Strength Potion": {
+    "id": "d9aca67c-67e1-4388-a32e-b04579ad2102",
     "name": "Strength Potion",
     "icon": "images/items/StrengthPotion.avif",
     "tier": 1,
@@ -16921,6 +17415,7 @@ export const items = {
     ]
   },
   "Submarine": {
+    "id": "616089ae-766e-4f55-b4a1-d38f6a882ef1",
     "name": "Submarine",
     "icon": "images/items/Submarine.avif",
     "tier": 1,
@@ -16959,6 +17454,7 @@ export const items = {
     ]
   },
   "Submersible": {
+    "id": "47057461-8cb1-46d2-982c-a7ca6df131c7",
     "name": "Submersible",
     "icon": "images/items/Submersible.avif",
     "tier": 1,
@@ -16999,6 +17495,7 @@ export const items = {
     ]
   },
   "Subscraper": {
+    "id": "14cd589f-5648-4fc7-82d1-c62da0047982",
     "name": "Subscraper",
     "icon": "images/items/Subscraper.avif",
     "tier": 2,
@@ -17036,6 +17533,7 @@ export const items = {
     ]
   },
   "Succulents": {
+    "id": "96e51b95-eaab-40ea-9a89-381727ce2434",
     "name": "Succulents",
     "icon": "images/items/Succulents.avif",
     "tier": 0,
@@ -17069,6 +17567,7 @@ export const items = {
     ]
   },
   "Sulphur": {
+    "id": "6693a3f1-cc7c-4a3a-942f-d2e308b22338",
     "name": "Sulphur",
     "icon": "images/items/Sulphur.avif",
     "tier": 0,
@@ -17103,6 +17602,7 @@ export const items = {
     ]
   },
   "Sunderer": {
+    "id": "dec20bd9-9c83-4fcb-a5d2-e71352ed78d5",
     "name": "Sunderer",
     "icon": "images/items/Sunderer.avif",
     "tier": 0,
@@ -17137,6 +17637,7 @@ export const items = {
     ]
   },
   "Sunlight Spear": {
+    "id": "7e2634eb-9489-4462-8fe4-1c5b8c07adc2",
     "name": "Sunlight Spear",
     "icon": "images/items/SunlightSpear.avif",
     "tier": 1,
@@ -17149,7 +17650,7 @@ export const items = {
       "Burn",
       "Damage"
     ],
-    "cooldown": 11,
+    "cooldown": "(12/11/10)",
     "ammo": null,
     "text": [
       "Deal damage equal to the Regeneration plus the Burn on both players.",
@@ -17176,6 +17677,7 @@ export const items = {
     ]
   },
   "Super Syrup": {
+    "id": "8863af7b-4b2d-4456-81d8-e1d9f0dce4a9",
     "name": "Super Syrup",
     "icon": "images/items/SuperSyrup.avif",
     "tier": 0,
@@ -17199,6 +17701,7 @@ export const items = {
     ]
   },
   "Swash Buckle": {
+    "id": "69688b74-fd2b-42a2-a018-2b720a13f95a",
     "name": "Swash Buckle",
     "icon": "images/items/SwashBuckle.avif",
     "tier": 2,
@@ -17228,6 +17731,7 @@ export const items = {
     ]
   },
   "Switchblade": {
+    "id": "d6819596-2601-4757-8b72-2d708971023d",
     "name": "Switchblade",
     "icon": "images/items/Switchblade.avif",
     "tier": 0,
@@ -17262,6 +17766,7 @@ export const items = {
     ]
   },
   "Sword Cane": {
+    "id": "dab80323-ad8e-4874-a333-0c4e50a55b2a",
     "name": "Sword Cane",
     "icon": "images/items/SwordCane.avif",
     "tier": 0,
@@ -17299,6 +17804,7 @@ export const items = {
     ]
   },
   "Tazidian Dagger": {
+    "id": "e574a4ba-f984-446c-ae5b-75d75cd4b857",
     "name": "Tazidian Dagger",
     "icon": "images/items/TazidianDagger.avif",
     "tier": 0,
@@ -17334,6 +17840,7 @@ export const items = {
     ]
   },
   "Tea Set": {
+    "id": "0c501dff-aa3a-4091-9c1e-2df43faef2e1",
     "name": "Tea Set",
     "icon": "images/items/TeaSet.avif",
     "tier": 2,
@@ -17368,6 +17875,7 @@ export const items = {
     ]
   },
   "Teddy": {
+    "id": "cbec1d5f-096e-49d0-b736-60091fd3f9aa",
     "name": "Teddy",
     "icon": "images/items/Teddy.avif",
     "tier": 4,
@@ -17409,6 +17917,7 @@ export const items = {
     ]
   },
   "Temporary Shelter": {
+    "id": "40c54925-3b1b-475d-9d68-6b668fd023fe",
     "name": "Temporary Shelter",
     "icon": "images/items/TemporaryShelter.avif",
     "tier": 0,
@@ -17443,6 +17952,7 @@ export const items = {
     ]
   },
   "Tesla Coil": {
+    "id": "2e10cce3-b242-411b-a35f-0882341e71a7",
     "name": "Tesla Coil",
     "icon": "images/items/TeslaCoil.avif",
     "tier": 1,
@@ -17478,6 +17988,7 @@ export const items = {
     ]
   },
   "Textiles": {
+    "id": "b20bdd25-921e-490d-a28e-599ac70d15f7",
     "name": "Textiles",
     "icon": "images/items/Textiles.avif",
     "tier": 0,
@@ -17490,8 +18001,8 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Shield (10/20/40/80).",
-      "Heal equal to your Shield."
+      "Heal equal to your Shield.",
+      "When you Over-heal, Shield (20/30/40/50)."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -17512,6 +18023,7 @@ export const items = {
     ]
   },
   "The Boulder": {
+    "id": "b59a6072-5eb3-4782-b683-a20ee9294e54",
     "name": "The Boulder",
     "icon": "images/items/TheBoulder.avif",
     "tier": 2,
@@ -17545,9 +18057,10 @@ export const items = {
     ]
   },
   "The Core": {
+    "id": "eeeb02b5-9e8d-4af8-9902-2a77b1f838e7",
     "name": "The Core",
     "icon": "images/items/TheCore.avif",
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -17555,13 +18068,12 @@ export const items = {
       "Tech",
       "Weapon",
       "Damage",
-      "Charge",
-      "Unsellable"
+      "Charge"
     ],
-    "cooldown": 6,
+    "cooldown": "(6/5/4)",
     "ammo": null,
     "text": [
-      "Deal (30/45/60/75) damage.",
+      "Deal 50 damage.",
       "Charge all items to the right of this 1 second(s).",
       "When you use any item to the left of this, Charge this 1 second(s)."
     ],
@@ -17585,6 +18097,7 @@ export const items = {
     ]
   },
   "The Eclipse": {
+    "id": "c600d27d-0df0-4f05-a2ab-4a64a0d9fa32",
     "name": "The Eclipse",
     "icon": "images/items/TheEclipse.avif",
     "tier": 4,
@@ -17623,6 +18136,7 @@ export const items = {
     ]
   },
   "The Tome of Yyahan": {
+    "id": "c35bd10f-8ada-44e5-b32e-427787e6f0b6",
     "name": "The Tome of Yyahan",
     "icon": "images/items/TheTomeofYyahan.avif",
     "tier": 1,
@@ -17655,6 +18169,7 @@ export const items = {
     ]
   },
   "Thermal Lance": {
+    "id": "2fd61ab1-d256-4d43-8691-c6f730b41c67",
     "name": "Thermal Lance",
     "icon": "images/items/ThermalLance.avif",
     "tier": 1,
@@ -17690,6 +18205,7 @@ export const items = {
     ]
   },
   "Thieves Guild Medallion": {
+    "id": "1e48bd28-cd41-49e9-9e22-b44da30ef6be",
     "name": "Thieves Guild Medallion",
     "icon": "images/items/ThievesGuildMedallion.avif",
     "tier": 3,
@@ -17708,6 +18224,7 @@ export const items = {
     ]
   },
   "Throwing Knives": {
+    "id": "e13d521c-b960-4072-83db-fe4af598dd57",
     "name": "Throwing Knives",
     "icon": "images/items/ThrowingKnives.avif",
     "tier": 1,
@@ -17744,6 +18261,7 @@ export const items = {
     ]
   },
   "Thrown Net": {
+    "id": "4b823c6b-3e35-47a2-9b65-177e911aca1a",
     "name": "Thrown Net",
     "icon": "images/items/ThrownNet.avif",
     "tier": 2,
@@ -17776,34 +18294,33 @@ export const items = {
     ]
   },
   "Thrusters": {
+    "id": "55ef5f5c-0ffc-4598-a6bd-66d8235da56a",
     "name": "Thrusters",
     "icon": "images/items/Thrusters.avif",
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
       "Tech",
-      "Burn",
       "Cooldown"
     ],
-    "cooldown": 6,
+    "cooldown": null,
     "ammo": null,
     "text": [
-      "Burn both players (2/3/4/5).",
-      "Adjacent items have their cooldowns reduced by (6%/9%/12%/15%)."
+      "The item to the left of this is a Vehicle and has its cooldown reduced by (5%/10%/15%)."
     ],
     "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 small item for 1 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield equal to 10 times this item's Burn.",
-      "Restorative": "Heal equal to 10 times this item's Burn.",
-      "Toxic": "Poison equal to this item's Burn.",
-      "Fiery": "This has double Burn.",
-      "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance",
+      "Heavy": "The first time you fall below half health each fight, Slow 3 items for 2 second(s).",
+      "Icy": "The first time you fall below half health each fight, Freeze 2 items for 2 second(s).",
+      "Turbo": "The first time you fall below half health each fight, Haste 3 items for 2 second(s).",
+      "Shielded": "The first time you fall below half health each fight, Shield 60.",
+      "Restorative": "The first time you fall below half health each fight, Heal 90.",
+      "Toxic": "The first time you fall below half health each fight, poison 6.",
+      "Fiery": "The first time you fall below half health each fight, burn 6.",
+      "Shiny": "This has double cooldown reduction.",
+      "Deadly": "Your Vehicles have +50% Crit Chance.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
-      "Obsidian": "Deal damage equal to 10 times this item's Burn."
+      "Obsidian": "The first time you fall below half health each fight, Deal 60 damage."
     },
     "priorities": [
       1,
@@ -17811,6 +18328,7 @@ export const items = {
     ]
   },
   "Thurible": {
+    "id": "720765c7-c0c5-4059-b3b4-53758f61338f",
     "name": "Thurible",
     "icon": "images/items/Thurible.avif",
     "tier": 0,
@@ -17847,6 +18365,7 @@ export const items = {
     ]
   },
   "Tiny Cutlass": {
+    "id": "97d8654e-532b-4960-8f5b-5822562d3450",
     "name": "Tiny Cutlass",
     "icon": "images/items/TinyCutlass.avif",
     "tier": 0,
@@ -17884,6 +18403,7 @@ export const items = {
     ]
   },
   "Tommoo Gun": {
+    "id": "347a3f68-b4bc-49c4-856d-534b14b47459",
     "name": "Tommoo Gun",
     "icon": "images/items/TommooGun.avif",
     "tier": 3,
@@ -17917,6 +18437,7 @@ export const items = {
     ]
   },
   "Toolbox": {
+    "id": "4cf73614-52fd-4c59-8002-bbff087951ba",
     "name": "Toolbox",
     "icon": "images/items/Toolbox.avif",
     "tier": 0,
@@ -17952,6 +18473,7 @@ export const items = {
     ]
   },
   "Torpedo": {
+    "id": "9778f31c-87b0-4d8d-8289-50e90dd7edc5",
     "name": "Torpedo",
     "icon": "images/items/Torpedo.avif",
     "tier": 1,
@@ -17991,6 +18513,7 @@ export const items = {
     ]
   },
   "Tourist Chariot": {
+    "id": "53e336a7-709a-46a6-84ed-bb58b9e998bb",
     "name": "Tourist Chariot",
     "icon": "images/items/TouristChariot.avif",
     "tier": 0,
@@ -18026,6 +18549,7 @@ export const items = {
     ]
   },
   "Trained Spider": {
+    "id": "014d9c98-e823-443c-98a3-6367ab81c956",
     "name": "Trained Spider",
     "icon": "images/items/TrainedSpider.avif",
     "tier": 0,
@@ -18060,6 +18584,7 @@ export const items = {
     ]
   },
   "Trebuchet": {
+    "id": "73ca1d2f-f4d3-42c4-8980-0255f5ecd472",
     "name": "Trebuchet",
     "icon": "images/items/Trebuchet.avif",
     "tier": 0,
@@ -18098,6 +18623,7 @@ export const items = {
     ]
   },
   "Tripwire": {
+    "id": "b0f10d7f-d1df-4fb5-a88f-01b8cffd7fe4",
     "name": "Tripwire",
     "icon": "images/items/Tripwire.avif",
     "tier": 2,
@@ -18128,6 +18654,7 @@ export const items = {
     ]
   },
   "Tropical Island": {
+    "id": "4da45ad1-6793-458c-9c72-d03fa273ebfd",
     "name": "Tropical Island",
     "icon": "images/items/TropicalIsland.avif",
     "tier": 2,
@@ -18164,6 +18691,7 @@ export const items = {
     ]
   },
   "Truffles": {
+    "id": "2aab9e1b-8c8d-49d0-be45-5884731ebb08",
     "name": "Truffles",
     "icon": "images/items/Truffles.avif",
     "tier": 0,
@@ -18171,7 +18699,6 @@ export const items = {
       "Common",
       "Small",
       "Food",
-      "Loot",
       "Value",
       "EconomyReference"
     ],
@@ -18197,6 +18724,7 @@ export const items = {
     ]
   },
   "Turtle Shell": {
+    "id": "f16f5464-02f0-4b00-9f7b-d7e7b65a1e80",
     "name": "Turtle Shell",
     "icon": "images/items/TurtleShell.avif",
     "tier": 2,
@@ -18233,6 +18761,7 @@ export const items = {
     ]
   },
   "Tusked Helm": {
+    "id": "aa97a75d-3bdf-4f1b-bc2b-457375e31e0f",
     "name": "Tusked Helm",
     "icon": "images/items/TuskedHelm.avif",
     "tier": 0,
@@ -18271,6 +18800,7 @@ export const items = {
     ]
   },
   "Upgrade Hammer": {
+    "id": "19379b88-4fe5-474c-a254-d266c0435bf4",
     "name": "Upgrade Hammer",
     "icon": "images/items/UpgradeHammer.avif",
     "tier": 1,
@@ -18300,6 +18830,7 @@ export const items = {
     ]
   },
   "Uwashiwali Bird": {
+    "id": "54c74b82-0a7d-4dab-a335-f3b0b8b2157c",
     "name": "Uwashiwali Bird",
     "icon": "images/items/UwashiwaliBird.avif",
     "tier": 0,
@@ -18334,6 +18865,7 @@ export const items = {
     ]
   },
   "Uzi": {
+    "id": "f0608f5b-5c6a-4c71-8cc4-f8abbdd951c9",
     "name": "Uzi",
     "icon": "images/items/Uzi.avif",
     "tier": 0,
@@ -18367,6 +18899,7 @@ export const items = {
     ]
   },
   "Vanessa's Amulet": {
+    "id": "44a27d67-3ef2-4a5d-b38e-5d43065ae363",
     "name": "Vanessa's Amulet",
     "icon": "images/items/VanessasAmulet.avif",
     "tier": 0,
@@ -18399,6 +18932,7 @@ export const items = {
     ]
   },
   "Vat of Acid": {
+    "id": "437100de-1d03-4ce2-8336-0d1cdf0b0b8f",
     "name": "Vat of Acid",
     "icon": "images/items/VatofAcid.avif",
     "tier": 1,
@@ -18435,6 +18969,7 @@ export const items = {
     ]
   },
   "Vending Machine": {
+    "id": "7827d946-0204-4897-b3e4-bd7cec8e3979",
     "name": "Vending Machine",
     "icon": "images/items/VendingMachine.avif",
     "tier": 1,
@@ -18464,6 +18999,7 @@ export const items = {
     ]
   },
   "Venom": {
+    "id": "6031a849-e93e-41fb-a41f-a2c4d8be8929",
     "name": "Venom",
     "icon": "images/items/Venom.avif",
     "tier": 0,
@@ -18494,6 +19030,7 @@ export const items = {
     ]
   },
   "Venomander": {
+    "id": "6b02f653-a294-443e-8b85-2be47b6a1c12",
     "name": "Venomander",
     "icon": "images/items/Venomander.avif",
     "tier": 0,
@@ -18504,7 +19041,7 @@ export const items = {
       "Poison",
       "Regen"
     ],
-    "cooldown": "(6/6/5/5)",
+    "cooldown": 6,
     "ammo": null,
     "text": [
       "Poison (1/2/3/4).",
@@ -18529,6 +19066,7 @@ export const items = {
     ]
   },
   "Vial Launcher": {
+    "id": "fd35f65b-8e2a-4a6c-8e85-20d0fd5b8fc1",
     "name": "Vial Launcher",
     "icon": "images/items/VialLauncher.avif",
     "tier": 1,
@@ -18564,6 +19102,7 @@ export const items = {
     ]
   },
   "Vial of Blood": {
+    "id": "08bb5055-bd8d-4f86-bff6-24f8cb47f509",
     "name": "Vial of Blood",
     "icon": "images/items/VialofBlood.avif",
     "tier": 1,
@@ -18586,6 +19125,7 @@ export const items = {
     ]
   },
   "Vineyard": {
+    "id": "2fdde51e-5bf5-4136-b86f-3f83053cbf25",
     "name": "Vineyard",
     "icon": "images/items/Vineyard.avif",
     "tier": 1,
@@ -18624,6 +19164,7 @@ export const items = {
     ]
   },
   "VIP Pass": {
+    "id": "02f42044-50df-4c3a-abbd-942903953b79",
     "name": "VIP Pass",
     "icon": "images/items/VIPPass.avif",
     "tier": 1,
@@ -18660,6 +19201,7 @@ export const items = {
     ]
   },
   "Viper Cane": {
+    "id": "b8a86c12-6b43-475d-8748-1676f45655bb",
     "name": "Viper Cane",
     "icon": "images/items/ViperCane.avif",
     "tier": 2,
@@ -18699,6 +19241,7 @@ export const items = {
     ]
   },
   "Virus": {
+    "id": "020a0ec0-21e6-41af-899f-063573ba9ca5",
     "name": "Virus",
     "icon": "images/items/Virus.avif",
     "tier": 1,
@@ -18735,6 +19278,7 @@ export const items = {
     ]
   },
   "Vitality Potion": {
+    "id": "4252c53d-8c2f-4dbb-974f-b45926911eac",
     "name": "Vitality Potion",
     "icon": "images/items/VitalityPotion.avif",
     "tier": 2,
@@ -18768,6 +19312,7 @@ export const items = {
     ]
   },
   "Void Ray": {
+    "id": "baec36c3-2c41-47fa-bd54-6f1d6b34e8d0",
     "name": "Void Ray",
     "icon": "images/items/VoidRay.avif",
     "tier": 2,
@@ -18805,6 +19350,7 @@ export const items = {
     ]
   },
   "Void Shield": {
+    "id": "cfd94b43-c547-4dea-a977-658a388e75d4",
     "name": "Void Shield",
     "icon": "images/items/VoidShield.avif",
     "tier": 3,
@@ -18839,6 +19385,7 @@ export const items = {
     ]
   },
   "Volcanic Vents": {
+    "id": "cd06b93f-ed76-40ac-a3f5-0cbb7fcc5aac",
     "name": "Volcanic Vents",
     "icon": "images/items/VolcanicVents.avif",
     "tier": 0,
@@ -18852,7 +19399,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Multicast 3",
-      "Burn (1/2/3/4)."
+      "Burn (3/6/9/12)."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -18873,6 +19420,7 @@ export const items = {
     ]
   },
   "Wallace": {
+    "id": "189575f2-cf55-44ee-a70b-362ce75c9c9e",
     "name": "Wallace",
     "icon": "images/items/Wallace.avif",
     "tier": 0,
@@ -18907,6 +19455,7 @@ export const items = {
     ]
   },
   "Walter Cooler": {
+    "id": "1b518cd8-57d3-4747-8afa-3b99aae88e62",
     "name": "Walter Cooler",
     "icon": "images/items/WalterCooler.avif",
     "tier": 1,
@@ -18940,6 +19489,7 @@ export const items = {
     ]
   },
   "Wand": {
+    "id": "8a0aad5c-caff-4963-b8e9-861bc5ace1ce",
     "name": "Wand",
     "icon": "images/items/Wand.avif",
     "tier": 2,
@@ -18971,6 +19521,7 @@ export const items = {
     ]
   },
   "Wanted Poster": {
+    "id": "8b994da7-7aa3-40cd-aafd-c84f0913d0c9",
     "name": "Wanted Poster",
     "icon": "images/items/WantedPoster.avif",
     "tier": 1,
@@ -19005,6 +19556,7 @@ export const items = {
     ]
   },
   "Water Wheel": {
+    "id": "d8106a24-647f-40c6-8587-22f977931d76",
     "name": "Water Wheel",
     "icon": "images/items/WaterWheel.avif",
     "tier": 1,
@@ -19040,6 +19592,7 @@ export const items = {
     ]
   },
   "Weakpoint Detector": {
+    "id": "fc2f0122-129b-41e8-942e-a6a10a1c5962",
     "name": "Weakpoint Detector",
     "icon": "images/items/WeakpointDetector.avif",
     "tier": 0,
@@ -19076,9 +19629,10 @@ export const items = {
     ]
   },
   "Weaponized Core": {
+    "id": "9131cedf-e5e7-4a23-a90e-2576048419e8",
     "name": "Weaponized Core",
     "icon": "images/items/WeaponizedCore.avif",
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Dooley",
       "Medium",
@@ -19086,14 +19640,13 @@ export const items = {
       "Tech",
       "Weapon",
       "Damage",
-      "Charge",
-      "Unsellable"
+      "Charge"
     ],
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Deal (20/30/40/50) damage.",
-      "Weapons to the right of this gain (+10/+15/+20/+25) damage for the fight.",
+      "Deal 20 damage.",
+      "This and weapons to the right of this gain (+20/+30/+40) damage for the fight.",
       "When you use any item to the left of this, Charge this 1 second(s)."
     ],
     "enchants": {
@@ -19116,6 +19669,7 @@ export const items = {
     ]
   },
   "Weaselpede": {
+    "id": "daa37838-fd22-4791-bc1c-ee5ae31a081c",
     "name": "Weaselpede",
     "icon": "images/items/Weaselpede.avif",
     "tier": 1,
@@ -19151,6 +19705,7 @@ export const items = {
     ]
   },
   "Weather Glass": {
+    "id": "d1788cd1-cd70-4391-a0d9-c50fc9e08d9a",
     "name": "Weather Glass",
     "icon": "images/items/WeatherGlass.avif",
     "tier": 1,
@@ -19190,6 +19745,7 @@ export const items = {
     ]
   },
   "Weather Machine": {
+    "id": "bf90b501-0d87-49ae-a82a-5941db70179c",
     "name": "Weather Machine",
     "icon": "images/items/WeatherMachine.avif",
     "tier": 2,
@@ -19230,6 +19786,7 @@ export const items = {
     ]
   },
   "Weights": {
+    "id": "34fcf624-ccba-42a8-b4fc-837e0002a163",
     "name": "Weights",
     "icon": "images/items/Weights.avif",
     "tier": 0,
@@ -19265,6 +19822,7 @@ export const items = {
     ]
   },
   "Welding Helmet": {
+    "id": "08630fca-24b9-4d9b-9dbf-7da743a09dfa",
     "name": "Welding Helmet",
     "icon": "images/items/WeldingHelmet.avif",
     "tier": 0,
@@ -19277,8 +19835,8 @@ export const items = {
     "cooldown": 4,
     "ammo": null,
     "text": [
-      "Shield (10/15/20/25).",
-      "Burn (1/2/3/5)."
+      "Shield (10/20/30/40).",
+      "Burn (2/4/6/8)."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 1 second(s).",
@@ -19299,6 +19857,7 @@ export const items = {
     ]
   },
   "Welding Torch": {
+    "id": "357d7a25-aae0-4d4f-9360-4ed1cc107962",
     "name": "Welding Torch",
     "icon": "images/items/WeldingTorch.avif",
     "tier": 0,
@@ -19334,6 +19893,7 @@ export const items = {
     ]
   },
   "Windmill": {
+    "id": "ff06b63a-15ee-49be-80b1-5fb52b4e1616",
     "name": "Windmill",
     "icon": "images/items/Windmill.avif",
     "tier": 3,
@@ -19368,6 +19928,7 @@ export const items = {
     ]
   },
   "Wrench": {
+    "id": "27e2ea0b-4e39-4826-be29-9f5505d5938a",
     "name": "Wrench",
     "icon": "images/items/Wrench.avif",
     "tier": 2,
@@ -19404,6 +19965,7 @@ export const items = {
     ]
   },
   "Yellow Gumball": {
+    "id": "acbddaec-41a7-452e-b4aa-357e75553d55",
     "name": "Yellow Gumball",
     "icon": "images/items/YellowGumball.avif",
     "tier": 0,
@@ -19433,6 +19995,7 @@ export const items = {
     ]
   },
   "Yellow Piggles A": {
+    "id": "9c21ee00-116d-4868-a215-3f9b57bc8657",
     "name": "Yellow Piggles A",
     "icon": "images/items/YellowPigglesA.avif",
     "tier": 0,
@@ -19465,6 +20028,7 @@ export const items = {
     ]
   },
   "Yellow Piggles L": {
+    "id": "d8e476dd-8184-4cb5-8cca-df1cb66c4305",
     "name": "Yellow Piggles L",
     "icon": "images/items/YellowPigglesL.avif",
     "tier": 0,
@@ -19497,6 +20061,7 @@ export const items = {
     ]
   },
   "Yellow Piggles R": {
+    "id": "3868bcee-4463-4c34-9a9b-b1ab1fa49260",
     "name": "Yellow Piggles R",
     "icon": "images/items/YellowPigglesR.avif",
     "tier": 0,
@@ -19529,6 +20094,7 @@ export const items = {
     ]
   },
   "Yellow Piggles X": {
+    "id": "d4586506-d4d6-45d5-866b-796203f8d9d3",
     "name": "Yellow Piggles X",
     "icon": "images/items/YellowPigglesX.avif",
     "tier": 0,
@@ -19561,6 +20127,7 @@ export const items = {
     ]
   },
   "Yeti Crab": {
+    "id": "8048bd3a-1529-4a21-872d-20da84b223a3",
     "name": "Yeti Crab",
     "icon": "images/items/YetiCrab.avif",
     "tier": 0,
@@ -19576,7 +20143,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Freeze 1 item(s) for 1 second(s).",
-      "When you freeze, adjacent Poison items gain (+1/+2/+3/+4) Poison for the fight."
+      "When you freeze, adjacent Poison items gain (+2/+4/+6/+8) Poison for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -19597,9 +20164,10 @@ export const items = {
     ]
   },
   "YLW-M4NT1S": {
+    "id": "55e65c01-8279-485d-9d63-79ec0c2129cb",
     "name": "YLW-M4NT1S",
     "icon": "images/items/YLWM4NT1S.avif",
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Dooley",
       "Small",
@@ -19610,7 +20178,7 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Haste (2/3/4/5) item(s) for 1 second(s).",
+      "Haste (2/3/4) item(s) for 1 second(s).",
       "When an adjacent item Burns, charge this 1 second(s)."
     ],
     "enchants": {
@@ -19632,6 +20200,7 @@ export const items = {
     ]
   },
   "Yo-Yo": {
+    "id": "84b74f1e-0960-4c71-bb4f-d35e114250c2",
     "name": "Yo-Yo",
     "icon": "images/items/YoYo.avif",
     "tier": 0,
@@ -19667,6 +20236,7 @@ export const items = {
     ]
   },
   "Z-Shield": {
+    "id": "e0420e4b-b53b-4b05-8074-1622200ca9ce",
     "name": "Z-Shield",
     "icon": "images/items/ZShield.avif",
     "tier": 1,
@@ -19706,6 +20276,7 @@ export const items = {
     ]
   },
   "Z-Sword": {
+    "id": "34476196-7d30-4664-8fe3-e99411022a86",
     "name": "Z-Sword",
     "icon": "images/items/ZSword.avif",
     "tier": 1,
@@ -19745,6 +20316,7 @@ export const items = {
     ]
   },
   "Zoarcid": {
+    "id": "3191df3b-7e7d-4df9-9395-6fffd4207f6d",
     "name": "Zoarcid",
     "icon": "images/items/Zoarcid.avif",
     "tier": 0,
@@ -19758,7 +20330,7 @@ export const items = {
       "Haste",
       "BurnReference"
     ],
-    "cooldown": 7,
+    "cooldown": 6,
     "ammo": null,
     "text": [
       "Deal (20/30/40/50) damage.",
