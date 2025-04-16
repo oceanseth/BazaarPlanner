@@ -8,7 +8,7 @@ def fetch_monster_encounters():
     response = requests.get(url)
     return response.json()['data']
 
-def download_image_if_missing(name, type_folder):
+def download_image_if_missing(name, type_folder, cardId=None):
     """
     Downloads the image from howbazaar.gg if it doesn't exist locally
     Args:
@@ -17,7 +17,7 @@ def download_image_if_missing(name, type_folder):
     """
     # Clean filename
     clean_name = re.sub(r'[ \'\"\(\)\-_\.\&]', '', name)
-    local_path = f"./public/images/{type_folder}/{clean_name}.avif"
+    local_path = f"./public/images/{type_folder}/{cardId}.avif"
     
     # Check if file exists
     if not os.path.exists(local_path):
@@ -25,7 +25,7 @@ def download_image_if_missing(name, type_folder):
         os.makedirs(f"./public/images/{type_folder}", exist_ok=True)
         
         # Construct URL
-        url = f"https://www.howbazaar.gg/images/{type_folder}/{clean_name}.avif"
+        url = f"https://howbazaar-images.b-cdn.net/images/{type_folder}/{cardId}.avif"
         
         try:
             response = requests.get(url)
@@ -41,8 +41,8 @@ def download_image_if_missing(name, type_folder):
 def process_monster(monster):
     # Extract basic monster info
     processed = {
+        "id": monster["cardId"],
         "name": monster["cardName"],
-        "icon": f"images/monsters/{re.sub(r'[ \'\"\(\)\-_\.]', '', monster['cardName'])}.avif",
         "day": monster["day"],
         "health": monster["health"],
         "level": monster["level"],
@@ -68,7 +68,7 @@ def process_monster(monster):
         processed["items"].append(item_data)
     
     # Download image if needed
-    download_image_if_missing(monster["cardName"], "monsters")
+    download_image_if_missing(monster["cardName"], "monsters", monster["cardId"])
     
     return processed
 

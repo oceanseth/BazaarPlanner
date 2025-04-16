@@ -1,7 +1,7 @@
 export const monsters = {
   "Fanged Inglet": {
+    "id": "bb1e3506-3735-4669-be90-915a55a7ee05",
     "name": "Fanged Inglet",
-    "icon": "images/monsters/FangedInglet.avif",
     "day": 1,
     "health": 100,
     "level": 1,
@@ -31,8 +31,8 @@ export const monsters = {
     ]
   },
   "Kyver Drone": {
+    "id": "bd0711a6-d9d9-4a47-8a18-8f991057f7dd",
     "name": "Kyver Drone",
-    "icon": "images/monsters/KyverDrone.avif",
     "day": 1,
     "health": 100,
     "level": 1,
@@ -62,8 +62,8 @@ export const monsters = {
     ]
   },
   "Viper": {
+    "id": "b79845a7-f806-4e7a-9011-d98ebd22a323",
     "name": "Viper",
-    "icon": "images/monsters/Viper.avif",
     "day": 1,
     "health": 75,
     "level": 1,
@@ -94,8 +94,8 @@ export const monsters = {
     ]
   },
   "Banannabal": {
+    "id": "1d24717f-7bfb-48e9-9320-6a69d72e233e",
     "name": "Banannabal",
-    "icon": "images/monsters/Banannabal.avif",
     "day": 1,
     "health": 100,
     "level": 1,
@@ -121,8 +121,8 @@ export const monsters = {
     ]
   },
   "Pyro": {
+    "id": "45c473f5-25bd-4c1c-8357-cfe460c58f69",
     "name": "Pyro",
-    "icon": "images/monsters/Pyro.avif",
     "day": 1,
     "health": 100,
     "level": 1,
@@ -148,8 +148,8 @@ export const monsters = {
     ]
   },
   "Haunted Kimono": {
+    "id": "035ace94-61e5-4343-8383-83044ea4e08e",
     "name": "Haunted Kimono",
-    "icon": "images/monsters/HauntedKimono.avif",
     "day": 1,
     "health": 100,
     "level": 1,
@@ -170,8 +170,8 @@ export const monsters = {
     ]
   },
   "Coconut Crab": {
+    "id": "289ff978-dd65-4484-b905-8ee16d28033c",
     "name": "Coconut Crab",
-    "icon": "images/monsters/CoconutCrab.avif",
     "day": 2,
     "health": 200,
     "level": 2,
@@ -197,8 +197,8 @@ export const monsters = {
     ]
   },
   "Giant Mosquito": {
+    "id": "c69bf8e8-944c-4b42-b59e-8ad568e0d3f7",
     "name": "Giant Mosquito",
-    "icon": "images/monsters/GiantMosquito.avif",
     "day": 2,
     "health": 250,
     "level": 2,
@@ -232,8 +232,8 @@ export const monsters = {
     ]
   },
   "Covetous Thief": {
+    "id": "66245d12-d5eb-4c08-9185-6ddaf626bbd3",
     "name": "Covetous Thief",
-    "icon": "images/monsters/CovetousThief.avif",
     "day": 2,
     "health": 400,
     "level": 3,
@@ -271,8 +271,8 @@ export const monsters = {
     ]
   },
   "Boarrior": {
+    "id": "b93f5b44-ba9f-4196-a94e-c5de17ab5c5d",
     "name": "Boarrior",
-    "icon": "images/monsters/Boarrior.avif",
     "day": 2,
     "health": 300,
     "level": 3,
@@ -314,8 +314,8 @@ export const monsters = {
     ]
   },
   "Rogue Scrapper": {
+    "id": "1eabe08b-2949-407d-b22d-c6e579e0cd14",
     "name": "Rogue Scrapper",
-    "icon": "images/monsters/RogueScrapper.avif",
     "day": 2,
     "health": 450,
     "level": 4,
@@ -353,8 +353,8 @@ export const monsters = {
     ]
   },
   "Tempest Flamedancer": {
+    "id": "04b60df4-91d9-4065-94e0-f9f462a3b104",
     "name": "Tempest Flamedancer",
-    "icon": "images/monsters/TempestFlamedancer.avif",
     "day": 3,
     "health": 300,
     "level": 3,
@@ -394,8 +394,8 @@ export const monsters = {
     ]
   },
   "Dabbling Apprentice": {
+    "id": "8e389a21-9e14-49c4-bdf3-24183f9f9295",
     "name": "Dabbling Apprentice",
-    "icon": "images/monsters/DabblingApprentice.avif",
     "day": 3,
     "health": 300,
     "level": 3,
@@ -429,8 +429,8 @@ export const monsters = {
     ]
   },
   "Frost Street Challenger": {
+    "id": "55046a2f-f81e-4720-aefa-e74b14a06dad",
     "name": "Frost Street Challenger",
-    "icon": "images/monsters/FrostStreetChallenger.avif",
     "day": 3,
     "health": 450,
     "level": 4,
@@ -464,8 +464,8 @@ export const monsters = {
     ]
   },
   "Street Gamer": {
+    "id": "4101117c-9cb0-480e-bfac-814da069ec80",
     "name": "Street Gamer",
-    "icon": "images/monsters/StreetGamer.avif",
     "day": 3,
     "health": 450,
     "level": 4,
@@ -498,9 +498,9 @@ export const monsters = {
       }
     ]
   },
-  "Scout Trooper": {
-    "name": "Scout Trooper",
-    "icon": "images/monsters/ScoutTrooper.avif",
+  "Hooverbike Hooligan": {
+    "id": "38936647-a688-49d1-8e5c-9c2c79f18a18",
+    "name": "Hooverbike Hooligan",
     "day": 3,
     "health": 650,
     "level": 5,
@@ -542,8 +542,8 @@ export const monsters = {
     ]
   },
   "Eccentric Etherwright": {
+    "id": "325c88c3-9496-44bf-b900-4adf1f84bf2f",
     "name": "Eccentric Etherwright",
-    "icon": "images/monsters/EccentricEtherwright.avif",
     "day": 3,
     "health": 650,
     "level": 5,
@@ -573,8 +573,8 @@ export const monsters = {
     ]
   },
   "Boilerroom Brawler": {
+    "id": "4a4542cd-91d8-4463-84fc-c111fc7535ee",
     "name": "Boilerroom Brawler",
-    "icon": "images/monsters/BoilerroomBrawler.avif",
     "day": 4,
     "health": 450,
     "level": 4,
@@ -620,8 +620,8 @@ export const monsters = {
     ]
   },
   "Outlands Dervish": {
+    "id": "91e59b0c-968c-4c45-9391-5104571fee28",
     "name": "Outlands Dervish",
-    "icon": "images/monsters/OutlandsDervish.avif",
     "day": 4,
     "health": 450,
     "level": 4,
@@ -659,8 +659,8 @@ export const monsters = {
     ]
   },
   "Retiree": {
+    "id": "9e637cb7-18cf-460d-9c50-5401ee4be521",
     "name": "Retiree",
-    "icon": "images/monsters/Retiree.avif",
     "day": 4,
     "health": 650,
     "level": 5,
@@ -698,8 +698,8 @@ export const monsters = {
     ]
   },
   "Bloodreef Raider": {
+    "id": "85902df4-6926-40a3-affc-537c55e89b86",
     "name": "Bloodreef Raider",
-    "icon": "images/monsters/BloodreefRaider.avif",
     "day": 4,
     "health": 650,
     "level": 5,
@@ -737,8 +737,8 @@ export const monsters = {
     ]
   },
   "Flame Juggler": {
+    "id": "cead2300-dce5-4c9c-82c4-e4c05d1923bf",
     "name": "Flame Juggler",
-    "icon": "images/monsters/FlameJuggler.avif",
     "day": 4,
     "health": 900,
     "level": 6,
@@ -776,8 +776,8 @@ export const monsters = {
     ]
   },
   "Ahexa": {
+    "id": "b511bd4d-5ad6-4f54-bc74-89622da4d956",
     "name": "Ahexa",
-    "icon": "images/monsters/Ahexa.avif",
     "day": 4,
     "health": 900,
     "level": 6,
@@ -810,8 +810,8 @@ export const monsters = {
     ]
   },
   "Hellbilly": {
+    "id": "8eb6cf35-27ab-4726-b9f7-05133a4b94b8",
     "name": "Hellbilly",
-    "icon": "images/monsters/Hellbilly.avif",
     "day": 4,
     "health": 900,
     "level": 6,
@@ -845,8 +845,8 @@ export const monsters = {
     ]
   },
   "Prince Marianas": {
+    "id": "5253c1ef-af51-43ac-a307-4e707e5747a6",
     "name": "Prince Marianas",
-    "icon": "images/monsters/PrinceMarianas.avif",
     "day": 4,
     "health": 1200,
     "level": 7,
@@ -892,8 +892,8 @@ export const monsters = {
     ]
   },
   "Preening Duelist": {
+    "id": "ae118438-c54d-4129-98d1-b576e4a4d380",
     "name": "Preening Duelist",
-    "icon": "images/monsters/PreeningDuelist.avif",
     "day": 5,
     "health": 650,
     "level": 5,
@@ -935,8 +935,8 @@ export const monsters = {
     ]
   },
   "Sabretooth": {
+    "id": "47c042ba-707a-4e00-aea2-c1ed2ed880e5",
     "name": "Sabretooth",
-    "icon": "images/monsters/Sabretooth.avif",
     "day": 5,
     "health": 650,
     "level": 5,
@@ -992,8 +992,8 @@ export const monsters = {
     ]
   },
   "Infernal Envoy": {
+    "id": "a75621b9-11a2-4405-8254-0e58a300110f",
     "name": "Infernal Envoy",
-    "icon": "images/monsters/InfernalEnvoy.avif",
     "day": 5,
     "health": 900,
     "level": 6,
@@ -1028,9 +1028,9 @@ export const monsters = {
       }
     ]
   },
-  "Hakurvian Rocket Trooper": {
-    "name": "Hakurvian Rocket Trooper",
-    "icon": "images/monsters/HakurvianRocketTrooper.avif",
+  "Harkuvian Rocket Trooper": {
+    "id": "59917a2d-3253-44f4-aaa4-ca30b512eb59",
+    "name": "Harkuvian Rocket Trooper",
     "day": 5,
     "health": 900,
     "level": 6,
@@ -1054,7 +1054,7 @@ export const monsters = {
         "tier": 2
       },
       {
-        "name": "Hakurvian Launcher",
+        "name": "Harkuvian Launcher",
         "tier": 1
       },
       {
@@ -1072,8 +1072,8 @@ export const monsters = {
     ]
   },
   "Kyver Commander": {
+    "id": "54bd46ca-2dec-4fbf-bae9-4cfff1c80043",
     "name": "Kyver Commander",
-    "icon": "images/monsters/KyverCommander.avif",
     "day": 5,
     "health": 900,
     "level": -1,
@@ -1111,8 +1111,8 @@ export const monsters = {
     ]
   },
   "Mod Squad": {
+    "id": "c472b821-e68b-4567-b7e1-3e63f67936b3",
     "name": "Mod Squad",
-    "icon": "images/monsters/ModSquad.avif",
     "day": 5,
     "health": 1200,
     "level": 7,
@@ -1154,8 +1154,8 @@ export const monsters = {
     ]
   },
   "Gorgon Noble": {
+    "id": "dbc00a8b-7fae-4792-a9da-698d3cd4f578",
     "name": "Gorgon Noble",
-    "icon": "images/monsters/GorgonNoble.avif",
     "day": 5,
     "health": 1200,
     "level": 7,
@@ -1202,8 +1202,8 @@ export const monsters = {
     ]
   },
   "Trashtown Mayor": {
+    "id": "9c167a0c-d348-4e09-8f6b-be0ac65d3cda",
     "name": "Trashtown Mayor",
-    "icon": "images/monsters/TrashtownMayor.avif",
     "day": 5,
     "health": 1200,
     "level": 3,
@@ -1242,8 +1242,8 @@ export const monsters = {
     ]
   },
   "Scovyle": {
+    "id": "91c233ed-b88c-4ec9-b3ee-cec880a14213",
     "name": "Scovyle",
-    "icon": "images/monsters/Scovyle.avif",
     "day": 5,
     "health": 1400,
     "level": -1,
@@ -1281,8 +1281,8 @@ export const monsters = {
     ]
   },
   "Dire Inglet": {
+    "id": "78139f32-94b1-4dc6-9ef0-374c3c8863a7",
     "name": "Dire Inglet",
-    "icon": "images/monsters/DireInglet.avif",
     "day": 6,
     "health": 900,
     "level": 6,
@@ -1330,8 +1330,8 @@ export const monsters = {
     ]
   },
   "Zookeeper": {
+    "id": "7294ff99-ca2b-409e-838f-0efdb10dded0",
     "name": "Zookeeper",
-    "icon": "images/monsters/Zookeeper.avif",
     "day": 6,
     "health": 900,
     "level": 6,
@@ -1373,8 +1373,8 @@ export const monsters = {
     ]
   },
   "Dire Mosquito": {
+    "id": "bc5fa0a4-8ca9-4384-a283-9c7c84b27169",
     "name": "Dire Mosquito",
-    "icon": "images/monsters/DireMosquito.avif",
     "day": 6,
     "health": 900,
     "level": 6,
@@ -1420,8 +1420,8 @@ export const monsters = {
     ]
   },
   "Trash Golem": {
+    "id": "a9b27854-6f5c-4414-b458-90c54c444171",
     "name": "Trash Golem",
-    "icon": "images/monsters/TrashGolem.avif",
     "day": 6,
     "health": 1400,
     "level": 7,
@@ -1463,8 +1463,8 @@ export const monsters = {
     ]
   },
   "Foreman": {
+    "id": "a2baf3bc-6164-4a16-ab41-48b450f694d1",
     "name": "Foreman",
-    "icon": "images/monsters/Foreman.avif",
     "day": 6,
     "health": 1200,
     "level": 7,
@@ -1502,8 +1502,8 @@ export const monsters = {
     ]
   },
   "Enclave Weeper": {
+    "id": "962bf2b2-fc1b-4ad3-9526-15d76d3bb0de",
     "name": "Enclave Weeper",
-    "icon": "images/monsters/EnclaveWeeper.avif",
     "day": 6,
     "health": 1550,
     "level": 8,
@@ -1549,8 +1549,8 @@ export const monsters = {
     ]
   },
   "Loan Shark": {
+    "id": "d50543f3-132c-4c43-9230-50a5e96087d9",
     "name": "Loan Shark",
-    "icon": "images/monsters/LoanShark.avif",
     "day": 6,
     "health": 1550,
     "level": 8,
@@ -1588,8 +1588,8 @@ export const monsters = {
     ]
   },
   "Infernal": {
+    "id": "e3a8efa1-1dfc-4dd5-a1fe-7daaa8315e18",
     "name": "Infernal",
-    "icon": "images/monsters/Infernal.avif",
     "day": 6,
     "health": 1925,
     "level": 9,
@@ -1639,8 +1639,8 @@ export const monsters = {
     ]
   },
   "Lich": {
+    "id": "69af3106-78fd-4a74-b150-ec41442cdbba",
     "name": "Lich",
-    "icon": "images/monsters/Lich.avif",
     "day": 6,
     "health": 1900,
     "level": 10,
@@ -1690,8 +1690,8 @@ export const monsters = {
     ]
   },
   "Viper Tyrant": {
+    "id": "224ba8a9-3781-4403-8bfc-527b4e64b8aa",
     "name": "Viper Tyrant",
-    "icon": "images/monsters/ViperTyrant.avif",
     "day": 7,
     "health": 1200,
     "level": 7,
@@ -1746,8 +1746,8 @@ export const monsters = {
     ]
   },
   "Sergeant Suds": {
+    "id": "f9e17ce4-c82d-44c2-8406-ad33277a3b1c",
     "name": "Sergeant Suds",
-    "icon": "images/monsters/SergeantSuds.avif",
     "day": 7,
     "health": 1200,
     "level": 7,
@@ -1781,8 +1781,8 @@ export const monsters = {
     ]
   },
   "Cosmic Roc": {
+    "id": "a48cb3e2-1ae2-4d37-aaee-e6f7af7e2404",
     "name": "Cosmic Roc",
-    "icon": "images/monsters/CosmicRoc.avif",
     "day": 7,
     "health": 1550,
     "level": 8,
@@ -1832,8 +1832,8 @@ export const monsters = {
     ]
   },
   "Joyful Jack": {
+    "id": "105b820e-34ee-484e-a7a1-011032ec7eec",
     "name": "Joyful Jack",
-    "icon": "images/monsters/JoyfulJack.avif",
     "day": 7,
     "health": 1550,
     "level": 8,
@@ -1879,8 +1879,8 @@ export const monsters = {
     ]
   },
   "Thug": {
+    "id": "2b0437f4-6977-4f84-aeb6-6545cbf5632d",
     "name": "Thug",
-    "icon": "images/monsters/Thug.avif",
     "day": 7,
     "health": 1550,
     "level": 8,
@@ -1928,8 +1928,8 @@ export const monsters = {
     ]
   },
   "Ghost Pepper": {
+    "id": "f79e72dc-7f9b-4e7e-b14e-d4896fcf004f",
     "name": "Ghost Pepper",
-    "icon": "images/monsters/GhostPepper.avif",
     "day": 7,
     "health": 1550,
     "level": -1,
@@ -1983,8 +1983,8 @@ export const monsters = {
     ]
   },
   "Shock Trooper": {
+    "id": "d9e56b4c-8ad2-465d-b44c-45a7f2562bde",
     "name": "Shock Trooper",
-    "icon": "images/monsters/ShockTrooper.avif",
     "day": 7,
     "health": 1925,
     "level": 9,
@@ -2026,8 +2026,8 @@ export const monsters = {
     ]
   },
   "Chilly Charles": {
+    "id": "23a21c0f-e163-4817-ba15-0e899d19d387",
     "name": "Chilly Charles",
-    "icon": "images/monsters/ChillyCharles.avif",
     "day": 7,
     "health": 1925,
     "level": 9,
@@ -2062,8 +2062,8 @@ export const monsters = {
     ]
   },
   "Treasure Turtle": {
+    "id": "7b768d49-b2cc-40f8-ab0f-2d0ed36a0c56",
     "name": "Treasure Turtle",
-    "icon": "images/monsters/TreasureTurtle.avif",
     "day": 7,
     "health": 1925,
     "level": 9,
@@ -2117,8 +2117,8 @@ export const monsters = {
     ]
   },
   "Radiant Corsair": {
+    "id": "608eb88e-c6d8-41c3-ac88-c20aeb185664",
     "name": "Radiant Corsair",
-    "icon": "images/monsters/RadiantCorsair.avif",
     "day": 7,
     "health": 3200,
     "level": 12,
@@ -2157,8 +2157,8 @@ export const monsters = {
     ]
   },
   "Infernal Frigate": {
+    "id": "5fa789a5-211c-46ba-891f-7467f387e37c",
     "name": "Infernal Frigate",
-    "icon": "images/monsters/InfernalFrigate.avif",
     "day": 8,
     "health": 1925,
     "level": 9,
@@ -2200,8 +2200,8 @@ export const monsters = {
     ]
   },
   "Car Conductor": {
+    "id": "76c8dc41-96c9-4c05-acb1-5eaab4ea8e17",
     "name": "Car Conductor",
-    "icon": "images/monsters/CarConductor.avif",
     "day": 8,
     "health": 1925,
     "level": 9,
@@ -2243,8 +2243,8 @@ export const monsters = {
     ]
   },
   "Oasis Guardian": {
+    "id": "87ab01e1-55a7-4934-8201-b005b540616f",
     "name": "Oasis Guardian",
-    "icon": "images/monsters/OasisGuardian.avif",
     "day": 8,
     "health": 1925,
     "level": 9,
@@ -2282,8 +2282,8 @@ export const monsters = {
     ]
   },
   "Dr. Vortex": {
+    "id": "93d7bb74-2d23-4ccc-a99f-9380afaf738a",
     "name": "Dr. Vortex",
-    "icon": "images/monsters/DrVortex.avif",
     "day": 8,
     "health": 2325,
     "level": 10,
@@ -2317,8 +2317,8 @@ export const monsters = {
     ]
   },
   "Bouncertron": {
+    "id": "a1c3df15-1058-44ff-bee9-0991cfba2068",
     "name": "Bouncertron",
-    "icon": "images/monsters/Bouncertron.avif",
     "day": 8,
     "health": 2325,
     "level": 10,
@@ -2356,8 +2356,8 @@ export const monsters = {
     ]
   },
   "Wandering Shoal": {
+    "id": "a04b33a7-eb29-456a-9a7c-63dd8553b872",
     "name": "Wandering Shoal",
-    "icon": "images/monsters/WanderingShoal.avif",
     "day": 8,
     "health": 2325,
     "level": 10,
@@ -2403,8 +2403,8 @@ export const monsters = {
     ]
   },
   "Burninator Bot": {
+    "id": "3836d71e-c6ea-4ef7-a9c7-ce698001e991",
     "name": "Burninator Bot",
-    "icon": "images/monsters/BurninatorBot.avif",
     "day": 8,
     "health": 2325,
     "level": 10,
@@ -2438,8 +2438,8 @@ export const monsters = {
     ]
   },
   "Dragon": {
+    "id": "d0202706-46dc-4c65-bf87-5e4ab63632ec",
     "name": "Dragon",
-    "icon": "images/monsters/Dragon.avif",
     "day": 8,
     "health": 3675,
     "level": 13,
@@ -2477,8 +2477,8 @@ export const monsters = {
     ]
   },
   "Bloodreef Captain": {
+    "id": "7590dbeb-8087-4464-90f0-96aeee910186",
     "name": "Bloodreef Captain",
-    "icon": "images/monsters/BloodreefCaptain.avif",
     "day": 9,
     "health": 1925,
     "level": 9,
@@ -2516,8 +2516,8 @@ export const monsters = {
     ]
   },
   "Elite Duelist": {
+    "id": "338f3c4b-9238-41d2-a0e0-0d825cded307",
     "name": "Elite Duelist",
-    "icon": "images/monsters/EliteDuelist.avif",
     "day": 9,
     "health": 2325,
     "level": 9,
@@ -2571,8 +2571,8 @@ export const monsters = {
     ]
   },
   "Ferros Khan": {
+    "id": "21a485af-8811-4d38-bccb-be03a2dcca7f",
     "name": "Ferros Khan",
-    "icon": "images/monsters/FerrosKhan.avif",
     "day": 9,
     "health": 2325,
     "level": 10,
@@ -2618,8 +2618,8 @@ export const monsters = {
     ]
   },
   "Yerdan": {
+    "id": "a44c3d18-8968-4956-b3a2-5cbf3b4c12c2",
     "name": "Yerdan",
-    "icon": "images/monsters/Yerdan.avif",
     "day": 9,
     "health": 2325,
     "level": -1,
@@ -2671,8 +2671,8 @@ export const monsters = {
     ]
   },
   "Roaming Isle": {
+    "id": "254b6aca-26a9-4014-86c3-0da827519c73",
     "name": "Roaming Isle",
-    "icon": "images/monsters/RoamingIsle.avif",
     "day": 9,
     "health": 2750,
     "level": 11,
@@ -2726,8 +2726,8 @@ export const monsters = {
     ]
   },
   "Weapons Platform": {
+    "id": "d63f985a-2960-408e-97ea-f023d4afd440",
     "name": "Weapons Platform",
-    "icon": "images/monsters/WeaponsPlatform.avif",
     "day": 9,
     "health": 2750,
     "level": 11,
@@ -2777,8 +2777,8 @@ export const monsters = {
     ]
   },
   "Enclave Revenant": {
+    "id": "fc3dee8e-aef5-41c9-95a8-d91ad54adede",
     "name": "Enclave Revenant",
-    "icon": "images/monsters/EnclaveRevenant.avif",
     "day": 9,
     "health": 3200,
     "level": 12,
@@ -2828,8 +2828,8 @@ export const monsters = {
     ]
   },
   "Death Knight Reaper": {
+    "id": "be75b034-f986-4cdd-b871-5e8258865c29",
     "name": "Death Knight Reaper",
-    "icon": "images/monsters/DeathKnightReaper.avif",
     "day": 9,
     "health": 3675,
     "level": 13,
@@ -2871,8 +2871,8 @@ export const monsters = {
     ]
   },
   "Hulking Experiment": {
+    "id": "492c7f84-3cb2-40bb-8a55-29355143bee2",
     "name": "Hulking Experiment",
-    "icon": "images/monsters/HulkingExperiment.avif",
     "day": 10,
     "health": 2325,
     "level": 10,
@@ -2922,8 +2922,8 @@ export const monsters = {
     ]
   },
   "Boss Harrow": {
+    "id": "4ccdd72f-cfce-4ea6-9bda-caabd5b0fbf8",
     "name": "Boss Harrow",
-    "icon": "images/monsters/BossHarrow.avif",
     "day": 10,
     "health": 2325,
     "level": 10,
@@ -2973,8 +2973,8 @@ export const monsters = {
     ]
   },
   "Master Alchemist": {
+    "id": "a871d83c-fbe0-4b38-b004-6cc598b31239",
     "name": "Master Alchemist",
-    "icon": "images/monsters/MasterAlchemist.avif",
     "day": 10,
     "health": 2325,
     "level": 10,
@@ -3012,8 +3012,8 @@ export const monsters = {
     ]
   },
   "Trash Titan": {
+    "id": "1e1f7b6d-746b-44d5-9906-fff137c75ef1",
     "name": "Trash Titan",
-    "icon": "images/monsters/TrashTitan.avif",
     "day": 10,
     "health": 2750,
     "level": 11,
@@ -3059,8 +3059,8 @@ export const monsters = {
     ]
   },
   "Property Baron": {
+    "id": "265d1068-e90d-49c4-8013-ed2e856ead8f",
     "name": "Property Baron",
-    "icon": "images/monsters/PropertyBaron.avif",
     "day": 10,
     "health": 2500,
     "level": 11,
@@ -3098,8 +3098,8 @@ export const monsters = {
     ]
   },
   "Volkas Enforcer": {
+    "id": "58477f3f-70f1-4000-9ad0-9e0f44b42349",
     "name": "Volkas Enforcer",
-    "icon": "images/monsters/VolkasEnforcer.avif",
     "day": 10,
     "health": 3200,
     "level": 12,
@@ -3145,8 +3145,8 @@ export const monsters = {
     ]
   },
   "Frost Street Champion": {
+    "id": "45de3316-8847-4321-ba1c-83a808bad369",
     "name": "Frost Street Champion",
-    "icon": "images/monsters/FrostStreetChampion.avif",
     "day": 10,
     "health": 3200,
     "level": 12,
@@ -3188,8 +3188,8 @@ export const monsters = {
     ]
   },
   "Void Golem": {
+    "id": "568d3090-6703-4c42-bd65-ba50f883e869",
     "name": "Void Golem",
-    "icon": "images/monsters/VoidGolem.avif",
     "day": 10,
     "health": 3675,
     "level": 12,
@@ -3231,8 +3231,8 @@ export const monsters = {
     ]
   },
   "Veteran Octopus": {
+    "id": "96349563-bfb5-46ef-8dff-dbf1ff0d4196",
     "name": "Veteran Octopus",
-    "icon": "images/monsters/VeteranOctopus.avif",
     "day": 10,
     "health": 8888,
     "level": 13,
@@ -3286,8 +3286,8 @@ export const monsters = {
     ]
   },
   "Awakened District": {
+    "id": "fb2e242e-daf3-4771-bede-21b3adf03739",
     "name": "Awakened District",
-    "icon": "images/monsters/AwakenedDistrict.avif",
     "day": 10,
     "health": 4700,
     "level": 15,
@@ -3325,8 +3325,8 @@ export const monsters = {
     ]
   },
   "Lord Arken": {
+    "id": "8f73d2d6-6071-4464-bb19-8e0783de4df0",
     "name": "Lord Arken",
-    "icon": "images/monsters/LordArken.avif",
     "day": 10,
     "health": 4700,
     "level": 15,
@@ -3364,8 +3364,8 @@ export const monsters = {
     ]
   },
   "Void Colossus": {
+    "id": "776c224d-1e4e-4a20-8516-550b94c05ff1",
     "name": "Void Colossus",
-    "icon": "images/monsters/VoidColossus.avif",
     "day": 10,
     "health": 4700,
     "level": 15,
@@ -3403,8 +3403,8 @@ export const monsters = {
     ]
   },
   "Lord of the Wastes": {
+    "id": "fc59e9b3-88be-450c-b2dc-65d58a33d1d0",
     "name": "Lord of the Wastes",
-    "icon": "images/monsters/LordoftheWastes.avif",
     "day": 10,
     "health": 3675,
     "level": 15,
@@ -3442,8 +3442,8 @@ export const monsters = {
     ]
   },
   "Mr. Moo": {
+    "id": "72411b58-e99a-44a9-a43f-9767896c7508",
     "name": "Mr. Moo",
-    "icon": "images/monsters/MrMoo.avif",
     "day": "event",
     "health": 2325,
     "level": 10,
@@ -3497,8 +3497,8 @@ export const monsters = {
     ]
   },
   "Bounty Hunter": {
+    "id": "0f0b2074-06d7-4aea-a5aa-9e603602215a",
     "name": "Bounty Hunter",
-    "icon": "images/monsters/BountyHunter.avif",
     "day": "event",
     "health": 1550,
     "level": 9,
@@ -3540,8 +3540,8 @@ export const monsters = {
     ]
   },
   "Mimic": {
+    "id": "85420ae1-363b-4e84-8405-cc1a306b00fb",
     "name": "Mimic",
-    "icon": "images/monsters/Mimic.avif",
     "day": "event",
     "health": 2750,
     "level": 11,

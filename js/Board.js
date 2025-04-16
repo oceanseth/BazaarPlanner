@@ -273,7 +273,7 @@ class Board {
             const skillItem = document.createElement('div');
             skillItem.className = 'skill-selector-item';
             skillItem.innerHTML = `
-                <img src="${skill.icon}" alt="${skillName}">
+                <img src="/images/skills/${skill.id}.avif" alt="${skillName}">
                 <span>${skillName}</span>
             `;
             this.skillSelector.querySelector('.skill-selector-body').appendChild(skillItem);
@@ -294,7 +294,7 @@ class Board {
                 if(skill) {
                     skillSelectorTooltip.innerHTML = `
                     <div class='skill-icon ${selectedRarity}' style='position:absolute; top:0px; left:-120px; width: 120px; height: 120px;'>
-                    <img src="${skill.icon}" style='box-shadow: 1px 1px 10px 1px rgba(14,14, 14, 1);'>
+                    <img src="/images/skills/${skill.id}.avif" style='box-shadow: 1px 1px 10px 1px rgba(14,14, 14, 1);'>
                     </div>
                     <h1>${skillName}</h1>
                     <p>${skill.text.map(line => `<span>${line}</span>`).join('')}</p>
@@ -378,7 +378,7 @@ class Board {
     updatePlayerElement() {
         if(!this.playerElement) return;
         if(monsters[this.player?.name]) {
-            this.playerElement.style.backgroundImage = `url(${monsters[this.player?.name].icon})`;
+            this.playerElement.style.backgroundImage = `url(/images/monsters/${monsters[this.player?.name].id}.avif)`;
         } else if(Item.characterTags.includes(this.player?.name)) {
             this.playerElement.style.backgroundImage = `url(images/fromBT/${this.player?.name}.png)`;
         } else if(Item.characterTags.includes(this.player?.hero)) {

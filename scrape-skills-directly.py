@@ -66,10 +66,10 @@ def transform_skill(skill_data):
         all_tooltips.extend(sentences)
 
     return {
+        'id': skill_data['id'],
         'text': all_tooltips,
         'tier': tier_mapping.get(skill_data['startingTier'], 0),  # Default to 0 if tier not found
-        'tags': all_tags,
-        'icon': icon_path
+        'tags': all_tags
     }
 
 def main():

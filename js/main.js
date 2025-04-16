@@ -687,7 +687,7 @@ function searchMonsters(query) {
                 if(document.getElementById('monster-preview-img')==null) {
                     const img = document.createElement('img');
                     img.id = 'monster-preview-img';
-                    img.src = monster.icon;
+                    img.src = '/images/monsters/'+monster.id+'.avif';
                     img.classList.add('monster-preview-icon');
                     document.getElementById('monster-search-container').appendChild(img);
                 }
@@ -704,7 +704,7 @@ function searchMonsters(query) {
             div.appendChild(day);
             
             const img = document.createElement('img');
-            img.src = monster.icon;
+            img.src = '/images/monsters/'+monster.id+'.avif';
             img.classList.add('monster-dropdown-icon');
             div.appendChild(img);
 
