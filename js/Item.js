@@ -3934,8 +3934,8 @@ export class Item {
                 this.log(this.name + " reloaded");
             }
         }
-        //Your other Friends' cooldowns are reduced by ( 10% » 20% » 30% )
-        regex = /^\s*Your (other )?(\w+)s?'?(?: items)?(?: have their cooldowns|cooldowns are)? (reduced|increased) by (\([^)]+\)|\d+%)( second\(?s?\)?)?\.?/i;
+        //Your other Friends' cooldowns are reduced by (10%/20%/30%). from Bill Dozer
+        regex = /^\s*Your (other )?(\w+)s?'?(?: items)?(?: have their cooldowns| cooldowns are)? (reduced|increased) by (\([^)]+\)|\d+%)( second\(?s?\)?)?\./i;
         match = text.match(regex);
         if(match) {
             const other = match[1] ? true : false;
@@ -5009,7 +5009,16 @@ export class Item {
             });
             return () => {};
         }
-
+        //Cleanse half your Burn and Poison
+        regex = /^\s*Cleanse half your Burn and Poison\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                if(this.board.player.burn>0) this.board.player.burn /= 2;
+                if(this.board.player.poison>0) this.board.player.poison /= 2;
+                this.log(this.name + " cleansed half "+this.board.player.name+"'s Burn and Poison");
+            }
+        }
         //Cleanse half your Burn.
         regex = /^\s*Cleanse half your Burn\.?$/i;
         match = text.match(regex);
@@ -5029,16 +5038,7 @@ export class Item {
                 this.log(this.name + " healed for "+healAmount);
             }
         }
-        //Cleanse half your Burn and Poison
-        regex = /^\s*Cleanse half your Burn and Poison\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            return () => {
-                if(this.board.player.burn>0) this.board.player.burn /= 2;
-                if(this.board.player.poison>0) this.board.player.poison /= 2;
-                this.log(this.name + " cleansed half "+this.board.player.name+"'s Burn and Poison");
-            }
-        }
+       
         //reload 2 Ammo
         regex = /^\s*reload (\d+) Ammo/i;
         match = text.match(regex);
@@ -5732,7 +5732,7 @@ export class Item {
                 f2();
             }
         }
-        regex = /^([^,]+)(?:(?: and )|(?:\. ))(.*)$/i;
+        regex = /^([^,]*?)(?:(?: and|\. ))(.*)$/i;
         match = text.match(regex);
         if(match) {
             const f1 = this.getTriggerFunctionFromText(match[1]+".");
