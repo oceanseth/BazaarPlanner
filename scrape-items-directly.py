@@ -14,8 +14,7 @@ def download_image_if_missing(name, type_folder, id=None):
         id: Optional UUID for the card's image
     """
     # Clean filename
-    clean_name = re.sub(r'[ \'\"\(\)\-_\.\&]', '', name)
-    local_path = f"./public/images/{type_folder}/{clean_name}.avif"
+    local_path = f"./public/images/{type_folder}/{id}.avif"
     
     # Check if file exists
     if not os.path.exists(local_path):
@@ -23,11 +22,8 @@ def download_image_if_missing(name, type_folder, id=None):
         os.makedirs(f"./public/images/{type_folder}", exist_ok=True)
         
         # Construct URL using cardId if available, otherwise fall back to old format
-        if id:
-            url = f"https://howbazaar-images.b-cdn.net/images/{type_folder}/{id}.avif"
-        else:
-            url = f"https://www.howbazaar.gg/images/{type_folder}/{clean_name}.avif"
-        
+        url = f"https://howbazaar-images.b-cdn.net/images/{type_folder}/{id}.avif"
+
         try:
             response = requests.get(url)
             response.raise_for_status()
@@ -49,7 +45,6 @@ def process_item(item):
     processed = {
         "id": item.get("id"),
         "name": item["name"],
-        "icon": f"images/items/{re.sub(r'[ \'\"\(\)\-_\.\&]', '', item['name'])}.avif",
         "tier": {"Bronze": 0, "Silver": 1, "Gold": 2, "Diamond": 3, "Legendary": 4}[item["startingTier"]],
         "tags": [],
         "cooldown": None,
