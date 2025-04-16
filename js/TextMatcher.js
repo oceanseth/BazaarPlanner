@@ -656,4 +656,14 @@ TextMatcher.matchers.push({
         return ()=>{};
     },
 });
+TextMatcher.matchers.push({
+    regex: /^(Your \w+(?: items)? have )((?:(?! and ).)*) and (.*)\.$/i,
+    func: (item, match)=>{
+        const f1 = item.getTriggerFunctionFromText(match[1]+match[2]+".");
+        const f2 = item.getTriggerFunctionFromText(match[1]+match[3]+".");
+        f1();
+        f2();
+        return ()=>{};
+    }
+})
 window.TextMatcher = TextMatcher;

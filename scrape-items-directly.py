@@ -5,25 +5,25 @@ import json
 import re
 import os
 
-def download_image_if_missing(name, type_folder):
+def download_image_if_missing(name, type_folder, id=None):
     """
     Downloads the image from howbazaar.gg if it doesn't exist locally
     Args:
         name: Name of the item/monster
         type_folder: 'items' or 'monsters'
+        id: Optional UUID for the card's image
     """
     # Clean filename
-    clean_name = re.sub(r'[ \'\"\(\)\-_\.\&]', '', name)
-    local_path = f"./public/images/{type_folder}/{clean_name}.avif"
+    local_path = f"./public/images/{type_folder}/{id}.avif"
     
     # Check if file exists
     if not os.path.exists(local_path):
         # Create directory if it doesn't exist
         os.makedirs(f"./public/images/{type_folder}", exist_ok=True)
         
-        # Construct URL
-        url = f"https://www.howbazaar.gg/images/{type_folder}/{clean_name}.avif"
-        
+        # Construct URL using cardId if available, otherwise fall back to old format
+        url = f"https://howbazaar-images.b-cdn.net/images/{type_folder}/{id}.avif"
+
         try:
             response = requests.get(url)
             response.raise_for_status()
@@ -43,8 +43,8 @@ def fetch_items():
 def process_item(item):
     # Initialize the processed item structure
     processed = {
+        "id": item.get("id"),
         "name": item["name"],
-        "icon": f"images/items/{re.sub(r'[ \'\"\(\)\-_\.\&]', '', item['name'])}.avif",
         "tier": {"Bronze": 0, "Silver": 1, "Gold": 2, "Diamond": 3, "Legendary": 4}[item["startingTier"]],
         "tags": [],
         "cooldown": None,
@@ -80,8 +80,8 @@ def process_item(item):
     for enchant in item.get("enchantments", []):
         processed["enchants"][enchant["type"]] = enchant["tooltips"][0]
     
-    # Download image if needed
-    download_image_if_missing(item["name"], "items")
+    # Download image if needed, now passing the cardId
+    download_image_if_missing(item["name"], "items", item.get("id"))
     
     return processed
 

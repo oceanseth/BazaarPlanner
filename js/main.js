@@ -391,7 +391,7 @@ window.onload = () => {
 
     document.querySelectorAll('.faq-item').forEach(item => {
         const randomItem = items[Object.keys(items)[Math.floor(Math.random() * Object.keys(items).length)]];
-        item.style.backgroundImage = "url("+randomItem.icon+")";
+        item.style.backgroundImage = "url(/images/items/"+randomItem.id+".avif)";
     });
 }
 
@@ -439,12 +439,12 @@ window.toggleDarkMode = () => {
         // Get the random item
         const randomItem = items[randomItemName];
         
-        if(randomItem && randomItem.icon) {
+        if(randomItem && randomItem.id) {
             // Find inactive background
             const inactiveBackground = Array.from(backgrounds).find(bg => !bg.classList.contains('active'));
             if (inactiveBackground) {
                 // Set new background
-                inactiveBackground.style.backgroundImage = `url(${randomItem.icon})`;
+                inactiveBackground.style.backgroundImage = `url(/images/items/${randomItem.id}.avif)`;
                 // Trigger reflow
                 inactiveBackground.offsetHeight;
                 // Add active class to fade in
@@ -546,9 +546,9 @@ function createListItem(data) {
     if(data.tags) {
         item.setAttribute('data-size', getSizeValue(sizeString));
     }
-    if (data.icon) {
+    if (data.id) {
         const icon = document.createElement('img');
-        icon.src = data.icon;
+        icon.src = '/images/items/'+data.id+'.avif';
         icon.classList.add(sizeString);
         icon.style.pointerEvents = 'none';
         item.appendChild(icon);
@@ -687,7 +687,7 @@ function searchMonsters(query) {
                 if(document.getElementById('monster-preview-img')==null) {
                     const img = document.createElement('img');
                     img.id = 'monster-preview-img';
-                    img.src = monster.icon;
+                    img.src = '/images/monsters/'+monster.id+'.avif';
                     img.classList.add('monster-preview-icon');
                     document.getElementById('monster-search-container').appendChild(img);
                 }
@@ -704,7 +704,7 @@ function searchMonsters(query) {
             div.appendChild(day);
             
             const img = document.createElement('img');
-            img.src = monster.icon;
+            img.src = '/images/monsters/'+monster.id+'.avif';
             img.classList.add('monster-dropdown-icon');
             div.appendChild(img);
 
