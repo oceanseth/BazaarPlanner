@@ -148,7 +148,10 @@
         </div>
         <!-- FAQ Section -->
         <div id="faq" class="section" style="display: none;">
-            <h1>FAQ</h1>
+            <div style="margin: 0 0 auto; text-align: center;">
+            <h1>BazaarPlanner FAQ</h1>
+            <h3>( or <a href="#game-mechanics-faq">jump to Game Mechanics FAQ</a>)</h3>
+        </div>
             <ul class="faq-list">
                 <li class="faq-item">
                     <div class="faq-question">How do I use BazaarPlanner?</div>
@@ -211,6 +214,23 @@
                     </div>
                 </li>
             </ul>
+            <a name="game-mechanics-faq"></a>
+            <h1>Game Mechanics FAQ</h1>
+            <ul>
+                <li class="faq-item">
+                    <div class="faq-question">I was expecting more uses on item X because it was charged 10 times, but it doesn't seem to have gotten all the charge seconds?</div>
+                    <div class="faq-answer">
+                        Charge is funny, lets say you have .5s remaining on your cooldown and you trgger to charge it for 1 seconds 2 times. What will happen is the first charge will give it only .5 seconds, the item will trigger on next server tick (or this server tick if it hasn't been evaluated in priority order yet), and then next server tick it will be charged for another second. 
+                        So depending a bit on RNG of hasting/other charging, you may get less charge on <i>average</i> than you expected. (most likely this is the case for complex boards). 
+                        A great example of this is a 4s gold yoyo which charges for 3s on adjacent item use. If adjacent items are on the same cooldown (4s), you're only getting
+                         1 yoyo trigger total when they both go off, as a 3s charge is thrown away as the item hadn't triggered yet but still had some small amount of cd remaining. But if you upgrade it to diamond and it charges for 4s, then EVERY adjacent item use will end up triggering a yoyo use. The difference between gold and diamond yoyo is sometimes VERY large. Or sometimes feathering the yoyo to reduce it to a point where it will trigger just before the adjacent item which will also trigger it immediately after is the best play. Understanding the breakpoints is a bit tricky at first, but you get the hang of it.
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">Why don't you have more mechanics faqs yet?</div>
+                    <div class="faq-answer">Currently playing last epoch. Will get around to this soon!</div>
+                </li>
+            </ul>            
         </div>
         <!-- About Section -->
         <div id="about" class="section" style="display: none;">
