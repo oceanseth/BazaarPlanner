@@ -172,7 +172,9 @@ function updateUserInfo(user) {
     firebase.database()
         .ref(`users/${user.uid}`)
         .once('value').then(snapshot => {
-            Object.assign(user, snapshot.val());
+            const userData = snapshot.val();
+            if(user.displayName) delete userData.displayName;
+            Object.assign(user, userData);
             if(!snapshot.val()?.isDonor) {
                 user.isDonor = false;
             }
@@ -199,9 +201,6 @@ function updateUserInfo(user) {
                 closePoll();
             }
         });
-        setTimeout(() => {
-            updateUserInfo(user);
-        }, 60000);
 }
 window.updateUserInfo = updateUserInfo;
 function createCalculateBattleButton() {
@@ -790,7 +789,8 @@ window.markUserAsPaid = async (userId, amount) => {
 window.exportBazaarPlannerConfig = () => {
     const configFile = `[Authentication]
 Uid = ${window.user.uid}
-RefreshToken = ${window.user.refreshToken}`;
+RefreshToken = ${window.user.refreshToken}
+DisplayName = ${window.user.displayName}`;
     const blob = new Blob([configFile], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
