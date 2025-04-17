@@ -810,9 +810,9 @@ window.showFollowModal = (board) => {
     modal.innerHTML = `
         <div class="modal-content">
             <h2>Follow Board</h2>
-            <p>Enter the UID of the user to follow:</p>            <br/>
-            <input type="text" id="follow-uid" placeholder="User UID" value="${board.follow||window.user?.uid}"><br/>
-            (defaults to your UID, user search coming soon by display name, for now your friends can give you window.user.uid)
+            <p>Enter the id of the user to follow:</p>            <br/>
+            <input type="text" id="follow-uid" placeholder="User Id" value="${board.follow||window.user?.uid}"><br/>
+            (defaults to your id, user search coming soon by display name. give the default value here to friends for them to follow your board!)
             <button id="follow-button">Follow</button>
         </div>
     `;
