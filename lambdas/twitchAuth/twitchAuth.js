@@ -1,10 +1,9 @@
 const axios = require('axios');
 const firebaseAdmin = require('firebase-admin');
 const AWS = require('aws-sdk');
+const firebaseInitializer = require('../utils/firebaseInit');
 
-// We'll cache our secrets and Admin initialization across invocations
-let isFirebaseInitialized = false;
-let serviceAccount = null;
+// We'll cache our secrets across invocations
 let TWITCH_CLIENT_SECRET = null;
 
 const ssm = new AWS.SSM();
@@ -31,11 +30,9 @@ exports.handler = async (event) => {
     // Add debug logging
     console.log('Starting lambda execution');
     
-    if(!serviceAccount || !twitchClientSecret) {
+    if(!TWITCH_CLIENT_SECRET) {
       console.log('Fetching SSM parameters...');
       try {
-        serviceAccount = JSON.parse(await getSSMParameter("/bazaarplanner/prod/firebase_service_account"));
-        console.log('Got firebase service account');
         TWITCH_CLIENT_SECRET = await getSSMParameter("/bazaarplanner/prod/twitch_client_secret");
         console.log('Got twitch client secret');
       } catch (ssmError) {
@@ -45,19 +42,14 @@ exports.handler = async (event) => {
           body: JSON.stringify({ 
             error: 'Failed to load required secrets',
             details: ssmError.message,
-            code: ssmError.code  // This will help identify if it's a permissions issue
+            code: ssmError.code
           })
         };
       }
     }
 
-    if(!isFirebaseInitialized) {
-      firebaseAdmin.initializeApp({
-        credential: firebaseAdmin.credential.cert(serviceAccount),
-        databaseURL: "https://bazaarplanner-default-rtdb.firebaseio.com"
-      });
-      isFirebaseInitialized = true;
-    }
+    // Initialize Firebase using the shared initializer
+    await firebaseInitializer.initialize();
 
     // 1. Parse the incoming request
     //    If using API Gateway with 'Lambda Proxy Integration', the query params might be:
