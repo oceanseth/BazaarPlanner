@@ -13,7 +13,7 @@ Or, runs locally at http://localhost:3000
 ### Installation and Development
 
 1. Clone the repository:
-    git clone https://github.com/yourusername/BazaarPlanner.git
+    git clone https://github.com/oceanseth/BazaarPlanner.git
     cd BazaarPlanner
 
 2. Install dependencies:

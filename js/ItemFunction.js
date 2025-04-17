@@ -999,22 +999,6 @@ ItemFunction.items.set("Vengeance",(item)=>{
         rightmostItem.gain(rightmostItem.cooldown*(1-cooldownReduction/100)-rightmostItem.cooldown,'cooldown');
     }
 });
-ItemFunction.items.set("Weights",(item)=>{
-    ////Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
-    //your heal items gain (  5  » 10  » 15   ) heal for the fight
-    const amount = getRarityValue("2 >> 4 >> 6 >> 8",item.rarity);
-    const healAmount = getRarityValue("5 >> 10 >> 15",item.rarity);
-    item.triggerFunctions.push(()=>{
-    item.board.items.forEach(i=>{
-        if(i.tags.includes("Weapon")) {
-            i.gain(amount,'damage');
-        }
-        if(i.tags.includes("Heal")) {
-                i.gain(healAmount,'heal');
-            }
-        });
-    });
-});
 
 ItemFunction.items.set("Pet Rock",(item)=>{
     //"Deal ( 8 » 16 » 24 » 32 ) damage.",

@@ -4822,7 +4822,7 @@ export class Item {
          if(match) {
             const tagGaining = Item.getTagFromText(match[1]);
             const whatGaining = match[2].toLowerCase();
-            const tagToMatch = match[3];
+            const tagToMatch = Item.getTagFromText(match[3]);
             const whatToCheck = match[4];
             return () => {                
                 const weakestSomething = this.board.activeItems
