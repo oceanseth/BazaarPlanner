@@ -4536,7 +4536,7 @@ export class Item {
         if(match) {            
             const whatToGain = match[1];
             return () => {
-                this["apply"+whatToGain](this.board.player.regeneration||0);
+                this["apply"+whatToGain](this.board.player.regen||0);
             };
         }
 
