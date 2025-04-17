@@ -2526,18 +2526,18 @@ export class Item {
             conditionalMatches.forEach(conditionalMatch=>{
                 switch(conditionalMatch.toLowerCase()) {
                     case "use an item":
-                        this.board.itemTriggers.set(this.id, triggerFunctionFromText);
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, triggerFunctionFromText);
                         return;
 
                     case "use another item":
-                        this.board.itemTriggers.set(this.id, (item) =>  {                        
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) =>  {                        
                             if(item.id !== this.id) {
                                 triggerFunctionFromText(item);
                             }
                         });
                         return;
                     case "use another tech":
-                        this.board.itemTriggers.set(this.id, (item) =>  {                        
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) =>  {                        
                             if(item.id !== this.id && item.tags.includes("Tech")) {
                                 triggerFunctionFromText(item);
                             }
@@ -2545,7 +2545,7 @@ export class Item {
                         return;
                     case "destroy an item":
                     case "destroy an item during combat":
-                        this.board.player.destroyTriggers.set(this.id, (item) => {
+                        this.board.player.destroyTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             triggerFunctionFromText(item);
                         });
                         return;
@@ -2555,42 +2555,42 @@ export class Item {
                     case "heal":
                         this.board.player.healTriggers.set(this.id, triggerFunctionFromText);
                     case "use a friend":
-                        this.board.itemTriggers.set(this.id, (item) =>  {                        
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) =>  {                        
                             if(item.tags.includes("Friend")) {
                                 triggerFunctionFromText(item);
                             }
                         });
                         return;
                     case "use another friend":
-                        this.board.itemTriggers.set(this.id, (item) =>  {                        
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) =>  {                        
                             if(item.id !== this.id && item.tags.includes("Friend")) {
                                 triggerFunctionFromText(item);
                             }
                         });
                         return;
                     case "use another aquatic item":
-                        this.board.itemTriggers.set(this.id, (item) => {
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.id !== this.id && item.tags.includes("Aquatic")) {
                                 triggerFunctionFromText(item);
                             }
                         });
                         return;
                     case "use another weapon":
-                        this.board.itemTriggers.set(this.id, (item) => {
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.id !== this.id && item.tags.includes("Weapon")) {
                                 triggerFunctionFromText(item);
                             }
                         });
                         return;
                     case "use a weapon":
-                        this.board.itemTriggers.set(this.id, (item) =>  {                        
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) =>  {                        
                             if(item.tags.includes("Weapon")) {
                                 triggerFunctionFromText(item);
                             }
                         });
                         return;            
                     case "use an item with ammo":
-                        this.board.itemTriggers.set(this.id, (item) => {
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.tags.includes("Ammo")) {
                                 triggerFunctionFromText(item);
                             }
@@ -2598,26 +2598,26 @@ export class Item {
                         return;
                     
                     case "use another ammo item":
-                        this.board.itemTriggers.set(this.id, (item) => {
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.id !== this.id && item.tags.includes("Ammo")) {
                                 triggerFunctionFromText(item);
                             }
                         });
                         return;
                     case "crit with an item":
-                        this.board.critTriggers.set(this.id, (item) => {
+                        this.board.critTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                                 triggerFunctionFromText(item);
                         });
                         return;
                     case "crit with another item":
-                        this.board.critTriggers.set(this.id, (item) => {
+                        this.board.critTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.id !== this.id) {
                                 triggerFunctionFromText(item);
                             }
                         });
                         return;
                     case "crit with an adjacent item":
-                        this.board.critTriggers.set(this.id, (item) => {
+                        this.board.critTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.id !== this.id && this.getAdjacentItems().some(i=>i.id==item.id)) {
                                 triggerFunctionFromText(item);
                             }
@@ -2625,7 +2625,7 @@ export class Item {
                         return;
                     case "use another non-weapon item":
                     case "use a non-weapon item":
-                        this.board.itemTriggers.set(this.id, (item) =>  {                        
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) =>  {                        
                             if(item.id !== this.id && !item.tags.includes("Weapon")) {
                                 triggerFunctionFromText(item);
                             }
@@ -2635,7 +2635,7 @@ export class Item {
                         this.adjacentItemTriggers.push(triggerFunctionFromText);
                         return;
                     case "use another weapon or haste":
-                        this.board.itemTriggers.set(this.id, (item) => {
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.id!==this.id&&(item.tags.includes("Weapon"))) {
                                 triggerFunctionFromText(item);
                             }
@@ -2663,7 +2663,7 @@ export class Item {
                         }
                         return;
                     case "use any item to the left of this":
-                        this.board.itemTriggers.set(this.id+"_itemtotheleftuse", (item)=> {
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item)=> {
                             if(item.startIndex < this.startIndex) {
                                 triggerFunctionFromText(item);
                                 if(ifFunction) ifFunction(item);
@@ -2671,7 +2671,7 @@ export class Item {
                         });
                         return;
                     case "use any item to the right of this":
-                        this.board.itemTriggers.set(this.id+"_itemtotherightuse", (item)=> {
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item)=> {
                             if(item.startIndex > this.startIndex) {
                                 triggerFunctionFromText(item);
                                 if(ifFunction) ifFunction(item);
@@ -2730,14 +2730,14 @@ export class Item {
                         );
                         return;
                     case "an adjacent item burns":
-                        this.board.itemTriggers.set(this.id, (item) => {
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.id !== this.id && this.getAdjacentItems().some(i=>i==item)) {
                                 triggerFunctionFromText(item);
                             }
                         });
                         return;
                     case "burn with an item":
-                        this.board.itemTriggers.set(this.id+'-burn_with_an_item', (item) => {
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.tags.includes("Burn")) {
                                 triggerFunctionFromText(item);
                             }
