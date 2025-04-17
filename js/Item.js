@@ -2779,7 +2779,7 @@ export class Item {
                         });
                         return;
                     case "slow":
-                        this.board.slowTriggers.set(this.id,(i,source)=>{
+                        this.board.slowTriggers.set(this.id+"_"+triggerFunctionFromText.text,(i,source)=>{
                             triggerFunctionFromText(source);
                         });
                         return;
