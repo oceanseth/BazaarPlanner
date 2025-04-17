@@ -2142,3 +2142,7 @@ select {
 .requireLogin {
     display:none;
 }
+
+.following-button {
+    border: 1px solid white;
+}
