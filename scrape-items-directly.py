@@ -5,7 +5,7 @@ import json
 import re
 import os
 
-def download_image_if_missing(name, type_folder, id=None):
+def download_image_if_missing(name, type_folder, id):
     """
     Downloads the image from howbazaar.gg if it doesn't exist locally
     Args:
@@ -14,7 +14,8 @@ def download_image_if_missing(name, type_folder, id=None):
         id: Optional UUID for the card's image
     """
     # Clean filename
-    local_path = f"./public/images/{type_folder}/{id}.avif"
+    clean_name = re.sub(r'[ \'\"\(\)\-_\.\&]', '', name)
+    local_path = f"./public/images/{type_folder}/{clean_name}.avif"
     
     # Check if file exists
     if not os.path.exists(local_path):
@@ -43,7 +44,6 @@ def fetch_items():
 def process_item(item):
     # Initialize the processed item structure
     processed = {
-        "id": item.get("id"),
         "name": item["name"],
         "tier": {"Bronze": 0, "Silver": 1, "Gold": 2, "Diamond": 3, "Legendary": 4}[item["startingTier"]],
         "tags": [],

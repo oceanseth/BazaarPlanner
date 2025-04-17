@@ -398,7 +398,9 @@ export class Item {
         this.adjacentItemTriggers.forEach(func => func(item));
         this.board.critPossible=true;
     }
-
+    static cleanName(name) {
+        return name.replace(/[ '"()\-_\.&]/g, '');
+    }
     createElement() {
         const mergedSlot = document.createElement('div');
         mergedSlot.innerHTML = `<div class="trigger-values">
@@ -437,12 +439,11 @@ export class Item {
         mergedSlot.style.width = `${this.size * 80 + this.startIndex*2}px`;
         mergedSlot.style.left = `calc(${this.startIndex * 80 + this.startIndex*2}px)`;
         mergedSlot.setAttribute('data-size', this.size);
-        if (this.id) {
-            const icon = document.createElement('img');
-            icon.src = '/images/items/'+this.id+'.avif';
-            icon.draggable = false;
-            mergedSlot.appendChild(icon);
-        }
+        const icon = document.createElement('img');
+        icon.src = '/images/items/'+Item.cleanName(this.name)+'.avif';
+        icon.draggable = false;
+        mergedSlot.appendChild(icon);
+
 
         // Add event listeners
         mergedSlot.addEventListener('mouseenter', () => {
@@ -493,7 +494,7 @@ export class Item {
         }
         //let rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
         // Create HTML content with structured layout
-        let tooltipContent = `<div class="background-image" style="opacity:0.2;background-image:url('/images/items/${this.id}.avif'); background-size: cover; background-position: center;"></div>
+        let tooltipContent = `<div class="background-image" style="opacity:0.2;background-image:url('/images/items/${Item.cleanName(this.name)}.avif'); background-size: cover; background-position: center;"></div>
             <div class="tooltip-content">
                 <div class="tooltip-tags">
                     ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag.toLowerCase()}">${tag}</span>`).join('')}
