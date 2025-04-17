@@ -798,3 +798,35 @@ DisplayName = ${window.user.displayName}`;
     a.download = 'BazaarPlanner.config';
     a.click();
 }
+window.showFollowModal = (board) => {
+    if(board.follow) {
+        board.follow = null;
+        document.querySelector('#followBtn-'+board.boardId).classList.remove('following-button');
+        document.querySelector('#followBtn-'+board.boardId).innerHTML = 'Follow';
+        return;
+    }
+    const modal = document.createElement('div');
+    modal.className = 'editor';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <h2>Follow Board</h2>
+            <p>Enter the UID of the user to follow:</p>            <br/>
+            <input type="text" id="follow-uid" placeholder="User UID" value="${board.follow||window.user?.uid}"><br/>
+            (defaults to your UID, user search coming soon by display name, for now your friends can give you window.user.uid)
+            <button id="follow-button">Follow</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    const followButton = modal.querySelector('#follow-button');
+    followButton.onclick = () => {
+        const uid = document.getElementById('follow-uid').value;
+        modal.style.display = 'none';
+        board.follow = uid;
+        const followBtn = document.querySelector('#followBtn-'+board.boardId);
+        followBtn.classList.add('following-button');
+        followBtn.innerHTML = 'Unfollow';
+        modal.remove();
+    };
+}
+
+

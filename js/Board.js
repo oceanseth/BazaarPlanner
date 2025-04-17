@@ -89,7 +89,9 @@ class Board {
                 }
             });
         } else {
-            firebase.database().ref('users/'+value+"/currentrun").off();
+            firebase.database().ref('users/'+this._followingCurrentRunId+"/currentrun").off();
+            this.importElement.innerHTML = "";
+            this._followingCurrentRunId = null;
         }
     }
     get follow() {

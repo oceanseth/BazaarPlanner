@@ -18,27 +18,31 @@ provider:
 
 package:
   patterns:
-    - 'utils/**'
-    - 'advancePuzzle/**'
-    - 'calcWinRates/**'
-    - 'twitchAuth/**'
-    - '../js/**'
+    - '!./**'
+    - 'package.json'
+    - 'package-lock.json'
+    - 'node_modules/**'
+    - 'utils/**/*.js'
+    - 'advancePuzzle/*.js'
+    - 'calcWinRates/*.js'
+    - 'twitchAuth/*.js'
+    - '../js/**/*.js'
 
 functions:
   advancePuzzle:
-    handler: advancePuzzle.handler
+    handler: advancePuzzle/advancePuzzle.handler
     timeout: 29
     memorySize: 1024
     events:
       - schedule: cron(0 0 * * ? *) # Runs at midnight UTC every day
   calcWinRates:
-    handler: calcWinRates.handler
+    handler: calcWinRates/calcWinRates.handler
     timeout: 29
     memorySize: 1024
     events:
       - schedule: cron(0 0 * * ? *) # Runs at midnight UTC every day
   twitchAuth:
-      handler: twitchAuth.handler
+      handler: twitchAuth/twitchAuth.handler
       timeout: 29
       memorySize: 1024
       events:
