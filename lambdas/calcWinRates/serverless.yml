@@ -1,4 +1,4 @@
-service: advancePuzzle
+service: calcWinRates
 frameworkVersion: '4'
 
 provider:
@@ -16,8 +16,8 @@ provider:
             - arn:aws:ssm:${aws:region}:${aws:accountId}:parameter/bazaarplanner/prod/firebase_service_account
 
 functions:
-  advancePuzzle:
-    handler: advancePuzzle.handler
+  calcWinRates:
+    handler: calcWinRates.handler
     timeout: 29
     memorySize: 1024
     events:

@@ -1,5 +1,11 @@
 {
   "rules": {
+    "usernames": {
+      "$displayName": {
+        ".read": "true",
+        ".write": "auth != null && data.parent().parent().child('users').child(auth.uid).child('displayName').val() === data.val()"
+      }
+    },
     "users": {
       "$uid": {
         ".read": "true",

@@ -26,7 +26,7 @@ export class Run {
                     ${this.encounters.map((e,i)=>`<option style="background-color: ${e.v=="0"?"#aa4444":"#44aa44"};" value="${i}">${e.v=="0"?"Loss":"Win"} - ${e.name}</option>`).join('')}
                     </select> <button id="load-encounter-in-sim-button">Load in Sim</button>
                     <div style="display:flex;flex-direction:row;margin-bottom:50px;">
-                    <p>${this.day} Days with ${this.wins} Wins and ${this.losses} Losses</p>                
+                    <p>${this.day} Days with ${this.wins} Wins and ${this.losses} Losses</p>
                     </div>
                     <div id="runBoard-${this.id}" class="board"></div>`;
                 this.element.querySelector('#encounter-selector').onchange = (e) => {

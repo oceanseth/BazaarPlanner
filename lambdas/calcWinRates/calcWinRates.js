@@ -1,5 +1,5 @@
 /*
-This lambda function is used to advance the current daily puzzle displayed on the site by one each day.
+This lambda function is used to calculate all the win rates for runs that have not yet been calculated.
 It is scheduled to run every day at midnight UTC.
 */
 
