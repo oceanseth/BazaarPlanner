@@ -35,11 +35,12 @@ def transform_skill(skill_data):
     icon_path = f"images/skills/{skill_data['id']}.avif"
     
     # Check if image exists locally and download if it doesn't
-    local_path = f"./public/{icon_path}"
+    clean_name = re.sub(r'[ \'\"\(\)\-_\.\&]', '', skill_data['name'])
+    local_path = f"./public/images/items/{clean_name}.avif"
     if not os.path.exists(local_path):
         print(f"Downloading missing icon: {icon_path}")
         if download_image(icon_path, local_path):
-            print(f"Successfully downloaded: {icon_path}")
+            print(f"Successfully downloaded: {local_path}")
         else:
             print(f"Failed to download: {icon_path}")
 
@@ -66,7 +67,7 @@ def transform_skill(skill_data):
         all_tooltips.extend(sentences)
 
     return {
-        'id': skill_data['id'],
+        #'id': skill_data['id'],
         'text': all_tooltips,
         'tier': tier_mapping.get(skill_data['startingTier'], 0),  # Default to 0 if tier not found
         'tags': all_tags

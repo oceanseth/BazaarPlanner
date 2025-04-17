@@ -31,7 +31,7 @@ export class Skill {
         
 
         const imgElement = document.createElement('img');
-        imgElement.src = '/images/skills/'+skillData.id+'.avif';
+        imgElement.src = '/images/items/'+Item.cleanName(this.name)+'.avif';
         skillElement.appendChild(imgElement);
         
         this.element = skillElement;

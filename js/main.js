@@ -390,7 +390,7 @@ window.onload = () => {
 
     document.querySelectorAll('.faq-item').forEach(item => {
         const randomItem = items[Object.keys(items)[Math.floor(Math.random() * Object.keys(items).length)]];
-        item.style.backgroundImage = "url(/images/items/"+randomItem.id+".avif)";
+        item.style.backgroundImage = "url(/images/items/"+Item.cleanName(randomItem.name)+".avif)";
     });
 }
 
@@ -443,7 +443,7 @@ window.toggleDarkMode = () => {
             const inactiveBackground = Array.from(backgrounds).find(bg => !bg.classList.contains('active'));
             if (inactiveBackground) {
                 // Set new background
-                inactiveBackground.style.backgroundImage = `url(/images/items/${randomItem.id}.avif)`;
+                inactiveBackground.style.backgroundImage = `url(/images/items/${Item.cleanName(randomItem.name)}.avif)`;
                 // Trigger reflow
                 inactiveBackground.offsetHeight;
                 // Add active class to fade in
@@ -545,13 +545,12 @@ function createListItem(data) {
     if(data.tags) {
         item.setAttribute('data-size', getSizeValue(sizeString));
     }
-    if (data.id) {
-        const icon = document.createElement('img');
-        icon.src = '/images/items/'+data.id+'.avif';
-        icon.classList.add(sizeString);
-        icon.style.pointerEvents = 'none';
-        item.appendChild(icon);
-    }
+    const icon = document.createElement('img');
+    icon.src = '/images/items/'+Item.cleanName(data.name)+'.avif';
+    icon.classList.add(sizeString);
+    icon.style.pointerEvents = 'none';
+    item.appendChild(icon);
+
     
     const text = document.createElement('span');
     text.textContent = data.name;
