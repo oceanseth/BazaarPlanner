@@ -70,16 +70,23 @@ class Board {
         }
     }
     _followingCurrentRunId = null;
+    unfollow() {
+        firebase.database().ref('users/'+this._follow+"/currentrun").off();
+        firebase.database().ref('users/'+this._follow+"/runs/"+this._followingCurrentRunId).off();
+        this.importElement.innerHTML = "";
+        this._followingCurrentRunId = null;
+    }
     set follow(value) {
+        if(value==this._follow) return;
         //only follow ourselves for now
-        this._follow = value;
         if(value) {
+            this.unfollow();
             firebase.database().ref('users/'+value+"/currentrun").on('value', snapshot => {
                 const runValue = snapshot.val();
                 this.loadRun(runValue);
                 if(this._followingCurrentRunId!==runValue.id) {
                     if(this._followingCurrentRunId) {
-                        firebase.database().ref('users/'+user.uid+"/runs/"+this._followingCurrentRunId).off();
+                        firebase.database().ref('users/'+value+"/runs/"+this._followingCurrentRunId).off();
                     }
                     this._followingCurrentRunId = runValue.id;
                         
@@ -89,10 +96,9 @@ class Board {
                 }
             });
         } else {
-            firebase.database().ref('users/'+this._followingCurrentRunId+"/currentrun").off();
-            this.importElement.innerHTML = "";
-            this._followingCurrentRunId = null;
+           this.unfollow();
         }
+        this._follow = value;
     }
     get follow() {
         return this._follow;
