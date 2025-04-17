@@ -22,9 +22,9 @@ export class Run {
                 this.element.id = `run-${this.id}`;
                 this.element.innerHTML = `
                     <h3>Run from ${this.dateString}</h3>
-                    <select id="encounter-selector"><option value="null" disabled selected>${this.encounters.length} Encounters</option>
+                    <select id="encounter-selector"><option value="" disabled selected>${this.encounters.length} Encounters</option>
                     ${this.encounters.map((e,i)=>`<option style="background-color: ${e.v=="0"?"#aa4444":"#44aa44"};" value="${i}">${e.v=="0"?"Loss":"Win"} - ${e.name}</option>`).join('')}
-                    </select>
+                    </select> <button id="load-encounter-in-sim-button">Load in Sim</button>
                     <div style="display:flex;flex-direction:row;margin-bottom:50px;">
                     <p>${this.day} Days with ${this.wins} Wins and ${this.losses} Losses</p>                
                     </div>
@@ -32,6 +32,12 @@ export class Run {
                 this.element.querySelector('#encounter-selector').onchange = (e) => {
                     this.loadEncounter(this.encounters[e.target.value]);
                 };                
+                this.element.querySelector('#load-encounter-in-sim-button').onclick = (e) => {
+                    let encounterIndex = this.element.querySelector('#encounter-selector').value;
+                    if(!encounterIndex) encounterIndex = this.lastEncounter;
+                    window.location.href = "#"+this.encounters[encounterIndex].d;
+                    showSection('simulator');
+                };
             });
     }    
     //assume that the div with id runBoard-${this.id} exists
