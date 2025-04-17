@@ -1575,8 +1575,8 @@ background-color: rgba(255, 0, 0, 0.2);
 .import-element {
     position: absolute;
     bottom: -50px;
-    right: 220px;
-    width: 180px;
+    right: 230px;
+    width: 150px;
     overflow: hidden;
 }
 .import-element select {
