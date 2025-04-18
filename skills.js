@@ -1269,7 +1269,7 @@ export const skills = {
   },
   "Flurry of Blows": {
     "text": [
-      "The first (4/8) times you use a Weapon each fight, charge 1 item(s) 1 second(s)."
+      "The first (4/8) times you use a Weapon each fight, Charge another item 1 second(s)."
     ],
     "tier": 2,
     "tags": [

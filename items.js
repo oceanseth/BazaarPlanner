@@ -2518,12 +2518,12 @@ export const items = {
       "Tool",
       "Burn"
     ],
-    "cooldown": 6,
+    "cooldown": 7,
     "ammo": null,
     "text": [
       "Burn 6.",
-      "When you transform a Reagent, this permanently gains (+4/+6/+8/+10) Burn.",
-      "At the start of each day, get a Chunk of Lead."
+      "When you transform a Reagent, this permanently gains (+2/+4/+6/+8) Burn.",
+      "At the start of each day, spend 3 Gold to get a Chunk of Lead."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -9784,7 +9784,7 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you win a fight, this gains 2 value.",
+      "When you win a fight, this gains (3/6/9) value.",
       "Your weapons have + damage equal to this item's value."
     ],
     "enchants": {
@@ -10614,13 +10614,12 @@ export const items = {
       "Value",
       "EconomyReference"
     ],
-    "cooldown": 6,
+    "cooldown": 4,
     "ammo": null,
     "text": [
       "Heal equal to this item's Value.",
       "When you Level Up, get a Spare Change.",
-      "When you sell a Spare Change, this gains (+1/+2/+3/+4) Value.",
-      "This item's cooldown is reduced by 1% for every value it has."
+      "When you sell a Spare Change, this gains (+2/+3/+4/+5) Value."
     ],
     "enchants": {
       "Golden": "Your Spare Change(s) have +1 value.",
@@ -11962,7 +11961,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Gain 1 Regeneration for the fight.",
-      "When you transform a Reagent, this permanently gains (+2/+4/+6/+8) Regeneration.",
+      "When you transform a Reagent, this permanently gains (+1/+2/+3/+4) Regeneration.",
       "When you buy this, get a Catalyst."
     ],
     "enchants": {
@@ -13664,8 +13663,8 @@ export const items = {
     "ammo": null,
     "text": [
       "Poison 6.",
-      "When you transform a Reagent, this permanently gains (+4/+6/+8/+10) Poison.",
-      "At the start of each day, get a Chunk of Lead."
+      "When you transform a Reagent, this permanently gains (+2/+4/+6/+8) Poison.",
+      "At the start of each day, spend 3 Gold to get a Chunk of Lead."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -15673,19 +15672,19 @@ export const items = {
     "ammo": null,
     "text": [
       "Slow 1 item(s) for (1/2/3/4) second(s).",
-      "When you Slow, Haste the item to the left of this for (1/2/3/4) second(s)."
+      "When this or an adjacent item Slows, Haste the item to the left of this for (1/2/3/4) second(s)."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
-      "Icy": "When you Slow, Freeze 1 small item for 0.5 second(s).",
+      "Icy": "When this or an adjacent item Slows, Freeze 1 small item for 0.5 second(s).",
       "Turbo": "This has double Haste duration.",
-      "Shielded": "When you Slow, Shield 10.",
-      "Restorative": "When you Slow, Heal 15.",
-      "Toxic": "When you Slow, Poison 1.",
-      "Fiery": "When you Slow, Burn 1.",
+      "Shielded": "When this or an adjacent item Slows, Shield 10.",
+      "Restorative": "When this or an adjacent item Slows, Heal 15.",
+      "Toxic": "When this or an adjacent item Slows, Poison 1.",
+      "Fiery": "When this or an adjacent item Slows, Burn 1.",
       "Shiny": "This has +1 Multicast.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
-      "Obsidian": "When you Slow, Deal 10 Damage."
+      "Obsidian": "When this or an adjacent item Slows, Deal 10 Damage."
     },
     "priorities": [
       1,
