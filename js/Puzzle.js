@@ -110,8 +110,8 @@ export class Puzzle {
                 if(data.type=='buildboard_npc') {
                     Puzzle.bottomPlayer.board.options.editable = true;
                 }
-                data.d = Board.transformBoardIds(data.d,{'t':'puzzle-top','b':'puzzle-bottom'});
-                loadFromUrl(data.d);   
+                
+                loadFromUrl(Board.transformBoardIds(data.d,{'t':'puzzle-top','b':'puzzle-bottom'}));   
                 
                 
             } else {
