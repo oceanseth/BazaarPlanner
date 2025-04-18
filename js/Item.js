@@ -2495,7 +2495,7 @@ export class Item {
                     tagToMatch2 = null;
                 }
                 const adjacentItems = this.getAdjacentItems();
-                this.board.itemTriggers.set(this.id, (item) => {
+                this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                     if(adjacentItems.some(i=>i.id==item.id)) {
                         if(!tagToMatch2) {
                             triggerFunctionFromText(item);
