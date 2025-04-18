@@ -49,6 +49,7 @@ export class Run {
             Board.proxyTopPlayer.hostileTarget = Board.proxyBottomPlayer;
             Board.proxyBottomPlayer.hostileTarget = Board.proxyTopPlayer;
             Board.proxyBattle = new Battle([Board.proxyTopPlayer,Board.proxyBottomPlayer]);
+            new Board('runBoard-proxy', Board.proxyTopPlayer,{editable:false});
         }
         this.boardStateStringBottomBoardOnly = Board.transformBoardIds(encounter.d, {'t':null, 'b':'runBoard-'+this.id});
         this.board = new Board(`runBoard-${this.id}`, Board.proxyBottomPlayer,{editable:false});
