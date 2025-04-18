@@ -3887,7 +3887,7 @@ export const items = {
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
-      "Toxic": "Poison equal to 10% 0f this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's Damage.",
       "Fiery": "Burn equal to 10% of this item's Damage.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
