@@ -3727,7 +3727,20 @@ export class Item {
             });
             return () => {};
         }
+        //When this or an adjacent item Slows, ...
+        regex = /^\s*When this or an adjacent item Slows, (.*)?/i;
+        match = text.match(regex);
+        if(match) {
+            const f = this.getTriggerFunctionFromText(match[1]);
+            this.board.slowTriggers.set(this.id,(item, source)=>{
+                if(source.id==this.id||this.getAdjacentItems().some(i=>i.id==source.id)) {
+                    f(this);
+                }
+            });
+            return () => {};
+        }
         
+
 
         //remove Freeze and Slow from your items and Cleanse half your Burn and Poison.
         regex = /^\s*remove Freeze and Slow from your items and Cleanse half your Burn and Poison\.?/i;
@@ -4688,7 +4701,7 @@ export class Item {
         }
 
         //Freeze 1 small? item for ( 1 » 2 ) second(s)
-        regex = /^\s*Freeze (?:(\([^)]+\)|\d+)|an|a) ([^\s]+)?(?: or ([^\s]+))?\s*item\(?s?\)?\s+(?:with a cooldown of (\d+) seconds or less )?(?:for )?(\([^)]+\)|\d+)\s+second\(?s?\)?\.?/i;
+        regex = /^\s*Freeze (?:(\([^)]+\)|\d+)|an|a) ([^\s]+)?(?: or ([^\s]+))?\s*item\(?s?\)?\s+(?:with a cooldown of (\d+) seconds or less )?(?:for )?(\([^)]+\)|[\d\.]+)\s+second\(?s?\)?\.?/i;
         match = text.match(regex);        
         if(match) {
             const seconds = getRarityValue(match[5], this.rarity);

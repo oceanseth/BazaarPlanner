@@ -583,12 +583,13 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Charge another Tech item (1/2) second(s). from Lens
-    regex: /^Charge another ([^\s]+) item (\([^)]+\)|\d+) second\(?s\)?\.?$/i,
+    //Charge another item 1 second(s). from Flurry of Blows
+    regex: /^Charge another( [^\s]+)? item (\([^)]+\)|\d+) second\(?s\)?\.?$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);        
-        item.charge = getRarityValue(match[2], item.rarity)*1000;
+        item.charge = getRarityValue(match[2], item.rarity);
         return ()=>{
-            const target = item.pickRandom(item.board.activeItems.filter(i=>i.tags.includes(tag)));
+            const target = item.pickRandom(item.board.activeItems.filter(i=>i.id!=item.id&&(tag==null||i.tags.includes(tag))));
             if(target) {
                 item.applyChargeTo(target);
             }
