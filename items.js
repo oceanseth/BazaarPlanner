@@ -11272,7 +11272,7 @@ export const items = {
     "text": [
       "Deal 200 damage.",
       "Freeze 1 item for (1/2) second(s).",
-      "When you freeze, charge this 1 second this gains (100/200) damage for the fight."
+      "When you freeze, charge this 1 second and this gains (100/200) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
