@@ -721,10 +721,10 @@ export class Item {
         }
         this.effectiveBattleTime += effectiveTimeDiff;
         // Update progress and check for triggers
-        const progress = (this.effectiveBattleTime % (this.cooldown + this.cooldown/10)) / this.cooldown * this.board.player.battle.battleIntervalSpeed;
+        const progress = (this.effectiveBattleTime % (this.cooldown)) / this.cooldown * this.board.player.battle.battleIntervalSpeed;
         this.updateProgressBar(progress);
 
-        const newTriggers = Math.floor((this.effectiveBattleTime -(this.numTriggers*this.cooldown/10))/ this.cooldown);
+        const newTriggers = Math.floor((this.effectiveBattleTime -(this.numTriggers))/ this.cooldown);
         if (newTriggers > this.numTriggers && (!this.maxAmmo || this.ammo>0)) {
             if(this.maxAmmo) this.ammo--;
             if(this.multicast>0) {

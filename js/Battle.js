@@ -1,7 +1,7 @@
 import { Board } from './Board.js';
 export class Battle {
     static id=0;
-    static sandstormStartTime = 32000;
+    static sandstormStartTime = 35000;
     constructor(players,battleOverFunction,combatLogElement=null,battleIntervalSpeed=100,battleSeed=null,logging=true) { 
         this.id = Battle.id++;
         this.players = players;
