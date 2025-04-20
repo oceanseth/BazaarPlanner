@@ -234,7 +234,7 @@ export function loadFromUrl(hash) {
         };
 
         refreshBoards();
-        let itemsToEvaluate = [...topPlayer.board.items,...bottomPlayer.board.items];
+        let itemsToEvaluate = [...boardsCleared.values()].flatMap(board=>board.items);
         
         itemsToEvaluate.forEach(item=>{
             if(item.cooldownFinal != undefined) {  

@@ -51,8 +51,13 @@ export class Run {
             Board.proxyBattle = new Battle([Board.proxyTopPlayer,Board.proxyBottomPlayer]);
             new Board('runBoard-proxy', Board.proxyTopPlayer,{editable:false});
         }
-        this.boardStateStringBottomBoardOnly = Board.transformBoardIds(encounter.d, {'t':null, 'b':'runBoard-'+this.id});
+        if(this.board) {
+            Board.boards.delete(this.board.boardId);            
+        }
         this.board = new Board(`runBoard-${this.id}`, Board.proxyBottomPlayer,{editable:false});
+        this.boardStateStringBottomBoardOnly = Board.transformBoardIds(encounter.d, {'t':null, 'b':'runBoard-'+this.id});
         loadFromUrl(this.boardStateStringBottomBoardOnly);
+        this.board.reset();
+        this.board.setup();
     }
 } 
