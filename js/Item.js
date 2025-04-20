@@ -783,9 +783,8 @@ export class Item {
             " deals "+ damage+" damage to " +
             target.name);            
         if(this.lifesteal >0) {
-            //let oldHealth = this.board.player.health;
-            this.applyHeal(damage);
-            //this.log(this.name + " lifesteals " + (this.board.player.health-oldHealth) + " health");
+            this.board.player.heal(damage,this);
+            this.log(this.name + " lifesteals " + damage + " health");
         }
         if(doesCrit) {
             this.board.itemDidCrit(this);
