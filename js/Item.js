@@ -5453,6 +5453,9 @@ export class Item {
                        this.applyFreezeTo(item,freezeAmount);
                     }
                 });
+                this.board.player.hostileTarget.board.items.forEach(item => {
+                       this.applyFreezeTo(item,freezeAmount);
+                });
             }
         }
 
