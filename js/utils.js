@@ -246,6 +246,10 @@ export function loadFromUrl(hash) {
                 item.startItemData.value = (item.startItemData.value || 0) + (item.valueFinal - item.value);
                 delete item.valueFinal;
             }
+            if(item.ammoFinal != undefined) {
+                item.startItemData.ammo = (item.startItemData.ammo || 0) + (item.ammoFinal - item.ammo);
+                delete item.ammoFinal;
+            }
         });
         refreshBoards();
         
