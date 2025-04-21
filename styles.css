@@ -1369,6 +1369,7 @@ font.Slow:before {
 .Restorative:before,
 .Fiery:before,
 .Shiny:before,
+.Obsidian:before,
 .Deadly:before {
     position: absolute;
     top: 0;
@@ -1394,7 +1395,9 @@ background-color: rgba(0, 0, 255, 0.2);
 background-color: rgba(0, 255, 0, 0.2);
 }
 .Shielded:before {
-background-color: rgba(235, 235, 39, 0.4);
+    background: url('/images/enchants/Shielded.webp') no-repeat;
+    background-size: 100% 100%;
+    opacity: 0.3;  
 }
 .Restorative:before {
 background-color: rgba(0, 255, 0, 0.2);
@@ -1407,6 +1410,11 @@ background-color: rgba(255, 255, 255, 0.2);
 }
 .Deadly:before {
 background-color: rgba(255, 0, 0, 0.2);
+}
+.Obsidian:before {
+background: url('/images/enchants/Obsidian.gif') no-repeat;
+background-size: 100% 100%;
+opacity: 0.3;  
 }
 .gold-element {
     left: 10px;
