@@ -419,126 +419,6 @@ class Board {
         this.incomeElement.textContent = "+" +this.player?.income;
     }
     
-    updateImportElement() {
-        if(!this.importedData) {return;}
-        let encounterIndex=-1;
-        this.importElement.innerHTML = `
-            <select id="import-select">
-                ${this.importedData.encounters.map( e=> {
-                    encounterIndex++;
-                    return `
-                    <option value="${encounterIndex}-player">Day ${e.day} Player Board</option>
-                    <option value="${encounterIndex}-opponent">Day ${e.day}-${e.opponent.name}</option>
-                    `;
-
-                }).join('')}
-
-            </select>
-        `;
-        this.importElement.querySelector('#import-select').onchange = (e) => {      
-            const encounterIndex = parseInt(e.target.value.split('-')[0]);
-            const isPlayerBoard = e.target.value.split('-')[1] == 'player';
-            const encounter = this.importedData.encounters[encounterIndex];
-            this.importFromDayData(isPlayerBoard?encounter.player:encounter.opponent);
-            return true;
-        }
-
-    }
-    importFromDayData(data,isPlayerBoard) {
-        window.isLoadingFromUrl = true;
-        if(data.error) {
-            alert(data.error);
-        } else {
-            this.player.startPlayerData = {};
-            this.player.startPlayerData.gold = data.gold;
-            this.player.startPlayerData.level = data.level;
-            this.player.startPlayerData.name = data.heroName || data.name;
-            this.player.startPlayerData.maxHealth = data.maxHealth;
-            this.player.startPlayerData.health = data.maxHealth;
-            this.clear();
-            let currentIndex=0;
-
-
-            data.hand.forEach(item => {
-                let itemData = structuredClone(items[item.name]);
-                if(!itemData) {
-                    console.log("Item not found: " + item.name);
-                    return;
-                }
-
-                itemData.rarity = ["Bronze","Silver","Gold","Diamond","Legendary"][parseInt(item.tier)];
-                let bazaartrackerEnchantList = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny', 'Tiny', 'Toxic', 'Turbo' ];
-                if(item.enchantment) {
-                    itemData.enchant = bazaartrackerEnchantList[parseInt(item.enchantment)];
-                }
-                let newItem = new Item(itemData, this);
-                //this.addItem(newItem);
-                item.itemAdded = newItem;
-
-                newItem.setIndex(currentIndex);           
-                currentIndex += newItem.size;
-            });
-            data.skills.forEach(skill => {
-                this.addSkill(skill.name,{rarity:Item.rarityLevels[parseInt(skill.tier)]});
-            });
-            this.player.reset();
-            this.player.setup();
-            data.hand.forEach(item => {
-                if(item.attributes.DamageAmount) {
-                    item.itemAdded.startItemData.damage = parseInt(item.attributes.DamageAmount) - item.itemAdded.damage;
-                }
-                if(item.attributes.Cooldown) {
-                    item.itemAdded.startItemData.cooldown += item.attributes.Cooldown/1000 - item.itemAdded.cooldown/1000; 
-
-                }
-                if(item.attributes.CritChance) {
-                    item.itemAdded.startItemData.crit = parseInt(item.attributes.CritChance) - item.itemAdded.crit;
-                }               
-                if(item.attributes.HealAmount) {
-                    item.itemAdded.startItemData.heal = parseInt(item.attributes.HealAmount) - item.itemAdded.heal;
-                }
-                if(item.attributes.ShieldApplyAmount) {
-                    item.itemAdded.startItemData.shield = parseInt(item.attributes.ShieldApplyAmount) - item.itemAdded.shield;
-                }
-                delete item.itemAdded;           
-            });
-        }
-
-        
-        this.player.reset();
-        this.player.setup();
-        window.isLoadingFromUrl = false;
-        if(this.options.editable) updateUrlState();
-    }
-    importFromBazaarTracker() {        
-        if(!window.isDoner) {
-            alert("This feature is only available for doners or kickstarter backers");
-            return;
-        }
-
-        let runId = prompt("Enter the bazaar tracker run ID:");
-        if(runId) {
-            if(runId.indexOf("=")!=-1) {
-                runId = runId.split("=")[1];
-            }
-            console.log("Importing from run ID: " + runId);
-            fetch(`https://www.bazaarplanner.com/import?runId=${runId}`)
-                .then(response => response.json())
-                .then(data => {
-                    this.importedData = data;
-                    this.updateImportElement();
-                    this.importFromDayData(data);                    
-                })
-                .finally(() => {
-                    window.isLoadingFromUrl = false;
-                })
-
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-
-        }    
-    }
     
     clone(newPlayer) {
         const clone = new Board("cloned-"+this.boardId,newPlayer);
@@ -756,13 +636,8 @@ class Board {
                     // Check if there's any overlap between the existing item and the slot we're checking
                     const itemEnd = slotStart + slotSize - 1;
                     if (i >= slotStart && i <= itemEnd) { //we found the item that overlaps with the new item
-                        //check if we can push the item to the left
                         const openSpacesToTheLeft = this.getOpenSpacesToTheLeft(someItem,foundItem);
-                        //check if we can push the item to the right
-                        const openSpacesToTheRight =this.getOpenSpacesToTheRight(someItem,foundItem);
-                    //    delayedLog("Open spaces to the right: " + openSpacesToTheRight,'openSpacesToTheRight');
-                    //    delayedLog("Open spaces to the left: " + openSpacesToTheLeft,'openSpacesToTheLeft');
-                        
+                        const openSpacesToTheRight =this.getOpenSpacesToTheRight(someItem,foundItem);                        
 
                         //how much is the left side of the dragging item over the right side of someItem
                         const rightOverlap = someItem.startIndex+someItem.size - startIndex;
@@ -772,29 +647,23 @@ class Board {
                         if(rightOverlap<leftOverlap && openSpacesToTheLeft>=rightOverlap) {
                             //we can push the item to the left) {
                                 this.shiftItemsToTheLeft(someItem,rightOverlap,foundItem);
-                                //console.log("Shifted item to the left: old startindex: "+foundItem.startIndex+" new startindex: "+startIndex-(rightOverlap-1));
                                if(foundItem) foundItem.startIndex=startIndex-(rightOverlap-foundItem.size);
                                 return true;
                         } else {
                             //we can push the item to the right
                             if(openSpacesToTheRight>=draggingElementSize + (startIndex-someItem.startIndex)) {
                                 this.shiftItemsToTheRight(someItem, leftOverlap,foundItem);
-                               // console.log("Shifted item to the right: old startindex: "+foundItem.startIndex+" new startindex: "+startIndex-(leftOverlap-1));
                                 if(foundItem) foundItem.startIndex=startIndex-(leftOverlap-foundItem.size);
                                 return true;
                             }
                         }
-
                         if(openSpacesToTheLeft>=rightOverlap) {
                             this.shiftItemsToTheLeft(someItem, rightOverlap,foundItem);
-                            //console.log("Shifted item to the left: old startindex: "+(""+foundItem.startIndex)+" new startindex: "+startIndex);
                             if(foundItem) foundItem.startIndex=startIndex;
                             return true;
-                        }
-  
+                        }  
                         if(openSpacesToTheRight>=leftOverlap) {
                             this.shiftItemsToTheRight(someItem,rightOverlap,foundItem);
-                            //console.log("Shifted item to the right: old startindex: "+foundItem.startIndex+" new startindex: "+startIndex);
                             if(foundItem) foundItem.startIndex=startIndex;
                             return true;
                         }

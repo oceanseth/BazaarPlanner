@@ -667,4 +667,17 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 })
+//Your friends gain +10% Crit Chance for the fight.
+TextMatcher.matchers.push({
+    regex: /^Your (\w+)s?(?: items?) gain (\([^)]+\)|\+?\d+)%? Crit Chance for the fight\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const amount = getRarityValue(match[2], item.rarity);        
+        return ()=>{
+            item.board.activeItems.filter(i=>i.tags.includes(tag)).forEach(friend=>{
+                friend.gain(amount,'crit',item);
+            });
+        };
+    }
+});
 window.TextMatcher = TextMatcher;

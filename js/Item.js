@@ -4880,7 +4880,7 @@ export class Item {
 
         //Burn items to the right of this gain ( 1 » 2 » 3 » 4 ) Burn for the fight
 
-        regex = /^(This and )?(?:the )?([^\s]+)(?: item)?s? to the right of this gains? (\([^)]+\)|\d+) ([^\s]+).*/i;
+        regex = /^(This and )?(?:the )?([^\s]+)(?: item)?s? to the right of this gains? (\([^)]+\)|\+?\d+) ([^\s]+).*/i;
         match = text.match(regex);
 
         if(match) {

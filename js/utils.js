@@ -92,12 +92,13 @@ export function updateUrlState() {
         const aBoardState ={
             name: '_b_'+board.boardId,
             health: board.player.maxHealth,
-            regen: board.player.regen,
+            regen: board.player.regen||0,
             playerName: board.player.name,
             hero: board.player.hero,
-            level: board.player.level,
-            gold: board.player.gold,
-            income: board.player.income,
+            level: board.player.level||1,
+            gold: board.player.gold||0,
+            shield: board.player.shield||0,
+            income: board.player.income||5,
             skills: board.skills.map(skill => {
                 const skillData = {name: skill.name};
                 if(skills[skill.name].tier != skill.tier) {
@@ -162,6 +163,7 @@ export function loadFromUrl(hash) {
                     boardsCleared.set(boardId,board);
                 }
                 board.player.startPlayerData.maxHealth = boardStateObject.health;
+                if(boardStateObject.shield!==undefined) board.player.startPlayerData.shield = boardStateObject.shield;
                 if(boardStateObject.hero=='Common') {
                     for(const monsterIndex in window.monsters) {
                         const monster = window.monsters[monsterIndex];
