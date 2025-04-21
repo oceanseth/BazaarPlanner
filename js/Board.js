@@ -756,13 +756,8 @@ class Board {
                     // Check if there's any overlap between the existing item and the slot we're checking
                     const itemEnd = slotStart + slotSize - 1;
                     if (i >= slotStart && i <= itemEnd) { //we found the item that overlaps with the new item
-                        //check if we can push the item to the left
                         const openSpacesToTheLeft = this.getOpenSpacesToTheLeft(someItem,foundItem);
-                        //check if we can push the item to the right
-                        const openSpacesToTheRight =this.getOpenSpacesToTheRight(someItem,foundItem);
-                    //    delayedLog("Open spaces to the right: " + openSpacesToTheRight,'openSpacesToTheRight');
-                    //    delayedLog("Open spaces to the left: " + openSpacesToTheLeft,'openSpacesToTheLeft');
-                        
+                        const openSpacesToTheRight =this.getOpenSpacesToTheRight(someItem,foundItem);                        
 
                         //how much is the left side of the dragging item over the right side of someItem
                         const rightOverlap = someItem.startIndex+someItem.size - startIndex;
@@ -772,29 +767,23 @@ class Board {
                         if(rightOverlap<leftOverlap && openSpacesToTheLeft>=rightOverlap) {
                             //we can push the item to the left) {
                                 this.shiftItemsToTheLeft(someItem,rightOverlap,foundItem);
-                                //console.log("Shifted item to the left: old startindex: "+foundItem.startIndex+" new startindex: "+startIndex-(rightOverlap-1));
                                if(foundItem) foundItem.startIndex=startIndex-(rightOverlap-foundItem.size);
                                 return true;
                         } else {
                             //we can push the item to the right
                             if(openSpacesToTheRight>=draggingElementSize + (startIndex-someItem.startIndex)) {
                                 this.shiftItemsToTheRight(someItem, leftOverlap,foundItem);
-                               // console.log("Shifted item to the right: old startindex: "+foundItem.startIndex+" new startindex: "+startIndex-(leftOverlap-1));
                                 if(foundItem) foundItem.startIndex=startIndex-(leftOverlap-foundItem.size);
                                 return true;
                             }
                         }
-
                         if(openSpacesToTheLeft>=rightOverlap) {
                             this.shiftItemsToTheLeft(someItem, rightOverlap,foundItem);
-                            //console.log("Shifted item to the left: old startindex: "+(""+foundItem.startIndex)+" new startindex: "+startIndex);
                             if(foundItem) foundItem.startIndex=startIndex;
                             return true;
-                        }
-  
+                        }  
                         if(openSpacesToTheRight>=leftOverlap) {
                             this.shiftItemsToTheRight(someItem,rightOverlap,foundItem);
-                            //console.log("Shifted item to the right: old startindex: "+foundItem.startIndex+" new startindex: "+startIndex);
                             if(foundItem) foundItem.startIndex=startIndex;
                             return true;
                         }
