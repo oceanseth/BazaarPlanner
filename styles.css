@@ -1389,7 +1389,8 @@ background-color: rgba(255, 255, 255, 0.2);
 background-color: rgba(255, 215, 0, 0.2);
 }
 .Icy:before {
-background-color: rgba(0, 0, 255, 0.2);
+    background: url('/images/enchants/Icy.webp') no-repeat;
+    background-size: 100% 100%;
 }
 .Turbo:before {
 background-color: rgba(0, 255, 0, 0.2);
