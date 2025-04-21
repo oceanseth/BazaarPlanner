@@ -30,9 +30,6 @@ window.topPlayer = new Player({name:"Vanessa", maxHealth:1000}, 't');
 window.bottomPlayer = new Player({name:"Dooley"}, 'b');
 if(window.backpackBoard==null) {
     window.backpackPlayer = new Player({name:"Backpack", maxHealth:1000}, 'backpack');
-    window.backpackBoard = new Board(document.getElementById('backpack'),window.backpackPlayer);
-    window.backpackBoard.reset();
-    window.backpackBoard.setup();
 }
 window.Puzzle = Puzzle;
 window.Account = Account;
