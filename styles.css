@@ -1383,7 +1383,9 @@ font.Slow:before {
 background-color: rgba(91, 238, 157, 0.2);
 }
 .Heavy:before {
-background-color: rgba(255, 255, 255, 0.2);
+    background: url('/images/enchants/Heavy.png') no-repeat;
+    background-size: 100% 100%;
+    opacity: 0.3;  
 }
 .Golden:before {
 background-color: rgba(255, 215, 0, 0.2);
@@ -1401,7 +1403,9 @@ background-color: rgba(0, 255, 0, 0.2);
     opacity: 0.3;  
 }
 .Restorative:before {
-background-color: rgba(0, 255, 0, 0.2);
+    background: url('/images/enchants/Restorative.webp') no-repeat;
+    background-size: 100% 100%;
+    opacity: 1.0;  
 }
 .Fiery:before {
     background: url('/images/enchants/Fiery.webp') no-repeat;
