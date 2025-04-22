@@ -484,10 +484,10 @@ ItemFunction.items.set("Rifle",(item)=>{
     });
 });
 
-//Your Lifesteal Weapons gain ( +5 » +10 » +15 » +20 ) damage for the fight. from Mortar & Pestle
+//Your Lifesteal Weapons gain ( +10 » +15 » +20 » +25 ) damage for the fight. from Mortar & Pestle
 //The weapon on the right has Lifesteal. from Mortar & Pestle
 ItemFunction.items.set("Mortar & Pestle",(item)=>{
-    const damage = getRarityValue("5 >> 10 >> 15 >> 20",item.rarity);
+    const damage = getRarityValue("10 >> 15 >> 20 >> 25",item.rarity);
     const rightItem = item.getItemToTheRight();
     if(rightItem && rightItem.tags.includes("Weapon")) {
         rightItem.lifesteal = true;
