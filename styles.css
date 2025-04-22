@@ -1486,7 +1486,8 @@ background-color: rgba(255, 215, 0, 0.2);
     background-size: 100% 100%;
 }
 .merged-slot.Turbo:before {
-background-color: rgba(0, 255, 0, 0.2);
+background: url('/images/enchants/Turbo.webp') no-repeat;
+background-size: 100% 100%;
 }
 .merged-slot.Shielded:before {
     background: url('/images/enchants/Shielded.webp') no-repeat;
