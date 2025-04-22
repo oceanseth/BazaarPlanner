@@ -1492,7 +1492,6 @@ background-size: 100% 100%;
 .merged-slot.Shielded:before {
     background: url('/images/enchants/Shielded.webp') no-repeat;
     background-size: 100% 100%;
-    opacity: 0.3;  
 }
 .merged-slot.Restorative:before {
     background: url('/images/enchants/Restorative.webp') no-repeat;
