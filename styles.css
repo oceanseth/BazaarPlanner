@@ -882,38 +882,129 @@ button:active {
 .damage-element {
     background-color: rgba(255, 0, 0, 0.7);
 }
-.damage,.crit,.Damage,.Crit {
+.damage,.crit,.Damage,.Crit,.Obsidian,.Weapon,.Deadly {
     color: rgb(255, 0, 0);
 }
-.Burn {
+.Burn,.Fiery {
     color: rgb(255, 128, 0);
 }
-.Poison {
-    color: rgb(0, 255, 0);
+.Poison,.Toxic {
+    color: rgb(0, 122, 0);
 }
-.Shield, .Value {
+.Shield, .Value,.Shielded {
     color: rgb(255, 255, 0);
 }
-.Multicast {
+.Multicast,.Shiny {
     color: rgb(255, 255, 255);
 }
-.Freeze {
+.Freeze,.Icy {
     color: rgb(0, 255, 255);
 }
-.Haste,.Charge {
+.Haste,.Charge,.Turbo {
     color: rgb(0, 236, 195);
+}
+.Icy {
+    text-shadow: 
+        0 0 2px rgb(0, 255, 255,.6),
+        0 0 5px rgb(0, 255, 255,.6),
+        0 0 8px rgb(0, 255, 255,.6),
+        0 0 12px rgb(0, 255, 255,.6);
+}
+.Shielded {
+    text-shadow: 
+        0 0 2px rgb(255, 255, 0,.6),
+        0 0 5px rgb(255, 255, 0,.6),
+        0 0 8px rgb(255, 255, 0,.6),
+        0 0 12px rgb(255, 255, 0,.6);
+}
+.Turbo {
+    text-shadow: 
+        0 0 2px rgb(0, 236, 195,.6),  /* Turquoise glow */
+        0 0 5px rgb(0, 236, 195,.6),
+        0 0 8px rgb(0, 236, 195,.6),
+        0 0 12px rgb(0, 236, 195,.6);
+    animation: turboenchant 2s ease-in-out infinite;
+}
+.Radiant {
+    color: #ff69b4;
+    text-shadow: 
+        0 0 2px rgb(255, 105, 180,.6),  /* Pink glow */
+        0 0 5px rgb(255, 105, 180,.6),
+        0 0 8px rgb(218, 112, 214,.6), /* Orchid purple glow */
+        0 0 12px rgb(218, 112, 214,.6);
+}
+.Shiny {
+    color: rgb(255, 255, 255);
+    text-shadow: 
+        0 0 2px rgb(255, 255, 255,.6),
+        0 0 5px rgb(255, 255, 255,.6),
+        0 0 8px rgb(255, 255, 255,.6),
+        0 0 12px rgb(255, 255, 255,.6);
+}
+.Heavy {
+    color: rgb(203,159,110);
+    text-shadow: 
+        0 0 2px rgb(203,159,110,.6),
+        0 0 5px rgb(203,159,110,.6),
+        0 0 8px rgb(203,159,110,.6),
+        0 0 12px rgb(203,159,110,.6);
+}
+.Restorative {
+    color: rgb(0, 255, 0);
+    text-shadow: 
+        0 0 2px rgb(0, 255, 0,.6),
+        0 0 5px rgb(0, 255, 0,.6),
+        0 0 8px rgb(0, 255, 0,.6),
+        0 0 12px rgb(0, 255, 0,.6);
+}
+.Toxic {
+    color: rgb(0, 122, 0);
+    text-shadow: 
+        0 0 2px rgb(0, 122, 0,.6),
+        0 0 5px rgb(0, 122, 0,.6),
+        0 0 8px rgb(0, 122, 0,.6),
+        0 0 12px rgb(0, 122, 0,.6);
+}
+.Fiery {
+    color: rgb(255, 128, 0);
+    text-shadow: 
+        0 0 2px rgb(255, 128, 0,.6),
+        0 0 5px rgb(255, 128, 0,.6),
+        0 0 8px rgb(255, 128, 0,.6),
+        0 0 12px rgb(255, 128, 0,.6);
+}
+.Obsidian {
+    color: rgb(157, 74, 111);
+    text-shadow: 
+        0 0 2px rgb(157, 74, 111,.6),
+        0 0 5px rgb(157, 74, 111,.6),
+        0 0 8px rgb(157, 74, 111,.6),
+        0 0 12px rgb(157, 74, 111,.6);
+}
+.Deadly {
+    color: rgb(255, 0, 0);
+    text-shadow: 
+        0 0 2px rgb(255, 0, 0,.6),
+        0 0 5px rgb(255, 0, 0,.6),
+        0 0 8px rgb(255, 0, 0,.6),
+        0 0 12px rgb(255, 0, 0,.6);
+}
+.Golden {
+    color: rgb(255, 215, 0);
+    text-shadow: 
+        0 0 2px rgb(255, 215, 0,.6),
+        0 0 5px rgb(255, 215, 0,.6),
+        0 0 8px rgb(255, 215, 0,.6),
+        0 0 12px rgb(255, 215, 0,.6);
 }
 .Ammo {
     color: rgb(255, 142, 0);
 }
-.Weapon {
-    color: rgb(255, 0, 0);
-}
 
-.heal-element,.regen-element,.Heal,.Regeneration {
+.heal-element,.regen-element,.Heal,.Regeneration,.Restorative {
     color: rgb(0, 255, 0);
 }
-.Slow {
+.Slow,.Heavy {
     color: rgb(203,159,110);
 }
 font.Crit:before, font.Slow:before, font.Haste:before, font.Charge:before, font.Heal:before, font.Shield:before, font.Value:before, font.Damage:before,font.damage:before, font.Poison:before, font.Burn:before, font.Ammo:before, font.Freeze:before {
@@ -1370,7 +1461,7 @@ font.Slow:before {
 .Fiery:before,
 .Shiny:before,
 .Obsidian:before,
-.Deadly:before {
+.merged-slot.Deadly:before {
     position: absolute;
     top: 0;
     left: 0;
@@ -1379,46 +1470,46 @@ font.Slow:before {
     z-index: 10;
     content: "";
 }
-.Toxic:before {
+.merged-slot.Toxic:before {
 background-color: rgba(91, 238, 157, 0.2);
 }
-.Heavy:before {
+.merged-slot.Heavy:before {
     background: url('/images/enchants/Heavy.png') no-repeat;
     background-size: 100% 100%;
     opacity: 0.3;  
 }
-.Golden:before {
+.merged-slot.Golden:before {
 background-color: rgba(255, 215, 0, 0.2);
 }
-.Icy:before {
+.merged-slot.Icy:before {
     background: url('/images/enchants/Icy.webp') no-repeat;
     background-size: 100% 100%;
 }
-.Turbo:before {
+.merged-slot.Turbo:before {
 background-color: rgba(0, 255, 0, 0.2);
 }
-.Shielded:before {
+.merged-slot.Shielded:before {
     background: url('/images/enchants/Shielded.webp') no-repeat;
     background-size: 100% 100%;
     opacity: 0.3;  
 }
-.Restorative:before {
+.merged-slot.Restorative:before {
     background: url('/images/enchants/Restorative.webp') no-repeat;
     background-size: 100% 100%;
     opacity: 1.0;  
 }
-.Fiery:before {
+.merged-slot.Fiery:before {
     background: url('/images/enchants/Fiery.webp') no-repeat;
     background-size: 100% 100%;
 
 }
-.Shiny:before {
+.merged-slot.Shiny:before {
 background-color: rgba(255, 255, 255, 0.2);
 }
-.Deadly:before {
+.merged-slot.Deadly:before {
 background-color: rgba(255, 0, 0, 0.2);
 }
-.Obsidian:before {
+.merged-slot.Obsidian:before {
 background: url('/images/enchants/Obsidian.gif') no-repeat;
 background-size: 100% 100%;
 opacity: 0.3;  

@@ -25,6 +25,8 @@ export class Item {
         'Deadly': 'Crit',
         'Heavy': 'Slow',
         'Shiny': 'Multicast',
+        'Golden': 'Golden',
+        'Radiant': 'Radiant',
     }
     static itemID = 0;
     
@@ -499,7 +501,7 @@ export class Item {
                 <div class="tooltip-tags">
                     ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag.toLowerCase()}">${tag}</span>`).join('')}
                 </div>
-                <div class="tooltip-name ${this.rarity||'Bronze'}Border">${this.name}
+                <div class="tooltip-name ${this.rarity||'Bronze'}Border">${colorTextArray([this.name],this.tier)}
                                 ${this.ammo ? `
                     <div class="tooltip-ammo">
                         Ammo<br>${this.ammo}
@@ -521,7 +523,7 @@ export class Item {
                     <div class="tooltip-bottom-text">
                         ${this.lifesteal>0?'Lifesteal<br>':''}
                         ${this.critMultiplier>100?'Crit Multiplier: '+this.critMultiplier+'%<br>':''}
-                        ${this.enchant?this.enchants[this.enchant]+'<br>':''}
+                        ${this.enchant?colorTextArray([this.enchants[this.enchant]],this.tier)+'<br>':''}
                         ${this.hasteBonus>0?'Haste Bonus: '+this.hasteBonus+'s<br>':''}
                         ${this.slowBonus>0?'Slow Bonus: '+this.slowBonus+'s<br>':''}
                         ${this.freezeBonus>0?'Freeze Bonus: '+this.freezeBonus+'s<br>':''}
