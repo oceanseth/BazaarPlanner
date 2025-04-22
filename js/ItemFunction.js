@@ -11,10 +11,9 @@ export class ItemFunction {
         });
     }
 }
-//When you use an adjacent item,charge the other adjacent item for (1/2) second(s) and it gains (10%/20%) Crit Chance for the fight. from Pendulum
+//When you use an adjacent item,charge the other adjacent item for (1/2) second(s). from Pendulum
 ItemFunction.items.set("Pendulum",(item)=>{
-    item.charge = getRarityValue("1/2",item.rarity);
-    const critChance = getRarityValue("10 >> 20",item.rarity);
+    item.charge = getRarityValue("1/2",item.rarity);    
     const adjacentItems = item.getAdjacentItems();
     if(adjacentItems.length==2) {
         item.board.itemTriggers.set(item.id,(i)=>{
@@ -22,7 +21,6 @@ ItemFunction.items.set("Pendulum",(item)=>{
                 const otherItem = adjacentItems.find(j=>j.id!=i.id);
                 if(otherItem && !otherItem.isDestroyed) {
                     item.applyChargeTo(otherItem);
-                    otherItem.gain(critChance,'crit',item);
                 }
             }
         });
