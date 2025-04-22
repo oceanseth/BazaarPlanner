@@ -7,7 +7,7 @@ import { Skill } from './Skill.js';
 export function colorTextArray(textArray, rarityIndex) {
     return Array.isArray(textArray) ? 
         textArray.map(line => {
-            line=line.replace(/(?:^|\s)(Ammo|Haste|Charge|Heal|Shield|Slow|Lifesteal|Freeze|Multicast|(?:\([^\)]+\)|\d+) Damage|Burn|Regeneration|Poison|Crit Chance|Value)( |\.|,|:|$)/gi,
+            line=line.replace(/(?:^|\s)(Deadly|Golden|Obsidian|Shiny|Fiery|Toxic|Shielded|Heavy|Icy|Turbo|Restorative|Radiant|Ammo|Haste|Charge|Heal|Shield|Slow|Lifesteal|Freeze|Multicast|(?:\([^\)]+\)|\d+) Damage|Burn|Regeneration|Poison|Crit Chance|Value)( |\.|,|:|$)/gi,
                 (match, group1, group2) => {
                     const capitalized = group1.charAt(0).toUpperCase() + group1.slice(1);
                     return ` <font class='${capitalized}'>${capitalized}</font>${group2}`;
