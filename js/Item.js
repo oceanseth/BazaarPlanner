@@ -624,6 +624,10 @@ export class Item {
     }
 
     applySlowTo(item,duration) {
+        if(item.enchant=='Radiant') {
+            this.log(this.name + " cannot slow " + item.name + " because it has the Radiant enchantment.");
+            return;
+        }
         if(this.slowBonus>0) {
             duration += this.slowBonus;
         }
