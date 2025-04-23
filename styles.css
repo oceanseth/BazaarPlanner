@@ -1525,7 +1525,7 @@ opacity: 0.3;
     background-image: var(--enchant-overlay);
     background-size: 100% 100%;
     pointer-events: none;
-    mix-blend-mode:luminosity;
+    mix-blend-mode: screen;
 }
 
 .gold-element {
