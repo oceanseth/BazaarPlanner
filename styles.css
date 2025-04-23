@@ -1478,9 +1478,7 @@ background-color: rgba(91, 238, 157, 0.2);
     background-size: 100% 100%;
     opacity: 0.3;  
 }
-.merged-slot.Golden:before {
-background-color: rgba(255, 215, 0, 0.2);
-}
+
 .merged-slot.Icy:before {
     background: url('/images/enchants/Icy.webp') no-repeat;
     background-size: 100% 100%;
@@ -1514,6 +1512,24 @@ background: url('/images/enchants/Obsidian.gif') no-repeat;
 background-size: 100% 100%;
 opacity: 0.3;  
 }
+
+.has-enchant-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    content: "";
+}
+
+.has-enchant-overlay::before {
+    background-image: var(--enchant-overlay);
+    background-size: 100% 100%;
+    pointer-events: none;
+    mix-blend-mode: color-burn;
+}
+
 .gold-element {
     left: 10px;
 }
