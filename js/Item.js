@@ -766,6 +766,7 @@ export class Item {
         if(this.critCheck[this.effectiveBattleTime]!==undefined) return this.critCheck[this.effectiveBattleTime];
         if(this.cooldown>0 && this.crit && this.battleRandom(this.crit / 100)) {
             this.critCheck[this.effectiveBattleTime] = true;
+            this.board.itemDidCrit(this);
             return true;
         }
         this.critCheck[this.effectiveBattleTime] = false;
@@ -792,9 +793,6 @@ export class Item {
             this.board.player.heal(damage,this);
             this.log(this.name + " lifesteals " + damage + " health");
         }
-        if(doesCrit) {
-            this.board.itemDidCrit(this);
-        }
         if(this.battleStats.damage == undefined) this.battleStats.damage = 0;
         this.battleStats.damage += damage;
     }
@@ -805,9 +803,6 @@ export class Item {
         }
         this.log(this.name + (doesCrit?" critically":"")+" shielded " + this.board.player.name + " for " + shieldAmount);
         this.board.player.applyShield(shieldAmount);
-        if(doesCrit) {
-            this.board.itemDidCrit(this);
-        }
         this.board.shieldTriggers.forEach(func => func(this));
         if(this.battleStats.shield == undefined) this.battleStats.shield = 0;
         this.battleStats.shield += shieldAmount;
@@ -820,9 +815,6 @@ export class Item {
         const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
         this.log(this.name + (doesCrit?" critically ":"")+" burned " + target.name + " for " + burnAmount);
         target.applyBurn(burnAmount);
-        if(doesCrit) {
-            this.board.itemDidCrit(this);
-        }
         this.board.burnTriggers.forEach(func => func(this,source));
         if(this.battleStats.burn == undefined) this.battleStats.burn = 0;
         this.battleStats.burn += burnAmount;
@@ -846,9 +838,6 @@ export class Item {
         }        
         this.log(this.name + (doesCrit?" critically ":"")+" healed " + this.board.player.name + " for " + healAmount);
         this.board.player.heal(healAmount,this);
-        if(doesCrit) {
-            this.board.itemDidCrit(this);
-        }
         if(this.battleStats.heal == undefined) this.battleStats.heal = 0;
         this.battleStats.heal += healAmount;
     }
@@ -905,9 +894,6 @@ export class Item {
         const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
         this.log(this.name + (doesCrit?" critically ":"")+" poisoned " + target.name + " for " + poisonAmount.toFixed(0));
         target.applyPoison(poisonAmount,source);
-        if(doesCrit) {
-            this.board.itemDidCrit(this);
-        }
         this.board.poisonTriggers.forEach(func => func(this,source));
         if(this.battleStats.poison == undefined) this.battleStats.poison = 0;
         this.battleStats.poison += poisonAmount;
