@@ -2370,7 +2370,8 @@ export class Item {
                 this.startItemData.freezeBonus = parseFloat(popup.querySelector('#edit-freeze-bonus').value);
             }
             if(popup.querySelector('#edit-regen')) {
-                this.startItemData.regen = parseFloat(popup.querySelector('#edit-regen').value) - parseInt(itemCopy.regen);
+                const newRegen = parseFloat(popup.querySelector('#edit-regen').value);
+                this.startItemData.regen = (this.startItemData.regen||0) + (newRegen - this.regen);
             }
             popup.remove();
             this.board.player.battle.resetBattle();
@@ -3682,13 +3683,13 @@ export class Item {
         }
         
          //Burn equal to 10% of this item's damage.
-        regex = /^\s*(?:Deal )?(Burn|Poison|Heal|Shield|Damage) equal to (10% of|[\d]+|\([^)]+\))(?: times)? (?:this item's ([^\s^\.]+)|the value of your items)\.?/i;
+        regex = /^\s*(?:Deal )?(Burn|Poison|Heal|Shield|Damage) equal to ((\d+)% of|half of|[\d]+|\([^)]+\))(?: times)? (?:this item's ([^\s^\.]+)|the value of your items)\.?/i;
         match = text.match(regex);
         if(match) {
             const whatToGain = Item.getTagFromText(match[1]);
             const whatToGainLowercase = whatToGain.toLowerCase();
-            const multiplier = match[2]=='10% of'?0.1:getRarityValue(match[2], this.rarity);
-            const whatToCheck = match[3]?match[3].toLowerCase() : 'value of your items';
+            const multiplier = match[3]?parseInt(match[3])/100:match[2]=='half of'?0.5:getRarityValue(match[2], this.rarity);
+            const whatToCheck = match[4]?match[4].toLowerCase() : 'value of your items';
             if(whatToCheck=='value of your items') {
                 this.gain(this.board.items.reduce((sum,item)=>sum+item.value,0)*multiplier, whatToGainLowercase);
                 this.board.items.forEach(item=>{
@@ -4992,10 +4993,13 @@ export class Item {
             };
         }
         //This has double damage.
-        regex = /^\s*This has double (damage|poison|burn|shield)\.?$/i;
+        regex = /^\s*This has double (damage|poison|burn|shield|heal|ammo)\.?$/i;
         match = text.match(regex);
         if(match) {
-            const whatToGain = match[1].toLowerCase();
+            let whatToGain = match[1].toLowerCase();
+            if(whatToGain=="ammo") {
+                whatToGain = "maxAmmo";
+            }
             this[whatToGain+"pauseChanged"] = true;
             const oldMultiplier = this[whatToGain+"_multiplier"];
             this[whatToGain+"_multiplier"] =1;
@@ -5223,17 +5227,6 @@ export class Item {
             items.forEach(item => {
                 item.gain(item.critMultiplier,'critMultiplier');
             });
-            return ()=>{};
-        }
-        //This has double Heal.
-        regex = /^This has double Heal\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            this.healChanged((newvalue,oldvalue) => {
-                this.heal_pauseChanged = true;
-                this.gain(newvalue-oldvalue,'heal');
-                this.heal_pauseChanged = false;
-            })
             return ()=>{};
         }
 
