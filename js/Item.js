@@ -1708,6 +1708,9 @@ export class Item {
                     this.multicast += amount;
                 }
                 break;
+            case 'charge':
+                this.charge += amount;
+                break;
             default:
                 console.log("Unknown gain type: " + type);
         }
@@ -4979,7 +4982,7 @@ export class Item {
             };
         }
         //This has double damage.
-        regex = /^\s*This has double (damage|poison|burn|shield|heal|ammo)\.?$/i;
+        regex = /^\s*This has double (damage|poison|burn|shield|heal|ammo|charge)\.?$/i;
         match = text.match(regex);
         if(match) {
             let whatToGain = match[1].toLowerCase();
