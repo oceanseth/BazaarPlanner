@@ -5954,11 +5954,18 @@ export class Item {
         // For Golden enchant, create edge detection overlay
         if (this.enchant === 'Golden') {
             const img = this.element.querySelector('img');
-            await new Promise(resolve => img.onload = resolve);
+            await new Promise(resolve => {
+                if (img.complete) {
+                    resolve();
+                } else {
+                    img.onload = resolve;
+                }
+            });
             
             // Get rendered dimensions
             const renderedWidth = img.clientWidth;
             const renderedHeight = img.clientHeight;
+            console.log('Dimensions:', renderedWidth, renderedHeight);
 
             // Create canvas for processing at intrinsic size
             const canvas = document.createElement('canvas');
@@ -5971,35 +5978,57 @@ export class Item {
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const edges = await Item.detectEdges(imageData);
 
-            // Create new canvas for the overlay at rendered size
-            const overlayCanvas = document.createElement('canvas');
-            overlayCanvas.width = renderedWidth;
-            overlayCanvas.height = renderedHeight;
-            const overlayCtx = overlayCanvas.getContext('2d');
+            // Create frames with fading edges
+            const numFrames = 20;
+            const frameDelay = 50; // 50ms per frame = 1 second total animation
+            const frames = [];
 
-            // Scale the context to match rendered size
-            const scaleX = renderedWidth / img.naturalWidth;
-            const scaleY = renderedHeight / img.naturalHeight;
-            overlayCtx.scale(scaleX, scaleY);
+            for (let frame = 0; frame < numFrames; frame++) {
+                const overlayCanvas = document.createElement('canvas');
+                overlayCanvas.width = renderedWidth;
+                overlayCanvas.height = renderedHeight;
+                const overlayCtx = overlayCanvas.getContext('2d');
 
-            // Draw edges with golden glow
-            overlayCtx.strokeStyle = '#ffd700';
-            overlayCtx.shadowColor = '#ffd700';
-            overlayCtx.shadowBlur = 5;
-            overlayCtx.lineWidth = 2;
-            overlayCtx.globalAlpha = 0.5;  // Set opacity to 0.5
+                // Scale the context to match rendered size
+                const scaleX = renderedWidth / img.naturalWidth;
+                const scaleY = renderedHeight / img.naturalHeight;
+                overlayCtx.scale(scaleX, scaleY);
 
-            edges.forEach(edge => {
-                overlayCtx.beginPath();
-                overlayCtx.moveTo(edge.x1, edge.y1);
-                overlayCtx.lineTo(edge.x2, edge.y2);
-                overlayCtx.stroke();
-            });
+                // Setup drawing style
+                overlayCtx.strokeStyle = '#ffd700';
+                overlayCtx.shadowColor = '#ffd700';
+                overlayCtx.shadowBlur = 5;
 
-            // Cache and return the generated overlay
-            const dataUrl = overlayCanvas.toDataURL('image/png');
-            Item.generatedImages[this.name][this.enchant] = dataUrl;
-            return dataUrl;
+                // Draw each edge with its own alpha based on position and current frame
+                edges.forEach((edge, index) => {
+                    // Calculate alpha based on frame number and edge position
+                    const phaseShift = (index / edges.length + frame / numFrames) * Math.PI * 2;
+                    const alpha = (Math.sin(phaseShift) + 1) / 2;
+
+                    overlayCtx.globalAlpha = alpha;
+                    overlayCtx.beginPath();
+                    overlayCtx.moveTo(edge.x1, edge.y1);
+                    overlayCtx.lineTo(edge.x2, edge.y2);
+                    overlayCtx.stroke();
+                });
+
+                frames.push({
+                    data: overlayCanvas.toDataURL('image/png'),
+                    delay: frameDelay,
+                    width: renderedWidth,
+                    height: renderedHeight
+                });
+            }
+
+            try {
+                const dataUrl = await window.webpEncoder.encode(frames);
+                
+                Item.generatedImages[this.name][this.enchant] = dataUrl;
+                return dataUrl;
+            } catch (e) {
+                console.error('WebP encoding failed:', e);
+                return frames[0].data; // Fallback to first frame
+            }
         }
         return null;
     }

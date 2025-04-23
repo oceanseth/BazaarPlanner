@@ -28,7 +28,87 @@
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.js"></script>
-        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />  
+        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" /> 
+        <script src="https://cdn.jsdelivr.net/npm/webpxmux/dist/webpxmux.js"></script>
+<script>
+window.webpEncoder = {
+    xMux: null,
+    initialized: false,
+    
+    init: async function() {
+        if (!this.initialized) {
+            this.xMux = WebPXMux('/webpxmux.wasm');  // We'll need to host this file
+            await this.xMux.waitRuntime();
+            this.initialized = true;
+        }
+    },
+
+    arrayBufferToBase64: function(buffer) {
+        const bytes = new Uint8Array(buffer);
+        const chunkSize = 16384; // Process 16KB at a time
+        let binary = '';
+        
+        for (let i = 0; i < bytes.length; i += chunkSize) {
+            const chunk = bytes.slice(i, Math.min(i + chunkSize, bytes.length));
+            binary += String.fromCharCode.apply(null, chunk);
+        }
+        
+        return btoa(binary);
+    },
+
+    encode: async function(frames) {
+        await this.init();
+        
+        const width = frames[0].width;
+        const height = frames[0].height;
+        
+        // Convert frames to the format webpxmux expects
+        const webpFrames = {
+            frameCount: frames.length,
+            width: width,
+            height: height,
+            loopCount: 0,  // infinite loop
+            bgColor: 0x00000000,  // transparent background
+            frames: await Promise.all(frames.map(async frame => {
+                const img = new Image();
+                await new Promise((resolve, reject) => {
+                    img.onload = resolve;
+                    img.onerror = reject;
+                    img.src = frame.data;
+                });
+                
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                const imageData = ctx.getImageData(0, 0, width, height);
+                
+                // Convert to RGBA array
+                const rgba = new Uint32Array(width * height);
+                for (let i = 0; i < imageData.data.length; i += 4) {
+                    rgba[i/4] = (imageData.data[i] << 24) |    // R
+                               (imageData.data[i+1] << 16) |   // G
+                               (imageData.data[i+2] << 8) |    // B
+                               imageData.data[i+3];            // A
+                }
+                
+                return {
+                    duration: frame.delay,
+                    isKeyframe: true,
+                    rgba: rgba
+                };
+            }))
+        };
+
+        // Encode to WebP
+        const webpData = await this.xMux.encodeFrames(webpFrames);
+        
+        // Convert to data URL using chunked conversion
+        return 'data:image/webp;base64,' + this.arrayBufferToBase64(webpData);
+    }
+};
+</script>
         <link rel="stylesheet" href="styles.css">
         <script type="module" src="/js/main.js"></script>
         <title>BazaarPlanner - Create, Simulate, and Share Bazaar Builds</title>

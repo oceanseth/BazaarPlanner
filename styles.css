@@ -1513,7 +1513,8 @@ background-size: 100% 100%;
 opacity: 0.3;  
 }
 
-.has-enchant-overlay {
+
+.has-enchant-overlay::before {
     position: absolute;
     top: 0;
     left: 0;
@@ -1521,13 +1522,10 @@ opacity: 0.3;
     height: 100%;
     z-index: 10;
     content: "";
-}
-
-.has-enchant-overlay::before {
     background-image: var(--enchant-overlay);
     background-size: 100% 100%;
     pointer-events: none;
-    mix-blend-mode: color-burn;
+    mix-blend-mode:luminosity;
 }
 
 .gold-element {
