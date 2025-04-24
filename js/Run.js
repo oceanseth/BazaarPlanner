@@ -37,6 +37,7 @@ export class Run {
                     if(!encounterIndex) encounterIndex = this.lastEncounter;
                     window.location.href = "#"+this.encounters[encounterIndex].d;
                     showSection('simulator');
+                    bottomPlayer.board.loadFullRun(this);
                 };
             });
     }    

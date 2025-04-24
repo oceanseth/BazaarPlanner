@@ -76,12 +76,19 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //gain (1/2) time(s) your Regeneration for the fight. from Emergency Draught
-    regex: /^gain (\([^)]+\)|\d+) time\(?s\)? your Regeneration for the fight\.$/i,
+    regex: /^\s*gain (\([^)]+\)|\d+) (time\(?s\)? your )?Regeneration for the fight\.$/i,
     func: (item, match)=>{
+        if(match[2]) {
         const regenMultiplier = 1+getRarityValue(match[1], item.rarity);
         return ()=>{
             item.board.player.regen *= regenMultiplier;
-        };
+        }; 
+    } else {
+        const regen = getRarityValue(match[1], item.rarity);
+        return ()=>{
+            item.applyRegeneration(regen);
+        }; 
+    }
     },
 });
 TextMatcher.matchers.push({
@@ -678,6 +685,18 @@ TextMatcher.matchers.push({
                 friend.gain(amount,'crit',item);
             });
         };
+    }
+});
+TextMatcher.matchers.push({
+    //If this is adjacent to a Regeneration item
+    regex: /^If this is adjacent to a (\w+) item, (.*)\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const adjacentItems = item.getAdjacentItems();
+        if(adjacentItems.some(i=>i.tags.includes(tag))) {
+            return item.getTriggerFunctionFromText(match[2]);
+        }
+        return ()=>{};
     }
 });
 window.TextMatcher = TextMatcher;

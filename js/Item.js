@@ -374,7 +374,13 @@ export class Item {
     }
     setup() {
         if(!this.executeSpecificItemFunction()) {
+            
             this.text.forEach((text, index) => {
+                const textSplit = text.split(/(?<=\.)[^d]/);
+                if(textSplit.length>2) {
+                    this.text[index] = textSplit[0];
+                    this.text.push(...textSplit.slice(1));
+                }
                 this.setupTextFunctions(text, this.priorities?this.priorities[index]:0)
             });
         }
@@ -1346,7 +1352,7 @@ export class Item {
     }
 
     getPoisonTriggerFunctionFromText(text) {
-        let regex = /Poison (\([^)]+\)|\d+)\.?$/i;
+        let regex = /^Poison (\([^)]+\)|\d+)\.?$/i;
         let match = text.match(regex);
         if(match) {
             const poisonAmount = getRarityValue(match[1], this.rarity);
