@@ -58,13 +58,13 @@ class Board {
         //const currentEncounter = run.currentEncounter;
         this.fullRunData = run;
         if(run.encounters) {
-        let html = '<select id="run-select"><option disabled>Encounters</option>';
+        let html = '<select id="sim-encounter-select"><option disabled>Encounters</option>';
             run.encounters.forEach( (e,i)=> {
                 html += `<option style="background-color: ${e.v=="0"?"#aa4444":"#44aa44"};" value="${i}">${e.v=="0"?"Loss":"Win"} - ${e.name}</option>`;
             });
             html += '</select>';
             this.importElement.innerHTML = html;
-            this.importElement.querySelector('#run-select').onchange = (e) => {      
+            this.importElement.querySelector('#sim-encounter-select').onchange = (e) => {      
                 this.loadEncounter(run.encounters[e.target.value]);
             };
         }
