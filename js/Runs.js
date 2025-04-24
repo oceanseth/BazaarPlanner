@@ -38,7 +38,8 @@ export class Runs {
                         .once('value')
                         .then(snap => ({
                             id: runId,
-                            t: snap.val()?parseInt(snap.val()):null
+                            t: snap.val()?parseInt(snap.val()):null,
+                            uid: user.uid
                         }))
                 );
 

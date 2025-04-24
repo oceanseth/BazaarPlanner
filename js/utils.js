@@ -2,7 +2,7 @@ import LZString from 'lz-string';
 import { Board } from './Board.js';
 import { Item } from './Item.js';
 import { Skill } from './Skill.js';
-
+import { Run } from './Run.js';
 
 export function colorTextArray(textArray, rarityIndex) {
     return Array.isArray(textArray) ? 
@@ -133,6 +133,11 @@ export function loadFromUrl(hash) {
     }
     if(!hash) hash = window.location.hash.slice(1); // Remove the # symbol
     if (!hash) return;
+    if(hash.startsWith('run=')) {
+        const params = new URLSearchParams(hash);
+        Run.loadRunInSim(params.get('run'), params.get('e'), params.get('u'));
+        return;
+    }
     window.isLoadingFromUrl = true;
     const boardsCleared = new Map();
 

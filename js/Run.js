@@ -6,9 +6,11 @@ export class Run {
     static proxyBattle;
     static proxyTopPlayer;
     static proxyBottomPlayer;
-    constructor({t, id}) {
+    static cachedRuns = {};
+    constructor({t, id, uid}) {
         this.t = t;
         this.id = id;
+        this.uid = uid;
     }
     async loadData() { // Add a method to load encounters on demand
         await firebase.database()
@@ -16,6 +18,7 @@ export class Run {
             .once('value')
             .then(runSnap => {
                 Object.assign(this, runSnap.val());
+                Run.cachedRuns[this.id] = this;
                 this.t = parseInt(this.t);
                 this.dateString = new Date(this.t).toLocaleString();
                 this.element = document.createElement('div');
@@ -35,8 +38,7 @@ export class Run {
                 this.element.querySelector('#load-encounter-in-sim-button').onclick = (e) => {
                     let encounterIndex = this.element.querySelector('#encounter-selector').value;
                     if(!encounterIndex) encounterIndex = this.lastEncounter;
-                    window.location.href = "#"+this.encounters[encounterIndex].d;
-                    showSection('simulator');
+                    window.location.href = Run.getRunUrl(this.id, encounterIndex, this.uid);
                 };
             });
     }    
@@ -59,5 +61,27 @@ export class Run {
         loadFromUrl(this.boardStateStringBottomBoardOnly);
         this.board.reset();
         this.board.setup();
+    }
+    static loadRunInSim(runId, encounterIndex, uid) {
+        let run = Run.cachedRuns[runId];
+        const f = () => {
+            showSection('simulator');
+            bottomPlayer.board.loadFullRun(run);
+            $("#sim-encounter-select").val(encounterIndex).trigger('change');
+        };
+        if(!run) {
+            firebase.database().ref(`/users/${uid}/runs/${runId}`).once('value').then(runSnap => {
+                const runData = runSnap.val();
+                run = new Run({t:runData.t, id:runData.id, uid:uid});
+                Object.assign(run, runData);
+                Run.cachedRuns[runId] = run;
+                f();
+            });
+        } else {
+            f();
+        }        
+    }
+    static getRunUrl(runId, encounterIndex, uid) {
+        return `#run=${runId}&e=${encounterIndex}&u=${uid}`;
     }
 } 
