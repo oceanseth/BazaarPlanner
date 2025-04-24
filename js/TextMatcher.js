@@ -330,12 +330,15 @@ TextMatcher.matchers.push({
          //   item.board.player.health=0;
        //     item.applyHeal(healAmount);
             diedAtTime = item.board.player.battleTime;
+            item.log(item.name + " damage prevention starts");
             item.board.player.healthChanged((newHealth,oldHealth)=>{
                 if(newHealth<oldHealth && diedAtTime >= item.board.player.battleTime - duration) {
                     item.board.player.damage_pauseChanged = true;
                     item.board.player.health += (oldHealth-newHealth); //undo the damage
                     item.board.player.damage_pauseChanged = false;
+                    item.log(item.name + " prevented "+(oldHealth-newHealth)+" damage");
                 } else if(diedAtTime < item.board.player.battleTime - duration) {
+                    item.log(item.name + " damage prevention expires");
                     item.board.player.healthCancelChanged(item.id);
                 }
             },item.id);

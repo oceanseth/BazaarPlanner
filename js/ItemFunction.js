@@ -203,14 +203,14 @@ ItemFunction.items.set("Re-Tooled",(item)=>{
     }
 });
 
-//All items have a cooldown increase of (30%/50%). from Lethargy
+//All item cooldowns are increased by (1/2/3) second(s). from Lethargy
 ItemFunction.items.set("Lethargy",(item)=>{
-    const cooldownIncrease = getRarityValue("30 >> 50",item.rarity);
+    const cooldownIncrease = getRarityValue("1 >> 2 >> 3",item.rarity);
     item.board.items.forEach(i=>{
-        i.gain(i.cooldown*cooldownIncrease/100,'cooldown');
+        i.gain(cooldownIncrease*1000,'cooldown');
     });
     item.board.player.hostileTarget.board.items.forEach(i=>{
-        i.gain(i.cooldown*cooldownIncrease/100,'cooldown');
+        i.gain(cooldownIncrease*1000,'cooldown');
     });
 });
 //Your Shield items gain ( +4 » +8 » +12 ) Shield and your Weapons ( +4 » +8 » +12 ) damage for the fight. from Cosmic Plumage
