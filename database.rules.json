@@ -12,6 +12,12 @@
         ".write": "$uid === auth.uid",
         "isDonor": {
           ".validate": "!data.exists() || data.val() === true"
+        },
+        "runs": {
+          ".read": "$uid === auth.uid",
+          "$runId": {
+            ".read": true
+          }
         }
       }
     },

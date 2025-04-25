@@ -292,6 +292,10 @@ export class Item {
         this.regenChanged(f,s);
     }
     reset() {
+        if(this.resetFunctions) {
+            this.resetFunctions.forEach(func => func());
+        }
+        this.resetFunctions = [];
         setupChangeListeners(this,Item.possibleChangeAttributes);
         this.pendingCharges = [];
         if(this.tooltip) {
@@ -2523,8 +2527,17 @@ export class Item {
                 });
                 return;
             }
+            let regex = /^use a (\w+) or (\w+) item$/i;
+            const useOrMatch = conditionalMatch.match(regex);
+            if(useOrMatch) {
+                let tagToMatch = Item.getTagFromText(useOrMatch[1]);
+                let tagToMatch2 = Item.getTagFromText(useOrMatch[2]);
+                this.whenItemTagTriggers([tagToMatch, tagToMatch2], triggerFunctionFromText);
+                return;
+            }
 
             conditionalMatches.forEach(conditionalMatch=>{
+
                 switch(conditionalMatch.toLowerCase()) {
                     case "use an item":
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, triggerFunctionFromText);
