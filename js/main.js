@@ -10,7 +10,7 @@ import { Puzzle } from './Puzzle.js';
 import { Account } from './Account.js';
 import { Runs } from './Runs.js';
 // Make necessary functions/classes available globally
-window.trackerUrl = "https://github.com/oceanseth/BazaarPlannerMod/releases/download/1.0.2/BazaarPlannerModInstaller-1.0.2.zip";
+window.trackerUrl = "https://github.com/oceanseth/BazaarPlannerMod/releases/download/1.0.3/BazaarPlannerModInstaller-1.0.3.zip";
 if(window.location.hostname == "bazaarplanner.com") {
     window.location.href = "https://www.bazaarplanner.com/"+window.location.hash;
 }
