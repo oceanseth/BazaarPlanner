@@ -1375,7 +1375,7 @@ ItemFunction.items.set("3D Printer",(item)=>{
                 copies.forEach(i=>{                    
                     i.setRarity(Item.rarityLevels[tier]);
                     i.setIndex(startIndex++);
-                    if(item.enchant && !leftItem.enchant && leftItem.enchants[item.enchant]) {
+                    if(item.enchant && leftItem.enchants[item.enchant]) {
                         i.startItemData.enchant= item.enchant;
                     }
                 });
