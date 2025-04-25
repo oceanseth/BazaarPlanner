@@ -91,7 +91,9 @@ class Board {
                     this._followingCurrentRunId = runValue.id;
                         
                     firebase.database().ref('users/'+value+"/runs/"+runValue.id).on('value', snapshot => {
-                        this.loadFullRun(snapshot.val());
+                        const fullRun = snapshot.val();
+                        fullRun.id = runValue.id;
+                        this.loadFullRun(fullRun);
                     });
                 }
             });
