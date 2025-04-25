@@ -244,22 +244,28 @@ export function loadFromUrl(hash) {
         let itemsToEvaluate = [...boardsCleared.values()].flatMap(board=>board.items);
         
         itemsToEvaluate.forEach(item=>{
+            ["slow","freeze","haste"].forEach(attribute=>{
+                if(item[attribute+"Final"] != undefined) {
+                    item.startItemData[attribute] = (item.startItemData[attribute] || 0) + (item[attribute+"Final"]/1000 - item[attribute]);
+                    delete item.startItemData[attribute+"Final"];                    
+                    delete item[attribute+"Final"];
+                }
+            });
             if(item.cooldownFinal != undefined) {  
                 if(item.cooldownFinal < 100) item.cooldownFinal *= 1000; //fix anyone running previous version of importer, can remove this in a month or so
                 item.startItemData.cooldown = (item.startItemData.cooldown || 0) + ((item.cooldownFinal - item.cooldown)/ 1000);
+                delete item.startItemData.cooldownFinal;
                 delete item.cooldownFinal;
             }
             if(item.valueFinal != undefined) {
                 item.startItemData.value = (item.startItemData.value || 0) + (item.valueFinal - item.value);
+                delete item.startItemData.valueFinal;
                 delete item.valueFinal;
             }
             if(item.ammoFinal != undefined) {
                 item.startItemData.ammo = (item.startItemData.ammo || 0) + (item.ammoFinal - item.ammo);
+                delete item.startItemData.ammoFinal;
                 delete item.ammoFinal;
-            }
-            if(item.slowBonusFinal != undefined) {
-                item.startItemData.slow = (item.startItemData.slow || 0) + (item.slowBonusFinal/1000 - item.slow)/(item.hasDoubleSlowDuration?2:1);
-                delete item.slowBonusFinal;
             }
         });
         refreshBoards();
@@ -270,6 +276,7 @@ export function loadFromUrl(hash) {
                 console.log("Evaluating item",item.name);
                 Item.possibleChangeAttributes.forEach(attribute=>{
                     if(item[attribute+"Final"] != undefined && item[attribute+"Final"] != item[attribute]) {
+                        console.log("evaluating "+attribute, item[attribute+"Final"], item[attribute]);
                         item.startItemData[attribute] = item.startItemData[attribute]||0 + (item[attribute+"Final"] - item[attribute])/item[attribute+"_multiplier"];
                         item[attribute] = item[attribute+"Final"];
                        // item.reset();

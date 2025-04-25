@@ -1085,7 +1085,7 @@ export class Item {
         return this.cooldown && this.cooldown>0 && this.isDestroyed == false;
     }
     isSlowTargetable() {
-        return !this.isDestroyed && this.cooldown > 0 && (this.slowTimeRemaining <= 0 || !this.board.items.some(item => item.slowTimeRemaining <= 0 && item.isHasteTargetable()));        
+        return !this.isDestroyed && this.cooldown && this.cooldown > 0;        
     }
     isChargeTargetable = this.isHasteTargetable;
     isFreezeTargetable() {
@@ -1113,19 +1113,18 @@ export class Item {
             this.slow+=duration;
             
             return () => {
-                let items = Array.from(this.board.player.hostileTarget.board.items);
-                items = items.filter(i => i.isSlowTargetable());
+                let items = this.board.player.hostileTarget.board.activeItems.filter(i => i.isSlowTargetable());
 
-                    if (requiredTag) {
-                        items = items.filter(i => i.tags && i.tags.includes(requiredTag));
-                    }
-                    const selectedItems = this.pickRandom(items,numItemsToSlow);
-                    
-                    if(selectedItems && selectedItems.length>0) {
-                        selectedItems.forEach(i => {
-                            this.applySlowTo(i);
-                        });
-                    }
+                if (requiredTag) {
+                    items = items.filter(i => i.tags && i.tags.includes(requiredTag));
+                }
+                const selectedItems = this.pickRandom(items,numItemsToSlow);
+                
+                if(selectedItems && selectedItems.length>0) {
+                    selectedItems.forEach(i => {
+                        this.applySlowTo(i);
+                    });
+                }
 
             };
         }
