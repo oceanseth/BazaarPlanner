@@ -7,7 +7,7 @@ export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny','Toxic', 'Turbo' ];
-    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal'];
+    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze'];
     static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle','Common'];
     static sizeTags = ['Small','Medium','Large'];
     static allowedGainMap = {
@@ -318,9 +318,6 @@ export class Item {
         this.effectiveBattleTime = 0;
         this.pendingMulticasts = 0;
         this.critMultiplier = 100; //default crit multiplier is 100% more damage
-        this.freezeBonus = 0;
-        this.hasteBonus = 0;
-        this.slowBonus = 0;
         this.regen = 0;
         this.battleStats = { useCount:0 };
         if(this.priorities && this.priorities.length>0) {
@@ -534,9 +531,9 @@ export class Item {
                         ${this.lifesteal>0?'Lifesteal<br>':''}
                         ${this.critMultiplier>100?'Crit Multiplier: '+this.critMultiplier+'%<br>':''}
                         ${this.enchant?colorTextArray([this.enchants[this.enchant]],this.tier)+'<br>':''}
-                        ${this.hasteBonus>0?'Haste Bonus: '+this.hasteBonus+'s<br>':''}
-                        ${this.slowBonus>0?'Slow Bonus: '+this.slowBonus+'s<br>':''}
-                        ${this.freezeBonus>0?'Freeze Bonus: '+this.freezeBonus+'s<br>':''}
+                        ${this.startItemData.haste>0?'Haste Bonus: '+this.startItemData.haste+'s<br>':''}
+                        ${this.startItemData.slow>0?'Slow Bonus: '+this.startItemData.slow+'s<br>':''}
+                        ${this.startItemData.freeze>0?'Freeze Bonus: '+this.startItemData.freeze+'s<br>':''}
                         ${this.damageBonus>0?'Damage Bonus: '+this.damageBonus+'<br>':''}
                     </div>
                 </div>
@@ -612,10 +609,8 @@ export class Item {
         this.board.hasHastedItem = 1;
     }
 
-    applyHasteTo(item,duration) {
-        if(this.hasteBonus>0) {
-            duration += this.hasteBonus;
-        }
+    applyHasteTo(item) {
+        let duration = this.haste;
         if(this.hasDoubleHasteDuration) {
             duration*=2;
         }
@@ -633,19 +628,16 @@ export class Item {
         this.board.hasSlowedItem = 1;
     }
 
-    applySlowTo(item,duration) {
+    applySlowTo(item) {
         if(item.enchant=='Radiant') {
             this.log(this.name + " cannot slow " + item.name + " because it has the Radiant enchantment.");
             return;
         }
-        if(this.slowBonus>0) {
-            duration += this.slowBonus;
-        }
+        let duration = this.slow;
         if(this.hasDoubleSlowDuration) {    
-            item.applySlow(duration*2); 
-        }else{
-            item.applySlow(duration);
+            duration *= 2;
         }
+        item.applySlow(duration);
         this.log(this.name + " slowed " + item.name + " for " + duration + " seconds");
         this.board.slowTriggers.forEach(func => func(item,this));
     }
@@ -855,10 +847,6 @@ export class Item {
         if(source!=null) { return source.applyFreezeTo(this,duration);}
         if(this.enchant=='Radiant') return;
         if(this.isDestroyed) return;
-        //const wasAlreadyFrozen = this.freezeDurationRemaining > 0;
-        if(source&&source.freezeBonus) {
-            duration += source.freezeBonus;
-        }
         this.freezeDurationRemaining += duration*1000;
         this.board.hasFrozenItem = 1;
         this.isFrozen = 1;
@@ -866,10 +854,8 @@ export class Item {
         this.freezeElement.textContent = (this.freezeDurationRemaining/1000).toFixed(1);
         this.freezeElement.classList.remove('hidden');      
     }
-    applyFreezeTo(item,duration) {
-        if(this.freezeBonus>0) {
-            duration += this.freezeBonus;
-        }
+    applyFreezeTo(item) {
+        let duration = this.freeze;
         if(this.hasDoubleFreezeDuration) {
             duration*=2;
         }
@@ -1114,16 +1100,17 @@ export class Item {
         let match;
         if (regex.test(text)) {            
             let [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = text.match(regex);
-                if(singleItemCount == 'an') {
-                    singleItemCount = 1;
-                }
-                const numItemsToSlow = itemsRange ? 
-                    getRarityValue(itemsRange, this.rarity) : 
-                    parseInt(singleItemCount);
+            if(singleItemCount == 'an') {
+                singleItemCount = 1;
+            }
+            const numItemsToSlow = itemsRange ? 
+                getRarityValue(itemsRange, this.rarity) : 
+                parseInt(singleItemCount);
 
-                const duration = durationRange ? 
-                    getRarityValue(durationRange, this.rarity) : 
-                    parseInt(singleDuration);
+            const duration = durationRange ? 
+                getRarityValue(durationRange, this.rarity) : 
+                parseInt(singleDuration);
+            this.slow+=duration;
             
             return () => {
                 let items = Array.from(this.board.player.hostileTarget.board.items);
@@ -1136,7 +1123,7 @@ export class Item {
                     
                     if(selectedItems && selectedItems.length>0) {
                         selectedItems.forEach(i => {
-                            this.applySlowTo(i,duration);
+                            this.applySlowTo(i);
                         });
                     }
 
@@ -1146,9 +1133,9 @@ export class Item {
         regex = /slow it for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            const duration = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
+            this.slow+= parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
             return (item) => {
-                this.applySlowTo(item,duration);
+                this.applySlowTo(item);
             };
 
         }
@@ -1176,12 +1163,12 @@ export class Item {
         regex = /^Haste your ([^\s]+) for (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            const duration = getRarityValue(match[2], this.rarity);
+            this.haste+= getRarityValue(match[2], this.rarity);
             const whatToHaste = Item.getTagFromText(match[1]);
             return () => {  
                 this.board.items.forEach(i => {
                     if(i.tags.includes(whatToHaste)) {
-                        this.applyHasteTo(i,duration);
+                        this.applyHasteTo(i);
                     }
                 });
             };
@@ -1191,12 +1178,12 @@ export class Item {
         regex = /^your ([^\s]+) items gain Haste for (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            const duration = getRarityValue(match[2], this.rarity);
+            this.haste+= getRarityValue(match[2], this.rarity);
             const whatToHaste = Item.getTagFromText(match[1]);
             return () => {
                 this.board.items.forEach(i => {
                     if(i.tags.includes(whatToHaste)) {
-                        this.applyHasteTo(i,duration);
+                        this.applyHasteTo(i);
                     }
                 });
             };
@@ -1206,9 +1193,9 @@ export class Item {
         regex = /^haste items adjacent to it (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const duration = getRarityValue(match[1], this.rarity);
+            this.haste+= getRarityValue(match[1], this.rarity);
             return (item) => {
-                (item||this).getAdjacentItems().forEach(item => this.applyHasteTo(item,duration));
+                (item||this).getAdjacentItems().forEach(item => this.applyHasteTo(item));
             };
         }
         
@@ -1219,30 +1206,28 @@ export class Item {
         if(match) {
             const whatToDo = Item.getTagFromText(match[1]);
             const tagToMatch = match[2] ? Item.getTagFromText(match[2]) : null;
-            const duration = getRarityValue(match[3], this.rarity);            
+            this[whatToDo.toLowerCase()]+= getRarityValue(match[3], this.rarity);
 
             return () => {
                 this.board.player.hostileTarget.board.items.forEach(i => {
                     if(tagToMatch && !i.tags.includes(tagToMatch)) return;
-                    this["apply"+whatToDo+"To"](i,duration);
+                    this["apply"+whatToDo+"To"](i);
                 });
-                this.log(this.name + " applied " + whatToDo + " to all enemy items for " + duration + " seconds");
             };
         }
-         //slow all enemy items for ( 1 » 2 » 3 » 4 ) second(s).
+         //slow both players' items for ( 1 » 2 » 3 » 4 ) second(s).
          regex = /^(slow|freeze) both players' (?:(\w+) )?items for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
          match = text.match(regex);
          if(match) {
              const whatToDo = Item.getTagFromText(match[1]);
              const tagToMatch = match[2] ? Item.getTagFromText(match[2]) : null;
-             const duration = getRarityValue(match[3], this.rarity);            
+             this[whatToDo.toLowerCase()]+= getRarityValue(match[3], this.rarity);            
  
              return () => {
                  [...this.board.activeItems,...this.board.player.hostileTarget.board.activeItems].forEach(i => {
                      if(tagToMatch && !i.tags.includes(tagToMatch)) return;
-                     this["apply"+whatToDo+"To"](i,duration);
+                     this["apply"+whatToDo+"To"](i);
                  });
-                 this.log(this.name + " applied " + whatToDo + " to all items for " + duration + " seconds");
              };
          }
         
@@ -1256,7 +1241,7 @@ export class Item {
             const tagToMatch = Item.getTagFromText(match[4]);
             const orTagToMatch = Item.getTagFromText(match[5]);
             const numToHaste = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]?match[2]:1);
-            const hasteAmount = parseInt(match[6] ? getRarityValue(match[6], this.rarity) : match[7]);
+            this.haste+= parseInt(match[6] ? getRarityValue(match[6], this.rarity) : match[7]);
             const itemsToHaste = tagToMatch&&tagToMatch!='Item' ? this.board.items.filter((item) => 
                 item.isHasteTargetable() &&(
                 item.tags.includes(tagToMatch)!==isNon ||
@@ -1264,7 +1249,7 @@ export class Item {
                 )
             ) : this.board.items;
             return ()=>{
-                this.pickRandom(itemsToHaste,numToHaste).forEach(item=>this.applyHasteTo(item,hasteAmount));
+                this.pickRandom(itemsToHaste,numToHaste).forEach(item=>this.applyHasteTo(item));
             };
 
         }
@@ -1275,12 +1260,12 @@ export class Item {
         regex = /^Haste (an|another) item for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
         if (regex.test(text)) {
             const [_, target, durationRange, singleDuration] = text.match(regex);
-            const duration = durationRange ? 
+            this.haste+= parseInt(durationRange ? 
                 getRarityValue(durationRange, this.rarity) : 
-                parseInt(singleDuration);
+                parseInt(singleDuration));
             return () => {
                 let itemToHaste = this.pickRandom(this.board.items);
-                this.applyHasteTo(itemToHaste,duration);
+                this.applyHasteTo(itemToHaste);
             };
         }
 
@@ -1290,12 +1275,12 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const tagToMatch = match[1] ? Item.getTagFromText(match[1]) : null;
-            const duration = getRarityValue(match[3], this.rarity);
+            this.haste+= getRarityValue(match[3], this.rarity);
             const itemToHaste = match[2]=='left'?this.getItemToTheLeft():this.getItemToTheRight();
             if(tagToMatch && itemToHaste && tagToMatch!='Item'&& !itemToHaste.tags.includes(tagToMatch)) return ()=>{};
             return (item) => { 
                 if(itemToHaste) {
-                    this.applyHasteTo(itemToHaste,duration);
+                    this.applyHasteTo(itemToHaste);
                 }
             }
             
@@ -1305,9 +1290,9 @@ export class Item {
         regex = /^Haste this(?:\s+(?:\(\s*([^)]+)\s*\)|\d+) second\(?s?\)?\.?)$/i;
         match = text.match(regex);
         if(match) {
-            const duration = getRarityValue(match[1], this.rarity);
+            this.haste += getRarityValue(match[1], this.rarity);
             return () => {
-                this.applyHasteTo(this,duration);
+                this.applyHasteTo(this);
             };
         }
 
@@ -1315,10 +1300,10 @@ export class Item {
         regex = /^Haste the item to the left of this for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const duration = getRarityValue(match[1], this.rarity);
+            this.haste += getRarityValue(match[1], this.rarity);
             const itemToHaste = this.getItemToTheLeft();
             if(itemToHaste) {
-                this.applyHasteTo(itemToHaste,duration);
+                this.applyHasteTo(itemToHaste);
             }
 
         }
@@ -1326,9 +1311,9 @@ export class Item {
         regex = /^Haste adjacent items (?:for)?\s*(\([^]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            const duration = getRarityValue(match[1], this.rarity);
+            this.haste += getRarityValue(match[1], this.rarity);
             return () => {
-                this.getAdjacentItems().forEach(item => this.applyHasteTo(item,duration));
+                this.getAdjacentItems().forEach(item => this.applyHasteTo(item));
             };
         }
 
@@ -1336,9 +1321,9 @@ export class Item {
         regex = /^Haste it for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            const duration = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
+            this.haste += parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
             return (item) => {
-                this.applyHasteTo(item,duration);
+                this.applyHasteTo(item);
             };
 
         }
@@ -1346,10 +1331,9 @@ export class Item {
         regex = /this gains Haste for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-
-            const duration = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
+            this.haste += parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
             return () => {
-                this.applyHasteTo(this,duration);
+                this.applyHasteTo(this);
             };
         }
         return null;
@@ -1710,8 +1694,8 @@ export class Item {
 
 
                 break;
-            case 'freezebonus':
-                this.freezeBonus += amount;
+            case 'freeze':
+                this.freeze += amount;
                 break;
             case 'multicast':
                 if(this.cooldown>0) {
@@ -1733,9 +1717,9 @@ export class Item {
         let regex = /Freeze all enemy items for (\([^)]+\)|\d+) second\(?s\)?\.?/i;
         let match = text.match(regex);
         if(match) {
-            const freezeDuration = getRarityValue(match[1], this.rarity);
+            this.freeze += getRarityValue(match[1], this.rarity);
             return () => {
-                this.board.player.hostileTarget.board.items.forEach(item => this.applyFreezeTo(item,freezeDuration));
+                this.board.player.hostileTarget.board.items.forEach(item => this.applyFreezeTo(item));
             };
         }
         
@@ -1744,12 +1728,12 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const numItems = getRarityValue(match[1], this.rarity);
-            const freezeDuration = getRarityValue(match[2], this.rarity);
+            this.freeze += getRarityValue(match[2], this.rarity);
             return (item) => {
                 for(let i=0;i<numItems;i++) {
                     const targets = this.board.player.hostileTarget.board.items.filter(i=>i.isFreezeTargetable());
                     const itemToFreeze = this.pickRandom(targets);
-                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze,freezeDuration);
+                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze);
                     else {
                         this.log(this.name + " tried to freeze " + numItems + " item(s) but there were no items to freeze");
                     }
@@ -1760,9 +1744,9 @@ export class Item {
         regex = /^Freeze adjacent items for (\([^)]+\)|\d+) second\(?s\)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const freezeDuration = getRarityValue(match[1], this.rarity);
+            this.freeze += getRarityValue(match[1], this.rarity);
             return () => {
-                this.getAdjacentItems().forEach(item => this.applyFreezeTo(item,freezeDuration));
+                this.getAdjacentItems().forEach(item => this.applyFreezeTo(item));
             };
         }
 /*
@@ -1797,12 +1781,12 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const numItems = getRarityValue(match[1], this.rarity);
-            const freezeDuration = getRarityValue(match[2], this.rarity);
+            this.freeze += getRarityValue(match[2], this.rarity);
             return (item) => {
                 for(let i=0;i<numItems;i++) {
                     const targets = this.board.player.hostileTarget.board.items.filter(i=> i.size<=(item||this).size && i.isFreezeTargetable());
                     const itemToFreeze = this.pickRandom(targets);
-                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze,freezeDuration);
+                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze);
                     else {
                         this.log(this.name + " tried to freeze " + numItems + " item(s) of equal or smaller size but there were no items to freeze");
                     }
@@ -1815,12 +1799,12 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const numItems = getRarityValue(match[1], this.rarity);
-            const freezeDuration = getRarityValue(match[2], this.rarity);
+            this.freeze += getRarityValue(match[2], this.rarity);
             return (item) => {
                 for(let i=0;i<numItems;i++) {
                     const targets = this.board.player.hostileTarget.board.items.filter(i=> i.size<=2 && i.isFreezeTargetable());
                     const itemToFreeze = this.pickRandom(targets);
-                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze,freezeDuration);
+                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze);
                     else {
                         this.log(this.name + " tried to freeze " + numItems + " medium or small item(s) but there were no items to freeze");
                     }
@@ -1831,10 +1815,10 @@ export class Item {
         regex = /^Freeze it for (\([^)]+\)|\d+) second\(?s\)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const freezeDuration = getRarityValue(match[1], this.rarity);
+            this.freeze += getRarityValue(match[1], this.rarity);
             return (item) => {
-                this.applyFreezeTo(item,freezeDuration);
-            };
+                this.applyFreezeTo(item);
+            };  
         }
 
         //Your leftmost Freeze item gains +1 second to Freeze.      
@@ -1843,7 +1827,7 @@ export class Item {
         if(match) {
             const targets = this.board.items.filter(i=> i.tags.includes("Freeze"));
             if(targets.length>0) {
-                targets[0].gain(1,'freezebonus');
+                targets[0].gain(1,'freeze');
             }
             return () => {};
         }
@@ -2191,22 +2175,22 @@ export class Item {
         if(this.tags.includes("Haste")) {
             popupHTML += `
                 <div class="form-group">
-                    <label>Haste Bonus:</label>
-                    <input type="number" id="edit-haste-bonus" value="${this.hasteBonus}">
+                    <label>Haste Duration:</label>
+                    <input type="number" id="edit-haste" value="${this.haste}">
                 </div>`;
         }
         if(this.tags.includes("Slow")) {
             popupHTML += `
                 <div class="form-group">
-                    <label>Slow Bonus:</label>
-                    <input type="number" id="edit-slow-bonus" value="${this.slowBonus}">
+                    <label>Slow Duration:</label>
+                    <input type="number" id="edit-slow" value="${this.slow}">
                 </div>`;
         }
         if(this.tags.includes("Freeze")) {
             popupHTML += `
                 <div class="form-group">
-                    <label>Freeze Bonus:</label>
-                    <input type="number" id="edit-freeze-bonus" value="${this.freezeBonus}">
+                    <label>Freeze Duration:</label>
+                    <input type="number" id="edit-freeze" value="${this.freeze}">
                 </div>`;
         }
 
@@ -2215,7 +2199,7 @@ export class Item {
         if (this.cooldown !== undefined && this.cooldown!=0) {
             popupHTML += `
                 <div class="form-group">
-                    <label>Cooldown (seconds):</label>
+                    <label>Cooldown:</label>
                     <input type="number" id="edit-cooldown" value="${(this.cooldown/1000).toFixed(1)}">
                 </div>`;
 
@@ -2278,6 +2262,9 @@ export class Item {
             const oldEnchant = this.enchant;
             this.enchant = popup.querySelector('#edit-enchant').value=='None'?'':popup.querySelector('#edit-enchant').value;
             if(this.enchant!=oldEnchant) {
+                if(oldEnchant&&!items[baseName].tags.includes(enchantTagMap[oldEnchant])) {
+                    this.startItemData[enchantTagMap[oldEnchant].toLowerCase()] = 0;
+                }
                 this.startItemData.tags = structuredClone(items[baseName].tags);
             }
             const newValueFromEnchant = this.getInitialValue();
@@ -2353,14 +2340,17 @@ export class Item {
                 const newHeal = parseFloat(popup.querySelector('#edit-heal').value);
                 this.startItemData.heal = (this.startItemData.heal||0) + (newHeal - this.heal)/(this.heal_multiplier||1);
             }
-            if(popup.querySelector('#edit-haste-bonus')) {
-                this.startItemData.hasteBonus = parseFloat(popup.querySelector('#edit-haste-bonus').value);
+            if(popup.querySelector('#edit-haste')) {
+                const newHaste = parseFloat(popup.querySelector('#edit-haste').value);
+                this.startItemData.haste = (this.startItemData.haste||0) + (newHaste - this.haste)/(this.hasDoubleHasteDuration?2:1);
             }
-            if(popup.querySelector('#edit-slow-bonus')) {
-                this.startItemData.slowBonus = parseFloat(popup.querySelector('#edit-slow-bonus').value);
+            if(popup.querySelector('#edit-slow')) {
+                const newSlow = parseFloat(popup.querySelector('#edit-slow').value);
+                this.startItemData.slow = (this.startItemData.slow||0) + (newSlow - this.slow/(this.hasDoubleSlowDuration?2:1));
             }
-            if(popup.querySelector('#edit-freeze-bonus')) {
-                this.startItemData.freezeBonus = parseFloat(popup.querySelector('#edit-freeze-bonus').value);
+            if(popup.querySelector('#edit-freeze')) {
+                const newFreeze = parseFloat(popup.querySelector('#edit-freeze').value);
+                this.startItemData.freeze = (this.startItemData.freeze||0) + (newFreeze - this.freeze)/(this.hasDoubleFreezeDuration?2:1);
             }
             if(popup.querySelector('#edit-regen')) {
                 const newRegen = parseFloat(popup.querySelector('#edit-regen').value);
@@ -4543,10 +4533,10 @@ export class Item {
         regex = /^\s*Slow all your opponent's items for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const slowDuration = getRarityValue(match[1], this.rarity);
+            this.slow+=getRarityValue(match[1], this.rarity);
             return () => {
                 this.board.player.hostileTarget.board.items.forEach(item => {   
-                    this.applySlowTo(item,slowDuration);
+                    this.applySlowTo(item);
                 });
             };
         }
@@ -4722,7 +4712,7 @@ export class Item {
         regex = /^\s*Freeze (?:(\([^)]+\)|\d+)|an|a) ([^\s]+)?(?: or ([^\s]+))?\s*item\(?s?\)?\s+(?:with a cooldown of (\d+) seconds or less )?(?:for )?(\([^)]+\)|[\d\.]+)\s+second\(?s?\)?\.?/i;
         match = text.match(regex);        
         if(match) {
-            const seconds = getRarityValue(match[5], this.rarity);
+            this.freeze += getRarityValue(match[5], this.rarity);
             const cdrRequirement = match[4] ? parseInt(match[4]) : null;
             const tagToMatch = match[2] ? Item.getTagFromText(match[2]) : null;
             const tagToMatch2 = match[3] ? Item.getTagFromText(match[3]) : null;
@@ -4742,7 +4732,7 @@ export class Item {
                 const numToFreezeNow = Math.min(numToFreeze, itemsToFreeze.length);
                 for(let i=0;i<numToFreezeNow;i++) {
                     const itemToFreeze = this.pickRandom(itemsToFreeze);
-                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze,seconds);
+                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze);
                     else {
                         this.log(this.name + " tried to freeze " + numToFreezeNow + " item(s) but there were no items to freeze");
                     }
@@ -5106,14 +5096,14 @@ export class Item {
         regex = /^\s*Haste the Core for (\([^)]+\)|\d+) second\(?s?\)\.?$/i;
         match = text.match(regex);
         if(match) {
-            const seconds = getRarityValue(match[1], this.rarity);
+            this.haste += getRarityValue(match[1], this.rarity);
             return (i) => {
                 this.board.items.forEach(item=>{
                     if(item.tags.includes("Core")) {
                         if(i) {
-                            i.applyHasteTo(item,seconds);
+                            i.applyHasteTo(item);
                         } else {
-                            this.applyHasteTo(item,seconds);
+                            this.applyHasteTo(item);
                         }
                     }
                 });
@@ -5456,15 +5446,15 @@ export class Item {
         regex = /^Freeze ALL other items for (\d+) seconds\.?$/i;
         match = text.match(regex);
         if(match) {
-            const freezeAmount = parseInt(match[1]);
+            this.freeze += parseInt(match[1]);
             return ()=>{
                 this.board.items.forEach(item => {
                     if(item.id!=this.id) {
-                       this.applyFreezeTo(item,freezeAmount);
+                       this.applyFreezeTo(item);
                     }
                 });
                 this.board.player.hostileTarget.board.items.forEach(item => {
-                       this.applyFreezeTo(item,freezeAmount);
+                       this.applyFreezeTo(item);
                 });
             }
         }
@@ -5482,16 +5472,16 @@ export class Item {
         regex = /^Freeze all non-weapon items for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const freezeAmount = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
+            this.freeze += parseFloat(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
             return ()=>{
                 this.board.items.forEach(item => {
                     if(!item.tags.includes("Weapon")) {
-                        this.applyFreezeTo(item,freezeAmount);
+                        this.applyFreezeTo(item);
                     }
                 });
                 this.board.player.hostileTarget.board.items.forEach(item => {
                     if(!item.tags.includes("Weapon")) {
-                        this.applyFreezeTo(item,freezeAmount);
+                        this.applyFreezeTo(item);
                     }
                 });
             };

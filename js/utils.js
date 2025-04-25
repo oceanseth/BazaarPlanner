@@ -257,6 +257,10 @@ export function loadFromUrl(hash) {
                 item.startItemData.ammo = (item.startItemData.ammo || 0) + (item.ammoFinal - item.ammo);
                 delete item.ammoFinal;
             }
+            if(item.slowBonusFinal != undefined) {
+                item.startItemData.slow = (item.startItemData.slow || 0) + (item.slowBonusFinal/1000 - item.slow)/(item.hasDoubleSlowDuration?2:1);
+                delete item.slowBonusFinal;
+            }
         });
         refreshBoards();
         
