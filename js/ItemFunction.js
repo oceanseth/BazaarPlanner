@@ -1,5 +1,5 @@
 import { getRarityValue } from "./utils.js";
-
+import { Item } from "./Item.js";
 export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
@@ -1365,36 +1365,35 @@ ItemFunction.items.set("Runic Potion",(item)=>{
 //Transform into 3 (Gold/Diamond) copies of the small item to the left of this. from 3D Printer
 ItemFunction.items.set("3D Printer",(item)=>{       
         const leftItem = item.getItemToTheLeft();
-        const tier = getRarityValue("3/4",item.rarity);
+        const tier = getRarityValue("2/3",item.rarity);
         if(leftItem) {
             item.triggerFunctions.push(()=>{
-                const copy1 = leftItem.clone(item.board);
-                const copy2 = leftItem.clone(item.board);
-                const copy3 = leftItem.clone(item.board);
+                const copies = [ leftItem.clone(item.board), leftItem.clone(item.board), leftItem.clone(item.board)];
                 let startIndex = item.startIndex;
                 item.board.items.splice(item.board.items.indexOf(item),1);
                 item.element.style.display = "none";
-                [copy1,copy2,copy3].forEach(i=>{                    
-                    i.startItemData.tier = tier;
+                copies.forEach(i=>{                    
+                    i.setRarity(Item.rarityLevels[tier]);
                     i.setIndex(startIndex++);
                     if(item.enchant && !leftItem.enchant && leftItem.enchants[item.enchant]) {
                         i.startItemData.enchant= item.enchant;
                     }
                 });
                 item.board.sortItems();
-                [copy1,copy2,copy3].forEach(i=>{
-                    i.reset();
+                copies.forEach(i=>i.reset());
+                copies.forEach(i=>{
                     i.setup();
                     i.progressBar.style.display = 'block';
                 });
-                copy1.resetFunctions.push(()=>{
+                copies[0].resetFunctions.push(()=>{
                     item.element.style.display = "block";
-                    copy1.element.remove();
-                    copy2.element.remove();
-                    copy3.element.remove();
-                    item.board.items = item.board.items.filter(i=>i!=copy1 && i!=copy2 && i!=copy3);
+                    copies.forEach(i=>{
+                        i.element.remove();
+                    });
+                    item.board.items = item.board.items.filter(i=>copies.indexOf(i)==-1);
                     
                     item.board.addItem(item);
+                    item.reset();
                 });
             });
         }
