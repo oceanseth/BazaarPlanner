@@ -2268,13 +2268,7 @@ export class Item {
         popup.innerHTML = popupHTML;
         document.body.appendChild(popup);
         popup.querySelector('#edit-rarity').addEventListener('change',()=>{
-            const initialValueFromRarity = this.getInitialValue();
-            this.rarity = popup.querySelector('#edit-rarity').value;
-            const newValueFromRarity = this.getInitialValue();
-            const oldStartDataValue = this.startItemData.value||initialValueFromRarity;
-            this.startItemData.tier = Item.rarityLevels.indexOf(popup.querySelector('#edit-rarity').value);
-            this.startItemData.rarity = popup.querySelector('#edit-rarity').value;
-            this.startItemData.value = oldStartDataValue-initialValueFromRarity+newValueFromRarity;
+            this.setRarity(popup.querySelector('#edit-rarity').value);            
             this.board.player.battle.resetBattle();
             updateUrlState();
             popup.remove();            
@@ -2383,6 +2377,15 @@ export class Item {
             popup.remove();
         });
 
+    }
+    setRarity(rarity) {
+        const initialValueFromRarity = this.getInitialValue();
+        this.rarity = rarity;
+        const newValueFromRarity = this.getInitialValue();
+        const oldStartDataValue = this.startItemData.value||initialValueFromRarity;
+        this.startItemData.tier = Item.rarityLevels.indexOf(rarity);
+        this.startItemData.rarity = rarity;
+        this.startItemData.value = oldStartDataValue-initialValueFromRarity+newValueFromRarity;
     }
     static stripEnchantFromName(name) {
         const enchantPrefixes = new RegExp(`^(${Item.possibleEnchants.join('|')})\\s+`);
