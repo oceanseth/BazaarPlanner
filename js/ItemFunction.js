@@ -1383,7 +1383,7 @@ ItemFunction.items.set("3D Printer",(item)=>{
                 copies.forEach(i=>i.reset());
                 copies.forEach(i=>{
                     i.setup();
-                    i.progressBar.style.display = 'block';
+                    if(i.progressBar) i.progressBar.style.display = 'block';
                 });
                 copies[0].resetFunctions.push(()=>{
                     item.element.style.display = "block";
