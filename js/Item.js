@@ -2261,8 +2261,8 @@ export class Item {
             const oldEnchant = this.enchant;
             this.enchant = popup.querySelector('#edit-enchant').value=='None'?'':popup.querySelector('#edit-enchant').value;
             if(this.enchant!=oldEnchant) {
-                if(oldEnchant&&!items[baseName].tags.includes(enchantTagMap[oldEnchant])) {
-                    this.startItemData[enchantTagMap[oldEnchant].toLowerCase()] = 0;
+                if(oldEnchant&&!items[baseName].tags.includes(Item.enchantTagMap[oldEnchant])) {
+                    this.startItemData[Item.enchantTagMap[oldEnchant].toLowerCase()] = 0;
                 }
                 this.startItemData.tags = structuredClone(items[baseName].tags);
             }
