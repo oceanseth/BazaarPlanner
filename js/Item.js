@@ -2226,21 +2226,20 @@ export class Item {
         if (this.damage>0 || this.shield > 0 || this.burn > 0 || this.poison > 0 || this.heal > 0 || this.tags.includes("Weapon")) {
             popupHTML += `
                 <div class="form-group">
-                    <label>Crit Chance (0-100):</label>
+                    <label>Crit Chance:</label>
 
                     <input type="number" min="0" max="100" id="edit-crit" value="${this.crit || 0}">
-                </div>
+                </div>`;
+        }
+        if(this.tags.includes("Weapon")) {
+            popupHTML += `
                 <div class="form-group">
                     <label>Lifesteal:</label>
                     <select id="edit-lifesteal">
                         <option value="0" ${this.lifesteal?'':''}>No</option>
                         <option value="1" ${this.lifesteal?'selected':''}>Yes</option>
                     </select>
-                </div>
-
-
-                `;
-
+                </div>`;
         }
         
 
