@@ -1386,5 +1386,33 @@ ItemFunction.items.set("3D Printer",(item)=>{
             });
         }
 });
-
+//Transform into a (Gold/Diamond) copy of the medium item to the left of this for the fight. from Mirror
+ItemFunction.items.set("Mirror",(item)=>{
+    const leftItem = item.getItemToTheLeft();
+    const tier = getRarityValue("2/3",item.rarity);
+    if(leftItem && leftItem.tags.includes("Medium")) {
+        item.triggerFunctions.push(()=>{
+            const copy = leftItem.clone(item.board);
+            let startIndex = item.startIndex;
+            item.board.items.splice(item.board.items.indexOf(item),1);
+            item.element.style.display = "none";
+            copy.setRarity(Item.rarityLevels[tier]);
+            copy.setIndex(startIndex);
+            if(item.enchant && leftItem.enchants[item.enchant]) {
+                copy.startItemData.enchant= item.enchant;
+            }
+            item.board.sortItems();
+            copy.reset();
+            copy.setup();
+            if(copy.progressBar) copy.progressBar.style.display = 'block';
+            copy.resetFunctions.push(()=>{
+                item.element.style.display = "block";
+                copy.element.remove();
+                item.board.items = item.board.items.filter(i=>i!=copy);
+                item.board.addItem(item);
+                item.reset();
+            });
+        });
+    }
+});
 ItemFunction.setupItems();
