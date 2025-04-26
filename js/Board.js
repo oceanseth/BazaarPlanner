@@ -501,6 +501,13 @@ class Board {
         this.goldElement = document.createElement('div');
         this.goldElement.className = 'gold-element';
         this.goldElement.title = "Gold";
+        if(this.options.editable) {
+            this.goldElement.classList.add('editorOpener');
+            this.goldElement.onclick = () => {
+                this.player.openEditor();
+                this.player.editorElement.querySelector('#player-gold').focus();
+            }
+        }
         this.element.appendChild(this.goldElement);
     }
     createDPSElement() {
@@ -513,6 +520,13 @@ class Board {
         this.incomeElement = document.createElement('div');
         this.incomeElement.className = 'income-element';
         this.incomeElement.title = "Income";
+        if(this.options.editable) {
+            this.incomeElement.classList.add('editorOpener');
+            this.incomeElement.onclick = () => {
+                this.player.openEditor();
+                this.player.editorElement.querySelector('#player-income').focus();
+            }
+        }
         this.element.appendChild(this.incomeElement);
     }
 
