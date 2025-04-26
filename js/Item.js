@@ -831,6 +831,9 @@ export class Item {
         if(this.battleStats.regen == undefined) this.battleStats.regen = 0;
         this.battleStats.regen += regenAmount;
     }
+    applyRegen(regenAmount) {
+        this.applyRegeneration(regenAmount);
+    }
     applyHeal(healAmount) {
         healAmount = parseFloat(healAmount);
         if(isNaN(healAmount) || healAmount <=0) return;
@@ -1455,7 +1458,7 @@ export class Item {
 
         //Heal equal to this item's Damage.
         //Deal damage equal to this item's Heal.
-        regex = /^(?:Deal )?(Heal|Shield|Burn|Poison|Damage) equal to (\([^)]+\)|\d+|double|triple)?(?: time\(?s\)?)?\s*this item's (Heal|Shield|Burn|Poison|Damage|Value|Regeneration)/i;
+        regex = /^(?:Deal )?(Heal|Shield|Burn|Poison|Damage) equal to (\([^)]+\)|\d+|double|triple)?(?: time\(?s\)?)?\s*this item's (Heal|Shield|Burn|Poison|Damage|Value|Regen)(?:eration)?/i;
         match = text.match(regex);
         if(match) {
             const whatToGain = match[1].toLowerCase();
@@ -2261,8 +2264,8 @@ export class Item {
             const oldEnchant = this.enchant;
             this.enchant = popup.querySelector('#edit-enchant').value=='None'?'':popup.querySelector('#edit-enchant').value;
             if(this.enchant!=oldEnchant) {
-                if(oldEnchant&&!items[baseName].tags.includes(enchantTagMap[oldEnchant])) {
-                    this.startItemData[enchantTagMap[oldEnchant].toLowerCase()] = 0;
+                if(oldEnchant&&!items[baseName].tags.includes(Item.enchantTagMap[oldEnchant])) {
+                    this.startItemData[Item.enchantTagMap[oldEnchant].toLowerCase()] = 0;
                 }
                 this.startItemData.tags = structuredClone(items[baseName].tags);
             }
@@ -4566,8 +4569,12 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const whatToGain = match[1];
+            this.regen+=this.damage;
+            this.damageChanged((newValue,oldValue)=>{
+                this[whatToGain.toLowerCase()]+=newValue-oldValue;
+            });
             return () => {
-                this["apply"+whatToGain](this.damage);
+                this["apply"+whatToGain](this[whatToGain.toLowerCase()]);
             };
         }   
 
@@ -5652,14 +5659,13 @@ export class Item {
             };
         }
         //gain ( 2 » 4 ) Regeneration for the fight.
-        regex = /^gain (?:\(([^)]+)\)|(\d+)) Regeneration for the fight\.?$/i;
+        regex = /^gain (\([^)]+\)|\d+) Regeneration for the fight\.?$/i;
         match = text.match(regex);
         if(match) {
-            const gainAmount = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
+            const gainAmount = getRarityValue(match[1], this.rarity);
             this.gain(gainAmount,'regen');
            return ()=>{
-            this.board.player.gainRegen(this.regen, this);
-            this.log(this.name + " added " + this.regen + " Regeneration");
+            this.applyRegeneration(this.regen);
            }
 
         }
