@@ -5619,14 +5619,12 @@ export class Item {
         }
        
         //Your Weapons have + Damage equal to (  1x  » 2x  » 3x   ) your income.
-        regex = /^Your ([^\s]+)(?: items)? have \+ ([^\s]+) equal to (?:\(([^)]+)\)|(\d+)x) your income\.?$/i;
+        regex = /^Your ([^\s]+)(?: items)? have \+ ([^\s]+) equal to (\([^)]+\)|\d+)x? your income\.?$/i;
         match = text.match(regex);
-
-
         if(match) {
             const tagToMatch = Item.getTagFromText(match[1]);
             const whatToGain = match[2].toLowerCase();
-            const gainAmount = parseInt(match[3] ? getRarityValue(match[3], this.rarity) : match[4]);
+            const gainAmount = getRarityValue(match[3], this.rarity) * this.board.player.income;
             this.board.items.forEach(item => {
                 if(item.tags.includes(tagToMatch)) {
                     item.gain(gainAmount,whatToGain);
