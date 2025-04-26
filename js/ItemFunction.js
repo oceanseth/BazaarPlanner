@@ -401,19 +401,6 @@ ItemFunction.items.set("Flagship",(item)=>{
     item.setupTextFunctions(item.text[0]);
 });
 
-//Reload your Potions 1 Ammo and Charge them 1 second(s). from Athanor
-ItemFunction.items.set("Athanor",(item)=>{
-    item.charge = 1;
-    return () => {        
-        item.board.items.forEach(i=>{
-            if(i.tags.includes("Potion")) {
-                i.gain(1,'ammo');
-                item.applyChargeTo(i);
-            }
-        });
-    }
-});
-
 
 //Weapon Properties adjacent to this have + Damage equal to ( 1x » 2x ) the value of your highest value item. from Open Sign                                        
 //Shield Properties adjacent to this have + Shield equal to ( 1x » 2x ) the value of your highest value item. from Open Sign   

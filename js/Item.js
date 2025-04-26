@@ -4242,13 +4242,14 @@ export class Item {
         }
 
         //Reload adjacent Ammo items ( 1 » 2 » 3 ) Ammo. from Ramrod
-        regex = /^\s*Reload adjacent Ammo items (?:\(([^)]+)\)|(\d+)) Ammo\.?/i;
+        regex = /^\s*Reload adjacent (?:Ammo )?items(?: (\([^)]+\)|\d+) Ammo)?\./i;
         match = text.match(regex);
         if(match) {
-            const ammo = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
+            const ammo = match[1] ? getRarityValue(match[1], this.rarity) : null;
             return () => {
                 this.getAdjacentItems().forEach(item => {
-                    item.gain(ammo,'ammo',this);
+                    let ammoToGain = ammo?ammo:item.maxAmmo;
+                    item.gain(ammoToGain,'ammo',this);
                 });
             };
         }
