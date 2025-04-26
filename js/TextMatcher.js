@@ -196,16 +196,14 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
       // Haste (  2  » 4  » 6   ) items 2 second(s).  
-      regex: /^Haste (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?items?.* for (?:\(([^)]+)\)|(\d+)) second/i,
+      regex: /^Haste (?:\(([^)]+)\)|(\d+)) (?:(\w+) )?items?.* for (\([^)]+\)|\d+) second/i,
       func: (item, match)=>{            
-          const [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = match;
+          const [_, itemsRange, singleItemCount, requiredTag, durationRange] = match;
               
           const numItemsToHaste = itemsRange ? 
               getRarityValue(itemsRange, item.rarity) : 
               parseInt(singleItemCount);
-          const duration = durationRange ? 
-              getRarityValue(durationRange, item.rarity) : 
-              parseInt(singleDuration);
+          item.haste += getRarityValue(durationRange, item.rarity);
           
           return () => {
               let items = Array.from(item.board.items);
@@ -218,7 +216,7 @@ TextMatcher.matchers.push({
               const selectedItems = item.pickRandom(items,numItemsToHaste);
           
               selectedItems.forEach(i => {
-                  item.applyHasteTo(i,duration);
+                  item.applyHasteTo(i);
               });
           };
       },
@@ -298,10 +296,10 @@ TextMatcher.matchers.push({
     //Haste your rightmost item 1 second(s).
     regex: /^Haste your (leftmost|rightmost) item (\d+) second\(?s?\)?\.$/i,
     func: (item, match)=>{
-        const duration = getRarityValue(match[2], item.rarity);
+        item.haste += getRarityValue(match[2], item.rarity);
         const whichItem = match[1]=='leftmost'?item.board.items[0]:item.board.items[item.board.items.length-1];        
         return ()=>{
-            item.applyHasteTo(whichItem, duration);
+            item.applyHasteTo(whichItem);
         };
     },
 });

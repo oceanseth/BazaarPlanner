@@ -1233,14 +1233,14 @@ export class Item {
         
         //Haste ( 1 » 2 » 3 » 4 ) Aquatic or Toy item(s) for 2 second(s).
         //Haste a weapon (  3  » 5  » 7  » 9   ) second(s).
-        regex = /^Haste (?:\(([^)]+)\)|(\d+)|an?) (non-)?([^\s]+)(?: or \s*([^\s^\d]+))?\s*(?:item|items|item\(s\))? (?:for )?(?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?$/i;
+        regex = /^Haste (?:\(([^)]+)\)|(\d+)|an?) (non-)?([^\s]+)(?: or \s*([^\s^\d]+))?\s*(?:item|items|item\(s\))? (?:for )?(\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const isNon = match[3] == "non-";
             const tagToMatch = Item.getTagFromText(match[4]);
             const orTagToMatch = Item.getTagFromText(match[5]);
             const numToHaste = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]?match[2]:1);
-            this.haste+= parseInt(match[6] ? getRarityValue(match[6], this.rarity) : match[7]);
+            this.haste+= getRarityValue(match[6], this.rarity);
             const itemsToHaste = tagToMatch&&tagToMatch!='Item' ? this.board.items.filter((item) => 
                 item.isHasteTargetable() &&(
                 item.tags.includes(tagToMatch)!==isNon ||
