@@ -1286,6 +1286,7 @@ ItemFunction.items.set("Port",(item)=>{
 //When any non-weapon is used, Charge this 1 second(s). from Necronomicon
 ItemFunction.items.set("Necronomicon",(item)=>{
     item.charge = 1;
+    item.gain(10,'regen');
     item.gain(10,'poison');
     item.board.itemTriggers.set(item.id,(i)=>{
         if(!i.tags.includes("Weapon")) {
@@ -1299,7 +1300,7 @@ ItemFunction.items.set("Necronomicon",(item)=>{
     });
     item.triggerFunctions.push(()=>{
         item.applyPoison(item.poison);
-        item.board.player.gainRegen(10);
+        item.applyRegen(item.regen);
     });
 });
 

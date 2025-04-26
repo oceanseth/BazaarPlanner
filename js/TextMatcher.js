@@ -76,19 +76,12 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //gain (1/2) time(s) your Regeneration for the fight. from Emergency Draught
-    regex: /^\s*gain (\([^)]+\)|\d+) (time\(?s\)? your )?Regeneration for the fight\.$/i,
+    regex: /^\s*gain (\([^)]+\)|\d+) time\(?s\)? your Regeneration for the fight\.$/i,
     func: (item, match)=>{
-        if(match[2]) {
-        const regenMultiplier = 1+getRarityValue(match[1], item.rarity);
-        return ()=>{
-            item.board.player.regen *= regenMultiplier;
-        }; 
-    } else {
         const regen = getRarityValue(match[1], item.rarity);
         return ()=>{
             item.applyRegeneration(regen);
         }; 
-    }
     },
 });
 TextMatcher.matchers.push({
