@@ -2947,9 +2947,17 @@ export class Item {
                         });
                         return;
                     case "reload or transform a potion":
-                        this.board.reloadTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
+                        this.board.reloadTriggers.set(this.id+"_"+triggerFunctionFromText.text,(item)=> {
+                            if(item.tags.includes("Potion")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
                     case "transform a potion":
-                        this.board.transformTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
+                        this.board.transformTriggers.set(this.id+"_"+triggerFunctionFromText.text,(item,source)=>{
+                            if(item.tags.includes("Potion")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
                         return;
                     case "an adjacent item hastes or slows":
                         const adjacentHastingOrSlowingItems = this.getAdjacentItems();
@@ -3948,8 +3956,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             return () => {
-                this.gain(this.maxAmmo-this.ammo,'ammo');
-                this.log(this.name + " reloaded");
+                this.reload();
             }
         }
         //Your other Friends' cooldowns are reduced by (10%/20%/30%). from Bill Dozer

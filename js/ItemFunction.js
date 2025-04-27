@@ -1376,6 +1376,7 @@ ItemFunction.items.set("3D Printer",(item)=>{
                     item.reset();
                 });
             });
+            item.board.transformTriggers.forEach(f=>f(item,item));
         }
 });
 //Transform into a (Gold/Diamond) copy of the medium item to the left of this for the fight. from Mirror
@@ -1404,6 +1405,7 @@ ItemFunction.items.set("Mirror",(item)=>{
                 item.board.addItem(item);
                 item.reset();
             });
+            item.board.transformTriggers.forEach(f=>f(item,copy));
         });
     }
 });
@@ -1470,6 +1472,7 @@ ItemFunction.items.set("Recycling Bin",(item)=>{
                 i.reset();
                 
             });
+            item.board.transformTriggers.forEach(f=>f(i,item));
         }
     }
     potions.forEach(i=>{
