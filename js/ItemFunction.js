@@ -1414,9 +1414,7 @@ ItemFunction.items.set("Mirror",(item)=>{
 ItemFunction.items.set("Recycling Bin",(item)=>{
     item.regen = getRarityValue("1/2/3",item.rarity);
     const potions = item.board.items.filter(i=>i.tags.includes("Potion"));
-    const potionCache = []; 
-    Object.values(items).forEach(i=>{ if(i.tags.includes("Potion")) potionCache.push(i); });
-    let originalBoard = item.board;
+    const potionCache = Item.getCacheByTag("Potion");
 
     let potionTriggerFunction = (i)=>{
         //get a random potion that is not the same as i and is the same size as i
@@ -1453,15 +1451,11 @@ ItemFunction.items.set("Recycling Bin",(item)=>{
             newPotion.triggerFunctions.push(()=>{
                 potionTriggerFunction(newPotion);
             });
-            newPotion.resetFunctions.push(()=>{           
-                console.log("resetting new potion",newPotion.name);                    
+            newPotion.resetFunctions.push(()=>{                           
                 newPotion.element.remove();
                 item.board.items = item.board.items.filter(someItem=>someItem!=newPotion);
                 //add the old potion to the active board
                 if(i.board==item.board) {
-                     //show the base potion
-                   // i.board = originalBoard;
-                    //remove the new potion from the active board
                     if(i.board.items.indexOf(i)==-1) {
                         i.board.addItem(i);
                         i.element.style.display = "block";
@@ -1481,4 +1475,41 @@ ItemFunction.items.set("Recycling Bin",(item)=>{
     });
 });
 
+//Transform into 2 small potions for the fight.
+ItemFunction.items.set("Potion Potion",(item)=>{
+    item.triggerFunctions.push(()=>{
+        
+    });
+});
+//Transform into a (Silver/Gold/Diamond) copy of another small, non-legendary item you have for the fight. from Quicksilver
+ItemFunction.items.set("Quicksilver",(item)=>{
+    const smallItems = item.board.items.filter(i=>i.tags.includes("Small") && !i.tags.includes("Legendary"));
+    if(smallItems.length==0) return;
+    item.triggerFunctions.push(()=>{
+        const boardClone = item.board.player.clone().board;
+        const itemClone = boardClone.items.find(i=>i.name==item.name);
+        boardClone.items = boardClone.items.filter(i=>i!=itemClone);
+        const newItemData = structuredClone(items[item.pickRandom(smallItems).nameWithoutEnchant]);
+        newItemData.startIndex = item.startIndex;
+        newItemData.tier = item.tier;
+        const newItem = new Item(newItemData,boardClone);
+        newItem.board.player.hostileTarget = item.board.player.hostileTarget;
+        boardClone.reset();
+        boardClone.setup();
+        newItem.board = item.board;
+        newItem.progressBar.style.display = 'block';
+        
+
+        newItem.resetFunctions.push(()=>{
+            item.element.style.display = "block";
+            newItem.element.remove();
+            item.board.items = item.board.items.filter(i=>i!=newItem);
+            item.board.addItem(item);
+            item.reset();
+        });
+
+        item.board.transformTriggers.forEach(f=>f(item,item));
+    });
+    
+});
 ItemFunction.setupItems();

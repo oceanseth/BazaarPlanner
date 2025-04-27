@@ -29,6 +29,15 @@ export class Item {
         'Radiant': 'Radiant',
     }
     static itemID = 0;
+
+    static getCacheByTag(tag) {
+        if(Item[tag+"Cache"]==undefined) {
+            const cache = []; 
+            Object.values(items).forEach(i=>{ if(i.tags.includes(tag)) cache.push(i); });
+            Item[tag+"Cache"] = cache;
+        }
+        return Item[tag+"Cache"];
+    }
     
     pickRandom(...args) {
         return this.board.player.battle.pickRandom(...args);
@@ -153,7 +162,7 @@ export class Item {
             <div class="multicast-element"></div>
         `;
         this.element.appendChild(this.battleStatsElement);
-        
+        this.updateElementPosition();
         this.reset();
 
         if(board) {
@@ -448,7 +457,6 @@ export class Item {
         }
         mergedSlot.classList.add(this.rarity || 'Bronze', this.editable?'editorOpener':'not-editable');
         mergedSlot.style.width = `${this.size * 80 + this.startIndex*2}px`;
-        mergedSlot.style.left = `calc(${this.startIndex * 80 + this.startIndex*2}px)`;
         mergedSlot.setAttribute('data-size', this.size);
         const icon = document.createElement('img');
         icon.src = '/images/items/'+Item.cleanName(this.name)+'.avif';
@@ -491,7 +499,12 @@ export class Item {
     createTooltipElement() {
         const tooltip = document.createElement('div');
         tooltip.className = 'tooltip';
-
+        const tooltips = document.getElementsByClassName('tooltip');
+        Array.from(tooltips).forEach(t=>{ //tooltips get stuck open sometimes, lets remove any that aren't the current one
+            if(t!=tooltip) {
+                t.remove();
+            }
+        });
         // Filter out hidden tags
         let tagsArray = [];
         if (this.tags) {
