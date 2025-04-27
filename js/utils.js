@@ -273,10 +273,10 @@ export function loadFromUrl(hash) {
         itemsToEvaluate.forEach(item=>{
             let numTries = 0;
             while(Item.possibleChangeAttributes.some(attribute=>item[attribute+"Final"] != undefined && item[attribute+"Final"] != item[attribute])) {
-                console.log("Evaluating item",item.name);
+                //console.log("Evaluating item",item.name);
                 Item.possibleChangeAttributes.forEach(attribute=>{
                     if(item[attribute+"Final"] != undefined && item[attribute+"Final"] != item[attribute]) {
-                        console.log("evaluating "+attribute, item[attribute+"Final"], item[attribute]);
+                      //  console.log("evaluating "+attribute, item[attribute+"Final"], item[attribute]);
                         item.startItemData[attribute] = item.startItemData[attribute]||0 + (item[attribute+"Final"] - item[attribute])/item[attribute+"_multiplier"];
                         item[attribute] = item[attribute+"Final"];
                        // item.reset();
