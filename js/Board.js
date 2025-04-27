@@ -426,7 +426,7 @@ class Board {
         const clone = new Board("cloned-"+this.boardId,newPlayer);
         clone.items = this.items.map(item => item.clone(clone));
         clone.skills = this.skills.map(skill => skill.clone(clone));
-        clone.reset();
+        //clone.reset();
         return clone;
     }
 

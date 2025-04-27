@@ -1,5 +1,6 @@
 import { getRarityValue } from "./utils.js";
 import { Item } from "./Item.js";
+import { items } from '../items.js';
 export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
@@ -1325,15 +1326,6 @@ ItemFunction.items.set("Crystal Bonsai", (item)=>{
     item.triggerFunctions.push(item.getTriggerFunctionFromText("Heal equal to ( 1x » 2x » 3x » 4x ) this item's value."));
 });
 
-//When you use a Potion, transform it into a Potion for the fight and gain (1/2/3) Regeneration for the fight. from Recycling Bin
-ItemFunction.items.set("Recycling Bin",(item)=>{
-    item.regen = getRarityValue("1/2/3",item.rarity);
-    item.board.itemTriggers.set(item.id,(i)=>{
-        if(i.tags.includes("Potion")) {
-            item.applyRegen(item.regen);
-        }
-    });
-});
 //"Haste your Lifesteal weapons for (1/2/3/4) second(s)." from runic potion
 //"(1/2/3/4) of your weapons gain Lifesteal for the fight." from runic potion
 ItemFunction.items.set("Runic Potion",(item)=>{
@@ -1415,4 +1407,75 @@ ItemFunction.items.set("Mirror",(item)=>{
         });
     }
 });
+
+//When you use a Potion, transform it into a Potion for the fight and gain (1/2/3) Regeneration for the fight. from Recycling Bin
+ItemFunction.items.set("Recycling Bin",(item)=>{
+    item.regen = getRarityValue("1/2/3",item.rarity);
+    const potions = item.board.items.filter(i=>i.tags.includes("Potion"));
+    const potionCache = []; 
+    Object.values(items).forEach(i=>{ if(i.tags.includes("Potion")) potionCache.push(i); });
+    let originalBoard = item.board;
+
+    let potionTriggerFunction = (i)=>{
+        //get a random potion that is not the same as i and is the same size as i
+        const randPotionData  = structuredClone(item.pickRandom(potionCache.filter(p=>p.name!=i.nameWithoutEnchant&&p.tags.includes(i.sizeTag))));
+        if(randPotionData) {
+            //clone the board and reset and setup the new potion
+            const clonedBoard = i.board.player.clone().board;
+            //clonedBoard.player.battle = i.board.player.battle;
+            //put the new randomPotion in place of the clonedPotion
+            const transformedPotion = clonedBoard.items.find((p)=>p.name==i.name&&p.startIndex==i.startIndex);
+            
+            //remove the clonedPotion and the recycling bin from the clonedBoard
+            clonedBoard.items = clonedBoard.items.filter(p=>p!=transformedPotion && p.name!=item.nameWithoutEnchant);
+            
+            //set the startIndex of the new potion to the startIndex of the clonedPotion
+            randPotionData.startIndex = i.startIndex;
+            //create the new potion on the clonedBoard
+            const newPotion = new Item(randPotionData,clonedBoard);
+            clonedBoard.player.hostileTarget = item.board.player.hostileTarget;
+            //reset and setup the new potion
+            clonedBoard.reset();
+            clonedBoard.setup();
+            item.log(`${i.name} transformed into ${newPotion.name}`);
+            //remove the old potion from the active board
+            i.board.items = i.board.items.filter(someItem=>someItem!=i);
+            //hide the old potion
+            i.element.style.display = "none";
+            newPotion.board = i.board;
+
+            //add the new potion to the active board
+            i.board.addItem(newPotion);                      
+            //simulate starting the battle 
+            if(newPotion.progressBar) newPotion.progressBar.style.display = 'block';
+            newPotion.triggerFunctions.push(()=>{
+                potionTriggerFunction(newPotion);
+            });
+            newPotion.resetFunctions.push(()=>{           
+                console.log("resetting new potion",newPotion.name);                    
+                newPotion.element.remove();
+                item.board.items = item.board.items.filter(someItem=>someItem!=newPotion);
+                //add the old potion to the active board
+                if(i.board==item.board) {
+                     //show the base potion
+                   // i.board = originalBoard;
+                    //remove the new potion from the active board
+                    if(i.board.items.indexOf(i)==-1) {
+                        i.board.addItem(i);
+                        i.element.style.display = "block";
+                        i.board.reset();
+                    }    
+                    return;
+                }
+                i.reset();
+                
+            });
+        }
+    }
+    potions.forEach(i=>{
+        i.triggerFunctions.push(()=>{ potionTriggerFunction(i); });
+        item.applyRegen(item.regen);
+    });
+});
+
 ItemFunction.setupItems();
