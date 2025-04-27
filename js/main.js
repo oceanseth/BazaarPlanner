@@ -145,13 +145,12 @@ window.getTinyUrl = function() {
     if(!confirm("This will generate a small url which you can send to a friend to recreate both boards and skills. Continue?")) {
         return;
     }
+    let url;
     if(bottomPlayer.board.fullRunData && window.user) {
-        const url = window.location.origin+'/#run='+bottomPlayer.board.fullRunData.id+'&e='+$("#sim-encounter-select").val()+"&u="+window.user.uid;
-        navigator.clipboard.writeText(url);
-        alert('Tiny URL copied to clipboard: '+url);
-        return;
+        url = 'run='+bottomPlayer.board.fullRunData.id+'&e='+$("#sim-encounter-select").val()+"&u="+window.user.uid;
+    } else {
+     url = window.location.href.split('#')[1];
     }
-    const url = window.location.href.split('#')[1];
 
     let count;
     firebase.database().ref('tinyurls/count').once('value').then(snapshot => {
