@@ -4678,6 +4678,13 @@ export class Item {
                 if((item.text.some(t=>t=="Lifesteal")||item.lifesteal) && item.tags.includes("Weapon")) {
                     item.gain(-1000,'cooldown');
                 }
+                item.lifestealChanged((newValue,oldValue)=>{
+                    if(!oldValue && newValue) {
+                        item.gain(-1000,'cooldown');
+                    } else if(oldValue && !newValue) {
+                        item.gain(1000,'cooldown');
+                    }
+                });
             });
             return () => {};
         }   
