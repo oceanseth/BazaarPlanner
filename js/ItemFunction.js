@@ -883,13 +883,20 @@ ItemFunction.items.set("Swash Buckle",(item)=>{
     });
 });
 
-
-//Increase your other items' Freeze by 1 second(s). from Sapphire
+//Freeze (1/2/3) item(s) for 1 second(s).
+//Your other Freeze items have +1 Freeze duration.
 ItemFunction.items.set("Sapphire",(item)=>{
+    item.gain(1,'freeze');
+    const amount = getRarityValue("1/2/3",item.rarity);
     item.board.items.forEach(i=>{
         if(i.id!=item.id) {
-            i.gain(1,'freezeBonus');
+            i.gain(1,'freeze');
         }
+    });
+    item.triggerFunctions.push(()=>{
+        item.pickRandom(item.board.player.hostileTarget.board.activeItems.filter(i=>i.isFreezeTargetable()),amount).forEach(i=>{
+            item.applyFreezeTo(i);
+        });
     });
 });
 
