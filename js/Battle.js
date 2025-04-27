@@ -127,7 +127,7 @@ export class Battle {
         // Initialize the RNG with the seed
         this.battleRNG = new Math.seedrandom(this.battleSeed);
         this.combatLogEntries = [];
-        this.log("0: Battle started. Seed: " + this.battleSeed);
+        this.log("Battle started. Seed: " + this.battleSeed);
         
         this.players.forEach(player => player.board.startBattle());
         

@@ -71,7 +71,9 @@ export class Item {
             e.removeEventListener('touchend', Board.handleTouchEnd);
         }
     }
-
+    get sizeTag() {
+        return Item.sizeTags[this.size-1];
+    }
 
     constructor(itemData, board) {
         if(!itemData) {
@@ -2071,9 +2073,9 @@ export class Item {
     }
     setEnchant(enchant) {
         if(this.enchant!=enchant) {
+            this.name = enchant === 'None' ? this.nameWithoutEnchant : `${enchant} ${this.nameWithoutEnchant}`;
             if(this.enchant!='') {                
-                const [baseName] = Item.stripEnchantFromName(this.name);
-                this.startItemData.tags = structuredClone(items[baseName].tags);
+                this.startItemData.tags = structuredClone(items[this.nameWithoutEnchant].tags);
             }
             this.tags = this.startItemData.tags; //reset tags to default when enchant changes
             this.enchant = enchant=='None'?'':enchant;
@@ -2279,16 +2281,6 @@ export class Item {
         popup.querySelector('.save-edit').addEventListener('click', () => {
             this.board.player.battle.resetBattle();
             const enchant = popup.querySelector('#edit-enchant').value;
-            const playerCopy = this.board.player.clone();
-            playerCopy.hostileTarget = this.board.player.hostileTarget.clone();
-            playerCopy.hostileTarget.hostileTarget = playerCopy;
-            const [startingName] = Item.stripEnchantFromName(this.name);
-            const itemCopy = new Item(structuredClone(items[startingName]),playerCopy.board);
-
-            itemCopy.setup();
-
-            // Update name with enchantment
-            this.name = enchant === 'None' ? baseName : `${enchant} ${baseName}`;
             this.setEnchant(enchant);
 
             this.startItemData.tags = popup.querySelector('#edit-tags').value.split(',').map(t=>t.trim());
@@ -2377,6 +2369,9 @@ export class Item {
         this.startItemData.tier = Item.rarityLevels.indexOf(rarity);
         this.startItemData.rarity = rarity;
         this.startItemData.value = oldStartDataValue-initialValueFromRarity+newValueFromRarity;
+    }
+    get nameWithoutEnchant() {
+        return Item.stripEnchantFromName(this.name)[0];
     }
     static stripEnchantFromName(name) {
         const enchantPrefixes = new RegExp(`^(${Item.possibleEnchants.join('|')})\\s+`);
