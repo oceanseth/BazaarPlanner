@@ -1327,11 +1327,10 @@ ItemFunction.items.set("Crystal Bonsai", (item)=>{
     item.triggerFunctions.push(item.getTriggerFunctionFromText("Heal equal to ( 1x » 2x » 3x » 4x ) this item's value."));
 });
 
-//"Haste your Lifesteal weapons for (1/2/3/4) second(s)." from runic potion
-//"(1/2/3/4) of your weapons gain Lifesteal for the fight." from runic potion
+//Haste your Lifesteal Weapons for 1 second(s).
+//A Weapon gains Lifesteal for the fight.
 ItemFunction.items.set("Runic Potion",(item)=>{
-    const amount = getRarityValue("1/2/3/4",item.rarity);
-    item.haste += getRarityValue("1/2/3/4",item.rarity);
+    item.haste += 1;
     item.triggerFunctions.push(()=>{
         item.board.activeItems.forEach(i=>{
             if(i.tags.includes("Weapon") && i.lifesteal) {
@@ -1339,9 +1338,7 @@ ItemFunction.items.set("Runic Potion",(item)=>{
             }
         });
         const lifestealNeedingWeapons = item.board.activeItems.filter(i=>i.tags.includes("Weapon") && !i.lifesteal);
-        item.pickRandom(lifestealNeedingWeapons,amount).forEach(i=>{
-            i.lifesteal=true;
-        });
+        item.pickRandom(lifestealNeedingWeapons).lifesteal=true;
     });
 });
 //Transform into 3 (Gold/Diamond) copies of the small item to the left of this. from 3D Printer
