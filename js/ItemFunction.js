@@ -313,13 +313,13 @@ ItemFunction.items.set("Closed Sign",(item)=>{
 //If you have a Vehicle, at the start of each fight, use this. from Propane Tank
 //Haste your Vehicles for ( 3 » 4 » 5 ) second(s). from Propane Tank
 ItemFunction.items.set("Propane Tank",(item)=>{
-    const hasteDuration = getRarityValue("3 >> 4 >> 5",item.rarity);
+    item.haste += getRarityValue("3 >> 4 >> 5",item.rarity);
     item.board.startOfFightTriggers.set(item.id,()=>{
         item.trigger();
     });
     item.triggerFunctions.push(()=>{
         item.board.items.forEach(i=>{
-            if(i.tags.includes("Vehicle")) item.applyHasteTo(i,hasteDuration);
+            if(i.tags.includes("Vehicle")) item.applyHasteTo(i);
         });
        
     });
@@ -595,11 +595,12 @@ ItemFunction.items.set("Stopwatch",(item)=>{
 ItemFunction.items.set("Forklift",(item)=>{
     //Deal ( 50 » 100 ) damage for each item to the left of this.
     //Haste this and the items on the right of this for ( 2 » 4 ) second(s). into a trigger function.
+    item.haste+=getRarityValue("2 >> 4",item.rarity);
     let damage = getRarityValue("50 >> 100",item.rarity);
     item.damage = (item.startItemData.damage||0) + item.board.items.reduce((acc,i)=>i.startIndex<item.startIndex?acc+damage:acc,0);
     item.triggerFunctions.push(()=>{    
         let thisAndItemsToTheRight = item.board.items.filter(i=>i.startIndex>=item.startIndex);
-        thisAndItemsToTheRight.forEach(i=>item.applyHasteTo(i,getRarityValue("2 >> 4",item.rarity)));
+        thisAndItemsToTheRight.forEach(i=>item.applyHasteTo(i));
     });
 });
 //If you have 5 or fewer items in play, their cooldowns are reduced by ( 10% » 20% ). from Stained Glass Window
@@ -631,24 +632,24 @@ ItemFunction.items.set("Weather Glass",(item)=>{
 
 ItemFunction.items.set("GPU",(item)=>{
     //Haste the Core for ( 1 » 2 » 3 » 4 ) second(s).
-    const hasteDuration = getRarityValue("1 >> 2 >> 3 >> 4",item.rarity);
+    item.haste += getRarityValue("1 >> 2 >> 3 >> 4",item.rarity);
     item.triggerFunctions.push(()=>{
         item.board.items.forEach(i=>{
             if(i.tags.includes("Core")) {
-                item.applyHasteTo(i,hasteDuration);
+                item.applyHasteTo(i);
             }
         });
     });
 });
 
 ItemFunction.items.set("Metronome",(item)=>{
-    let hasteDuration = getRarityValue("1 >> 2 >> 3",item.rarity);
+    item.haste += getRarityValue("1 >> 2 >> 3",item.rarity);
     //When you use an adjacent item, give the other adjacent item haste for ( 1 » 2 » 3 ) second(s).
     item.getAdjacentItems().forEach(i=>{
         i.triggerFunctions.push(()=>{
             let otherAdjacentItem = item.getAdjacentItems().find(i2=>i!=i2);
             if(otherAdjacentItem) {
-                item.applyHasteTo(otherAdjacentItem,hasteDuration);
+                item.applyHasteTo(otherAdjacentItem);
                 //log("usage of "+i.name+" gave "+otherAdjacentItem.name+" haste for "+hasteDuration+" seconds");
             }
         });
@@ -1330,10 +1331,11 @@ ItemFunction.items.set("Crystal Bonsai", (item)=>{
 //"(1/2/3/4) of your weapons gain Lifesteal for the fight." from runic potion
 ItemFunction.items.set("Runic Potion",(item)=>{
     const amount = getRarityValue("1/2/3/4",item.rarity);
+    item.haste += getRarityValue("1/2/3/4",item.rarity);
     item.triggerFunctions.push(()=>{
         item.board.activeItems.forEach(i=>{
             if(i.tags.includes("Weapon") && i.lifesteal) {
-                item.applyHasteTo(i,amount);
+                item.applyHasteTo(i);
             }
         });
         const lifestealNeedingWeapons = item.board.activeItems.filter(i=>i.tags.includes("Weapon") && !i.lifesteal);
@@ -1414,9 +1416,7 @@ ItemFunction.items.set("Mirror",(item)=>{
 ItemFunction.items.set("Recycling Bin",(item)=>{
     item.regen = getRarityValue("1/2/3",item.rarity);
     const potions = item.board.items.filter(i=>i.tags.includes("Potion"));
-    const potionCache = []; 
-    Object.values(items).forEach(i=>{ if(i.tags.includes("Potion")) potionCache.push(i); });
-    let originalBoard = item.board;
+    const potionCache = Item.getCacheByTag("Potion");
 
     let potionTriggerFunction = (i)=>{
         //get a random potion that is not the same as i and is the same size as i
@@ -1453,15 +1453,11 @@ ItemFunction.items.set("Recycling Bin",(item)=>{
             newPotion.triggerFunctions.push(()=>{
                 potionTriggerFunction(newPotion);
             });
-            newPotion.resetFunctions.push(()=>{           
-                console.log("resetting new potion",newPotion.name);                    
+            newPotion.resetFunctions.push(()=>{                           
                 newPotion.element.remove();
                 item.board.items = item.board.items.filter(someItem=>someItem!=newPotion);
                 //add the old potion to the active board
                 if(i.board==item.board) {
-                     //show the base potion
-                   // i.board = originalBoard;
-                    //remove the new potion from the active board
                     if(i.board.items.indexOf(i)==-1) {
                         i.board.addItem(i);
                         i.element.style.display = "block";
@@ -1481,4 +1477,43 @@ ItemFunction.items.set("Recycling Bin",(item)=>{
     });
 });
 
+//Transform into 2 small potions for the fight.
+ItemFunction.items.set("Potion Potion",(item)=>{
+    item.triggerFunctions.push(()=>{
+        
+    });
+});
+//Transform into a (Silver/Gold/Diamond) copy of another small, non-legendary item you have for the fight. from Quicksilver
+ItemFunction.items.set("Quicksilver",(item)=>{
+    const smallItems = item.board.items.filter(i=>i.id!=item.id && i.tags.includes("Small") && !i.tags.includes("Legendary"));
+    if(smallItems.length==0) return;
+    item.triggerFunctions.push(()=>{
+        const boardClone = item.board.player.clone().board;
+        const quicksilverClone = boardClone.items.find(i=>i.name==item.nameWithoutEnchant);
+        quicksilverClone.startItemData.enchant = quicksilverClone.enchant;
+        boardClone.items = boardClone.items.filter(i=>i!=quicksilverClone);
+        const newItemData = structuredClone(items[item.pickRandom(smallItems).nameWithoutEnchant]);
+        newItemData.startIndex = item.startIndex;
+        newItemData.tier = newItemData.tier>item.tier?newItemData.tier:item.tier;
+        const newItem = new Item(newItemData,boardClone);
+        newItem.board.player.hostileTarget = item.board.player.hostileTarget;
+        boardClone.reset();
+        boardClone.setup();
+
+        newItem.board = item.board;
+        newItem.progressBar.style.display = 'block';
+        item.board.addItem(newItem);
+
+        newItem.resetFunctions.push(()=>{
+            item.element.style.display = "block";
+            newItem.element.remove();
+            item.board.items = item.board.items.filter(i=>i!=newItem);
+            item.board.addItem(item);
+            item.reset();
+        });
+
+        item.board.transformTriggers.forEach(f=>f(item,item));
+    });
+    
+});
 ItemFunction.setupItems();
