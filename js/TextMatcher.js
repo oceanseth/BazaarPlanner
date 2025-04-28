@@ -693,4 +693,14 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+TextMatcher.matchers.push({
+    //gain (25/50/75) Regeneration for the fight. from Staff of the Moose
+    regex: /^\s*gain (\([^)]+\)|\d+) Regen(?:eration)? for the fight\.$/i,
+    func: (item, match)=>{
+        item.gain(getRarityValue(match[1], item.rarity),'regen');
+        return ()=>{
+            item.applyRegeneration(item.regen);
+        };
+    }
+});
 window.TextMatcher = TextMatcher;

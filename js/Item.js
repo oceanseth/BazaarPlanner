@@ -2206,6 +2206,13 @@ export class Item {
                     <input type="number" id="edit-heal" value="${this.heal}">
                 </div>`;
         }
+        if(this.tags.includes("Regen")) {
+            popupHTML += `
+                <div class="form-group">
+                    <label>Regen:</label>
+                    <input type="number" id="edit-regen" value="${this.regen}">
+                </div>`;
+        }
         if(this.tags.includes("Haste")) {
             popupHTML += `
                 <div class="form-group">
@@ -4590,9 +4597,14 @@ export class Item {
         regex = /^\s*(Poison|Burn|Shield) equal to your Regeneration\.?/i;
         match = text.match(regex);
         if(match) {            
-            const whatToGain = match[1];
+            const whatToGain = match[1].toLowerCase();
+            const whatToGainTag = Item.getTagFromText(match[1]);
+            this.gain(this.board.player.regen||0,whatToGain);
+            this.board.player.regenChanged((newValue,oldValue)=>{
+                this.gain(newValue-oldValue,whatToGain);
+            });
             return () => {
-                this["apply"+whatToGain](this.board.player.regen||0);
+                this["apply"+whatToGainTag](this.board.player.regen||0);
             };
         }
 
