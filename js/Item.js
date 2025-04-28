@@ -878,6 +878,10 @@ export class Item {
         this.freezeElement.classList.remove('hidden');      
     }
     applyFreezeTo(item) {
+        if(item.enchant=='Radiant') {
+            this.log(this.name + "'s freeze was prevented by " + item.name + ".");
+            return;
+        }
         let duration = this.freeze;
         if(this.hasDoubleFreezeDuration) {
             duration*=2;
@@ -1721,6 +1725,12 @@ export class Item {
             case 'freeze':
                 this.freeze += amount;
                 break;
+            case 'haste':
+                this.haste += amount;
+                break;
+            case 'slow':
+                this.slow += amount;
+            break;
             case 'multicast':
                 if(this.cooldown>0) {
                     this.multicast += amount;
@@ -2194,6 +2204,13 @@ export class Item {
                 <div class="form-group">
                     <label>Heal:</label>
                     <input type="number" id="edit-heal" value="${this.heal}">
+                </div>`;
+        }
+        if(this.tags.includes("Regen")) {
+            popupHTML += `
+                <div class="form-group">
+                    <label>Regen:</label>
+                    <input type="number" id="edit-regen" value="${this.regen}">
                 </div>`;
         }
         if(this.tags.includes("Haste")) {
@@ -4058,9 +4075,10 @@ export class Item {
         if(match) {
             const whatToDo = Item.getTagFromText(match[1]);
             const duration = getRarityValue(match[2], this.rarity);
+            this.gain(duration,whatToDo.toLowerCase());
             return () => {
                 this.board.player.hostileTarget.board.items.sort((a,b)=>b.cooldown-a.cooldown).slice(0,1).forEach(item=>{ 
-                    this["apply"+whatToDo+"To"](item, duration);
+                    this["apply"+whatToDo+"To"](item);
                 });
             }
         }
@@ -4579,9 +4597,14 @@ export class Item {
         regex = /^\s*(Poison|Burn|Shield) equal to your Regeneration\.?/i;
         match = text.match(regex);
         if(match) {            
-            const whatToGain = match[1];
+            const whatToGain = match[1].toLowerCase();
+            const whatToGainTag = Item.getTagFromText(match[1]);
+            this.gain(this.board.player.regen||0,whatToGain);
+            this.board.player.regenChanged((newValue,oldValue)=>{
+                this.gain(newValue-oldValue,whatToGain);
+            });
             return () => {
-                this["apply"+whatToGain](this.board.player.regen||0);
+                this["apply"+whatToGainTag](this.board.player.regen||0);
             };
         }
 
