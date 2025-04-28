@@ -96,7 +96,7 @@ export class Player {
             this.startPlayerData.income = parseInt(this.editorElement.querySelector("#player-income").value);
             this.startPlayerData.level = parseInt(this.editorElement.querySelector("#player-level").value);
             this.startPlayerData.gold = parseInt(this.editorElement.querySelector("#player-gold").value);
-            this.startPlayerData.regen = parseInt(this.editorElement.querySelector("#player-regen").value);
+            this.startPlayerData.regen = parseInt(this.editorElement.querySelector("#player-regen").value)-this.regen+this.startPlayerData.regen;
 
             this.editorElement.style.display = "none";
             this.battle.resetBattle();
