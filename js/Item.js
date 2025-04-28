@@ -861,6 +861,11 @@ export class Item {
         if(this.battleStats.heal == undefined) this.battleStats.heal = 0;
         this.battleStats.heal += healAmount;
     }
+    applyFreezes(amount) {
+        for(let i=0;i<amount;i++) {
+            this.applyFreezeTo(this.pickRandom(this.board.player.hostileTarget.board.activeItems.filter(i=>i.isFreezeTargetable())));
+        }
+    }
     applyFreeze(duration,source=null) {
         if(source!=null) { return source.applyFreezeTo(this,duration);}
         if(this.enchant=='Radiant') return;
@@ -1107,9 +1112,11 @@ export class Item {
     }
     isChargeTargetable = this.isHasteTargetable;
     isFreezeTargetable() {
-        return !this.isDestroyed 
+        return !this.isDestroyed && (this.cooldown > 0 || (this.size<3));
+        /*
         && (this.cooldown > 0  || !this.board.items.some(item => item.cooldown > 0 && item.freezeDurationRemaining<=0))
         && (this.freezeDurationRemaining <= 0 || !this.board.items.some(item => item.freezeDurationRemaining <= 0 && item.isHasteTargetable()));
+        */
     }
 
         
