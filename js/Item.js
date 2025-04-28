@@ -878,6 +878,10 @@ export class Item {
         this.freezeElement.classList.remove('hidden');      
     }
     applyFreezeTo(item) {
+        if(item.enchant=='Radiant') {
+            this.log(this.name + "'s freeze was prevented by " + item.name + ".");
+            return;
+        }
         let duration = this.freeze;
         if(this.hasDoubleFreezeDuration) {
             duration*=2;
