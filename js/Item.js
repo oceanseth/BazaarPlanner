@@ -1725,6 +1725,12 @@ export class Item {
             case 'freeze':
                 this.freeze += amount;
                 break;
+            case 'haste':
+                this.haste += amount;
+                break;
+            case 'slow':
+                this.slow += amount;
+            break;
             case 'multicast':
                 if(this.cooldown>0) {
                     this.multicast += amount;
@@ -4062,9 +4068,10 @@ export class Item {
         if(match) {
             const whatToDo = Item.getTagFromText(match[1]);
             const duration = getRarityValue(match[2], this.rarity);
+            this.gain(duration,whatToDo.toLowerCase());
             return () => {
                 this.board.player.hostileTarget.board.items.sort((a,b)=>b.cooldown-a.cooldown).slice(0,1).forEach(item=>{ 
-                    this["apply"+whatToDo+"To"](item, duration);
+                    this["apply"+whatToDo+"To"](item);
                 });
             }
         }
