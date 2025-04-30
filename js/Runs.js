@@ -82,6 +82,7 @@ export class Runs {
     }
     static loadActiveRuns() {
         User.activeUsers.then(users => {
+            if(users.length==0) { return; }
             users.forEach(user => {
                 
                 const run = Runs.runs[user.id];
