@@ -7,7 +7,7 @@ import { Item } from './Item.js';
 import { getRarityValue, loadFromUrl, updateUrlState } from './utils.js';
 import { Battle } from './Battle.js';
 import { Puzzle } from './Puzzle.js';
-import { Account } from './Account.js';
+import { User } from './User.js';
 import { Runs } from './Runs.js';
 // Make necessary functions/classes available globally
 window.trackerUrl = "https://github.com/oceanseth/BazaarPlannerMod/releases/download/1.0.3/BazaarPlannerModInstaller-1.0.3.zip";
@@ -32,7 +32,7 @@ if(window.backpackBoard==null) {
     window.backpackPlayer = new Player({name:"Backpack", maxHealth:1000}, 'backpack');
 }
 window.Puzzle = Puzzle;
-window.Account = Account;
+window.User = User;
 topPlayer.hostileTarget = bottomPlayer;
 bottomPlayer.hostileTarget = topPlayer;
 
