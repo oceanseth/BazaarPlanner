@@ -83,6 +83,7 @@
             </div>
         </div>
         <div id="runs" class="section" style="display: none;">
+            <div id="active-runs-content"></div>
             <div class="requireLogout">
                 You are not currently logged in.<br/><br/>
                 If you are logged in, this section will show all your tracked runs.<br/><br/>
@@ -105,8 +106,8 @@
                 Soon we will show stats on puzzle solves, and more.<br/>
                 Set your display name to show on the site.<br/><br/>
                 What shall we call you?
-                <input type="text" id="update-account-display-name" placeholder="display name">
-                <button onclick="Account.updateDisplayName()">Save</button>
+                <input type="text" id="update-user-display-name" placeholder="display name">
+                <button onclick="User.updateDisplayName()">Save</button>
                 <br/><br/>
                 <!--
                 What icon should represent you?
