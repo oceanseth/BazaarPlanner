@@ -182,6 +182,7 @@ class Board {
 
     reset() {
         setupChangeListeners(this, Board.possibleChangeAttributes );
+        this.inCombat = false;
         this.critPossible=true;
         this.damageDealt = 0;
         this.itemTriggers = new Map(); //functions to call when any item on this board is triggered
@@ -540,6 +541,7 @@ class Board {
 
 
     startBattle() {
+        this.inCombat = true;
         this.damageApplied = 0;
         this.healingApplied = 0;
         this.shieldApplied = 0;

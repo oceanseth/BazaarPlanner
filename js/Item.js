@@ -2940,8 +2940,8 @@ export class Item {
                         });
                         return;
                     case "heal or gain regeneration":
-                        this.board.player.regenChanged((newRegen,oldRegen)=>{
-                            if(newRegen>oldRegen) {
+                        this.board.player.regenChanged((newRegen,oldRegen)=>{                            
+                            if(this.board.inCombat && newRegen>oldRegen) {
                                 triggerFunctionFromText(this);
                             }
                         });
