@@ -518,7 +518,7 @@ export class Item {
         }
         //let rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
         // Create HTML content with structured layout
-        let tooltipContent = `<div class="background-image" style="opacity:0.2;background-image:url('/images/items/${Item.cleanName(this.name)}.avif'); background-size: cover; background-position: center;"></div>
+        let tooltipContent = `<div class="background-image" style="opacity:0.2;background-image:url('/images/items/${Item.cleanName(this.nameWithoutEnchant)}.avif'); background-size: cover; background-position: center;"></div>
             <div class="tooltip-content">
                 <div class="tooltip-tags">
                     ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag.toLowerCase()}">${tag}</span>`).join('')}
