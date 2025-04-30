@@ -2206,7 +2206,7 @@ export class Item {
                     <input type="number" id="edit-heal" value="${this.heal}">
                 </div>`;
         }
-        if(this.tags.includes("Regen")) {
+        if(this.tags.includes("Regen") || this.regen > 0) {
             popupHTML += `
                 <div class="form-group">
                     <label>Regen:</label>
@@ -2244,13 +2244,6 @@ export class Item {
                     <input type="number" id="edit-cooldown" value="${(this.cooldown/1000).toFixed(1)}">
                 </div>`;
 
-        }
-        if(this.regen>0) {
-            popupHTML += `
-                <div class="form-group">
-                    <label>Regen:</label>
-                    <input type="number" id="edit-regen" value="${this.regen}">
-                </div>`;
         }
         if(this.damageBonus>0) {
             popupHTML += `
