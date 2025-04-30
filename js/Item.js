@@ -518,7 +518,7 @@ export class Item {
         }
         //let rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
         // Create HTML content with structured layout
-        let tooltipContent = `<div class="background-image" style="opacity:0.2;background-image:url('/images/items/${Item.cleanName(this.name)}.avif'); background-size: cover; background-position: center;"></div>
+        let tooltipContent = `<div class="background-image" style="opacity:0.2;background-image:url('/images/items/${Item.cleanName(this.nameWithoutEnchant)}.avif'); background-size: cover; background-position: center;"></div>
             <div class="tooltip-content">
                 <div class="tooltip-tags">
                     ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag.toLowerCase()}">${tag}</span>`).join('')}
@@ -1175,14 +1175,14 @@ export class Item {
         regex = /^(Haste|Slow) your( other)? items (?:for )?(\([^)]+\)|\d+) second/i;
         match = text.match(regex);
         if(match) {
-            const duration = getRarityValue(match[3], this.rarity);
+            this.gain(getRarityValue(match[3], this.rarity),match[1].toLowerCase());
             const other = match[2]=='other';
             const whatToDo = Item.getTagFromText(match[1]);
             
             return () => {
                 this.board.items.forEach(i => {
                     if(other && i.id == this.id) return;
-                    this["apply"+whatToDo+"To"](i,duration);
+                    this["apply"+whatToDo+"To"](i);
                 });
             };
         }
@@ -2206,7 +2206,7 @@ export class Item {
                     <input type="number" id="edit-heal" value="${this.heal}">
                 </div>`;
         }
-        if(this.tags.includes("Regen")) {
+        if(this.tags.includes("Regen") || this.regen > 0) {
             popupHTML += `
                 <div class="form-group">
                     <label>Regen:</label>
@@ -2244,13 +2244,6 @@ export class Item {
                     <input type="number" id="edit-cooldown" value="${(this.cooldown/1000).toFixed(1)}">
                 </div>`;
 
-        }
-        if(this.regen>0) {
-            popupHTML += `
-                <div class="form-group">
-                    <label>Regen:</label>
-                    <input type="number" id="edit-regen" value="${this.regen}">
-                </div>`;
         }
         if(this.damageBonus>0) {
             popupHTML += `
@@ -2947,8 +2940,8 @@ export class Item {
                         });
                         return;
                     case "heal or gain regeneration":
-                        this.board.player.regenChanged((newRegen,oldRegen)=>{
-                            if(newRegen>oldRegen) {
+                        this.board.player.regenChanged((newRegen,oldRegen)=>{                            
+                            if(this.board.inCombat && newRegen>oldRegen) {
                                 triggerFunctionFromText(this);
                             }
                         });
