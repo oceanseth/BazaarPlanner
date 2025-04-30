@@ -138,6 +138,7 @@ export function loadFromUrl(hash) {
         Run.loadRunInSim(params.get('run'), params.get('e'), params.get('u'));
         return;
     }
+    User.updateUserPresence();
     window.isLoadingFromUrl = true;
     const boardsCleared = new Map();
 
