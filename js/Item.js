@@ -1175,14 +1175,14 @@ export class Item {
         regex = /^(Haste|Slow) your( other)? items (?:for )?(\([^)]+\)|\d+) second/i;
         match = text.match(regex);
         if(match) {
-            const duration = getRarityValue(match[3], this.rarity);
+            this.gain(getRarityValue(match[3], this.rarity),match[1].toLowerCase());
             const other = match[2]=='other';
             const whatToDo = Item.getTagFromText(match[1]);
             
             return () => {
                 this.board.items.forEach(i => {
                     if(other && i.id == this.id) return;
-                    this["apply"+whatToDo+"To"](i,duration);
+                    this["apply"+whatToDo+"To"](i);
                 });
             };
         }
