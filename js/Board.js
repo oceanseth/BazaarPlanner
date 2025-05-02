@@ -17,6 +17,7 @@ class Board {
         this.player = player;
         this.player.board = this;
         this.element = document.getElementById(boardId);
+        this.stashItems = [];
         this.options = options;
         this.initialize();
         Board.boards.set(boardId,this);
@@ -67,6 +68,7 @@ class Board {
             this.importElement.querySelector('#sim-encounter-select').onchange = (e) => {      
                 this.loadEncounter(run.encounters[e.target.value]);
             };
+            this.importElement.querySelector('#sim-encounter-select').val(run.currentEncounter).trigger('change');
         }
     }
     _followingCurrentRunId = null;
@@ -153,20 +155,25 @@ class Board {
             this.element.appendChild(this.importElement);
             this.createDeleteZone();
         }
-        this.createHealthElement();
-        this.createSkillsElement();
-        this.createGoldElement();
-        this.createDPSElement();
-        this.createIncomeElement();
-        this.createWinRateElement();
-        this.createPlayerElement();
+        if(this.boardId!='backpack' && this.boardId!='tb') {
+            this.createHealthElement();
+            this.createSkillsElement();
+            this.createGoldElement();
+            this.createDPSElement();
+            this.createIncomeElement();
+            this.createWinRateElement();
+            this.createPlayerElement();
+        }
+        this.createBoardControls();
         this.reset();
 
 
     }
     clear() {
-        if(this.element) {
-            this.skillsElement.innerHTML = '';        
+        if(this.skillsElement) {
+            this.skillsElement.innerHTML = '';
+        }
+        if(this.element) {                  
             this.items.forEach(item => item.element.remove());
         }
         this.items = [];
@@ -217,9 +224,10 @@ class Board {
                 this.winRateElement.style.display = "none";
             }
         }
-        
-        this.updateGoldElement();
-        this.updateIncomeElement();
+        if(this.boardId!='backpack' && this.boardId!='tb') {
+            this.updateGoldElement();
+            this.updateIncomeElement();
+        }
     }
     setup() {
         this.setupItems();
@@ -374,6 +382,7 @@ class Board {
         ;
     }
     updateHealthElement() {
+        if(!this.healthElement) return;
         const healthPercent = (this.player?.health || 0) / (this.player?.maxHealth || 1000) * 100;
         this.healthElement.style.background = `linear-gradient(to right, 
 
@@ -452,6 +461,18 @@ class Board {
         this.player.setup();
         if(this.options.editable) updateUrlState();
     }
+    createBoardControls() {
+        this.boardControls = document.createElement('div');
+        this.boardControls.className = 'board-controls';
+        this.element.appendChild(this.boardControls);
+        this.boardControls.innerHTML = `
+            ${this.boardId=='b'?'<div class="requireLogin"><button id="followBtn-b" class="editorOpener" onclick="window.showFollowModal(bottomPlayer.board);">Follow</button></div>':''}
+            <button onclick="Board.getBoardFromId('${this.boardId}').clear()">Clear</button>
+            <button onclick="Board.getBoardFromId('${this.boardId}').save()">Save</button>
+            <button onclick="Board.getBoardFromId('${this.boardId}').load()">Load</button>
+        `;
+    }
+
     createPlayerElement() {
         this.playerElement = document.createElement('div');
         this.playerElement.className = 'player-element';

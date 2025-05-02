@@ -7,7 +7,7 @@ export class Player {
     static players = new Map();
     static possibleChangeAttributes = ['health','shield','gold','maxHealth','burn','poison','regen','battleTime'];
    
-    constructor(startPlayerData={}, boardId=null, editable=true) {
+    constructor(startPlayerData={}, boardId=null, boardOptions={editable:true, skills:true}) {
         setupChangeListeners(this, Player.possibleChangeAttributes );
         this.startPlayerData = startPlayerData;
         if(!startPlayerData.maxHealth) startPlayerData.maxHealth = 1000;
@@ -17,7 +17,9 @@ export class Player {
         if(!startPlayerData.regen) startPlayerData.regen = 0;
         Object.assign(this, startPlayerData);
         if(boardId) {
-            const board = new Board(boardId, this, {editable:editable, skills:editable});
+            if(boardOptions.editable==undefined) boardOptions.editable = true;
+            if(boardOptions.skills==undefined) boardOptions.skills = true;
+            const board = new Board(boardId, this, boardOptions);
             this.board = board;
         }
     }
