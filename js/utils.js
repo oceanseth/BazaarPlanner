@@ -277,22 +277,27 @@ export function loadFromUrl(hash) {
                 //console.log("Evaluating item",item.name);
                 Item.possibleChangeAttributes.forEach(attribute=>{
                     if(item[attribute+"Final"] != undefined && item[attribute+"Final"] != item[attribute]) {
-                      //  console.log("evaluating "+attribute, item[attribute+"Final"], item[attribute]);
+                      if(numTries==0) {
                         item.startItemData[attribute] = item.startItemData[attribute]||0 + (item[attribute+"Final"] - item[attribute])/item[attribute+"_multiplier"];
                         item[attribute] = item[attribute+"Final"];
+                      } else {
+                        if(item[attribute]<item[attribute+"Final"]) {
+                            if(item[attribute+"Final"]-item[attribute]>50) item.startItemData[attribute]*=2;
+                            else item.startItemData[attribute]+=1;
+                        } else {
+                            if(item[attribute]-item[attribute+"Final"]>50) item.startItemData[attribute]/=2;
+                            else item.startItemData[attribute]-=1;
+                        }
+                        item.startItemData[attribute] = Math.floor(item.startItemData[attribute]);
+                      }
                        // item.reset();
                        // item.setup();
                         
-                        item[attribute+"Changed"]((newValue,oldValue)=>{
-                            item[attribute+"CancelChanged"]("removeMe");
-                            item.startItemData[attribute] -= (newValue-oldValue)/item[attribute+"_multiplier"];
-                            itemsToEvaluate.push(item);
-                        },"removeMe");
-                        //refreshBoards();
+                        refreshBoards();
                     }
                 });
                 numTries++;
-                if(numTries > 100) {
+                if(numTries > 500) {
                     console.log("Failed to equalize item attributes with those given from game",item.name);
                     break;
                 }

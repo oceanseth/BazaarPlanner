@@ -92,6 +92,7 @@ class Board {
                         
                     firebase.database().ref('users/'+value+"/runs/"+runValue.id).on('value', snapshot => {
                         const fullRun = snapshot.val();
+                        if(!fullRun) return;
                         fullRun.id = runValue.id;
                         this.loadFullRun(fullRun);
                     });
@@ -912,8 +913,8 @@ class Board {
         const name = prompt("What do you want to name this board?");
         const items = this.items.map(item => ({
             item: item.startItemData,
+            enchant: item.enchant,
             startIndex: item.startIndex,
-            size: item.size
         }));
         const skills = this.skills.map(skill => ({
             name: skill.name,
@@ -948,9 +949,10 @@ class Board {
                     const data = JSON.parse(event.target.result);
                     const items = data.items;
                     const skills = data.skills;
-                    items.forEach(({item, startIndex, size}) => {
+                    items.forEach(({item, enchant, startIndex}) => {
                         let newItem = new Item(item, this);
                         newItem.setIndex(startIndex);
+                        newItem.enchant = enchant;
                     });
                     skills.forEach(({name, rarity}) => {
                         this.addSkill(name,{rarity:rarity});
