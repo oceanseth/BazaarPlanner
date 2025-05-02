@@ -1,4 +1,6 @@
 export class User {
+    static userIdMap = {};
+    static userDisplayNameMap = {};
 
     constructor(id) {
         this.id = id;
@@ -24,6 +26,8 @@ export class User {
                 this.displayName = userData.displayName || null;
                 this.isDonor = userData.isDonor || false;
                 this.isLoaded = true;
+                User.userIdMap[this.id] = this;
+                User.userDisplayNameMap[this.displayName] = this.id;
                 return this;
             });
 
@@ -42,12 +46,12 @@ export class User {
             alert("Please sign in to update your display name");
             return;
         }
-        firebase.database().ref(`usernames/${displayName}`).once('value').then(ss=>{
+        firebase.database().ref(`usernames/${displayName.trim().toLowerCase()}`).once('value').then(ss=>{
             if(ss.exists() && ss.val() !== window.user.displayName) {
                 alert("Display name already taken");
                 return;
             }
-            firebase.database().ref(`usernames/${displayName}`).set(window.user.uid).then(()=>{
+            firebase.database().ref(`usernames/${displayName.trim().toLowerCase()}`).set(window.user.uid).then(()=>{
                 firebase.database().ref(`users/${window.user.uid}/displayName`).set(displayName);
             });
                 
@@ -101,6 +105,28 @@ export class User {
                 });
             });
         return User._activeUsersPromise;
+    }
+    static followUserById(uid) {
+        window.bottomPlayer.board.follow = uid;
+        const followBtn = document.querySelector('#followBtn-b');
+        followBtn.classList.add('following-button');
+        followBtn.innerHTML = 'Unfollow';
+        showSection('simulator');
+    }
+    static followUserByName(name) {
+        name = name.trim().toLowerCase();
+        const uid = User.userDisplayNameMap[name];
+        if(uid) {
+            User.followUserById(uid);
+            return;
+        }
+        firebase.database().ref(`usernames/${name}`).once('value').then(ss=>{
+            if(ss.exists()) {
+                User.followUserById(ss.val());
+            } else {
+                alert("User not found");
+            }
+        });
     }
 };
 

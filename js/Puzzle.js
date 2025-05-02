@@ -83,8 +83,8 @@ export class Puzzle {
     static loadPuzzleBoards() {
         if(Puzzle.battle == null) {
             window.isLoadingFromUrl = true;
-            Puzzle.topPlayer = new Player({},"puzzle-top",false);
-            Puzzle.bottomPlayer = new Player({},"puzzle-bottom",false);
+            Puzzle.topPlayer = new Player({},"puzzle-top",{editable:false, skills:false});
+            Puzzle.bottomPlayer = new Player({},"puzzle-bottom",{editable:false, skills:false});
             Puzzle.topPlayer.hostileTarget = Puzzle.bottomPlayer;
             Puzzle.bottomPlayer.hostileTarget = Puzzle.topPlayer;
             Puzzle.battle = new Battle([Puzzle.topPlayer, Puzzle.bottomPlayer], ()=>{},$("#puzzle-combatlog"));

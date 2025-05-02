@@ -84,6 +84,8 @@ export class Runs {
         User.activeUsers.then(users => {
             if(users.length==0) { return; }
             users.forEach(user => {
+                User.userIdMap[user.id] = user;
+                User.userDisplayNameMap[user.displayName] = user.id;
                 
                 const run = Runs.runs[user.id];
                 if(run) {
@@ -94,19 +96,12 @@ export class Runs {
                 <h1>Active Runs</h1>
                 <div class="active-runs-list">
                 `
-                + users.map(user => `<button class="follow-button" onClick="Runs.followUser('${user.id}')">${user.displayName}</button>`).join('') +
+                + users.map(user => `<button class="follow-button" onClick="User.followUserById('${user.id}')">${user.displayName}</button>`).join('') +
                 `
                 </div>
             `);
             
         });
-    }
-    static followUser(uid) {
-        window.bottomPlayer.board.follow = uid;
-        const followBtn = document.querySelector('#followBtn-b');
-        followBtn.classList.add('following-button');
-        followBtn.innerHTML = 'Unfollow';
-        showSection('simulator');
     }
 }
 

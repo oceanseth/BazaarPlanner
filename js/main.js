@@ -29,8 +29,13 @@ window.populateSearchSuggestions = populateSearchSuggestions;
 window.topPlayer = new Player({name:"Vanessa", maxHealth:1000}, 't');
 window.bottomPlayer = new Player({name:"Dooley"}, 'b');
 if(window.backpackBoard==null) {
-    window.backpackPlayer = new Player({name:"Backpack", maxHealth:1000}, 'backpack');
+
+    window.backpackPlayer = new Player({name:" ", maxHealth:1000}, 'backpack', {skills:false});
     window.backpackPlayer.hostileTarget = topPlayer;
+    window.backpackTopPlayer = new Player({name:" ", maxHealth:1000}, 'tb', {skills:false});
+    window.backpackTopPlayer.hostileTarget = bottomPlayer;
+    topPlayer.board.stashItems = window.backpackTopPlayer.board.items;
+    bottomPlayer.board.stashItems = window.backpackPlayer.board.items;
 }
 window.Puzzle = Puzzle;
 window.User = User;
@@ -227,7 +232,7 @@ function createCalculateBattleButton() {
             calculateBattleButton.classList.remove('spinning');
         }, {once: true});
     }
-    document.getElementById('simulator').appendChild(calculateBattleButton);
+    document.getElementById('b').parentElement.appendChild(calculateBattleButton);
 }
 
 

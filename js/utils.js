@@ -3,6 +3,7 @@ import { Board } from './Board.js';
 import { Item } from './Item.js';
 import { Skill } from './Skill.js';
 import { Run } from './Run.js';
+import { User } from './User.js';
 
 export function colorTextArray(textArray, rarityIndex) {
     return Array.isArray(textArray) ? 
@@ -137,6 +138,10 @@ export function loadFromUrl(hash) {
         const params = new URLSearchParams(hash);
         Run.loadRunInSim(params.get('run'), params.get('e'), params.get('u'));
         return;
+    } else if(hash.startsWith('follow=')) {
+        const params = new URLSearchParams(hash);
+        User.followUserByName(params.get('follow'));
+        return;
     }
     User.updateUserPresence();
     window.isLoadingFromUrl = true;
@@ -163,6 +168,7 @@ export function loadFromUrl(hash) {
         boardState.forEach((boardStateObject) => {
             if(boardStateObject.name.startsWith('_b_')) {
                 const boardId = boardStateObject.name.slice(3);
+                document.getElementById(boardId).parentElement.style.display = 'block';
                 const board = Board.getBoardFromId(boardId);
                 if(!boardsCleared.has(boardId)) {
                     board.clear();
