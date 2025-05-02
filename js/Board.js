@@ -92,6 +92,7 @@ class Board {
                         
                     firebase.database().ref('users/'+value+"/runs/"+runValue.id).on('value', snapshot => {
                         const fullRun = snapshot.val();
+                        if(!fullRun) return;
                         fullRun.id = runValue.id;
                         this.loadFullRun(fullRun);
                     });
