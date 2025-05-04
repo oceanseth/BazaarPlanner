@@ -309,7 +309,7 @@ class Board {
                 skillSelectorTooltip.className = 'skill-selector-tooltip';
                 const skillName = e.target.querySelector('span').textContent;
                 const skill = skills[skillName];
-                const selectedRarity = this.skillSelector.querySelector('#skill-selector-rarity').value;
+                const selectedRarity = this.skillSelector.querySelector('#skill-selector-tier').value;
                 if(skill) {
                     skillSelectorTooltip.innerHTML = `
                     <div class='skill-icon ${selectedRarity}' style='position:absolute; top:0px; left:-120px; width: 120px; height: 120px;'>
