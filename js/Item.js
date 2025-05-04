@@ -384,7 +384,7 @@ export class Item {
             this.element.classList.add(this.enchant);
             
         // Generate and apply enchant overlay
-            if (this.enchant=='Heavy') {
+            if (this.enchant=='Golden') {
                 this.element.style.setProperty('--enchant-overlay', `url(/images/items/${Item.cleanName(this.name)}.webp)`);
                 this.element.classList.add('has-enchant-overlay');
             } 

@@ -23,7 +23,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "zipItemsWithTag": "node scripts/zipItemsWithTag.js"
+    "zipItemsWithTag": "node scripts/zipItemsWithTag.js",
+    "generateEnchantOverlays": "node scripts/generateEnchantOverlays.js"
   },
   "keywords": [],
   "author": "",

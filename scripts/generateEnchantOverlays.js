@@ -1,88 +1,103 @@
-import Item from '../js/Item.js';
-import items from '../js/items.js';
+import sharp from 'sharp';
+import fs from 'fs/promises';
+import path from 'path';
+import {items} from '../items.js';
+
 async function generateEnchantOverlays() {
-    for (const item of items) {
-        for (const enchant of item.enchants) {        
-        // For Golden enchant, create edge detection overlay
-        if (enchant === 'Golden') {
-            const img = this.element.querySelector('img');
-            await new Promise(resolve => {
-                if (img.complete) {
-                    resolve();
-                } else {
-                    img.onload = resolve;
+    for (const i in items) {
+        const item = items[i];
+        const inputPath = `./public/images/items/${item.name}.avif`;
+        
+        for (const enchant in item.enchants) {
+            if (enchant === 'Golden') {
+                // Load the image directly using sharp
+                const image = sharp(inputPath);
+                const metadata = await image.metadata();
+                const { width, height } = metadata;
+
+                // Get image data for edge detection
+                const { data } = await image
+                    .raw()
+                    .toBuffer({ resolveWithObject: true });
+
+                const imageData = {
+                    data,
+                    width,
+                    height
+                };
+                console.log("detecting edges");
+                const edges = await detectEdges(imageData);
+                console.log("edges detected");
+
+                // Create frames with fading edges
+                const numFrames = 20;
+                const frameDelay = 50; // 50ms per frame
+
+                try {
+                    console.log(`Processing ${edges.length} edges for ${item.id}`);
+                    
+                    // Reduce number of edges by sampling every nth edge
+                    const samplingRate = Math.ceil(edges.length / 1000); // Limit to ~1000 edges
+                    const sampledEdges = edges.filter((_, index) => index % samplingRate === 0);
+                    console.log(`Reduced to ${sampledEdges.length} edges`);
+
+                    const frameBuffers = [];
+                    for (let frame = 0; frame < numFrames; frame++) {
+                        console.log(`Creating frame ${frame + 1}/${numFrames}`);
+                        
+                        // Create a new blank image for this frame
+                        const frameBuffer = await sharp({
+                            create: {
+                                width,
+                                height,
+                                channels: 4,
+                                background: { r: 0, g: 0, b: 0, alpha: 0 }
+                            }
+                        })
+                        .composite(sampledEdges.map((edge, index) => {
+                            const phaseShift = (index / sampledEdges.length + frame / numFrames) * Math.PI * 2;
+                            const alpha = Math.floor((Math.sin(phaseShift) + 1) / 2 * 255);
+                            return {
+                                input: {
+                                    create: {
+                                        width: 3,
+                                        height: 3,
+                                        channels: 4,
+                                        background: { r: 255, g: 215, b: 0, alpha }
+                                    }
+                                },
+                                left: Math.floor(edge.x1),
+                                top: Math.floor(edge.y1),
+                                blend: 'add'
+                            };
+                        }))
+                        .png()
+                        .toBuffer();
+
+                        frameBuffers.push(frameBuffer);
+                    }
+
+                    console.log('Creating final WebP animation...');
+                    await sharp(frameBuffers[0], {
+                        animated: true,
+                        pages: -1  // Tell sharp to expect multiple pages
+                    })
+                    .joinChannel(frameBuffers.slice(1))  // Add the rest of the frames
+                    .webp({
+                        quality: 80,
+                        loop: 0,
+                        delay: Array(frameBuffers.length).fill(frameDelay),
+                        pageHeight: height,
+                    })
+                    .toFile(`./public/images/enchants/Golden${item.name}.webp`);
+
+                    console.log(`Successfully generated golden overlay for ${item.name}`);
+                } catch (e) {
+                    console.error(`Failed to generate golden overlay for ${item.name}:`, e);
                 }
-            });
-            
-            // Get rendered dimensions
-            const renderedWidth = img.clientWidth;
-            const renderedHeight = img.clientHeight;
-            console.log('Dimensions:', renderedWidth, renderedHeight);
-
-            // Create canvas for processing at intrinsic size
-            const canvas = document.createElement('canvas');
-            canvas.width = img.naturalWidth;
-            canvas.height = img.naturalHeight;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0);
-
-            // Get image data for processing
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            const edges = await Item.detectEdges(imageData);
-
-            // Create frames with fading edges
-            const numFrames = 20;
-            const frameDelay = 50; // 50ms per frame = 1 second total animation
-            const frames = [];
-
-            for (let frame = 0; frame < numFrames; frame++) {
-                const overlayCanvas = document.createElement('canvas');
-                overlayCanvas.width = renderedWidth;
-                overlayCanvas.height = renderedHeight;
-                const overlayCtx = overlayCanvas.getContext('2d');
-
-                // Scale the context to match rendered size
-                const scaleX = renderedWidth / img.naturalWidth;
-                const scaleY = renderedHeight / img.naturalHeight;
-                overlayCtx.scale(scaleX, scaleY);
-
-                // Setup drawing style
-                overlayCtx.strokeStyle = '#ffd700';
-                overlayCtx.shadowColor = '#ffd700';
-                overlayCtx.shadowBlur = 5;
-
-                // Draw each edge with its own alpha based on position and current frame
-                edges.forEach((edge, index) => {
-                    // Calculate alpha based on frame number and edge position
-                    const phaseShift = (index / edges.length + frame / numFrames) * Math.PI * 2;
-                    const alpha = (Math.sin(phaseShift) + 1) / 2;
-
-                    overlayCtx.globalAlpha = alpha;
-                    overlayCtx.beginPath();
-                    overlayCtx.moveTo(edge.x1, edge.y1);
-                    overlayCtx.lineTo(edge.x2, edge.y2);
-                    overlayCtx.stroke();
-                });
-
-                frames.push({
-                    data: overlayCanvas.toDataURL('image/png'),
-                    delay: frameDelay,
-                    width: renderedWidth,
-                    height: renderedHeight
-                });
-            }
-
-            try {
-                const dataUrl = await window.webpEncoder.encode(frames);
-                
-                Item.generatedImages[this.name][this.enchant] = dataUrl;
-                return dataUrl;
-            } catch (e) {
-                console.error('WebP encoding failed:', e);
-                return frames[0].data; // Fallback to first frame
+                process.exit(0);
             }
         }
-        return null;
     }
 }
 
@@ -119,4 +134,5 @@ async function detectEdges(imageData) {
     return edges;
 }
 
-generateEnchantOverlays();
+// Execute the function
+generateEnchantOverlays().catch(console.error);
