@@ -236,7 +236,7 @@ export class Item {
         else this.damageElement.classList.remove('lifesteal');
         if(this.maxAmmo) {
             this.ammoElement.style.display ='block';
-            const maxAmmoDots = this.size*60/15;
+            const maxAmmoDots = this.size*60/10;
             if(this.maxAmmo>maxAmmoDots) {
                 this.ammoElement.innerHTML = '<div class="ammo-icon ammo-icon-empty"></div>'.repeat(Math.max(0,maxAmmoDots-this.ammo)) +
                 '<div class="ammo-icon ammo-icon-full"></div>'.repeat(Math.min(this.ammo,maxAmmoDots));
@@ -244,7 +244,7 @@ export class Item {
                 this.ammoElement.innerHTML = '<div class="ammo-icon ammo-icon-empty"></div>'.repeat(this.maxAmmo-this.ammo) +
                 '<div class="ammo-icon ammo-icon-full"></div>'.repeat(this.ammo);
             }
-            const ammoWidth = Math.min(this.size*60, this.maxAmmo*15);
+            const ammoWidth = Math.min(this.size*60, this.maxAmmo*10);
             this.ammoElement.style.width= `${ammoWidth}px`;            
         }
         else this.ammoElement.style.display = 'none';
@@ -2357,7 +2357,7 @@ export class Item {
                 this.startItemData.shield = (this.startItemData.shield||0) + (newShield - this.shield)/this.shield_multiplier;
             }
             if(popup.querySelector('#edit-maxammo')) {
-                this.startItemData.ammo = parseFloat(popup.querySelector('#edit-maxammo').value);
+                this.startItemData.ammo = parseInt(this.startItemData.ammo||0) + (parseInt(popup.querySelector('#edit-maxammo').value)-this.maxAmmo)/(this.ammo_multiplier||1);
             }
             if(popup.querySelector('#edit-heal')) {
                 const newHeal = parseFloat(popup.querySelector('#edit-heal').value);
