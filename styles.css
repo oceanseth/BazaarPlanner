@@ -804,7 +804,7 @@ button:active {
 }
 .price-tag {
     position: absolute;
-    bottom: 5px;
+    bottom: 10px;
     left: -8px;
     height: 20px;  /* Added explicit height */
     line-height: 20px;  /* Added to vertically center text */
@@ -1386,21 +1386,22 @@ font.Slow:before {
 
 .ammo-element {
     position: absolute;
-    top: 115px;  /* 20px (height of trigger-values) + 10px spacing */
+    top: 160px;
     left: 50%;
     transform: translateX(-50%);  /* Centers the element horizontally */
     background-size: 100% 100%;
     background-color:rgb(85, 49, 2);
     border:1px solid #000;
     border-radius:15px;
-    height:15px;
+    height:10px;
 }
 .ammo-icon {
     display: inline-block;
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
     background-image: url('/images/fromBT/skill_tier_bronze.png');
     background-size: 100% 100%;
+    vertical-align: top;
 }
 .ammo-icon-empty {
     background-color:none;   

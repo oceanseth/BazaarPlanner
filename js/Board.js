@@ -61,14 +61,13 @@ class Board {
         if(run.encounters) {
         let html = '<select id="sim-encounter-select"><option disabled>Encounters</option>';
             run.encounters.forEach( (e,i)=> {
-                html += `<option style="background-color: ${e.v=="0"?"#aa4444":"#44aa44"};" value="${i}">${e.v=="0"?"Loss":"Win"} - ${e.name}</option>`;
+                html += `<option ${e.id==run.lastEncounter?"selected":""} style="background-color: ${e.v=="0"?"#aa4444":"#44aa44"};" value="${i}">${e.v=="0"?"Loss":"Win"} - ${e.name}</option>`;
             });
             html += '</select>';
             this.importElement.innerHTML = html;
             this.importElement.querySelector('#sim-encounter-select').onchange = (e) => {      
                 this.loadEncounter(run.encounters[e.target.value]);
             };
-            this.importElement.querySelector('#sim-encounter-select').val(run.currentEncounter).trigger('change');
         }
     }
     _followingCurrentRunId = null;
@@ -270,9 +269,9 @@ class Board {
             <div class="skill-selector-header">
                 <div class="form-group">
                     <label>Skill Rarity:</label>
-                    <select id="skill-selector-rarity">
-                        ${Item.rarityLevels.map(r => 
-                            `<option value="${r}">${r}</option>`
+                    <select id="skill-selector-tier">
+                        ${Item.rarityLevels.map((r,i) => 
+                            `<option value="${i}">${r}</option>`
                         ).join('')}
                     </select>
                 </div>
@@ -298,8 +297,8 @@ class Board {
             `;
             this.skillSelector.querySelector('.skill-selector-body').appendChild(skillItem);
             skillItem.onclick = () => {
-                const rarity = this.skillSelector.querySelector('#skill-selector-rarity').value;
-                this.addSkill(skillName,{rarity:rarity});
+                const tier = this.skillSelector.querySelector('#skill-selector-tier').value;
+                this.addSkill(skillName,{tier:tier});
                 this.skillSelector.style.display = 'none';
                 this.player.reset();
                 this.player.setup();
