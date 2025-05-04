@@ -382,6 +382,16 @@ export class Item {
             if(Item.enchantTagMap[this.enchant] && !this.tags.includes(Item.enchantTagMap[this.enchant])) this.tags.push(Item.enchantTagMap[this.enchant]);
             this.tags.push("Enchanted");
             this.element.classList.add(this.enchant);
+            
+        // Generate and apply enchant overlay
+            if (this.enchant=='Heavy') {
+                this.element.style.setProperty('--enchant-overlay', `url(/images/items/${Item.cleanName(this.name)}.webp)`);
+                this.element.classList.add('has-enchant-overlay');
+            } 
+            else {
+                this.element.style.removeProperty('--enchant-overlay');
+                this.element.classList.remove('has-enchant-overlay');
+            }
         }
     }
     setup() {
