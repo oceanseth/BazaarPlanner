@@ -382,6 +382,33 @@ export class Item {
             if(Item.enchantTagMap[this.enchant] && !this.tags.includes(Item.enchantTagMap[this.enchant])) this.tags.push(Item.enchantTagMap[this.enchant]);
             this.tags.push("Enchanted");
             this.element.classList.add(this.enchant);
+            
+        // Generate and apply enchant overlay
+            if (this.enchant=='Golden') {
+                this.element.style.setProperty('--enchant-overlay', `url(/images/enchants/EdgeOverlay-${Item.cleanName(this.nameWithoutEnchant)}.webp)`);
+                this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'overlay');
+                this.element.classList.add('has-enchant-overlay');
+            } else if(this.enchant=='Shiny') {
+                this.element.style.setProperty('--enchant-overlay', `url(/images/enchants/EdgeOverlay-${Item.cleanName(this.nameWithoutEnchant)}.webp)`);
+                this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'luminosity');
+                this.element.classList.add('has-enchant-overlay');
+            } else if(this.enchant=='Radiant') {
+                this.element.style.setProperty('--enchant-overlay', `url(/images/enchants/EdgeOverlay-${Item.cleanName(this.nameWithoutEnchant)}.webp)`);
+                this.element.style.setProperty('--enchant-overlay-filter', 'hue-rotate(250deg) saturate(150%)');
+                this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'color-burn');
+                this.element.classList.add('has-enchant-overlay');
+            } else if(this.enchant=='Deadly') {
+                this.element.style.setProperty('--enchant-overlay', `url(/images/enchants/EdgeOverlay-${Item.cleanName(this.nameWithoutEnchant)}.webp)`);
+                this.element.style.setProperty('--enchant-overlay-filter', 'hue-rotate(-45deg) saturate(200%)');
+                this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'color-burn');
+                this.element.classList.add('has-enchant-overlay');
+            }
+
+
+        } else {
+            this.element.style.removeProperty('--enchant-overlay');
+            this.element.classList.remove('has-enchant-overlay');           
+            this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'overlay'); 
         }
     }
     setup() {
