@@ -4,6 +4,7 @@
     "firebase": "^11.0.1",
     "firebase-admin": "^13.3.0",
     "lz-string": "^1.5.0",
+    "node-webpmux": "^3.2.1",
     "sharp": "^0.33.5"
   },
   "name": "bazaarplanner",
@@ -23,7 +24,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "zipItemsWithTag": "node scripts/zipItemsWithTag.js"
+    "zipItemsWithTag": "node scripts/zipItemsWithTag.js",
+    "generateEnchantOverlays": "node scripts/generateEnchantOverlays.js"
   },
   "keywords": [],
   "author": "",

@@ -19,6 +19,19 @@ exports.handler = async (event) => {
     // Increment the puzzle ID
     const newPuzzleId = currentPuzzleId + 1;
     
+    // Check if the new puzzle exists
+    const newPuzzleRef = db.ref(`puzzles/${newPuzzleId}`);
+    const newPuzzleSnapshot = await newPuzzleRef.once('value');
+    
+    if (!newPuzzleSnapshot.exists()) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          message: `Cannot advance: puzzle ${newPuzzleId} does not exist`,
+        }),
+      };
+    }
+    
     // Update the current puzzle ID
     await currentRef.set(newPuzzleId);
     
