@@ -2267,5 +2267,7 @@ select {
     background-image: var(--enchant-overlay);
     background-size: 100% 100%;
     pointer-events: none;
-    mix-blend-mode:luminosity;
+    mix-blend-mode: var(--enchant-overlay-mix-blend-mode);
+    filter: var(--enchant-overlay-filter, none);
+    opacity: 0.5;
 }
