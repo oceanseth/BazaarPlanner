@@ -1118,10 +1118,10 @@ export class Item {
         }
 
         //Deal ( 10 » 20 » 30 » 40 ) damage.
-        damageRegex = /^Deal (?:\(([^)]+)\)|(\d+)) damage\.?$/i;
+        damageRegex = /^Deal (\([^)]+\)|\d+)?\s*damage\.?$/i;
         match = text.match(damageRegex);
         if(match) {
-            const damageValue = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            const damageValue = match[1] ? getRarityValue(match[1], this.rarity):0;
             this.gain(damageValue,'damage');
             return () => {   
                 this.dealDamage(this.damage);        
@@ -3576,7 +3576,9 @@ export class Item {
         const tags = Array.isArray(tag) ? tag : [tag];
         board.itemTriggers.set(func,(item) => {            
             if (tag =="Item" || tags.some(t => item.tags.includes(t)) && item != excludeitem) {
+                board.critPossible=false;
                 func(item);
+                board.critPossible=true;
             }
         });
     }
@@ -3589,7 +3591,9 @@ export class Item {
         board.itemTriggers.set(func,(item) => {
             // Handle both string and array cases
             if(!item.tags.includes(tag) && item != excludeitem) {
+                board.critPossible=false;
                 func(item);
+                board.critPossible=true;
             }
         });
     }
