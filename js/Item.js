@@ -402,6 +402,11 @@ export class Item {
                 this.element.style.setProperty('--enchant-overlay-filter', 'hue-rotate(-45deg) saturate(200%)');
                 this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'color-burn');
                 this.element.classList.add('has-enchant-overlay');
+            } else {
+                this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'overlay'); 
+                this.element.style.setProperty('--enchant-overlay-filter', '');
+                this.element.style.removeProperty('--enchant-overlay');
+                this.element.classList.remove('has-enchant-overlay');
             }
 
 
