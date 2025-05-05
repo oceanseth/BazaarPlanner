@@ -666,7 +666,9 @@ export class Item {
         }
         item.applyHaste(duration);
         this.log(this.name + " hastened " + item.name + " for " + duration + " seconds");
+        this.board.critPossible=false;
         this.board.hasteTriggers.forEach(func => func(item, this, duration*1000));
+        this.board.critPossible=true;
     }
 
     applySlow(duration) {
@@ -686,7 +688,9 @@ export class Item {
         }
         item.applySlow(duration);
         this.log(this.name + " slowed " + item.name + " for " + duration + " seconds");
+        this.board.critPossible=false;
         this.board.slowTriggers.forEach(func => func(item,this));
+        this.board.critPossible=true;
     }
 
     applyChargeTo(item,source=this) {
@@ -696,7 +700,9 @@ export class Item {
     reload(source) {
         this.ammo = this.maxAmmo;
         this.log((source?source.name:"") + " reloaded " + this.name);
+        this.board.critPossible=false;
         this.board.reloadTriggers.forEach(func => func(this,source));
+        this.board.critPossible=true;        
     }
 
     updateProgressBar(progress) {
