@@ -1,6 +1,8 @@
 import { getRarityValue } from "./utils.js";
 import { Item } from "./Item.js";
 import { items } from '../items.js';
+import { BazaarPatcher } from "./BazaarPatcher.js";
+BazaarPatcher.apply();
 export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
