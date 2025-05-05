@@ -33,7 +33,7 @@ export function getRarityValue(valueString, rarity) {
         return 0;
     }
     if(typeof valueString === 'number') {
-        return ""+valueString;
+        return parseFloat(valueString);
     }
     if(valueString[0]=='(') {
         valueString = valueString.slice(1,-1);
@@ -259,8 +259,26 @@ export function loadFromUrl(hash) {
                 }
             });
             if(item.cooldownFinal != undefined) {  
-                if(item.cooldownFinal < 100) item.cooldownFinal *= 1000; //fix anyone running previous version of importer, can remove this in a month or so
-                item.startItemData.cooldown = (item.startItemData.cooldown || 0) + ((item.cooldownFinal - item.cooldown)/ 1000);
+                let numTries = 0;
+                while(parseInt(item.cooldown/10).toFixed(2) != parseInt(item.cooldownFinal/10).toFixed(2)) {
+                    if(numTries > 500) {
+                        console.log("Failed to equalize item cooldown with those given from game: "+item.name+" base:"+item.startItemData.cooldown+" final: "+item.cooldown+" targetmissed: "+item.cooldownFinal);
+                        break;
+                    }
+                    if(numTries == 0) {
+                        item.startItemData.cooldown = (item.startItemData.cooldown?getRarityValue(item.startItemData.cooldown, item.rarity) : 0) - -((item.cooldownFinal - item.cooldown)/ 1000);
+                    } else {
+                        if(Math.floor(item.cooldown/100) < Math.floor(item.cooldownFinal/100)) {
+                            if(item.cooldownFinal-item.cooldown>100) item.startItemData.cooldown += .1;
+                            else item.startItemData.cooldown += .01;
+                        } else {
+                            if(item.cooldown-item.cooldownFinal>100) item.startItemData.cooldown -= .1;
+                            else item.startItemData.cooldown -= .01;
+                        }
+                    }
+                    numTries++;
+                    refreshBoards();
+                }
                 delete item.startItemData.cooldownFinal;
                 delete item.cooldownFinal;
             }
