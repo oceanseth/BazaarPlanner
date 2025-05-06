@@ -1214,7 +1214,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             this.gain(getRarityValue(match[3], this.rarity),match[1].toLowerCase());
-            const other = match[2]=='other';
+            const other = match[2]==' other';
             const whatToDo = Item.getTagFromText(match[1]);
             
             return () => {
