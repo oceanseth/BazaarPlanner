@@ -4318,30 +4318,6 @@ export const items = {
       2
     ]
   },
-  "Coupon": {
-    "name": "Coupon",
-    "tier": 0,
-    "tags": [
-      "Common",
-      "Small"
-    ],
-    "cooldown": null,
-    "ammo": null,
-    "text": [
-      "When you sell this to a merchant, reduce a Merchant item's value by (25%/50%/75%/100%)."
-    ],
-    "enchants": {
-      "Heavy": "When you sell this, your leftmost Slow item gains +0.2 Slow duration.",
-      "Icy": "When you sell this, your leftmost Freeze item gains +0.1 Freeze duration.",
-      "Turbo": "When you sell this, your leftmost Haste item gains +0.2 Haste duration.",
-      "Shielded": "When you sell this, your leftmost Shield item gains +10 Shield.",
-      "Restorative": "When you sell this, your leftmost Heal item gains +15 Heal.",
-      "Toxic": "When you sell this, your leftmost Poison item gains +1 Poison.",
-      "Fiery": "When you sell this, your leftmost Burn item gains +1 Burn.",
-      "Deadly": "When you sell this, your leftmost item gains 2% Crit Chance.",
-      "Obsidian": "When you sell this, your leftmost Weapon item gains +10 damage."
-    }
-  },
   "Cove": {
     "name": "Cove",
     "tier": 0,
