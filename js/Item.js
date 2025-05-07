@@ -889,7 +889,7 @@ export class Item {
             regenAmount *= (1+this.critMultiplier/100);
         }
         this.board.player.regen+=regenAmount;
-        this.log(this.name + (doesCrit?" critically ":"")+" adds " + regenAmount + " regeneration");
+        this.log(this.name + (doesCrit?" critically ":"")+" adds " + regenAmount + " regen");
         if(this.battleStats.regen == undefined) this.battleStats.regen = 0;
         this.battleStats.regen += regenAmount;
     }
@@ -1012,16 +1012,17 @@ export class Item {
         }
         //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
         //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
-        damageRegex = /^Your ([^\s]+)\s*(?:items)? (?:gain|get) \+?(?:\(([^)]+)\)|(\d+))\s+([^\s]+)\s+for the fight\.?/i;
+        damageRegex = /^Your (other )?([^\s]+)\s*(?:items)? (?:gain|get) \+?(\([^)]+\)|\d+)\s+([^\s]+)\s+for the fight\.?/i;
         match = text.match(damageRegex);
         if(match) {
-            const gainAmount = match[2]?getRarityValue(match[2], this.rarity):parseInt(match[3]);
+            const other = match[1]=='other';
+            const gainAmount = getRarityValue(match[3], this.rarity);
             if(match[4]=='damage') {
                 this.damageBonus += gainAmount;
             }
             return () => {
                 this.board.items.forEach(item => {
-                    if(item.tags.includes(Item.getTagFromText(match[1]))) {
+                    if(item.tags.includes(Item.getTagFromText(match[2]))) {
                         item.gain(match[4]=='damage'?0:gainAmount,match[4].toLowerCase(),this);
                     }
                 });
@@ -1741,7 +1742,7 @@ export class Item {
             case 'regeneration':
             case 'regen':
                 this.regen += amount;
-                this.log((source?(source.name+" gave "):"") + this.name + " +" + amount.toFixed(0) + " Regeneration");
+                this.log((source?(source.name+" gave "):"") + this.name + " +" + amount.toFixed(0) + " Regen");
                 break;
                 
             case 'crit':
@@ -2937,6 +2938,7 @@ export class Item {
                             }
                         });
                         return;
+                    case "gain regen":
                     case "gain regeneration":
                         this.board.player.regenChanged((newRegen,oldRegen)=>{
                             if(newRegen>oldRegen) {
@@ -2986,6 +2988,7 @@ export class Item {
                             }
                         });
                         return;
+                    case "heal or gain regen":
                     case "heal or gain regeneration":
                         this.board.player.regenChanged((newRegen,oldRegen)=>{                            
                             if(this.board.inCombat && newRegen>oldRegen) {
@@ -4165,8 +4168,8 @@ export class Item {
                 if(leftItem && leftItem.tags.includes("Weapon")) leftItem.gain(damage,'damage');
             };
         }
-        //You have Regeneration equal to half the Poison on your enemy. from Venomous Vitality
-        regex = /^\s*You have Regeneration equal to half the (Poison|Burn) on your enemy\.?/i;
+        //You have Regeneration equal to half the (Poison|Burn) on your enemy. from Venomous Vitality
+        regex = /^\s*You have Regen(?:eration)? equal to half the (Poison|Burn) on your enemy\.?/i;
         match = text.match(regex);
         if(match) {
             const whichToTrack = match[1].toLowerCase();
@@ -4628,7 +4631,7 @@ export class Item {
         }
         
         //You have ( +1 » +2 » +3 ) Regeneration
-        regex = /^\s*You have (\([^)]+\)|\d+) Regeneration\.?/i;
+        regex = /^\s*You have (\([^)]+\)|\d+) Regen(?:eration)?\.?/i;
         match = text.match(regex);
         if(match) {
             const regeneration = getRarityValue(match[1], this.rarity);
@@ -4638,7 +4641,7 @@ export class Item {
         }
 
         //Poison equal to your Regeneration.
-        regex = /^\s*(Poison|Burn|Shield) equal to your Regeneration\.?/i;
+        regex = /^\s*(Poison|Burn|Shield) equal to your Regen(?:eration)?\.?/i;
         match = text.match(regex);
         if(match) {            
             const whatToGain = match[1].toLowerCase();
@@ -4652,8 +4655,8 @@ export class Item {
             };
         }
 
-        //Gain Regeneration for the fight equal to this item's damage
-        regex = /^\s*Gain (Shield|Regeneration) (?:for the fight )?equal to this item's damage\.?/i;
+        //Gain Regen(?:eration)? for the fight equal to this item's damage
+        regex = /^\s*Gain (Shield|Regen(?:eration)?) (?:for the fight )?equal to this item's damage\.?/i;
         match = text.match(regex);
         if(match) {
             const whatToGain = match[1];
@@ -5751,8 +5754,8 @@ export class Item {
                 }
             };
         }
-        //gain ( 2 » 4 ) Regeneration for the fight.
-        regex = /^gain (\([^)]+\)|\d+) Regeneration for the fight\.?$/i;
+        //gain ( 2 » 4 ) Regen(?:eration)? for the fight.
+        regex = /^gain (\([^)]+\)|\d+) Regen(?:eration)? for the fight\.?$/i;
         match = text.match(regex);
         if(match) {
             const gainAmount = getRarityValue(match[1], this.rarity);
@@ -5787,15 +5790,15 @@ export class Item {
             }
         }
 
-        //You have (  2  » 4  » 6   ) Regeneration for each item with Ammo you have.
-        regex = /^You have (?:\(([^)]+)\)|(\d+)) Regeneration for each ([^\s]+) item you have.*$/i;
+        //You have (  2  » 4  » 6   ) Regen(?:eration)? for each item with Ammo you have.
+        regex = /^You have (?:\(([^)]+)\)|(\d+)) Regen(?:eration)? for each ([^\s]+) item you have.*$/i;
         match = text.match(regex);
         if(match) {
             const regenToAdd = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
             const itemCount = this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[3]))).length;
             this.board.player.gainRegen(regenToAdd * itemCount);
             this.board.updateHealthElement();
-            this.log(this.name + " added " + regenToAdd * itemCount + " Regeneration");
+            this.log(this.name + " added " + regenToAdd * itemCount + " Regen");
             return ()=>{};
 
         }
