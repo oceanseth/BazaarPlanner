@@ -1088,6 +1088,9 @@ class Board {
             if(!itemData) return;
             itemData.tier = item.tier;
             itemData.enchant = item.enchant || enchant;
+            Item.possibleChangeAttributes.forEach(attr => {
+                if(item[attr]) itemData[attr] = item[attr];
+            });
             let newItem = new Item(itemData, this);
             newItem.setIndex(startIndex);
             startIndex += newItem.size;
