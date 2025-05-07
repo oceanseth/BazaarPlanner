@@ -35,7 +35,7 @@ TextMatcher.comparitors["If you have no other weapons, "]= {
 };
 TextMatcher.matchers.push({
     id: "Essence Overflow Matcher",
-    regex: /^your weapons have \+ damage equal to your Regeneration\.$/i,
+    regex: /^your weapons have \+ damage equal to your Regen(?:eration)?\.$/i,
     func: (item, match)=>{
         item.board.items.forEach(item => {
             if(item.tags.includes("Weapon")) {
@@ -76,7 +76,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //gain (1/2) time(s) your Regeneration for the fight. from Emergency Draught
-    regex: /^\s*gain (\([^)]+\)|\d+) time\(?s\)? your Regeneration for the fight\.$/i,
+    regex: /^\s*gain (\([^)]+\)|\d+) time\(?s\)? your Regen(?:eration)? for the fight\.$/i,
     func: (item, match)=>{
         const regen = getRarityValue(match[1], item.rarity);
         return ()=>{
@@ -100,7 +100,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     // Deal damage equal to the Regeneration plus the Burn on both players. from Sunlight Spear
-    regex: /^deal damage equal to the Regeneration plus the Burn on both players\.$/i,
+    regex: /^deal damage equal to the Rege(?:neration)? plus the Burn on both players\.$/i,
     func: (item, match)=>{
         item.gain(item.board.player.regen+item.board.player.hostileTarget.regen,'damage');
         item.board.player.regenChanged((newRegen,oldRegen)=>{
@@ -166,7 +166,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Gain Regeneration for the fight equal to half your current Poison. from Noxious Potion
-    regex: /^gain Regeneration for the fight equal to half your current Poison\.$/i,
+    regex: /^gain Regen(?:eration)? for the fight equal to half your current Poison\.$/i,
     func: (item, match)=>{        
         return ()=>{
             item.board.player.regen += item.board.player.poison/2;
@@ -398,7 +398,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Your Weapons have + Damage equal to (1/2/3) times your Regeneration. from Staff of the Moose 
-    regex: /^Your Weapons have \+ Damage equal to (\([^)]+\)|\d+) times your Regeneration\.$/i,
+    regex: /^Your Weapons have \+ Damage equal to (\([^)]+\)|\d+) times your Regen(?:eration)?\.$/i,
     func: (item, match)=>{
         const damageMultiplier = getRarityValue(match[1], item.rarity);
         item.board.items.forEach(i=>{

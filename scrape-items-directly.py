@@ -34,7 +34,7 @@ def download_image_if_missing(name, type_folder, id):
                 f.write(response.content)
             print(f"Downloaded {local_path}")
         except Exception as e:
-            print(f"Failed to download {url}: {e}")
+            print(f"Failed to download image for {name}: {e}")
 
 def fetch_items():
     url = "https://www.howbazaar.gg/api/items"

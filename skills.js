@@ -43,6 +43,11 @@ export const skills = {
       "Mak"
     ]
   },
+  "Alchemical Precision": {
+    "text": ["Your Potions have their cooldowns reduced by 1 second."],
+    "tier": 4,
+    "tags": ["Cooldown", "Mak"]
+  },
   "All Talk": {
     "text": [
       "While you have more than half Health, your weapons have (+25/+50) damage."
@@ -1610,6 +1615,11 @@ export const skills = {
       "ShieldReference"
     ]
   },
+  "Herbal Supplements": {
+    "text": ["Your Regen items have (1/2/3/4) Regeneration."],
+    "tier": 0,
+    "tags": ["Regen", "Mak"]
+  },
   "Honed Arsenal": {
     "text": [
       "Your items have (+2%/+4%/+6%) Crit Chance per Weapon you have."
@@ -2453,6 +2463,11 @@ export const skills = {
       "Mak",
       "Poison"
     ]
+  },
+  "Pop-Up Shop": {
+    "text": ["Your Toys and Apparel itemshave their cooldowns reduced by (5%/10%)."],
+    "tier": 2,
+    "tags": ["Cooldown", "Mak"]
   },
   "Potent Potables": {
     "text": [
@@ -3535,6 +3550,11 @@ export const skills = {
       "Mak"
     ]
   },
+  "Vital Reserve": {
+    "text": ["Your rightmost Regen item has (+2/+4/+6/+8) Regen."],
+    "tier": 0,
+    "tags": ["Regen", "Mak"]
+  },
   "Void Energy": {
     "text": [
       "When you Burn, charge a Shield item 1 second(s)."
@@ -3565,6 +3585,11 @@ export const skills = {
     "tags": [
       "Common"
     ]
+  },
+  "Walk-in Clinic": {
+    "text": ["Your leftmost Regen item has (+2/+4/+6/+8) Regen."],
+    "tier": 3,
+    "tags": ["Regen", "Mak"]
   },
   "Warm Hugs": {
     "text": [
