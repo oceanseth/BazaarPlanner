@@ -555,7 +555,7 @@ export class Item {
                 <div class="tooltip-tags">
                     ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag.toLowerCase()}">${tag}</span>`).join('')}
                 </div>
-                <div class="tooltip-name ${this.rarity||'Bronze'}Border">${colorTextArray([this.name],this.tier)}
+                <div class="tooltip-name ${this.rarity||'Bronze'}Border">${[this.name]}
                                 ${this.ammo ? `
                     <div class="tooltip-ammo">
                         Ammo<br>${this.ammo}
@@ -584,12 +584,21 @@ export class Item {
                         ${this.damageBonus>0?'Damage Bonus: '+this.damageBonus+'<br>':''}
                     </div>
                 </div>
-                ${this.cooldown ? `
-                    <div class="tooltip-cooldown-circle ${this.rarity||'Bronze'}Border">${(this.cooldown/1000).toFixed(1)}<span class="unit">SEC</span></div>
-                ` : ''}
-            </div>
         `;
-        
+        if(this.cooldown && this.cooldown>0) {
+            tooltipContent +=`<div class="tooltip-cooldown-container">`;
+            if((typeof items[this.nameWithoutEnchant].cooldown)!='string') {
+                tooltipContent +=`<div class="tooltip-cooldown-circle ${Item.rarityLevels[this.tier]}Border">${(this.cooldown/1000).toFixed(1)}<span class="unit">SEC</span></div>`;
+            } else {        
+                const cooldownNumbers = items[this.nameWithoutEnchant].cooldown.replace(/[\(\)]/g,'').split('/');        
+                const currentCooldownDiff = ((this.cooldown - 1000*parseFloat(cooldownNumbers[this.tier-(4-cooldownNumbers.length)]))/1000);
+                tooltipContent += cooldownNumbers.map((c,i)=>`<div class="tooltip-cooldown-circle ${Item.rarityLevels[i+(4-cooldownNumbers.length)]}Border" `+
+                (this.tier!=i+(4-cooldownNumbers.length)?'style="filter: brightness(50%);"':'')
+                +`>${parseFloat(c)+currentCooldownDiff}<span class="unit">SEC</span></div>`).join('');
+            }
+            tooltipContent +=`</div>`;
+        }
+        tooltipContent +='</div>';
         tooltip.innerHTML = tooltipContent;
         if(!this.enchant && this._isEditable) tooltip.appendChild(this.createEnchantPreviewElement());
         return tooltip;

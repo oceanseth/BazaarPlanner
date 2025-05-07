@@ -41,7 +41,7 @@ export class User {
         firebase.database().ref(`usersonline`).child(window.user.uid).set(firebase.database.ServerValue.TIMESTAMP);
     }
     static updateDisplayName() {
-        const displayName = document.getElementById("update-user-display-name").value;
+        const displayName = document.getElementById("update-user-display-name").value.replace(/[^0-9a-zA-Z]/g, '');
         if(!window.user) {
             alert("Please sign in to update your display name");
             return;

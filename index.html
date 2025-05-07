@@ -106,7 +106,10 @@
                 Soon we will show stats on puzzle solves, and more.<br/>
                 Set your display name to show on the site.<br/><br/>
                 What shall we call you?
-                <input type="text" id="update-user-display-name" placeholder="display name">
+                <input type="text" id="update-user-display-name" placeholder="display name"
+                    oninput="this.value = this.value.replace(/[^0-9a-zA-Z]/g, '');"
+                    onkeyup="this.value = this.value.replace(/[^0-9a-zA-Z]/g, '');"
+                    onchange="this.value = this.value.replace(/[^0-9a-zA-Z]/g, '');">
                 <button onclick="User.updateDisplayName()">Save</button>
                 <br/><br/>
                 <!--
