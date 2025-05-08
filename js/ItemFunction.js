@@ -628,7 +628,7 @@ ItemFunction.items.set("Weather Glass",(item)=>{
     item.multicast = (itemsWithBurn.length>0?1:0) + (itemsWithPoison.length>0?1:0) + (itemsWithSlow.length>0?1:0) + (itemsWithFreeze.length>0?1:0);
     item.triggerFunctions.push(()=>{
         item.applyBurn(item.burn);
-        item.applyPoison(item.poison);
+        item.applyPoison();
     });
 });
 
@@ -714,10 +714,12 @@ ItemFunction.items.set("Pulse Rifle",(item)=>{
 ItemFunction.items.set("Anything to Win",(item)=>{
     //When you use a non-weapon item, Burn (  1  » 2  » 3   ) and Poison (  1  » 2  » 3   ).
     const amount = getRarityValue("1 >> 2 >> 3",item.rarity);
+    item.gain(amount,'burn');
+    item.gain(amount,'poison');
     item.board.itemTriggers.set(item.id,(i)=>{
         if(i.tags.includes("Weapon")) return;
-        item.applyBurn(amount);
-        item.applyPoison(amount);
+        item.applyBurn(item.burn);
+        item.applyPoison();
     });
 });
 ItemFunction.items.set("Sparring Partner",(item)=>{
@@ -1305,7 +1307,7 @@ ItemFunction.items.set("Necronomicon",(item)=>{
         }
     });
     item.triggerFunctions.push(()=>{
-        item.applyPoison(item.poison);
+        item.applyPoison();
         item.applyRegen(item.regen);
     });
 });

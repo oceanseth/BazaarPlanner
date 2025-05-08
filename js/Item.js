@@ -956,14 +956,14 @@ export class Item {
         this.isSlowed = 0;
         this.log(this.name + " was un-slowed");
     }
-    applyPoison(amount,source=this,{selfTarget}={selfTarget:false}) {
+    applyPoison({amount=this.poison,source=this,selfTarget=false}={}) {
         let doesCrit = this.doICrit();
         if(doesCrit) {
             amount *= (1+this.critMultiplier/100);
         }
         const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
-        this.log(this.name + (doesCrit?" critically ":"")+" poisoned " + target.name + " for " + amount.toFixed(0));
-        target.applyPoison(amount,source);
+        this.log(this.name + (doesCrit?" critically ":"")+" poisoned " + target.name + " for " + amount.toFixed(0) +(source!=this?" from "+source.name:""));
+        target.applyPoison(amount);
         this.board.poisonTriggers.forEach(func => func({source, amount, target}));
         if(this.battleStats.poison == undefined) this.battleStats.poison = 0;
         this.battleStats.poison += amount;
@@ -1428,13 +1428,21 @@ export class Item {
     }
 
     getPoisonTriggerFunctionFromText(text) {
-        let regex = /^Poison (\([^)]+\)|\d+)\.?$/i;
+        let regex = /^Poison (yourself|both players)?\s*(?:for)?\s*(\([^)]+\)|\d+)\.?$/i;
         let match = text.match(regex);
         if(match) {
-            const poisonAmount = getRarityValue(match[1], this.rarity);
+            const target = match[1] ? match[1].toLowerCase() : "yourself";
+            const poisonAmount = getRarityValue(match[2], this.rarity);
             this.gain(poisonAmount,'poison');
             return () => {                
-                this.applyPoison(this.poison);
+                if(target=="yourself") {
+                    this.applyPoison({selfTarget:true});
+                } else if(target=="both players") {
+                    this.applyPoison({selfTarget:true});
+                    this.applyPoison();
+                } else {
+                    this.applyPoison();
+                }
             };
         }      
         //Poison both players ( 4 » 6 » 8 » 10 ). from Noxious Potion
@@ -1442,16 +1450,16 @@ export class Item {
         regex = /^(Poison|Burn) both players (\([^)]+\)|\d+)\.?/i;
         match = text.match(regex);
         if(match) {
-            const poisonAmount = getRarityValue(match[2], this.rarity);
+            this.gain(amount,'poison');
             if(match[1].toLowerCase() == "poison") {
-                return (item) => {
-                    this.applyPoison(poisonAmount);
-                    this.applyPoison(poisonAmount,item||this,{selfTarget:true});
+                return (source) => {
+                    this.applyPoison();
+                    this.applyPoison({source,selfTarget:true});
                 };
             } else {
-                return (item) => {
-                    this.applyBurn(poisonAmount);
-                    this.applyBurn(poisonAmount,item||this,{selfTarget:true});
+                return (source) => {
+                    this.applyBurn();
+                    this.applyBurn({source,selfTarget:true});
                 };
             }
         }
@@ -2553,7 +2561,8 @@ export class Item {
                 "start a fight",
                 "sell a reagent",
                 "transform a reagent",
-                "win a fight against a hero"
+                "win a fight against a hero",
+                "level up and at the start of each day"
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;
@@ -3683,13 +3692,14 @@ export class Item {
 
         //parse charge the item to the right of this for (1/2) second(s). from Charging Station
         //Charge the item to the (left|right) of this ( 1 » 2 » 3 » 4 ) second(s).
-        regex = /^\s*Charge the item to the (left|right)(?: of this)?(?: for)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?/i;
+        regex = /^\s*Charge the ([\w]+)?\s*item to the (left|right)(?: of this)?(?: for)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?/i;
         match = text.match(regex);
         if(match) {
-            this.charge = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
+            this.charge = parseInt(match[3] ? getRarityValue(match[3], this.rarity) : match[4]);
+            const tagToMatch = match[1] ? Item.getTagFromText(match[1]) : undefined;
             return () => {
-                const itemToCharge = match[1]=='left'?this.getItemToTheLeft():this.getItemToTheRight();
-                if(itemToCharge) {
+                const itemToCharge = match[2]=='left'?this.getItemToTheLeft():this.getItemToTheRight();
+                if(itemToCharge && (tagToMatch==undefined||itemToCharge.tags.includes(tagToMatch))) {
                     this.applyChargeTo(itemToCharge);
                 }
 

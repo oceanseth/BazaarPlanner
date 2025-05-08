@@ -729,12 +729,12 @@ TextMatcher.matchers.push({
     func: (item, match)=>{        
         item.gain(getRarityValue(match[1], item.rarity),'poison');
         item.whenItemTagTriggers("Weapon", (i)=>{
-            item.applyPoison(item.poison,i, {selfTarget: true});
+            item.applyPoison({source:i,selfTarget: true});
         });
         const hostileBoardItems = item.board.player.hostileTarget.board.items;
         if(hostileBoardItems.length>0) {
             hostileBoardItems[0].whenItemTagTriggers("Weapon", (i)=>{
-                i.applyPoison(item.poison,item, {selfTarget: true});
+                item.applyPoison({source:i,selfTarget: true});
             });
         }
         return ()=>{};
