@@ -964,7 +964,7 @@ export class Item {
         const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
         this.log(this.name + (doesCrit?" critically ":"")+" poisoned " + target.name + " for " + poisonAmount.toFixed(0));
         target.applyPoison(poisonAmount,source);
-        this.board.poisonTriggers.forEach(func => func(this,source));
+        this.board.poisonTriggers.forEach(func => func(this, source, poisonAmount));
         if(this.battleStats.poison == undefined) this.battleStats.poison = 0;
         this.battleStats.poison += poisonAmount;
     }
@@ -2844,7 +2844,9 @@ export class Item {
                         this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),triggerFunctionFromText);
                         return;
                     case "poison":
-                        this.board.poisonTriggers.set(this.id, triggerFunctionFromText);
+                        this.board.poisonTriggers.set(this.id, (item, source, poisonAmount) => {
+                            triggerFunctionFromText(this, {item, source, poisonAmount});
+                        });
                         return;
                     case "poison or burn":
                         this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),triggerFunctionFromText);
