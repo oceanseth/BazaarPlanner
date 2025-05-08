@@ -866,6 +866,11 @@ TextMatcher.matchers.push({
     regex: /^Heal equal to the value of adjacent items\.$/i,
     func: (item, match)=>{
         item.gain(item.adjacentItems.reduce((sum,i)=>sum+i.value,0),'heal');
+        item.adjacentItems.forEach(i=>{
+           i.valueChanged((newAmount, oldAmount)=>{
+            item.gain(newAmount-oldAmount,'heal');
+           });
+        });
         return ()=>{
             item.applyHeal(item.heal);
         };

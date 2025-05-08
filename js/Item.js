@@ -811,7 +811,7 @@ export class Item {
     trigger() {
         this.triggerFunctions.forEach(func => func());
         this.board.itemTriggered(this);
-        this.adjacentItems().forEach(item => item.adjacentItemTriggered(this));
+        this.adjacentItems.forEach(item => item.adjacentItemTriggered(this));
         this.battleStats.useCount++;
         /*
         if(this.pendingCharge) {
@@ -1073,7 +1073,7 @@ export class Item {
             const itemType = match[2];
             const gainAmount = getRarityValue(match[4], this.rarity);            
             return (i) => {
-                let adjacentItems = (((!match[1])&&i)?i:this).adjacentItems();
+                let adjacentItems = (((!match[1])&&i)?i:this).adjacentItems;
                 if(match[2]!="items") {
                     adjacentItems = adjacentItems.filter(item => item.tags.includes(Item.getTagFromText(itemType)));
                 }
@@ -1283,7 +1283,7 @@ export class Item {
         if(match) {
             this.haste+= getRarityValue(match[1], this.rarity);
             return (item) => {
-                (item||this).adjacentItems().forEach(item => this.applyHasteTo(item));
+                (item||this).adjacentItems.forEach(item => this.applyHasteTo(item));
             };
         }
         
@@ -1401,7 +1401,7 @@ export class Item {
         if(match) {
             this.haste += getRarityValue(match[1], this.rarity);
             return () => {
-                this.adjacentItems().forEach(item => this.applyHasteTo(item));
+                this.adjacentItems.forEach(item => this.applyHasteTo(item));
             };
         }
 
@@ -4906,7 +4906,7 @@ export class Item {
         if(match) {
             const tagToMatch = match[1].toLowerCase();
             const damageGain = getRarityValue(match[2], this.rarity);
-            this.adjacentItems().forEach(item => {
+            this.adjacentItems.forEach(item => {
                 if(tagToMatch=='item'||item.tags.includes(Item.getTagFromText(tagToMatch))) {
                     item.gain(damageGain,'damage');
                 }
@@ -4921,7 +4921,7 @@ export class Item {
         if(match) {
             const cooldownReduction = getRarityValue(match[2], this.rarity);
             const tagToMatch = match[1].toLowerCase();
-            this.adjacentItems().forEach(item => {
+            this.adjacentItems.forEach(item => {
                 if(tagToMatch=='item'||item.tags.includes(Item.getTagFromText(tagToMatch))) {
                     item.gain((item.cooldown*(100-cooldownReduction)/100)-item.cooldown,'cooldown');
                 }
@@ -4953,7 +4953,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const tagToMatch = Item.getTagFromText(match[1]);
-            const adjacentItems = this.adjacentItems();
+            const adjacentItems = this.adjacentItems;
             if(adjacentItems.length==2 && adjacentItems.every(item => item.tags.includes(tagToMatch))) {
                 this.setupTextFunctions(match[2]);
             }
@@ -5000,7 +5000,7 @@ export class Item {
             this.charge = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
             const tagToMatch = Item.getTagFromText(match[1]);            
             return () => {
-                const itemsToCharge = tagToMatch ? this.adjacentItems().filter(item => item.tags.includes(tagToMatch)) : this.adjacentItems();
+                const itemsToCharge = tagToMatch ? this.adjacentItems.filter(item => item.tags.includes(tagToMatch)) : this.adjacentItems;
                 itemsToCharge.forEach(item => {
                     if(item.cooldown>0) {
                         this.applyChargeTo(item);
@@ -5086,7 +5086,7 @@ export class Item {
             const tagToMatch = Item.getTagFromText(match[1]);
             const tagToMatch2 = Item.getTagFromText(match[2]);
             const functionToRun = this.getTriggerFunctionFromText(match[3]);
-            this.adjacentItems().forEach(item => {
+            this.adjacentItems.forEach(item => {
                 if(item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2)) {
                     functionToRun(this);
                 }
@@ -5444,7 +5444,7 @@ export class Item {
             return (item)=>{
                 let matchingItems = [];
                 if(match[1]) {
-                    matchingItems = (item||this).adjacentItems();
+                    matchingItems = (item||this).adjacentItems;
                 } else {
                     matchingItems = this.board.items;
                 }
@@ -5475,7 +5475,7 @@ export class Item {
             const tagToMatch = Item.getTagFromText(match[1]);
             const tagToMatch2 = Item.getTagFromText(match[2]);
             
-            const adjacentItems = this.adjacentItems();
+            const adjacentItems = this.adjacentItems;
             const toolOrFoodItems = adjacentItems.filter(item => item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2));
             this.gain(toolOrFoodItems.length,'multicast');
             this.board.itemDestroyedTriggers.set(this.id,(item)=>{
@@ -5533,7 +5533,7 @@ export class Item {
         if(match) {
             const gainAmount = getRarityValue(match[1], this.rarity);
             return (item)=>{
-                (item||this).adjacentItems().forEach(item => {
+                (item||this).adjacentItems.forEach(item => {
                     if(item.tags.includes("Weapon")) {  
                         item.gain(gainAmount,'damage',this);
                     }
@@ -5755,7 +5755,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const tagToMatch = Item.getTagFromText(match[1]);
-            this.adjacentItems().forEach(item => {
+            this.adjacentItems.forEach(item => {
                 if(item.tags.includes(tagToMatch)) {
                     item.maxAmmo+=1;
                     item.ammo+=1;
@@ -5843,7 +5843,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             return (item) => {
-                const otherAdjacentItem = this.adjacentItems().filter(i => i.id != item.id);
+                const otherAdjacentItem = this.adjacentItems.filter(i => i.id != item.id);
                 if(otherAdjacentItem.length > 0) {
                     otherAdjacentItem[0].gain(25,'crit');
                 }
