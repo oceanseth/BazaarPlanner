@@ -4682,12 +4682,13 @@ export class Item {
         }
 
         //Gain Regen(?:eration)? for the fight equal to this item's damage
-        regex = /^\s*Gain (Shield|Regen(?:eration)?) (?:for the fight )?equal to this item's damage\.?/i;
+        regex = /^\s*Gain (Shield|Regen(?:eration)?) (?:for the fight )?equal to this item's (damage|poison|burn)\.?/i;
         match = text.match(regex);
         if(match) {
             const whatToGain = match[1];
-            this.regen+=this.damage;
-            this.damageChanged((newValue,oldValue)=>{
+            const whatToGainTag = match[2].toLowerCase();
+            this.gain(this[whatToGainTag],whatToGain);
+            this[whatToGainTag+"Changed"]((newValue,oldValue)=>{
                 this[whatToGain.toLowerCase()]+=newValue-oldValue;
             });
             return () => {

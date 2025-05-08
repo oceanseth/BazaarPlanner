@@ -829,4 +829,21 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+TextMatcher.matchers.push({
+    //If you have 3 or more Shield items they gain (+20/+30/+40/+50) Shield for the fight. from Showcase
+    regex: /^If you have 3 or more (\w+)(?: items)?, they gain (\([^)]+\)|\d+) (\w+) for the fight\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const amount = getRarityValue(match[2], item.rarity);
+        const whatToGain = match[3].toLowerCase();
+        return ()=>{
+            const items = item.board.activeItems.filter(i=>i.tags.includes(tag));
+            if(items.length>=3) {
+                items.forEach(i=>{
+                    i.gain(amount,whatToGain,item);
+                });
+            }
+        };
+    }
+});
 window.TextMatcher = TextMatcher;
