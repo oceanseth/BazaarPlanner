@@ -846,4 +846,19 @@ TextMatcher.matchers.push({
         };
     }
 });
+//The item to the left of this has + Crit Chance equal to your Poison. from Optical Augment
+TextMatcher.matchers.push({
+    regex: /^The item to the (right|left) of this has \+ Crit Chance equal to your (Poison|Burn)\.$/i,
+    func: (item, match)=>{
+        const target = match[1]=='left'?item.getItemToTheLeft():item.getItemToTheRight();
+        if(target) {
+            let totalGained = 0;
+            item.board.player.poisonChanged((newAmount)=>{
+                target.gain(newAmount-totalGained,'crit',item);
+                totalGained = newAmount;
+            });
+        }
+        return ()=>{};
+    }
+});
 window.TextMatcher = TextMatcher;
