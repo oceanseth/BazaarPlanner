@@ -337,7 +337,7 @@ export class Item {
             this.priority = 0;
         }
 
-
+        this.startItemData.tags = this.startItemData.tags.filter(tag => tag!="Leftmost"&&tag!="Rightmost");
         Object.assign(this, this.startItemData);
         this.tags = [...this.startItemData.tags];
         this.element.classList.remove('frozen',...Item.rarityLevels, ...Item.possibleEnchants);
@@ -956,17 +956,17 @@ export class Item {
         this.isSlowed = 0;
         this.log(this.name + " was un-slowed");
     }
-    applyPoison(poisonAmount,source=this,{selfTarget}={selfTarget:false}) {
+    applyPoison(amount,source=this,{selfTarget}={selfTarget:false}) {
         let doesCrit = this.doICrit();
         if(doesCrit) {
-            poisonAmount *= (1+this.critMultiplier/100);
+            amount *= (1+this.critMultiplier/100);
         }
         const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
-        this.log(this.name + (doesCrit?" critically ":"")+" poisoned " + target.name + " for " + poisonAmount.toFixed(0));
-        target.applyPoison(poisonAmount,source);
-        this.board.poisonTriggers.forEach(func => func(this, source, poisonAmount));
+        this.log(this.name + (doesCrit?" critically ":"")+" poisoned " + target.name + " for " + amount.toFixed(0));
+        target.applyPoison(amount,source);
+        this.board.poisonTriggers.forEach(func => func({source, amount, target}));
         if(this.battleStats.poison == undefined) this.battleStats.poison = 0;
-        this.battleStats.poison += poisonAmount;
+        this.battleStats.poison += amount;
     }
     getWeaponTriggerFunction(text) {
         let match;
@@ -2843,14 +2843,19 @@ export class Item {
                     case "burn":
                         this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),triggerFunctionFromText);
                         return;
-                    case "poison":
-                        this.board.poisonTriggers.set(this.id, (triggerSource, poisonSource, poisonAmount) => {
-                            triggerFunctionFromText(this, {triggerSource, poisonSource, poisonAmount});
+                    case "poison yourself":
+                        this.board.poisonTriggers.set(this.id, ({target,...rest}) => {
+                            if(target==this.board.player) {
+                                triggerFunctionFromText(this, {target,...rest});
+                            }
                         });
                         return;
+                    case "poison":
+                        this.board.poisonTriggers.set(this.id+"_"+triggerFunctionFromText.text, triggerFunctionFromText);
+                        return;
                     case "poison or burn":
-                        this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),triggerFunctionFromText);
-                        this.board.poisonTriggers.set(this.id, triggerFunctionFromText);
+                        this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
+                        this.board.poisonTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
                         return;
                     case "haste":
                         this.board.hasteTriggers.set(this.id+"_whenyouhaste",(i,source) => {
@@ -2860,12 +2865,8 @@ export class Item {
 
                     case "slow or poison":
                         targetBoards.forEach(board => {
-                            board.poisonTriggers.set(this.id+"_"+triggerFunctionFromText.text, ()=> {
-                                triggerFunctionFromText(this);
-                            });
-                            board.slowTriggers.set(this.id+"_"+triggerFunctionFromText.text, () => {
-                                triggerFunctionFromText(this);
-                            });
+                            board.poisonTriggers.set(this.id+"_"+triggerFunctionFromText.text, triggerFunctionFromText);
+                            board.slowTriggers.set(this.id+"_"+triggerFunctionFromText.text, triggerFunctionFromText);
                         });
                         return;
                     case "slow with an item":
@@ -2911,7 +2912,7 @@ export class Item {
                         return;
                         
                     case "or your enemy poisons":
-                        this.board.player.hostileTarget.board.poisonTriggers.set(this.id,triggerFunctionFromText);
+                        this.board.player.hostileTarget.board.poisonTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
                     case "poison with an item":
                         this.board.itemTriggers.set(this.id+'-poison_with_an_item', (item) => {
                             if(item.tags.includes("Poison")) {
@@ -3080,24 +3081,13 @@ export class Item {
                                 triggerFunctionFromText(source);
                             }
                         });
-                        this.board.player.hostileTarget.board.burnTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
-                            if(this.getAdjacentItems().some(i=>i.id==source.id)) {
-                                triggerFunctionFromText(source);
-                            }
-                        });
                         //intending to skip return here
                         case "an adjacent item poisons":                            
-                            this.board.poisonTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                            this.board.poisonTriggers.set(this.id+triggerFunctionFromText.text,({source,...rest})=>{
                                 if(this.getAdjacentItems().some(i=>i.id==source.id)) {
-                                    triggerFunctionFromText(source);
+                                    triggerFunctionFromText({source, ...rest});
                                 }
                             });
-    
-                        this.board.player.hostileTarget.board.poisonTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
-                            if(this.getAdjacentItems().some(i=>i.id==source.id)) {
-                                triggerFunctionFromText(source);
-                            }
-                        });
                     return;
 
                     case "an adjacent item slows or freezes":
@@ -3351,7 +3341,7 @@ export class Item {
                     return;
                 case "you poison":
                     let poisonCount = 0;
-                    this.board.poisonTriggers.set(this.id,(item)=>{
+                    this.board.poisonTriggers.set(this.id+"_"+ntimesFunction.text,(item)=>{
                         if(poisonCount++<=numTimes) {
                             ntimesFunction(item);
                             if(poisonCount>=numTimes) {
@@ -5877,7 +5867,7 @@ export class Item {
                 f2();
             }
         }
-        regex = /^([^,]*?)(?:(?: and|\. ))(.*)$/i;
+        regex = /^([^,]*?)(?:(?: and\s*|\. ))(.*)$/i;
         match = text.match(regex);
         if(match) {
             const f1 = this.getTriggerFunctionFromText(match[1]+".");

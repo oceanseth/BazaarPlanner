@@ -372,13 +372,13 @@ ItemFunction.items.set("Vital Renewal",(item)=>{
 ItemFunction.items.set("Refractor",(item)=>{
     const damage = getRarityValue("10 >> 20 >> 30",item.rarity);
     item.gain(20,'damage');
-    item.board.burnTriggers.set(item.id,(i)=>{
+    item.board.burnTriggers.set(item.id,()=>{
         item.gain(damage,'damage');
     });
-    item.board.poisonTriggers.set(item.id,(i)=>{
+    item.board.poisonTriggers.set(item.id,()=>{
         item.gain(damage,'damage');
     });
-    item.board.freezeTriggers.set(item.id,(i)=>{
+    item.board.freezeTriggers.set(item.id,()=>{
         item.gain(damage,'damage');
     });
     item.triggerFunctions.push(()=>{

@@ -771,6 +771,41 @@ TextMatcher.matchers.push({
         };
     }
 });
+TextMatcher.matchers.push({
+    // your items with Shield gain (+10/+20/+30) Shield for the fight. from 28 Hour Fitness
+    regex: /^your items with Shield gain (\([^)]+\)|\d+) Shield for the fight\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        return ()=>{
+            item.board.activeItems.filter(i=>i.tags.includes("Shield")).forEach(i=>{
+                i.gain(amount,'shield',item);
+            });
+        };
+    }
+});
 
-
+//your weapons gain + damage for the fight equal to (1/2) times the amount Poisoned. from Infused Bracers
+TextMatcher.matchers.push({
+    regex: /^your weapons gain \+ damage for the fight equal to (\([^)]+\)|\d+) times the amount (?:Poisoned|Burned)\.$/i,
+    func: (item, match)=>{
+        const multiplier = getRarityValue(match[1], item.rarity);
+        return (source,{amount})=>{
+            item.board.activeItems.filter(i=>i.tags.includes("Weapon")).forEach(i=>{
+                i.gain(amount*multiplier,'damage',item);
+            });
+        };
+    }
+});
+//The Weapon to the left has Lifesteal. from Infused Bracers
+TextMatcher.matchers.push({
+    regex: /^The Weapon to the (right|left) has Lifesteal\.$/i,
+    func: (item, match)=>{
+        const left = match[1]=='left';
+        const weapon = left?item.getItemToTheLeft():item.getItemToTheRight();
+        if(weapon) {
+            weapon.lifesteal = true;
+        }
+        return ()=>{};
+    }
+});
 window.TextMatcher = TextMatcher;
