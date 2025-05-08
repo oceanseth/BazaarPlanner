@@ -756,5 +756,21 @@ TextMatcher.matchers.push({
        return ()=>{};
     }
 });
+TextMatcher.matchers.push({
+    //Charge 1 non-Toy item(s) (1/2/3/4) second(s). from Speedrunner
+    regex: /^Charge 1 (non-)?([\w]+) item\(?s?\)? (\([^)]+\)|\d+) second\(?s\)?\.$/i,
+    func: (item, match)=>{
+        const non = match[1]!=null;
+        const tag = Item.getTagFromText(match[2]);
+        item.gain(getRarityValue(match[3], item.rarity),'charge');        
+        return ()=>{
+            const targetItems = item.board.items.filter(i=>non?!i.tags.includes(tag):i.tags.includes(tag));
+            if(targetItems.length>0) {
+                item.applyChargeTo(item.pickRandom(targetItems));
+            }
+        };
+    }
+});
+
 
 window.TextMatcher = TextMatcher;
