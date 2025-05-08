@@ -876,4 +876,19 @@ TextMatcher.matchers.push({
         };
     }
 });
+//Gain Regen for the fight equal to (1/2/3) times this item's value.
+TextMatcher.matchers.push({
+    regex: /^Gain Regen for the fight equal to (\([^)]+\)|\d+) times this item's value\.$/i,
+    func: (item, match)=>{
+        const multiplier = getRarityValue(match[1], item.rarity);
+        item.gain(item.value*multiplier,'regen');
+        item.valueChanged((newAmount, oldAmount)=>{
+            item.gain(newAmount-oldAmount,'regen');
+        });
+        return ()=>{
+            item.applyRegen();
+        };
+    }
+});
+
 window.TextMatcher = TextMatcher;

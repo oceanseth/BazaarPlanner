@@ -1374,13 +1374,13 @@ export class Item {
             
         }
 
-        //Haste this ( 1 » 2 » 3 » 4 ) second(s).
-        regex = /^Haste this(?:\s+(?:\(\s*([^)]+)\s*\)|\d+) second\(?s?\)?\.?)$/i;
+        //Haste this ( 1 / 2 / 3 / 4 ) second(s).
+        regex = /^Haste this (\([^)]+\)|\d+) second\(?s?\)?\.$/i;
         match = text.match(regex);
         if(match) {
             this.haste += getRarityValue(match[1], this.rarity);
-            return () => {
-                this.applyHasteTo(this);
+            return (item) => {
+                this.applyHasteTo(item||this);
             };
         }
 
@@ -2551,7 +2551,9 @@ export class Item {
                 "sell a reagent",
                 "transform a reagent",
                 "win a fight against a hero",
-                "level up and at the start of each day"
+                "level up and at the start of each day",
+                "lose a fight with this in play",
+                "win a fight with this in play"
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;
@@ -2577,16 +2579,11 @@ export class Item {
                 if(tagToMatch2.toLowerCase()=='item') {
                     tagToMatch2 = null;
                 }
-                const adjacentItems = this.adjacentItems;
-                this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
-                    if(adjacentItems.some(i=>i.id==item.id)) {
-                        if(!tagToMatch2) {
-                            triggerFunctionFromText(item);
-                        } else if(item.tags.includes(tagToMatch2)) {
-                            triggerFunctionFromText(item);
-                        }
-
-                    }
+                const adjacentItems = this.adjacentItems.filter(i=>!tagToMatch2||i.tags.includes(tagToMatch2));
+                adjacentItems.forEach(i=>{
+                    i.triggerFunctions.push(()=>{
+                        triggerFunctionFromText(this);
+                    });
                 });
                 return;
             }
