@@ -235,7 +235,7 @@ ItemFunction.items.set("Curry",(item)=>{
     item.gain(burn,'burn');
     item.triggerFunctions.push(()=>{
         item.applyChargeTo(item.pickRandom(item.board.activeItems.filter(i=>i.id!=item.id && i.tags.includes("Small"))));
-        item.applyBurn(item.burn);
+        item.applyBurn();
     });
 });
 
@@ -510,7 +510,7 @@ ItemFunction.items.set("Thrusters",(item)=>{
         i.gain(i.cooldown * (1-(cooldownReduction)/100)-i.cooldown,'cooldown');
     });
     return ()=>{
-        item.applyBurn(item.burn);
+        item.applyBurn();
     }
 });
 //Burn both players ( 4 » 6 » 8 ). from Nitro
@@ -518,8 +518,8 @@ ItemFunction.items.set("Nitro",(item)=>{
     const burnAmount = getRarityValue("4 >> 6 >> 8",item.rarity);
     item.gain(burnAmount,'burn');
     item.triggerFunctions.push(()=>{
-        item.applyBurn(item.burn,item);
-        item.applyBurn(item.burn,item,{selfTarget:true});
+        item.applyBurn();
+        item.applyBurn({selfTarget:true});
     });
 });
 //The Core gains ( +5% » +10% » +15% ) Crit Chance for the fight. from Cooling Fan
@@ -549,7 +549,7 @@ ItemFunction.items.set("Cryosleeve",(item)=>{
        [item,...item.adjacentItems].forEach(i=>item.applyFreezeTo(i,1));
     });
     item.board.freezeTriggers.set(item.id,(i,source)=>{
-            item.applyShield(item.shield);
+            item.applyShield();
             if(i.board==item.board) {
                 i.freezeDurationRemaining /= 2;
                 item.log(item.name + " reduced " + i.name + " freeze duration by half");
@@ -560,7 +560,7 @@ ItemFunction.items.set("Cryosleeve",(item)=>{
             i.freezeDurationRemaining /= 2;
             item.log(item.name + " reduced " + i.name + " freeze duration by half");
         }
-        item.applyShield(item.shield);
+        item.applyShield();
     });
 });
 ItemFunction.items.set("Cryosphere",(item)=>{
@@ -627,7 +627,7 @@ ItemFunction.items.set("Weather Glass",(item)=>{
     const itemsWithFreeze = item.board.items.filter(i=>i!=item && i.tags.includes("Freeze"));
     item.multicast = (itemsWithBurn.length>0?1:0) + (itemsWithPoison.length>0?1:0) + (itemsWithSlow.length>0?1:0) + (itemsWithFreeze.length>0?1:0);
     item.triggerFunctions.push(()=>{
-        item.applyBurn(item.burn);
+        item.applyBurn();
         item.applyPoison();
     });
 });
@@ -718,7 +718,7 @@ ItemFunction.items.set("Anything to Win",(item)=>{
     item.gain(amount,'poison');
     item.board.itemTriggers.set(item.id,(i)=>{
         if(i.tags.includes("Weapon")) return;
-        item.applyBurn(item.burn);
+        item.applyBurn();
         item.applyPoison();
     });
 });
@@ -941,7 +941,7 @@ ItemFunction.items.set("Fort",(item)=>{
         }
     });
     item.triggerFunctions.push(()=> {
-        item.applyShield(item.shield);
+        item.applyShield();
     });
 });
 
@@ -1100,8 +1100,8 @@ ItemFunction.items.set("Silencer",(item)=>{
         });
         item.gain(2,'damage');
         item.triggerFunctions.push(()=>{
-            item.dealDamage(item.damage);
-            item.applyBurn(item.burn);
+            item.applyDamage();
+            item.applyBurn();
             item.gain(item.board.player.hostileTarget.burn,'damage');
         });
     });
@@ -1120,7 +1120,7 @@ ItemFunction.items.set("Fire Claw",(item)=>{
         });
     });
     item.triggerFunctions.push(()=>{
-        item.applyBurn(item.burn);
+        item.applyBurn();
     });
 });
 //If you have exactly one weapon, it has Lifesteal and (  5%  » 10%   ) Crit Chance. from Quality over Quantity
@@ -1308,7 +1308,7 @@ ItemFunction.items.set("Necronomicon",(item)=>{
     });
     item.triggerFunctions.push(()=>{
         item.applyPoison();
-        item.applyRegen(item.regen);
+        item.applyRegen();
     });
 });
 
@@ -1476,7 +1476,7 @@ ItemFunction.items.set("Recycling Bin",(item)=>{
     }
     potions.forEach(i=>{
         i.triggerFunctions.push(()=>{ potionTriggerFunction(i); });
-        item.applyRegen(item.regen);
+        item.applyRegen();
     });
 });
 

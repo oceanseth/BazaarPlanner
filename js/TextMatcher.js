@@ -78,9 +78,13 @@ TextMatcher.matchers.push({
     //gain (1/2) time(s) your Regeneration for the fight. from Emergency Draught
     regex: /^\s*gain (\([^)]+\)|\d+) time\(?s\)? your Regen(?:eration)? for the fight\.$/i,
     func: (item, match)=>{
-        const regen = getRarityValue(match[1], item.rarity);
+        const multiplier = getRarityValue(match[1], item.rarity);
+        item.gain(item.board.player.regen*multiplier,'regen');
+        item.board.player.regenChanged((newAmount,oldAmount)=>{
+            item.gain((newAmount-oldAmount) * multiplier,'regen');
+        });
         return ()=>{
-            item.applyRegeneration(regen);
+            item.applyRegen();
         }; 
     },
 });
@@ -116,7 +120,7 @@ TextMatcher.matchers.push({
             item.gain(newBurn-oldBurn,'damage');
         });
         return ()=>{
-            item.applyDamage(item.damage);
+            item.applyDamage();
         };
     },
 });
@@ -240,7 +244,7 @@ TextMatcher.matchers.push({
             }
         });
         return ()=>{
-            item.applyDamage(item.damage);
+            item.applyDamage();
         };
     },
 });
@@ -494,7 +498,7 @@ TextMatcher.matchers.push({
         const whatToDo = Item.getTagFromText(match[1]);
         item.gain(amount * typeCount, whatToDo);
         return ()=>{
-            item["apply"+whatToDo](item[whatToDo.toLowerCase()]);
+            item["apply"+whatToDo]();
         };
     },
 });
@@ -710,7 +714,7 @@ TextMatcher.matchers.push({
     func: (item, match)=>{
         item.gain(getRarityValue(match[1], item.rarity),'regen');
         return ()=>{
-            item.applyRegeneration(item.regen);
+            item.applyRegen();
         };
     }
 });
@@ -872,7 +876,7 @@ TextMatcher.matchers.push({
            });
         });
         return ()=>{
-            item.applyHeal(item.heal);
+            item.applyHeal();
         };
     }
 });
