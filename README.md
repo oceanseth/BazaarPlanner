@@ -33,17 +33,18 @@ Or, runs locally at http://localhost:3000
 - `js/` - Main javascript Classes. Lowercase filesnames are utility/initial setup scripts.
 - `public/` - Static assets (images, etc.) these will be pushed to s3 
 - `build/` - Production build output (generated)
-- `import-lambda/` - Legacy Lambda function for the bazaartracker import functionality (not used anymore)
+- `lambdas/` - functions on aws (twitch login requires one), this directory functions as a separate serverless project and should have it's own readme
 
 ## 🔧 Tech Stack
 - Vite - Build tool and development server
 - AWS (S3 + CloudFront) - Hosting and CDN
+- Firebase - Database and Auth ( see firebase.json and database.rules.json / to deploy rules run `firebase deploy --only database` )
 
 ## 🤝 Contributing
 Contributions are welcome! Feel free to submit issues and pull requests.
 
 ## 🎥 Development Streams
-Development of this project is occasionally streamed on [Twitch](https://twitch.tv/simplystrong). Follow to catch future development sessions!
+Development of this project is occasionally streamed on [Twitch](https://twitch.tv/bazaarplanner). Follow to catch future development sessions!
 
 ## 📝 License
 This project is open source and available under the MIT License.
