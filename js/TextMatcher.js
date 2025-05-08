@@ -177,10 +177,10 @@ TextMatcher.matchers.push({
     //This item's cooldown is reduced by 1 second for each adjacent Friend. from Nanobot
     regex: /^this item's cooldown is reduced by 1 second for each adjacent Friend\.$/i,
     func: (item, match)=>{
-        let cooldownReducedBy = item.getAdjacentItems().filter(i=>i.tags.includes("Friend")).length;
+        let cooldownReducedBy = item.adjacentItems.filter(i=>i.tags.includes("Friend")).length;
         item.gain(-cooldownReducedBy*1000,'cooldown');
         item.board.itemDestroyedTriggers.set(item.id,(i,source)=>{            
-            if(i.tags.includes("Friend") && i.getAdjacentItems().includes(item)) {
+            if(i.tags.includes("Friend") && i.adjacentItems.includes(item)) {
                 item.gain(1000,'cooldown', source);
             }
         });
@@ -202,7 +202,7 @@ TextMatcher.matchers.push({
               let items = Array.from(item.board.items);
               items = items.filter(i => i.isHasteTargetable());        
               if(requiredTag=='adjacent') {
-                items = items.filter(i => i.getAdjacentItems().includes(item));
+                items = items.filter(i => i.adjacentItems.includes(item));
               } else if (requiredTag) {
                   items = items.filter(i => i.tags && i.tags.includes(requiredTag));
               }
@@ -697,7 +697,7 @@ TextMatcher.matchers.push({
     regex: /^If this is adjacent to a (\w+) item, (.*)\.$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);
-        const adjacentItems = item.getAdjacentItems();
+        const adjacentItems = item.adjacentItems;
         if(adjacentItems.some(i=>i.tags.includes(tag))) {
             return item.getTriggerFunctionFromText(match[2]);
         }
@@ -859,6 +859,16 @@ TextMatcher.matchers.push({
             });
         }
         return ()=>{};
+    }
+});
+//Heal equal to the value of adjacent items. from Hypergreens
+TextMatcher.matchers.push({
+    regex: /^Heal equal to the value of adjacent items\.$/i,
+    func: (item, match)=>{
+        item.gain(item.adjacentItems.reduce((sum,i)=>sum+i.value,0),'heal');
+        return ()=>{
+            item.applyHeal(item.heal);
+        };
     }
 });
 window.TextMatcher = TextMatcher;

@@ -17,7 +17,7 @@ export class ItemFunction {
 //When you use an adjacent item,charge the other adjacent item for (1/2) second(s). from Pendulum
 ItemFunction.items.set("Pendulum",(item)=>{
     item.charge = getRarityValue("1/2",item.rarity);    
-    const adjacentItems = item.getAdjacentItems();
+    const adjacentItems = item.adjacentItems;
     if(adjacentItems.length==2) {
         item.board.itemTriggers.set(item.id,(i)=>{
             if(adjacentItems.includes(i)) {
@@ -39,7 +39,7 @@ ItemFunction.items.set("Scales",(item)=>{
         const sameAmountOnBothSides = item.board.activeItems.filter(i=>i.startIndex<item.startIndex).length == item.board.activeItems.filter(i=>i.startIndex>item.startIndex).length;
         if(sameAmountOnBothSides) {
             chargeTargets = item.board.activeItems;
-        } else chargeTargets = item.getAdjacentItems();
+        } else chargeTargets = item.adjacentItems;
     }
 
     f();
@@ -308,7 +308,7 @@ ItemFunction.items.set("Crook",(item)=>{
 //You have Regeneration equal to ( 1x » 2x ) adjacent properties' values. from Closed Sign
 ItemFunction.items.set("Closed Sign",(item)=>{
     const regeneration = getRarityValue("1x >> 2x",item.rarity);
-    item.board.player.regen += regeneration*item.getAdjacentItems().filter(i=>i.tags.includes("Property")).reduce((acc,i)=>acc+i.value,0);
+    item.board.player.regen += regeneration*item.adjacentItems.filter(i=>i.tags.includes("Property")).reduce((acc,i)=>acc+i.value,0);
     item.board.updateHealthElement();
 });
 
@@ -340,7 +340,7 @@ ItemFunction.items.set("Pawn Shop",(item)=>{
 
 //This item's cooldown is reduced by 5 seconds for each adjacent large item. from Hammock
 ItemFunction.items.set("Hammock",(item)=>{
-    const largeItemCount = item.getAdjacentItems().filter(i=>i.tags.includes("Large")).length;
+    const largeItemCount = item.adjacentItems.filter(i=>i.tags.includes("Large")).length;
     item.gain(-largeItemCount*5*1000,'cooldown');
 });
 
@@ -409,7 +409,7 @@ ItemFunction.items.set("Flagship",(item)=>{
 //Shield Properties adjacent to this have + Shield equal to ( 1x » 2x ) the value of your highest value item. from Open Sign   
 ItemFunction.items.set("Open Sign",(item)=>{
     const amount = getRarityValue("1x >> 2x",item.rarity);
-    item.getAdjacentItems().forEach(i=>{
+    item.adjacentItems.forEach(i=>{
         const highestValueItem = item.board.activeItems.reduce((max,i)=>Math.max(max,i.value),0);
         if(i.tags.includes("Weapon") && i.tags.includes("Property")) {
             i.gain(amount*highestValueItem,'damage');
@@ -506,7 +506,7 @@ ItemFunction.items.set("Thrusters",(item)=>{
     const burnAmount = getRarityValue("2 >> 3 >> 4 >> 5",item.rarity);
     const cooldownReduction = getRarityValue("6 >> 9 >> 12 >> 15",item.rarity);
     item.gain(burnAmount,'burn');
-    item.getAdjacentItems().forEach(i=>{
+    item.adjacentItems.forEach(i=>{
         i.gain(i.cooldown * (1-(cooldownReduction)/100)-i.cooldown,'cooldown');
     });
     return ()=>{
@@ -546,7 +546,7 @@ ItemFunction.items.set("Cryosleeve",(item)=>{
     let shieldAmount = getRarityValue("50 >> 75 >> 100",item.rarity);
     item.gain(shieldAmount,'shield');
     item.triggerFunctions.push(()=>{
-       [item,...item.getAdjacentItems()].forEach(i=>item.applyFreezeTo(i,1));
+       [item,...item.adjacentItems].forEach(i=>item.applyFreezeTo(i,1));
     });
     item.board.freezeTriggers.set(item.id,(i,source)=>{
             item.applyShield(item.shield);
@@ -647,9 +647,9 @@ ItemFunction.items.set("GPU",(item)=>{
 ItemFunction.items.set("Metronome",(item)=>{
     item.haste += getRarityValue("1 >> 2 >> 3",item.rarity);
     //When you use an adjacent item, give the other adjacent item haste for ( 1 » 2 » 3 ) second(s).
-    item.getAdjacentItems().forEach(i=>{
+    item.adjacentItems.forEach(i=>{
         i.triggerFunctions.push(()=>{
-            let otherAdjacentItem = item.getAdjacentItems().find(i2=>i!=i2);
+            let otherAdjacentItem = item.adjacentItems.find(i2=>i!=i2);
             if(otherAdjacentItem) {
                 item.applyHasteTo(otherAdjacentItem);
                 //log("usage of "+i.name+" gave "+otherAdjacentItem.name+" haste for "+hasteDuration+" seconds");
@@ -699,7 +699,7 @@ ItemFunction.items.set("Pulse Rifle",(item)=>{
    //This has +1 Multicast if it is adjacent to a Friend. Double this if it is your only Friend.
    item.damage = getRarityValue("10 >> 20 >> 40 >> 80",item.rarity);
    let friendCount = item.board.items.filter(i=>i.tags.includes("Friend")).length;
-   let adjacentFriendCount = item.getAdjacentItems().filter(i=>i.tags.includes("Friend")).length;
+   let adjacentFriendCount = item.adjacentItems.filter(i=>i.tags.includes("Friend")).length;
 
    if(adjacentFriendCount>0) {
     item.multicast++;
@@ -864,7 +864,7 @@ ItemFunction.items.set("Scythe",(item)=>{
 
 // Adjacent items have bonus damage, heal, or shield equal to their Crit Chance. from Swash Buckle
 ItemFunction.items.set("Swash Buckle",(item)=>{
-    const adjacentItems = item.getAdjacentItems();
+    const adjacentItems = item.adjacentItems;
     adjacentItems.forEach(i=>{
         if(i.tags.includes("Weapon")) { 
             i.gain(i.crit,'damage');
@@ -1149,7 +1149,7 @@ ItemFunction.items.set("Firepower",(item)=>{
     const amount = getRarityValue("10 >> 20 >> 30",item.rarity);
     item.board.itemTriggers.set(item.id,(i)=>{
         if(i.tags.includes("Core")) {
-            const adjacentItems = i.getAdjacentItems();
+            const adjacentItems = i.adjacentItems;
             adjacentItems.forEach(i=>{
                 if(i.tags.includes("Weapon")) {
                     i.gain(amount,'damage');
