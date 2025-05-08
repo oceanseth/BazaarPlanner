@@ -1080,7 +1080,7 @@ export class Item {
 
                 if(match[1]) adjacentItems.push(this);
                 adjacentItems.forEach(item => {
-                    item.gain(gainAmount,match[5].toLowerCase());
+                    item.gain(gainAmount,match[5].toLowerCase(), this);
                 });
 
 

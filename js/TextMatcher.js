@@ -723,5 +723,38 @@ TextMatcher.matchers.push({
         };
     }
 });
-    
+TextMatcher.matchers.push({
+    //When a player uses a Weapon, Poison that player (3/4/5). from Wild Quillback
+    regex: /^When a player uses a Weapon, Poison that player (\([^)]+\)|\d+)\.$/i,
+    func: (item, match)=>{        
+        item.gain(getRarityValue(match[1], item.rarity),'poison');
+        item.whenItemTagTriggers("Weapon", (i)=>{
+            item.applyPoison(item.poison,i, {selfTarget: true});
+        });
+        const hostileBoardItems = item.board.player.hostileTarget.board.items;
+        if(hostileBoardItems.length>0) {
+            hostileBoardItems[0].whenItemTagTriggers("Weapon", (i)=>{
+                i.applyPoison(item.poison,item, {selfTarget: true});
+            });
+        }
+        return ()=>{};
+    }
+});
+TextMatcher.matchers.push({
+    //When the item to the left of this Shields. from Wrist Warrior
+    regex: /^When the item to the left of this Shields, (.*)$/i,
+    func: (item, match)=>{
+       const leftItem = item.getItemToTheLeft();
+       const f = item.getTriggerFunctionFromText(match[1]);
+       if(leftItem) {
+        item.board.shieldTriggers.set(item.id+"_"+leftItem.id, (i)=>{
+            if(i==leftItem) {
+                f(item);
+            }
+        });
+       }
+       return ()=>{};
+    }
+});
+
 window.TextMatcher = TextMatcher;
