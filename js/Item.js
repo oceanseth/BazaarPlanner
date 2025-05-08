@@ -836,8 +836,8 @@ export class Item {
         this.critCheck[this.effectiveBattleTime] = false;
         return false;
     }
-    applyDamage(damage,target=this.board.player.hostileTarget) {
-        this.dealDamage(damage,target);
+    applyDamage({amount=this.damage,target=this.board.player.hostileTarget}={}) {
+        this.dealDamage(amount,target);
     }
     dealDamage(damage,target=this.board.player.hostileTarget) {
         damage = parseFloat(damage);
@@ -860,18 +860,18 @@ export class Item {
         if(this.battleStats.damage == undefined) this.battleStats.damage = 0;
         this.battleStats.damage += damage;
     }
-    applyShield(shieldAmount=this.shield) {
+    applyShield({amount=this.shield, source=this}={}) {
         let doesCrit = this.doICrit();
         if(doesCrit) {
-            shieldAmount *= (1+this.critMultiplier/100);
+            amount *= (1+this.critMultiplier/100);
         }
-        this.log(this.name + (doesCrit?" critically":"")+" shielded " + this.board.player.name + " for " + shieldAmount);
-        this.board.player.applyShield(shieldAmount);
+        this.log(this.name + (doesCrit?" critically":"")+" shielded " + this.board.player.name + " for " + amount);
+        this.board.player.applyShield(amount);
         this.board.shieldTriggers.forEach(func => func(this));
         if(this.battleStats.shield == undefined) this.battleStats.shield = 0;
-        this.battleStats.shield += shieldAmount;
+        this.battleStats.shield += amount;
     }
-    applyBurn(burnAmount, source=this,{selfTarget}={selfTarget:false}) {
+    applyBurn({burnAmount=this.burn, source=this,selfTarget=false}={}) {
         let doesCrit = this.doICrit();
         if(doesCrit) {
             burnAmount *= (1+this.critMultiplier/100);
@@ -883,30 +883,30 @@ export class Item {
         if(this.battleStats.burn == undefined) this.battleStats.burn = 0;
         this.battleStats.burn += burnAmount;
     }
-    applyRegeneration(regenAmount) {
+    applyRegeneration({amount=this.regen, source=this}={}) {
         let doesCrit = this.doICrit();
         if(doesCrit) {
-            regenAmount *= (1+this.critMultiplier/100);
+            amount *= (1+this.critMultiplier/100);
         }
-        this.board.player.regen+=regenAmount;
-        this.log(this.name + (doesCrit?" critically ":"")+" adds " + regenAmount + " regen");
+        this.board.player.regen+=amount;
+        this.log(this.name + (doesCrit?" critically ":"")+" adds " + amount + " regen");
         if(this.battleStats.regen == undefined) this.battleStats.regen = 0;
-        this.battleStats.regen += regenAmount;
+        this.battleStats.regen += amount;
     }
-    applyRegen(regenAmount=this.regen) {
-        this.applyRegeneration(regenAmount);
+    applyRegen(o) {
+        this.applyRegeneration(o);
     }
-    applyHeal(healAmount=this.heal) {
-        healAmount = parseFloat(healAmount);
-        if(isNaN(healAmount) || healAmount <=0) return;
+    applyHeal({amount=this.heal, source=this}={}) {
+        amount = parseFloat(amount);
+        if(isNaN(amount) || amount <=0) return;
         let doesCrit = this.doICrit();
         if(doesCrit) {
-            healAmount *= (1+this.critMultiplier/100);
+            amount *= (1+this.critMultiplier/100);
         }        
-        this.log(this.name + (doesCrit?" critically ":"")+" healed " + this.board.player.name + " for " + healAmount);
-        this.board.player.heal(healAmount,this);
+        this.log(this.name + (doesCrit?" critically ":"")+" healed " + this.board.player.name + " for " + amount);
+        this.board.player.heal(amount,this);
         if(this.battleStats.heal == undefined) this.battleStats.heal = 0;
-        this.battleStats.heal += healAmount;
+        this.battleStats.heal += amount;
     }
     applyFreezes(amount) {
         for(let i=0;i<amount;i++) {
@@ -1457,18 +1457,14 @@ export class Item {
         regex = /^(Poison|Burn) both players (\([^)]+\)|\d+)\.?/i;
         match = text.match(regex);
         if(match) {
-            this.gain(amount,'poison');
-            if(match[1].toLowerCase() == "poison") {
-                return (source) => {
-                    this.applyPoison();
-                    this.applyPoison({source,selfTarget:true});
-                };
-            } else {
-                return (source) => {
-                    this.applyBurn();
-                    this.applyBurn({source,selfTarget:true});
-                };
-            }
+            const whatToDo = match[1];
+            const amount = getRarityValue(match[2], this.rarity);
+            this.gain(amount,whatToDo.toLowerCase());
+
+            return (source) => {
+                this["apply"+whatToDo]({source});
+                this["apply"+whatToDo]({source,selfTarget:true});
+            };
         }
         
         return null;
@@ -1484,7 +1480,7 @@ export class Item {
             const multiplier = match[3] ? this.board.uniqueTypes : 1;
             this.gain(amount*multiplier,whatToGain.toLowerCase());
             return () => {                
-                this["apply"+whatToGain](this[whatToGain.toLowerCase()]);
+                this["apply"+whatToGain]();
             };
 
         }
@@ -3796,7 +3792,7 @@ export class Item {
             }
 
             return () => {
-                this["apply"+whatToGain](this[whatToGainLowercase]);
+                this["apply"+whatToGain]();
             };
         }
 
@@ -4203,9 +4199,14 @@ export class Item {
         if(match) {
             const whatToDo = match[1];
             const multiplier = getRarityValue(match[2], this.rarity);
+            let amountGained = 0;
+            this.board.player.hostileTarget.poisonChanged((newAmount,oldAmount)=>{
+                this.gain(newAmount*multiplier-amountGained,whatToDo.toLowerCase());
+                amountGained = newAmount*multiplier;
+            });
             return () => {
-                this["apply"+whatToDo](this.board.player.hostileTarget.poison*multiplier, whatToDo.toLowerCase());
-            }
+                this["apply"+whatToDo]();
+            };
         }
 
         //If you have another (Apparel|Vehicle) item in play, this item's cooldown is reduced by 50%. from Cargo Shorts   
@@ -4678,7 +4679,7 @@ export class Item {
                 this[whatToGain.toLowerCase()]+=newValue-oldValue;
             });
             return () => {
-                this["apply"+whatToGain](this[whatToGain.toLowerCase()]);
+                this["apply"+whatToGain]();
             };
         }   
 
@@ -4692,7 +4693,7 @@ export class Item {
                 this.gain(newValue-oldValue,whatToGain.toLowerCase());
             });
             return () => {
-                this["apply"+whatToGain](this[whatToGain.toLowerCase()]);
+                this["apply"+whatToGain]();
             };
         }
 

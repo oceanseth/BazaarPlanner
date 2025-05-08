@@ -890,5 +890,19 @@ TextMatcher.matchers.push({
         };
     }
 });
+//Gain Regen equal to 10% of this item's Heal for the fight. from Bushel
+TextMatcher.matchers.push({
+    regex: /^Gain Regen equal to (\d+)% of this item's Heal for the fight\.$/i,
+    func: (item, match)=>{
+        const multiplier = getRarityValue(match[1], item.rarity);
+        item.gain(item.heal*multiplier/100,'regen');
+        item.healChanged((newAmount, oldAmount)=>{
+            item.gain(newAmount-oldAmount,'regen');
+        });
+        return ()=>{
+            item.applyRegen();
+        };
+    }
+});
 
 window.TextMatcher = TextMatcher;
