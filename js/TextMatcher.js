@@ -120,7 +120,7 @@ TextMatcher.matchers.push({
             item.gain(newBurn-oldBurn,'damage');
         });
         return ()=>{
-            item.applyDamage(item.damage);
+            item.applyDamage();
         };
     },
 });
@@ -244,7 +244,7 @@ TextMatcher.matchers.push({
             }
         });
         return ()=>{
-            item.applyDamage(item.damage);
+            item.applyDamage();
         };
     },
 });
@@ -498,7 +498,7 @@ TextMatcher.matchers.push({
         const whatToDo = Item.getTagFromText(match[1]);
         item.gain(amount * typeCount, whatToDo);
         return ()=>{
-            item["apply"+whatToDo](item[whatToDo.toLowerCase()]);
+            item["apply"+whatToDo]();
         };
     },
 });
@@ -714,7 +714,7 @@ TextMatcher.matchers.push({
     func: (item, match)=>{
         item.gain(getRarityValue(match[1], item.rarity),'regen');
         return ()=>{
-            item.applyRegeneration(item.regen);
+            item.applyRegen();
         };
     }
 });
@@ -876,7 +876,7 @@ TextMatcher.matchers.push({
            });
         });
         return ()=>{
-            item.applyHeal(item.heal);
+            item.applyHeal();
         };
     }
 });
