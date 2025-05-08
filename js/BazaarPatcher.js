@@ -8,6 +8,9 @@ export class BazaarPatcher {
         if(!items["Sleeping Potion"].tags.includes("Ammo")) {
             items["Sleeping Potion"].tags.push("Ammo");
         }
+        if(items["Rapid Injection System"].text[0]=="When you poison yourself, Poison (4/8/12).") {
+            items["Rapid Injection System"].text[0] = "When you poison yourself, Poison.";
+        }
 
         //community items
 

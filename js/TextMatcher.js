@@ -100,7 +100,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     // Deal damage equal to the Regeneration plus the Burn on both players. from Sunlight Spear
-    regex: /^deal damage equal to the Rege(?:neration)? plus the Burn on both players\.$/i,
+    regex: /^deal damage equal to the Regen(?:eration)? plus the Burn on both players\.$/i,
     func: (item, match)=>{
         item.gain(item.board.player.regen+item.board.player.hostileTarget.regen,'damage');
         item.board.player.regenChanged((newRegen,oldRegen)=>{
@@ -177,10 +177,10 @@ TextMatcher.matchers.push({
     //This item's cooldown is reduced by 1 second for each adjacent Friend. from Nanobot
     regex: /^this item's cooldown is reduced by 1 second for each adjacent Friend\.$/i,
     func: (item, match)=>{
-        let cooldownReducedBy = item.getAdjacentItems().filter(i=>i.tags.includes("Friend")).length;
+        let cooldownReducedBy = item.adjacentItems.filter(i=>i.tags.includes("Friend")).length;
         item.gain(-cooldownReducedBy*1000,'cooldown');
         item.board.itemDestroyedTriggers.set(item.id,(i,source)=>{            
-            if(i.tags.includes("Friend") && i.getAdjacentItems().includes(item)) {
+            if(i.tags.includes("Friend") && i.adjacentItems.includes(item)) {
                 item.gain(1000,'cooldown', source);
             }
         });
@@ -202,7 +202,7 @@ TextMatcher.matchers.push({
               let items = Array.from(item.board.items);
               items = items.filter(i => i.isHasteTargetable());        
               if(requiredTag=='adjacent') {
-                items = items.filter(i => i.getAdjacentItems().includes(item));
+                items = items.filter(i => i.adjacentItems.includes(item));
               } else if (requiredTag) {
                   items = items.filter(i => i.tags && i.tags.includes(requiredTag));
               }
@@ -697,7 +697,7 @@ TextMatcher.matchers.push({
     regex: /^If this is adjacent to a (\w+) item, (.*)\.$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);
-        const adjacentItems = item.getAdjacentItems();
+        const adjacentItems = item.adjacentItems;
         if(adjacentItems.some(i=>i.tags.includes(tag))) {
             return item.getTriggerFunctionFromText(match[2]);
         }
@@ -723,5 +723,186 @@ TextMatcher.matchers.push({
         };
     }
 });
-    
+TextMatcher.matchers.push({
+    //When a player uses a Weapon, Poison that player (3/4/5). from Wild Quillback
+    regex: /^When a player uses a Weapon, Poison that player (\([^)]+\)|\d+)\.$/i,
+    func: (item, match)=>{        
+        item.gain(getRarityValue(match[1], item.rarity),'poison');
+        item.whenItemTagTriggers("Weapon", (i)=>{
+            item.applyPoison({source:i,selfTarget: true});
+        });
+        const hostileBoardItems = item.board.player.hostileTarget.board.items;
+        if(hostileBoardItems.length>0) {
+            hostileBoardItems[0].whenItemTagTriggers("Weapon", (i)=>{
+                item.applyPoison({source:i,selfTarget: true});
+            });
+        }
+        return ()=>{};
+    }
+});
+TextMatcher.matchers.push({
+    //When the item to the left of this Shields. from Wrist Warrior
+    regex: /^When the item to the left of this Shields, (.*)$/i,
+    func: (item, match)=>{
+       const leftItem = item.getItemToTheLeft();
+       const f = item.getTriggerFunctionFromText(match[1]);
+       if(leftItem) {
+        item.board.shieldTriggers.set(item.id+"_"+leftItem.id, (i)=>{
+            if(i==leftItem) {
+                f(item);
+            }
+        });
+       }
+       return ()=>{};
+    }
+});
+TextMatcher.matchers.push({
+    //Charge 1 non-Toy item(s) (1/2/3/4) second(s). from Speedrunner
+    regex: /^Charge 1 (non-)?([\w]+) item\(?s?\)? (\([^)]+\)|\d+) second\(?s\)?\.$/i,
+    func: (item, match)=>{
+        const non = match[1]!=null;
+        const tag = Item.getTagFromText(match[2]);
+        item.gain(getRarityValue(match[3], item.rarity),'charge');        
+        return ()=>{
+            const targetItems = item.board.items.filter(i=>non?!i.tags.includes(tag):i.tags.includes(tag));
+            if(targetItems.length>0) {
+                item.applyChargeTo(item.pickRandom(targetItems));
+            }
+        };
+    }
+});
+TextMatcher.matchers.push({
+    // your items with Shield gain (+10/+20/+30) Shield for the fight. from 28 Hour Fitness
+    regex: /^your items with Shield gain (\([^)]+\)|\d+) Shield for the fight\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        return ()=>{
+            item.board.activeItems.filter(i=>i.tags.includes("Shield")).forEach(i=>{
+                i.gain(amount,'shield',item);
+            });
+        };
+    }
+});
+
+//your weapons gain + damage for the fight equal to (1/2) times the amount Poisoned. from Infused Bracers
+TextMatcher.matchers.push({
+    regex: /^your weapons gain \+ damage for the fight equal to (\([^)]+\)|\d+) times the amount (?:Poisoned|Burned)\.$/i,
+    func: (item, match)=>{
+        const multiplier = getRarityValue(match[1], item.rarity);
+        return (source,{amount})=>{
+            item.board.activeItems.filter(i=>i.tags.includes("Weapon")).forEach(i=>{
+                i.gain(amount*multiplier,'damage',item);
+            });
+        };
+    }
+});
+//The Weapon to the left has Lifesteal. from Infused Bracers
+TextMatcher.matchers.push({
+    regex: /^The Weapon to the (right|left) has Lifesteal\.$/i,
+    func: (item, match)=>{
+        const left = match[1]=='left';
+        const weapon = left?item.getItemToTheLeft():item.getItemToTheRight();
+        if(weapon) {
+            weapon.lifesteal = true;
+        }
+        return ()=>{};
+    }
+});
+//This has +1 Multicast for each player with Poison. from Barbed Claws
+TextMatcher.matchers.push({
+    regex: /^This has \+1 Multicast for each player with (Poison|Burn)\.$/i,
+    func: (item, match)=>{
+        const f = (newAmount,oldAmount)=>{
+                if(newAmount>0 && oldAmount<=0) {
+                    item.gain(1,'multicast',item);
+                } else if(newAmount<=0 && oldAmount>0) {
+                    item.gain(-1,'multicast',item);
+                }
+        };
+        if(match[1].toLowerCase()=="poison") {
+            item.board.player.poisonChanged(f);
+            item.board.player.hostileTarget.poisonChanged(f);
+        } else {
+            item.board.player.burnChanged(f);
+            item.board.player.hostileTarget.burnChanged(f);
+        }
+        return ()=>{};
+    }
+});
+TextMatcher.matchers.push({
+    //If you have 3 or more Shield items they gain (+20/+30/+40/+50) Shield for the fight. from Showcase
+    regex: /^If you have 3 or more (\w+)(?: items)?, they gain (\([^)]+\)|\d+) (\w+) for the fight\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const amount = getRarityValue(match[2], item.rarity);
+        const whatToGain = match[3].toLowerCase();
+        return ()=>{
+            const items = item.board.activeItems.filter(i=>i.tags.includes(tag));
+            if(items.length>=3) {
+                items.forEach(i=>{
+                    i.gain(amount,whatToGain,item);
+                });
+            }
+        };
+    }
+});
+//The item to the left of this has + Crit Chance equal to your Poison. from Optical Augment
+TextMatcher.matchers.push({
+    regex: /^The item to the (right|left) of this has \+ Crit Chance equal to your (Poison|Burn)\.$/i,
+    func: (item, match)=>{
+        const target = match[1]=='left'?item.getItemToTheLeft():item.getItemToTheRight();
+        if(target) {
+            let totalGained = 0;
+            item.board.player.poisonChanged((newAmount)=>{
+                target.gain(newAmount-totalGained,'crit',item);
+                totalGained = newAmount;
+            });
+        }
+        return ()=>{};
+    }
+});
+//Heal equal to the value of adjacent items. from Hypergreens
+TextMatcher.matchers.push({
+    regex: /^Heal equal to the value of adjacent items\.$/i,
+    func: (item, match)=>{
+        item.gain(item.adjacentItems.reduce((sum,i)=>sum+i.value,0),'heal');
+        item.adjacentItems.forEach(i=>{
+           i.valueChanged((newAmount, oldAmount)=>{
+            item.gain(newAmount-oldAmount,'heal');
+           });
+        });
+        return ()=>{
+            item.applyHeal(item.heal);
+        };
+    }
+});
+//Gain Regen for the fight equal to (1/2/3) times this item's value.
+TextMatcher.matchers.push({
+    regex: /^Gain Regen for the fight equal to (\([^)]+\)|\d+) times this item's value\.$/i,
+    func: (item, match)=>{
+        const multiplier = getRarityValue(match[1], item.rarity);
+        item.gain(item.value*multiplier,'regen');
+        item.valueChanged((newAmount, oldAmount)=>{
+            item.gain(newAmount-oldAmount,'regen');
+        });
+        return ()=>{
+            item.applyRegen();
+        };
+    }
+});
+//Gain Regen equal to 10% of this item's Heal for the fight. from Bushel
+TextMatcher.matchers.push({
+    regex: /^Gain Regen equal to (\d+)% of this item's Heal for the fight\.$/i,
+    func: (item, match)=>{
+        const multiplier = getRarityValue(match[1], item.rarity);
+        item.gain(item.heal*multiplier/100,'regen');
+        item.healChanged((newAmount, oldAmount)=>{
+            item.gain(newAmount-oldAmount,'regen');
+        });
+        return ()=>{
+            item.applyRegen();
+        };
+    }
+});
+
 window.TextMatcher = TextMatcher;

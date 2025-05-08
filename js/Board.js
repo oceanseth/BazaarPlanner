@@ -454,6 +454,9 @@ class Board {
         let newSkillData = structuredClone(skills[skillName]);
         newSkillData.name = skillName;
         Object.assign(newSkillData,skillData);
+        if(skillData.tier < skills[skillName].tier) {
+            newSkillData.tier = skills[skillName].tier;
+        }
         let newSkill = new Skill(newSkillData, this,this.options.editable);
         this.skills.push(newSkill);
         this.skillsElement.appendChild(newSkill.element);

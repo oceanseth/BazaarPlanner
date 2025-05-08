@@ -2465,7 +2465,7 @@ export const skills = {
     ]
   },
   "Pop-Up Shop": {
-    "text": ["Your Toys and Apparel itemshave their cooldowns reduced by (5%/10%)."],
+    "text": ["Your Toys and Apparel items have their cooldowns reduced by (5%/10%)."],
     "tier": 2,
     "tags": ["Cooldown", "Mak"]
   },
