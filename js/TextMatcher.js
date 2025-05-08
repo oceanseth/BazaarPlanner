@@ -100,7 +100,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     // Deal damage equal to the Regeneration plus the Burn on both players. from Sunlight Spear
-    regex: /^deal damage equal to the Rege(?:neration)? plus the Burn on both players\.$/i,
+    regex: /^deal damage equal to the Regen(?:eration)? plus the Burn on both players\.$/i,
     func: (item, match)=>{
         item.gain(item.board.player.regen+item.board.player.hostileTarget.regen,'damage');
         item.board.player.regenChanged((newRegen,oldRegen)=>{
