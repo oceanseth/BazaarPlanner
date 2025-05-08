@@ -473,6 +473,17 @@ TextMatcher.matchers.push({
         return ()=>{};
     },
 });
+TextMatcher.matchers.push({    
+    regex: /^You have \+Regen(?:eration)? equal to this item's (\w+)\.$/i,
+    func: (item, match)=>{
+        const whatThing = Item.getTagFromText(match[1]).toLowerCase();
+        item.board.player.regen += item[whatThing];
+        item[whatThing+"Changed"]((newVal,oldVal)=>{
+            item.board.player.regen += newVal-oldVal;
+        });
+        return ()=>{};
+    },
+});
 
 TextMatcher.matchers.push({
     //poison (1/2/3) for each type this has.
@@ -703,4 +714,14 @@ TextMatcher.matchers.push({
         };
     }
 });
+TextMatcher.matchers.push({
+    //this gains +Damage for the fight equal to the amount Poisoned. from Test Subject Alpha
+    regex: /^this gains \+Damage for the fight equal to the amount (?:Poisoned|Burned)\.$/i,
+    func: (theItem, match)=>{
+        return (source, {poisonAmount})=>{
+                theItem.gain(poisonAmount,'damage');
+        };
+    }
+});
+    
 window.TextMatcher = TextMatcher;

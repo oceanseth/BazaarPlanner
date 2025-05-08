@@ -45,8 +45,8 @@ export class Player {
         }
         this.healTriggers.forEach(func => func(healAmount));
         this.health += healAmount;
-        if(this.poison > 0) this.poison/=10; //cleanse 1 poison when a heal occurs
-        if(this.burn > 0) this.burn/=10; //cleanse 1 burn when a heal occurs
+        if(this.poison > 0) this.poison>10?this.poison/=10:this.poison--; //cleanse 1 poison when a heal occurs
+        if(this.burn > 0) this.burn>10?this.burn/=10:this.burn--; //cleanse 1 burn when a heal occurs
     }
     clone() {
         const clone = new Player(structuredClone(this.startPlayerData));
@@ -220,6 +220,7 @@ export class Player {
         this.destroyTriggers = new Map(); // triggered when this player destroys an item
         this.overhealTriggers = new Map();
         if(this.board) this.board.reset();
+        this.board.updateHealthElement();
     }
     setup() {
         if(this.board) this.board.setup();

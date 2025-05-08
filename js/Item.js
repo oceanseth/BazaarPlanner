@@ -964,7 +964,7 @@ export class Item {
         const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
         this.log(this.name + (doesCrit?" critically ":"")+" poisoned " + target.name + " for " + poisonAmount.toFixed(0));
         target.applyPoison(poisonAmount,source);
-        this.board.poisonTriggers.forEach(func => func(this,source));
+        this.board.poisonTriggers.forEach(func => func(this, source, poisonAmount));
         if(this.battleStats.poison == undefined) this.battleStats.poison = 0;
         this.battleStats.poison += poisonAmount;
     }
@@ -1215,6 +1215,18 @@ export class Item {
             };
 
         }
+        //Slow the item to the left of this for 1 second(s). from Power Sander
+        regex = /^Slow the item to the left of this for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            this.slow+= getRarityValue(match[1], this.rarity);
+            return () => {
+                const itemToSlow = this.getItemToTheLeft();
+                if(itemToSlow) {
+                    this.applySlowTo(itemToSlow);
+                }
+            };
+        }
         return null;
     }
 
@@ -1432,14 +1444,14 @@ export class Item {
         if(match) {
             const poisonAmount = getRarityValue(match[2], this.rarity);
             if(match[1].toLowerCase() == "poison") {
-                return () => {
+                return (item) => {
                     this.applyPoison(poisonAmount);
-                    this.applyPoison(poisonAmount,{selfTarget:true});
+                    this.applyPoison(poisonAmount,item||this,{selfTarget:true});
                 };
             } else {
-                return () => {
+                return (item) => {
                     this.applyBurn(poisonAmount);
-                    this.applyBurn(poisonAmount,{selfTarget:true});
+                    this.applyBurn(poisonAmount,item||this,{selfTarget:true});
                 };
             }
         }
@@ -2540,7 +2552,8 @@ export class Item {
                 "sell a medium or large item",
                 "start a fight",
                 "sell a reagent",
-                "transform a reagent"
+                "transform a reagent",
+                "win a fight against a hero"
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;
@@ -2831,7 +2844,9 @@ export class Item {
                         this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),triggerFunctionFromText);
                         return;
                     case "poison":
-                        this.board.poisonTriggers.set(this.id, triggerFunctionFromText);
+                        this.board.poisonTriggers.set(this.id, (triggerSource, poisonSource, poisonAmount) => {
+                            triggerFunctionFromText(this, {triggerSource, poisonSource, poisonAmount});
+                        });
                         return;
                     case "poison or burn":
                         this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),triggerFunctionFromText);
@@ -4169,7 +4184,7 @@ export class Item {
             };
         }
         //You have Regeneration equal to half the (Poison|Burn) on your enemy. from Venomous Vitality
-        regex = /^\s*You have Regen(?:eration)? equal to half the (Poison|Burn) on your enemy\.?/i;
+        regex = /^\s*You have \+?Regen(?:eration)? equal to half the (Poison|Burn) on your enemy\.?/i;
         match = text.match(regex);
         if(match) {
             const whichToTrack = match[1].toLowerCase();
@@ -4448,6 +4463,17 @@ export class Item {
                 for(let i=this.board.items.indexOf(this);i<this.board.items.length;i++) {
                     this.board.items[i].gain(gainAmount,whatToGain.toLowerCase());
                 }
+            }
+            return () => {};
+        }
+        //The weapon to the right of this has (+15%/+20%/+25%) Crit Chance. from Custom Scope
+        regex = /^\s*The weapon to the right of this has (\([^)]+\)|\+?(\d+)%?) Crit Chance\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const gainAmount = getRarityValue(match[1], this.rarity);
+            const rightItem = this.getItemToTheRight();
+            if(rightItem&&rightItem.tags.includes("Weapon")) {
+                rightItem.gain(gainAmount,'crit');
             }
             return () => {};
         }
@@ -5099,7 +5125,7 @@ export class Item {
             };
         }
         //This has double damage.
-        regex = /^\s*This has double (damage|poison|burn|shield|heal|ammo|charge)\.?$/i;
+        regex = /^\s*This has double (damage|poison|burn|shield|heal|ammo|charge|regen)\.?$/i;
         match = text.match(regex);
         if(match) {
             let whatToGain = match[1].toLowerCase();
@@ -5941,9 +5967,23 @@ export class Item {
                 this.gain(-critChance,'crit');
             }
         }
+        regex = /^\s*when you Crit with it charge a non-weapon item (\([^)]+\)|\d+) second\(s\)\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            this.charge = getRarityValue(match[1], this.rarity);
+            doIt = (it) => {
+                this.board.critTriggers.set(this.id+"undoablefunction",(i)=>{
+                    if(i.id==it.target.id) {
+                        this.applyChargeTo(this.pickRandom(this.board.items.filter(item => !item.tags.includes("Weapon") && item.cooldown>0)));
+                    }
+                });
+            }
+            undoIt = (it) => {
+                this.board.critTriggers.delete(this.id+"undoablefunction");
+            }
+        }
         
-        
-            //your weapons have (  +5  » +10  » +20   ) damage.
+        //your weapons have (  +5  » +10  » +20   ) damage.
         //your items have (  +5%  » +10%  » +20%   ) Crit Chance.
         regex = /^your ([^s]+)s?(?: items)? have (?:\(([^)]+)\)|\+?(\d+)%?) ([^\s^\.]+)\s*(?:Chance)?\.?$/i;
         match = text.match(regex);

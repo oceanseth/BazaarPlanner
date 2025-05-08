@@ -1526,7 +1526,10 @@ opacity: 0.3;
 .income-element {
     left: 70px;
 }
-.gold-element, .income-element {
+.prestige-element {
+    left: 130px;
+}
+.gold-element, .income-element, .prestige-element {
     text-shadow: 
     -0.5px -0.5px 0 #333,
     0.5px -0.5px 0 #333,
@@ -1545,6 +1548,16 @@ opacity: 0.3;
     content: "";
     display: block;
     background-image: url('/images/fromBT/UI_PurseIcon.png');
+    background-size: 100% 100%;
+    width: 20px;
+    height: 20px;
+    position:absolute;
+    left: -25px;
+}
+.prestige-element:before {
+    content: "";
+    display: block;
+    background-image: url('/images/fromBT/Icon_Stat_Prestige_TUI.png');
     background-size: 100% 100%;
     width: 20px;
     height: 20px;

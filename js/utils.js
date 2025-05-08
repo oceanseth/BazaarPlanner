@@ -195,6 +195,10 @@ export function loadFromUrl(hash) {
                 else board.player.startPlayerData.gold = 0;
                 if(boardStateObject.income!==undefined) board.player.startPlayerData.income = boardStateObject.income;
                 else board.player.startPlayerData.income = 0;
+                if(boardStateObject.prestige!==undefined) board.player.startPlayerData.prestige = boardStateObject.prestige;
+                else board.player.startPlayerData.prestige = 0;
+                if(boardStateObject.level!==undefined) board.player.startPlayerData.level = boardStateObject.level;
+                else board.player.startPlayerData.level = 1;
                     
                 if(boardStateObject.skills) {
                     boardStateObject.skills.forEach(skill => {
