@@ -860,7 +860,7 @@ export class Item {
         if(this.battleStats.damage == undefined) this.battleStats.damage = 0;
         this.battleStats.damage += damage;
     }
-    applyShield(shieldAmount) {
+    applyShield(shieldAmount=this.shield) {
         let doesCrit = this.doICrit();
         if(doesCrit) {
             shieldAmount *= (1+this.critMultiplier/100);
@@ -893,10 +893,10 @@ export class Item {
         if(this.battleStats.regen == undefined) this.battleStats.regen = 0;
         this.battleStats.regen += regenAmount;
     }
-    applyRegen(regenAmount) {
+    applyRegen(regenAmount=this.regen) {
         this.applyRegeneration(regenAmount);
     }
-    applyHeal(healAmount) {
+    applyHeal(healAmount=this.heal) {
         healAmount = parseFloat(healAmount);
         if(isNaN(healAmount) || healAmount <=0) return;
         let doesCrit = this.doICrit();
@@ -1654,21 +1654,17 @@ export class Item {
             };
         }
         //Heal equal to ( 5% » 10% » 15% ) of your Max Health. from Lemonade Stand
-        regex = /^(Heal|Shield)(?: equal to)? (\([^)]+\)|\d+%) of your Max Health\.?$/i;
+        regex = /^(?:Gain )?(Heal|Shield|Regen)(?: equal to)? (\([^)]+\)|\d+%) of your Max Health(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const shouldShield = match[1].toLowerCase() == "shield";
+            const tag = match[1];
             const multiplier = getRarityValue(match[2], this.rarity);
-            this.gain(this.board.player.maxHealth * multiplier/100,shouldShield?"shield":"heal");
+            this.gain(this.board.player.maxHealth * multiplier/100,tag.toLowerCase());
             this.board.player.maxHealthChanged((newHealth,oldHealth)=>{
-                this.gain((newHealth-oldHealth)*multiplier/100,shouldShield?"shield":"heal");
+                this.gain((newHealth-oldHealth)*multiplier/100,tag.toLowerCase());
             });
             return () => {
-                if(shouldShield) {
-                    this.applyShield(this.shield);
-                } else {
-                    this.applyHeal(this.heal);
-                }
+                this["apply"+tag]();
             };
         }
 
