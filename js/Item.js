@@ -1444,14 +1444,14 @@ export class Item {
         if(match) {
             const poisonAmount = getRarityValue(match[2], this.rarity);
             if(match[1].toLowerCase() == "poison") {
-                return () => {
+                return (item) => {
                     this.applyPoison(poisonAmount);
-                    this.applyPoison(poisonAmount,{selfTarget:true});
+                    this.applyPoison(poisonAmount,item||this,{selfTarget:true});
                 };
             } else {
-                return () => {
+                return (item) => {
                     this.applyBurn(poisonAmount);
-                    this.applyBurn(poisonAmount,{selfTarget:true});
+                    this.applyBurn(poisonAmount,item||this,{selfTarget:true});
                 };
             }
         }
@@ -2844,8 +2844,8 @@ export class Item {
                         this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),triggerFunctionFromText);
                         return;
                     case "poison":
-                        this.board.poisonTriggers.set(this.id, (item, source, poisonAmount) => {
-                            triggerFunctionFromText(this, {item, source, poisonAmount});
+                        this.board.poisonTriggers.set(this.id, (triggerSource, poisonSource, poisonAmount) => {
+                            triggerFunctionFromText(this, {triggerSource, poisonSource, poisonAmount});
                         });
                         return;
                     case "poison or burn":
