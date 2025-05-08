@@ -1215,6 +1215,18 @@ export class Item {
             };
 
         }
+        //Slow the item to the left of this for 1 second(s). from Power Sander
+        regex = /^Slow the item to the left of this for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            this.slow+= getRarityValue(match[1], this.rarity);
+            return () => {
+                const itemToSlow = this.getItemToTheLeft();
+                if(itemToSlow) {
+                    this.applySlowTo(itemToSlow);
+                }
+            };
+        }
         return null;
     }
 
@@ -5111,7 +5123,7 @@ export class Item {
             };
         }
         //This has double damage.
-        regex = /^\s*This has double (damage|poison|burn|shield|heal|ammo|charge)\.?$/i;
+        regex = /^\s*This has double (damage|poison|burn|shield|heal|ammo|charge|regen)\.?$/i;
         match = text.match(regex);
         if(match) {
             let whatToGain = match[1].toLowerCase();
