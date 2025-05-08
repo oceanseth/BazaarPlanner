@@ -808,4 +808,25 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+//This has +1 Multicast for each player with Poison. from Barbed Claws
+TextMatcher.matchers.push({
+    regex: /^This has \+1 Multicast for each player with (Poison|Burn)\.$/i,
+    func: (item, match)=>{
+        const f = (newAmount,oldAmount)=>{
+                if(newAmount>0 && oldAmount<=0) {
+                    item.gain(1,'multicast',item);
+                } else if(newAmount<=0 && oldAmount>0) {
+                    item.gain(-1,'multicast',item);
+                }
+        };
+        if(match[1].toLowerCase()=="poison") {
+            item.board.player.poisonChanged(f);
+            item.board.player.hostileTarget.poisonChanged(f);
+        } else {
+            item.board.player.burnChanged(f);
+            item.board.player.hostileTarget.burnChanged(f);
+        }
+        return ()=>{};
+    }
+});
 window.TextMatcher = TextMatcher;
