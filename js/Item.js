@@ -1445,6 +1445,13 @@ export class Item {
                 }
             };
         }      
+        regex = /^Poison.$/i;
+        match = text.match(regex);
+        if(match) {
+            return () => {
+                this.applyPoison();
+            };
+        }
         //Poison both players ( 4 » 6 » 8 » 10 ). from Noxious Potion
         //Burn both players ( 5 » 10 » 15 » 20 ). from Plasma Grenade
         regex = /^(Poison|Burn) both players (\([^)]+\)|\d+)\.?/i;
