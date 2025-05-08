@@ -2540,7 +2540,8 @@ export class Item {
                 "sell a medium or large item",
                 "start a fight",
                 "sell a reagent",
-                "transform a reagent"
+                "transform a reagent",
+                "win a fight against a hero"
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return;
@@ -4169,7 +4170,7 @@ export class Item {
             };
         }
         //You have Regeneration equal to half the (Poison|Burn) on your enemy. from Venomous Vitality
-        regex = /^\s*You have Regen(?:eration)? equal to half the (Poison|Burn) on your enemy\.?/i;
+        regex = /^\s*You have \+?Regen(?:eration)? equal to half the (Poison|Burn) on your enemy\.?/i;
         match = text.match(regex);
         if(match) {
             const whichToTrack = match[1].toLowerCase();
@@ -4448,6 +4449,17 @@ export class Item {
                 for(let i=this.board.items.indexOf(this);i<this.board.items.length;i++) {
                     this.board.items[i].gain(gainAmount,whatToGain.toLowerCase());
                 }
+            }
+            return () => {};
+        }
+        //The weapon to the right of this has (+15%/+20%/+25%) Crit Chance. from Custom Scope
+        regex = /^\s*The weapon to the right of this has (\([^)]+\)|\+?(\d+)%?) Crit Chance\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const gainAmount = getRarityValue(match[1], this.rarity);
+            const rightItem = this.getItemToTheRight();
+            if(rightItem&&rightItem.tags.includes("Weapon")) {
+                rightItem.gain(gainAmount,'crit');
             }
             return () => {};
         }
@@ -5941,9 +5953,23 @@ export class Item {
                 this.gain(-critChance,'crit');
             }
         }
+        regex = /^\s*when you Crit with it charge a non-weapon item (\([^)]+\)|\d+) second\(s\)\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            this.charge = getRarityValue(match[1], this.rarity);
+            doIt = (it) => {
+                this.board.critTriggers.set(this.id+"undoablefunction",(i)=>{
+                    if(i.id==it.target.id) {
+                        this.applyChargeTo(this.pickRandom(this.board.items.filter(item => !item.tags.includes("Weapon") && item.cooldown>0)));
+                    }
+                });
+            }
+            undoIt = (it) => {
+                this.board.critTriggers.delete(this.id+"undoablefunction");
+            }
+        }
         
-        
-            //your weapons have (  +5  » +10  » +20   ) damage.
+        //your weapons have (  +5  » +10  » +20   ) damage.
         //your items have (  +5%  » +10%  » +20%   ) Crit Chance.
         regex = /^your ([^s]+)s?(?: items)? have (?:\(([^)]+)\)|\+?(\d+)%?) ([^\s^\.]+)\s*(?:Chance)?\.?$/i;
         match = text.match(regex);

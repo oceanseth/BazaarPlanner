@@ -122,6 +122,7 @@ class Board {
             this.updateDPSElement = ()=>{};
             this.updateGoldElement = ()=>{};
             this.updateIncomeElement = ()=>{};
+            this.updatePrestigeElement = ()=>{};
             return;
         }
         this.element.innerHTML = '';
@@ -158,6 +159,7 @@ class Board {
             this.createHealthElement();
             this.createSkillsElement();
             this.createGoldElement();
+            this.createPrestigeElement();
             this.createDPSElement();
             this.createIncomeElement();
             this.createWinRateElement();
@@ -226,6 +228,7 @@ class Board {
         if(this.boardId!='backpack' && this.boardId!='tb') {
             this.updateGoldElement();
             this.updateIncomeElement();
+            this.updatePrestigeElement();
         }
     }
     setup() {
@@ -430,6 +433,9 @@ class Board {
     updateIncomeElement() {
         this.incomeElement.textContent = "+" +this.player?.income;
     }
+    updatePrestigeElement() {
+        this.prestigeElement.textContent = this.player?.prestige||'?';
+    }
     
     
     clone(newPlayer) {
@@ -550,6 +556,18 @@ class Board {
             }
         }
         this.element.appendChild(this.incomeElement);
+    }
+    createPrestigeElement() {
+        this.prestigeElement = document.createElement('div');
+        this.prestigeElement.className = 'prestige-element';
+        this.prestigeElement.title = "Prestige";
+        if(this.options.editable) {
+            this.prestigeElement.classList.add('editorOpener');
+            this.prestigeElement.onclick = () => {
+                this.player.openEditor();
+            }
+        }
+        this.element.appendChild(this.prestigeElement);
     }
 
 
@@ -880,7 +898,7 @@ class Board {
                 newItem.setIndex(startIndex);
             }
             targetBoard.sortItems();
-            this.player.battle.resetBattle();
+            if(this.player.battle) this.player.battle.resetBattle();
             if(this.options.editable) updateUrlState();
         }
         document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
