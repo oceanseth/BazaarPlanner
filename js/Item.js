@@ -594,7 +594,7 @@ export class Item {
                 const currentCooldownDiff = ((this.cooldown - 1000*parseFloat(cooldownNumbers[this.tier-(4-cooldownNumbers.length)]))/1000);
                 tooltipContent += cooldownNumbers.map((c,i)=>`<div class="tooltip-cooldown-circle ${Item.rarityLevels[i+(4-cooldownNumbers.length)]}Border" `+
                 (this.tier!=i+(4-cooldownNumbers.length)?'style="filter: brightness(50%);"':'')
-                +`>${parseFloat(c)+currentCooldownDiff}<span class="unit">SEC</span></div>`).join('');
+                +`>${(parseFloat(c)+currentCooldownDiff).toFixed(2)}<span class="unit">SEC</span></div>`).join('');
             }
             tooltipContent +=`</div>`;
         }
