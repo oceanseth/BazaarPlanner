@@ -210,17 +210,18 @@ export class Player {
         this.fellBelowHalfHealth = false;
         this.diedOnce = false;
 
-        // Trigger arrays for various effects
         this.lostShieldTriggers = new Map();
         this.healthBelowHalfTriggers = new Map();
         this.healthAboveHalfTriggers = new Map();
         this.dieTriggers = new Map();
         this.overhealTriggers = new Map();
         this.healTriggers = new Map();
-        this.destroyTriggers = new Map(); // triggered when this player destroys an item
+        this.destroyTriggers = new Map(); 
         this.overhealTriggers = new Map();
-        if(this.board) this.board.reset();
-        this.board.updateHealthElement();
+        if(this.board) { 
+            this.board.reset();
+            this.board.updateHealthElement();
+        }
     }
     setup() {
         if(this.board) this.board.setup();

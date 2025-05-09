@@ -1428,20 +1428,21 @@ export class Item {
     }
 
     getPoisonTriggerFunctionFromText(text) {
-        let regex = /^Poison (yourself|both players)?\s*(?:for)?\s*(\([^)]+\)|\d+)\.?$/i;
+        let regex = /^(Poison|Burn) (yourself|both players)?\s*(?:for)?\s*(\([^)]+\)|\d+)\.?$/i;
         let match = text.match(regex);
         if(match) {
-            const target = match[1] ? match[1].toLowerCase() : "yourself";
-            const poisonAmount = getRarityValue(match[2], this.rarity);
-            this.gain(poisonAmount,'poison');
+            const whatToDo = match[1];
+            const target = match[2] ? match[2].toLowerCase() : "yourself";
+            const poisonAmount = getRarityValue(match[3], this.rarity);
+            this.gain(poisonAmount,whatToDo.toLowerCase());
             return () => {                
                 if(target=="yourself") {
-                    this.applyPoison({selfTarget:true});
+                    this["apply"+whatToDo]({selfTarget:true});
                 } else if(target=="both players") {
-                    this.applyPoison({selfTarget:true});
-                    this.applyPoison();
+                    this["apply"+whatToDo]({selfTarget:true});
+                    this["apply"+whatToDo]();
                 } else {
-                    this.applyPoison();
+                    this["apply"+whatToDo]();
                 }
             };
         }      
