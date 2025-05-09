@@ -1,5 +1,6 @@
 import { items } from '../items.js';
 import { ItemFunction } from './ItemFunction.js';
+import { skills } from '../skills.js';
 export class BazaarPatcher {
     static apply() {
         if(items["Pistol Sword"].text[1].match(/^When you use an Ammo item, deal .* damage\.$/i)) {
@@ -10,6 +11,9 @@ export class BazaarPatcher {
         }
         if(items["Rapid Injection System"].text[0]=="When you poison yourself, Poison (4/8/12).") {
             items["Rapid Injection System"].text[0] = "When you poison yourself, Poison.";
+        }
+        if(skills["Hardly Workin'"].text[0].match(/times times/i)) {
+            skills["Hardly Workin'"].text[0] = skills["Hardly Workin'"].text[0].replace(/times times/i, "times");
         }
 
         //community items
