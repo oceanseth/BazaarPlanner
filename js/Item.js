@@ -1654,7 +1654,7 @@ export class Item {
         regex = /^(?:Gain )?(Heal|Shield|Regen)(?: equal to)? (\([^)]+\)|\d+%) of your Max Health(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const tag = match[1];
+            const tag = Item.getTagFromText(match[1]);
             const multiplier = getRarityValue(match[2], this.rarity);
             this.gain(this.board.player.maxHealth * multiplier/100,tag.toLowerCase());
             this.board.player.maxHealthChanged((newHealth,oldHealth)=>{
@@ -2580,7 +2580,7 @@ export class Item {
                 const adjacentItems = this.adjacentItems.filter(i=>!tagToMatch2||i.tags.includes(tagToMatch2));
                 adjacentItems.forEach(i=>{
                     i.triggerFunctions.push(()=>{
-                        triggerFunctionFromText(this);
+                        triggerFunctionFromText(this,{source:this,target:i});
                     });
                 });
                 return;

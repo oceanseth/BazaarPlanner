@@ -908,5 +908,28 @@ TextMatcher.matchers.push({
         };
     }
 });
-
+//Haste adjacent Property items for (1/2/3) second(s). from vip pass
+TextMatcher.matchers.push({
+    regex: /^Haste adjacent (\w+) items for (\([^)]+\)|\d+) second\(?s\)?\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const amount = getRarityValue(match[2], item.rarity);
+        item.gain(amount,'haste');
+        return ()=>{
+            item.board.activeItems.filter(i=>i.tags.includes(tag)).forEach(i=>{
+                item.applyHasteTo(i);
+            });
+        };
+    }
+});
+TextMatcher.matchers.push({
+    //Increase it's value and this item's value by 1 from vip pass
+    regex: /^Increase it'?s value and this item's value by 1\.$/i,
+    func: (item, match)=>{
+        return (it,options)=>{
+            options.target.gain(1,'value');
+            item.gain(1,'value');
+        };
+    }
+});
 window.TextMatcher = TextMatcher;
