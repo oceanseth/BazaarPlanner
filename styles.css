@@ -1233,10 +1233,9 @@ font.Slow:before {
 }
 .skills-element {
     position: absolute;
-    top: -50px;
+    top: -45px;
     left: 0;
     width: calc(100% - 100px);
-    height: 20px;
     display: flex;
     gap: 4px;
 }
