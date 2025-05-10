@@ -407,7 +407,6 @@ export const items = {
       "Toxic": "Poison 15.",
       "Fiery": "Burn 22.",
       "Shiny": "This has +1 Multicast.",
-      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 150 Damage."
     },
     "priorities": [
@@ -1339,10 +1338,10 @@ export const items = {
       "Heavy": "When you use a Busy Bee, Slow 1 item for 1 second(s).",
       "Icy": "When you use a Busy Bee, Freeze 1 item for 0.5 second(s).",
       "Turbo": "When you use a Busy Bee, Haste 1 item for 1 second(s).",
-      "Shielded": "When you use a Busy Bee, Shield equal to the Damage of your strongest Busy Bee.",
-      "Restorative": "When you use a Busy Bee, Heal equal to the Damage of your strongest Busy Bee.",
-      "Toxic": "When you use a Busy Bee, Poison equal to 10% of the Damage of your strongest Busy Bee.",
-      "Fiery": "When you use a Busy Bee, Burn equal to 10% of the Damage of your strongest Busy Bee.",
+      "Shielded": "When one of your Busy Bees deals damage, Shield equal to the Damage dealt.",
+      "Restorative": "When one of your Busy Bees deals damage, Heal equal to the Damage dealt.",
+      "Toxic": "When one of your Busy Bees deals damage, Poison equal to 10% of the Damage dealt.",
+      "Fiery": "When one of your Busy Bees deals damage, Burn equal to 10% of the Damage dealt.",
       "Shiny": "Your Busy Bees have +1 Multicast.",
       "Deadly": "Your Busy Bees have +50% Crit Chance.",
       "Obsidian": "Your Busy Bees deal double Damage."
@@ -3594,10 +3593,10 @@ export const items = {
       "Aquatic",
       "Slow"
     ],
-    "cooldown": 10,
+    "cooldown": "(7/6/5/4)",
     "ammo": null,
     "text": [
-      "Slow (1/2/3/4) item(s) for 1 second(s).",
+      "Slow 1 item(s) for 3 second(s).",
       "At the start of each fight, use this."
     ],
     "enchants": {
@@ -7520,11 +7519,11 @@ export const items = {
       "Weapon",
       "Damage"
     ],
-    "cooldown": 7,
+    "cooldown": "(7/6/5/4)",
     "ammo": null,
     "text": [
       "Multicast 2",
-      "Deal (4/8/16/32) damage."
+      "Deal 5 damage."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -12066,7 +12065,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Gain 2 Regen for the fight.",
-      "When you visit a Merchant, permanently destroy the item to the left of this to increase this item's Regen by its Value."
+      "When you visit a Merchant, permanently destroy the item to the left of this to increase this item's Regen by its Value, then get a Chunk of Lead."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -13096,7 +13095,7 @@ export const items = {
   },
   "Proboscis": {
     "name": "Proboscis",
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Common",
       "Small",
@@ -13104,23 +13103,20 @@ export const items = {
       "Damage",
       "SlowReference"
     ],
-    "cooldown": 4,
+    "cooldown": null,
     "ammo": null,
     "text": [
-      "Deal (4/8/12/16) damage.",
-      "When you Slow, Charge this 1 second."
+      "When you Slow, deal (8/12/16) damage."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 small item for 1 second(s).",
-      "Turbo": "Haste 1 item for 1 second(s).",
-      "Shielded": "Shield equal to this item's damage.",
-      "Restorative": "Heal equal to this item's damage.",
-      "Toxic": "Poison equal to 10% of this item's damage.",
-      "Fiery": "Burn equal to 10% of this item's damage.",
-      "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance",
-      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Icy": "When you Slow, Freeze 1 small item for 1 second(s).",
+      "Turbo": "When you Slow, Haste 1 item for 1 second(s).",
+      "Shielded": "When you Slow, Shield equal to this item's damage.",
+      "Restorative": "When you Slow, Heal equal to this item's damage.",
+      "Toxic": "When you Slow, Poison equal to 10% of this item's damage.",
+      "Fiery": "When you Slow, Burn equal to 10% of this item's damage.",
+      "Shiny": "This has double Damage.",
       "Obsidian": "This has double Damage."
     },
     "priorities": [
@@ -13243,11 +13239,11 @@ export const items = {
       "Value",
       "DamageReference"
     ],
-    "cooldown": "(12/10/8)",
+    "cooldown": "(11/9/7)",
     "ammo": null,
     "text": [
       "Your weapons gain Damage equal to this item's value for the fight.",
-      "When you buy a weapon, this gains (2/4/6) value and you gain (20/50/100) max health."
+      "When you buy a weapon, this gains (3/5/7) value and you gain (20/50/100) max health."
     ],
     "enchants": {
       "Golden": "This has double value.",
@@ -16476,7 +16472,7 @@ export const items = {
   },
   "Speedrunner": {
     "name": "Speedrunner",
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Small",
@@ -16487,8 +16483,8 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Charge 1 non-Toy item(s) (1/2/3/4) second(s).",
-      "When you use another Toy, charge this 1 second."
+      "Charge 1 non-Toy item(s) (1/2/3) second(s).",
+      "When you use an adjacent Toy, charge this 1 second."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -17496,12 +17492,12 @@ export const items = {
       "Turbo": "Haste 2 items for 2 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "This has double Heal.",
-      "Toxic": "Poison equal to 10% of this item's Shield.",
-      "Fiery": "Burn equal to 10% of this item's Shield.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
       "Shiny": "This has +1 Multicast.",
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
-      "Obsidian": "Deal damage equal to this item's Shield."
+      "Obsidian": "Deal damage equal to this item's Heal."
     },
     "priorities": [
       1,
@@ -17981,10 +17977,10 @@ export const items = {
       "Damage",
       "Haste"
     ],
-    "cooldown": "(12/11/10)",
+    "cooldown": "(14/12/10)",
     "ammo": null,
     "text": [
-      "Deal (300/600/900) damage.",
+      "Deal (200/400/800) damage.",
       "Haste your other items 1 second(s).",
       "When you use another Friend, charge this 2 second(s)."
     ],

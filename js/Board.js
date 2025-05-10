@@ -154,6 +154,7 @@ class Board {
             this.importElement.className = 'import-element';
             this.element.appendChild(this.importElement);
             this.createDeleteZone();
+            this.createBackpackElement();
         }
         if(this.boardId!='backpack' && this.boardId!='tb') {
             this.createHealthElement();
@@ -233,6 +234,13 @@ class Board {
     }
     setup() {
         this.setupItems();
+    }
+    toggleBackpack() {        
+        if(this.backpack) {
+            const backpackContainer = this.backpack.element.parentElement;
+            backpackContainer.classList.toggle('hidden');
+            this.backpackElement.classList.toggle('backpack-open');
+        }
     }
     setupItems() {
         if(this.items.length>0 && !this.items[this.items.length-1].tags.includes("Rightmost")) {
@@ -497,7 +505,14 @@ class Board {
         this.winRateElement.innerHTML = "0%";
         this.element.appendChild(this.winRateElement);
     }
-
+    createBackpackElement() {
+        this.backpackElement = document.createElement('div');
+        this.backpackElement.className = 'backpack-element';
+        this.element.appendChild(this.backpackElement);
+        this.backpackElement.onclick = () => {
+            this.toggleBackpack();
+        }
+    }
     createHealthElement() {
         this.healthElement = document.createElement('div');
 

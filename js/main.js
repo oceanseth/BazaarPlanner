@@ -36,6 +36,8 @@ if(window.backpackBoard==null) {
     window.backpackTopPlayer.hostileTarget = bottomPlayer;
     topPlayer.board.stashItems = window.backpackTopPlayer.board.items;
     bottomPlayer.board.stashItems = window.backpackPlayer.board.items;
+    topPlayer.board.backpack = window.backpackTopPlayer.board;
+    bottomPlayer.board.backpack = window.backpackPlayer.board;
 }
 window.Puzzle = Puzzle;
 window.User = User;
@@ -740,10 +742,7 @@ document.addEventListener('click', (e) => {
 document.addEventListener('keyup', (e) => {
     if(e.target!=document.body) return;
     if(e.key==' ') {
-        const backpackContainer = document.getElementById('backpack-container');
-        if(backpackContainer) {
-            backpackContainer.style.display = backpackContainer.style.display == 'none' ? 'block' : 'none';
-        }
+        bottomPlayer.board.toggleBackpack();
     }
 });
 

@@ -1696,7 +1696,7 @@ export class Item {
 
     gain(amount,type,source) {
         amount = parseFloat(amount);
-        if(!["cooldown"].includes(type)) {
+        if(!["cooldown","damage"].includes(type)) {
             this.log(this.name + " gained " + amount.toFixed(0) + " " + type + (source?(" from "+source.name):""));
         }
 
@@ -1732,6 +1732,7 @@ export class Item {
                     amount *= 2;
                 }
                 this.damage += amount;
+                this.log(this.name + " gained " + amount.toFixed(0) + " " + type + (source?(" from "+source.name):""));
                 // this.board.damageChangedTriggers.forEach(func => func(this));
                 break;
                 
@@ -4037,8 +4038,8 @@ export class Item {
         regex = /^\s*Reload this/i;
         match = text.match(regex);
         if(match) {
-            return () => {
-                this.reload();
+            return (source) => {
+                this.reload(source);
             }
         }
         //Your other Friends' cooldowns are reduced by (10%/20%/30%). from Bill Dozer
