@@ -1235,7 +1235,7 @@ font.Slow:before {
     position: absolute;
     top: -50px;
     left: 0;
-    width: 100%;
+    width: calc(100% - 100px);
     height: 20px;
     display: flex;
     gap: 4px;
@@ -1567,7 +1567,7 @@ opacity: 0.3;
 .add-skill-button {
     position: absolute;
     top: -40px;
-    right: 0px;
+    right: 40px;
     color: var(--text-color);
     cursor: pointer;
     width: 40px;
@@ -2295,7 +2295,7 @@ select {
     background-position: center;
     position: absolute;
     top: -42px;
-    right: 80px;
+    right: 0px;
     color: var(--text-color);
     cursor: pointer;
     width: 40px;
