@@ -483,10 +483,20 @@ class Board {
         this.element.appendChild(this.boardControls);
         this.boardControls.innerHTML = `
             ${this.boardId=='b'?'<div class="requireLogin"><button id="followBtn-b" class="editorOpener" onclick="window.showFollowModal(bottomPlayer.board);">Follow</button></div>':''}
+            ${this.boardId=='t'?'<div class="requireLogin"><button onclick="topPlayer.board.loadFromClone(bottomPlayer.board)" title="Clone the Bottom Board">Clone</button></div>':''}
             <button onclick="Board.getBoardFromId('${this.boardId}').clear()">Clear</button>
             <button onclick="Board.getBoardFromId('${this.boardId}').save()">Save</button>
             <button onclick="Board.getBoardFromId('${this.boardId}').load()">Load</button>
         `;
+    }
+    loadFromClone(board) {
+        this.clear();
+        this.items = board.items.map(item => item.clone(this));
+        board.skills.forEach(skill => this.addSkill(skill.name,{tier:skill.tier}));
+        this.sortItems();
+        this.items.forEach(item => item.updateElementPosition());
+        this.reset();
+        this.setup();
     }
 
     createPlayerElement() {

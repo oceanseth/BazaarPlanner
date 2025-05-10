@@ -3347,7 +3347,7 @@ export const monsters = {
       },
       {
         "name": "Strength",
-        "tier": 1
+        "tier": 3
       },
       {
         "name": "Flurry of Blows",
@@ -3357,12 +3357,16 @@ export const monsters = {
     "items": [
       {
         "name": "Vitality Potion",
-        "tier": 2,
-        "ammo": 2,
+        "tier": 3,
+        "ammo": 3,
       },
       {
         "name": "Gatling Gun",
         "tier": 3
+      },
+      {
+        "name": "The Eclipse",
+        "tier": 4
       },
       {
         "name": "Thrusters",
@@ -3370,11 +3374,7 @@ export const monsters = {
       },
       {
         "name": "Gatling Gun",
-        "tier": 2
-      },
-      {
-        "name": "The Eclipse",
-        "tier": 4
+        "tier": 3
       },
       {
         "name": "Arken's Ring",

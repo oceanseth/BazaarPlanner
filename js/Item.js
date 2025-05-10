@@ -5115,7 +5115,7 @@ export class Item {
             };
         }
         //This has double damage.
-        regex = /^\s*This has double (damage|poison|burn|shield|heal|ammo|charge|regen)\.?$/i;
+        regex = /^\s*This (?:has|deals) double (damage|poison|burn|shield|heal|ammo|charge|regen)\.?$/i;
         match = text.match(regex);
         if(match) {
             let whatToGain = match[1].toLowerCase();
