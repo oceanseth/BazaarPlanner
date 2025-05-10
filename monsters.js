@@ -300,7 +300,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Shoe Blade",
+        "name": "Handaxe",
         "tier": 1
       },
       {
@@ -2618,7 +2618,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Disguise",
+        "name": "Dock Lines",
         "tier": 2
       },
       {
@@ -3081,10 +3081,6 @@ export const monsters = {
       },
       {
         "name": "Trader",
-        "tier": 3
-      },
-      {
-        "name": "Big Numbers",
         "tier": 3
       }
     ],
