@@ -168,7 +168,6 @@ export function loadFromUrl(hash) {
         boardState.forEach((boardStateObject) => {
             if(boardStateObject.name.startsWith('_b_')) {
                 const boardId = boardStateObject.name.slice(3);
-                document.getElementById(boardId).parentElement.style.display = 'block';
                 const board = Board.getBoardFromId(boardId);
                 if(!boardsCleared.has(boardId)) {
                     board.clear();

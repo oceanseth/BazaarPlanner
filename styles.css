@@ -2288,3 +2288,22 @@ select {
     filter: var(--enchant-overlay-filter, none);
     opacity: 0.5;
 }
+.backpack-element {
+    background-image: url(/images/bclosed.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    top: -42px;
+    right: 80px;
+    color: var(--text-color);
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+}
+.backpack-element.backpack-open {
+  background-image: url(/images/bopen.jpg);
+}
+
+
