@@ -48,7 +48,7 @@ export function getRarityValue(valueString, rarity) {
 
 export function updateUrlState() {        
     if(window.isLoadingFromUrl) { return; }
-    const boardState = [topPlayer.board,bottomPlayer.board]
+    const boardState = [topPlayer.board,bottomPlayer.board, topPlayer.board.backpack, bottomPlayer.board.backpack]
     .flatMap(board => board.items)
     .map(item => {
         let toReturn = {name: item.name, startIndex: item.startIndex, board: item.board.boardId};
