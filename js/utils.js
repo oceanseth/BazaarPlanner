@@ -285,16 +285,6 @@ export function loadFromUrl(hash) {
                 delete item.startItemData.cooldownFinal;
                 delete item.cooldownFinal;
             }
-            if(item.valueFinal != undefined) {
-                item.startItemData.value = (item.startItemData.value || 0) + (item.valueFinal - item.value);
-                delete item.startItemData.valueFinal;
-                delete item.valueFinal;
-            }
-            if(item.ammoFinal != undefined) {
-                item.startItemData.ammo = (item.startItemData.ammo || 0) + (item.ammoFinal - item.ammo);
-                delete item.startItemData.ammoFinal;
-                delete item.ammoFinal;
-            }
         });
         refreshBoards();
         
