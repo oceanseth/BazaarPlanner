@@ -1354,7 +1354,9 @@ ItemFunction.items.set("Runic Potion",(item)=>{
             }
         });
         const lifestealNeedingWeapons = item.board.activeItems.filter(i=>i.tags.includes("Weapon") && !i.lifesteal);
-        item.pickRandom(lifestealNeedingWeapons).lifesteal=true;
+        if(lifestealNeedingWeapons.length>0) {
+            item.pickRandom(lifestealNeedingWeapons).lifesteal=true;
+        }
     });
 });
 //Transform into 3 (Gold/Diamond) copies of the small item to the left of this. from 3D Printer
