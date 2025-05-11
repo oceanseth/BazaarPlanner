@@ -703,7 +703,8 @@ export class Item {
     }
 
     applyChargeTo(item,source=this) {
-        item.chargeBy(this.charge,source);
+        //item.chargeBy(this.charge,source);
+        item.pendingCharges.push({seconds:this.charge,source});
     }
 
     reload(source) {
@@ -780,7 +781,7 @@ export class Item {
         if (!this.progressBar || this.isDestroyed) return;
 
         let effectiveTimeDiff = this.progressHasteAndSlowAndReturnEffectiveTimeDiff(timeDiff);
-        if(this.pendingCharges.length>0) {
+        if(this.pendingCharges.length>0 && this.effectiveBattleTime % 200==0) {
             let charge = this.pendingCharges.pop();
             this.chargeBy(charge.seconds,charge.source);
         }
