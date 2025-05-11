@@ -41,6 +41,7 @@ export class Battle {
 
 
     updateBattle(timeDiff) {
+        this.numTicks++;
         let allItems = [];
         const allBoards = this.players.map(player => player.board);
         allBoards.forEach(board => {
@@ -83,6 +84,7 @@ export class Battle {
         this.sandstormValue=1;
         this.sandstormStartedTime = 0;
         this.battleInterval = null; // Clear the interval reference
+        this.numTicks = 0;
         
         this.players.forEach(player => {
             player.reset();

@@ -662,7 +662,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //This has double damage bonus.
-    regex: /^This has double damage bonus\.$/i,
+    regex: /^This has double damage bonus\.?$/i,
     func: (item, match)=>{
         const [strippedName] = Item.stripEnchantFromName(item.name);
         //remove the weapon tag given by obsidian assuming this text came from that enchant

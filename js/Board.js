@@ -153,8 +153,8 @@ class Board {
             this.importElement = document.createElement('div');
             this.importElement.className = 'import-element';
             this.element.appendChild(this.importElement);
-            this.createDeleteZone();
             this.createBackpackElement();
+            this.createBoardControls();
         }
         if(this.boardId!='backpack' && this.boardId!='tb') {
             this.createHealthElement();
@@ -166,7 +166,8 @@ class Board {
             this.createWinRateElement();
             this.createPlayerElement();
         }
-        this.createBoardControls();
+        this.createDeleteZone();
+        
         this.reset();
 
 
@@ -177,6 +178,10 @@ class Board {
         }
         if(this.element) {                  
             this.items.forEach(item => item.element.remove());
+        }
+        if(this.backpack) {
+            this.backpack.items.forEach(item => item.element.remove());
+            this.backpack.items = [];
         }
         this.items = [];
         this.skills = [];
@@ -868,7 +873,7 @@ class Board {
             }
             this.deleteZone.classList.remove('active');
             this.deleteZone.style.display = 'none';
-            this.player.battle.resetBattle();
+            if(this.player && this.player.battle) this.player.battle.resetBattle();
             if(this.options.editable) updateUrlState();
         }); 
         this.element.appendChild(this.deleteZone);
@@ -982,6 +987,11 @@ class Board {
             enchant: item.enchant,
             startIndex: item.startIndex,
         }));
+        const stash = this.backpack.items.map(item => ({
+            item: item.startItemData,
+            enchant: item.enchant,
+            startIndex: item.startIndex,
+        }));
         const skills = this.skills.map(skill => ({
             name: skill.name,
             rarity: skill.rarity
@@ -992,7 +1002,7 @@ class Board {
             gold: this.player.gold,
             income: this.player.income
         };
-        const blob = new Blob([JSON.stringify({items, skills, player}, null, 2)], { type: 'application/json' });
+        const blob = new Blob([JSON.stringify({items, skills, player, stash}, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -1015,6 +1025,7 @@ class Board {
                     const data = JSON.parse(event.target.result);
                     const items = data.items;
                     const skills = data.skills;
+                    const stash = data.stash;
                     items.forEach(({item, enchant, startIndex}) => {
                         let newItem = new Item(item, this);
                         newItem.setIndex(startIndex);
@@ -1022,6 +1033,12 @@ class Board {
                     });
                     skills.forEach(({name, rarity}) => {
                         this.addSkill(name,{rarity:rarity});
+                    });
+                    stash.forEach(({item, enchant, startIndex}) => {
+                        let newItem = new Item(item, this);
+                        newItem.setIndex(startIndex);
+                        newItem.enchant = enchant;
+                        this.backpack.addItem(newItem);
                     });
                     this.player.startPlayerData = data.player;
                     this.reset();
