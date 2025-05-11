@@ -9,7 +9,7 @@ class Board {
     player = null; //Will be set when a player is initialized and they create a board
     static boards = new Map();
     static uniqueTypeTags = ['Ammo','Apparel','Aquatic','Core','Dinosaur','Dragon','Food','Friend','Loot','Potion','Property','Ray','Tech','Tool','Toy','Vehicle','Weapon'];
-    static possibleChangeAttributes = ['hasSlowedItem','hasHastedItem','hasFrozenItem'];
+    static possibleChangeAttributes = ['hasSlowedItem','hasHastedItem','hasFrozenItem','inCombat'];
 
     constructor(boardId, player, options={editable:true, skills: true}) {
         setupChangeListeners(this, Board.possibleChangeAttributes);
@@ -192,7 +192,7 @@ class Board {
 
     reset() {
         setupChangeListeners(this, Board.possibleChangeAttributes );
-        this.inCombat = false;
+        this.inCombat = 0;
         this.critPossible=true;
         this.damageDealt = 0;
         this.itemTriggers = new Map(); //functions to call when any item on this board is triggered
@@ -608,7 +608,7 @@ class Board {
 
 
     startBattle() {
-        this.inCombat = true;
+        this.inCombat = 1;
         this.damageApplied = 0;
         this.healingApplied = 0;
         this.shieldApplied = 0;

@@ -492,9 +492,19 @@ ItemFunction.items.set("Mortar & Pestle",(item)=>{
 ItemFunction.items.set("Balcony",(item)=>{
     //The Property to the left of this has double value in combat and has its cooldown reduced by ( 5% » 10% » 15% ).
     const property = item.getItemToTheLeft();
+    let gained=false;
     if(property && property.tags.includes("Property")) {
-        property.gain(property.value,'value');
-        property.value_multiplier += 1;
+        item.board.inCombatChanged((inCombat)=>{
+            if(inCombat) {
+                property.gain(property.value,'value');
+                property.value_multiplier += 1;
+                gained=true;
+            } else if(gained) {
+                property.gain(-property.value,'value');
+                property.value_multiplier -= 1;
+                gained=false;
+            }
+        });
         property.cooldown *= 1-(getRarityValue("5 >> 10 >> 15",item.rarity)/100);
     //    property.updateTriggerValuesElement();
 
