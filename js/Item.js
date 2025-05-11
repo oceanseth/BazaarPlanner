@@ -1529,7 +1529,7 @@ export class Item {
             this.gain(healAmount,'heal');
             const andFunction = match[3] ? this.getTriggerFunctionFromText(match[3]) : null;
             return () => {                
-                this.applyHeal(this.heal);
+                this.applyHeal();
                 andFunction?.();
             };
         }
@@ -1589,7 +1589,7 @@ export class Item {
                 }
             });
             return () => {
-                this.applyHeal(this.heal);
+                this.applyHeal();
             };
         }
         //Deal damage equal to this item's Heal.
@@ -1628,7 +1628,7 @@ export class Item {
                 }
             });
             return () => {                
-                this.applyHeal(this.heal);
+                this.applyHeal();
             };
         }
         //Heal equal to your Shield.
@@ -1639,7 +1639,7 @@ export class Item {
                 this.gain(newShield-oldShield,'heal');
             });
             return () => {
-                this.applyHeal(this.heal);
+                this.applyHeal();
             };
         }
         //permanently gain ( +10 » +20 » +40 ) Max Health.
@@ -5181,8 +5181,7 @@ export class Item {
         if(match) {
             return () => {
                 const healAmount = this.board.player.maxHealth*0.3;
-                this.applyHeal(healAmount);
-                this.log(this.name + " healed for "+healAmount);
+                this.applyHeal({amount:healAmount, source:this});
             }
         }
        
