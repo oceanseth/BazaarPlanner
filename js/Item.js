@@ -4472,7 +4472,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             return () => {
-                this.applyHeal(this.board.player.maxHealth-this.board.player.health);
+                this.applyHeal({amount:this.board.player.maxHealth-this.board.player.health, source:this});
             }
         }
 
