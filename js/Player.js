@@ -45,8 +45,16 @@ export class Player {
         }
         this.healTriggers.forEach(func => func(healAmount));
         this.health += healAmount;
-        if(this.poison > 0) this.poison>10?this.poison/=10:this.poison--; //cleanse 1 poison when a heal occurs
-        if(this.burn > 0) this.burn>10?this.burn/=10:this.burn--; //cleanse 1 burn when a heal occurs
+        if(this.poison > 0) {
+            const oldPoison = this.poison;
+            this.poison=this.poison - Math.ceil(this.poison/10); //cleanse 10% or 1 poison when a heal occurs
+            this.log(source.name + "'s healing cleansed " + (oldPoison-this.poison).toFixed(0) + " poison.");
+        }
+        if(this.burn > 0) {
+            const oldBurn = this.burn;            
+            this.burn=this.burn - Math.ceil(this.burn/10); //cleanse 10% or 1 burn when a heal occurs
+            this.log(source.name + "'s healing cleansed " + (oldBurn-this.burn).toFixed(0) + " burn.");
+        }
     }
     clone() {
         const clone = new Player(structuredClone(this.startPlayerData));

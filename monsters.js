@@ -755,11 +755,11 @@ export const monsters = {
       },
       {
         "name": "Magma Core",
-        "tier": 1
+        "tier": 2
       },
       {
         "name": "Magma Core",
-        "tier": 1
+        "tier": 2
       },
       {
         "name": "Magma Core",
@@ -788,7 +788,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Nitro",
+        "name": "Rapid Injection System",
         "tier": 1
       },
       {
@@ -797,10 +797,6 @@ export const monsters = {
       },
       {
         "name": "Solar Farm",
-        "tier": 1
-      },
-      {
-        "name": "Virus",
         "tier": 1
       },
       {
@@ -1235,7 +1231,7 @@ export const monsters = {
       {
         "name": "Temporary Shelter",
         "tier": 2,
-        "shield": 259
+        "shield": 200
       },
       {
         "name": "Pepper Spray",
