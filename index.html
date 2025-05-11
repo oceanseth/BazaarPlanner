@@ -256,8 +256,7 @@
                 </li>
                 <li>2. Some enchanted effects are not being parsed/triggering the same they do in game. We've fixed some of these, but still more needing to be fixed. 
                 </li>
-                <li>3. We've noticed something odd happening with item trigger times not matching their cooldowns. We've tried to match this by adding a 'trigger time' to each item that is the item's cooldown/10 which seems to match what's happening in game, but may just be animation delay, although we've measured this delay being different for items with different cooldowns.
-                    For now we've removed this as we think it might be a bug in game engine and they'll fix it eventually.
+                <li>3. Items like "old saltclaw" with effects like " gain damage when you slow", have an internal cooldown in the game, but the sim gives the dmg immediately. This makes the winrate inaccurate if these items are present.
                 </li>
             </ul>
             <h1>Coming Soon</h1>
