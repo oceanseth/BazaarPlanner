@@ -5236,19 +5236,27 @@ export class Item {
         }
 
         //this gains ( 1 » 2 » 3 » 4 ) (tag)
-        regex = /^\s*this (?:permanently )?gains (\([^)]+\)|\d+) ([^\s^\.]+)\.?/i;
+        regex = /^\s*this (?:permanently )?gains (\([^)]+\)|\d+) ([^\s^\.]+)(?: and (\([^)]+\)|\d+) ([^\s^\.]+)(?: for the fight)?)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const isPercentageBased = match[1].includes("%");
             const gainAmount = getRarityValue(match[1].replace("%",""), this.rarity);            
             const whatToGain = match[2].toLowerCase();
+            const whatToGain2 = match[4] ? match[4].toLowerCase() : null;
+            const gainAmount2 = getRarityValue(match[3],this.rarity);
             if(isPercentageBased) {
                 return (i) => {
                     this.gain(this[whatToGain]*gainAmount/100,whatToGain,i||this);
+                    if(whatToGain2) {
+                        this.gain(gainAmount2,whatToGain2,i||this);
+                    }
                 }
             } else {
                 return (i) => {
                     this.gain(gainAmount,whatToGain,i||this);
+                    if(whatToGain2) {
+                        this.gain(gainAmount2,whatToGain2,i||this);
+                    }
                 }        
             }
         }
