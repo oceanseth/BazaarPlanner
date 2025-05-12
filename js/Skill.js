@@ -11,12 +11,7 @@ export class Skill {
             this.tier = Item.rarityLevels.indexOf(this.rarity);
         }
         this.editable = editable;
-        this.itemProxy = new Item({
-            name: this.name,
-            text: this.text,
-            tags: this.tags,
-            tier: this.tier
-        });
+        this.itemProxy = new Item(skillData);
         this.itemProxy.isSkill = true;
         this.itemProxy.board = board;
         this.board = board;
@@ -77,6 +72,7 @@ export class Skill {
         this.itemProxy.board=this.board;
         this.itemProxy.rarity = this.rarity;
         this.itemProxy.setup();
+        this.text = this.itemProxy.text;
     }
     _myBoard = null;
     set board(board) {

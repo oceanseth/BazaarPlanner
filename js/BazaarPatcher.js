@@ -2,6 +2,7 @@ import { items } from '../items.js';
 import { ItemFunction } from './ItemFunction.js';
 import { skills } from '../skills.js';
 export class BazaarPatcher {
+    static customSetupFunctions = new Map();
     static apply() {
         if(items["Pistol Sword"].text[1].match(/^When you use an Ammo item, deal .* damage\.$/i)) {
             items["Pistol Sword"].text[1] = "When you use an Ammo item, deal damage.";
@@ -15,6 +16,31 @@ export class BazaarPatcher {
         if(skills["Hardly Workin'"].text[0].match(/times times/i)) {
             skills["Hardly Workin'"].text[0] = skills["Hardly Workin'"].text[0].replace(/times times/i, "times");
         }
+        if(skills["Augmented Weaponry"].text[0].match(/^Your weapons have \+1 Damage\.$/i)) {
+           BazaarPatcher.customSetupFunctions.set("Augmented Weaponry",(item)=>{
+            if(item.Custom_1) {
+              item.text[0] = item.text[0].replace(/\+[\d]+ Damage/i, `+${item.Custom_1} Damage`);
+              if(item.itemProxy) {
+                item.itemProxy.text[0] = item.itemProxy.text[0].replace(/\+[\d+] Damage/i, `+${item.Custom_1} Damage`);
+              }
+            }
+           });
+        }
+        if(skills["Augmented Defenses"].text[0].match(/^Your shield items have \+1 Shield\.$/i)) {
+            BazaarPatcher.customSetupFunctions.set("Augmented Defenses",(item)=>{
+             if(item.Custom_1) {
+               item.text[0] = item.text[0].replace(/\+[\d]+ Shield/i, `+${item.Custom_1} Shield`);
+               if(item.itemProxy) {
+                 item.itemProxy.text[0] = item.itemProxy.text[0].replace(/\+[\d+] Shield/i, `+${item.Custom_1} Shield`);
+               }
+             }
+            });
+         }
+        BazaarPatcher.customSetupFunctions.set("Orange Julian",(item)=>{
+            if(item.Custom_0) {
+                item.text[0] = item.text[0].replace(/\+[\d]+ Damage/i, `+${item.Custom_0} Damage`);
+            }
+        });
 
         //community items
 

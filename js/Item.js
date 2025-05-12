@@ -2,6 +2,7 @@ import { Board } from './Board.js';
 import { getRarityValue, updateUrlState, colorTextArray, setupChangeListeners } from './utils.js';
 import { ItemFunction } from './ItemFunction.js';
 import { TextMatcher } from './TextMatcher.js';
+import { BazaarPatcher } from './BazaarPatcher.js';
 
 export class Item {
     static hiddenTags = ['Damage', 'Crit'];
@@ -417,6 +418,9 @@ export class Item {
         }
     }
     setup() {
+        if(BazaarPatcher.customSetupFunctions.has(this.name)) {
+            BazaarPatcher.customSetupFunctions.get(this.name)(this);
+        }
         if(!this.executeSpecificItemFunction()) {
             
             this.text.forEach((text, index) => {
@@ -1018,7 +1022,7 @@ export class Item {
         if(match) {
             const other = match[1]=='other';
             const gainAmount = getRarityValue(match[3], this.rarity);
-            if(match[4]=='damage') {
+            if(match[4].toLowerCase()=='damage') {
                 this.damageBonus += gainAmount;
             }
             return () => {
