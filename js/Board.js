@@ -17,7 +17,6 @@ class Board {
         this.player = player;
         this.player.board = this;
         this.element = document.getElementById(boardId);
-        this.stashItems = [];
         this.options = options;
         this.initialize();
         Board.boards.set(boardId,this);
@@ -1012,7 +1011,6 @@ class Board {
     }
 
     load() {
-        this.clear();
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = '.json';
@@ -1022,6 +1020,7 @@ class Board {
             
             reader.onload = event => {
                 try {
+                    this.clear();
                     const data = JSON.parse(event.target.result);
                     const items = data.items;
                     const skills = data.skills;
@@ -1035,14 +1034,17 @@ class Board {
                         this.addSkill(name,{rarity:rarity});
                     });
                     stash.forEach(({item, enchant, startIndex}) => {
-                        let newItem = new Item(item, this);
+                        let newItem = new Item(item, this.backpack);
                         newItem.setIndex(startIndex);
                         newItem.enchant = enchant;
-                        this.backpack.addItem(newItem);
                     });
                     this.player.startPlayerData = data.player;
+                    this.sortItems();
                     this.reset();
                     this.setup();
+                    this.backpack.sortItems();
+                    this.backpack.reset();    
+                    this.backpack.setup();
                     if(this.options.editable) updateUrlState();
                 } catch (error) {
                     console.error('Error loading file:', error);
