@@ -1022,13 +1022,16 @@ export class Item {
         if(match) {
             const other = match[1]=='other';
             const gainAmount = getRarityValue(match[3], this.rarity);
-            if(match[4].toLowerCase()=='damage') {
+            const tagToMatch = Item.getTagFromText(match[2]);
+            const whatToGain = match[4].toLowerCase();
+            if(whatToGain=='damage') {
                 this.damageBonus += gainAmount;
             }
             return () => {
                 this.board.items.forEach(item => {
-                    if(item.tags.includes(Item.getTagFromText(match[2]))) {
-                        item.gain(match[4]=='damage'?0:gainAmount,match[4].toLowerCase(),this);
+                    if(other && item.id == this.id) return;
+                    if(tagToMatch=='Item' || item.tags.includes(tagToMatch)) {
+                        item.gain(whatToGain=='damage'?0:gainAmount,whatToGain,this);
                     }
                 });
             };
@@ -4600,22 +4603,46 @@ export class Item {
         }
 
         //This has +1 Multicast for each Property you have.
-        regex = /^\s*This has (\([^\)]+\)|\+?\d+) (Multicast|Max Ammo) for each (other )?([^\s^\.]+)(?: item)? you have\.?/i;
+        regex = /^\s*This has (\([^\)]+\)|\+?\d+) (Multicast|Max Ammo) for each (other )?([^\s^\.]+)(?: item)? you have(?: in play)?(?: with ([^\s]+) over (\([^\)]+\)|\d+))?\.?$/i;
         match = text.match(regex);
         if(match) {
             const tagToMatch = Item.getTagFromText(match[4]);
             const other = match[3] ? true : false;
             const amount = getRarityValue(match[1], this.rarity);
-            this.board.items.forEach(item => {
-                if(other && item.id == this.id) return;
-                if(item.tags.includes(tagToMatch)) {
-                    if(match[2] == "Multicast") {
-                        this.gain(amount,'multicast');
+            const overCheckThing = match[5] ? match[5].toLowerCase() : null;
+            const overCheckAmount = match[6] ? getRarityValue(match[6], this.rarity) : null;
+            let f;
+
+            if(match[2] == "Multicast") {
+                f = (i) => {                    
+                    if(overCheckThing) {
+                        let gained=0;
+                        if(i[overCheckThing] > overCheckAmount) {
+                            this.gain(amount,'multicast',i);
+                            gained=true;
+                        }
+                        i[overCheckThing+"Changed"]((newValue)=>{
+                            if(newValue>overCheckAmount&&!gained) {
+                                this.gain(amount,'multicast');
+                                gained=true;
+                            } else if(newValue<=overCheckAmount&&gained) {
+                                this.gain(-amount,'multicast');
+                                gained=false;
+                            }
+                        });
                     } else {
-                        this.gain(amount,'maxAmmo');
+                        this.gain(amount,'multicast',i);
                     }
+
                 }
-            });
+            } else {
+                f = (i) => this.gain(amount,'maxAmmo',i);
+            }
+            this.board.items.filter(item => {
+                if(other && item.id == this.id) return false;
+                if(tagToMatch=='Item' || item.tags.includes(tagToMatch)) return true;
+                return false;
+            }).forEach(f);
             return () => {};
 
         }
