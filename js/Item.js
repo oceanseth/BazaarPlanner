@@ -4016,18 +4016,21 @@ export class Item {
             }
         }
         
-        //Reduce the cooldown of your aquatic items by (  10%  » 20%   ).
-        regex = /^\s*Reduce the cooldown of your ([^\s]+) items by (\([^)]+\)|\+?\d+%)\.?/i;
+        //Reduce the cooldown of your aquatic items by (  10%  » 20%   ). barnacle crusted vs seashadow
+        regex = /^\s*Reduce the cooldown of your ([^\s]+) items by (\([^)]+\)|\+?\d+%)( for (?:the|this) fight)?\.?/i
         match = text.match(regex);
 
         if(match) {
             const cooldownReduction = getRarityValue(match[2], this.rarity);
             const tagToMatch = Item.getTagFromText(match[1]);
-            this.board.items.forEach(item => {
-                if(item.tags.includes(tagToMatch)) {
+            const isForFight = match[3] ? true : false;
+            const f = ()=>{
+                this.board.activeItems.filter(item => tagToMatch=='Other'?item!=this:item.tags.includes(tagToMatch)).forEach(item => {
                     item.gain(item.cooldown * (1-cooldownReduction/100) - item.cooldown,'cooldown');
-                }
-            });
+                });
+            }
+            if(isForFight) return f; 
+            f();             
             return () => {};
         }
 
@@ -5236,7 +5239,7 @@ export class Item {
         }
 
         //this gains ( 1 » 2 » 3 » 4 ) (tag)
-        regex = /^\s*this (?:permanently )?gains (\([^)]+\)|\d+) ([^\s^\.]+)(?: and (\([^)]+\)|\d+) ([^\s^\.]+)(?: for the fight)?)?\.?$/i;
+        regex = /^\s*this (?:permanently )?gains (\([^)]+\)|\d+) ([^\s^\.]+)(?: and (\([^)]+\)|\d+) ([^\s^\.]+))?(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const isPercentageBased = match[1].includes("%");
