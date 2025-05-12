@@ -932,4 +932,14 @@ TextMatcher.matchers.push({
         };
     }
 });
+// This has half Slow duration. from Heavy Shot Glasses
+TextMatcher.matchers.push({
+    regex: /^This has half (Slow|Haste|Freeze) duration\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        item[tag.toLowerCase()+"Duration_multiplier"] *= 0.5;
+        return ()=>{};
+    }
+});
+
 window.TextMatcher = TextMatcher;
