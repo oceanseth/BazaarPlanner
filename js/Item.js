@@ -6148,6 +6148,7 @@ export class Item {
 
         copy.board = this.board;
         copy.board.addItem(copy);
+        copy.setup();
 
         if(copy.progressBar) copy.progressBar.style.display = 'block';
         copy.resetFunctions.push(()=>{
