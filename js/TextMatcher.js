@@ -956,6 +956,7 @@ TextMatcher.matchers.push({
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         item.board.player.income += amount;
+        item.board.updateIncomeElement();
         return ()=>{};
     }
 });
