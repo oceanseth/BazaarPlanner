@@ -6123,18 +6123,22 @@ export class Item {
             this.enchantIsTemporary = false;
         }
     }
-    transformInto(itemData, {source=this}={}) {        
-        const copy = new Item(itemData,this.board);
-        let startIndex = this.startIndex;
+    transformInto(itemData, {source=this}={}) {    
+        let startIndex = this.startIndex;        
+        const clonedBoard = this.board.player.clone().board;    
+        clonedBoard.items.splice(this.board.items.indexOf(this),1);
+        const copy = new Item(itemData,clonedBoard);
+        clonedBoard.player.hostileTarget = this.board.player.hostileTarget;
+        copy.setIndex(startIndex);
+        clonedBoard.reset();
+        clonedBoard.setup();
+       
         this.board.items.splice(this.board.items.indexOf(this),1);
         this.element.style.display = "none";
-        copy.setIndex(startIndex);
-        if(this.enchant && copy.enchants[this.enchant]) {
-            copy.startItemData.enchant= this.enchant;
-        }
-        copy.board.sortItems();
-        copy.reset();
-        copy.setup();
+
+        copy.board = this.board;
+        copy.board.addItem(copy);
+
         if(copy.progressBar) copy.progressBar.style.display = 'block';
         copy.resetFunctions.push(()=>{
             this.element.style.display = "block";
