@@ -6123,7 +6123,7 @@ export class Item {
             this.enchantIsTemporary = false;
         }
     }
-    transformInto(itemData) {        
+    transformInto(itemData, {source=this}) {        
         const copy = new Item(itemData,this.board);
         let startIndex = this.startIndex;
         this.board.items.splice(this.board.items.indexOf(this),1);
@@ -6149,5 +6149,6 @@ export class Item {
         let slowDurationRemaining = this.slowDurationRemaining;
         Object.assign(copy,{hasteDurationRemaining,freezeDurationRemaining,slowDurationRemaining});
         copy.board.transformTriggers.forEach(f=>f(this,copy));
+        this.log(this.board.player.name+"'s "+this.name+" transformed into "+copy.name+" by "+source.board.player.name+"'s "+source.name);
     }
 }

@@ -1551,8 +1551,8 @@ ItemFunction.items.set("Virus",(item)=>{
         const virusData = structuredClone(items["Virus"]);
         virusData.enchant = item.enchant;
         virusData.tier = item.tier;
-        item.pickRandom(item.board.activeItems.filter(i=>i.tags.includes("Small")&&i.nameWithoutEnchant!="Virus"&&i.tier!=4))?.transformInto(virusData);
-        item.pickRandom(item.board.player.hostileTarget.board.activeItems.filter(i=>i.tags.includes("Small")&&i.nameWithoutEnchant!="Virus"&&i.tier!=4))?.transformInto(structuredClone(virusData));
+        item.pickRandom(item.board.activeItems.filter(i=>i.tags.includes("Small")&&i.nameWithoutEnchant!="Virus"&&i.tier!=4))?.transformInto(virusData, {source:item});
+        item.pickRandom(item.board.player.hostileTarget.board.activeItems.filter(i=>i.tags.includes("Small")&&i.nameWithoutEnchant!="Virus"&&i.tier!=4))?.transformInto(structuredClone(virusData), {source:item});
     });
     
 });
