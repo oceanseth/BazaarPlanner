@@ -174,7 +174,7 @@ export class Item {
         }
     }
 
-    destroy(source) {
+    destroy(source=this) {
         if(this.enchant=='Radiant') {return};
         this.isDestroyed = true;
         this.element.classList.add('destroyed');
@@ -978,7 +978,7 @@ export class Item {
 
         //Deal damage equal to your enemy's max health
         //Deal damage equal to ( 20% » 30% ) of your enemy's Max Health.
-        let damageRegex = /Deal damage equal to \(?([^)]+)?\)?(?: of )?(your|your enemy's|the enemy's) Max Health\.?/i;
+        let damageRegex = /Deal damage equal to \(?([^)]+)?\)?(?: of )?(your|your enemy's|the enemy's) Max Health\.?$/i;
         match = text.match(damageRegex);
 
         if(match) {
