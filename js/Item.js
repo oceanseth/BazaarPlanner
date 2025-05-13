@@ -1075,7 +1075,7 @@ export class Item {
 
         //Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage. from Epicurean Chocolate
         //Adjacent (Weapons|Tool items|Tools) gain ( 5 » 10 ) Damage for the fight.
-        damageRegex = /^(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gain )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
+        damageRegex = /^(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gains? )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const itemType = match[2];
@@ -5266,7 +5266,7 @@ export class Item {
         }
 
         //this gains ( 1 » 2 » 3 » 4 ) (tag)
-        regex = /^\s*this (?:permanently )?gains (\([^)]+\)|\d+) ([^\s^\.]+)(?: and (\([^)]+\)|\d+) ([^\s^\.]+))?(?: for the fight)?\.?$/i;
+        regex = /^\s*this (?:permanently )?gains (\([^)]+\)|\d+) ([^\s^\.]+)(?: chance)?(?: and (\([^)]+\)|\d+) ([^\s^\.]+))?(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const isPercentageBased = match[1].includes("%");
@@ -5274,7 +5274,7 @@ export class Item {
             const whatToGain = match[2].toLowerCase();
             const whatToGain2 = match[4] ? match[4].toLowerCase() : null;
             const gainAmount2 = getRarityValue(match[3],this.rarity);
-            if(isPercentageBased) {
+            if(isPercentageBased && whatToGain!='crit') {
                 return (i) => {
                     this.gain(this[whatToGain]*gainAmount/100,whatToGain,i||this);
                     if(whatToGain2) {
