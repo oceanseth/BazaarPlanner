@@ -239,6 +239,8 @@ class Board {
     setup() {
         this.setupItems();
         this.updateIncomeElement();
+        this.player.health = this.player.maxHealth;
+        this.updateHealthElement();
     }
     toggleBackpack() {        
         if(this.backpack) {
@@ -444,7 +446,9 @@ class Board {
         this.goldElement.textContent = this.player?.gold;
     }
     updateIncomeElement() {
-        this.incomeElement.textContent = "+" +this.player?.income;
+        if(this.incomeElement) {
+            this.incomeElement.textContent = "+" +this.player?.income;
+        }
     }
     updatePrestigeElement() {
         this.prestigeElement.textContent = this.player?.prestige||'?';
