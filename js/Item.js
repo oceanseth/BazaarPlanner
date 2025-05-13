@@ -3885,7 +3885,7 @@ export class Item {
         
       
         //Destroy a small item.
-        regex = /^\s*Destroy an? ([^\s]+)?(?: enemy)?\s?item(?: for the fight)?\.?/i;
+        regex = /^\s*Destroy an? ([^\s]+)?(?: enemy)?\s?item(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const tagToMatch = Item.getTagFromText(match[1]);
