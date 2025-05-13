@@ -1500,36 +1500,15 @@ ItemFunction.items.set("Potion Potion",(item)=>{
 });
 //Transform into a (Silver/Gold/Diamond) copy of another small, non-legendary item you have for the fight. from Quicksilver
 ItemFunction.items.set("Quicksilver",(item)=>{
+    const tier = getRarityValue("1/2/3",item.rarity);
     const smallItems = item.board.items.filter(i=>i.id!=item.id && i.tags.includes("Small") && !i.tags.includes("Legendary"));
     if(smallItems.length==0) return;
     item.triggerFunctions.push(()=>{
-        const boardClone = item.board.player.clone().board;
-        const quicksilverClone = boardClone.items.find(i=>i.name==item.nameWithoutEnchant);
-        quicksilverClone.startItemData.enchant = quicksilverClone.enchant;
-        boardClone.items = boardClone.items.filter(i=>i!=quicksilverClone);
-        const newItemData = structuredClone(items[item.pickRandom(smallItems).nameWithoutEnchant]);
-        newItemData.startIndex = item.startIndex;
-        newItemData.tier = newItemData.tier>item.tier?newItemData.tier:item.tier;
-        const newItem = new Item(newItemData,boardClone);
-        newItem.board.player.hostileTarget = item.board.player.hostileTarget;
-        boardClone.reset();
-        boardClone.setup();
-
-        newItem.board = item.board;
-        newItem.progressBar.style.display = 'block';
-        item.board.addItem(newItem);
-
-        newItem.resetFunctions.push(()=>{
-            item.element.style.display = "block";
-            newItem.element.remove();
-            item.board.items = item.board.items.filter(i=>i!=newItem);
-            item.board.addItem(item);
-            item.reset();
-        });
-
-        item.board.transformTriggers.forEach(f=>f(item,item));
-    });
-    
+        const newItemData = structuredClone(item.pickRandom(smallItems).startItemData);
+        newItemData.enchant = item.enchant;
+        newItemData.tier = tier;
+        item.transformInto(newItemData);
+    });    
 });
 //  "Poison yourself (1/2/3/4) for each Virus on your board.",
 //  "Transform another non-legendary small item on each player's board into Virus for the rest of the fight." from virus
