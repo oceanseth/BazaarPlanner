@@ -950,6 +950,29 @@ TextMatcher.matchers.push({
         };
     }
 });
-
-
+//While in play, you have (+1/+2/+3/+4) Income. from Ring King Gauntlets
+TextMatcher.matchers.push({
+    regex: /^While in play, you have (\([^)]+\)|\d+) Income\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        item.board.player.income += amount;
+        return ()=>{};
+    }
+});
+//transform into a (Gold/Diamond) copy of another small, non-legendary item you have for the fight. from Hologram Projector
+TextMatcher.matchers.push({
+    regex: /^\s*transform into a (\([^)]+\)|\w+) copy of another small, non-legendary item you have for the fight\.$/i,
+    func: (item, match)=>{
+        const tier = Item.rarityLevels.indexOf(getRarityValue(match[1], item.rarity));
+        return ()=>{
+            const targetItem = item.pickRandom(item.board.items.filter(i=>i!=item && i.tags.includes("Small") && i.tier!=4));
+            if(targetItem) {
+                const newItemData = structuredClone(items[targetItem.nameWithoutEnchant]);
+                newItemData.tier = tier;
+                newItemData.enchant = item.enchant;
+                item.transformInto(newItemData);
+            }
+        };
+    }
+});
 window.TextMatcher = TextMatcher;

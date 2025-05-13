@@ -8,7 +8,7 @@ export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny','Toxic', 'Turbo' ];
-    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze'];
+    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze','income'];
     static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle','Common'];
     static sizeTags = ['Small','Medium','Large'];
     static allowedGainMap = {
@@ -888,6 +888,12 @@ export class Item {
         if(this.battleStats.burn == undefined) this.battleStats.burn = 0;
         this.battleStats.burn += burnAmount;
     }
+    applyIncome({amount=this.income, source=this}={}) {
+        this.board.player.income += amount;
+        this.log(this.name + " gave " + amount.toFixed(0) + " income to " + this.board.player.name);
+        //if(this.battleStats.income == undefined) this.battleStats.income = 0;
+        //this.battleStats.income += amount;
+    }
     applyRegeneration({amount=this.regen, source=this}={}) {
         let doesCrit = this.doICrit();
         if(doesCrit) {
@@ -1075,7 +1081,7 @@ export class Item {
 
         //Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage. from Epicurean Chocolate
         //Adjacent (Weapons|Tool items|Tools) gain ( 5 » 10 ) Damage for the fight.
-        damageRegex = /^(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gain )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
+        damageRegex = /^(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gains? )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const itemType = match[2];
@@ -1704,7 +1710,7 @@ export class Item {
 
     gain(amount,type,source) {
         amount = parseFloat(amount);
-        if(!["cooldown","damage"].includes(type)) {
+        if(!["cooldown","damage","income"].includes(type)) {
             this.log(this.name + " gained " + amount.toFixed(0) + " " + type + (source?(" from "+source.name):""));
         }
 
@@ -1815,7 +1821,7 @@ export class Item {
                 break;
             case 'charge':
                 this.charge += amount;
-                break;
+                break;        
             default:
                 console.log("Unknown gain type: " + type);
         }
@@ -2104,13 +2110,17 @@ export class Item {
         }
         
         //Shield equal to ( 1 » 2 » 3 » 4 ) time(s) your Income.
-        regex = /Shield equal to (?:\(([^)]+)\)|(\d+)) time\(?s\)? your Income/i;
+        regex = /(?:Deal)?(Damage|Shield|Burn|Poison|Heal) equal to (\([^)]+\)|\d+) time\(?s\)? your Income\.?$/i;
         match = text.match(regex);
         if (match) {
-            const multiplier =  match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            this.gain(this.board.player.income * multiplier,'shield');
+            const whatToDo = Item.getTagFromText(match[1]);
+            const multiplier =  match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
+            this.gain(this.board.player.income * multiplier,whatToDo.toLowerCase());
+            this.board.player.incomeChanged((newIncome,oldIncome)=>{
+                this.gain(newIncome-oldIncome,whatToDo.toLowerCase());
+            }, this.id);
             return () => {
-                this.applyShield(this.shield);
+                this["apply"+whatToDo]();
             };
         }
         //Your Shield items have +1 Shield for every (  4  » 3  » 2   ) gold you have.
@@ -5266,7 +5276,7 @@ export class Item {
         }
 
         //this gains ( 1 » 2 » 3 » 4 ) (tag)
-        regex = /^\s*this (?:permanently )?gains (\([^)]+\)|\d+) ([^\s^\.]+)(?: and (\([^)]+\)|\d+) ([^\s^\.]+))?(?: for the fight)?\.?$/i;
+        regex = /^\s*this (?:permanently )?gains (\([^)]+\)|\d+) ([^\s^\.]+)(?: chance)?(?: and (\([^)]+\)|\d+) ([^\s^\.]+))?(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const isPercentageBased = match[1].includes("%");
@@ -5274,7 +5284,7 @@ export class Item {
             const whatToGain = match[2].toLowerCase();
             const whatToGain2 = match[4] ? match[4].toLowerCase() : null;
             const gainAmount2 = getRarityValue(match[3],this.rarity);
-            if(isPercentageBased) {
+            if(isPercentageBased && whatToGain!='crit') {
                 return (i) => {
                     this.gain(this[whatToGain]*gainAmount/100,whatToGain,i||this);
                     if(whatToGain2) {
