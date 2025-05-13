@@ -941,5 +941,15 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+//destroy this from powder 
+TextMatcher.matchers.push({
+    regex: /^destroy this\.$/i,
+    func: (item, match)=>{
+        return ()=>{
+            item.destroy();
+        };
+    }
+});
+
 
 window.TextMatcher = TextMatcher;
