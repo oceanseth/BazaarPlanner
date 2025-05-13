@@ -1498,18 +1498,7 @@ ItemFunction.items.set("Potion Potion",(item)=>{
         
     });
 });
-//Transform into a (Silver/Gold/Diamond) copy of another small, non-legendary item you have for the fight. from Quicksilver
-ItemFunction.items.set("Quicksilver",(item)=>{
-    const tier = getRarityValue("1/2/3",item.rarity);
-    const smallItems = item.board.items.filter(i=>i.id!=item.id && i.tags.includes("Small") && !i.tags.includes("Legendary"));
-    if(smallItems.length==0) return;
-    item.triggerFunctions.push(()=>{
-        const newItemData = structuredClone(item.pickRandom(smallItems).startItemData);
-        newItemData.enchant = item.enchant;
-        newItemData.tier = tier;
-        item.transformInto(newItemData);
-    });    
-});
+
 //  "Poison yourself (1/2/3/4) for each Virus on your board.",
 //  "Transform another non-legendary small item on each player's board into Virus for the rest of the fight." from virus
 ItemFunction.items.set("Virus",(item)=>{
