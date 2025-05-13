@@ -1531,4 +1531,30 @@ ItemFunction.items.set("Quicksilver",(item)=>{
     });
     
 });
+//  "Poison yourself (1/2/3/4) for each Virus on your board.",
+//  "Transform another non-legendary small item on each player's board into Virus for the rest of the fight." from virus
+ItemFunction.items.set("Virus",(item)=>{
+    let numVirus = 0;
+    const poisonPerVirus = getRarityValue("1/2/3/4",item.rarity);
+    const updatePoison = ()=>{
+        const newVirusCount = item.board.activeItems.filter(i=>i.nameWithoutEnchant=="Virus").length;
+        if(newVirusCount!=numVirus) {
+            item.gain(poisonPerVirus*(newVirusCount-numVirus),'poison');
+            numVirus = newVirusCount;
+        }
+    }
+    updatePoison();
+    item.board.itemDestroyedTriggers.set(item.id,updatePoison);
+    item.board.transformTriggers.set(item.id,updatePoison);
+    item.triggerFunctions.push(()=>{
+        item.applyPoison();
+        const virusData = structuredClone(items["Virus"]);
+        virusData.enchant = item.enchant;
+        virusData.tier = item.tier;
+        item.pickRandom(item.board.activeItems.filter(i=>i.tags.includes("Small")&&i.nameWithoutEnchant!="Virus"&&i.tier!=4))?.transformInto(virusData);
+        item.pickRandom(item.board.player.hostileTarget.board.activeItems.filter(i=>i.tags.includes("Small")&&i.nameWithoutEnchant!="Virus"&&i.tier!=4))?.transformInto(structuredClone(virusData));
+    });
+    
+});
+
 ItemFunction.setupItems();

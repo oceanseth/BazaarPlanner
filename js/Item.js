@@ -6123,4 +6123,31 @@ export class Item {
             this.enchantIsTemporary = false;
         }
     }
+    transformInto(itemData) {        
+        const copy = new Item(itemData,this.board);
+        let startIndex = this.startIndex;
+        this.board.items.splice(this.board.items.indexOf(this),1);
+        this.element.style.display = "none";
+        copy.setIndex(startIndex);
+        if(this.enchant && copy.enchants[this.enchant]) {
+            copy.startItemData.enchant= this.enchant;
+        }
+        copy.board.sortItems();
+        copy.reset();
+        copy.setup();
+        if(copy.progressBar) copy.progressBar.style.display = 'block';
+        copy.resetFunctions.push(()=>{
+            this.element.style.display = "block";
+            copy.element.remove();
+            copy.board = null;
+            this.board.items = this.board.items.filter(i=>i!=copy);
+            this.board.addItem(this);
+            this.reset();
+        });
+        let hasteDurationRemaining = this.hasteDurationRemaining;
+        let freezeDurationRemaining = this.freezeDurationRemaining;
+        let slowDurationRemaining = this.slowDurationRemaining;
+        Object.assign(copy,{hasteDurationRemaining,freezeDurationRemaining,slowDurationRemaining});
+        copy.board.transformTriggers.forEach(f=>f(this,copy));
+    }
 }
