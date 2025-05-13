@@ -6123,7 +6123,7 @@ export class Item {
             this.enchantIsTemporary = false;
         }
     }
-    transformInto(itemData, {source=this}) {        
+    transformInto(itemData, {source=this}={}) {        
         const copy = new Item(itemData,this.board);
         let startIndex = this.startIndex;
         this.board.items.splice(this.board.items.indexOf(this),1);
