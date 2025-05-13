@@ -91,14 +91,14 @@ export function updateUrlState() {
     [topPlayer.board,bottomPlayer.board].forEach(board=>{
         const aBoardState ={
             name: '_b_'+board.boardId,
-            health: board.player.maxHealth,
-            regen: board.player.regen||0,
+            health: board.player.startPlayerData.maxHealth,
+            regen: board.player.startPlayerData.regen||0,
             playerName: board.player.name,
             hero: board.player.hero,
-            level: board.player.level||1,
-            gold: board.player.gold||0,
-            shield: board.player.shield||0,
-            income: board.player.income||5,
+            level: board.player.startPlayerData.level||1,
+            gold: board.player.startPlayerData.gold||0,
+            shield: board.player.startPlayerData.shield||0,
+            income: board.player.startPlayerData.income||5,
             skills: board.skills.map(skill => {
                 const skillData = {name: skill.name};
                 if(skills[skill.name].tier != skill.tier) {

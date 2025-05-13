@@ -64,5 +64,16 @@ export class BazaarPatcher {
                 "Obsidian": "...and Enchant the transformation with Obsidian if able."
             },
         }
+        ItemFunction.items.set("DBG-BZZ3R",(item)=>{
+            item.triggerFunctions.push(()=>{
+                const newItemData = structuredClone(
+                    items[
+                        item.pickRandom(["RED-F1R3FLY","YLW-M4NT1S","GRN-W4SP","BLU-B33TL3","BLK-SP1D3R"])
+                    ]);
+                newItemData.enchant = item.enchant;
+                newItemData.tier = item.tier;
+                item.transformInto(newItemData);
+            });
+        });
     }
 }

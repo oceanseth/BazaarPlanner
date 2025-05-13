@@ -238,6 +238,7 @@ class Board {
     }
     setup() {
         this.setupItems();
+        this.updateIncomeElement();
     }
     toggleBackpack() {        
         if(this.backpack) {

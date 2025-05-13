@@ -950,6 +950,13 @@ TextMatcher.matchers.push({
         };
     }
 });
-
-
+//While in play, you have (+1/+2/+3/+4) Income. from Ring King Gauntlets
+TextMatcher.matchers.push({
+    regex: /^While in play, you have (\([^)]+\)|\d+) Income\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        item.board.player.income += amount;
+        return ()=>{};
+    }
+});
 window.TextMatcher = TextMatcher;

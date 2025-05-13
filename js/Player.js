@@ -5,7 +5,7 @@ export class Player {
     hostileTarget = null;
     static playerId = 0;
     static players = new Map();
-    static possibleChangeAttributes = ['health','shield','gold','maxHealth','burn','poison','regen','battleTime'];
+    static possibleChangeAttributes = ['health','shield','gold','maxHealth','burn','poison','regen','battleTime','income'];
    
     constructor(startPlayerData={}, boardId=null, boardOptions={editable:true, skills:true}) {
         setupChangeListeners(this, Player.possibleChangeAttributes );
