@@ -2953,7 +2953,6 @@ export class Item {
                             }
                         });
                         return;
-                    case "uses a weapon or burn item"
                     case "burn or use a dragon item":
                         this.board.burnTriggers.set(this.id,triggerFunctionFromText);
                         this.whenItemTagTriggers("Dragon", (item) => {
@@ -3603,7 +3602,7 @@ export class Item {
     tag can be a string or an array of strings
     */
     whenItemTagTriggers(tags, func, board=this.board, excludeitem=null) {
-        tags = Array.isArray(tags) ? tags : [tags];
+        if(!Array.isArray(tags)) tags = [tags];
         board.itemTriggers.set(func,(item) => {            
             if (tags.includes("Item") || tags.some(t => item.tags.includes(t)) && item != excludeitem) {
                 board.critPossible=false;
