@@ -2494,7 +2494,7 @@ export class Item {
         if(text.match(/^At the start of each hour/i)) {
             return;
         }
-        let regex = /^\s*When (you|your enemy|any player|either player|your items|your enemy's items|the core|an adjacent item)? ([^,]*), (.*)$/i;
+        let regex = /^\s*When (you|your enemy|your opponent|any player|either player|your items|your enemy's items|the core|an adjacent item)? ([^,]*), (.*)$/i;
         let match = text.match(regex);
         let ifFunction = null;
         if(match) {
@@ -2502,7 +2502,7 @@ export class Item {
             const ifregex = /(.*\.) if (.*), (.*)\./i;
             const ifmatch = textAfterComma.match(ifregex);
             let targetBoards = [this.board];
-            if(enemyMatch=="your enemy") {
+            if(enemyMatch=="your enemy"||enemyMatch=="your opponent") {
                 targetBoards = [this.board.player.hostileTarget.board];
             } else if(enemyMatch=="any player"||enemyMatch=="either player") {
                 targetBoards.push(this.board.player.hostileTarget.board);
@@ -2603,17 +2603,18 @@ export class Item {
                 });
                 return;
             }
-            const whenmatch = conditionalMatch.match(/^uses? an?(other)? (non-)?([^\s]+)(?: item)?$/i);
+            const whenmatch = conditionalMatch.match(/^uses? an?(other)? (non-)?([^\s]+)(?: or ([^\s]+))?(?: item)?$/i);
             if(whenmatch) {
                 const other = whenmatch[1];
                 const non = whenmatch[2];
                 const tagToMatch = Item.getTagFromText(whenmatch[3]);
-                
+                const tagToMatch2 = whenmatch[4]?Item.getTagFromText(whenmatch[4]):null;
+
                 targetBoards.forEach(board => {
                     if(non) {
-                        this.whenNonItemTagTriggers(tagToMatch, triggerFunctionFromText, board, other?this:null);
+                        this.whenNonItemTagTriggers([tagToMatch, tagToMatch2], triggerFunctionFromText, board, other?this:null);
                     } else {
-                        this.whenItemTagTriggers(tagToMatch, triggerFunctionFromText, board, other?this:null);
+                        this.whenItemTagTriggers([tagToMatch, tagToMatch2], triggerFunctionFromText, board, other?this:null);
                     }
                 });
                 return;
@@ -2952,6 +2953,7 @@ export class Item {
                             }
                         });
                         return;
+                    case "uses a weapon or burn item"
                     case "burn or use a dragon item":
                         this.board.burnTriggers.set(this.id,triggerFunctionFromText);
                         this.whenItemTagTriggers("Dragon", (item) => {
@@ -3600,10 +3602,10 @@ export class Item {
     When an item with a tag is used, trigger the given function
     tag can be a string or an array of strings
     */
-    whenItemTagTriggers(tag, func, board=this.board, excludeitem=null) {
-        const tags = Array.isArray(tag) ? tag : [tag];
+    whenItemTagTriggers(tags, func, board=this.board, excludeitem=null) {
+        tags = Array.isArray(tags) ? tags : [tags];
         board.itemTriggers.set(func,(item) => {            
-            if (tag =="Item" || tags.some(t => item.tags.includes(t)) && item != excludeitem) {
+            if (tags.includes("Item") || tags.some(t => item.tags.includes(t)) && item != excludeitem) {
                 board.critPossible=false;
                 func(item);
                 board.critPossible=true;
@@ -3615,10 +3617,11 @@ export class Item {
     When an item with a tag is used, trigger the given function
     tag can be a string or an array of strings
     */
-    whenNonItemTagTriggers(tag, func, board=this.board, excludeitem=null) {
+    whenNonItemTagTriggers(tags, func, board=this.board, excludeitem=null) {
+        if(!Array.isArray(tags)) tags = [tags];
         board.itemTriggers.set(func,(item) => {
             // Handle both string and array cases
-            if(!item.tags.includes(tag) && item != excludeitem) {
+            if(!tags.some(t => item.tags.includes(t)) && item != excludeitem) {
                 board.critPossible=false;
                 func(item);
                 board.critPossible=true;

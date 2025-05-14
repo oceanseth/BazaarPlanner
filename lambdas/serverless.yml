@@ -26,6 +26,7 @@ package:
     - 'advancePuzzle/*.js'
     - 'calcWinRates/*.js'
     - 'twitchAuth/*.js'
+    - 'updateTopDonors/*.js'
     - '../js/**/*.js'
 
 functions:
@@ -37,6 +38,12 @@ functions:
       - schedule: cron(0 0 * * ? *) # Runs at midnight UTC every day
   calcWinRates:
     handler: calcWinRates/calcWinRates.handler
+    timeout: 29
+    memorySize: 1024
+    events:
+      - schedule: cron(0 0 * * ? *) # Runs at midnight UTC every day
+  updateTopDonors:
+    handler: updateTopDonors/updateTopDonors.handler
     timeout: 29
     memorySize: 1024
     events:

@@ -353,15 +353,6 @@ ItemFunction.items.set("Phonograph",(item)=>{
     }
 });
 
-// When your opponent uses a Weapon or Burn item, Charge this 2 second(s). from Blast Doors
-ItemFunction.items.set("Blast Doors",(item)=>{
-    item.charge = 2;
-    item.board.player.hostileTarget.board.itemTriggers.set(item.id,(i)=>{
-        if(i.tags.includes("Weapon")||i.tags.includes("Burn")) {
-            item.applyChargeTo(item, i);
-        }
-    });
-});
 //"When you Slow with an item, Freeze with an item, Poison with an item, or Burn with an item, a Regeneration item gains (1/2/3) Regeneration for the fight." from Vital Renewal
 ItemFunction.items.set("Vital Renewal",(item)=>{
     item.setupTextFunctions("When you Slow with an item, Freeze with an item, Poison with an item, or Burn with an item, a Regeneration item gains (1/2/3) Regeneration for the fight.");    
