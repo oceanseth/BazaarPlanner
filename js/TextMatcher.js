@@ -722,8 +722,8 @@ TextMatcher.matchers.push({
     //this gains +Damage for the fight equal to the amount Poisoned. from Test Subject Alpha
     regex: /^this gains \+Damage for the fight equal to the amount (?:Poisoned|Burned)\.$/i,
     func: (theItem, match)=>{
-        return (source, {poisonAmount})=>{
-                theItem.gain(poisonAmount,'damage');
+        return ({source,amount})=>{
+                theItem.gain(amount,'damage',source);
         };
     }
 });
