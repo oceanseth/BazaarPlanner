@@ -1026,7 +1026,7 @@ export class Item {
         damageRegex = /^Your (other )?([^\s]+)\s*(?:items)? (?:gain|get) \+?(\([^)]+\)|\d+)\s+([^\s]+)\s+for the fight\.?/i;
         match = text.match(damageRegex);
         if(match) {
-            const other = match[1]=='other';
+            const other = match[1]=='other ';
             const gainAmount = getRarityValue(match[3], this.rarity);
             const tagToMatch = Item.getTagFromText(match[2]);
             const whatToGain = match[4].toLowerCase();
