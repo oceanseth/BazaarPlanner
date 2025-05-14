@@ -12,7 +12,9 @@ export class BazaarPatcher {
         }
         if(items["Rapid Injection System"].text[0]=="When you poison yourself, Poison (4/8/12).") {
             items["Rapid Injection System"].text[0] = "When you poison yourself, Poison.";
+            items["Rapid Injection System"].enchants["Fiery"] = "When you Poison yourself, Burn (4/8/12).";
         }
+        
         if(skills["Hardly Workin'"].text[0].match(/times times/i)) {
             skills["Hardly Workin'"].text[0] = skills["Hardly Workin'"].text[0].replace(/times times/i, "times");
         }
@@ -41,7 +43,7 @@ export class BazaarPatcher {
                 item.text[0] = item.text[0].replace(/\+[\d]+ Damage/i, `+${item.Custom_0} Damage`);
             }
         });
-
+        
         //community items
 
         items["DBG-BZZ3R"] = {

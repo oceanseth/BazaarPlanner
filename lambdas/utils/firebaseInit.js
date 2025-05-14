@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk');
 const admin = require('firebase-admin');
-
+AWS.config.update({ region: 'us-east-1' });
 class FirebaseInitializer {
   constructor() {
     this.ssm = new AWS.SSM();

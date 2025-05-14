@@ -785,9 +785,9 @@ export class Item {
         if (!this.progressBar || this.isDestroyed) return;
 
         let effectiveTimeDiff = this.progressHasteAndSlowAndReturnEffectiveTimeDiff(timeDiff);
-        if(this.pendingCharges.length>0 && (this.board.player.battle.numTicks % 2==0)) { //every other tick  (assuming 100ms ticks, to match 200ms in game)
-            let charge = this.pendingCharges.pop();
-            this.chargeBy(charge.seconds,charge.source);
+        
+        if(this.board.player.battle.numTicks%2==0) {
+            while(this.pendingCharges.length>0 && this.chargeBy(this.pendingCharges.pop())); 
         }
 
         if(this.maxAmmo && this.ammo<=0 && this.numTriggers < Math.floor((effectiveTimeDiff+this.effectiveBattleTime) / this.cooldown)) {
@@ -1026,7 +1026,7 @@ export class Item {
         damageRegex = /^Your (other )?([^\s]+)\s*(?:items)? (?:gain|get) \+?(\([^)]+\)|\d+)\s+([^\s]+)\s+for the fight\.?/i;
         match = text.match(damageRegex);
         if(match) {
-            const other = match[1]=='other';
+            const other = match[1]=='other ';
             const gainAmount = getRarityValue(match[3], this.rarity);
             const tagToMatch = Item.getTagFromText(match[2]);
             const whatToGain = match[4].toLowerCase();
@@ -2494,7 +2494,7 @@ export class Item {
         if(text.match(/^At the start of each hour/i)) {
             return;
         }
-        let regex = /^\s*When (you|your enemy|any player|either player|your items|your enemy's items|the core|an adjacent item)? ([^,]*), (.*)$/i;
+        let regex = /^\s*When (you|your enemy|your opponent|any player|either player|your items|your enemy's items|the core|an adjacent item)? ([^,]*), (.*)$/i;
         let match = text.match(regex);
         let ifFunction = null;
         if(match) {
@@ -2502,7 +2502,7 @@ export class Item {
             const ifregex = /(.*\.) if (.*), (.*)\./i;
             const ifmatch = textAfterComma.match(ifregex);
             let targetBoards = [this.board];
-            if(enemyMatch=="your enemy") {
+            if(enemyMatch=="your enemy"||enemyMatch=="your opponent") {
                 targetBoards = [this.board.player.hostileTarget.board];
             } else if(enemyMatch=="any player"||enemyMatch=="either player") {
                 targetBoards.push(this.board.player.hostileTarget.board);
@@ -2603,17 +2603,18 @@ export class Item {
                 });
                 return;
             }
-            const whenmatch = conditionalMatch.match(/^uses? an?(other)? (non-)?([^\s]+)(?: item)?$/i);
+            const whenmatch = conditionalMatch.match(/^uses? an?(other)? (non-)?([^\s]+)(?: or ([^\s]+))?(?: item)?$/i);
             if(whenmatch) {
                 const other = whenmatch[1];
                 const non = whenmatch[2];
                 const tagToMatch = Item.getTagFromText(whenmatch[3]);
-                
+                const tagToMatch2 = whenmatch[4]?Item.getTagFromText(whenmatch[4]):null;
+
                 targetBoards.forEach(board => {
                     if(non) {
-                        this.whenNonItemTagTriggers(tagToMatch, triggerFunctionFromText, board, other?this:null);
+                        this.whenNonItemTagTriggers([tagToMatch, tagToMatch2], triggerFunctionFromText, board, other?this:null);
                     } else {
-                        this.whenItemTagTriggers(tagToMatch, triggerFunctionFromText, board, other?this:null);
+                        this.whenItemTagTriggers([tagToMatch, tagToMatch2], triggerFunctionFromText, board, other?this:null);
                     }
                 });
                 return;
@@ -3600,10 +3601,10 @@ export class Item {
     When an item with a tag is used, trigger the given function
     tag can be a string or an array of strings
     */
-    whenItemTagTriggers(tag, func, board=this.board, excludeitem=null) {
-        const tags = Array.isArray(tag) ? tag : [tag];
+    whenItemTagTriggers(tags, func, board=this.board, excludeitem=null) {
+        if(!Array.isArray(tags)) tags = [tags];
         board.itemTriggers.set(func,(item) => {            
-            if (tag =="Item" || tags.some(t => item.tags.includes(t)) && item != excludeitem) {
+            if (tags.includes("Item") || tags.some(t => item.tags.includes(t)) && item != excludeitem) {
                 board.critPossible=false;
                 func(item);
                 board.critPossible=true;
@@ -3615,10 +3616,11 @@ export class Item {
     When an item with a tag is used, trigger the given function
     tag can be a string or an array of strings
     */
-    whenNonItemTagTriggers(tag, func, board=this.board, excludeitem=null) {
+    whenNonItemTagTriggers(tags, func, board=this.board, excludeitem=null) {
+        if(!Array.isArray(tags)) tags = [tags];
         board.itemTriggers.set(func,(item) => {
             // Handle both string and array cases
-            if(!item.tags.includes(tag) && item != excludeitem) {
+            if(!tags.some(t => item.tags.includes(t)) && item != excludeitem) {
                 board.critPossible=false;
                 func(item);
                 board.critPossible=true;
@@ -3626,7 +3628,9 @@ export class Item {
         });
     }
 
-    chargeBy(seconds, source) {
+    //returns true if there is time remaining to the next trigger, false if it should trigger now
+    chargeBy(charge) {
+        const {seconds,source} = charge;
         //calculate time to next trigger
         if(source) {
             this.log(source.name + " charged " + this.name + " for " + seconds + " second(s)");
@@ -3634,15 +3638,15 @@ export class Item {
         const timeToNextTrigger = this.cooldown - (this.effectiveBattleTime % this.cooldown);
         if(timeToNextTrigger > seconds*1000) {
             this.effectiveBattleTime += seconds*1000;
-            return;
+            return true;
         }
         if(timeToNextTrigger<=0) {
             this.pendingCharges.push({seconds:seconds,source:source});
-            return;
+            return false;
         }
-        
+        //instead of charging for seconds, charge for the remaining time to the next trigger
         this.effectiveBattleTime += timeToNextTrigger;
-        
+        return false; 
     }
 
     getAnonymousTriggerFunctionFromText(text) {        
@@ -3885,15 +3889,18 @@ export class Item {
         
       
         //Destroy a small item.
-        regex = /^\s*Destroy an? ([^\s]+)?(?: enemy)?\s?item(?: for the fight)?\.?$/i;
+        regex = /^\s*Destroy (an?|[\d]+) ([^\s]+)?(?: enemy)?\s?items?(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const tagToMatch = Item.getTagFromText(match[1]);
+            const numItemsToDestroy = match[1]=='an'?1:parseInt(match[1]);
+            const tagToMatch = Item.getTagFromText(match[2]);
             return () => {
                 let targets = this.board.player.hostileTarget.board.activeItems;
                 if(tagToMatch && tagToMatch!='Enemy') targets = targets.filter(item => item.tags.includes(tagToMatch));
                 if(targets.length>0) {
-                    this.pickRandom(targets).destroy(this);
+                    this.pickRandom(targets,numItemsToDestroy).forEach(item=>{
+                        item.destroy(this);
+                    });
                 }
             }
         }

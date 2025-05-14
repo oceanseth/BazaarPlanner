@@ -525,6 +525,8 @@ window.showSection = function(sectionId) {
         Puzzle.loadPuzzle();
     } else if(sectionId=='runs') {
         Runs.loadRuns();
+    } else if(sectionId=='about') {
+        fetchTopDonors();
     }
     if(oldSection=='puzzle') {
         Puzzle.battle.resetBattle();
@@ -770,9 +772,52 @@ window.showDonationRequiredAlert = () => {
             <button class="donate-button" onclick="if(window.user) document.getElementById('donate-button').click(); else window.showLogin();">
                 Donate Any Amount
             </button>
+            <div class="top-donors-section">
+                <h3>Top Donors</h3>
+                <div class="top-donors-list">
+                    <div class="loading">Loading top donors...</div>
+                </div>
+            </div>
         </div>
     `;
     document.body.appendChild(dialog);
+    fetchTopDonors();
+};
+window.fetchTopDonors = () => {
+
+    console.log('Fetching top donors...');
+
+    // Query the donors collection
+    firebase.database().ref('topDonors')
+        .orderByChild('amount')
+        .limitToLast(10)
+        .once('value')
+        .then((snapshot) => {
+            const donors = snapshot.val();
+            // Clear loading message
+            let html = '';
+
+            // Display top donors
+            if (donors.length > 0) {
+                donors.forEach((donor, index) => {
+                    const donorElement = document.createElement('div');
+                    donorElement.className = 'donor-item';
+                    donorElement.innerHTML = `
+                        <span class="donor-rank">#${index + 1}</span>
+                        <span class="donor-name">${donor.name}</span>
+                        <span class="donor-amount">${donor.amount}</span>
+                    `;
+                    html += donorElement.outerHTML;
+                });
+                $('.top-donors-list').html(html);
+            } 
+        })
+        .catch((error) => {
+            console.error('Error fetching top donors:', error);
+            console.error('Error code:', error.code);
+            console.error('Error message:', error.message);
+            topDonorsList.innerHTML = '<div class="error">Error loading top donors. Please try again later.</div>';
+        });
 };
 
 window.markUserAsPaid = async (userId, amount) => {

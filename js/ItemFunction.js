@@ -353,15 +353,6 @@ ItemFunction.items.set("Phonograph",(item)=>{
     }
 });
 
-// When your opponent uses a Weapon or Burn item, Charge this 2 second(s). from Blast Doors
-ItemFunction.items.set("Blast Doors",(item)=>{
-    item.charge = 2;
-    item.board.player.hostileTarget.board.itemTriggers.set(item.id,(i)=>{
-        if(i.tags.includes("Weapon")||i.tags.includes("Burn")) {
-            item.applyChargeTo(item, i);
-        }
-    });
-});
 //"When you Slow with an item, Freeze with an item, Poison with an item, or Burn with an item, a Regeneration item gains (1/2/3) Regeneration for the fight." from Vital Renewal
 ItemFunction.items.set("Vital Renewal",(item)=>{
     item.setupTextFunctions("When you Slow with an item, Freeze with an item, Poison with an item, or Burn with an item, a Regeneration item gains (1/2/3) Regeneration for the fight.");    
@@ -420,15 +411,6 @@ ItemFunction.items.set("Open Sign",(item)=>{
     });
 });
 
-//Destroy this and 3 small enemy items for the fight from Antimatter Chamber
-ItemFunction.items.set("Antimatter Chamber",(item)=>{
-        item.triggerFunctions.push(()=>{
-            let smallEnemyItems = item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes("Small"));
-            let numItemsToDestroy = Math.min(3,smallEnemyItems.length);
-            smallEnemyItems.sort(() => item.battleRandom() - 0.5).slice(0,numItemsToDestroy).forEach(i=>i.destroy(item));
-            item.destroy(item);
-        });
-});
 //"Multicast 2",
 //"Crit Chance 25%",
 //"Deal 100 damage.",
