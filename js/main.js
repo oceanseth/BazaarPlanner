@@ -820,14 +820,16 @@ window.fetchTopDonors = () => {
         });
 };
 
-window.markUserAsPaid = async (userId, amount) => {
+window.markUserAsPaid = async ({amt,tx,st,cc}) => {
     try {
-        await firebase.database().ref(`users/${userId}`).update({
+        await firebase.database().ref(`users/${window.user.uid}`).update({
             isDonor: true,
-            donationDate: firebase.database.ServerValue.TIMESTAMP,
-            donationAmount: amount,  // Store the donation amount
+            donationAmount: amt + (window.user?.donationAmount||0),  // Store the donation amount
             lastDonation: {
-                amount: amount,
+                amount: amt,
+                tx: tx,
+                st: st,
+                cc: cc,
                 date: firebase.database.ServerValue.TIMESTAMP
             }
         });
