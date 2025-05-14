@@ -302,7 +302,7 @@
                 },
                 onComplete: function(params) {
                     // params.amt contains the donation amount
-                    window.markUserAsPaid(window.user.uid, params.amt);
+                    window.markUserAsPaid(params);
                 }
                 }).render('#donate-button-container');
                 </script>
