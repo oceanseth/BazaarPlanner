@@ -793,22 +793,7 @@ window.fetchTopDonors = () => {
         .limitToLast(10)
         .once('value')
         .then((snapshot) => {
-            console.log('Received snapshot:', snapshot.val());
-            const donors = [];
-
-            snapshot.forEach((childSnapshot) => {
-                const donor = childSnapshot.val();
-                if (donor && donor.amount) {
-                    donors.push({
-                        name: donor.displayName || 'Anonymous',
-                        amount: parseFloat(donor.amount) || 0
-                    });
-                }
-            });
-
-            // Sort donors by amount in descending order
-            donors.sort((a, b) => b.amount - a.amount);
-
+            const donors = snapshot.val();
             // Clear loading message
             let html = '';
 
@@ -820,7 +805,7 @@ window.fetchTopDonors = () => {
                     donorElement.innerHTML = `
                         <span class="donor-rank">#${index + 1}</span>
                         <span class="donor-name">${donor.name}</span>
-                        <span class="donor-amount">$${donor.amount.toFixed(2)}</span>
+                        <span class="donor-amount">${donor.amount}</span>
                     `;
                     html += donorElement.outerHTML;
                 });
