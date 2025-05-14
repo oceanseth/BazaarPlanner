@@ -420,15 +420,6 @@ ItemFunction.items.set("Open Sign",(item)=>{
     });
 });
 
-//Destroy this and 3 small enemy items for the fight from Antimatter Chamber
-ItemFunction.items.set("Antimatter Chamber",(item)=>{
-        item.triggerFunctions.push(()=>{
-            let smallEnemyItems = item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes("Small"));
-            let numItemsToDestroy = Math.min(3,smallEnemyItems.length);
-            smallEnemyItems.sort(() => item.battleRandom() - 0.5).slice(0,numItemsToDestroy).forEach(i=>i.destroy(item));
-            item.destroy(item);
-        });
-});
 //"Multicast 2",
 //"Crit Chance 25%",
 //"Deal 100 damage.",

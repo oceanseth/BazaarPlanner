@@ -785,9 +785,9 @@ export class Item {
         if (!this.progressBar || this.isDestroyed) return;
 
         let effectiveTimeDiff = this.progressHasteAndSlowAndReturnEffectiveTimeDiff(timeDiff);
-        if(this.pendingCharges.length>0 && (this.board.player.battle.numTicks % 2==0)) { //every other tick  (assuming 100ms ticks, to match 200ms in game)
-            let charge = this.pendingCharges.pop();
-            this.chargeBy(charge.seconds,charge.source);
+        
+        if(this.board.player.battle.numTicks%2==0) {
+            while(this.pendingCharges.length>0 && this.chargeBy(this.pendingCharges.pop())); 
         }
 
         if(this.maxAmmo && this.ammo<=0 && this.numTriggers < Math.floor((effectiveTimeDiff+this.effectiveBattleTime) / this.cooldown)) {
@@ -3626,7 +3626,9 @@ export class Item {
         });
     }
 
-    chargeBy(seconds, source) {
+    //returns true if there is time remaining to the next trigger, false if it should trigger now
+    chargeBy(charge) {
+        const {seconds,source} = charge;
         //calculate time to next trigger
         if(source) {
             this.log(source.name + " charged " + this.name + " for " + seconds + " second(s)");
@@ -3634,15 +3636,15 @@ export class Item {
         const timeToNextTrigger = this.cooldown - (this.effectiveBattleTime % this.cooldown);
         if(timeToNextTrigger > seconds*1000) {
             this.effectiveBattleTime += seconds*1000;
-            return;
+            return true;
         }
         if(timeToNextTrigger<=0) {
             this.pendingCharges.push({seconds:seconds,source:source});
-            return;
+            return false;
         }
-        
+        //instead of charging for seconds, charge for the remaining time to the next trigger
         this.effectiveBattleTime += timeToNextTrigger;
-        
+        return false; 
     }
 
     getAnonymousTriggerFunctionFromText(text) {        
@@ -3885,15 +3887,18 @@ export class Item {
         
       
         //Destroy a small item.
-        regex = /^\s*Destroy an? ([^\s]+)?(?: enemy)?\s?item(?: for the fight)?\.?$/i;
+        regex = /^\s*Destroy (an?|[\d]+) ([^\s]+)?(?: enemy)?\s?items?(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const tagToMatch = Item.getTagFromText(match[1]);
+            const numItemsToDestroy = match[1]=='an'?1:parseInt(match[1]);
+            const tagToMatch = Item.getTagFromText(match[2]);
             return () => {
                 let targets = this.board.player.hostileTarget.board.activeItems;
                 if(tagToMatch && tagToMatch!='Enemy') targets = targets.filter(item => item.tags.includes(tagToMatch));
                 if(targets.length>0) {
-                    this.pickRandom(targets).destroy(this);
+                    this.pickRandom(targets,numItemsToDestroy).forEach(item=>{
+                        item.destroy(this);
+                    });
                 }
             }
         }

@@ -976,4 +976,17 @@ TextMatcher.matchers.push({
         };
     }
 });
+//When this is Destroyed ...
+TextMatcher.matchers.push({
+    regex: /^When this is Destroyed, (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1]);
+        item.board.itemDestroyedTriggers.set(item.id, (i)=>{
+            if(i==item) {
+                f(item);
+            }
+        });
+        return ()=>{};
+    }
+});
 window.TextMatcher = TextMatcher;

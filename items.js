@@ -13600,7 +13600,7 @@ export const items = {
       "Shielded": "When you Poison yourself, Shield equal to 10 times this item's Poison.",
       "Restorative": "When you Poison yourself, Heal equal to 10 times this item's Poison.",
       "Toxic": "This has double Poison.",
-      "Fiery": "When you Poison yourself, Burn 0.",
+      "Fiery": "When you Poison yourself, Burn (4/8/12).",
       "Shiny": "This has double Regen.",
       "Deadly": "Adjacent items have +25% Crit Chance.",
       "Obsidian": "When you Poison yourself, Deal damage equal to 10 times this item's Poison."
