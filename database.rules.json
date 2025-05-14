@@ -22,6 +22,11 @@
         }
       }
     },
+    "topDonors": {
+      ".read": true,
+      ".write": false,
+      ".indexOn": ["amount"]
+    },
     "usersonline": {
       ".read": "true",
       ".indexOn": ".value",

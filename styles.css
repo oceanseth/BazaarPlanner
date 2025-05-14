@@ -2304,5 +2304,67 @@ select {
 .backpack-element.backpack-open {
   background-image: url(/images/bopen.jpg);
 }
+.top-donors-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 600px;
+}
 
+.top-donors-section h3 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #ffd700;
+}
+
+.top-donors-list {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 0 10px;
+}
+
+.donor-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.donor-rank {
+    width: 30px;
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.donor-name {
+    flex: 1;
+    margin: 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.donor-amount {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.loading, .no-donors, .error {
+    text-align: center;
+    padding: 10px;
+    color: #888;
+}
+
+.error {
+    color: #ff4444;
+}
+
+/* Dark mode adjustments */
+.dark-mode .top-donors-section {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .donor-item {
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+} 
 
