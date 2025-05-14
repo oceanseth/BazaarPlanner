@@ -3603,6 +3603,7 @@ export class Item {
     */
     whenItemTagTriggers(tags, func, board=this.board, excludeitem=null) {
         if(!Array.isArray(tags)) tags = [tags];
+        else tags = tags.filter(t=>t); //remove empty strings, null, undefined, etc
         board.itemTriggers.set(func,(item) => {            
             if (tags.includes("Item") || tags.some(t => item.tags.includes(t)) && item != excludeitem) {
                 board.critPossible=false;
@@ -3618,6 +3619,7 @@ export class Item {
     */
     whenNonItemTagTriggers(tags, func, board=this.board, excludeitem=null) {
         if(!Array.isArray(tags)) tags = [tags];
+        else tags = tags.filter(t=>t); //remove empty strings, null, undefined, etc
         board.itemTriggers.set(func,(item) => {
             // Handle both string and array cases
             if(!tags.some(t => item.tags.includes(t)) && item != excludeitem) {
