@@ -143,7 +143,7 @@ export const monsters = {
       },
       {
         "name": "Cinders",
-        "tier": 0
+        "tier": 1
       }
     ]
   },
