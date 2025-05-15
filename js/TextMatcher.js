@@ -727,6 +727,7 @@ TextMatcher.matchers.push({
         };
     }
 });
+/*
 TextMatcher.matchers.push({
     //When a player uses a Weapon, Poison that player (3/4/5). from Wild Quillback
     regex: /^When a player uses a Weapon, Poison that player (\([^)]+\)|\d+)\.$/i,
@@ -744,6 +745,19 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+*/
+//Poison that player (3/4/5)
+TextMatcher.matchers.push({
+    regex: /^Poison that player (\([^)]+\)|\d+)\.$/i,
+    func: (item, match)=>{
+        item.gain(getRarityValue(match[1], item.rarity),'poison');
+        return (i,{source}={})=>{
+            const itemUsed = i||source;
+            item.applyPoison({selfTarget: item.board.player==itemUsed.board.player});
+        };
+    }
+});
+
 TextMatcher.matchers.push({
     //When the item to the left of this Shields. from Wrist Warrior
     regex: /^When the item to the left of this Shields, (.*)$/i,

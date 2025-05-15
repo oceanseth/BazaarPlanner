@@ -1145,12 +1145,12 @@ export class Item {
         } 
                
         //it also gains ( +10 » +20 » +30 » +40 ) damage.
-        damageRegex = /it also gains (\([^)]+\)|\+?\d+) damage/i;
+        damageRegex = /^it also gains (\([^)]+\)|\+?\d+) damage/i;
         match = text.match(damageRegex);
         if(match) {
             const dmgGain = getRarityValue(match[1], this.rarity);
-            return (item) => {
-                item.gain(dmgGain,'damage');
+            return (item, {target}) => {
+                (target||item).gain(dmgGain,'damage');
             };
         }
 
@@ -1433,7 +1433,7 @@ export class Item {
         }
 
 
-        regex = /^Haste it for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
+        regex = /^Haste it for (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
             this.haste += parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]);
@@ -2507,7 +2507,7 @@ export class Item {
         if(text.match(/^At the start of each hour/i)) {
             return;
         }
-        let regex = /^\s*When (you|your enemy|your opponent|any player|either player|your items|your enemy's items|the core|an adjacent item)? ([^,]*), (.*)$/i;
+        let regex = /^\s*When (you|your enemy|your opponent|a(?:ny)? player|either player|your items|your enemy's items|the core|an adjacent item)? ([^,]*), (.*)$/i;
         let match = text.match(regex);
         let ifFunction = null;
         if(match) {
@@ -2517,7 +2517,7 @@ export class Item {
             let targetBoards = [this.board];
             if(enemyMatch=="your enemy"||enemyMatch=="your opponent") {
                 targetBoards = [this.board.player.hostileTarget.board];
-            } else if(enemyMatch=="any player"||enemyMatch=="either player") {
+            } else if(enemyMatch=="any player"||enemyMatch=="either player"||enemyMatch=="a player") {
                 targetBoards.push(this.board.player.hostileTarget.board);
             } else if(enemyMatch=="your enemy's items") {
                 targetBoards.push(this.board.player.hostileTarget.board);
@@ -2768,8 +2768,8 @@ export class Item {
                         const rightItem = this.getItemToTheRight();
                         if(rightItem) {
                             rightItem.triggerFunctions.push(() => {
-                                triggerFunctionFromText(rightItem);
-                                if(ifFunction) ifFunction(rightItem);
+                                triggerFunctionFromText(rightItem,{target:rightItem});
+                                if(ifFunction) ifFunction(rightItem,{target:rightItem});
                             });
                         }
                         return;
@@ -2777,8 +2777,8 @@ export class Item {
                         const leftItem = this.getItemToTheLeft();
                         if(leftItem) {
                             leftItem.triggerFunctions.push(() => {
-                                triggerFunctionFromText(leftItem);
-                                if(ifFunction) ifFunction(leftItem);
+                                triggerFunctionFromText(leftItem,{target:leftItem});
+                                if(ifFunction) ifFunction(leftItem,{target:leftItem});
                             });
                         }
                         return;
@@ -2817,7 +2817,10 @@ export class Item {
                     case "use the weapon to the right of this":
                         const rightWeaponItem = this.getItemToTheRight();
                         if(rightWeaponItem&&rightWeaponItem.tags.includes("Weapon")) {
-                            rightWeaponItem.triggerFunctions.push(triggerFunctionFromText);
+                            rightWeaponItem.triggerFunctions.push(()=> {
+                                triggerFunctionFromText(rightWeaponItem,{target:rightWeaponItem});
+                                if(ifFunction) ifFunction(rightWeaponItem,{target:rightWeaponItem});
+                            });
                         }
                         return;
                     case "use the ammo item to the right of this":
@@ -5946,9 +5949,9 @@ export class Item {
         if(match) {
             const f1 = this.getTriggerFunctionFromText(match[1]+".");
             const f2 = this.getTriggerFunctionFromText(match[2]);
-            return () => {
-                f1();
-                f2();
+            return (item,options) => {
+                f1(item,options);
+                f2(item,options);
             }
         }
         return null;
