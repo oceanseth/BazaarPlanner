@@ -2507,7 +2507,7 @@ export class Item {
         if(text.match(/^At the start of each hour/i)) {
             return;
         }
-        let regex = /^\s*When (you|your enemy|your opponent|any player|either player|your items|your enemy's items|the core|an adjacent item)? ([^,]*), (.*)$/i;
+        let regex = /^\s*When (you|your enemy|your opponent|a(?:ny)? player|either player|your items|your enemy's items|the core|an adjacent item)? ([^,]*), (.*)$/i;
         let match = text.match(regex);
         let ifFunction = null;
         if(match) {
@@ -2517,7 +2517,7 @@ export class Item {
             let targetBoards = [this.board];
             if(enemyMatch=="your enemy"||enemyMatch=="your opponent") {
                 targetBoards = [this.board.player.hostileTarget.board];
-            } else if(enemyMatch=="any player"||enemyMatch=="either player") {
+            } else if(enemyMatch=="any player"||enemyMatch=="either player"||enemyMatch=="a player") {
                 targetBoards.push(this.board.player.hostileTarget.board);
             } else if(enemyMatch=="your enemy's items") {
                 targetBoards.push(this.board.player.hostileTarget.board);
