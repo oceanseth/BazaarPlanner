@@ -40,13 +40,13 @@ exports.handler = async (event) => {
         const displayName = userDataSnapshot.val();
         const donationAmount = donationSnapshot.val();
         
-        if (displayName && donationAmount) {
+        if (donationAmount) {
           // Only process if the donation amount is larger than the smallest in our list
           // or if we haven't reached 10 donors yet
           if (topDonors.length < 10 || donationAmount > topDonors[topDonors.length - 1].amount) {
             const newDonor = {
               userId,
-              name: displayName,
+              name: displayName || 'Anonymous'
               amount: donationAmount
             };
             
