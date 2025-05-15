@@ -433,12 +433,15 @@ export class Item {
             
             // Process texts in priority order
             textWithPriorities.forEach(({text, priority}) => {
-                const textSplit = text.split(/(?<=\.)[^d]/);
-                if(textSplit.length>2) {
-                    this.text[textSplit[0]];
-                    this.text.push(...textSplit.slice(1));
-                }
+                const textSplit = text.split(/(?<=\.)\s+/);
+               if(textSplit.length > 1) {
+                // If there are multiple sentences, process each one
+                textSplit.forEach(sentence => {
+                    if(sentence) this.setupTextFunctions(sentence, priority);
+                });
+            } else {
                 this.setupTextFunctions(text, priority);
+            }
             });
         }
         if(this.enchant) {
