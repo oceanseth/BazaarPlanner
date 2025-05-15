@@ -422,14 +422,22 @@ export class Item {
             BazaarPatcher.customSetupFunctions.get(this.name)(this);
         }
         if(!this.executeSpecificItemFunction()) {
+            // Create array of text+priority pairs and sort by priority
+            const textWithPriorities = this.text.map((text, index) => ({
+                text,
+                priority: this.priorities ? this.priorities[index] : 0
+            }));
             
-            this.text.forEach((text, index) => {
+            textWithPriorities.sort((a, b) => b.priority - a.priority); // Sort by priority descending
+            
+            // Process texts in priority order
+            textWithPriorities.forEach(({text, priority}) => {
                 const textSplit = text.split(/(?<=\.)[^d]/);
                 if(textSplit.length>2) {
-                    this.text[index] = textSplit[0];
+                    this.text[textSplit[0]];
                     this.text.push(...textSplit.slice(1));
                 }
-                this.setupTextFunctions(text, this.priorities?this.priorities[index]:0)
+                this.setupTextFunctions(text, priority);
             });
         }
         if(this.enchant) {
@@ -437,12 +445,6 @@ export class Item {
                 this.setupTextFunctions(this.enchants[this.enchant]);
             }            
         }       
-    }
-    clone(newBoard) {
-       const clone = new Item(structuredClone(this.startItemData),newBoard);
-       clone.startIndex = this.startIndex;
-       clone.enchant = this.enchant;       
-       return clone;
     }
 
     getInitialValue() {
