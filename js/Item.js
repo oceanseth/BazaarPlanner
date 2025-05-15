@@ -360,7 +360,8 @@ export class Item {
         this.poison = this.startItemData.poison||0;
         this.damageBonus = this.startItemData.damageBonus||0;
 
-        this.multicast = 0;
+        if(this.startItemData.multicast) this.multicast--; // "Multicast 2" actually means 1 extra use, which is how we model multicast
+        else this.multicast = 0;
         this.maxAmmo = this.startItemData.ammo||0;
         if(typeof this.maxAmmo === 'string') {
             this.maxAmmo = getRarityValue(this.maxAmmo, this.rarity);
@@ -581,6 +582,7 @@ export class Item {
                 </div>
                 <div class="tooltip-bottom ${this.rarity||'Bronze'}Border">
                     <div class="tooltip-bottom-text">
+                        ${this.multicast>0?'Multicast: '+(this.multicast+1)+'<br>':''}
                         ${this.lifesteal>0?'Lifesteal<br>':''}
                         ${this.critMultiplier>100?'Crit Multiplier: '+this.critMultiplier+'%<br>':''}
                         ${this.enchant?colorTextArray([this.enchants[this.enchant]],this.tier)+'<br>':''}
