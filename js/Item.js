@@ -446,7 +446,13 @@ export class Item {
                 this.setupTextFunctions(this.enchants[this.enchant]);
             }            
         }       
-    }
+    }    
+    clone(newBoard) {
+        const clone = new Item(structuredClone(this.startItemData),newBoard);
+        clone.startIndex = this.startIndex;
+        clone.enchant = this.enchant;       
+        return clone;
+     }
 
     getInitialValue() {
         return  (this.enchant?2:1) * this.size * Math.pow(2, this.tier);
