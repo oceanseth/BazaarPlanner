@@ -360,7 +360,8 @@ export class Item {
         this.poison = this.startItemData.poison||0;
         this.damageBonus = this.startItemData.damageBonus||0;
 
-        this.multicast = 0;
+        if(this.startItemData.multicast) this.multicast--; // "Multicast 2" actually means 1 extra use, which is how we model multicast
+        else this.multicast = 0;
         this.maxAmmo = this.startItemData.ammo||0;
         if(typeof this.maxAmmo === 'string') {
             this.maxAmmo = getRarityValue(this.maxAmmo, this.rarity);
@@ -422,14 +423,25 @@ export class Item {
             BazaarPatcher.customSetupFunctions.get(this.name)(this);
         }
         if(!this.executeSpecificItemFunction()) {
+            // Create array of text+priority pairs and sort by priority
+            const textWithPriorities = this.text.map((text, index) => ({
+                text,
+                priority: this.priorities ? this.priorities[index] : 0
+            }));
             
-            this.text.forEach((text, index) => {
-                const textSplit = text.split(/(?<=\.)[^d]/);
-                if(textSplit.length>2) {
-                    this.text[index] = textSplit[0];
-                    this.text.push(...textSplit.slice(1));
-                }
-                this.setupTextFunctions(text, this.priorities?this.priorities[index]:0)
+            textWithPriorities.sort((a, b) => b.priority - a.priority); // Sort by priority descending
+            
+            // Process texts in priority order
+            textWithPriorities.forEach(({text, priority}) => {
+                const textSplit = text.split(/(?<=\.)\s+/);
+               if(textSplit.length > 1) {
+                // If there are multiple sentences, process each one
+                textSplit.forEach(sentence => {
+                    if(sentence) this.setupTextFunctions(sentence, priority);
+                });
+            } else {
+                this.setupTextFunctions(text, priority);
+            }
             });
         }
         if(this.enchant) {
@@ -437,13 +449,13 @@ export class Item {
                 this.setupTextFunctions(this.enchants[this.enchant]);
             }            
         }       
-    }
+    }    
     clone(newBoard) {
-       const clone = new Item(structuredClone(this.startItemData),newBoard);
-       clone.startIndex = this.startIndex;
-       clone.enchant = this.enchant;       
-       return clone;
-    }
+        const clone = new Item(structuredClone(this.startItemData),newBoard);
+        clone.startIndex = this.startIndex;
+        clone.enchant = this.enchant;       
+        return clone;
+     }
 
     getInitialValue() {
         return  (this.enchant?2:1) * this.size * Math.pow(2, this.tier);
@@ -579,6 +591,7 @@ export class Item {
                 </div>
                 <div class="tooltip-bottom ${this.rarity||'Bronze'}Border">
                     <div class="tooltip-bottom-text">
+                        ${this.multicast>0?'Multicast: '+(this.multicast+1)+'<br>':''}
                         ${this.lifesteal>0?'Lifesteal<br>':''}
                         ${this.critMultiplier>100?'Crit Multiplier: '+this.critMultiplier+'%<br>':''}
                         ${this.enchant?colorTextArray([this.enchants[this.enchant]],this.tier)+'<br>':''}

@@ -1562,7 +1562,6 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Burn (2/3/4).",
       "Charge adjacent items (1/2/3) second(s)."
     ],
@@ -1579,6 +1578,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
     },
+    "multicast": 2,
     "priorities": [
       0,
       2,
@@ -2614,7 +2614,6 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Multicast (2/3/4)",
       "Deal 5 damage."
     ],
     "enchants": {
@@ -2630,6 +2629,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": "(2/3/4)",
     "priorities": [
       1,
       0
@@ -4803,7 +4803,6 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Deal (10/20/30/40) damage.",
       "This deals double Crit damage."
     ],
@@ -4820,6 +4819,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 2,
     "priorities": [
       1,
       0,
@@ -5401,7 +5401,6 @@ export const items = {
     "cooldown": 4,
     "ammo": 2,
     "text": [
-      "Multicast 2",
       "Deal (20/40/60/80) damage."
     ],
     "enchants": {
@@ -5417,6 +5416,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 2,
     "priorities": [
       1,
       0
@@ -5435,7 +5435,6 @@ export const items = {
     "cooldown": 12,
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Deal damage equal to (10%/15%/20%) of your Max Health."
     ],
     "enchants": {
@@ -5451,6 +5450,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 2,
     "priorities": [
       1,
       0
@@ -6410,7 +6410,6 @@ export const items = {
     "cooldown": 7,
     "ammo": null,
     "text": [
-      "Multicast 3",
       "Deal (8/16/24/32) damage."
     ],
     "enchants": {
@@ -6426,6 +6425,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 3,
     "priorities": [
       1,
       0
@@ -7163,7 +7163,6 @@ export const items = {
     "cooldown": "(12/11/10)",
     "ammo": null,
     "text": [
-      "Multicast 3",
       "Deal 1 damage.",
       "Poison equal to this item's damage."
     ],
@@ -7180,6 +7179,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 3,
     "priorities": [
       1,
       1,
@@ -7522,7 +7522,6 @@ export const items = {
     "cooldown": "(7/6/5/4)",
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Deal 5 damage."
     ],
     "enchants": {
@@ -7538,6 +7537,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 2,
     "priorities": [
       1,
       0
@@ -8947,7 +8947,6 @@ export const items = {
     "cooldown": 9,
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Deal (30/60/120/240) damage.",
       "This has +1 Multicast if you have more health than your enemy."
     ],
@@ -8964,6 +8963,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 2,
     "priorities": [
       1,
       0,
@@ -10105,7 +10105,6 @@ export const items = {
     "cooldown": 7,
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Deal 10 damage.",
       "Your weapons gain (5/10/15/20) damage for the fight."
     ],
@@ -10122,6 +10121,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 2,
     "priorities": [
       1,
       2,
@@ -10771,7 +10771,6 @@ export const items = {
     "cooldown": 4,
     "ammo": 1,
     "text": [
-      "Multicast 2",
       "Deal (20/30/40) damage.",
       "When you use the Core, Reload this."
     ],
@@ -10788,6 +10787,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 2,
     "priorities": [
       1,
       0,
@@ -11600,7 +11600,6 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Multicast 8",
       "Deal 8 damage."
     ],
     "enchants": {
@@ -11616,6 +11615,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 8,
     "priorities": [
       1,
       0
@@ -13600,7 +13600,7 @@ export const items = {
       "Shielded": "When you Poison yourself, Shield equal to 10 times this item's Poison.",
       "Restorative": "When you Poison yourself, Heal equal to 10 times this item's Poison.",
       "Toxic": "This has double Poison.",
-      "Fiery": "When you Poison yourself, Burn (4/8/12).",
+      "Fiery": "When you Poison yourself, Burn 0.",
       "Shiny": "This has double Regen.",
       "Deadly": "Adjacent items have +25% Crit Chance.",
       "Obsidian": "When you Poison yourself, Deal damage equal to 10 times this item's Poison."
@@ -14191,7 +14191,6 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Deal damage equal to (1/2/3/4) times your Income.",
       "While in play, you have (+1/+2/+3/+4) Income."
     ],
@@ -14208,7 +14207,8 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
-    }
+    },
+    "multicast": 2
   },
   "Ritual Dagger": {
     "name": "Ritual Dagger",
@@ -14390,7 +14390,6 @@ export const items = {
     "cooldown": 7,
     "ammo": null,
     "text": [
-      "Multicast 3",
       "Deal (8/12/16/20) damage.",
       "Burn (2/3/4/5)."
     ],
@@ -14407,6 +14406,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 3,
     "priorities": [
       1,
       1,
@@ -14596,7 +14596,6 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Lifesteal",
       "Deal (10/15/20) damage.",
       "When you Crit with another item, charge this 1 second(s)."
@@ -14614,6 +14613,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 2,
     "priorities": [
       1,
       2,
@@ -14633,7 +14633,6 @@ export const items = {
     "cooldown": 7,
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Lifesteal",
       "Deal (25/35/45) Damage.",
       "This deals double Crit damage."
@@ -14651,6 +14650,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 2,
     "priorities": [
       1,
       0,
@@ -16681,7 +16681,6 @@ export const items = {
     "cooldown": 10,
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Deal 200 damage.",
       "The first time you fall below half Health each fight, you take no damage for (1/1.5/2) second(s) and gain (25/50/75) Regen for the fight.",
       "Your Weapons have + Damage equal to your Regen."
@@ -16699,6 +16698,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 2,
     "priorities": [
       1,
       0,
@@ -17347,7 +17347,6 @@ export const items = {
     "cooldown": 9,
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Crit Chance 25%",
       "Deal 100 damage.",
       "When you use another Toy, Friend or Ammo item, charge this 1 second(s)."
@@ -17365,6 +17364,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 2,
     "priorities": [
       1,
       0,
@@ -17837,7 +17837,6 @@ export const items = {
     "cooldown": 6,
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Deal (6/12/24/48) damage.",
       "This deals double Crit damage."
     ],
@@ -17854,6 +17853,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 2,
     "priorities": [
       1,
       0,
@@ -18245,7 +18245,6 @@ export const items = {
     "cooldown": 10,
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Deal (10/15/20/25) damage.",
       "Shield (10/15/20/25)."
     ],
@@ -18262,6 +18261,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
+    "multicast": 2,
     "priorities": [
       1,
       1,
@@ -18787,7 +18787,6 @@ export const items = {
     "cooldown": 7,
     "ammo": null,
     "text": [
-      "Multicast 2",
       "Burn (4/6).",
       "When you Shield, this gains (1/2) Burn for the fight."
     ],
@@ -18804,6 +18803,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
     },
+    "multicast": 2,
     "priorities": [
       1,
       0,
@@ -18855,7 +18855,6 @@ export const items = {
     "cooldown": 7,
     "ammo": null,
     "text": [
-      "Multicast 3",
       "Burn (3/6/9/12)."
     ],
     "enchants": {
@@ -18871,6 +18870,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
     },
+    "multicast": 3,
     "priorities": [
       1,
       0

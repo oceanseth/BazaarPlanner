@@ -67,7 +67,10 @@ def process_item(item):
             cd = tooltip.split("Cooldown")[1].split("seconds")[0].strip()
             processed["cooldown"] = cd if "(" in cd else int(cd)
             continue
-            
+        if tooltip.startswith("Multicast"):
+            multicast = tooltip.split("Multicast ")[1]
+            processed["multicast"] = int(multicast) if multicast.isdigit() else multicast
+            continue
         # Extract ammo if present
         if tooltip.startswith("Ammo"):
             ammo = tooltip.split("Ammo")[1].split(".")[0].strip()
