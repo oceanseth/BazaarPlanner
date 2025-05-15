@@ -46,7 +46,7 @@ exports.handler = async (event) => {
           if (topDonors.length < 10 || donationAmount > topDonors[topDonors.length - 1].amount) {
             const newDonor = {
               userId,
-              name: displayName || 'Anonymous'
+              name: displayName || 'Anonymous',
               amount: donationAmount
             };
             
