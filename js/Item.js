@@ -3665,7 +3665,7 @@ export class Item {
         match = text.match(regex);
         if(match) {
             const damageGain = getRarityValue(match[1], this.rarity);
-            return (item) => item.gain(damageGain,'damage');
+            return (item, {target}) => (target||item).gain(damageGain,'damage');
         }
    
         //charge your Busy Bees 2 second(s).
