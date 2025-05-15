@@ -3658,7 +3658,7 @@ export class Item {
             this.effectiveBattleTime += seconds*1000;
             return true;
         }
-        if(timeToNextTrigger<=0) {
+        if(timeToNextTrigger<=100) { //give a grace period of 100ms to charge in case evaluated at same tick
             this.pendingCharges.push({seconds:seconds,source:source});
             return false;
         }
