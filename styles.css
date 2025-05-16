@@ -1005,7 +1005,7 @@ button:active {
     color: rgb(255, 142, 0);
 }
 
-.heal-element,.regen-element,.Heal,.Regeneration,.Restorative {
+.heal-element,.regen-element,.Heal,.Regeneration,.Regen,.Restorative {
     color: rgb(0, 255, 0);
 }
 .Slow,.Heavy {
