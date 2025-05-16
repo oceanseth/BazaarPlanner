@@ -19347,7 +19347,7 @@ export const items = {
       "Restorative": "When you use a non-Weapon item, Heal equal to 10 times this item's Poison.",
       "Toxic": "This has double Poison.",
       "Fiery": "When a player uses a Weapon, Burn equal to this item's Poison.",
-      "Shiny": "This has double Poison.",
+      "Shiny": "This has double Poison. This has double Regen.",
       "Deadly": "Adjacent items have +25% Crit Chance.",
       "Obsidian": "When a player uses a Weapon, deal damage equal to 5 times this item's Poison."
     }

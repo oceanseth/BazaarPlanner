@@ -446,7 +446,14 @@ export class Item {
         }
         if(this.enchant) {
             if(this.enchant!='Radiant') {
-                this.setupTextFunctions(this.enchants[this.enchant]);
+                const textSplit = this.enchants[this.enchant].split(/(?<=\.)\s+/);
+                if(textSplit.length > 1) {
+                    textSplit.forEach(sentence => {
+                        if(sentence) this.setupTextFunctions(sentence);
+                    });
+                } else {
+                    this.setupTextFunctions(this.enchants[this.enchant]);
+                }
             }            
         }       
     }    

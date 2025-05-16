@@ -1003,4 +1003,3 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
-window.TextMatcher = TextMatcher;
