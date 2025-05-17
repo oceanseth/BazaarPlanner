@@ -699,9 +699,10 @@ export class Item {
         }
         item.applyHaste(duration);
         this.log(this.name + " hastened " + item.name + " for " + duration + " seconds");
+        const oldCritPossible = this.board.critPossible;
         this.board.critPossible=false;
         this.board.hasteTriggers.forEach(func => func(item, this, duration*1000));
-        this.board.critPossible=true;
+        this.board.critPossible=oldCritPossible;
     }
 
     applySlow(duration) {
@@ -721,9 +722,10 @@ export class Item {
         }
         item.applySlow(duration);
         this.log(this.name + " slowed " + item.name + " for " + duration + " seconds");
+        const oldCritPossible = this.board.critPossible;
         this.board.critPossible=false;
         this.board.slowTriggers.forEach(func => func(item,this));
-        this.board.critPossible=true;
+        this.board.critPossible=oldCritPossible;
     }
 
     applyChargeTo(item,source=this) {
@@ -892,7 +894,10 @@ export class Item {
         }
         this.log(this.name + (doesCrit?" critically":"")+" shielded " + this.board.player.name + " for " + amount);
         this.board.player.applyShield(amount);
+        const oldCritPossible = this.board.critPossible;
+        this.board.critPossible=false;
         this.board.shieldTriggers.forEach(func => func(this));
+        this.board.critPossible=oldCritPossible;
         if(this.battleStats.shield == undefined) this.battleStats.shield = 0;
         this.battleStats.shield += amount;
     }
@@ -904,7 +909,10 @@ export class Item {
         const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
         this.log(this.name + (doesCrit?" critically ":"")+" burned " + target.name + " for " + burnAmount);
         target.applyBurn(burnAmount);
+        const oldCritPossible = this.board.critPossible;
+        this.board.critPossible=false;
         this.board.burnTriggers.forEach(func => func(this,source));
+        this.board.critPossible=oldCritPossible;
         if(this.battleStats.burn == undefined) this.battleStats.burn = 0;
         this.battleStats.burn += burnAmount;
     }
@@ -966,7 +974,10 @@ export class Item {
         }
         item.applyFreeze(duration);
         this.log(this.name + " froze " + item.name + " for " + duration + " seconds");
+        const oldCritPossible = item.board.critPossible;
+        item.board.critPossible=false;
         this.board.freezeTriggers.forEach(func => func(item,this));
+        item.board.critPossible=oldCritPossible;
     }
     removeFreeze(source) {
         if (this.freezeDurationRemaining <= 0) 
@@ -995,7 +1006,10 @@ export class Item {
         const target = (selfTarget?this.board.player:this.board.player.hostileTarget);
         this.log(this.name + (doesCrit?" critically ":"")+" poisoned " + target.name + " for " + amount.toFixed(0) +(source!=this?" from "+source.name:""));
         target.applyPoison(amount);
+        const oldCritPossible = this.board.critPossible;
+        this.board.critPossible=false;
         this.board.poisonTriggers.forEach(func => func({source, amount, target}));
+        this.board.critPossible=oldCritPossible;
         if(this.battleStats.poison == undefined) this.battleStats.poison = 0;
         this.battleStats.poison += amount;
     }
