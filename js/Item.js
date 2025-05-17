@@ -2879,7 +2879,7 @@ export class Item {
                         this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),triggerFunctionFromText);
                         return;
                     case "poison yourself":
-                        this.board.poisonTriggers.set(this.id, ({target,...rest}) => {
+                        this.board.poisonTriggers.set(this.id+"_"+triggerFunctionFromText.text, ({target,...rest}) => {
                             if(target==this.board.player) {
                                 triggerFunctionFromText(this, {target,...rest});
                             }
