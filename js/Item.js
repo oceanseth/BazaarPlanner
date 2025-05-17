@@ -419,8 +419,8 @@ export class Item {
         }
     }
     setup() {
-        if(BazaarPatcher.customSetupFunctions.has(this.name)) {
-            BazaarPatcher.customSetupFunctions.get(this.name)(this);
+        if(BazaarPatcher.customSetupFunctions.has(this.nameWithoutEnchant)) {
+            BazaarPatcher.customSetupFunctions.get(this.nameWithoutEnchant)(this);
         }
         if(!this.executeSpecificItemFunction()) {
             // Create array of text+priority pairs and sort by priority
