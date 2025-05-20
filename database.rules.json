@@ -3,8 +3,8 @@
     "usernames": {
       "$displayName": {
         ".read": "true",
-        ".write": "auth != null && data.parent().parent().child('users').child(auth.uid).child('displayName').val() === data.val()",
-        ".validate": "newData.val().matches(/^[0-9a-zA-Z]*$/)"
+        ".write": "auth != null && data.parent().parent().child('users').child(auth.uid).child('displayName').val().toLowerCase() === data.val()",
+        ".validate": "newData.val().matches(/^[0-9a-z]*$/)"
       }
     },
     "users": {

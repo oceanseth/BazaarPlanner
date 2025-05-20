@@ -47,7 +47,7 @@ export class User {
             return;
         }
         firebase.database().ref(`usernames/${displayName.trim().toLowerCase()}`).once('value').then(ss=>{
-            if(ss.exists() && ss.val() !== window.user.displayName) {
+            if(ss.exists() && ss.val() !== window.user.displayName && ss.val() !== displayName) {
                 alert("Display name already taken");
                 return;
             }
