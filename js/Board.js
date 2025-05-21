@@ -212,7 +212,7 @@ class Board {
         this.transformTriggers = new Map(); //functions to call when any item on this board is transformed
         this.startOfFightTriggers = new Map();
         this.itemDestroyedTriggers = new Map(); //functions to call when an item on this board is destroyed
-        this.healTriggers = [];
+        //managed on player this.healTriggers = [];
         this.shieldTriggers = new Map();
         this.ammoTriggers = [];
         this.largeItemTriggers = [];

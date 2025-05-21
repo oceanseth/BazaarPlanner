@@ -915,7 +915,7 @@ TextMatcher.matchers.push({
         const multiplier = getRarityValue(match[1], item.rarity);
         item.gain(item.heal*multiplier/100,'regen');
         item.healChanged((newAmount, oldAmount)=>{
-            item.gain(newAmount-oldAmount,'regen');
+            item.gain((newAmount-oldAmount)*multiplier/100,'regen');
         });
         return ()=>{
             item.applyRegen();
