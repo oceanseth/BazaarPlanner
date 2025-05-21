@@ -3668,8 +3668,7 @@ export class Item {
     }
 
     //returns true if there is time remaining to the next trigger, false if it should trigger now
-    chargeBy(charge) {
-        const {seconds,source} = charge;
+    chargeBy({seconds,source}) {
         //calculate time to next trigger
         if(source) {
             this.log(source.name + " charged " + this.name + " for " + seconds + " second(s)");
