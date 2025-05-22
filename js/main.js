@@ -245,12 +245,8 @@ function setLoggedInUser (user) {
             // User is signed in
             user.getIdToken().then(function(accessToken) {
                 window.user = user;
-                window.isDoner = true;
                 // Update status elements
                 updateUserInfo(user);
-                
-               // pollCheck();
-                setupHash();
             });
             // Hide the auth UI when signed in
             document.getElementById('auth-container').style.display = 'none';
@@ -264,6 +260,7 @@ function setLoggedInUser (user) {
             if(accountDetails) accountDetails.textContent = '';              
         }
         if(window.location.hash.length>0) {
+            setupHash();
             showSection('simulator');
             loadFromUrl();            
         } else {
@@ -360,7 +357,7 @@ window.onload = () => {
         // Track auth state
         function initApp() {
             //pollCheck();
-            setupHash();
+            
             firebase.auth().onAuthStateChanged(setLoggedInUser);
         }
         window.login = function() {

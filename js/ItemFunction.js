@@ -165,9 +165,9 @@ ItemFunction.items.set("Dual Wield",(item)=>{
 ItemFunction.items.set("Neophiliac",(item)=>{
     item.charge = getRarityValue("2 >> 4",item.rarity);
     [item.board.burnTriggers,item.board.poisonTriggers,item.board.freezeTriggers,item.board.slowTriggers,item.board.hasteTriggers].forEach(t=>{
-        t.set(item.id,()=>{
+        t.set(item.id+"_"+"necrophiliac",()=>{
             item.applyChargeTo(item.pickRandom(item.board.activeItems.filter(i=>i.cooldown>0)));
-            t.delete(item.id);
+            t.delete(item.id+"_"+"necrophiliac");
         });
     });
 });
@@ -359,9 +359,9 @@ ItemFunction.items.set("Vital Renewal",(item)=>{
 });
 
 //Deal 20 damage
-//When you Freeze, Burn or Poison, this gains ( 10 » 20 » 30 ) damage for the fight. from Refractor
+//When you Freeze, Burn or Poison, this gains ( 10/20/30/40 ) damage for the fight. from Refractor
 ItemFunction.items.set("Refractor",(item)=>{
-    const damage = getRarityValue("10 >> 20 >> 30",item.rarity);
+    const damage = getRarityValue("10/20/30/40",item.rarity);
     item.gain(20,'damage');
     item.board.burnTriggers.set(item.id,()=>{
         item.gain(damage,'damage');
