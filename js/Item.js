@@ -242,8 +242,13 @@ export class Item {
                 this.ammoElement.innerHTML = '<div class="ammo-icon ammo-icon-empty"></div>'.repeat(Math.max(0,maxAmmoDots-this.ammo)) +
                 '<div class="ammo-icon ammo-icon-full"></div>'.repeat(Math.min(this.ammo,maxAmmoDots));
             } else {
+                if(this.ammo<0 || this.maxAmmo-this.ammo<0) {
+                    //console.log(this.name+" has max ammo: "+this.maxAmmo+" and ammo: "+this.ammo);
+                   // this.ammo = 0;
+                } else {
                 this.ammoElement.innerHTML = '<div class="ammo-icon ammo-icon-empty"></div>'.repeat(this.maxAmmo-this.ammo) +
                 '<div class="ammo-icon ammo-icon-full"></div>'.repeat(this.ammo);
+                }
             }
             const ammoWidth = Math.min(this.size*60, this.maxAmmo*10);
             this.ammoElement.style.width= `${ammoWidth}px`;            
@@ -4387,19 +4392,6 @@ export class Item {
             return () => {};
         }
 
-        //Adjacent items have ( +1 » +2 » +3 » +4 ) Max Ammo
-        regex = /^\s*Adjacent items have (\([^)]+\)|\d+) (?:Max )?Ammo\.?/i;
-        match = text.match(regex);
-        if(match) {
-            const maxAmmo = getRarityValue(match[1], this.rarity);
-            this.adjacentItems.forEach(item => {
-                if(item.tags.includes("Ammo")) {
-                    item.gain(maxAmmo,'maxAmmo');
-                }
-            });
-            return () => {};
-        }
-
         //Reload adjacent Ammo items ( 1 » 2 » 3 ) Ammo. from Ramrod
         regex = /^\s*Reload adjacent (?:Ammo )?items(?: (\([^)]+\)|\d+) Ammo)?\./i;
         match = text.match(regex);
@@ -5849,7 +5841,7 @@ export class Item {
         if(match) {
             const tagToMatch = Item.getTagFromText(match[1]);
             this.adjacentItems.forEach(item => {
-                if(item.tags.includes(tagToMatch)) {
+                if(item.tags.includes(tagToMatch)||tagToMatch=="Item") {
                     item.maxAmmo+=1;
                     item.ammo+=1;
                 }
