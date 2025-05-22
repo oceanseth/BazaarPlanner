@@ -3060,7 +3060,7 @@ export class Item {
                                 triggerFunctionFromText(this);
                             }
                         });
-                        this.board.player.healTriggers.set(this.id,triggerFunctionFromText);
+                        this.board.player.healTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
                         return;
                     case "reload":
                         this.board.reloadTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
