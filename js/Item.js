@@ -427,6 +427,18 @@ export class Item {
         if(BazaarPatcher.customSetupFunctions.has(this.nameWithoutEnchant)) {
             BazaarPatcher.customSetupFunctions.get(this.nameWithoutEnchant)(this);
         }
+        if(this.enchant) {
+            if(this.enchant!='Radiant') {
+                const textSplit = this.enchants[this.enchant].split(/(?<=\.)\s+/);
+                if(textSplit.length > 1) {
+                    textSplit.forEach(sentence => {
+                        if(sentence) this.setupTextFunctions(sentence);
+                    });
+                } else {
+                    this.setupTextFunctions(this.enchants[this.enchant]);
+                }
+            }            
+        }
         if(!this.executeSpecificItemFunction()) {
             // Create array of text+priority pairs and sort by priority
             const textWithPriorities = this.text.map((text, index) => ({
@@ -449,18 +461,7 @@ export class Item {
             }
             });
         }
-        if(this.enchant) {
-            if(this.enchant!='Radiant') {
-                const textSplit = this.enchants[this.enchant].split(/(?<=\.)\s+/);
-                if(textSplit.length > 1) {
-                    textSplit.forEach(sentence => {
-                        if(sentence) this.setupTextFunctions(sentence);
-                    });
-                } else {
-                    this.setupTextFunctions(this.enchants[this.enchant]);
-                }
-            }            
-        }       
+               
     }    
     clone(newBoard) {
         const clone = new Item(structuredClone(this.startItemData),newBoard);
@@ -1764,6 +1765,9 @@ export class Item {
                 break;
             case 'maxammo':
             case 'max ammo':
+                if(source && source.hasDoubleMaxAmmoBonus) {
+                    amount *= 2;
+                }
                 this.maxAmmo += amount;
                 this.ammo += amount;
             break;
@@ -5506,9 +5510,14 @@ export class Item {
         //This has double
         regex = /^This has double (.*) bonus\.?$/i;
         match = text.match(regex);
-        if(match) {            
-         return () => {
-            console.log("Not currently parsing: " + text);
+        if(match) {     
+            const whatBonus = match[1].toLowerCase();       
+            if(whatBonus == "max ammo") {
+                this.hasDoubleMaxAmmoBonus = true;
+            } else {
+                console.log("Not currently parsing: " + text);
+            }
+         return () => {            
          };
         }
 
@@ -5836,14 +5845,14 @@ export class Item {
             return ()=>{};
         }
         //Adjacent Potions have +1 Ammo. from Tazidian Dagger
-        regex = /^Adjacent ([^\s]+)s? have \+1 Ammo\.?$/i;
+        regex = /^Adjacent ([^\s]+)s? have (\([^)]+\)|\+\d+)(?: max)? Ammo\.?$/i;
         match = text.match(regex);
         if(match) {
             const tagToMatch = Item.getTagFromText(match[1]);
+            const amount = getRarityValue(match[2], this.rarity);
             this.adjacentItems.forEach(item => {
                 if(item.tags.includes(tagToMatch)||tagToMatch=="Item") {
-                    item.maxAmmo+=1;
-                    item.ammo+=1;
+                    item.gain(amount,'maxAmmo', this);
                 }
             });
             return ()=>{};
