@@ -409,6 +409,11 @@ export class Item {
                 this.element.style.setProperty('--enchant-overlay-filter', 'hue-rotate(-45deg) saturate(200%)');
                 this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'color-burn');
                 this.element.classList.add('has-enchant-overlay');
+            } else if(this.enchant=='Toxic') {
+                this.element.style.setProperty('--enchant-overlay', `url(/images/enchants/EdgeOverlay-${Item.cleanName(this.nameWithoutEnchant)}.webp)`);
+                this.element.style.setProperty('--enchant-overlay-filter', 'hue-rotate(25deg) saturate(200%)');
+                this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'color-burn');
+                this.element.classList.add('has-enchant-overlay');
             } else {
                 this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'overlay'); 
                 this.element.style.setProperty('--enchant-overlay-filter', '');
