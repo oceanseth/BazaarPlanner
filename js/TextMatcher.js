@@ -1003,3 +1003,28 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+
+TextMatcher.matchers.push({
+    //Charge the core 1 second. from Kinetic Cannon 
+    regex: /^Charge the core (\([^)]+\)|\d+) second\(?s?\)?\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        item.gain(amount,'charge');
+        return ()=>{
+            const targetItems = item.board.items.filter(i=>i.tags.includes("Core"));
+            targetItems.forEach(i=>{
+                item.applyChargeTo(i);
+            });
+        };
+    }
+});
+TextMatcher.matchers.push({
+    //This gains +1 Multicast. from Pesky Pete
+    regex: /^This gains \+1 Multicast\.$/i,
+    func: (item, match)=>{        
+        return ()=>{
+            item.gain(1,'multicast',item);
+        };
+    }
+});
+

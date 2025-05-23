@@ -4,6 +4,7 @@ global.structuredClone = obj => JSON.parse(JSON.stringify(obj));
 // Create a mock board instance
 const mockBoardInstance = {
     addItem: () => {},
+    updateIncomeElement: () => {},
     items: [],
     activeItems: [],
     options: {
@@ -36,6 +37,7 @@ const mockBoardInstance = {
         poisonChanged: () => {},
         regenChanged: () => {},
         burnChanged: () => {},
+        incomeChanged: () => {},
         destroyTriggers: new Map(),
         overhealTriggers: new Map(),
         healTriggers: new Map(),
