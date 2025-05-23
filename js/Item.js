@@ -530,6 +530,18 @@ export class Item {
             if(this.isDestroyed) return;
             this.tooltip = this.createTooltipElement();
             this.element.appendChild(this.tooltip);
+
+            const tooltipRect = this.tooltip.getBoundingClientRect();
+            const viewportWidth = window.innerWidth;
+            if (tooltipRect.right > viewportWidth) {
+                const overflow = tooltipRect.right - viewportWidth;
+                this.tooltip.style.left = `${-overflow}px`;
+            }
+            if(tooltipRect.top < 0) {
+                this.tooltip.style.top = `${-tooltipRect.top}px`;
+                this.tooltip.style.height = `${tooltipRect.height}px`;
+            }
+            
         });
         
         mergedSlot.addEventListener('mouseleave', () => {
