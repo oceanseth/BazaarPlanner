@@ -1092,15 +1092,16 @@ export class Item {
             };
         }
         
-        //If your enemy has at least ( 5 » 4 ) items, destroy a small( or medium) enemy item for the fight. from Momma-Saur
-        damageRegex = /If your enemy has at least (\([^)]+\)|\d+) items, destroy a small( or medium)? enemy item for the fight\.?/i;
+        //If your enemy has at least ( 5 » 4 ) items, ...
+        damageRegex = /If your enemy has at least (\([^)]+\)|\d+) items, (.*)$/i;
         match = text.match(damageRegex);
         if(match) {
             const requireItemCount = getRarityValue(match[1], this.rarity);
+            const f = this.getTriggerFunctionFromText(match[2]);
             return ()=>{
                 const itemCount = this.board.player.hostileTarget.board.activeItems.length;
                 if(itemCount>=requireItemCount) {
-                    this.pickRandom(this.board.player.hostileTarget.board.activeItems.filter(i=>i.tags.includes("Small")||(match[2]&&i.tags.includes("Medium")))).destroy(this);
+                    f(this);                    
                 }
             };
         }
@@ -4467,12 +4468,13 @@ export class Item {
             }
         }
 
+
         //Destroy a small enemy item for the fight.
-        regex = /^Destroy a small enemy item for the fight\.?$/i;
+        regex = /^Destroy a small( or medium)? (?:enemy )?item for the fight\.?$/i;
         match = text.match(regex);
         if(match) {
             return () => {
-                const target = this.pickRandom(this.board.player.hostileTarget.board.items.filter(item => item.size==1));
+                const target = this.pickRandom(this.board.player.hostileTarget.board.activeItems.filter(i=>i.tags.includes("Small")||(match[1]&&i.tags.includes("Medium"))));
                 if(target) {
                     target.destroy(this);
                 }
