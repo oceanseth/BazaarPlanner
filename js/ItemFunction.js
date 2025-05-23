@@ -940,14 +940,19 @@ ItemFunction.items.set("Fort",(item)=>{
 //Deal 100 damage.
 //This deals ( 3 » 5 » 10 ) times more damage if it is your only weapon. from Sniper Rifle
 ItemFunction.items.set("Sniper Rifle",(item)=>{
-    const amount = getRarityValue("3 >> 5 >> 10",item.rarity);
+    const amount = getRarityValue("3/5/10",item.rarity);
     if(item.board.items.filter(i=>i.tags.includes("Weapon")).length==1) {
-        item.damage_multiplier *= amount;
+        const currentDamage = item.damage/item.damage_multiplier;
+        const newMultiplier = item.damage_multiplier * amount;
+        item.damage_multiplier =1;
+        item.damage = 0;
+        item.damage_multiplier = newMultiplier;
+        item.gain(currentDamage,'damage');
     }
     item.gain(100,'damage');
 
     item.triggerFunctions.push(()=>{
-        item.dealDamage(item.damage);
+        item.applyDamage();
     });
 });
 //You have (  +1  » +2  » +3   ) income for each Property you have (including Stash). from Open for Business
@@ -1177,8 +1182,12 @@ ItemFunction.items.set("Figurehead",(item)=>{
 ItemFunction.items.set("One Shot, One Kill",(item)=>{
     const weapons = item.board.items.filter(i=>i.tags.includes("Weapon"));
     if(weapons.length==1) {
-        weapons[0].gain(weapons[0].damage*2,'damage');
-        weapons[0].damage_multiplier+=2;
+        const currentDamage = weapons[0].damage/weapons[0].damage_multiplier;
+        const newMultiplier = weapons[0].damage_multiplier * 3;
+        weapons[0].damage_multiplier = 1;
+        weapons[0].damage = 0;
+        weapons[0].damage_multiplier = newMultiplier;
+        weapons[0].gain(currentDamage,'damage');
         weapons[0].gain(weapons[0].cooldown*.5,'cooldown');
     }
 });
