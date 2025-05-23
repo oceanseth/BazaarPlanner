@@ -3189,6 +3189,7 @@ export class Item {
             const numTimes = match[1]?getRarityValue(match[1], this.rarity):1;
             const ntimesFunction = this.getTriggerFunctionFromText(match[3]);
             const thingDone = match[2].toLowerCase();
+            let tagCheck = undefined;
             switch(thingDone) {
                 case "you shield":
                     let shieldCount = 0;
@@ -3277,45 +3278,7 @@ export class Item {
                             }
                         }
                     });
-                    return;
-                case "you use your leftmost item":
-                    let leftmostItemCount = 0;
-                    const leftmostItem = this.board.items[0];
-                    this.board.itemTriggers.set(this.id,(item)=>{
-                        if(item.id==leftmostItem.id) {
-                            ntimesFunction(item);
-                            leftmostItemCount++;
-                            if(leftmostItemCount == numTimes) {
-                                this.board.itemTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return;
-                case "you use your rightmost item":
-                    let rightmostItemCount = 0;
-                    const rightmostItem = this.board.items[this.board.items.length-1];
-                    this.board.itemTriggers.set(this.id,(item)=>{
-                        if(item.id==rightmostItem.id) {
-                            ntimesFunction(item);
-                            rightmostItemCount++;
-                            if(rightmostItemCount == numTimes) {
-                                this.board.itemTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return;
-                case "you use the core":
-                case "use the core": // existing wording is scuffed for liquid core
-                    let coreUsedCount = 0;
-                    this.board.itemTriggers.set(this.id,(item)=>{
-                        if(item.tags.includes("Core")&&coreUsedCount++ <= numTimes) {
-                            ntimesFunction(item);
-                            if(coreUsedCount==numTimes) {
-                                this.board.itemTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return;
+                    return;              
                 case "you freeze":
                     let freezeCount = 0;
                     this.board.freezeTriggers.set(this.id,(item)=>{
@@ -3409,17 +3372,6 @@ export class Item {
                         } 
                     });
                     return;
-                case 'you use a tool':
-                    let toolCount = 0;
-                    this.board.itemTriggers.set(this.id,(item)=>{
-                        if(item.tags.includes("Tool") && toolCount++<=numTimes) {
-                            ntimesFunction(item);
-                            if(toolCount==numTimes) {
-                                this.board.itemTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return;
                 case 'your enemy uses a weapon':
                     let enemyWeaponCount = 0;
                     this.board.player.hostileTarget.board.itemTriggers.set(this.id,(item)=>{
@@ -3430,18 +3382,7 @@ export class Item {
                             }
                         }
                     });
-                    return;
-                case 'you use a weapon': // from Venomous Blade
-                    let weaponCount = 0;
-                    this.board.itemTriggers.set(this.id,(item)=>{
-                        if(item.tags.includes("Weapon") && weaponCount++<=numTimes) {
-                            ntimesFunction(item);
-                            if(weaponCount==numTimes) {
-                                this.board.itemTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return;
+                    return;               
                 case "you use a non-weapon item":
                 case "your enemy uses a non-weapon item":
                     const target = thingDone.includes("enemy")?this.board.player.hostileTarget:this.board.player;
@@ -3471,19 +3412,6 @@ export class Item {
 
                     });
                     return;
-                case "you use an ammo item":
-
-                    let ammoUsedCount = 0;
-                    this.board.itemTriggers.set(this.id,(item)=>{
-                        if(item.tags.includes("Ammo") && ammoUsedCount<=numTimes) {
-                            ammoUsedCount++;
-                            ntimesFunction(item);
-                            if(ammoUsedCount==numTimes) {
-                                this.board.itemTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return;
                 case "you freeze, burn, slow, poison, and haste":
                     ["freeze","burn","slow","poison","haste"].forEach(attribute=>{
                         let attributeCount = 0;
@@ -3495,12 +3423,28 @@ export class Item {
                         });
                     });
                     return;
+                case "you use your leftmost item":
+                    if(tagCheck == undefined) tagCheck = "Leftmost";
+                case "you use your rightmost item":
+                    if(tagCheck == undefined) tagCheck = "Rightmost";
+                case "you use the core":
+                case "use the core": // existing wording is scuffed for liquid core
+                    if(tagCheck == undefined) tagCheck = "Core";
+                case "you use a tool":
+                    if(tagCheck == undefined) tagCheck = "Tool";
+                case "you use a weapon":
+                    if(tagCheck == undefined) tagCheck = "Weapon";
+                case "you use an ammo item":
+                    if(tagCheck == undefined) tagCheck = "Ammo";
+                case "you use a small item":
+                    if(tagCheck == undefined) tagCheck = "Small";
                 case "you use a large item":
-                    let largeItemCount = 0;
+                    if(tagCheck == undefined) tagCheck = "Large";
+                    let tagUsedCount = 0;
                     this.board.itemTriggers.set(this.id,(item)=>{
-                        if(item.tags.includes("Large") && largeItemCount++<=numTimes) {
+                        if(item.tags.includes(tagCheck) && tagUsedCount++<=numTimes) {
                             ntimesFunction(item);
-                            if(largeItemCount>=numTimes) {
+                            if(tagUsedCount>=numTimes) {
                                 this.board.itemTriggers.delete(this.id);
                             }
                         } 

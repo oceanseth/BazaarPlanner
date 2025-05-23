@@ -1795,7 +1795,7 @@ export const skills = {
   },
   "Into the Void": {
     "text": [
-      "At the start of each fight, destroy an item on each player's board for the fight."
+      "The first time you use an item, destroy an item on each player's board for the fight."
     ],
     "tier": 3,
     "tags": [
@@ -2944,7 +2944,7 @@ export const skills = {
   },
   "Small Refresh": {
     "text": [
-      "When you use a small item, heal (5/10/15/20)."
+      "The first (5/10/15/20) times you use a small item each fight, Heal (5/10/15/20)."
     ],
     "tier": 0,
     "tags": [
