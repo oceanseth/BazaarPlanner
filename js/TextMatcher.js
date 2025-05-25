@@ -782,7 +782,7 @@ TextMatcher.matchers.push({
         const tag = Item.getTagFromText(match[2]);
         item.gain(getRarityValue(match[3], item.rarity),'charge');        
         return ()=>{
-            const targetItems = item.board.items.filter(i=>non?!i.tags.includes(tag):i.tags.includes(tag));
+            const targetItems = item.board.items.filter(i=>i.cooldown>0 && (non?!i.tags.includes(tag):i.tags.includes(tag)));
             if(targetItems.length>0) {
                 item.applyChargeTo(item.pickRandom(targetItems));
             }
