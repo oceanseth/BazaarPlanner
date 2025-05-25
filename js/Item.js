@@ -753,6 +753,7 @@ export class Item {
 
     applyChargeTo(item,source=this) {
         //item.chargeBy(this.charge,source);
+        //this.log(this.name + " added pending charge to " + item.name + " for " + this.charge + " seconds");
         item.pendingCharges.push({seconds:this.charge,source});
     }
 
@@ -2720,7 +2721,7 @@ export class Item {
                         this.board.player.overhealTriggers.set(this.id, triggerFunctionFromText);
                         return;
                     case "heal":
-                        this.board.player.healTriggers.set(this.id, triggerFunctionFromText);
+                        this.board.player.healTriggers.set(this.id+"_"+triggerFunctionFromText.text, triggerFunctionFromText);
                         return;
                     case "use a friend":
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) =>  {                        
