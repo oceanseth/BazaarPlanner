@@ -5814,10 +5814,8 @@ export class Item {
         if(match) {
             const tagToMatch = Item.getTagFromText(match[1]);
             const amount = getRarityValue(match[2], this.rarity);
-            this.adjacentItems.forEach(item => {
-                if(item.tags.includes(tagToMatch)||tagToMatch=="Item") {
-                    item.gain(amount,'maxAmmo', this);
-                }
+            this.adjacentItems.filter(item => item.tags.includes("Ammo") && (item.tags.includes(tagToMatch) || tagToMatch=="Item")).forEach(item => {
+                item.gain(amount,'maxAmmo', this);
             });
             return ()=>{};
         }
