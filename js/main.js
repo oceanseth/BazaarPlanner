@@ -678,7 +678,7 @@ function searchMonsters(query) {
     
     // Filter monsters - if query is empty, show all monsters
     const filteredMonsters = Object.values(monsters)
-        .filter(monster => !query || monster.name.toLowerCase().includes(query.toLowerCase()));
+        .filter(monster => !query || monster.name.toLowerCase().includes(query.toLowerCase()) || monster.day==query);
     
     if (filteredMonsters.length > 0) {
         dropdown.style.display = 'block';
