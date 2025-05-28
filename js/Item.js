@@ -1776,6 +1776,10 @@ export class Item {
         
         switch(type.toLowerCase()) {
             case 'ammo':
+                if(!this.tags.includes("Ammo")) {
+                    this.log("Unable to add ammo to " + this.name + " because it doesn't have the Ammo tag");
+                    return;
+                }
                 this.ammo += amount;
                 if(this.ammo>this.maxAmmo) {
                     this.ammo = this.maxAmmo;
