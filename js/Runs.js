@@ -96,7 +96,7 @@ export class Runs {
                 <h1>Active Runs</h1>
                 <div class="active-runs-list">
                 `
-                + users.map(user => `<button class="follow-button" onClick="User.followUserById('${user.id}')">${user.displayName}</button>`).join('') +
+                + users.map(user => `<button class="follow-button" onClick="User.followUserById('${user.id}')">${user.displayName||'Anonymous'}</button>`).join('') +
                 `
                 </div>
             `);

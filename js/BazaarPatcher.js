@@ -14,6 +14,10 @@ export class BazaarPatcher {
             items["Rapid Injection System"].text[0] = "When you poison yourself, Poison.";
             items["Rapid Injection System"].enchants["Fiery"] = "When you Poison yourself, Burn (4/8/12).";
         }
+        //Poison equal to 10% 0f this item's Damage. from Toxic Concealed Dagger
+        if(items["Concealed Dagger"].enchants["Toxic"].match(/^Poison equal to 10% 0f this item's Damage\.$/i)) {
+            items["Concealed Dagger"].enchants["Toxic"] = "Poison equal to 10% of this item's Damage.";
+        }
         items["Shadowed Cloak"].text = ["When you use the item to the right of this, haste it for (1/2/3/4) seconds and it gains (3/5/7/9) damage for the fight."]
         
         if(skills["Hardly Workin'"].text[0].match(/times times/i)) {
