@@ -1145,15 +1145,15 @@ export class Item {
         if(match) {
             const itemType = match[2];
             const gainAmount = getRarityValue(match[4], this.rarity);            
-            return (i) => {
-                let adjacentItems = (((!match[1])&&i)?i:this).adjacentItems;
+            return ({source=this}={}) => {
+                let adjacentItems = this.adjacentItems;
                 if(match[2]!="items") {
                     adjacentItems = adjacentItems.filter(item => item.tags.includes(Item.getTagFromText(itemType)));
                 }
 
                 if(match[1]) adjacentItems.push(this);
                 adjacentItems.forEach(item => {
-                    item.gain(gainAmount,match[5].toLowerCase(), this);
+                    item.gain(gainAmount,match[5].toLowerCase(), source||this);
                 });
 
 
