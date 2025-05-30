@@ -586,17 +586,7 @@ ItemFunction.items.set("Stopwatch",(item)=>{
         });
     });
 });
-ItemFunction.items.set("Forklift",(item)=>{
-    //Deal ( 50 » 100 ) damage for each item to the left of this.
-    //Haste this and the items on the right of this for ( 2 » 4 ) second(s). into a trigger function.
-    item.haste+=getRarityValue("2 >> 4",item.rarity);
-    let damage = getRarityValue("50 >> 100",item.rarity);
-    item.damage = (item.startItemData.damage||0) + item.board.items.reduce((acc,i)=>i.startIndex<item.startIndex?acc+damage:acc,0);
-    item.triggerFunctions.push(()=>{    
-        let thisAndItemsToTheRight = item.board.items.filter(i=>i.startIndex>=item.startIndex);
-        thisAndItemsToTheRight.forEach(i=>item.applyHasteTo(i));
-    });
-});
+
 //If you have 5 or fewer items in play, their cooldowns are reduced by ( 10% » 20% ). from Stained Glass Window
 ItemFunction.items.set("Stained Glass Window",(item)=>{
     const cooldownReduction = getRarityValue("10 >> 20",item.rarity);
