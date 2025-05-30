@@ -1140,20 +1140,20 @@ export class Item {
 
         //Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage. from Epicurean Chocolate
         //Adjacent (Weapons|Tool items|Tools) gain ( 5 » 10 ) Damage for the fight.
-        damageRegex = /^(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gains? )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
+        damageRegex = /^(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gains? )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\./i;
         match = text.match(damageRegex);
         if(match) {
             const itemType = match[2];
             const gainAmount = getRarityValue(match[4], this.rarity);            
-            return (i) => {
-                let adjacentItems = (((!match[1])&&i)?i:this).adjacentItems;
+            return ({source=this}={}) => {
+                let adjacentItems = this.adjacentItems;
                 if(match[2]!="items") {
                     adjacentItems = adjacentItems.filter(item => item.tags.includes(Item.getTagFromText(itemType)));
                 }
 
                 if(match[1]) adjacentItems.push(this);
                 adjacentItems.forEach(item => {
-                    item.gain(gainAmount,match[5].toLowerCase(), this);
+                    item.gain(gainAmount,match[5].toLowerCase(), source||this);
                 });
 
 

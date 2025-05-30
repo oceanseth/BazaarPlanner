@@ -7,6 +7,9 @@ export class BazaarPatcher {
         if(items["Pistol Sword"].text[1].match(/^When you use an Ammo item, deal .* damage\.$/i)) {
             items["Pistol Sword"].text[1] = "When you use an Ammo item, deal damage.";
         }
+        if(items["Epicurean Chocolate"]) {
+            items["Epicurean Chocolate"].text=[items["Epicurean Chocolate"].text[0]];
+        }
         if(!items["Sleeping Potion"].tags.includes("Ammo")) {
             items["Sleeping Potion"].tags.push("Ammo");
         }
