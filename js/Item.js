@@ -2176,7 +2176,7 @@ export class Item {
         }
         
         //Shield equal to ( 1 » 2 » 3 » 4 ) time(s) your Income.
-        regex = /(?:Deal)?(Damage|Shield|Burn|Poison|Heal) equal to (\([^)]+\)|\d+) time\(?s\)? your Income\.?$/i;
+        regex = /^(?:Deal)?(Damage|Shield|Burn|Poison|Heal) equal to (\([^)]+\)|\d+) time\(?s\)? your Income\.?$/i;
         match = text.match(regex);
         if (match) {
             const whatToDo = Item.getTagFromText(match[1]);
@@ -2934,6 +2934,7 @@ export class Item {
                     case "poison":
                         this.board.poisonTriggers.set(this.id+"_"+triggerFunctionFromText.text, triggerFunctionFromText);
                         return;
+                    case "burn or poison":
                     case "poison or burn":
                         this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
                         this.board.poisonTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);

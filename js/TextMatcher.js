@@ -402,14 +402,16 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Your Weapons have + Damage equal to (1/2/3) times your Regeneration. from Staff of the Moose 
-    regex: /^Your Weapons have \+ Damage equal to (\([^)]+\)|\d+) times your Regen(?:eration)?\.$/i,
+    regex: /^Your Weapons have \+\s?Damage equal to (\([^)]+\)|\d+) times your (Regen|Income)(?:eration)?\.$/i,
     func: (item, match)=>{
         const damageMultiplier = getRarityValue(match[1], item.rarity);
+        const sourceAmount = match[2]=='Regen(?:eration)'?item.board.player.regen:item.board.player.income;
         item.board.items.forEach(i=>{
             if(i.tags.includes("Weapon")) {
-                i.gain(item.board.player.regen*damageMultiplier,'damage');  
+                i.gain(sourceAmount*damageMultiplier,'damage');  
             }
         });
+        if(match[2]=='Regen') {
         item.board.player.regenChanged((newRegen,oldRegen)=>{
             item.board.items.forEach(i=>{
                 if(i.tags.includes("Weapon")) {
@@ -417,6 +419,15 @@ TextMatcher.matchers.push({
                 }
             });
         });
+    } else if(match[2]=='Income') {
+        item.board.player.incomeChanged((newIncome,oldIncome)=>{
+            item.board.items.forEach(i=>{
+                if(i.tags.includes("Weapon")) {
+                    i.gain((newIncome-oldIncome)*damageMultiplier,'damage');
+                }
+            });
+        });
+    }
         return ()=>{};
     },
 });
@@ -1035,6 +1046,25 @@ TextMatcher.matchers.push({
         const amount = getRarityValue(match[3], item.rarity);
         item.board.activeItems.filter(i=>i!=item && tags.some(tag=>i.tags.includes(tag))).forEach(i=>{
             item.gain(amount,'damage',i);
+        });
+        return ()=>{};
+    }
+});
+//"Your items with no Cooldown have (+25%/+50%) Damage, Burn, Poison, Shield, Heal, and Regen." from Passive Power
+TextMatcher.matchers.push({
+    regex: /^Your items with no Cooldown have (\([^)]+\)|\d+%?) Damage, Burn, Poison, Shield, Heal, and Regen\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        const multiplier = 1+amount/100;
+        item.board.activeItems.filter(i=>!i.cooldown).forEach(i=>{
+            ["damage","burn","poison","shield","heal","regen"].forEach(stat=>{
+                let oldAmount = i[stat];
+                let oldMultiplier = i[stat+"_multiplier"];
+                i[stat+"_multiplier"] = 1;
+                i[stat] *= multiplier;
+                i[stat+"_multiplier"] = oldMultiplier;
+                i[stat+"_multiplier"] *= multiplier;
+            });
         });
         return ()=>{};
     }

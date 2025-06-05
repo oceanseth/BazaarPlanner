@@ -47,12 +47,12 @@ export class Player {
         this.health += healAmount;
         if(this.poison > 0) {
             const oldPoison = this.poison;
-            this.poison=this.poison - Math.ceil(this.poison/10); //cleanse 10% or 1 poison when a heal occurs
+            this.poison=this.poison - Math.ceil(healAmount/10); //cleanse 10% of healing or 1 poison when a heal occurs
             this.log(source.name + "'s healing cleansed " + (oldPoison-this.poison).toFixed(0) + " poison.");
         }
         if(this.burn > 0) {
             const oldBurn = this.burn;            
-            this.burn=this.burn - Math.ceil(this.burn/10); //cleanse 10% or 1 burn when a heal occurs
+            this.burn=this.burn - Math.ceil(healAmount/10); //cleanse 10% of healing or 1 burn when a heal occurs
             this.log(source.name + "'s healing cleansed " + (oldBurn-this.burn).toFixed(0) + " burn.");
         }
     }
