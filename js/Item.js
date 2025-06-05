@@ -4221,7 +4221,7 @@ export class Item {
             return () => {};
         }
         //Your weapons have + Damage equal to (50/75/100) of the Poison on your enemy. from Poppy Field
-        regex = /^\s*Your ([^\s]+)s?(?: items)? have \+ (\w+) equal to (\([^)]+\)|\d+%?) of the (\w+) on your enemy\.?/i;
+        regex = /^\s*Your ([^\s]+)s?(?: items)? have \+\s?(\w+) equal to (\([^)]+\)|\d+%?) of the (\w+) on your (?:enemy|opponent)\.?/i;
         match = text.match(regex);
         if(match) {            
             const tagToMatch = Item.getTagFromText(match[1]);
