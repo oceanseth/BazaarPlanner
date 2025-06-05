@@ -1095,3 +1095,33 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+//Your items Slow for 1 more second from Amber (text change from 'slow bonus')
+TextMatcher.matchers.push({
+    regex: /^Your items Slow for (\([^)]+\)|\d+) more second\(?s?\)?\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        item.board.activeItems.forEach(i=>{
+            i.gain(amount,'slow');
+        });
+        return ()=>{};
+    }
+});
+
+//Charge 1 item from another hero 1 second(s). from Jack of All Trades
+TextMatcher.matchers.push({
+    regex: /^Charge (\(\d+\)|\d+) item\(?s?\)? from another hero (\([^)]+\)|\d+) second\(?s?\)?\.$/i,
+    func: (item, match)=>{
+        const numItemsToCharge = getRarityValue(match[1], item.rarity);
+        const amount = getRarityValue(match[2], item.rarity);
+        item.gain(amount,'charge');
+        return ()=>{
+            const targetItems = item.pickRandom(
+                item.board.items.filter(i=>i.cooldown>0 && !i.tags.includes(item.board.player.hero)),
+                numItemsToCharge
+            );
+            targetItems.forEach(i=>{
+                item.applyChargeTo(i);
+            });
+        };
+    }
+});

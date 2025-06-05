@@ -15,6 +15,7 @@ export class Player {
         if(!startPlayerData.level) startPlayerData.level = 1;
         if(!startPlayerData.gold) startPlayerData.gold = 0;
         if(!startPlayerData.regen) startPlayerData.regen = 0;
+        if(!startPlayerData.hero) startPlayerData.hero = "Vanessa";
         Object.assign(this, startPlayerData);
         if(boardId) {
             if(boardOptions.editable==undefined) boardOptions.editable = true;

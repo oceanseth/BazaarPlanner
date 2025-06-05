@@ -418,6 +418,7 @@ class Board {
         if(monsters[this.player?.name]) {
             this.playerElement.style.backgroundImage = `url(/images/monsters/${monsters[this.player?.name].id}.avif)`;
         } else if(Item.characterTags.includes(this.player?.name)) {
+            this.player.hero = this.player?.name;
             this.playerElement.style.backgroundImage = `url(images/fromBT/${this.player?.name}.png)`;
         } else if(Item.characterTags.includes(this.player?.hero)) {
             this.playerElement.style.backgroundImage = `url(images/fromBT/${this.player?.hero}.png)`;
