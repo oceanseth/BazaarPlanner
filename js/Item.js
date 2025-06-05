@@ -3773,7 +3773,8 @@ export class Item {
         regex = /^\s*Charge\s?(\([^\)]+\)|\d+|a|your)? ([^\s^(]+)\(?s?\)?(?: or ([^\s]+))? (?:items?)?\s*(?:for)?\s*(?:by)?\s*(\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            const numItemsToCharge = match[1]=='a'?1:match[1]=='your'?Infinity:getRarityValue(match[1], this.rarity);
+            let numItemsToCharge = match[1]=='a'?1:match[1]=='your'?Infinity:getRarityValue(match[1], this.rarity);
+            if(numItemsToCharge==0) numItemsToCharge = 1;
             const tagToCharge = match[2]=='leftmost'?'left':match[2]=='rightmost'?'right':Item.getTagFromText(match[2]);
             const tagToCharge2 = match[3]=='leftmost'?'left':match[3]=='rightmost'?'right':Item.getTagFromText(match[3]);
             this.charge = getRarityValue(match[4], this.rarity);
@@ -3781,6 +3782,7 @@ export class Item {
                 let validTargets = this.board.items.filter(item => item.isChargeTargetable());
                 if(tagToCharge=='leftmost'&&validTargets.length>0) validTargets = [validTargets[0]];
                 else if(tagToCharge=='rightmost'&&validTargets.length>0) validTargets = [validTargets[validTargets.length-1]];
+                else if(tagToCharge=='Thi') validTargets = [this];
                 else if(tagToCharge!='item') validTargets = validTargets.filter(item => item.tags.includes(tagToCharge));
                 if(tagToCharge2) {
                     validTargets.push(...this.board.activeItems.filter(item => !validTargets.includes(item)&&item.tags.includes(tagToCharge2)));
