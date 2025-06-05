@@ -4095,7 +4095,7 @@ export class Item {
             const isReduced = match[3] == "reduced" ? true : false;
             const isSeconds = match[5] ? true : false;
             this.board.items.forEach(item => {  
-                if(item.id !== this.id && item.tags.includes(tagToMatch)) {
+                if((other?item.id !== this.id:true) && (item.tags.includes(tagToMatch)||tagToMatch=="Item")) {
                     if(isSeconds) {
                         item.gain((isReduced?-1:1)*cooldownReduction*1000,'cooldown');
                     } else {
