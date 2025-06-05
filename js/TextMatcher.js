@@ -1125,3 +1125,26 @@ TextMatcher.matchers.push({
         };
     }
 });
+//When the Sandstorm starts you take (25%/50%/75%) less damage for the rest of the fight. from Hunker Down
+TextMatcher.matchers.push({
+    regex: /^When the Sandstorm starts,? (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1]);
+        item.board.player.battle.sandstormTriggers.set(item.id, f);
+        return ()=>{};
+    }
+});
+//Your Rightmost Item is a Vehicle. from Free Ride
+TextMatcher.matchers.push({
+    regex: /^Your (Rightmost|Leftmost) Item is a (\w+)\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[2]);
+        const target = match[1]=='Rightmost'?item.board.items[item.board.items.length-1]:item.board.items[0];
+        if(target) {
+            if(!target.tags.includes(tag)) {
+                target.tags.push(tag);
+            }
+        }
+        return ()=>{};
+    }
+});

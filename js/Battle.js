@@ -13,6 +13,7 @@ export class Battle {
         this.logging = logging;
         this.sandstormValue = 1;
         this.sandstormIncrement = 2;
+        this.sandstormTriggers = new Map();
         this.battleIntervalSpeedMultiplier = 1;
         this.testBattleIntervals = [];
         this.winRateBattleCount = 100;
@@ -83,8 +84,10 @@ export class Battle {
         this.isPaused=0;
         this.sandstormValue=1;
         this.sandstormStartedTime = 0;
+        this.sandstormTriggers.clear();
         this.battleInterval = null; // Clear the interval reference
         this.numTicks = 0;
+        
         
         this.players.forEach(player => {
             player.reset();
@@ -240,6 +243,7 @@ export class Battle {
     }
     startSandstorm() {
         this.sandstormStartedTime = this.battleTimeDiff;
+        this.sandstormTriggers.forEach(f=>f());
         this.log("The Sandstorm Begins!");
     }
     battleRandom = (evaluateMe=false) =>{
