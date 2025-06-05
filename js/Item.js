@@ -1321,7 +1321,7 @@ export class Item {
         }
         // Haste your Friends for ( 1 » 2 » 3 ) second(s). from DJ Rob0t
         //Haste your tools for ( 1 » 2 » 3 » 4 ) second(s). from Dishwasher
-        regex = /^Haste your ([^\s]+) for (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
+        regex = /^Haste your ([^\s]+)(?: items)? for (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
             this.haste+= getRarityValue(match[2], this.rarity);
@@ -3770,7 +3770,7 @@ export class Item {
         }
         //Charge 1 item 1 second(s). into a trigger function.
         //Charge 1 Weapon 1 second(s). into a trigger function.
-        regex = /^\s*Charge (\([^\)]+\)|\d+|a|your)? ([^\s^(]+)\(?s?\)?(?: or ([^\s]+))? (?:item)?\s*(?:for)?\s*(?:by)?\s*(\([^)]+\)|\d+) second\(?s?\)?\.?/i;
+        regex = /^\s*Charge\s?(\([^\)]+\)|\d+|a|your)? ([^\s^(]+)\(?s?\)?(?: or ([^\s]+))? (?:items?)?\s*(?:for)?\s*(?:by)?\s*(\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
             const numItemsToCharge = match[1]=='a'?1:match[1]=='your'?Infinity:getRarityValue(match[1], this.rarity);
@@ -4095,7 +4095,7 @@ export class Item {
             const isReduced = match[3] == "reduced" ? true : false;
             const isSeconds = match[5] ? true : false;
             this.board.items.forEach(item => {  
-                if(item.id !== this.id && item.tags.includes(tagToMatch)) {
+                if((other?item.id !== this.id:true) && (item.tags.includes(tagToMatch)||tagToMatch=="Item")) {
                     if(isSeconds) {
                         item.gain((isReduced?-1:1)*cooldownReduction*1000,'cooldown');
                     } else {
@@ -4221,7 +4221,7 @@ export class Item {
             return () => {};
         }
         //Your weapons have + Damage equal to (50/75/100) of the Poison on your enemy. from Poppy Field
-        regex = /^\s*Your ([^\s]+)s?(?: items)? have \+ (\w+) equal to (\([^)]+\)|\d+%?) of the (\w+) on your enemy\.?/i;
+        regex = /^\s*Your ([^\s]+)s?(?: items)? have \+\s?(\w+) equal to (\([^)]+\)|\d+%?) of the (\w+) on your (?:enemy|opponent)\.?/i;
         match = text.match(regex);
         if(match) {            
             const tagToMatch = Item.getTagFromText(match[1]);
@@ -5688,7 +5688,7 @@ export class Item {
         }
         
     //Reload (2/4/6/8) items. from Panic
-    regex = /^Reload (\([^)]+\)|\d+) items\.?$/i;
+    regex = /^Reload (\([^)]+\)|\d+) item\(?s\)?\.?$/i;
     match = text.match(regex);
     if(match) {
         const reloadAmount = getRarityValue(match[1], this.rarity);

@@ -1069,3 +1069,29 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+
+//If this is your only Tech item its cooldown is reduced by 50%. from Temporal Navigator
+TextMatcher.matchers.push({
+    regex: /^If this is your only (\w+) item,? its cooldown is reduced by (\([^)]+\)|\d+%?)\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const amount = getRarityValue(match[2], item.rarity);
+        const multiplier = amount/100;
+        if(item.board.activeItems.filter(i=>i.tags.includes(tag)).length==1) {
+            item.gain(-item.cooldown*multiplier,'cooldown');
+        }
+        return ()=>{};
+    }
+});
+
+//If you have no weapons, ... from Pacifist
+TextMatcher.matchers.push({
+    regex: /^If you have no (\w+)(?: item)?s?, (.*)$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        if(item.board.items.filter(i=>i.tags.includes(tag)).length==0) {
+            item.getTriggerFunctionFromText(match[2])();
+        }
+        return ()=>{};
+    }
+});
