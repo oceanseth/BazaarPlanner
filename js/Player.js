@@ -118,7 +118,13 @@ export class Player {
 
     takeDamage(damage, shieldScalar = 1, ignoreShield = false) { 
         this.hostileTarget.board.damageApplied += damage;
-        damage = damage*(1-this.damageReduction/100);
+        let damageMultiplier = 1;
+        if(this.damageReduction>0) {
+            damageMultiplier = 1-this.damageReduction/100;
+            if(damageMultiplier<0) damageMultiplier = 0;
+            if(damageMultiplier>1) damageMultiplier = 1;
+        }
+        damage = damage*damageMultiplier;
         if(ignoreShield || this.shield <= 0) {
             this.health -= damage;
             return damage;

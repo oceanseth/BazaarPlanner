@@ -1125,3 +1125,12 @@ TextMatcher.matchers.push({
         };
     }
 });
+//When the Sandstorm starts you take (25%/50%/75%) less damage for the rest of the fight. from Hunker Down
+TextMatcher.matchers.push({
+    regex: /^When the Sandstorm starts,? (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1]);
+        item.board.player.battle.sandstormTriggers.set(item.id, f);
+        return ()=>{};
+    }
+});

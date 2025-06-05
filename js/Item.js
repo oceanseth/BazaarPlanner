@@ -4878,12 +4878,14 @@ export class Item {
         }
 
         // You take ( 20% » 30% » 40% ) less damage.
-        regex = /^\s*You take (\([^)]+\)|\d+) less damage\.?/i;
+        regex = /^\s*You take (\([^)]+\)|\d+) less damage(?: for the rest of the fight)?\.?/i;
         match = text.match(regex);
         if(match) {
             const damageReduction = getRarityValue(match[1], this.rarity);
-            this.board.player.damageReduction += damageReduction;
-            return () => {};
+            
+            return () => {
+                this.board.player.damageReduction += damageReduction;
+            };
         }
 
         //Freeze 1 small? item for ( 1 » 2 ) second(s)
