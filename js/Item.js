@@ -5340,22 +5340,23 @@ export class Item {
         //Your Shield items have +1 Shield 
         //your items have ( +1% » +2% » +3% » +4% ) crit chance
         //your items have ( +1% » +2% » +3% » +4% ) crit chance for each weapon you have
-        regex = /^your (non-)?([^\s]+)(?:s)? (?:items)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.$/i;
+        regex = /^your (non-)?([^\s]+)(?:s)? (?:items)?(?: and ([^\s]+)(?:s)? (?:items)?)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.$/i;
         match = text.match(regex);
 
         if(match) {
             const non = match[1];
             const tagToMatch = Item.getTagFromText(match[2]);
-            const gainAmount = parseInt(getRarityValue(match[3], this.rarity));
-            const whatToGain = match[4].toLowerCase();
+            const tagToMatch2 = Item.getTagFromText(match[3]);
+            const gainAmount = parseInt(getRarityValue(match[4], this.rarity));
+            const whatToGain = match[5].toLowerCase();
             let multiplier = 1;
             if(match[4]=="unique type") {                
                 multiplier = this.board.uniqueTypes;
-            } else if(match[5]) {
-                multiplier = this.board.items.filter(item=>item.tags.includes(Item.getTagFromText(match[5]))).length;
+            } else if(match[6]) {
+                multiplier = this.board.items.filter(item=>item.tags.includes(Item.getTagFromText(match[6]))).length;
             }
             this.board.items.forEach(item => {
-                if(tagToMatch=='Item' || non?(!item.tags.includes(tagToMatch)):item.tags.includes(tagToMatch)) {
+                if(tagToMatch=='Item' || non?(!item.tags.includes(tagToMatch)):item.tags.includes(tagToMatch) || (tagToMatch2&&item.tags.includes(tagToMatch2))) {
                     item.gain(gainAmount*multiplier,whatToGain);
                 }
             });
@@ -6044,12 +6045,13 @@ export class Item {
         
         //your weapons have (  +5  » +10  » +20   ) damage.
         //your items have (  +5%  » +10%  » +20%   ) Crit Chance.
-        regex = /^your ([^s]+)s?(?: items)? have (?:\(([^)]+)\)|\+?(\d+)%?) ([^\s^\.]+)\s*(?:Chance)?\.?$/i;
+        regex = /^your ([^s]+)s?(?: items)? (?:and ([^s]+)s?(?: items)?)? have (?:\(([^)]+)\)|\+?(\d+)%?) ([^\s^\.]+)\s*(?:Chance)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const gainAmount = parseInt(match[2] ? getRarityValue(match[2], this.rarity) : match[3]);
-            const whatToGain = match[4].toLowerCase();
+            const gainAmount = parseInt(match[3] ? getRarityValue(match[3], this.rarity) : match[4]);
+            const whatToGain = match[5].toLowerCase();
             const whichItems = (match[1]&&match[1]!='item') ? this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[1]))) : this.board.items;
+            const whichItems2 = (match[2]&&match[2]!='item') ? this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[2]))) : this.board.items;
             doIt = () => {
                 whichItems.forEach(item => {
                     item.gain(gainAmount, whatToGain);

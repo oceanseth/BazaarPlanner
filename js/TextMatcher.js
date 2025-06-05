@@ -1134,3 +1134,17 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+//Your Rightmost Item is a Vehicle. from Free Ride
+TextMatcher.matchers.push({
+    regex: /^Your (Rightmost|Leftmost) Item is a (\w+)\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[2]);
+        const target = match[1]=='Rightmost'?item.board.items[item.board.items.length-1]:item.board.items[0];
+        if(target) {
+            if(!target.tags.includes(tag)) {
+                target.tags.push(tag);
+            }
+        }
+        return ()=>{};
+    }
+});
