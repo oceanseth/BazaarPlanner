@@ -3770,7 +3770,7 @@ export class Item {
         }
         //Charge 1 item 1 second(s). into a trigger function.
         //Charge 1 Weapon 1 second(s). into a trigger function.
-        regex = /^\s*Charge (\([^\)]+\)|\d+|a|your)? ([^\s^(]+)\(?s?\)?(?: or ([^\s]+))? (?:item)?\s*(?:for)?\s*(?:by)?\s*(\([^)]+\)|\d+) second\(?s?\)?\.?/i;
+        regex = /^\s*Charge\s?(\([^\)]+\)|\d+|a|your)? ([^\s^(]+)\(?s?\)?(?: or ([^\s]+))? (?:items?)?\s*(?:for)?\s*(?:by)?\s*(\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
             const numItemsToCharge = match[1]=='a'?1:match[1]=='your'?Infinity:getRarityValue(match[1], this.rarity);
@@ -5688,7 +5688,7 @@ export class Item {
         }
         
     //Reload (2/4/6/8) items. from Panic
-    regex = /^Reload (\([^)]+\)|\d+) items\.?$/i;
+    regex = /^Reload (\([^)]+\)|\d+) item\(?s\)?\.?$/i;
     match = text.match(regex);
     if(match) {
         const reloadAmount = getRarityValue(match[1], this.rarity);
