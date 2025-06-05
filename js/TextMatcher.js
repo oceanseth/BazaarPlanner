@@ -351,13 +351,14 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Enchant a non-enchanted item for the fight. From Laboratory
-    regex: /^Enchant another non-enchanted item for the fight\.$/i,
-    func: (item)=>{
+    regex: /^Enchant a(?:nother)? non-enchanted item(?: with (.*))? for the fight\.$/i,
+    func: (item, match)=>{
         return ()=>{
-            const nonEnchantedItems = item.board.items.filter(i=>i.id!=item.id && !i.tags.includes("Enchanted"));
+            const specificEnchant = match[1];
+            const nonEnchantedItems = item.board.items.filter(i=>i.id!=item.id && !i.tags.includes("Enchanted") && (!specificEnchant || Object.keys(i.enchants).includes(specificEnchant)));
             if(nonEnchantedItems.length>0) {
                 const target = item.pickRandom(nonEnchantedItems);
-                target.addTemporaryEnchant();
+                target.addTemporaryEnchant(specificEnchant);
             }
         };
     },
@@ -1146,5 +1147,16 @@ TextMatcher.matchers.push({
             }
         }
         return ()=>{};
+    }
+});
+//Your Property items and Toys have (+10%/+15%/+20%) Crit chance. from Critical Investments
+TextMatcher.matchers.push({
+    regex: /^Your (\w+)(?: items)? and Toys have (\([^)]+\)|\d+%?) Crit chance\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const amount = getRarityValue(match[2], item.rarity);
+        item.board.activeItems.filter(i=>i.tags.includes(tag)).forEach(i=>{
+            i.gain(amount,'crit');
+        });
     }
 });

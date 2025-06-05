@@ -30,6 +30,20 @@ export class Item {
         'Radiant': 'Radiant',
     }
     static itemID = 0;
+    enchantChangedFunctions = new Map();
+    _enchant = null;
+    enchantChanged(f,s) {
+        this.enchantChangedFunctions.set(s,f);
+    }
+
+    set enchant(value) {
+        const oldValue = this.enchant;
+        this._enchant = value;
+        this.enchantChangedFunctions.forEach(f=>f(value,oldValue));
+    }
+    get enchant() {
+        return this._enchant;
+    }
 
     static getCacheByTag(tag) {
         if(Item[tag+"Cache"]==undefined) {
@@ -314,6 +328,7 @@ export class Item {
         }
         this.resetFunctions = [];
         setupChangeListeners(this,Item.possibleChangeAttributes);
+        this.enchantChangedFunctions.clear();
         this.pendingCharges = [];
         if(this.tooltip) {
             this.tooltip.remove();
@@ -4625,14 +4640,15 @@ export class Item {
         }
 
         //This has +1 Multicast for each Property you have.
-        regex = /^\s*This has (\([^\)]+\)|\+?\d+) (Multicast|Max Ammo) for each (other )?([^\s^\.]+)(?: item)? you have(?: in play)?(?: with ([^\s]+) over (\([^\)]+\)|\d+))?\.?$/i;
+        regex = /^\s*This has (\([^\)]+\)|\+?\d+) (Multicast|Max Ammo) for each (other )?(\w+)(-enchanted)?(?: item)? you have(?: in play)?(?: with ([^\s]+) over (\([^\)]+\)|\d+))?\.?$/i;
         match = text.match(regex);
         if(match) {
             const tagToMatch = Item.getTagFromText(match[4]);
+            const enchanted = match[5];
             const other = match[3] ? true : false;
             const amount = getRarityValue(match[1], this.rarity);
-            const overCheckThing = match[5] ? match[5].toLowerCase() : null;
-            const overCheckAmount = match[6] ? getRarityValue(match[6], this.rarity) : null;
+            const overCheckThing = match[6] ? match[6].toLowerCase() : null;
+            const overCheckAmount = match[7] ? getRarityValue(match[7], this.rarity) : null;
             let f;
 
             if(match[2] == "Multicast") {
@@ -4653,7 +4669,15 @@ export class Item {
                             }
                         });
                     } else {
-                        this.gain(amount,'multicast',i);
+                        if(enchanted) {
+                            if(i.enchant == tagToMatch) this.gain(amount,'multicast',i);
+                            i.enchantChanged((newValue,oldValue)=>{
+                                if(newValue==tagToMatch) this.gain(amount,'multicast',i);
+                                if(oldValue==tagToMatch) this.gain(-amount,'multicast',i);
+                            },i.id);
+                        } else {
+                            this.gain(amount,'multicast',i);
+                        }
                     }
 
                 }
@@ -4662,7 +4686,7 @@ export class Item {
             }
             this.board.items.filter(item => {
                 if(other && item.id == this.id) return false;
-                if(tagToMatch=='Item' || item.tags.includes(tagToMatch)) return true;
+                if(enchanted || tagToMatch=='Item' || item.tags.includes(tagToMatch)) return true;
                 return false;
             }).forEach(f);
             return () => {};
