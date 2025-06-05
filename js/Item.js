@@ -5693,14 +5693,20 @@ export class Item {
         }
         
     //Reload (2/4/6/8) items. from Panic
-    regex = /^Reload (\([^)]+\)|\d+) item\(?s\)?\.?$/i;
+    regex = /^Reload (\([^)]+\)|\d+|an?) (\w+)\(?s?\)?(?: (\([^\)]+\)|\d+) ammo)?\.?$/i;
     match = text.match(regex);
     if(match) {
-        const reloadAmount = getRarityValue(match[1], this.rarity);
+        const itemCount = (match[1]=='a'||'an')?1:getRarityValue(match[1], this.rarity);
+        const tagToMatch = Item.getTagFromText(match[2]);
+        const ammoAmount = match[3] ? getRarityValue(match[3], this.rarity) : undefined;
         return (item) => {
-            const targets = this.pickRandom(this.board.activeItems.filter(i=>i.tags.includes("Ammo")),reloadAmount);
+            const targets = this.pickRandom(this.board.activeItems.filter(i=>i.tags.includes("Ammo")&&(i.tags.includes(tagToMatch)||tagToMatch=="Item")),itemCount);
             targets.forEach(target => {
-                target.reload(item||this);
+                if(ammoAmount) {
+                    target.gain(ammoAmount,'ammo');
+                } else {
+                    target.reload(item||this);
+                }
             });
         }
     }
