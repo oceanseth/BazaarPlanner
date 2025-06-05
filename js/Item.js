@@ -1321,7 +1321,7 @@ export class Item {
         }
         // Haste your Friends for ( 1 » 2 » 3 ) second(s). from DJ Rob0t
         //Haste your tools for ( 1 » 2 » 3 » 4 ) second(s). from Dishwasher
-        regex = /^Haste your ([^\s]+) for (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
+        regex = /^Haste your ([^\s]+)(?: items)? for (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
             this.haste+= getRarityValue(match[2], this.rarity);
