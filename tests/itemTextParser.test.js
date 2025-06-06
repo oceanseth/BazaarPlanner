@@ -62,9 +62,6 @@ const mockBoardInstance = {
         gold:0,
         income:0,
         shield:0,
-        battle: {
-            sandstormTriggers: new Map(),
-        }
     }
 };
 mockBoardInstance.player.board = mockBoardInstance;
@@ -73,6 +70,7 @@ mockBoardInstance.player.battle = {
     log: () => {},
     battleRandom: () => {},
     pickRandom: () => {},
+    sandstormTriggers: new Map(),
 };
 
 // Mock Board class

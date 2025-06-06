@@ -1160,3 +1160,20 @@ TextMatcher.matchers.push({
         });
     }
 });
+
+
+//The first time you fall below half health each fight, Freeze 1 item(s) for 99 second(s). 
+TextMatcher.matchers.push({
+    regex: /^The first time (you|a player) falls? below half health(?: each fight)?, (.*)\.?/i,
+    func: (item, match)=>{
+            const f = item.getTriggerFunctionFromText(match[2]);
+            let targets = match[1]=='you'?[item.board.player]:[item.board.player,item.board.player.hostileTarget];
+            targets.forEach(t=>{
+                t.healthBelowHalfTriggers.set(item.id,()=>{
+                    f();
+                    t.healthBelowHalfTriggers.delete(item.id);
+                });
+            });            
+        return ()=>{};
+    }
+});
