@@ -1177,3 +1177,18 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+//When one of your items runs out of ammo ... from Adaptive Ordinance
+TextMatcher.matchers.push({
+    regex: /^When one of your items runs out of ammo, (.*)\.?/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1]);
+        item.board.items.filter(i=>i.tags.includes("Ammo")).forEach(i=>{
+            i.ammoChanged((newAmount, oldAmount)=>{
+                if(newAmount==0) {
+                    f();
+                }
+            });
+        });
+        return ()=>{};
+    }
+});

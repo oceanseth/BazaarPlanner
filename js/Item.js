@@ -3299,7 +3299,7 @@ export class Item {
                             }
                         }
                     });
-                    return;
+                    return ()=>{};
                 case "you over-heal":
                     let overhealCount = 0;
                     this.board.player.overhealTriggers.set(this.id+"_"+ntimesFunction.text,()=> {
@@ -3310,7 +3310,7 @@ export class Item {
                             this.board.player.overhealTriggers.delete(this.id+"_"+ntimesFunction.text);
                         }
                     });
-                    return;
+                    return ()=>{};
                 case "you use your slowest weapon":
                     let slowestWeaponCount = 0;
                     let slowestWeapon;
@@ -3457,7 +3457,7 @@ export class Item {
                     });
 
 
-                    return;
+                    return ()=>{};
                 case "you poison":
                     let poisonCount = 0;
                     this.board.poisonTriggers.set(this.id+"_"+ntimesFunction.text,(item)=>{
@@ -3468,7 +3468,7 @@ export class Item {
                             }
                         } 
                     });
-                    return;
+                    return ()=>{};
                 case 'your enemy uses a weapon':
                     let enemyWeaponCount = 0;
                     this.board.player.hostileTarget.board.itemTriggers.set(this.id,(item)=>{
@@ -3479,7 +3479,7 @@ export class Item {
                             }
                         }
                     });
-                    return;               
+                    return ()=>{};               
                 case "you use a non-weapon item":
                 case "your enemy uses a non-weapon item":
                     const target = thingDone.includes("enemy")?this.board.player.hostileTarget:this.board.player;
@@ -3496,7 +3496,7 @@ export class Item {
                         }
                     });
 
-                    return;
+                    return ()=>{};
                 case "you would die":
                     let dieCount = 0;
                     this.board.player.dieTriggers.set(this.id,(item)=>{
