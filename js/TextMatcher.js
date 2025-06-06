@@ -1192,3 +1192,32 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+//When one of your Dinosaurs deals damage, gain that much shield. from Tanky Anky
+TextMatcher.matchers.push({
+    regex: /^When one of your (\w+)s? deals damage, gain that much shield\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        item.board.items.filter(i=>i.tags.includes(tag)).forEach(i=>{
+            i.board.damageTriggers.set(item.id, ({source,target,amount}={})=>{
+                if(source.tags.includes(tag)) {
+                    item.applyShield({amount});
+                }
+            });
+        });
+        return ()=>{};
+    }
+});
+//Enemy Weapons have (-10/-25/-50/-75) Damage. from Tanky Anky
+TextMatcher.matchers.push({
+    regex: /^Enemy (\w+)s? have (\([^)]+\)|\d+) (\w+)\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);        
+        const amount = getRarityValue(match[2], item.rarity);
+        const whatToLose = Item.getTagFromText(match[3]);
+        item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes(tag)).forEach(i=>{
+            i.gain(amount,whatToLose);
+            i.updateTriggerValuesElement();
+        });
+        return ()=>{};
+    }
+});

@@ -925,6 +925,7 @@ export class Item {
         }
         if(this.battleStats.damage == undefined) this.battleStats.damage = 0;
         this.battleStats.damage += damage;
+        this.board.damageTriggers.forEach(func => func({amount:damage,source:this,target}));
     }
     applyShield({amount=this.shield, source=this}={}) {
         let doesCrit = this.doICrit();
