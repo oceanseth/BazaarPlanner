@@ -35,7 +35,7 @@ TextMatcher.comparitors["If you have no other weapons, "]= {
 };
 TextMatcher.matchers.push({
     id: "Essence Overflow Matcher",
-    regex: /^your weapons have \+ damage equal to your Regen(?:eration)?\.$/i,
+    regex: /^your weapons have \+\s?damage equal to your Regen(?:eration)?\.$/i,
     func: (item, match)=>{
         item.board.items.forEach(item => {
             if(item.tags.includes("Weapon")) {
@@ -816,7 +816,7 @@ TextMatcher.matchers.push({
 
 //your weapons gain + damage for the fight equal to (1/2) times the amount Poisoned. from Infused Bracers
 TextMatcher.matchers.push({
-    regex: /^your weapons gain \+ damage for the fight equal to (\([^)]+\)|\d+) times the amount (?:Poisoned|Burned)\.$/i,
+    regex: /^your weapons gain +\s?damage for the fight equal to (\([^)]+\)|\d+) times the amount (?:Poisoned|Burned)\.$/i,
     func: (item, match)=>{
         const multiplier = getRarityValue(match[1], item.rarity);
         return (source,{amount})=>{
@@ -878,7 +878,7 @@ TextMatcher.matchers.push({
 });
 //The item to the left of this has + Crit Chance equal to your Poison. from Optical Augment
 TextMatcher.matchers.push({
-    regex: /^The item to the (right|left) of this has \+ Crit Chance equal to your (Poison|Burn)\.$/i,
+    regex: /^The item to the (right|left) of this has +\s?Crit Chance equal to your (Poison|Burn)\.$/i,
     func: (item, match)=>{
         const target = match[1]=='left'?item.getItemToTheLeft():item.getItemToTheRight();
         if(target) {
@@ -1219,5 +1219,20 @@ TextMatcher.matchers.push({
             i.updateTriggerValuesElement();
         });
         return ()=>{};
+    }
+});
+//Enchant 1 non-enchanted item on each player's board for the fight. from Spirit Diffuser
+TextMatcher.matchers.push({
+    regex: /^Enchant (\d+) non-enchanted item\(?s?\)? on each player's board for the fight\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        return ()=> {
+            item.pickRandom(item.board.items.filter(i=>!i.enchant),amount).forEach(i=>{
+                i.addTemporaryEnchant();
+            });
+            item.pickRandom(item.board.player.hostileTarget.board.items.filter(i=>!i.enchant),amount).forEach(i=>{
+                i.addTemporaryEnchant();
+            });
+        }
     }
 });

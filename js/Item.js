@@ -684,43 +684,6 @@ export class Item {
             this.board.sortItems();
         }
     }
-    calculateDamage() {
-        if (!this.tags.includes('Weapon')) return 0;
-        const damageRegex = /Deal (?:\(([^)]+)\)|(\d+)) damage/i;
-        
-        for (const textElement of this.text) {
-            const match = textElement.match(damageRegex);
-            if (match) {
-                return match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            }
-        }
-        return 0;
-    }
-
-    calculateHeal() {
-        if (!this.tags.includes('Heal')) return 0;
-        const healRegex = /Heal (?:\(([^)]+)\)|(\d+))/i;
-        
-        for (const textElement of this.text) {
-            const match = textElement.match(healRegex);
-            if (match) {
-                return match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            }
-        }
-        return 0;
-    }
-    calculateShield() {
-        if (!this.tags.includes('Shield')) return 0;
-        const shieldRegex = /Shield (?:\(([^)]+)\)|(\d+))/i;
-        
-        for (const textElement of this.text) {
-            const match = textElement.match(shieldRegex);
-            if (match) {
-                return match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            }
-        }
-        return 0;
-    }
 
     applyHaste(duration) {
         this.hasteTimeRemaining += duration * 1000; 
@@ -920,7 +883,7 @@ export class Item {
             " deals "+ damage+" damage to " +
             target.name);            
         if(this.lifesteal >0) {
-            this.board.player.heal(damage,this);
+            this.board.player.heal({amount:damage,source:this, isLifesteal:true});
             this.log(this.name + " lifesteals " + damage + " health");
         }
         if(this.battleStats.damage == undefined) this.battleStats.damage = 0;
@@ -983,7 +946,7 @@ export class Item {
             amount *= (1+this.critMultiplier/100);
         }        
         this.log(this.name + (doesCrit?" critically ":"")+" healed " + this.board.player.name + " for " + amount);
-        this.board.player.heal(amount,this);
+        this.board.player.heal({amount,source:this});
         if(this.battleStats.heal == undefined) this.battleStats.heal = 0;
         this.battleStats.heal += amount;
     }
@@ -2634,7 +2597,7 @@ export class Item {
         if(text.match(/^At the start of each hour/i)) {
             return ()=>{};
         }
-        let regex = /^\s*When (you|your enemy|your opponent|a(?:ny)? player|either player|your items|your enemy's items|the core|an adjacent item)? ([^,]*), (.*)$/i;
+        let regex = /^\s*When (you|your enemy|an enemy|your opponent|a(?:ny)? player|either player|your items|your enemy's items|the core|an adjacent item)? ([^,]*), (.*)$/i;
         let match = text.match(regex);
         let ifFunction = null;
         if(match) {
@@ -2642,7 +2605,7 @@ export class Item {
             const ifregex = /(.*\.) if (.*), (.*)\./i;
             const ifmatch = textAfterComma.match(ifregex);
             let targetBoards = [this.board];
-            if(enemyMatch=="your enemy"||enemyMatch=="your opponent") {
+            if(enemyMatch=="your enemy"||enemyMatch=="your opponent"||enemyMatch=="an enemy") {
                 targetBoards = [this.board.player.hostileTarget.board];
             } else if(enemyMatch=="any player"||enemyMatch=="either player"||enemyMatch=="a player") {
                 targetBoards.push(this.board.player.hostileTarget.board);
@@ -4404,7 +4367,7 @@ export class Item {
         
 
         //This has + Multicast equal to its ammo. from Dive Weights 
-        regex = /^\s*This has \+ Multicast equal to its ammo\.?/i;
+        regex = /^\s*This has +\s?Multicast equal to its ammo\.?/i;
         match = text.match(regex);
         if(match) {
             this.gain(this.ammo,'multicast');
@@ -4995,7 +4958,7 @@ export class Item {
             return ()=>{};
         }
         //This has triple value in combat.
-        regex = /^This has triple value in combat\.?$/i;
+        regex = /^This has triple value (?:in|during) combat\.?$/i;
         match = text.match(regex);
         if(match) {
             this.gain(this.value*2,'value');
@@ -5334,7 +5297,7 @@ export class Item {
         }
 
         //Your Shield items have + Shield equal to (  2  » 3  » 4   ) times your level.
-        regex = /^Your Shield items have \+ Shield equal to (?:\(([^)]+)\)|(\d+)) times your level.*$/i;
+        regex = /^Your Shield items have +\s?Shield equal to (?:\(([^)]+)\)|(\d+)) times your level.*$/i;
         match = text.match(regex);
         if(match) {
             const gainAmount = this.board.player.level * (match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]));
@@ -5537,7 +5500,7 @@ export class Item {
         }
 
         //Your weapons have + damage equal to your gold.
-        regex = /^Your weapons have \+ damage equal to your gold\.?$/i;
+        regex = /^Your weapons have +\s?damage equal to your gold\.?$/i;
         match = text.match(regex);
         if(match) {
             this.board.items.forEach(item => {
@@ -5822,7 +5785,7 @@ export class Item {
         }
        
         //Your Weapons have + Damage equal to (  1x  » 2x  » 3x   ) your income.
-        regex = /^Your ([^\s]+)(?: items)? have \+ ([^\s]+) equal to (\([^)]+\)|\d+)x? your income\.?$/i;
+        regex = /^Your ([^\s]+)(?: items)? have \+\s?([^\s]+) equal to (\([^)]+\)|\d+)x? your income\.?$/i;
         match = text.match(regex);
         if(match) {
             const tagToMatch = Item.getTagFromText(match[1]);

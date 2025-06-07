@@ -36,7 +36,7 @@ export class Player {
         this.board.updateGoldElement();
     }
 
-    heal(healAmount,source) {
+    heal({healAmount,source,isLifesteal=false}={}) {
         const startingHealAmount = healAmount;
         this.board.healingApplied += healAmount;
         if(this.health+healAmount>this.maxHealth) {
@@ -47,14 +47,14 @@ export class Player {
         }
         this.healTriggers.forEach(func => func(healAmount));
         this.health += healAmount;
-        if(this.poison > 0) {
+        if(this.poison > 0 && !isLifesteal) {
             const oldPoison = this.poison;
-            this.poison=this.poison - Math.ceil(startingHealAmount/10); //cleanse 10% of healing or 1 poison when a heal occurs
+            this.poison=this.poison - Math.ceil(startingHealAmount/5); //cleanse 5% of healing or 1 poison when a heal occurs
             this.log(source.name + "'s healing cleansed " + (oldPoison-this.poison).toFixed(0) + " poison.");
         }
-        if(this.burn > 0) {
+        if(this.burn > 0 && !isLifesteal) {
             const oldBurn = this.burn;            
-            this.burn=this.burn - Math.ceil(startingHealAmount/10); //cleanse 10% of healing or 1 burn when a heal occurs
+            this.burn=this.burn - Math.ceil(startingHealAmount/5); //cleanse 5% of healing or 1 burn when a heal occurs
             this.log(source.name + "'s healing cleansed " + (oldBurn-this.burn).toFixed(0) + " burn.");
         }
     }
