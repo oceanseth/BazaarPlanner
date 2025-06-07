@@ -460,7 +460,7 @@ ItemFunction.items.set("Mortar & Pestle",(item)=>{
     const damage = getRarityValue("10 >> 15 >> 20 >> 25",item.rarity);
     const rightItem = item.getItemToTheRight();
     if(rightItem && rightItem.tags.includes("Weapon")) {
-        rightItem.lifesteal = true;
+        rightItem.lifesteal = 100;
     }
     item.triggerFunctions.push(()=>{
         item.board.items.forEach(i=>{

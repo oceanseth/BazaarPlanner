@@ -1700,7 +1700,7 @@ export const items = {
       "Relic",
       "Quest"
     ],
-    "cooldown": 6,
+    "cooldown": 5,
     "ammo": null,
     "text": [
       "When you use another Relic, charge this 1 second(s)."
@@ -3017,7 +3017,7 @@ export const items = {
       "Fiery": "Adjacent Burn items have +2 Burn.",
       "Shiny": "This has double Max Ammo bonus.",
       "Deadly": "Adjacent Ammo items have +25% Crit Chance.",
-      "Obsidian": "Ajacent Weapons have +20 damage."
+      "Obsidian": "Adjacent Weapons have +20 damage."
     },
     "priorities": [
       0
@@ -3769,7 +3769,7 @@ export const items = {
       "Icy": "Freeze 1 small item for 1 second(s).",
       "Turbo": "Haste 1 item for 2 second(s).",
       "Shielded": "Shield 40.",
-      "Restorative": "Heal 200.",
+      "Restorative": "Heal 40.",
       "Toxic": "Poison 2.",
       "Fiery": "Burn 2.",
       "Shiny": "This has +1 Multicast.",
@@ -4786,7 +4786,7 @@ export const items = {
     "cooldown": 9,
     "ammo": null,
     "text": [
-      "Deal damage equal to the highest Shield value of items you have.",
+      "Deal damage equal to the highest Shield of items you have.",
       "Your Shield items gain (+2/+4/+6/+8) Shield for the fight."
     ],
     "enchants": {
@@ -5282,8 +5282,8 @@ export const items = {
     "ammo": null,
     "text": [
       "Deal 80 damage.",
-      "If your enemy has at least (6/5/4) items, destroy a small enemy item for the fight.",
-      "When you destroy an item during combat, your Dinosaurs permanently gain (10/20/30) damage."
+      "The first time you use this each fight, destroy a small or medium enemy item for the fight.",
+      "When you destroy an item during combat, your Dinosaurs permanently gain (10/15/20) damage."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -6559,6 +6559,7 @@ export const items = {
     "tags": [
       "Mak",
       "Medium",
+      "Relic",
       "Burn"
     ],
     "cooldown": 7,
@@ -6996,10 +6997,10 @@ export const items = {
       "TechReference",
       "Burn"
     ],
-    "cooldown": 4,
+    "cooldown": 6,
     "ammo": null,
     "text": [
-      "Burn (3/4/5/6) for each Relic or Tool you have.",
+      "Burn (2/4/6/8) for each Relic or Tool you have.",
       "This item's cooldown is increased by 1 second for each Tech item you have."
     ],
     "enchants": {
@@ -7132,7 +7133,7 @@ export const items = {
     "cooldown": 10,
     "ammo": null,
     "text": [
-      "Deal 100 damage.",
+      "Deal 50 damage.",
       "When you use an Adjacent item, Charge this (0.5/1/1.5/2) second(s).",
       "If you have another Tool, Apparel, Tech, Weapon, or Friend, this has (+25/+50/+100/+150) Damage for each."
     ],
@@ -7230,7 +7231,7 @@ export const items = {
       "Freeze",
       "Quest"
     ],
-    "cooldown": "(8/7/6/5)",
+    "cooldown": "(7/6/5/4)",
     "ammo": null,
     "text": [
       "Freeze 1 item(s) for 1 second(s)."
@@ -8781,6 +8782,7 @@ export const items = {
       "Mak",
       "Medium",
       "Weapon",
+      "Relic",
       "Damage",
       "Freeze"
     ],
@@ -11598,8 +11600,8 @@ export const items = {
     "ammo": null,
     "text": [
       "Deal 200 damage.",
-      "If your enemy has at least (6/5/4) items, destroy a small or medium enemy item for the fight.",
-      "When you destroy an item during combat, your Dinosaurs permanently gain (20/40/60) damage."
+      "The first time you use this each fight, destroy a small or medium enemy item for the fight.",
+      "When you destroy an item during combat, your Dinosaurs permanently gain (20/30/40) damage."
     ],
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
@@ -12521,38 +12523,6 @@ export const items = {
     },
     "priorities": [
       1,
-      1
-    ]
-  },
-  "Oinkment": {
-    "name": "Oinkment",
-    "tier": 1,
-    "tags": [
-      "Pygmalien",
-      "Small",
-      "Heal",
-      "EconomyReference"
-    ],
-    "cooldown": 6,
-    "ammo": null,
-    "text": [
-      "Heal equal to (1/2/3) times your gold.",
-      "Cleanse half your Burn and Poison."
-    ],
-    "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 small item for 1 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield equal to this item's Heal.",
-      "Restorative": "This has double Heal.",
-      "Toxic": "Poison equal to 10% of this item's Heal.",
-      "Fiery": "Burn equal to 10% of this item's Heal.",
-      "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance",
-      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
-      "Obsidian": "Deal damage equal to this item's Heal."
-    },
-    "priorities": [
       1
     ]
   },
@@ -13595,6 +13565,7 @@ export const items = {
       "Dooley",
       "Medium",
       "Weapon",
+      "Tech",
       "Damage",
       "BurnReference"
     ],
@@ -13938,7 +13909,7 @@ export const items = {
     "cooldown": "(7/6/5)",
     "ammo": null,
     "text": [
-      "Deal 50 damage.",
+      "Deal 30 damage.",
       "Your Dinosaur and Relic Weapons gain (+10/+20/+30) Damage for the fight.",
       "Adjacent items are Relics.",
       "When you use another Dinosaur or Relic, Charge this 1 second."
@@ -14103,6 +14074,7 @@ export const items = {
       "Dooley",
       "Medium",
       "Weapon",
+      "Tech",
       "Damage"
     ],
     "cooldown": 5,
@@ -14349,7 +14321,7 @@ export const items = {
     "cooldown": "(13/12/11/10)",
     "ammo": null,
     "text": [
-      "Deal (150/300/450/600) damage.",
+      "Deal (100/250/500/800) damage.",
       "When you use another Tech, charge this 2 second(s)."
     ],
     "enchants": {
@@ -14513,7 +14485,7 @@ export const items = {
       "Tech",
       "Charge"
     ],
-    "cooldown": "(8/7/6)",
+    "cooldown": "(10/9/8)",
     "ammo": null,
     "text": [
       "Charge adjacent Large items for half their cooldown."
@@ -14833,7 +14805,7 @@ export const items = {
       "Small",
       "Tech"
     ],
-    "cooldown": "(10/8/6)",
+    "cooldown": "(10/9/8)",
     "ammo": null,
     "text": [
       "Use a Core."
@@ -16088,7 +16060,7 @@ export const items = {
     "cooldown": 2,
     "ammo": null,
     "text": [
-      "Reduce the cooldown of your other items by 10% for this fight.",
+      "Reduce the cooldown of your other items by 8% for this fight.",
       "Increase this item's cooldown by (4/3/2) second(s) for the fight."
     ],
     "enchants": {
@@ -17906,9 +17878,9 @@ export const items = {
       "If you have another vehicle or large item, reduce this item's cooldown by 50%."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 3 second(s).",
-      "Icy": "Freeze 1 medium or small item for 3 second(s).",
-      "Turbo": "Haste 2 items for 3 second(s).",
+      "Heavy": "Slow 1 items for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 0.5 second(s).",
+      "Turbo": "Haste 1 items for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's damage.",
       "Toxic": "Poison equal to 10% of this item's damage.",
@@ -18226,11 +18198,10 @@ export const items = {
       "Damage",
       "Shield"
     ],
-    "cooldown": 6,
+    "cooldown": "(8/7/6/5)",
     "ammo": null,
     "text": [
-      "Deal 50 damage.",
-      "Enemy Weapons have (-10/-25/-50/-75) Damage.",
+      "Deal 60 damage.",
       "When one of your Dinosaurs deals damage, gain that much Shield."
     ],
     "enchants": {
@@ -19200,7 +19171,7 @@ export const items = {
       "Deal 10 damage.",
       "Burn equal to 10% of this item's damage.",
       "The first time a player falls below half Health, Destroy a small item.",
-      "When you destroy an item during a fight, this permanently gains (+10/+20/+30) damage."
+      "When you destroy an item during combat, this permanently gains (+10/+20/+30) damage."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -19463,7 +19434,7 @@ export const items = {
     "text": [
       "Poison (3/6/9) for each type this has.",
       "Burn (3/6/9) for each type this has.",
-      "When you sell an item, this gains that item's type(s)."
+      "When you sell an item, this gains that item's types."
     ],
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
