@@ -832,37 +832,6 @@ export const items = {
       0
     ]
   },
-  "Augment Reagents": {
-    "name": "Augment Reagents",
-    "tier": 0,
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Pygmalien",
-      "Small"
-    ],
-    "cooldown": 6,
-    "ammo": null,
-    "text": [
-      "This is a Small Item Template."
-    ],
-    "enchants": {
-      "Heavy": "Slow 1 item for 2 second(s).",
-      "Icy": "Freeze 1 small item for 1 second(s).",
-      "Turbo": "Haste 1 item for 2 second(s).",
-      "Shielded": "Shield 30.",
-      "Restorative": "Heal 40.",
-      "Toxic": "Poison 6.",
-      "Fiery": "Burn 6.",
-      "Shiny": "This has +1 Multicast.",
-      "Deadly": "+50% Crit Chance",
-      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
-      "Obsidian": "Deal 60 Damage."
-    }
-  },
   "Aurora Dome": {
     "name": "Aurora Dome",
     "tier": 1,
@@ -932,7 +901,8 @@ export const items = {
     "tier": 0,
     "tags": [
       "Common",
-      "Small"
+      "Small",
+      "Loot"
     ],
     "cooldown": null,
     "ammo": null,
@@ -1588,6 +1558,39 @@ export const items = {
       0,
       0
     ]
+  },
+  "Biomerge Arm": {
+    "name": "Biomerge Arm",
+    "tier": 2,
+    "tags": [
+      "Common",
+      "Medium",
+      "Weapon",
+      "Tool",
+      "Damage",
+      "Crit",
+      "Ammo"
+    ],
+    "cooldown": null,
+    "ammo": null,
+    "text": [
+      "When an item runs out of Ammo, Deal (100/200) damage.",
+      "The item to the left of this has +100% Crit Chance and +1 Max Ammo.",
+      "The item to the left is an Ammo item."
+    ],
+    "enchants": {
+      "Heavy": "When an item runs out of Ammo, Slow 1 item for 1 second(s).",
+      "Icy": "When an item runs out of Ammo, Freeze 1 item for 0.5 second(s).",
+      "Turbo": "When an item runs out of Ammo, Haste 1 item for 1 second(s).",
+      "Shielded": "When an item runs out of Ammo, Shield equal to this item's damage.",
+      "Restorative": "When an item runs out of Ammo, Heal equal to this item's Damage.",
+      "Toxic": "When an item runs out of Ammo, Poison equal to 10% of this item's damage.",
+      "Fiery": "When an item runs out of Ammo, Burn equal to 10% of this item's damage.",
+      "Shiny": "This has double damage.",
+      "Deadly": "The item to the right of this has +50% Crit Chance.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "This has double Damage."
+    }
   },
   "Black Ice": {
     "name": "Black Ice",
@@ -2446,6 +2449,37 @@ export const items = {
       1
     ]
   },
+  "Box Cutter": {
+    "name": "Box Cutter",
+    "tier": 0,
+    "tags": [
+      "Stelle",
+      "Small",
+      "Weapon",
+      "Tool",
+      "Damage"
+    ],
+    "cooldown": 3,
+    "ammo": null,
+    "text": [
+      "Deal 10 damage.",
+      "Permanently decrease this item's damage by 1.",
+      "When you Level Up, this gains (10/20/30/40) damage."
+    ],
+    "enchants": {
+      "Heavy": "Slow 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 0.5 second(s).",
+      "Turbo": "Haste 1 item for 1 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "This has double Damage."
+    }
+  },
   "Brass Knuckles": {
     "name": "Brass Knuckles",
     "tier": 0,
@@ -3256,7 +3290,8 @@ export const items = {
     "tier": 0,
     "tags": [
       "Common",
-      "Small"
+      "Small",
+      "Loot"
     ],
     "cooldown": null,
     "ammo": null,
@@ -3698,6 +3733,7 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Loot",
       "BurnReference"
     ],
     "cooldown": null,
@@ -3883,6 +3919,36 @@ export const items = {
       1,
       0
     ]
+  },
+  "Cleaver": {
+    "name": "Cleaver",
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "Small",
+      "Weapon",
+      "Tool",
+      "Damage"
+    ],
+    "cooldown": 6,
+    "ammo": null,
+    "text": [
+      "Deal (5/15/30/50) damage.",
+      "At the start of each fight, this permanently gains (5/10/15/20) damage."
+    ],
+    "enchants": {
+      "Heavy": "Slow 1 item for 3 second(s).",
+      "Icy": "Freeze 1 item for 0.5 second(s).",
+      "Turbo": "Haste 1 item for 3 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "This has double Damage."
+    }
   },
   "Clockwork Blades": {
     "name": "Clockwork Blades",
@@ -6036,6 +6102,7 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Loot",
       "Crit"
     ],
     "cooldown": null,
@@ -6317,6 +6384,36 @@ export const items = {
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
     }
   },
+  "Ethergy Conduit": {
+    "name": "Ethergy Conduit",
+    "tier": 2,
+    "tags": [
+      "Common",
+      "Large",
+      "Relic",
+      "Crit",
+      "Charge",
+      "PoisonReference"
+    ],
+    "cooldown": null,
+    "ammo": null,
+    "text": [
+      "When you Poison or use a Relic, your items gain (+2%/+4%) crit chance for the fight.",
+      "When you Crit, Charge your Relics 1 second."
+    ],
+    "enchants": {
+      "Heavy": "When you Crit, Slow 1 item for 3 second(s).",
+      "Icy": "When you Crit, Freeze 1 item for 1 second(s).",
+      "Turbo": "When you Crit, Haste 1 item for 3 second(s).",
+      "Shielded": "When you Crit, Shield 75.",
+      "Restorative": "When you Crit, Heal 50.",
+      "Toxic": "When you Crit, poison 3.",
+      "Fiery": "When you Crit, burn 3.",
+      "Shiny": "This has double Crit Chance bonus.",
+      "Deadly": "This has double Crit Chance bonus.",
+      "Obsidian": "When you Crit, Deal 50 Damage."
+    }
+  },
   "Excavation Tools": {
     "name": "Excavation Tools",
     "tier": 1,
@@ -6376,6 +6473,7 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Loot",
       "PoisonReference"
     ],
     "cooldown": null,
@@ -6467,6 +6565,7 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Loot",
       "Cooldown"
     ],
     "cooldown": null,
@@ -7190,6 +7289,37 @@ export const items = {
       0
     ]
   },
+  "Friendly Doll": {
+    "name": "Friendly Doll",
+    "tier": 1,
+    "tags": [
+      "Common",
+      "Small",
+      "Weapon",
+      "Friend",
+      "Toy",
+      "Damage"
+    ],
+    "cooldown": 3,
+    "ammo": null,
+    "text": [
+      "Deal (5/15/25) damage.",
+      "If this is your only friend, it has (+50%/+75%/+100%) Crit Chance."
+    ],
+    "enchants": {
+      "Heavy": "Slow 1 item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
+      "Turbo": "Haste 1 item for 1 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "This has double Crit Chance bonus.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "This has double Damage."
+    }
+  },
   "Frost Potion": {
     "name": "Frost Potion",
     "tier": 1,
@@ -7540,6 +7670,7 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Loot",
       "Regen"
     ],
     "cooldown": null,
@@ -7997,6 +8128,7 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Loot",
       "AmmoReference"
     ],
     "cooldown": null,
@@ -8671,6 +8803,37 @@ export const items = {
     "priorities": [
       0
     ]
+  },
+  "Hydraulic Press": {
+    "name": "Hydraulic Press",
+    "tier": 1,
+    "tags": [
+      "Dooley",
+      "Large",
+      "Weapon",
+      "Tool",
+      "Damage"
+    ],
+    "cooldown": 20,
+    "ammo": null,
+    "text": [
+      "Deal 0 damage.",
+      "At the end of each fight, permanently destroy the item to the left of this, and this gains that item\u2019s Types.",
+      "This has +damage equal to (100/200/300) times the number of Types it has."
+    ],
+    "enchants": {
+      "Heavy": "Slow 3 items for 2 second(s).",
+      "Icy": "Freeze 1 item for 3 second(s).",
+      "Turbo": "Haste 3 item for 2 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "This has double Damage."
+    }
   },
   "Hydraulic Squeezer": {
     "name": "Hydraulic Squeezer",
@@ -9458,6 +9621,7 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Loot",
       "Cooldown"
     ],
     "cooldown": null,
@@ -11335,6 +11499,7 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Loot",
       "HealReference"
     ],
     "cooldown": null,
@@ -12959,7 +13124,8 @@ export const items = {
     "tier": 0,
     "tags": [
       "Common",
-      "Small"
+      "Small",
+      "Loot"
     ],
     "cooldown": null,
     "ammo": null,
@@ -15688,6 +15854,35 @@ export const items = {
       1
     ]
   },
+  "Sands of Time": {
+    "name": "Sands of Time",
+    "tier": 0,
+    "tags": [
+      "Mak",
+      "Medium",
+      "Relic",
+      "Slow",
+      "Quest"
+    ],
+    "cooldown": 6,
+    "ammo": null,
+    "text": [
+      "Slow (1/2/3/4) item(s) for 1 second(s)."
+    ],
+    "enchants": {
+      "Heavy": "This has double Slow duration.",
+      "Icy": "Freeze 1 item for 1 second(s).",
+      "Turbo": "Haste 2 items for 1 second(s).",
+      "Shielded": "Shield 50.",
+      "Restorative": "Heal 50.",
+      "Toxic": "Poison 5.",
+      "Fiery": "Burn 5.",
+      "Deadly": "Your items have +20% Crit Chance.",
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "Deal 50 Damage."
+    }
+  },
   "Sapphire": {
     "name": "Sapphire",
     "tier": 1,
@@ -15895,6 +16090,7 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Loot",
       "ShieldReference"
     ],
     "cooldown": null,
@@ -16362,6 +16558,7 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Loot",
       "DamageReference"
     ],
     "cooldown": null,
@@ -17106,7 +17303,8 @@ export const items = {
     "tier": 3,
     "tags": [
       "Common",
-      "Small"
+      "Small",
+      "Loot"
     ],
     "cooldown": null,
     "ammo": null,
@@ -17308,6 +17506,34 @@ export const items = {
       1,
       0
     ]
+  },
+  "Soulstone": {
+    "name": "Soulstone",
+    "tier": 1,
+    "tags": [
+      "Mak",
+      "Small",
+      "Relic",
+      "Regen"
+    ],
+    "cooldown": 4,
+    "ammo": null,
+    "text": [
+      "Gain (3/6/9) Regen for the fight."
+    ],
+    "enchants": {
+      "Heavy": "This has double Slow duration.",
+      "Icy": "This has double Freeze duration.",
+      "Turbo": "Haste 1 item for 3 second(s).",
+      "Shielded": "Shield equal to 10 times this item's Regen.",
+      "Restorative": "Heal equal to 10 times this item's Regen.",
+      "Toxic": "This has double Poison.",
+      "Fiery": "This has double Burn.",
+      "Shiny": "This has +1 Multicast.",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Deadly": "+50% Crit Chance",
+      "Obsidian": "Deal damage equal to 10 times this item's Regen."
+    }
   },
   "Spacescraper": {
     "name": "Spacescraper",
@@ -18186,6 +18412,36 @@ export const items = {
       0
     ]
   },
+  "Sword of Swords": {
+    "name": "Sword of Swords",
+    "tier": 4,
+    "tags": [
+      "Common",
+      "Medium",
+      "Weapon",
+      "Relic",
+      "Damage"
+    ],
+    "cooldown": 7,
+    "ammo": null,
+    "text": [
+      "Deal 100 damage.",
+      "This has +1 Multicast for each other item you have from a different Hero."
+    ],
+    "enchants": {
+      "Heavy": "Slow 1 item for 1 second(s).",
+      "Icy": "Freeze 1 item for 0.5 second(s).",
+      "Turbo": "Haste 1 item for 1 second(s).",
+      "Shielded": "Shield equal to this item's damage.",
+      "Restorative": "Heal equal to this item's Damage.",
+      "Toxic": "Poison equal to 10% of this item's damage.",
+      "Fiery": "Burn equal to 10% of this item's damage.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "This has double Damage."
+    }
+  },
   "Tanky Anky": {
     "name": "Tanky Anky",
     "tier": 0,
@@ -18328,6 +18584,21 @@ export const items = {
       0,
       0
     ]
+  },
+  "Temple Expedition Ticket": {
+    "name": "Temple Expedition Ticket",
+    "tier": 4,
+    "tags": [
+      "Common",
+      "Small",
+      "Loot"
+    ],
+    "cooldown": null,
+    "ammo": null,
+    "text": [
+      "On Day 9, allows you to embark on the Temple Expedition."
+    ],
+    "enchants": {}
   },
   "Temporal Navigator": {
     "name": "Temporal Navigator",
@@ -19330,7 +19601,8 @@ export const items = {
     "tier": 1,
     "tags": [
       "Common",
-      "Small"
+      "Small",
+      "Loot"
     ],
     "cooldown": null,
     "ammo": null,
@@ -19614,6 +19886,7 @@ export const items = {
     "tags": [
       "Common",
       "Small",
+      "Loot",
       "Experience"
     ],
     "cooldown": null,

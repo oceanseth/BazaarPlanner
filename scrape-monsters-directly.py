@@ -45,7 +45,7 @@ def process_monster(monster):
         "name": monster["cardName"],
         "day": monster["day"],
         "health": monster["health"],
-        "level": monster["level"],
+   #     "level": monster["level"],
         "skills": [],
         "items": []
     }

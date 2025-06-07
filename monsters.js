@@ -4,7 +4,6 @@ export const monsters = {
     "name": "Fanged Inglet",
     "day": 1,
     "health": 100,
-    "level": 1,
     "skills": [
       {
         "name": "Deadly Eye",
@@ -35,7 +34,6 @@ export const monsters = {
     "name": "Kyver Drone",
     "day": 1,
     "health": 100,
-    "level": 1,
     "skills": [
       {
         "name": "Trained",
@@ -66,7 +64,6 @@ export const monsters = {
     "name": "Viper",
     "day": 1,
     "health": 75,
-    "level": 1,
     "skills": [
       {
         "name": "Lash Out",
@@ -98,7 +95,6 @@ export const monsters = {
     "name": "Banannibal",
     "day": 1,
     "health": 100,
-    "level": 1,
     "skills": [
       {
         "name": "Healthy Jolt",
@@ -125,7 +121,6 @@ export const monsters = {
     "name": "Pyro",
     "day": 1,
     "health": 100,
-    "level": 1,
     "skills": [
       {
         "name": "Fiery",
@@ -152,7 +147,6 @@ export const monsters = {
     "name": "Haunted Kimono",
     "day": 1,
     "health": 100,
-    "level": 1,
     "skills": [],
     "items": [
       {
@@ -174,7 +168,6 @@ export const monsters = {
     "name": "Coconut Crab",
     "day": 2,
     "health": 200,
-    "level": 2,
     "skills": [
       {
         "name": "Hard Shell",
@@ -200,8 +193,7 @@ export const monsters = {
     "id": "c69bf8e8-944c-4b42-b59e-8ad568e0d3f7",
     "name": "Giant Mosquito",
     "day": 2,
-    "health": 250,
-    "level": 2,
+    "health": 200,
     "skills": [
       {
         "name": "Rush",
@@ -236,7 +228,6 @@ export const monsters = {
     "name": "Covetous Thief",
     "day": 2,
     "health": 400,
-    "level": 3,
     "skills": [
       {
         "name": "Pickpocket",
@@ -275,7 +266,6 @@ export const monsters = {
     "name": "Rogue Scrapper",
     "day": 2,
     "health": 350,
-    "level": 4,
     "skills": [
       {
         "name": "Rust",
@@ -314,7 +304,6 @@ export const monsters = {
     "name": "Boarrior",
     "day": 2,
     "health": 400,
-    "level": 3,
     "skills": [
       {
         "name": "Frontal Shielding",
@@ -322,6 +311,10 @@ export const monsters = {
       }
     ],
     "items": [
+      {
+        "name": "Temple Expedition Ticket",
+        "tier": 4
+      },
       {
         "name": "Scrap",
         "tier": 1
@@ -344,10 +337,56 @@ export const monsters = {
       },
       {
         "name": "Lumboars",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Sharpening Stone",
+        "tier": 1
+      }
+    ]
+  },
+  "Ventriloquist": {
+    "id": "41c5f103-2d76-4a51-ae28-ee294490b071",
+    "name": "Ventriloquist",
+    "day": 2,
+    "health": 450,
+    "skills": [
+      {
+        "name": "Free Ride",
+        "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Eagle Talisman",
+        "tier": 1
+      },
+      {
+        "name": "Honing Steel",
+        "tier": 2
+      },
+      {
+        "name": "Friendly Doll",
+        "tier": 1
+      },
+      {
+        "name": "Switchblade",
+        "tier": 2
+      },
+      {
+        "name": "Butterfly Swords",
+        "tier": 1
+      },
+      {
+        "name": "Old Sword",
+        "tier": 2
+      },
+      {
+        "name": "Sharpening Stone",
+        "tier": 2
+      },
+      {
+        "name": "Broken Shackles",
         "tier": 1
       }
     ]
@@ -357,7 +396,6 @@ export const monsters = {
     "name": "Tempest Bravo",
     "day": 3,
     "health": 300,
-    "level": 3,
     "skills": [
       {
         "name": "Flamedancer",
@@ -398,7 +436,6 @@ export const monsters = {
     "name": "Dabbling Apprentice",
     "day": 3,
     "health": 300,
-    "level": 3,
     "skills": [
       {
         "name": "Panic",
@@ -406,6 +443,10 @@ export const monsters = {
       }
     ],
     "items": [
+      {
+        "name": "Temple Expedition Ticket",
+        "tier": 4
+      },
       {
         "name": "Vial of Blood",
         "tier": 1
@@ -433,7 +474,6 @@ export const monsters = {
     "name": "Frost Street Challenger",
     "day": 3,
     "health": 450,
-    "level": 4,
     "skills": [
       {
         "name": "Snowstorm",
@@ -468,7 +508,6 @@ export const monsters = {
     "name": "Street Gamer",
     "day": 3,
     "health": 450,
-    "level": 4,
     "skills": [
       {
         "name": "Small Refresh",
@@ -476,6 +515,10 @@ export const monsters = {
       }
     ],
     "items": [
+      {
+        "name": "Temple Expedition Ticket",
+        "tier": 4
+      },
       {
         "name": "Red Piggles R",
         "tier": 2
@@ -503,7 +546,6 @@ export const monsters = {
     "name": "Hoverbike Hooligan",
     "day": 3,
     "health": 650,
-    "level": 5,
     "skills": [
       {
         "name": "Gunner",
@@ -546,7 +588,6 @@ export const monsters = {
     "name": "Eccentric Etherwright",
     "day": 3,
     "health": 650,
-    "level": 5,
     "skills": [
       {
         "name": "Rigged",
@@ -554,6 +595,10 @@ export const monsters = {
       }
     ],
     "items": [
+      {
+        "name": "Temple Expedition Ticket",
+        "tier": 4
+      },
       {
         "name": "Scrap",
         "tier": 2
@@ -577,7 +622,6 @@ export const monsters = {
     "name": "Boilerroom Brawler",
     "day": 4,
     "health": 450,
-    "level": 4,
     "skills": [
       {
         "name": "Time to Tinker",
@@ -624,7 +668,6 @@ export const monsters = {
     "name": "Outlands Dervish",
     "day": 4,
     "health": 450,
-    "level": 4,
     "skills": [
       {
         "name": "Keen Eye",
@@ -663,7 +706,6 @@ export const monsters = {
     "name": "Retiree",
     "day": 4,
     "health": 650,
-    "level": 5,
     "skills": [
       {
         "name": "Extreme Comfort",
@@ -702,7 +744,6 @@ export const monsters = {
     "name": "Bloodreef Raider",
     "day": 4,
     "health": 650,
-    "level": 5,
     "skills": [
       {
         "name": "Ammo Stash",
@@ -741,7 +782,6 @@ export const monsters = {
     "name": "Flame Juggler",
     "day": 4,
     "health": 1200,
-    "level": 6,
     "skills": [
       {
         "name": "Burst of Flame",
@@ -780,7 +820,6 @@ export const monsters = {
     "name": "Ahexa",
     "day": 4,
     "health": 900,
-    "level": 6,
     "skills": [],
     "items": [
       {
@@ -810,7 +849,6 @@ export const monsters = {
     "name": "Hellbilly",
     "day": 4,
     "health": 900,
-    "level": 6,
     "skills": [
       {
         "name": "Left-Handed",
@@ -818,6 +856,10 @@ export const monsters = {
       }
     ],
     "items": [
+      {
+        "name": "Temple Expedition Ticket",
+        "tier": 4
+      },
       {
         "name": "Med Kit",
         "tier": 2
@@ -845,7 +887,6 @@ export const monsters = {
     "name": "Prince Marianas",
     "day": 4,
     "health": 900,
-    "level": 7,
     "skills": [
       {
         "name": "Slowed Targets",
@@ -853,10 +894,14 @@ export const monsters = {
       },
       {
         "name": "Slow and Steady",
-        "tier": 2
+        "tier": 1
       }
     ],
     "items": [
+      {
+        "name": "Temple Expedition Ticket",
+        "tier": 4
+      },
       {
         "name": "Coconut",
         "tier": 3
@@ -892,7 +937,6 @@ export const monsters = {
     "name": "Preening Duelist",
     "day": 5,
     "health": 650,
-    "level": 5,
     "skills": [
       {
         "name": "All Talk",
@@ -935,7 +979,6 @@ export const monsters = {
     "name": "Sabretooth",
     "day": 5,
     "health": 650,
-    "level": 5,
     "skills": [
       {
         "name": "Diamond Fangs",
@@ -992,7 +1035,6 @@ export const monsters = {
     "name": "Infernal Envoy",
     "day": 5,
     "health": 900,
-    "level": 6,
     "skills": [
       {
         "name": "Vengeance",
@@ -1029,7 +1071,6 @@ export const monsters = {
     "name": "Harkuvian Rocket Trooper",
     "day": 5,
     "health": 900,
-    "level": 6,
     "skills": [
       {
         "name": "Flashy Reload",
@@ -1072,7 +1113,6 @@ export const monsters = {
     "name": "Kyver Commander",
     "day": 5,
     "health": 900,
-    "level": -1,
     "skills": [
       {
         "name": "Counterstrike",
@@ -1080,6 +1120,10 @@ export const monsters = {
       }
     ],
     "items": [
+      {
+        "name": "Temple Expedition Ticket",
+        "tier": 4
+      },
       {
         "name": "Insect Wing",
         "tier": 2
@@ -1111,7 +1155,6 @@ export const monsters = {
     "name": "Mod Squad",
     "day": 5,
     "health": 1200,
-    "level": 7,
     "skills": [
       {
         "name": "Beautiful Friendship",
@@ -1154,7 +1197,6 @@ export const monsters = {
     "name": "Gorgon Noble",
     "day": 5,
     "health": 1200,
-    "level": 7,
     "skills": [
       {
         "name": "Petrifying Gaze",
@@ -1170,6 +1212,10 @@ export const monsters = {
       }
     ],
     "items": [
+      {
+        "name": "Temple Expedition Ticket",
+        "tier": 4
+      },
       {
         "name": "Vial of Blood",
         "tier": 1
@@ -1202,7 +1248,6 @@ export const monsters = {
     "name": "Trashtown Mayor",
     "day": 5,
     "health": 1200,
-    "level": 3,
     "skills": [
       {
         "name": "Augmented Weaponry",
@@ -1215,8 +1260,12 @@ export const monsters = {
     ],
     "items": [
       {
+        "name": "Temple Expedition Ticket",
+        "tier": 4
+      },
+      {
         "name": "Sharpening Stone",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Brass Knuckles",
@@ -1242,7 +1291,6 @@ export const monsters = {
     "name": "Scovyle",
     "day": 5,
     "health": 1400,
-    "level": -1,
     "skills": [
       {
         "name": "Fiery",
@@ -1281,7 +1329,6 @@ export const monsters = {
     "name": "Dire Inglet",
     "day": 6,
     "health": 900,
-    "level": 6,
     "skills": [
       {
         "name": "Aggressive",
@@ -1330,7 +1377,6 @@ export const monsters = {
     "name": "Zookeeper",
     "day": 6,
     "health": 900,
-    "level": 6,
     "skills": [
       {
         "name": "Toxic Friendship",
@@ -1373,7 +1419,6 @@ export const monsters = {
     "name": "Dire Mosquito",
     "day": 6,
     "health": 900,
-    "level": 6,
     "skills": [
       {
         "name": "Paralyzing Rush",
@@ -1420,7 +1465,6 @@ export const monsters = {
     "name": "Trash Golem",
     "day": 6,
     "health": 1200,
-    "level": 7,
     "skills": [
       {
         "name": "Jury Rigger",
@@ -1463,7 +1507,6 @@ export const monsters = {
     "name": "Foreman",
     "day": 6,
     "health": 1200,
-    "level": 7,
     "skills": [
       {
         "name": "Flashy Mechanic",
@@ -1493,7 +1536,7 @@ export const monsters = {
       },
       {
         "name": "Cog",
-        "tier": 1
+        "tier": 2
       }
     ]
   },
@@ -1502,7 +1545,6 @@ export const monsters = {
     "name": "Foundation Weeper",
     "day": 6,
     "health": 1550,
-    "level": 8,
     "skills": [
       {
         "name": "Exposing Toxins",
@@ -1511,8 +1553,8 @@ export const monsters = {
     ],
     "items": [
       {
-        "name": "Extract",
-        "tier": 0
+        "name": "Temple Expedition Ticket",
+        "tier": 4
       },
       {
         "name": "Bandages",
@@ -1549,11 +1591,10 @@ export const monsters = {
     "name": "Loan Shark",
     "day": 6,
     "health": 1550,
-    "level": 8,
     "skills": [
       {
         "name": "Power Broker",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Crashing Waves",
@@ -1588,7 +1629,6 @@ export const monsters = {
     "name": "Infernal",
     "day": 6,
     "health": 1925,
-    "level": 9,
     "skills": [
       {
         "name": "Burning Rage",
@@ -1639,7 +1679,6 @@ export const monsters = {
     "name": "Lich",
     "day": 6,
     "health": 1900,
-    "level": 10,
     "skills": [
       {
         "name": "Petrifying Gaze",
@@ -1690,7 +1729,6 @@ export const monsters = {
     "name": "Viper Tyrant",
     "day": 7,
     "health": 1200,
-    "level": 7,
     "skills": [
       {
         "name": "Poison Tyrant",
@@ -1746,7 +1784,6 @@ export const monsters = {
     "name": "Sergeant Suds",
     "day": 7,
     "health": 1200,
-    "level": 7,
     "skills": [
       {
         "name": "Clean Storefront",
@@ -1781,7 +1818,6 @@ export const monsters = {
     "name": "Cosmic Roc",
     "day": 7,
     "health": 1550,
-    "level": 8,
     "skills": [
       {
         "name": "Cosmic Wind",
@@ -1832,7 +1868,6 @@ export const monsters = {
     "name": "Joyful Jack",
     "day": 7,
     "health": 1550,
-    "level": 8,
     "skills": [
       {
         "name": "Equivalent Exchange",
@@ -1880,7 +1915,6 @@ export const monsters = {
     "name": "Thug",
     "day": 7,
     "health": 1550,
-    "level": 8,
     "skills": [
       {
         "name": "Bonk",
@@ -1929,7 +1963,6 @@ export const monsters = {
     "name": "Treasure Turtle",
     "day": 7,
     "health": 1700,
-    "level": 9,
     "skills": [
       {
         "name": "Hunker Down",
@@ -1941,6 +1974,10 @@ export const monsters = {
       }
     ],
     "items": [
+      {
+        "name": "Temple Expedition Ticket",
+        "tier": 4
+      },
       {
         "name": "Bag of Jewels",
         "tier": 2
@@ -1970,10 +2007,6 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Bar of Gold",
-        "tier": 3
-      },
-      {
         "name": "Bag of Jewels",
         "tier": 2
       }
@@ -1984,7 +2017,6 @@ export const monsters = {
     "name": "Annex Trooper",
     "day": 7,
     "health": 1925,
-    "level": 9,
     "skills": [
       {
         "name": "Tracer Fire",
@@ -2027,7 +2059,6 @@ export const monsters = {
     "name": "Chilly Charles",
     "day": 7,
     "health": 1925,
-    "level": 9,
     "skills": [
       {
         "name": "Reaching the Summit",
@@ -2063,7 +2094,6 @@ export const monsters = {
     "name": "Radiant Corsair",
     "day": 7,
     "health": 3200,
-    "level": 12,
     "skills": [
       {
         "name": "Fiery Rebirth",
@@ -2111,7 +2141,6 @@ export const monsters = {
     "name": "Ghost Pepper",
     "day": 7,
     "health": 2200,
-    "level": -1,
     "skills": [
       {
         "name": "Heat Lover",
@@ -2166,7 +2195,6 @@ export const monsters = {
     "name": "Infernal Frigate",
     "day": 8,
     "health": 1925,
-    "level": 9,
     "skills": [
       {
         "name": "Firestarter",
@@ -2209,7 +2237,6 @@ export const monsters = {
     "name": "Car Conductor",
     "day": 8,
     "health": 1925,
-    "level": 9,
     "skills": [
       {
         "name": "Expert Pilot",
@@ -2252,7 +2279,6 @@ export const monsters = {
     "name": "Bouncertron",
     "day": 8,
     "health": 1925,
-    "level": 10,
     "skills": [
       {
         "name": "Sharpened Steel",
@@ -2291,7 +2317,6 @@ export const monsters = {
     "name": "Dr. Vortex",
     "day": 8,
     "health": 2325,
-    "level": 10,
     "skills": [
       {
         "name": "Neophiliac",
@@ -2326,7 +2351,6 @@ export const monsters = {
     "name": "Wandering Shoal",
     "day": 8,
     "health": 2325,
-    "level": 10,
     "skills": [
       {
         "name": "Thick Hide",
@@ -2373,7 +2397,6 @@ export const monsters = {
     "name": "Burninator Bot",
     "day": 8,
     "health": 2325,
-    "level": 10,
     "skills": [
       {
         "name": "Slow Burn",
@@ -2408,7 +2431,6 @@ export const monsters = {
     "name": "Dragon",
     "day": 8,
     "health": 3675,
-    "level": 13,
     "skills": [
       {
         "name": "Draconic Rage",
@@ -2447,7 +2469,6 @@ export const monsters = {
     "name": "Oasis Guardian",
     "day": 8,
     "health": 2325,
-    "level": 9,
     "skills": [
       {
         "name": "Waters of Infinity",
@@ -2486,7 +2507,6 @@ export const monsters = {
     "name": "Bloodreef Captain",
     "day": 9,
     "health": 1925,
-    "level": 9,
     "skills": [
       {
         "name": "Full Arsenal",
@@ -2525,7 +2545,6 @@ export const monsters = {
     "name": "Yerdan",
     "day": 9,
     "health": 1925,
-    "level": -1,
     "skills": [
       {
         "name": "Tools of the Trade",
@@ -2579,7 +2598,6 @@ export const monsters = {
     "name": "Roaming Isle",
     "day": 9,
     "health": 2325,
-    "level": 11,
     "skills": [
       {
         "name": "Shored Up",
@@ -2634,7 +2652,6 @@ export const monsters = {
     "name": "Elite Duelist",
     "day": 9,
     "health": 2325,
-    "level": 9,
     "skills": [
       {
         "name": "Big Ego",
@@ -2684,12 +2701,57 @@ export const monsters = {
       }
     ]
   },
+  "Terrorform": {
+    "id": "3e80e4e9-13e6-441c-b770-a82a0297ad47",
+    "name": "Terrorform",
+    "day": 9,
+    "health": 2325,
+    "skills": [
+      {
+        "name": "Flashy Reload",
+        "tier": 3
+      },
+      {
+        "name": "Passive Power",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Torpedo",
+        "tier": 2
+      },
+      {
+        "name": "Mantis Shrimp",
+        "tier": 1
+      },
+      {
+        "name": "Shot Glasses",
+        "tier": 1
+      },
+      {
+        "name": "Elemental Depth Charge",
+        "tier": 2
+      },
+      {
+        "name": "Bottled Lightning",
+        "tier": 2
+      },
+      {
+        "name": "Piranha",
+        "tier": 3
+      },
+      {
+        "name": "Biomerge Arm",
+        "tier": 2
+      }
+    ]
+  },
   "Weapons Platform": {
     "id": "d63f985a-2960-408e-97ea-f023d4afd440",
     "name": "Weapons Platform",
     "day": 9,
     "health": 2750,
-    "level": 11,
     "skills": [
       {
         "name": "Distributed Systems",
@@ -2740,7 +2802,6 @@ export const monsters = {
     "name": "Foundation Revenant",
     "day": 9,
     "health": 3200,
-    "level": 12,
     "skills": [
       {
         "name": "Exposing Toxins",
@@ -2791,7 +2852,6 @@ export const monsters = {
     "name": "Void Knight",
     "day": 9,
     "health": 3675,
-    "level": 13,
     "skills": [
       {
         "name": "Hypnotic Drain",
@@ -2834,7 +2894,6 @@ export const monsters = {
     "name": "Ferros Khan",
     "day": 9,
     "health": 2750,
-    "level": 10,
     "skills": [
       {
         "name": "One Shot, One Kill",
@@ -2867,7 +2926,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Disguise",
+        "name": "Dock Lines",
         "tier": 2
       },
       {
@@ -2881,7 +2940,6 @@ export const monsters = {
     "name": "Hulking Experiment",
     "day": 10,
     "health": 2325,
-    "level": 10,
     "skills": [
       {
         "name": "Adaptive Ordinance",
@@ -2932,7 +2990,6 @@ export const monsters = {
     "name": "Boss Harrow",
     "day": 10,
     "health": 2325,
-    "level": 10,
     "skills": [
       {
         "name": "Assault Focus",
@@ -2983,7 +3040,6 @@ export const monsters = {
     "name": "Master Alchemist",
     "day": 10,
     "health": 2325,
-    "level": 10,
     "skills": [
       {
         "name": "Retool",
@@ -3022,7 +3078,6 @@ export const monsters = {
     "name": "Trash Titan",
     "day": 10,
     "health": 2750,
-    "level": 11,
     "skills": [
       {
         "name": "Juggler",
@@ -3069,7 +3124,6 @@ export const monsters = {
     "name": "Lord of the Wastes",
     "day": 10,
     "health": 2750,
-    "level": 15,
     "skills": [
       {
         "name": "Foreboding Winds",
@@ -3078,27 +3132,33 @@ export const monsters = {
     ],
     "items": [
       {
-        "name": "Shoe Blade",
+        "name": "Basilisk Fang",
         "tier": 2
       },
       {
-        "name": "Flamberge",
-        "tier": 3
+        "name": "Letter Opener",
+        "tier": 2,
+        "enchant": "Obsidian"
       },
       {
         "name": "Pendulum",
         "tier": 2
       },
       {
+        "name": "Letter Opener",
+        "tier": 2,
+        "enchant": "Toxic"
+      },
+      {
         "name": "Magic Carpet",
         "tier": 2
       },
       {
-        "name": "Myrrh",
-        "tier": 2
+        "name": "Clockwork Blades",
+        "tier": 3
       },
       {
-        "name": "Bar of Gold",
+        "name": "Energy Potion",
         "tier": 3
       }
     ]
@@ -3108,7 +3168,6 @@ export const monsters = {
     "name": "Volkas Enforcer",
     "day": 10,
     "health": 3200,
-    "level": 12,
     "skills": [
       {
         "name": "Cryomastery",
@@ -3155,7 +3214,6 @@ export const monsters = {
     "name": "Frost Street Champion",
     "day": 10,
     "health": 3675,
-    "level": 12,
     "skills": [
       {
         "name": "Blizzard",
@@ -3198,7 +3256,6 @@ export const monsters = {
     "name": "Void Golem",
     "day": 10,
     "health": 4700,
-    "level": 12,
     "skills": [
       {
         "name": "Into the Void",
@@ -3241,7 +3298,6 @@ export const monsters = {
     "name": "Eight Arm Davvy",
     "day": 10,
     "health": 8888,
-    "level": 13,
     "skills": [
       {
         "name": "Arms Race",
@@ -3300,7 +3356,6 @@ export const monsters = {
     "name": "Awakened District",
     "day": 10,
     "health": 4700,
-    "level": 15,
     "skills": [
       {
         "name": "Prosperity",
@@ -3339,7 +3394,6 @@ export const monsters = {
     "name": "Lord Arken",
     "day": 10,
     "health": 4700,
-    "level": 15,
     "skills": [
       {
         "name": "Unwavering",
@@ -3386,7 +3440,6 @@ export const monsters = {
     "name": "Void Colossus",
     "day": 10,
     "health": 4000,
-    "level": 15,
     "skills": [
       {
         "name": "Void Energy",
@@ -3425,7 +3478,6 @@ export const monsters = {
     "name": "Property Baron",
     "day": 10,
     "health": 3000,
-    "level": 11,
     "skills": [
       {
         "name": "Master Salesman",
@@ -3455,12 +3507,193 @@ export const monsters = {
       }
     ]
   },
+  "Morguloth": {
+    "id": "20863550-960f-4713-99eb-2ff2e4cfb3ef",
+    "name": "Morguloth",
+    "day": 10,
+    "health": 4700,
+    "skills": [
+      {
+        "name": "Strength",
+        "tier": 3
+      },
+      {
+        "name": "Jack of All Trades",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Cleaver",
+        "tier": 2
+      },
+      {
+        "name": "Box Cutter",
+        "tier": 3
+      },
+      {
+        "name": "Handaxe",
+        "tier": 3
+      },
+      {
+        "name": "Haladie",
+        "tier": 2
+      },
+      {
+        "name": "Chris Army Knife",
+        "tier": 2
+      },
+      {
+        "name": "Ritual Dagger",
+        "tier": 2
+      },
+      {
+        "name": "Sword of Swords",
+        "tier": 4
+      },
+      {
+        "name": "Lockbox",
+        "tier": 3
+      }
+    ]
+  },
+  "Qomatz": {
+    "id": "a5103989-fb08-4ac6-a5e8-6a610e0b1d46",
+    "name": "Qomatz",
+    "day": "event",
+    "health": 2750,
+    "skills": [
+      {
+        "name": "Ancient Vengeance",
+        "tier": 3
+      }
+    ],
+    "items": [
+      {
+        "name": "Cosmic Plumage",
+        "tier": 3
+      },
+      {
+        "name": "Barbed Claws",
+        "tier": 3,
+        "enchant": "Toxic"
+      },
+      {
+        "name": "Viper Cane",
+        "tier": 3,
+        "enchant": "Shielded"
+      },
+      {
+        "name": "Basilisk Fang",
+        "tier": 2,
+        "enchant": "Shielded"
+      },
+      {
+        "name": "Philosopher's Stone",
+        "tier": 2,
+        "enchant": "Toxic"
+      },
+      {
+        "name": "Ethergy Conduit",
+        "tier": 3
+      }
+    ]
+  },
+  "Greenheart Guardian": {
+    "id": "d1dc075f-f5d4-4bb7-9655-55591e123941",
+    "name": "Greenheart Guardian",
+    "day": "event",
+    "health": 2325,
+    "skills": [
+      {
+        "name": "Guardian's Fury",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Fang",
+        "tier": 2,
+        "enchant": "Toxic"
+      },
+      {
+        "name": "Venom",
+        "tier": 2
+      },
+      {
+        "name": "Fang",
+        "tier": 2,
+        "enchant": "Toxic"
+      },
+      {
+        "name": "Venom",
+        "tier": 2
+      },
+      {
+        "name": "Poppy Field",
+        "tier": 2
+      },
+      {
+        "name": "Emerald",
+        "tier": 2
+      },
+      {
+        "name": "Guardian Shell",
+        "tier": 2
+      }
+    ]
+  },
+  "Mythkeeper": {
+    "id": "4ce6d441-4aed-455b-b83f-0b057b462515",
+    "name": "Mythkeeper",
+    "day": "event",
+    "health": 1925,
+    "skills": [
+      {
+        "name": "Siphoned Shield",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Wand",
+        "tier": 2
+      },
+      {
+        "name": "Robe",
+        "tier": 1
+      },
+      {
+        "name": "Zoot Flute",
+        "tier": 2
+      },
+      {
+        "name": "Forgotten God",
+        "tier": 2
+      },
+      {
+        "name": "Incense",
+        "tier": 2
+      },
+      {
+        "name": "Ectoplasm",
+        "tier": 2
+      },
+      {
+        "name": "Fungal Spores",
+        "tier": 2
+      },
+      {
+        "name": "Venomous Dose",
+        "tier": 2
+      }
+    ]
+  },
   "Mr. Moo": {
     "id": "72411b58-e99a-44a9-a43f-9767896c7508",
     "name": "Mr. Moo",
     "day": "event",
     "health": 2325,
-    "level": 10,
     "skills": [
       {
         "name": "Dual Wield",
@@ -3515,7 +3748,6 @@ export const monsters = {
     "name": "Bounty Hunter",
     "day": "event",
     "health": 1550,
-    "level": 9,
     "skills": [
       {
         "name": "Ambush",
@@ -3558,7 +3790,6 @@ export const monsters = {
     "name": "Mimic",
     "day": "event",
     "health": 2750,
-    "level": 11,
     "skills": [
       {
         "name": "Ravenous",

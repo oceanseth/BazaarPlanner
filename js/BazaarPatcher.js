@@ -1,4 +1,5 @@
 import { items } from '../items.js';
+import { monsters } from '../monsters.js';
 import { ItemFunction } from './ItemFunction.js';
 import { skills } from '../skills.js';
 export class BazaarPatcher {
@@ -51,6 +52,16 @@ export class BazaarPatcher {
         }
         if(items["Subscraper"].text[1]=="Your other items have +Value equal to this item's Value during combat.") {
             items["Subscraper"].text[1] = "At the start of each fight, your other items gain Value equal to this item's Value for the fight.";
+        }
+        if(items["Temple Expedition Ticket"]) {
+            items["[Jungle Expedition] Temple Expedition Ticket"] = items["Temple Expedition Ticket"];
+            for(var m in monsters) {
+                monsters[m].items.forEach(i=>{
+                    if(i.name=="Temple Expedition Ticket") {
+                        i.name = "[Jungle Expedition] Temple Expedition Ticket";
+                    }
+                });
+            }
         }
         BazaarPatcher.customSetupFunctions.set("Orange Julian",(item)=>{
             if(item.Custom_0) {

@@ -1141,7 +1141,7 @@ export class Item {
 
 
         //Deal damage equal to the highest Shield value of items you have.  
-        damageRegex = /Deal damage equal to the highest Shield value of items you have/i;
+        damageRegex = /Deal damage equal to the highest Shield(?: value)? of items you have/i;
         match = text.match(damageRegex);
         if(match) {
             const shieldItems = this.board.items.filter(item => item.tags.includes("Shield"));
