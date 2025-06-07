@@ -4367,7 +4367,7 @@ export class Item {
         
 
         //This has + Multicast equal to its ammo. from Dive Weights 
-        regex = /^\s*This has +\s?Multicast equal to its ammo\.?/i;
+        regex = /^\s*This has \+\s?Multicast equal to its ammo\.?/i;
         match = text.match(regex);
         if(match) {
             this.gain(this.ammo,'multicast');
