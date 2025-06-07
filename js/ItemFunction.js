@@ -460,7 +460,7 @@ ItemFunction.items.set("Mortar & Pestle",(item)=>{
     const damage = getRarityValue("10 >> 15 >> 20 >> 25",item.rarity);
     const rightItem = item.getItemToTheRight();
     if(rightItem && rightItem.tags.includes("Weapon")) {
-        rightItem.lifesteal = true;
+        rightItem.lifesteal = 100;
     }
     item.triggerFunctions.push(()=>{
         item.board.items.forEach(i=>{
@@ -651,7 +651,7 @@ ItemFunction.items.set("Luxury Tents",(item)=>{
     });
     const healAmount = getRarityValue("25 >> 50",item.rarity);
     item.board.player.dieTriggers.set(item.id,()=>{
-        item.board.player.heal(item.board.player.maxHealth*healAmount/100);
+        item.board.player.heal({amount:item.board.player.maxHealth*healAmount/100, source:item});
         item.log(item.name + " healed for " + healAmount + "% of max health.");
         item.board.player.dieTriggers.delete(item.id);
     });
@@ -710,7 +710,7 @@ ItemFunction.items.set("Sparring Partner",(item)=>{
         item.board.player.burn=0;
         item.board.player.poison=0;
         item.board.player.maxHealth *= 2;
-        item.board.player.heal(item.board.player.maxHealth);
+        item.board.player.heal({amount:item.board.player.maxHealth, source:item});
         item.board.player.hostileTarget.addGold(1);
     });
 });

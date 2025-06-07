@@ -35,7 +35,7 @@ TextMatcher.comparitors["If you have no other weapons, "]= {
 };
 TextMatcher.matchers.push({
     id: "Essence Overflow Matcher",
-    regex: /^your weapons have \+ damage equal to your Regen(?:eration)?\.$/i,
+    regex: /^your weapons have \+\s?damage equal to your Regen(?:eration)?\.$/i,
     func: (item, match)=>{
         item.board.items.forEach(item => {
             if(item.tags.includes("Weapon")) {
@@ -351,13 +351,14 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Enchant a non-enchanted item for the fight. From Laboratory
-    regex: /^Enchant another non-enchanted item for the fight\.$/i,
-    func: (item)=>{
+    regex: /^Enchant a(?:nother)? non-enchanted item(?: with (.*))? for the fight\.$/i,
+    func: (item, match)=>{
         return ()=>{
-            const nonEnchantedItems = item.board.items.filter(i=>i.id!=item.id && !i.tags.includes("Enchanted"));
+            const specificEnchant = match[1];
+            const nonEnchantedItems = item.board.items.filter(i=>i.id!=item.id && !i.tags.includes("Enchanted") && (!specificEnchant || Object.keys(i.enchants).includes(specificEnchant)));
             if(nonEnchantedItems.length>0) {
                 const target = item.pickRandom(nonEnchantedItems);
-                target.addTemporaryEnchant();
+                target.addTemporaryEnchant(specificEnchant);
             }
         };
     },
@@ -815,7 +816,7 @@ TextMatcher.matchers.push({
 
 //your weapons gain + damage for the fight equal to (1/2) times the amount Poisoned. from Infused Bracers
 TextMatcher.matchers.push({
-    regex: /^your weapons gain \+ damage for the fight equal to (\([^)]+\)|\d+) times the amount (?:Poisoned|Burned)\.$/i,
+    regex: /^your weapons gain +\s?damage for the fight equal to (\([^)]+\)|\d+) times the amount (?:Poisoned|Burned)\.$/i,
     func: (item, match)=>{
         const multiplier = getRarityValue(match[1], item.rarity);
         return (source,{amount})=>{
@@ -877,7 +878,7 @@ TextMatcher.matchers.push({
 });
 //The item to the left of this has + Crit Chance equal to your Poison. from Optical Augment
 TextMatcher.matchers.push({
-    regex: /^The item to the (right|left) of this has \+ Crit Chance equal to your (Poison|Burn)\.$/i,
+    regex: /^The item to the (right|left) of this has +\s?Crit Chance equal to your (Poison|Burn)\.$/i,
     func: (item, match)=>{
         const target = match[1]=='left'?item.getItemToTheLeft():item.getItemToTheRight();
         if(target) {
@@ -1146,5 +1147,92 @@ TextMatcher.matchers.push({
             }
         }
         return ()=>{};
+    }
+});
+//Your Property items and Toys have (+10%/+15%/+20%) Crit chance. from Critical Investments
+TextMatcher.matchers.push({
+    regex: /^Your (\w+)(?: items)? and Toys have (\([^)]+\)|\d+%?) Crit chance\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const amount = getRarityValue(match[2], item.rarity);
+        item.board.activeItems.filter(i=>i.tags.includes(tag)).forEach(i=>{
+            i.gain(amount,'crit');
+        });
+    }
+});
+
+
+//The first time you fall below half health each fight, Freeze 1 item(s) for 99 second(s). 
+TextMatcher.matchers.push({
+    regex: /^The first time (you|a player) falls? below half health(?: each fight)?, (.*)\.?/i,
+    func: (item, match)=>{
+            const f = item.getTriggerFunctionFromText(match[2]);
+            let targets = match[1]=='you'?[item.board.player]:[item.board.player,item.board.player.hostileTarget];
+            targets.forEach(t=>{
+                t.healthBelowHalfTriggers.set(item.id,()=>{
+                    f();
+                    t.healthBelowHalfTriggers.delete(item.id);
+                });
+            });            
+        return ()=>{};
+    }
+});
+//When one of your items runs out of ammo ... from Adaptive Ordinance
+TextMatcher.matchers.push({
+    regex: /^When one of your items runs out of ammo, (.*)\.?/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1]);
+        item.board.items.filter(i=>i.tags.includes("Ammo")).forEach(i=>{
+            i.ammoChanged((newAmount, oldAmount)=>{
+                if(newAmount==0) {
+                    f();
+                }
+            });
+        });
+        return ()=>{};
+    }
+});
+//When one of your Dinosaurs deals damage, gain that much shield. from Tanky Anky
+TextMatcher.matchers.push({
+    regex: /^When one of your (\w+)s? deals damage, gain that much shield\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        item.board.items.filter(i=>i.tags.includes(tag)).forEach(i=>{
+            i.board.damageTriggers.set(item.id, ({source,target,amount}={})=>{
+                if(source.tags.includes(tag)) {
+                    item.applyShield({amount});
+                }
+            });
+        });
+        return ()=>{};
+    }
+});
+//Enemy Weapons have (-10/-25/-50/-75) Damage. from Tanky Anky
+TextMatcher.matchers.push({
+    regex: /^Enemy (\w+)s? have (\([^)]+\)|\d+) (\w+)\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);        
+        const amount = getRarityValue(match[2], item.rarity);
+        const whatToLose = Item.getTagFromText(match[3]);
+        item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes(tag)).forEach(i=>{
+            i.gain(amount,whatToLose);
+            i.updateTriggerValuesElement();
+        });
+        return ()=>{};
+    }
+});
+//Enchant 1 non-enchanted item on each player's board for the fight. from Spirit Diffuser
+TextMatcher.matchers.push({
+    regex: /^Enchant (\d+) non-enchanted item\(?s?\)? on each player's board for the fight\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        return ()=> {
+            item.pickRandom(item.board.items.filter(i=>!i.enchant),amount).forEach(i=>{
+                i.addTemporaryEnchant();
+            });
+            item.pickRandom(item.board.player.hostileTarget.board.items.filter(i=>!i.enchant),amount).forEach(i=>{
+                i.addTemporaryEnchant();
+            });
+        }
     }
 });

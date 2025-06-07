@@ -49,6 +49,9 @@ export class BazaarPatcher {
         if(skills["Power Broker"].text[0]=="Your weapons have +Damage equal (1/2/3) times to your income.") {
             skills["Power Broker"].text[0] = "Your weapons have +Damage equal to (1/2/3) times your income.";
         }
+        if(items["Subscraper"].text[1]=="Your other items have +Value equal to this item's Value during combat.") {
+            items["Subscraper"].text[1] = "At the start of each fight, your other items gain Value equal to this item's Value for the fight.";
+        }
         BazaarPatcher.customSetupFunctions.set("Orange Julian",(item)=>{
             if(item.Custom_0) {
                 item.text[0] = item.text[0].replace(/\+[\d]+ Damage/i, `+${item.Custom_0} Damage`);
