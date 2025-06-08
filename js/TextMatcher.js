@@ -1236,3 +1236,59 @@ TextMatcher.matchers.push({
         }
     }
 });
+//The item to the left is an Ammo item. from Biomerge Arm
+TextMatcher.matchers.push({
+    regex: /^The item to the (right|left)(?: of this)? is an? (\w+)(?: item)?\.$/i,
+    func: (item, match)=>{
+        const target = match[1]=='left'?item.leftItem:item.rightItem;
+        if(target) {
+            target.tags.push(Item.getTagFromText(match[2]));
+        }
+        return ()=>{};
+    }
+});
+//When an item runs out of Ammo ... from Biomerge Arm
+TextMatcher.matchers.push({
+    regex: /^When an item runs out of Ammo, (.*)\.?/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1]);
+        item.board.items.forEach(i=>{
+            i.ammoChanged((newAmount, oldAmount)=>{
+                if(newAmount==0 && oldAmount>0) {
+                    f(i);
+                }
+            });
+        });
+        return ()=>{};
+    }
+});
+//The item to the left of this has +100% Crit Chance and +1 max ammo. from Biomerge Arm
+TextMatcher.matchers.push({
+    regex: /^The item to the (right|left)(?: of this)? has (.*) and (.*)\.$/i,
+    func: (item, match)=>{
+        const target = match[1]=='left'?item.leftItem:item.rightItem;
+        if(target) {
+            target.setupTextFunctions(match[2]);
+            target.setupTextFunctions(match[3]);
+            return ()=>{};
+        }
+    }
+});
+// +100% Crit Chance 
+TextMatcher.matchers.push({
+    regex: /^\+\s?(\d+)%? Crit Chance\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        item.gain(amount,'crit');
+        return ()=>{};
+    }
+});
+//+1 max ammo.
+TextMatcher.matchers.push({
+    regex: /^\+\s?(\d+) max ammo\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        item.gain(amount,'maxAmmo');
+        return ()=>{};
+    }
+});

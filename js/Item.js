@@ -5534,7 +5534,7 @@ export class Item {
         }
 
         //Your weapons have + damage equal to your gold.
-        regex = /^Your weapons have +\s?damage equal to your gold\.?$/i;
+        regex = /^Your weapons have \+\s?damage equal to your gold\.?$/i;
         match = text.match(regex);
         if(match) {
             this.board.items.forEach(item => {
@@ -5980,7 +5980,7 @@ export class Item {
    //     this.getAmmoTriggerFunctionFromText(text) ||
         this.getAnonymousTriggerFunctionFromText(text) ||
         this.getCommaTriggerFunctionFromText(text) ||
-        (() => { console.log("Could not parse "+ text+ " from "+this.name); return ()=>{};})();
+        (() => { console.log("Could not parse \""+ text+ "\" from "+this.name); return ()=>{};})();
         if(f) {
             f.text=text;
             return f;
