@@ -1292,3 +1292,13 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+//This has +1 Multicast for each other item you have from a different Hero. from Sword of Swords
+TextMatcher.matchers.push({
+    regex: /^This has \+1 Multicast for each other item you have from a different Hero\.$/i,
+    func: (item, match)=>{
+        item.board.items.filter(i=>i!=item && !i.tags.includes(item.board.player.hero) && i.tags.some(t=>Item.characterTags.includes(t))).forEach(i=>{
+            item.gain(1,'multicast',i);
+        });
+        return ()=>{};
+    }
+});
