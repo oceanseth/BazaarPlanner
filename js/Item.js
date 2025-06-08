@@ -459,6 +459,13 @@ export class Item {
                 }
             }            
         }
+        if(this.quests) {   
+            Object.keys(this.quests).forEach((q,i)=>{
+             if(this["quest_"+(i+1)]>=this.questRequirements[i]) {
+                this.setupTextFunctions(this.quests[q]);
+                }
+            });
+        }
         if(!this.executeSpecificItemFunction()) {
             // Create array of text+priority pairs and sort by priority
             const textWithPriorities = this.text.map((text, index) => ({
@@ -626,6 +633,11 @@ export class Item {
                 <div class="tooltip-main ${this.rarity||'Bronze'}Border">                    
                     <div class="tooltip-main-text">
                         ${colorTextArray(this.text,this.tier)}
+                    </div>
+                    <div class="tooltip-quest-text">
+                        ${this.quests?Object.keys(this.quests).map((questRequirement,i)=>`<div class="tooltip-quest-text-line">${
+                            colorTextArray([questRequirement],this.tier)}: ${colorTextArray([this.quests[questRequirement]],this.tier)} 
+                            ${this["quest_"+(i+1)]||0}/${this.questRequirements[i]}</div>`).join(''):''}
                     </div>
                     ${this.crit ? `
                     <div class="tooltip-divider"></div>

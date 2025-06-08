@@ -234,6 +234,11 @@ export function loadFromUrl(hash) {
             newItem.enchant = enchant;
             newItem.name = name;
             newItem.setIndex(startIndex);
+            let i=1;
+            while(itemWithoutBoardAndStartIndex["quest_"+i] != undefined) {
+                newItem.startItemData["quest_"+i] = itemWithoutBoardAndStartIndex["quest_"+i];
+                i++;
+            }
         });       
         let refreshBoards = () =>{
             boardsCleared.forEach((board) => {
@@ -256,6 +261,7 @@ export function loadFromUrl(hash) {
         let itemsToEvaluate = [...boardsCleared.values()].flatMap(board=>board.items);
         
         itemsToEvaluate.forEach(item=>{
+           
             ["slow","freeze","haste"].forEach(attribute=>{
                 if(item[attribute+"Final"] != undefined) {
                     item.startItemData[attribute] = (item.startItemData[attribute] || 0) + (item[attribute+"Final"]/1000 - item[attribute]);
