@@ -36,17 +36,17 @@ export class Player {
         this.board.updateGoldElement();
     }
 
-    heal({healAmount,source,isLifesteal=false}={}) {
-        const startingHealAmount = healAmount;
-        this.board.healingApplied += healAmount;
-        if(this.health+healAmount>this.maxHealth) {
-            const overheal = this.health+healAmount-this.maxHealth;
-            healAmount -= overheal;
+    heal({amount,source,isLifesteal=false}={}) {
+        const startingHealAmount = amount;
+        this.board.healingApplied += amount;
+        if(this.health+amount>this.maxHealth) {
+            const overheal = this.health+amount-this.maxHealth;
+            amount -= overheal;
             this.log((source?source.name+" ":"")+"overhealed for "+overheal);
             this.overhealTriggers.forEach(func => func(overheal));
         }
-        this.healTriggers.forEach(func => func(healAmount));
-        this.health += healAmount;
+        this.healTriggers.forEach(func => func(amount));
+        this.health += amount;
         if(this.poison > 0 && !isLifesteal) {
             const oldPoison = this.poison;
             this.poison=this.poison - Math.ceil(startingHealAmount/5); //cleanse 5% of healing or 1 poison when a heal occurs

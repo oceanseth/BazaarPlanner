@@ -45,6 +45,7 @@ class Board {
         return LZString.compressToEncodedURIComponent(JSON.stringify(boardState));
     }
     loadEncounter(encounter) {
+        if(!encounter) return;
         loadFromUrl(encounter.d);
         window.history.pushState({state: encounter.d}, '', `#${encounter.d}`);
     }
