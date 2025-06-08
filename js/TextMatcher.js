@@ -1321,3 +1321,30 @@ TextMatcher.matchers.push({
         }
     }
 });
+//"If your enemy has more items than you, destroy one of their items." from Rex Spex
+TextMatcher.matchers.push({
+    regex: /^If your enemy has more items than you, destroy one of their items\.$/i,
+    func: (item, match)=>{
+        return ()=>{
+            if(item.board.player.hostileTarget.board.activeItems.length>item.board.activeItems.length) {
+               item.pickRandom(item.board.player.hostileTarget.board.activeItems).destroy();
+            }
+        }   
+    }
+});
+//This has +damage equal to (100/200/300) times the number of Types it has. from hydraulic press
+TextMatcher.matchers.push({
+    regex: /^This has \+\s?(\w+) equal to (\([^)]+\)|\d+) times the number of Types it has\.$/i,
+    func: (item, match)=>{
+        const whatToGain = Item.getTagFromText(match[1]);
+        const amount = getRarityValue(match[2], item.rarity);
+        let types = [];
+        item.tags.forEach(tag => {
+            if(Board.uniqueTypeTags.includes(tag)) {
+                types.push(tag);
+            }
+        });
+        item.gain(amount*types.length,whatToGain);
+        return ()=>{};
+    }
+});
