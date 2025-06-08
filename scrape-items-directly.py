@@ -58,6 +58,14 @@ def process_item(item):
     processed["tags"].append(item["size"])
     processed["tags"].extend(item.get("tags", []))
     processed["tags"].extend(item.get("hiddenTags", []))
+
+    # Process quests into a flattened structure
+    if item.get("quests"):
+        processed["quests"] = {}
+        for quest in item["quests"]:
+            for entry in quest["entries"]:
+                if entry["tooltips"] and entry["rewardTooltips"]:
+                    processed["quests"][entry["tooltips"][0]] = entry["rewardTooltips"][0]
     
     # Process unified tooltips
     tooltips = item["unifiedTooltips"]
