@@ -5793,8 +5793,8 @@ export class Item {
 
 
 
-        // If you have 5 or more unique Types, reduce this item's cooldown by 50%. from Rowboat
-        regex = /^If you have 5 or more unique Types, reduce this item's cooldown by 50%\.?$/i;
+        // If you have 5 or more unique Types, this item's cooldown is reduced by 50%. from Rowboat
+        regex = /^If you have 5 or more unique Types, this item's cooldown is reduced by 50%\.?$/i;
         match = text.match(regex);
         if(match) {
             if(this.board.uniqueTypes>=5) {
