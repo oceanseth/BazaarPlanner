@@ -1296,9 +1296,28 @@ TextMatcher.matchers.push({
 TextMatcher.matchers.push({
     regex: /^This has \+1 Multicast for each other item you have from a different Hero\.$/i,
     func: (item, match)=>{
-        item.board.items.filter(i=>i!=item && !i.tags.includes(item.board.player.hero) && i.tags.some(t=>Item.characterTags.includes(t))).forEach(i=>{
+        item.board.items.filter(
+            i=>i!=item && 
+            !i.tags.includes(item.board.player.hero) && 
+            i.tags.some(t=>Item.characterTags.includes(t))
+        ).forEach(i=>{
             item.gain(1,'multicast',i);
         });
         return ()=>{};
+    }
+});
+//Charge adjacent Large items for half their cooldown." from Red Button
+TextMatcher.matchers.push({
+    regex: /^Charge adjacent Large items for half their cooldown\.$/i,
+    func: (item, match)=>{
+        return ()=>{
+         let targets = [item.leftItem,item.rightItem].filter(i=>i && i.tags.includes("Large"));
+         targets.forEach(i=>{
+            const oldCharge = item.charge;
+            item.charge = i.cooldown/2000;
+            item.applyChargeTo(i);
+            item.charge = oldCharge;
+         });
+        }
     }
 });
