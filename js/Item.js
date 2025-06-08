@@ -1720,6 +1720,13 @@ export class Item {
         return null;
     }   
 
+    get leftItem() {
+        return this.getItemToTheLeft();
+    }
+
+    get rightItem() {
+        return this.getItemToTheRight();
+    }
 
     getItemToTheLeft() {
         const itemIndex = this.board.items.indexOf(this);
@@ -3168,6 +3175,21 @@ export class Item {
                                 triggerFunctionFromText(item);
                             }
                         });
+                        return ()=>{};
+                    case "crit with the item to the left of this":
+                        this.board.critTriggers.set(this.id+"_"+triggerFunctionFromText.text,(item)=>{
+                            if(item.id==this.leftItem?.id) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return ()=>{};
+                    case "crit with the item to the right of this":
+                        this.board.critTriggers.set(this.id+"_"+triggerFunctionFromText.text,(item)=>{
+                            if(item.id==this.rightItem?.id) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return ()=>{};
                     case "transform a potion":
                         this.board.transformTriggers.set(this.id+"_"+triggerFunctionFromText.text,(item,source)=>{
                             if(item.tags.includes("Potion")) {
@@ -5314,7 +5336,7 @@ export class Item {
         //Your Shield items have +1 Shield 
         //your items have ( +1% » +2% » +3% » +4% ) crit chance
         //your items have ( +1% » +2% » +3% » +4% ) crit chance for each weapon you have
-        regex = /^your (non-)?([^\s]+)(?:s)? (?:items)?(?: and ([^\s]+)(?:s)? (?:items)?)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.$/i;
+        regex = /^your (non-)?([^\s]+)(?:s)?\s?(?:items)?(?: and ([^\s]+)(?:s)? (?:items)?)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.$/i;
         match = text.match(regex);
 
         if(match) {
@@ -6026,7 +6048,7 @@ export class Item {
         
         //your weapons have (  +5  » +10  » +20   ) damage.
         //your items have (  +5%  » +10%  » +20%   ) Crit Chance.
-        regex = /^your ([^s]+)s?(?: items)? (?:and ([^s]+)s?(?: items)?)? have (?:\(([^)]+)\)|\+?(\d+)%?) ([^\s^\.]+)\s*(?:Chance)?\.?$/i;
+        regex = /^your ([^s]+)s?(?: items)?\s?(?:and ([^s]+)s?(?: items)?)? have (?:\(([^)]+)\)|\+?(\d+)%?) ([^\s^\.]+)\s*(?:Chance)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const gainAmount = parseInt(match[3] ? getRarityValue(match[3], this.rarity) : match[4]);
