@@ -65,7 +65,6 @@ export class BazaarPatcher {
         }
         if(items["Sands of Time"]) {
             items["Sands of Time"].quests = {"Buy 6 Slow items":"This has +1 Multicast","Buy 5 Relics":"When you use another relic, charge this 1 second."};
-            items["Sands of Time"].questRequirements = [6,5];
         }
         BazaarPatcher.customSetupFunctions.set("Orange Julian",(item)=>{
             if(item.Custom_0) {

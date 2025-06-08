@@ -1720,6 +1720,13 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Deal damage equal to 10 times this item's Regen."
+    },
+    "quests": {
+      "Poison 50 times": "Poison (5/10/15/20).",
+      "Gain Regen 40 times": "Gain (5/10/15/20) Regen for the fight.",
+      "Burn 30 times": "Burn (5/10/15/20).",
+      "Slow 20 times": "Slow (1/2/3/4) items for 1 second(s).",
+      "Freeze 10 times": "Freeze (1/2/3/4) items for 0.5 second(s)."
     }
   },
   "Blast Doors": {
@@ -5195,6 +5202,9 @@ export const items = {
       "Deadly": "+50% Crit Chance",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
+    },
+    "quests": {
+      "A Weapon is used 50 times": "This enchants a second item."
     }
   },
   "Darkstone Focuser": {
@@ -6382,6 +6392,10 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Deal damage equal to 10 times this item's Burn."
+    },
+    "quests": {
+      "Buy 6 Burn items": "When you Burn, this gains (2/4/6/8) Burn for the fight.",
+      "Have 75+ Burn on this item.": "This has +1 Multicast."
     }
   },
   "Ethergy Conduit": {
@@ -7378,6 +7392,10 @@ export const items = {
       "Shiny": "This has +1 Multicast.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 50 Damage."
+    },
+    "quests": {
+      "Buy 4 Freeze items": "This has +1 Multicast.",
+      "Buy 5 Relics": "When you use another Relic, charge this 1 second(s)."
     }
   },
   "Frozen Bludgeon": {
@@ -9267,6 +9285,10 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Deal damage equal to 10 times this item's Poison."
+    },
+    "quests": {
+      "Buy 8 Poison items": "When you Poison, this gains (2/4/6/8) Poison for the fight.",
+      "Have 75+ Poison on this item.": "This has +1 Multicast."
     }
   },
   "Igloo": {
@@ -10659,6 +10681,10 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Deal damage equal to 10 times this item's Regen."
+    },
+    "quests": {
+      "Buy 8 Regen items": "When you Regen, this gains (2/4/6/8) Regen for the fight.",
+      "Have 75+ Regen on this item.": "This has +1 Multicast."
     }
   },
   "Life Preserver": {
@@ -15881,6 +15907,10 @@ export const items = {
       "Shiny": "This has +1 Multicast.",
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "Deal 50 Damage."
+    },
+    "quests": {
+      "Buy 6 Slow items": "This has +1 Multicast.",
+      "Buy 5 Relics": "When you use another Relic, charge this 1 second(s)."
     }
   },
   "Sapphire": {
@@ -17533,6 +17563,12 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Deal damage equal to 10 times this item's Regen."
+    },
+    "quests": {
+      "Buy 8 Poison items": "Poison ({abilityq1}/3/6/9).",
+      "Buy 8 Burn items": "Burn ({abilityq2}/3/6/9).",
+      "Buy 4 Slow items": "Slow ({abilityq3targets}/1/2/3). items for ({abilityq3}/1/1/1). second(s).",
+      "Buy 4 Freeze items": "Freeze ({abilityq4targets}/1/2/3). items for ({abilityq4}/0.5/0.5/0.5). second(s)."
     }
   },
   "Spacescraper": {
@@ -19150,6 +19186,10 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Deadly": "+50% Crit Chance",
       "Obsidian": "Deal damage equal to 10 times this item's Regen."
+    },
+    "quests": {
+      "Complete 1 quest on another item": "Poison ({abilityq1}/5/10/15).",
+      "Complete 2 quests on other items": "Freeze ({abilityq2targets}/1/1/1). items for ({abilityq2}/0.5/0.5/0.5). second(s)."
     }
   },
   "Tommoo Gun": {

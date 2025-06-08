@@ -461,7 +461,7 @@ export class Item {
         }
         if(this.quests) {   
             Object.keys(this.quests).forEach((q,i)=>{
-             if(this["quest_"+(i+1)]>=this.questRequirements[i]) {
+             if(this["quest_"+(i+1)]>=parseInt(q.match(/(\d+)/)[1])) {
                 this.setupTextFunctions(this.quests[q]);
                 }
             });
@@ -637,7 +637,7 @@ export class Item {
                     <div class="tooltip-quest-text">
                         ${this.quests?Object.keys(this.quests).map((questRequirement,i)=>`<div class="tooltip-quest-text-line">${
                             colorTextArray([questRequirement],this.tier)}: ${colorTextArray([this.quests[questRequirement]],this.tier)} 
-                            ${this["quest_"+(i+1)]||0}/${this.questRequirements[i]}</div>`).join(''):''}
+                            ${this["quest_"+(i+1)]||0}/${parseInt(questRequirement.match(/(\d+)/)[1])}</div>`).join(''):''}
                     </div>
                     ${this.crit ? `
                     <div class="tooltip-divider"></div>
@@ -2410,6 +2410,15 @@ export class Item {
                     </select>
                 </div>`;
         }
+        if(this.quests) {
+            Object.keys(this.quests).forEach((q,i)=>{
+                popupHTML += `
+                    <div class="form-group">
+                        <label>Quest ${i+1}:</label>
+                        <input type="text" id="edit-quest-${i+1}" value="${this["quest_"+(i+1)]}">
+                    </div>`;
+            });
+        }
         
 
         // Add buttons
@@ -2515,6 +2524,11 @@ export class Item {
             if(popup.querySelector('#edit-regen')) {
                 const newRegen = parseFloat(popup.querySelector('#edit-regen').value);
                 this.startItemData.regen = (this.startItemData.regen||0) + (newRegen - this.regen);
+            }
+            let i=1;
+            while(popup.querySelector('#edit-quest-'+i)) {
+                this.startItemData["quest_"+i] = parseInt(popup.querySelector('#edit-quest-'+i).value);
+                i++;
             }
             popup.remove();
             this.board.player.battle.resetBattle();
