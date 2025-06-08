@@ -9,7 +9,7 @@ export class Item {
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny','Toxic', 'Turbo' ];
     static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze','income'];
-    static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle','Common'];
+    static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle'];
     static sizeTags = ['Small','Medium','Large'];
     static allowedGainMap = {
         "crit": ["Weapon","Poison","Burn","Shield","Heal"]
@@ -5534,7 +5534,7 @@ export class Item {
         }
 
         //Your weapons have + damage equal to your gold.
-        regex = /^Your weapons have +\s?damage equal to your gold\.?$/i;
+        regex = /^Your weapons have \+\s?damage equal to your gold\.?$/i;
         match = text.match(regex);
         if(match) {
             this.board.items.forEach(item => {
@@ -5793,8 +5793,8 @@ export class Item {
 
 
 
-        // If you have 5 or more unique Types, reduce this item's cooldown by 50%. from Rowboat
-        regex = /^If you have 5 or more unique Types, reduce this item's cooldown by 50%\.?$/i;
+        // If you have 5 or more unique Types, this item's cooldown is reduced by 50%. from Rowboat
+        regex = /^If you have 5 or more unique Types, this item's cooldown is reduced by 50%\.?$/i;
         match = text.match(regex);
         if(match) {
             if(this.board.uniqueTypes>=5) {
@@ -5980,7 +5980,7 @@ export class Item {
    //     this.getAmmoTriggerFunctionFromText(text) ||
         this.getAnonymousTriggerFunctionFromText(text) ||
         this.getCommaTriggerFunctionFromText(text) ||
-        (() => { console.log("Could not parse "+ text+ " from "+this.name); return ()=>{};})();
+        (() => { console.log("Could not parse \""+ text+ "\" from "+this.name); return ()=>{};})();
         if(f) {
             f.text=text;
             return f;

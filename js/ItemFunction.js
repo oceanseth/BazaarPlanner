@@ -7,7 +7,7 @@ export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
         "Spare Change","Pelt","Candy Mail","Machine Learning","Chocoholic","Like Clockwork","Upgrade Hammer", "Sifting Pan",
-    "Vending Machine","Piggy Bank","Cash Register","Cargo Shorts","Alembic","The Tome of Yyahan","Catalyst","Chunk of Lead","Chunk of Gold", "Catalyst","Temple Expedition Ticket"];
+    "Vending Machine","Piggy Bank","Cash Register","Cargo Shorts","Alembic","The Tome of Yyahan","Catalyst","Chunk of Lead","Chunk of Gold", "Catalyst","Temple Expedition Ticket","[Jungle Expedition] Temple Expedition Ticket"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
             ItemFunction.items.set(itemName, (item) => {});

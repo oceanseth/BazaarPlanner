@@ -1236,3 +1236,115 @@ TextMatcher.matchers.push({
         }
     }
 });
+//The item to the left is an Ammo item. from Biomerge Arm
+TextMatcher.matchers.push({
+    regex: /^The item to the (right|left)(?: of this)? is an? (\w+)(?: item)?\.$/i,
+    func: (item, match)=>{
+        const target = match[1]=='left'?item.leftItem:item.rightItem;
+        if(target) {
+            target.tags.push(Item.getTagFromText(match[2]));
+        }
+        return ()=>{};
+    }
+});
+//When an item runs out of Ammo ... from Biomerge Arm
+TextMatcher.matchers.push({
+    regex: /^When an item runs out of Ammo, (.*)\.?/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1]);
+        item.board.items.forEach(i=>{
+            i.ammoChanged((newAmount, oldAmount)=>{
+                if(newAmount==0 && oldAmount>0) {
+                    f(i);
+                }
+            });
+        });
+        return ()=>{};
+    }
+});
+//The item to the left of this has +100% Crit Chance and +1 max ammo. from Biomerge Arm
+TextMatcher.matchers.push({
+    regex: /^The item to the (right|left)(?: of this)? has (.*) and (.*)\.$/i,
+    func: (item, match)=>{
+        const target = match[1]=='left'?item.leftItem:item.rightItem;
+        if(target) {
+            target.setupTextFunctions(match[2]);
+            target.setupTextFunctions(match[3]);
+            return ()=>{};
+        }
+    }
+});
+// +100% Crit Chance 
+TextMatcher.matchers.push({
+    regex: /^\+\s?(\d+)%? Crit Chance\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        item.gain(amount,'crit');
+        return ()=>{};
+    }
+});
+//+1 max ammo.
+TextMatcher.matchers.push({
+    regex: /^\+\s?(\d+) max ammo\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        item.gain(amount,'maxAmmo');
+        return ()=>{};
+    }
+});
+//This has +1 Multicast for each other item you have from a different Hero. from Sword of Swords
+TextMatcher.matchers.push({
+    regex: /^This has \+1 Multicast for each other item you have from a different Hero\.$/i,
+    func: (item, match)=>{
+        item.board.items.filter(
+            i=>i!=item && 
+            !i.tags.includes(item.board.player.hero) && 
+            i.tags.some(t=>Item.characterTags.includes(t))
+        ).forEach(i=>{
+            item.gain(1,'multicast',i);
+        });
+        return ()=>{};
+    }
+});
+//Charge adjacent Large items for half their cooldown." from Red Button
+TextMatcher.matchers.push({
+    regex: /^Charge adjacent Large items for half their cooldown\.$/i,
+    func: (item, match)=>{
+        return ()=>{
+         let targets = [item.leftItem,item.rightItem].filter(i=>i && i.tags.includes("Large"));
+         targets.forEach(i=>{
+            const oldCharge = item.charge;
+            item.charge = i.cooldown/2000;
+            item.applyChargeTo(i);
+            item.charge = oldCharge;
+         });
+        }
+    }
+});
+//"If your enemy has more items than you, destroy one of their items." from Rex Spex
+TextMatcher.matchers.push({
+    regex: /^If your enemy has more items than you, destroy one of their items\.$/i,
+    func: (item, match)=>{
+        return ()=>{
+            if(item.board.player.hostileTarget.board.activeItems.length>item.board.activeItems.length) {
+               item.pickRandom(item.board.player.hostileTarget.board.activeItems).destroy();
+            }
+        }   
+    }
+});
+//This has +damage equal to (100/200/300) times the number of Types it has. from hydraulic press
+TextMatcher.matchers.push({
+    regex: /^This has \+\s?(\w+) equal to (\([^)]+\)|\d+) times the number of Types it has\.$/i,
+    func: (item, match)=>{
+        const whatToGain = Item.getTagFromText(match[1]);
+        const amount = getRarityValue(match[2], item.rarity);
+        let types = [];
+        item.tags.forEach(tag => {
+            if(Board.uniqueTypeTags.includes(tag)) {
+                types.push(tag);
+            }
+        });
+        item.gain(amount*types.length,whatToGain);
+        return ()=>{};
+    }
+});
