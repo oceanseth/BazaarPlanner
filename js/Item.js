@@ -3257,6 +3257,13 @@ export class Item {
                                 }
                             });
                     return ()=>{};
+                    case 'an adjacent item slows':
+                        this.board.slowTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                            if(this.adjacentItems.some(i=>i.id==source.id)) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                        return ()=>{};
 
                     case "an adjacent item slows or freezes":
                         const adjItems = this.adjacentItems;
@@ -3270,16 +3277,7 @@ export class Item {
                                 triggerFunctionFromText(source);
                             }
                         });
-                        this.board.player.hostileTarget.board.freezeTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
-                            if(adjItems.some(i=>i.id==source.id)) {
-                                triggerFunctionFromText(source);
-                            }
-                        });
-                        this.board.player.hostileTarget.board.slowTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
-                            if(adjItems.some(i=>i.id==source.id)) {
-                                triggerFunctionFromText(source);
-                            }
-                        });
+                       
                         return;
                 }
                 console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"' from "+this.name);
@@ -5071,7 +5069,7 @@ export class Item {
             };
         }
         //Charge adjacent Small items ( 1 » 2 » 3 » 4 ) second(s).
-        regex = /^Charge adjacent\s*([^\s]+)? items (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
+        regex = /^Charge adjacent\s*([^\s]+)?(?: items)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
             this.charge = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
@@ -5345,7 +5343,7 @@ export class Item {
         }
 
         //Your Shield items have + Shield equal to (  2  » 3  » 4   ) times your level.
-        regex = /^Your Shield items have +\s?Shield equal to (?:\(([^)]+)\)|(\d+)) times your level.*$/i;
+        regex = /^Your Shield items have \+\s?Shield equal to (?:\(([^)]+)\)|(\d+)) times your level.*$/i;
         match = text.match(regex);
         if(match) {
             const gainAmount = this.board.player.level * (match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]));
@@ -6027,7 +6025,7 @@ export class Item {
         }
 
         //its cooldown is reduced by (5%/10%/15%) from Temporal Strike
-        regex = /^its cooldown is reduced by (\([^)]+\)|\d+)%?$/i; 
+        regex = /^its cooldown is reduced by (\([^)]+\)|\d+)%?\.?$/i; 
         match = text.match(regex);
         if(match) {
             const cooldownReduction = getRarityValue(match[1], this.rarity);

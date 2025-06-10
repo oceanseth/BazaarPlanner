@@ -816,7 +816,7 @@ TextMatcher.matchers.push({
 
 //your weapons gain + damage for the fight equal to (1/2) times the amount Poisoned. from Infused Bracers
 TextMatcher.matchers.push({
-    regex: /^your weapons gain +\s?damage for the fight equal to (\([^)]+\)|\d+) times the amount (?:Poisoned|Burned)\.$/i,
+    regex: /^your weapons gain \+\s?damage for the fight equal to (\([^)]+\)|\d+) times the amount (?:Poisoned|Burned)\.$/i,
     func: (item, match)=>{
         const multiplier = getRarityValue(match[1], item.rarity);
         return (source,{amount})=>{
@@ -1074,15 +1074,14 @@ TextMatcher.matchers.push({
 
 //If this is your only Tech item its cooldown is reduced by 50%. from Temporal Navigator
 TextMatcher.matchers.push({
-    regex: /^If this is your only (\w+) item,? its cooldown is reduced by (\([^)]+\)|\d+%?)\.$/i,
+    regex: /^If this is your only (\w+)(?: item)?,? (.*)$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);
-        const amount = getRarityValue(match[2], item.rarity);
-        const multiplier = amount/100;
-        if(item.board.activeItems.filter(i=>i.tags.includes(tag)).length==1) {
-            item.gain(-item.cooldown*multiplier,'cooldown');
-        }
-        return ()=>{};
+        const comparisonFunction = ()=>(item.board.items.filter(i=>i.tags.includes(tag)).length==1);
+        const f = item.getUndoableFunctionFromText(match[2].replace(/^it has/i,"this has"),comparisonFunction);
+        item.board.itemDestroyedTriggers.set(item.id, f);
+        return ()=>{          
+        };
     }
 });
 
@@ -1406,4 +1405,57 @@ TextMatcher.matchers.push({
         };
     }
 });
-//"This has +100% Crit Chance for each other item you have." from Maitoan Altar
+//"Relic Weapons gain (+10/+20/+30) Damage for the fight." from Primal Core
+TextMatcher.matchers.push({
+    regex: /^Your ((?:\w+)( and (?:\w+))*) (\w+)s? gain (\([^)]+\)|\d+) (\w+) for the fight\.$/i,
+    func: (item, match)=>{
+        const tags = match[1].split(" and ");
+        const tag2 = tags[1] ? Item.getTagFromText(tags[1]) : null;
+        const amount = getRarityValue(match[4], item.rarity);
+        const whatToGain = match[5].toLowerCase();
+        return ()=>{
+            item.board.activeItems.filter(i=>i.tags.includes(tag2) && tags.some(tag=>i.tags.includes(tag))).forEach(i=>{
+                i.gain(amount,whatToGain);
+            });
+        };
+    }
+});
+TextMatcher.matchers.push({
+    regex: /^At the end of each fight, (.*)\.$/i,
+    func: ()=>{
+        return ()=>{};
+    }
+});
+//"This item's cooldown is increased by 1 second for each Tech item you have." from Flint Stones
+TextMatcher.matchers.push({
+    regex: /^This item's cooldown is increased by (\d+) second\(?s?\)? for each (\w+)(?: item)? you have\.$/i,
+    func: (item, match)=>{
+        const amount = 1000*getRarityValue(match[1], item.rarity);
+        const tag = Item.getTagFromText(match[2]);
+        const numTechs = item.board.items.filter(i=>i.tags.includes(tag) && i!=item).length;
+        item.gain(amount*numTechs,'cooldown');
+        item.board.itemDestroyedTriggers.set(item.id, (i)=>{
+            if(i.tags.includes(tag) && i!=item) {
+                i.gain(-amount,'cooldown');
+            }
+        });
+        return ()=>{};
+    }
+});
+//"Burn (2/4/6/8) for each Relic or Tool you have." from Flint Stones
+TextMatcher.matchers.push({
+    regex: /^Burn (\([^)]+\)|\d+) for each (\w+) or (\w+) you have\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        const tag = Item.getTagFromText(match[2]);
+        const tag2 = Item.getTagFromText(match[3]);
+        const numThings = item.board.items.filter(i=>i.tags.includes(tag) || i.tags.includes(tag2)).length;
+        item.gain(amount*numThings,'burn');
+        item.board.itemDestroyedTriggers.set(item.id, (i)=>{
+            if(i.tags.includes(tag) || i.tags.includes(tag2)) {
+                i.gain(-amount,'burn');
+            }
+        });
+        return ()=>{};
+    }
+});

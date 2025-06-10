@@ -19188,8 +19188,8 @@ export const items = {
       "Obsidian": "Deal damage equal to 10 times this item's Regen."
     },
     "quests": {
-      "Complete 1 quest on another item": "Poison ({abilityq1}/5/10/15).",
-      "Complete 2 quests on other items": "Freeze ({abilityq2targets}/1/1/1). items for ({abilityq2}/0.5/0.5/0.5). second(s)."
+      "Complete 1 quest on another item": "Poison (5/10/15).",
+      "Complete 2 quests on other items": "Freeze 1 item for 0.5 second(s)."
     }
   },
   "Tommoo Gun": {
