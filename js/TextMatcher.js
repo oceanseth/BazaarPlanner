@@ -1041,12 +1041,13 @@ TextMatcher.matchers.push({
 });
 //If you have another Tool, Apparel, Tech, Weapon, or Friend, this has (+50/+100/+150) Damage for each. from Forklift
 TextMatcher.matchers.push({
-    regex: /^If you have another (\w+(, (?:or )?\w+)*), this has (\([^)]+\)|\+?\d+) Damage(?: for each)?\.$/i,
+    regex: /^If you have another (\w+(?:, (?:or )?\w+)*)(?: item)?,? this has (\([^)]+\)|\+?\d+) (\w+)(?: for each)?\.$/i,
     func: (item, match)=>{
         const tags = match[1].split(", ");
-        const amount = getRarityValue(match[3], item.rarity);
+        const amount = getRarityValue(match[2], item.rarity);
+        const whatToGain = match[3].toLowerCase();
         item.board.activeItems.filter(i=>i!=item && tags.some(tag=>i.tags.includes(tag))).forEach(i=>{
-            item.gain(amount,'damage',i);
+            item.gain(amount,whatToGain,i);
         });
         return ()=>{};
     }
@@ -1348,3 +1349,61 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+//"Poison 5 for each Poison item you have." from Maitoan Altar
+TextMatcher.matchers.push({
+    regex: /^(Poison|Burn|Heal|Regen) (\d+) for each (\w+) item you have\.$/i,
+    func: (item, match)=>{
+        const whatToDo = match[1];
+        const amount = getRarityValue(match[2], item.rarity);
+        const tag = Item.getTagFromText(match[3]);
+        
+        item.board.items.filter(i=>i.tags.includes(tag)).forEach(i=>{
+            item.gain(amount,whatToDo);
+        });
+        item.board.itemDestroyedTriggers.set(item.id, (i)=>{
+            if(i.tags.includes(tag)) {
+                item.gain(-amount,whatToDo);
+            }
+        });
+        return ()=>{
+            item["apply"+whatToDo]();
+        };
+    }
+});
+//"This item's cooldown is reduced by 1 second for each other Relic you have." from Maitoan Altar
+TextMatcher.matchers.push({
+    regex: /^This item's cooldown is reduced by (\d+) second\(?s?\)? for each other (\w+) you have\.$/i,
+    func: (item, match)=>{
+        const amount = 1000*getRarityValue(match[1], item.rarity);
+        const tag = Item.getTagFromText(match[2]);        
+        const numRelics = item.board.items.filter(i=>i.tags.includes(tag) && i!=item).length;
+        item.gain(-amount*numRelics,'cooldown');
+        item.board.itemDestroyedTriggers.set(item.id, (i)=>{
+            if(i.tags.includes(tag) && i!=item) {
+                i.gain(amount,'cooldown');
+            }
+        });
+        return ()=>{};
+    }
+});
+//"Freeze it 1 second(s)." from Nullfrost Altar
+TextMatcher.matchers.push({
+    regex: /^Freeze it (\([^)]+\)|\d+) second\(?s?\)?\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        item.gain(amount,'freeze');
+        return (it)=>{
+            item.applyFreezeTo(it);
+        };
+    }
+});
+//Remote all freeze from it. from Nullfrost Altar
+TextMatcher.matchers.push({
+    regex: /^Remove all freeze from it\.$/i,
+    func: (item, match)=>{
+        return (it)=>{
+            it.removeFreeze(item);
+        };
+    }
+});
+//"This has +100% Crit Chance for each other item you have." from Maitoan Altar

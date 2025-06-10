@@ -45,17 +45,19 @@ export class Player {
             this.log((source?source.name+" ":"")+"overhealed for "+overheal);
             this.overhealTriggers.forEach(func => func(overheal));
         }
-        this.healTriggers.forEach(func => func(amount));
         this.health += amount;
-        if(this.poison > 0 && !isLifesteal) {
-            const oldPoison = this.poison;
-            this.poison=this.poison - Math.ceil(startingHealAmount/5); //cleanse 5% of healing or 1 poison when a heal occurs
-            this.log(source.name + "'s healing cleansed " + (oldPoison-this.poison).toFixed(0) + " poison.");
-        }
-        if(this.burn > 0 && !isLifesteal) {
-            const oldBurn = this.burn;            
-            this.burn=this.burn - Math.ceil(startingHealAmount/5); //cleanse 5% of healing or 1 burn when a heal occurs
-            this.log(source.name + "'s healing cleansed " + (oldBurn-this.burn).toFixed(0) + " burn.");
+        if(!isLifesteal) {        
+            if(this.poison > 0 && !isLifesteal) {
+                const oldPoison = this.poison;
+                this.poison=this.poison - Math.ceil(startingHealAmount/5); //cleanse 5% of healing or 1 poison when a heal occurs
+                this.log(source.name + "'s healing cleansed " + (oldPoison-this.poison).toFixed(0) + " poison.");
+            }
+            if(this.burn > 0 && !isLifesteal) {
+                const oldBurn = this.burn;            
+                this.burn=this.burn - Math.ceil(startingHealAmount/5); //cleanse 5% of healing or 1 burn when a heal occurs
+                this.log(source.name + "'s healing cleansed " + (oldBurn-this.burn).toFixed(0) + " burn.");
+            }
+            this.healTriggers.forEach(func => func(amount));
         }
     }
     clone() {

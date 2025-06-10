@@ -1072,7 +1072,7 @@ export class Item {
         }
         //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
         //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
-        damageRegex = /^Your (other )?([^\s]+)\s*(?:items)? (?:gain|get) \+?(\([^)]+\)|\d+)\s+([^\s]+)\s+for the fight\.?/i;
+        damageRegex = /^Your (other )?([^\s]+)\s*(?:items)? (?:gain|get) \+?(\([^)]+\)|\d+)\s+([^\s]+)(?: for the fight)?\./i;
         match = text.match(damageRegex);
         if(match) {
             const other = match[1]=='other ';
@@ -1588,8 +1588,8 @@ export class Item {
         let regex = /Heal(?: for)? (?:\(([^)]+)\)|(\d+))(?: and (.*))?$/i;
         let match = text.match(regex);
         if(match) {
-            const healAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            this.gain(healAmount,'heal');
+            const amount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            this.gain(amount,'heal');
             const andFunction = match[3] ? this.getTriggerFunctionFromText(match[3]) : null;
             return () => {                
                 this.applyHeal();
@@ -5260,8 +5260,8 @@ export class Item {
         match = text.match(regex);
         if(match) {
             return () => {
-                const healAmount = this.board.player.maxHealth*0.3;
-                this.applyHeal({amount:healAmount, source:this});
+                const amount = this.board.player.maxHealth*0.3;
+                this.applyHeal({amount, source:this});
             }
         }
        
