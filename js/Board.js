@@ -201,6 +201,7 @@ class Board {
         this.critPossible=true;
         this.damageDealt = 0;
         this.itemTriggers = new Map(); //functions to call when any item on this board is triggered
+        this.regenTriggers = new Map(); //functions to call when any item on this board is regened
         this.damageTriggers = new Map(); //functions to call when attack damage is dealt to the other player from this board's items
         this.freezeTriggers = new Map(); //functions to call when any item on this board is frozen
         this.shieldValuesChangedTriggers = new Map(); //functions to call when shield values change

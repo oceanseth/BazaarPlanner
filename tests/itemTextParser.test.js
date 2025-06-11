@@ -17,6 +17,7 @@ const mockBoardInstance = {
     poisonTriggers: new Map(),
     shieldTriggers: new Map(),
     critTriggers: new Map(),
+    regenTriggers: new Map(),
     freezeTriggers: new Map(),
     shieldValuesChangedTriggers: new Map(),
     itemValuesChangedTriggers: new Map(),

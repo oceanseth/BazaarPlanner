@@ -24,6 +24,15 @@ TextMatcher.comparitors["If you have exactly one weapon, "]= {
         item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
     }
 };
+TextMatcher.comparitors["If you have exactly 1 Tech item, "]= {
+    test: (item) => {
+        return item.board.activeItems.filter(i=>i.tags.includes("Tech")).length==1;
+    },
+    setup: (item,f) => {
+        item.target = item.board.items.filter(i=>i.tags.includes("Tech"))[0];
+        item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
+    }
+};
 TextMatcher.comparitors["If you have no other weapons, "]= {
     test: (item) => {
         return item.board.activeItems.filter(i=>i.tags.includes("Weapon")).length==0;
@@ -69,7 +78,7 @@ TextMatcher.matchers.push({
     //If you have no other weapons, this has +1 multicast. from quill and ink
     regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})(.*)$`, 'i'),
     func: (item, match)=>{
-        const f = item.getUndoableFunctionFromText(match[2], ()=>(TextMatcher.comparitors[match[1]].test(item)));
+        const f = item.getUndoableFunctionFromText(match[2], ()=>(TextMatcher.comparitors[match[1]].test(item)), true, item.target);
         TextMatcher.comparitors[match[1]].setup(item,f);
         return ()=>{};
     },
@@ -1084,7 +1093,17 @@ TextMatcher.matchers.push({
         };
     }
 });
-
+//If you have a Quest item ... from Excavaction Tools
+TextMatcher.matchers.push({
+    regex: /^If you have a (\w+) item, (.*)$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const comparisonFunction = ()=>(item.board.items.filter(i=>i.tags.includes(tag)).length>0);
+        const f = item.getUndoableFunctionFromText(match[2],comparisonFunction);
+        item.board.itemDestroyedTriggers.set(item.id, f);
+        return ()=>{};
+    }
+});
 //If you have no weapons, ... from Pacifist
 TextMatcher.matchers.push({
     regex: /^If you have no (\w+)(?: item)?s?, (.*)$/i,
@@ -1456,6 +1475,53 @@ TextMatcher.matchers.push({
                 i.gain(-amount,'burn');
             }
         });
+        return ()=>{};
+    }
+});
+//"This item's cooldown is reduced by 50% if you have at least 4 other Dinosaurs." from Dinosawer
+TextMatcher.matchers.push({
+    regex: /^This item's cooldown is reduced by (\([^)]+\)|\d+)% if you have at least (\d+) other (\w+(?:,? (?:or )?(\w+))*)s?\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        const numThingsRequired = getRarityValue(match[2], item.rarity);
+        const tags = match[3].split(",").map(t=>Item.getTagFromText(t.replace("or","").trim()));
+        const numThings = item.board.items.filter(i=>i!=item && tags.some(t=>i.tags.includes(t))).length;
+        if(numThings>=numThingsRequired) {
+            item.gain(item.cooldown*-amount/100,'cooldown');
+        }
+        item.board.itemDestroyedTriggers.set(item.id+"_"+tags.join(","), (i)=>{
+            const numThings = item.board.items.filter(i=>i!=item && tags.some(t=>i.tags.includes(t))).length;
+            if(numThings<numThingsRequired) {
+                i.gain(item.cooldown*amount/100,'cooldown');
+            }
+            item.board.itemDestroyedTriggers.delete(item.id+"_"+tags.join(","));
+        });
+        return ()=>{};
+    }
+});
+//"This has +1 Multicast for each other Relic or Dinosaur you have." from Dino Disguise
+TextMatcher.matchers.push({
+    regex: /^This has \+1 Multicast for each other (\w+) or (\w+) you have\.$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const tag2 = Item.getTagFromText(match[2]);
+        const numThings = item.board.items.filter(i=>i!=item && (i.tags.includes(tag) || i.tags.includes(tag2))).length;
+        item.gain(numThings,'multicast');
+        item.board.itemDestroyedTriggers.set(item.id+"_"+tag+","+tag2, (i)=>{            
+            if(i!=item && (i.tags.includes(tag) || i.tags.includes(tag2))) {
+                i.gain(-1,'multicast');
+            }
+        });
+        return ()=>{};
+    }
+});
+//If you have a ... item ... from Dino Saddle
+TextMatcher.matchers.push({
+    regex: /^If you have a (\w+)(?: item)?, (.*)$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const f = item.getUndoableFunctionFromText(match[2],()=>item.board.activeItems.filter(i=>i.tags.includes(tag)).length>0, true, item);
+        item.board.itemDestroyedTriggers.set(item.id, ()=>f(item));
         return ()=>{};
     }
 });

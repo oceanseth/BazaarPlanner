@@ -946,6 +946,7 @@ export class Item {
         this.log(this.name + (doesCrit?" critically ":"")+" adds " + amount + " regen");
         if(this.battleStats.regen == undefined) this.battleStats.regen = 0;
         this.battleStats.regen += amount;
+        this.board.regenTriggers.forEach(func => func({amount,source}));
     }
     applyRegen(o) {
         this.applyRegeneration(o);
@@ -2714,7 +2715,7 @@ export class Item {
             let conditionalMatches = [conditionalMatch];
             if(textAfterComma.includes(",")) {
                 do {
-                    const regex = /^([^,]+),(?: or)? (.*)$/;
+                    const regex = /^(?:or )?([^,]+),(?: or)? (.*)$/;
                     const m = textAfterComma.match(regex);
                     if(m) {
                         conditionalMatches.push(m[1]);
@@ -2833,6 +2834,13 @@ export class Item {
                             }
                         });
                         return ()=>{};            
+                    case "use a relic":
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
+                            if(item.tags.includes("Relic")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return ()=>{};
                     case "use an item with ammo":
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.tags.includes("Ammo")) {
@@ -3278,7 +3286,10 @@ export class Item {
                             }
                         });
                        
-                        return;
+                        return ()=>{};
+                    case "regen":
+                        this.board.regenTriggers.set(this.id+triggerFunctionFromText.text,triggerFunctionFromText);
+                        return ()=>{};
                 }
                 console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"' from "+this.name);
 
@@ -5069,14 +5080,15 @@ export class Item {
             };
         }
         //Charge adjacent Small items ( 1 » 2 » 3 » 4 ) second(s).
-        regex = /^Charge adjacent\s*([^\s]+)?(?: items)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
+        regex = /^Charge( an| a)? adjacent\s*([^\s]+)?(?: items)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            this.charge = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
-            const tagToMatch = Item.getTagFromText(match[1]);            
+            const numToCharge = match[1] ?1:2;
+            this.charge = match[3] ? getRarityValue(match[3], this.rarity) : parseInt(match[4]);
+            const tagToMatch = Item.getTagFromText(match[2]);            
             return () => {
                 const itemsToCharge = tagToMatch ? this.adjacentItems.filter(item => item.tags.includes(tagToMatch)) : this.adjacentItems;
-                itemsToCharge.forEach(item => {
+                this.pickRandom(itemsToCharge,numToCharge).forEach(item => {
                     if(item.cooldown>0) {
                         this.applyChargeTo(item);
                     }
@@ -6025,21 +6037,42 @@ export class Item {
         }
 
         //its cooldown is reduced by (5%/10%/15%) from Temporal Strike
-        regex = /^its cooldown is reduced by (\([^)]+\)|\d+)%?\.?$/i; 
+        regex = /^its cooldown is reduced by (\([^)]+\)|\d+)%?( seconds?)?\.?$/i; 
         match = text.match(regex);
         if(match) {
             const cooldownReduction = getRarityValue(match[1], this.rarity);
+            const isSeconds = match[2] ? true : false;
             let cooldownReducedBy = 0;
             doIt = (item) => {
                 const oldCooldown = item.cooldown;
-                cooldownReducedBy = cooldownReduction*oldCooldown/100;
-                item.gain(-cooldownReducedBy,'cooldown');
+                cooldownReducedBy = isSeconds ? cooldownReduction*1000 : cooldownReduction*oldCooldown/100;
+                if(isSeconds) {
+                    item.gain(-cooldownReducedBy,'cooldown');
+                } else {
+                    item.gain(-cooldownReducedBy,'cooldown');
+                }
                 cooldownReducedBy = oldCooldown - item.cooldown;
             };
             undoIt = (item) => {
                 item.gain(cooldownReducedBy,'cooldown');
                 cooldownReducedBy = 0;
             };
+        }
+        //this is a Vehicle. from Dino Saddle
+        regex = /^This is a (\w+)\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tag = Item.getTagFromText(match[1]);
+            doIt = (item) => {
+                if(!item.tags.includes(tag)) {
+                    item.tags.push(tag);
+                }
+            }
+            undoIt = (item) => {
+                if(item.tags.includes(tag)) {
+                    item.tags.splice(item.tags.indexOf(tag),1);
+                }
+            }
         }
         
         //this has (+50%/+100%) Crit Chance. from Basilisk Fang
