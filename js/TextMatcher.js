@@ -1525,3 +1525,17 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+//"Deal damage equal to (1/2/3/4) times your Income." from Ring King Gauntlets
+TextMatcher.matchers.push({
+    regex: /^Deal damage equal to (\([^)]+\)|\d+) times your Income\.$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        item.gain(amount*item.board.player.income,'damage');
+        item.board.player.incomeChanged((newIncome,oldIncome)=>{
+            item.gain(amount*(newIncome-oldIncome),'damage');
+        });
+        return ()=>{
+            item.applyDamage();
+        };
+    }
+});

@@ -78,6 +78,11 @@ export class BazaarPatcher {
         if(items["Dinosawer"]) {
             items["Dinosawer"].text[1]=items["Dinosawer"].text[1].replace("Tools or Relics","Tools, or Relics");
         }
+        if(items["Darkstone Engine"]) {
+            items["Darkstone Engine"].quests = {
+                "A Weapon is used 50 times":"At the start of each fight, Enchant a non-enchanted item with Obsidian for the fight."
+            }
+        }
         BazaarPatcher.customSetupFunctions.set("Orange Julian",(item)=>{
             if(item.Custom_0) {
                 item.text[0] = item.text[0].replace(/\+[\d]+ Damage/i, `+${item.Custom_0} Damage`);
