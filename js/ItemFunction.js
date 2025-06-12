@@ -6,7 +6,7 @@ import { BazaarPatcher } from "./BazaarPatcher.js";
 export class ItemFunction {
     static items = new Map();
     static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
-        "Spare Change","Pelt","Candy Mail","Machine Learning","Chocoholic","Like Clockwork","Upgrade Hammer", "Sifting Pan",
+        "Spare Change","Pelt","Candy Mail","Machine Learning","Chocoholic","Like Clockwork","Upgrade Hammer", "Sifting Pan", "Chimeric Egg",
     "Vending Machine","Piggy Bank","Cash Register","Cargo Shorts","Alembic","The Tome of Yyahan","Catalyst","Chunk of Lead","Chunk of Gold", "Catalyst","Temple Expedition Ticket","[Jungle Expedition] Temple Expedition Ticket"];
     static setupItems() {
         ItemFunction.doNothingItemNames.forEach(itemName => {
@@ -657,22 +657,24 @@ ItemFunction.items.set("Luxury Tents",(item)=>{
     });
 });
 ItemFunction.items.set("Cybersecurity",(item)=>{
-    // "Deal ( 15 » 30 » 60 ) damage for each Weapon you have.",
+    // Deal 30 damage.
+    // "Deal ( +30 » +40 » +50 ) damage for each other Weapon and Tech item you have.",
       //"This deals ( 2 » 3 » 4 ) time(s) damage if it is your only friend."
 
-      let damage = getRarityValue("15 >> 30 >> 60",item.rarity);
+      let damage = getRarityValue("30 >> 40 >> 50",item.rarity);
       let times = getRarityValue("2 >> 3 >> 4",item.rarity);
-      let weaponCount = item.board.items.filter(i=>i.tags.includes("Weapon")).length;
-      item.damage = damage* weaponCount;
+      let count = item.board.items.filter(i=>i!=item && (i.tags.includes("Weapon")||i.tags.includes("Tech"))).length;
+      item.gain(30+damage*count,'damage');
+      item.triggerFunctions.push(()=>{
+        item.applyDamage();
+      });
 
       let onlyFriend = item.board.items.filter(i=>i.tags.includes("Friend")).length==1;
-      item.triggerFunctions.push(()=>{
-        if(onlyFriend) {
-            item.dealDamage(item.damage*times);
-        } else {
-            item.dealDamage(item.damage);
-        }
-      });
+      if(onlyFriend) {
+        item.gain((times-1)*item.damage,'damage');
+        item.damage_multiplier+=(times-1);
+      }
+     
 });
 
 ItemFunction.items.set("Pulse Rifle",(item)=>{

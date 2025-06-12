@@ -17,6 +17,7 @@ const mockBoardInstance = {
     poisonTriggers: new Map(),
     shieldTriggers: new Map(),
     critTriggers: new Map(),
+    regenTriggers: new Map(),
     freezeTriggers: new Map(),
     shieldValuesChangedTriggers: new Map(),
     itemValuesChangedTriggers: new Map(),
@@ -191,6 +192,29 @@ describe('Item Text Parser Tests', () => {
 
         });
         
+        expect(consoleLogCount).toBe(0);
+    });
+    test('Parse all quest text patterns', () => {
+        // Process each quest
+        Object.entries(items).forEach(([itemName, itemData]) => {
+            if(ItemFunction.items.get(itemName)) return;
+            let oldConsoleLogCount = consoleLogCount;
+            try {
+                const item = new Item(itemData, mockBoardInstance); // Use mockBoardInstance here                
+
+                // If the item has text, process each text line
+                if (item.quests) {
+                   for(const q in item.quests) {
+                    item.setupTextFunctions(item.quests[q]);
+                   }
+                }
+            } catch (error) {
+                console.log(`Error processing item ${itemName}:`, error);
+            }
+            if(consoleLogCount>oldConsoleLogCount) {
+                console.log(`Error processing item ${itemName}:`);
+            }
+        });
         expect(consoleLogCount).toBe(0);
     });
 });

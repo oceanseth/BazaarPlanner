@@ -946,6 +946,7 @@ export class Item {
         this.log(this.name + (doesCrit?" critically ":"")+" adds " + amount + " regen");
         if(this.battleStats.regen == undefined) this.battleStats.regen = 0;
         this.battleStats.regen += amount;
+        this.board.regenTriggers.forEach(func => func({amount,source}));
     }
     applyRegen(o) {
         this.applyRegeneration(o);
@@ -1072,7 +1073,7 @@ export class Item {
         }
         //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
         //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
-        damageRegex = /^Your (other )?([^\s]+)\s*(?:items)? (?:gain|get) \+?(\([^)]+\)|\d+)\s+([^\s]+)\s+for the fight\.?/i;
+        damageRegex = /^Your (other )?([^\s]+)\s*(?:items)? (?:gain|get) \+?(\([^)]+\)|\d+)\s+([^\s]+)(?: for the fight)?\./i;
         match = text.match(damageRegex);
         if(match) {
             const other = match[1]=='other ';
@@ -1588,8 +1589,8 @@ export class Item {
         let regex = /Heal(?: for)? (?:\(([^)]+)\)|(\d+))(?: and (.*))?$/i;
         let match = text.match(regex);
         if(match) {
-            const healAmount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
-            this.gain(healAmount,'heal');
+            const amount = match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]);
+            this.gain(amount,'heal');
             const andFunction = match[3] ? this.getTriggerFunctionFromText(match[3]) : null;
             return () => {                
                 this.applyHeal();
@@ -2714,7 +2715,7 @@ export class Item {
             let conditionalMatches = [conditionalMatch];
             if(textAfterComma.includes(",")) {
                 do {
-                    const regex = /^([^,]+),(?: or)? (.*)$/;
+                    const regex = /^(?:or )?([^,]+),(?: or)? (.*)$/;
                     const m = textAfterComma.match(regex);
                     if(m) {
                         conditionalMatches.push(m[1]);
@@ -2833,6 +2834,13 @@ export class Item {
                             }
                         });
                         return ()=>{};            
+                    case "use a relic":
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
+                            if(item.tags.includes("Relic")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return ()=>{};
                     case "use an item with ammo":
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.tags.includes("Ammo")) {
@@ -3257,6 +3265,13 @@ export class Item {
                                 }
                             });
                     return ()=>{};
+                    case 'an adjacent item slows':
+                        this.board.slowTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                            if(this.adjacentItems.some(i=>i.id==source.id)) {
+                                triggerFunctionFromText(source);
+                            }
+                        });
+                        return ()=>{};
 
                     case "an adjacent item slows or freezes":
                         const adjItems = this.adjacentItems;
@@ -3270,17 +3285,11 @@ export class Item {
                                 triggerFunctionFromText(source);
                             }
                         });
-                        this.board.player.hostileTarget.board.freezeTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
-                            if(adjItems.some(i=>i.id==source.id)) {
-                                triggerFunctionFromText(source);
-                            }
-                        });
-                        this.board.player.hostileTarget.board.slowTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
-                            if(adjItems.some(i=>i.id==source.id)) {
-                                triggerFunctionFromText(source);
-                            }
-                        });
-                        return;
+                       
+                        return ()=>{};
+                    case "regen":
+                        this.board.regenTriggers.set(this.id+triggerFunctionFromText.text,triggerFunctionFromText);
+                        return ()=>{};
                 }
                 console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"' from "+this.name);
 
@@ -5071,14 +5080,15 @@ export class Item {
             };
         }
         //Charge adjacent Small items ( 1 » 2 » 3 » 4 ) second(s).
-        regex = /^Charge adjacent\s*([^\s]+)? items (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
+        regex = /^Charge( an| a)? adjacent\s*([^\s]+)?(?: items)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            this.charge = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
-            const tagToMatch = Item.getTagFromText(match[1]);            
+            const numToCharge = match[1] ?1:2;
+            this.charge = match[3] ? getRarityValue(match[3], this.rarity) : parseInt(match[4]);
+            const tagToMatch = Item.getTagFromText(match[2]);            
             return () => {
                 const itemsToCharge = tagToMatch ? this.adjacentItems.filter(item => item.tags.includes(tagToMatch)) : this.adjacentItems;
-                itemsToCharge.forEach(item => {
+                this.pickRandom(itemsToCharge,numToCharge).forEach(item => {
                     if(item.cooldown>0) {
                         this.applyChargeTo(item);
                     }
@@ -5260,8 +5270,8 @@ export class Item {
         match = text.match(regex);
         if(match) {
             return () => {
-                const healAmount = this.board.player.maxHealth*0.3;
-                this.applyHeal({amount:healAmount, source:this});
+                const amount = this.board.player.maxHealth*0.3;
+                this.applyHeal({amount, source:this});
             }
         }
        
@@ -5345,7 +5355,7 @@ export class Item {
         }
 
         //Your Shield items have + Shield equal to (  2  » 3  » 4   ) times your level.
-        regex = /^Your Shield items have +\s?Shield equal to (?:\(([^)]+)\)|(\d+)) times your level.*$/i;
+        regex = /^Your Shield items have \+\s?Shield equal to (?:\(([^)]+)\)|(\d+)) times your level.*$/i;
         match = text.match(regex);
         if(match) {
             const gainAmount = this.board.player.level * (match[1] ? getRarityValue(match[1], this.rarity) : parseInt(match[2]));
@@ -6027,21 +6037,42 @@ export class Item {
         }
 
         //its cooldown is reduced by (5%/10%/15%) from Temporal Strike
-        regex = /^its cooldown is reduced by (\([^)]+\)|\d+)%?$/i; 
+        regex = /^its cooldown is reduced by (\([^)]+\)|\d+)%?( seconds?)?\.?$/i; 
         match = text.match(regex);
         if(match) {
             const cooldownReduction = getRarityValue(match[1], this.rarity);
+            const isSeconds = match[2] ? true : false;
             let cooldownReducedBy = 0;
             doIt = (item) => {
                 const oldCooldown = item.cooldown;
-                cooldownReducedBy = cooldownReduction*oldCooldown/100;
-                item.gain(-cooldownReducedBy,'cooldown');
+                cooldownReducedBy = isSeconds ? cooldownReduction*1000 : cooldownReduction*oldCooldown/100;
+                if(isSeconds) {
+                    item.gain(-cooldownReducedBy,'cooldown');
+                } else {
+                    item.gain(-cooldownReducedBy,'cooldown');
+                }
                 cooldownReducedBy = oldCooldown - item.cooldown;
             };
             undoIt = (item) => {
                 item.gain(cooldownReducedBy,'cooldown');
                 cooldownReducedBy = 0;
             };
+        }
+        //this is a Vehicle. from Dino Saddle
+        regex = /^This is a (\w+)\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tag = Item.getTagFromText(match[1]);
+            doIt = (item) => {
+                if(!item.tags.includes(tag)) {
+                    item.tags.push(tag);
+                }
+            }
+            undoIt = (item) => {
+                if(item.tags.includes(tag)) {
+                    item.tags.splice(item.tags.indexOf(tag),1);
+                }
+            }
         }
         
         //this has (+50%/+100%) Crit Chance. from Basilisk Fang

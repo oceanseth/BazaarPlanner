@@ -66,6 +66,23 @@ export class BazaarPatcher {
         if(items["Sands of Time"]) {
             items["Sands of Time"].quests = {"Buy 6 Slow items":"This has +1 Multicast","Buy 5 Relics":"When you use another relic, charge this 1 second."};
         }
+        if(items["Tomb of the Ancients"]) {
+            items["Tomb of the Ancients"].quests = {
+                "Complete 1 quest on another item": "Poison (5/10/15).",
+                "Complete 2 quests on other items": "Freeze 1 item for 0.5 second(s)."
+              };
+        }
+        if(items["Ethergy Conduit"]) {
+            items["Ethergy Conduit"].text[0]=items["Ethergy Conduit"].text[0].replace("Poison or use","Poison, or use");
+        }
+        if(items["Dinosawer"]) {
+            items["Dinosawer"].text[1]=items["Dinosawer"].text[1].replace("Tools or Relics","Tools, or Relics");
+        }
+        if(items["Darkstone Engine"]) {
+            items["Darkstone Engine"].quests = {
+                "A Weapon is used 50 times":"At the start of each fight, Enchant a non-enchanted item with Obsidian for the fight."
+            }
+        }
         BazaarPatcher.customSetupFunctions.set("Orange Julian",(item)=>{
             if(item.Custom_0) {
                 item.text[0] = item.text[0].replace(/\+[\d]+ Damage/i, `+${item.Custom_0} Damage`);
