@@ -1142,8 +1142,8 @@ export const items = {
     "ammo": null,
     "text": [
       "Poison 10.",
-      "When you Freeze, Poison, or Burn, your Relics gain +10 Poison for the fight.",
-      "When you use another Relic, charge this 1 second."
+      "When you Freeze, Poison, or Burn, your items gain +5 Poison for the fight.",
+      "When you use an adjacent Relic, charge this 1 second."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -1706,7 +1706,7 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "When you use another Relic, charge this 1 second(s)."
+      "When you use an adjacent Relic, charge this 1 second(s)."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
@@ -1726,7 +1726,7 @@ export const items = {
       "Gain Regen 40 times": "Gain (5/10/15/20) Regen for the fight.",
       "Burn 30 times": "Burn (5/10/15/20).",
       "Slow 20 times": "Slow (1/2/3/4) items for 1 second(s).",
-      "Freeze 10 times": "Freeze (1/2/3/4) items for 0.5 second(s)."
+      "Freeze 10 times": "Freeze 1 items for 0.5 second(s)."
     }
   },
   "Blast Doors": {
@@ -1778,8 +1778,8 @@ export const items = {
     "ammo": null,
     "text": [
       "Burn 10.",
-      "When you Freeze, Poison, or Burn, your Relics gain +10 Burn for the fight.",
-      "When you use another Relic, charge this 1 second."
+      "When you Freeze, Poison, or Burn, your items gain +5 Burn for the fight.",
+      "When you use adjacent relic, charge this 1 second."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -3148,7 +3148,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Haste adjacent items for (1/2/3) second(s).",
-      "If you have a Vehicle or Large item, reduce this item's cooldown by 50%."
+      "If you have a Vehicle or Large item, reduce this item's cooldown by 1 seconds."
     ],
     "enchants": {
       "Heavy": "When you use an adjacent item, Slow 1 item for 1 second(s).",
@@ -4369,7 +4369,7 @@ export const items = {
     "ammo": null,
     "text": [
       "The Core gains (+5%/+10%/+15%) Crit Chance for the fight.",
-      "While either player has Burn, this item's cooldown is reduced by 50%."
+      "While either player has Burn, this item's cooldown is reduced by 3 seconds."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -5203,9 +5203,7 @@ export const items = {
       "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
       "Obsidian": "This has double Damage."
     },
-    "quests": {
-      "A Weapon is used 50 times": "This enchants a second item."
-    }
+    "quests": {}
   },
   "Darkstone Focuser": {
     "name": "Darkstone Focuser",
@@ -5358,7 +5356,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Deal 80 damage.",
-      "The first time you use this each fight, destroy a small or medium enemy item for the fight.",
+      "The first time you use this each fight, destroy a small enemy item for the fight.",
       "When you destroy an item during combat, your Dinosaurs permanently gain (10/15/20) damage."
     ],
     "enchants": {
@@ -5457,11 +5455,11 @@ export const items = {
       "Vehicle",
       "Damage"
     ],
-    "cooldown": 5,
+    "cooldown": 6,
     "ammo": null,
     "text": [
       "Deal (10/20/30/40) damage.",
-      "This item's cooldown is reduced by 50% if you have at least 4 other Dinosaurs, Tools or Relics."
+      "This item's cooldown is reduced by 3 seconds if you have at least 4 other Dinosaurs, Tools or Relics."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 2 second(s).",
@@ -6441,7 +6439,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Charge an adjacent Relic (1/2/3) second(s).",
-      "If you have a Quest item, reduce this item's cooldown by 50%."
+      "If you have a Quest item, reduce this item's cooldown by 3 seconds."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
@@ -7375,10 +7373,10 @@ export const items = {
       "Freeze",
       "Quest"
     ],
-    "cooldown": "(7/6/5/4)",
+    "cooldown": "(8/7/6/5)",
     "ammo": null,
     "text": [
-      "Freeze 1 item(s) for 1 second(s)."
+      "Freeze 1 item(s) for 0.5 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 items for 1 second(s).",
@@ -7395,7 +7393,7 @@ export const items = {
     },
     "quests": {
       "Buy 4 Freeze items": "This has +1 Multicast.",
-      "Buy 5 Relics": "When you use another Relic, charge this 1 second(s)."
+      "Buy 5 Relics": "When you use an adjacent Relic, charge this 1 second(s)."
     }
   },
   "Frozen Bludgeon": {
@@ -9213,8 +9211,8 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Freeze 1 item for 1 second(s).",
-      "Charge adjacent Relics 1 second(s).",
+      "Freeze 1 item for 0.5 second(s).",
+      "Charge adjacent items 1 second(s).",
       "When you Freeze, Poison, or Burn, charge this 1 second(s)."
     ],
     "enchants": {
@@ -11092,6 +11090,7 @@ export const items = {
       "Medium",
       "Vehicle",
       "Weapon",
+      "Relic",
       "Damage"
     ],
     "cooldown": 6,
@@ -12716,6 +12715,35 @@ export const items = {
       1,
       1
     ]
+  },
+  "Oinkment": {
+    "name": "Oinkment",
+    "tier": 1,
+    "tags": [
+      "Pygmalien",
+      "Small",
+      "Heal",
+      "EconomyReference"
+    ],
+    "cooldown": 6,
+    "ammo": null,
+    "text": [
+      "Heal equal to (1/2/3) times your gold.",
+      "Cleanse half your Burn and Poison."
+    ],
+    "enchants": {
+      "Heavy": "Slow 1 item for 2 second(s).",
+      "Icy": "Freeze 1 small item for 1 second(s).",
+      "Turbo": "Haste 1 item for 2 second(s).",
+      "Shielded": "Shield equal to this item's Heal.",
+      "Restorative": "This has double Heal.",
+      "Toxic": "Poison equal to 10% of this item's Heal.",
+      "Fiery": "Burn equal to 10% of this item's Heal.",
+      "Shiny": "This has +1 Multicast.",
+      "Deadly": "+50% Crit Chance",
+      "Radiant": "This cannot be Frozen, Slowed or Destroyed.",
+      "Obsidian": "Deal damage equal to this item's Heal."
+    }
   },
   "Old Saltclaw": {
     "name": "Old Saltclaw",
@@ -15527,7 +15555,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Charge adjacent items (1/2/3) second(s).",
-      "If you have 5 or more unique Types, this item's cooldown is reduced by 50%."
+      "If you have 5 or more unique Types, this item's cooldown is reduced by 4.5 Seconds."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -15910,7 +15938,7 @@ export const items = {
     },
     "quests": {
       "Buy 6 Slow items": "This has +1 Multicast.",
-      "Buy 5 Relics": "When you use another Relic, charge this 1 second(s)."
+      "Buy 5 Relics": "When you use an adjacent Relic, charge this 1 second(s)."
     }
   },
   "Sapphire": {
@@ -16935,7 +16963,7 @@ export const items = {
     "ammo": null,
     "text": [
       "The weapon to the left of this has (+10/+20/+30/+50) damage.",
-      "If you have exactly one weapon, reduce its cooldown by (10%/15%/20%/25%)."
+      "If you have exactly one weapon, reduce its cooldown by (5%/10%/15%/20%)."
     ],
     "enchants": {
       "Heavy": "When you use the weapon to the left of this, Slow 1 item for 1 second(s).",
@@ -17544,7 +17572,8 @@ export const items = {
       "Mak",
       "Small",
       "Relic",
-      "Regen"
+      "Regen",
+      "Quest"
     ],
     "cooldown": 4,
     "ammo": null,
@@ -17565,10 +17594,10 @@ export const items = {
       "Obsidian": "Deal damage equal to 10 times this item's Regen."
     },
     "quests": {
-      "Buy 8 Poison items": "Poison ({abilityq1}/3/6/9).",
-      "Buy 8 Burn items": "Burn ({abilityq2}/3/6/9).",
-      "Buy 4 Slow items": "Slow ({abilityq3targets}/1/2/3). items for ({abilityq3}/1/1/1). second(s).",
-      "Buy 4 Freeze items": "Freeze ({abilityq4targets}/1/2/3). items for ({abilityq4}/0.5/0.5/0.5). second(s)."
+      "Buy 8 Poison items": "Poison (3/6/9).",
+      "Buy 8 Burn items": "Burn (3/6/9).",
+      "Buy 4 Slow items": "Slow (1/2/3) items for 1 second(s).",
+      "Buy 4 Freeze items": "Freeze (1/2/3) items for 0.5 second(s)."
     }
   },
   "Spacescraper": {
@@ -17692,6 +17721,7 @@ export const items = {
       "Mak",
       "Small",
       "Weapon",
+      "Relic",
       "Damage",
       "SlowReference"
     ],
@@ -17993,12 +18023,12 @@ export const items = {
       "Damage",
       "Slow"
     ],
-    "cooldown": 10,
+    "cooldown": 7,
     "ammo": null,
     "text": [
       "Lifesteal",
       "Deal (5/10/20/40) damage.",
-      "Slow 1 item for (1/2/3/4) second(s)."
+      "Slow (1/2/3/4) item for 1 second(s)."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
@@ -18137,7 +18167,7 @@ export const items = {
     "text": [
       "Deal (24/36/48) damage.",
       "Shield equal to this item's damage.",
-      "If you have another vehicle or large item, reduce this item's cooldown by 50%."
+      "If you have another vehicle or large item, reduce this item's cooldown by 3 seconds."
     ],
     "enchants": {
       "Heavy": "Slow 1 items for 1 second(s).",
@@ -18651,7 +18681,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Haste adjacent items for (1/2/3) second(s).",
-      "If this is your only Tech item, its cooldown is reduced by 50%.",
+      "If this is your only Tech item, its cooldown is reduced by 3 seconds.",
       "At the start of each day, get a Relic from any hero."
     ],
     "enchants": {
@@ -19166,7 +19196,8 @@ export const items = {
       "Large",
       "Relic",
       "Property",
-      "Regen"
+      "Regen",
+      "Quest"
     ],
     "cooldown": 6,
     "ammo": null,
@@ -19189,7 +19220,7 @@ export const items = {
     },
     "quests": {
       "Complete 1 quest on another item": "Poison (5/10/15).",
-      "Complete 2 quests on other items": "Freeze 1 item for 0.5 second(s)."
+      "Complete 2 quests on other items": "Freeze 1 items for 0.5 second(s)."
     }
   },
   "Tommoo Gun": {
@@ -20650,7 +20681,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Burn 8.",
-      "While you have Shield, this item's cooldown is reduced by 50%."
+      "While you have Shield, this item's cooldown is reduced by 2 seconds."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
