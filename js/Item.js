@@ -196,6 +196,7 @@ export class Item {
         if(this.tags.includes("Ammo")) {
           this.ammo = 0;
         }
+        this.board.uniqueTypeTagCache = [];
         this.board.itemDestroyedTriggers.forEach(func => func(this,source));
         this.board.itemValuesChangedTriggers.forEach(func => func(this,source));
         source.board.player.destroyTriggers.forEach(func => func(this,source));
@@ -5818,19 +5819,14 @@ export class Item {
 
 
         // If you have 5 or more unique Types, this item's cooldown is reduced by 50%. from Rowboat
-        regex = /^If you have 5 or more unique Types, this item's cooldown is reduced by 50%\.?$/i;
+        regex = /^If you have 5 or more unique Types, (.*)$/i;
         match = text.match(regex);
         if(match) {
-            if(this.board.uniqueTypes>=5) {
-                this.cooldown *= 0.5;
+            const comparisonFunction = ()=>{
+                return this.board.uniqueTypes>=5;
             }
-            let removedCDR = false;
-            this.board.itemDestroyedTriggers.set(this.id,()=>{
-                if(this.board.uniqueTypes<5 && !removedCDR) {
-                    this.cooldown *= 2;
-                    removedCDR = true;
-                }
-            });
+            const f = this.getUndoableFunctionFromText(match[1],comparisonFunction,true,this);
+            this.board.itemDestroyedTriggers.set(this.id,f);
             return ()=>{};
         }
 
@@ -6037,13 +6033,17 @@ export class Item {
         }
 
         //its cooldown is reduced by (5%/10%/15%) from Temporal Strike
-        regex = /^its cooldown is reduced by (\([^)]+\)|\d+)%?( seconds?)?\.?$/i; 
+        regex = /^(this item's|its) cooldown is reduced by (\([^)]+\)|[\d\.]+)%?( seconds?)?\.?$/i; 
         match = text.match(regex);
         if(match) {
-            const cooldownReduction = getRarityValue(match[1], this.rarity);
-            const isSeconds = match[2] ? true : false;
+            const cooldownReduction = getRarityValue(match[2], this.rarity);
+            const isSeconds = match[3] ? true : false;
             let cooldownReducedBy = 0;
+            const itemToReduce = match[1]!='its' ? this : null;
             doIt = (item) => {
+                if(itemToReduce) {
+                    item = itemToReduce;
+                }
                 const oldCooldown = item.cooldown;
                 cooldownReducedBy = isSeconds ? cooldownReduction*1000 : cooldownReduction*oldCooldown/100;
                 if(isSeconds) {

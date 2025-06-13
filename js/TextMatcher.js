@@ -1539,3 +1539,16 @@ TextMatcher.matchers.push({
         };
     }
 });
+//while you have shield, ...
+TextMatcher.matchers.push({
+    regex: /^while you have shield, (.*)$/i,
+    func: (item, match)=>{
+        const comparisonFunction = ()=>{
+            return item.board.player.shield>0;
+        }
+        const f = item.getUndoableFunctionFromText(match[1],comparisonFunction,true,item);
+        item.board.player.shieldChanged(f);
+        return ()=>{};
+    }
+});
+//"This has +1 Multicast for each other item you have." from Dino Saddle
