@@ -35,7 +35,7 @@ TextMatcher.comparitors["If you have exactly 1 Tech item, "]= {
 };
 TextMatcher.comparitors["If you have no other weapons, "]= {
     test: (item) => {
-        return item.board.activeItems.filter(i=>i.tags.includes("Weapon")).length==0;
+        return item.board.activeItems.filter(i=>i!=item &&i.tags.includes("Weapon")).length==0;
     },
     setup: (item,f) => {
         item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
@@ -1539,3 +1539,16 @@ TextMatcher.matchers.push({
         };
     }
 });
+//while you have shield, ...
+TextMatcher.matchers.push({
+    regex: /^while you have shield, (.*)$/i,
+    func: (item, match)=>{
+        const comparisonFunction = ()=>{
+            return item.board.player.shield>0;
+        }
+        const f = item.getUndoableFunctionFromText(match[1],comparisonFunction,true,item);
+        item.board.player.shieldChanged(f);
+        return ()=>{};
+    }
+});
+//"This has +1 Multicast for each other item you have." from Dino Saddle

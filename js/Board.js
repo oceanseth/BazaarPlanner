@@ -973,7 +973,7 @@ class Board {
     get uniqueTypeTags() {
         if(this.uniqueTypeTagCache.length>0) return this.uniqueTypeTagCache;
         const types = new Set();
-        this.items.forEach(item => {
+        this.activeItems.forEach(item => {
             item.tags.forEach(tag => {
                 if(Board.uniqueTypeTags.includes(tag)) {
                     types.add(tag);
