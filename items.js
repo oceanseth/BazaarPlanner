@@ -1703,7 +1703,7 @@ export const items = {
       "Relic",
       "Quest"
     ],
-    "cooldown": 5,
+    "cooldown": 6,
     "ammo": null,
     "text": [
       "When you use an adjacent Relic, charge this 1 second(s)."
@@ -3528,7 +3528,7 @@ export const items = {
     "ammo": null,
     "text": [
       "At the start of each day, this gains +4 value.",
-      "When you sell this, get an enchanted Friend from any hero.",
+      "When you sell this, get an enchanted small Friend from any hero.",
       "When this item's value reaches (10/20/30) out of combat, upgrade it."
     ],
     "enchants": {
@@ -5392,7 +5392,7 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "Shield (10/20/30).",
+      "Shield (20/40/60).",
       "Adjacent items are Dinosaurs.",
       "This has +1 Multicast for each other Relic or Dinosaur you have."
     ],
@@ -10633,7 +10633,7 @@ export const items = {
     "ammo": null,
     "text": [
       "ALL Weapon cooldowns are increased by (+1/+2) second(s).",
-      "Your non-weapon items' cooldowns are decreased by (1/2) second(s)."
+      "Your non-weapon items' cooldowns are decreased by 1 second(s)."
     ],
     "enchants": {
       "Heavy": "When you use a non-Weapon item, Slow 1 item for 1 second(s).",
@@ -11777,7 +11777,7 @@ export const items = {
   },
   "Momma-Saur": {
     "name": "Momma-Saur",
-    "tier": 1,
+    "tier": 2,
     "tags": [
       "Dooley",
       "Large",
@@ -11786,12 +11786,12 @@ export const items = {
       "Dinosaur",
       "Damage"
     ],
-    "cooldown": 9,
+    "cooldown": 10,
     "ammo": null,
     "text": [
       "Deal 200 damage.",
       "The first time you use this each fight, destroy a small or medium enemy item for the fight.",
-      "When you destroy an item during combat, your Dinosaurs permanently gain (20/30/40) damage."
+      "When you destroy an item during combat, your Dinosaurs permanently gain (20/40) damage."
     ],
     "enchants": {
       "Heavy": "Slow 3 items for 3 second(s).",
@@ -14538,10 +14538,10 @@ export const items = {
       "TechReference",
       "Damage"
     ],
-    "cooldown": "(13/12/11/10)",
+    "cooldown": "(15/14/13/12)",
     "ammo": null,
     "text": [
-      "Deal (100/250/500/800) damage.",
+      "Deal (100/200/300/500) damage.",
       "When you use another Tech, charge this 2 second(s)."
     ],
     "enchants": {
@@ -15176,7 +15176,7 @@ export const items = {
   },
   "Rex Spex": {
     "name": "Rex Spex",
-    "tier": 2,
+    "tier": 1,
     "tags": [
       "Dooley",
       "Large",
@@ -15185,13 +15185,13 @@ export const items = {
       "Weapon",
       "Damage"
     ],
-    "cooldown": 15,
+    "cooldown": 8,
     "ammo": null,
     "text": [
-      "Deal 100 damage.",
+      "Deal 25 damage.",
       "If your enemy has more items than you, destroy one of their items.",
-      "When you use another Dinosaur, Charge this (2/3) seconds.",
-      "When you use another Friend, this gains (+50/+100) Damage for the fight."
+      "For each adjacent Dinosaur or Relic, this has its cooldown reduced by 1 second(s).",
+      "When you use another Friend, Dinosaur, or Relic, this gains (+30/+60/+120) Damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 3 items for 5 second(s).",
@@ -16123,7 +16123,7 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you Level Up, get a Tech item."
+      "When you Level Up, get a small Tech item."
     ],
     "enchants": {
       "Heavy": "...and Enchant the item with Heavy if able.",
@@ -19199,7 +19199,7 @@ export const items = {
       "Regen",
       "Quest"
     ],
-    "cooldown": 6,
+    "cooldown": 7,
     "ammo": null,
     "text": [
       "Gain (5/10/15) Regen for the fight.",
