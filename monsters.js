@@ -448,10 +448,6 @@ export const monsters = {
         "tier": 4
       },
       {
-        "name": "Vial of Blood",
-        "tier": 1
-      },
-      {
         "name": "Bottled Lightning",
         "tier": 1
       },
@@ -464,7 +460,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Vial of Blood",
+        "name": "Catalyst",
         "tier": 1
       }
     ]
@@ -516,19 +512,11 @@ export const monsters = {
     ],
     "items": [
       {
-        "name": "Temple Expedition Ticket",
-        "tier": 4
-      },
-      {
         "name": "Red Piggles R",
         "tier": 2
       },
       {
-        "name": "Yo-Yo",
-        "tier": 0
-      },
-      {
-        "name": "Blue Piggles L",
+        "name": "Premium Red Piggles",
         "tier": 2
       },
       {
@@ -536,8 +524,16 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Red Piggles X",
+        "name": "Piggles Protectors",
+        "tier": 1
+      },
+      {
+        "name": "Yellow Piggles L",
         "tier": 2
+      },
+      {
+        "name": "Temple Expedition Ticket",
+        "tier": 4
       }
     ]
   },
@@ -2557,39 +2553,98 @@ export const monsters = {
     ],
     "items": [
       {
-        "name": "Goggles",
-        "tier": 1
+        "name": "Tournament Arena",
+        "tier": 3
       },
       {
-        "name": "Zoot Flute",
+        "name": "Piggles Board",
         "tier": 2
       },
       {
-        "name": "Abacus",
-        "tier": 2
+        "name": "Red Piggles R",
+        "tier": 3
       },
       {
         "name": "Salt",
-        "tier": 2,
-        "enchant": "Shielded"
+        "tier": 2
       },
       {
         "name": "Blue Piggles L",
-        "tier": 2,
-        "enchant": "Shielded"
+        "tier": 2
       },
       {
         "name": "Piggles",
         "tier": 3
       },
       {
-        "name": "Blue Piggles X",
+        "name": "Yo-Yo",
         "tier": 2
       },
       {
-        "name": "Cargo Shorts",
-        "tier": 2,
-        "enchant": "Obsidian"
+        "name": "Red Piggles A",
+        "tier": 3
+      },
+      {
+        "name": "Premium Red Piggles",
+        "tier": 3
+      },
+      {
+        "name": "Red Piggles L",
+        "tier": 3
+      }
+    ]
+  },
+  "Elite Duelist": {
+    "id": "338f3c4b-9238-41d2-a0e0-0d825cded307",
+    "name": "Elite Duelist",
+    "day": 9,
+    "health": 2325,
+    "skills": [
+      {
+        "name": "Big Ego",
+        "tier": 3
+      },
+      {
+        "name": "Strength",
+        "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Revolver",
+        "tier": 2
+      },
+      {
+        "name": "Powder Horn",
+        "tier": 1
+      },
+      {
+        "name": "Revolver",
+        "tier": 2
+      },
+      {
+        "name": "Shoe Blade",
+        "tier": 1
+      },
+      {
+        "name": "Butterfly Swords",
+        "tier": 1
+      },
+      {
+        "name": "Butterfly Swords",
+        "tier": 1
+      },
+      {
+        "name": "Spices",
+        "tier": 3
+      },
+      {
+        "name": "Holsters",
+        "tier": 2
+      },
+      {
+        "name": "Knife Set",
+        "tier": 2
       }
     ]
   },
@@ -2644,60 +2699,6 @@ export const monsters = {
       {
         "name": "Clamera",
         "tier": 1
-      }
-    ]
-  },
-  "Elite Duelist": {
-    "id": "338f3c4b-9238-41d2-a0e0-0d825cded307",
-    "name": "Elite Duelist",
-    "day": 9,
-    "health": 2325,
-    "skills": [
-      {
-        "name": "Big Ego",
-        "tier": 3
-      },
-      {
-        "name": "Strength",
-        "tier": 1
-      }
-    ],
-    "items": [
-      {
-        "name": "Revolver",
-        "tier": 2
-      },
-      {
-        "name": "Powder Horn",
-        "tier": 1
-      },
-      {
-        "name": "Revolver",
-        "tier": 2
-      },
-      {
-        "name": "Shoe Blade",
-        "tier": 1
-      },
-      {
-        "name": "Butterfly Swords",
-        "tier": 1
-      },
-      {
-        "name": "Butterfly Swords",
-        "tier": 1
-      },
-      {
-        "name": "Spices",
-        "tier": 3
-      },
-      {
-        "name": "Holsters",
-        "tier": 1
-      },
-      {
-        "name": "Knife Set",
-        "tier": 2
       }
     ]
   },
@@ -2855,10 +2856,6 @@ export const monsters = {
     "skills": [
       {
         "name": "Hypnotic Drain",
-        "tier": 3
-      },
-      {
-        "name": "Deadly Eye",
         "tier": 3
       },
       {
@@ -3677,7 +3674,8 @@ export const monsters = {
       },
       {
         "name": "Ectoplasm",
-        "tier": 2
+        "tier": 2,
+        "enchant": "Shielded"
       },
       {
         "name": "Fungal Spores",
