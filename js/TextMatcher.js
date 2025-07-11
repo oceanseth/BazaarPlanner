@@ -1429,11 +1429,11 @@ TextMatcher.matchers.push({
     regex: /^Your ((?:\w+)( and (?:\w+))*) (\w+)s? gain (\([^)]+\)|\d+) (\w+) for the fight\.$/i,
     func: (item, match)=>{
         const tags = match[1].split(" and ");
-        const tag2 = tags[1] ? Item.getTagFromText(tags[1]) : null;
+        const tag2 = match[3] ? Item.getTagFromText(match[3]) : null;
         const amount = getRarityValue(match[4], item.rarity);
         const whatToGain = match[5].toLowerCase();
         return ()=>{
-            item.board.activeItems.filter(i=>i.tags.includes(tag2) && tags.some(tag=>i.tags.includes(tag))).forEach(i=>{
+            item.board.activeItems.filter(i=>i.tags.includes(tag2) && (tags[0]=='other'?i!=item:tags.some(tag=>i.tags.includes(tag)))).forEach(i=>{
                 i.gain(amount,whatToGain);
             });
         };
