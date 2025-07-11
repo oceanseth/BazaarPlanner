@@ -354,7 +354,7 @@ export const items = {
   },
   "Angry Balloon Bot": {
     "name": "Angry Balloon Bot",
-    "tier": 1,
+    "tier": 2,
     "tags": [
       "Dooley",
       "Medium",
@@ -363,16 +363,16 @@ export const items = {
       "ShieldReference",
       "Damage"
     ],
-    "cooldown": 4,
+    "cooldown": "(10/8)",
     "ammo": null,
     "text": [
       "Deal 10 damage.",
-      "When you lose Shield, this gains damage equal to (10%/20%/40%) of the Shield lost."
+      "When you lose Shield, this gains damage equal to the Shield lost."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 medium or small item for 1 second(s).",
-      "Turbo": "Haste 2 items for 1 second(s).",
+      "Heavy": "Slow 2 items for 3 second(s).",
+      "Icy": "Freeze 2 medium or small item for 1 second(s).",
+      "Turbo": "Haste 2 items for 3 second(s).",
       "Shielded": "Shield equal to this item's damage.",
       "Restorative": "Heal equal to this item's Damage.",
       "Toxic": "Poison equal to 10% of this item's damage.",
@@ -804,7 +804,7 @@ export const items = {
   },
   "Atomic Clock": {
     "name": "Atomic Clock",
-    "tier": 1,
+    "tier": 2,
     "tags": [
       "Dooley",
       "Medium",
@@ -812,9 +812,9 @@ export const items = {
       "Ammo"
     ],
     "cooldown": 1,
-    "ammo": 2,
+    "ammo": 3,
     "text": [
-      "Increase an enemy item's cooldown by (1/2/3) second(s) for the fight."
+      "Increase an enemy item's cooldown by (1/2) second(s) for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -987,18 +987,19 @@ export const items = {
       "Dooley",
       "Medium",
       "Friend",
-      "Shield"
+      "Shield",
+      "ShieldReference"
     ],
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "Shield 20.",
-      "When you use a Weapon, this gains (10/15/20) Shield for the fight."
+      "Shield (20/40/60).",
+      "While you have Shield, this item's cooldown is reduced by 3 seconds."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 1 second(s).",
-      "Icy": "Freeze 1 medium or small item for 1 second(s).",
-      "Turbo": "Haste 2 items for 1 second(s).",
+      "Heavy": "Slow 1 items for 1 second(s).",
+      "Icy": "Freeze 1 medium or small item for 0.5 second(s).",
+      "Turbo": "Haste 1 items for 1 second(s).",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield.",
       "Toxic": "Poison equal to 10% of this item's Shield.",
@@ -2153,7 +2154,7 @@ export const items = {
   },
   "Boiling Flask": {
     "name": "Boiling Flask",
-    "tier": 2,
+    "tier": 1,
     "tags": [
       "Mak",
       "Medium",
@@ -2161,7 +2162,7 @@ export const items = {
       "PotionReference",
       "AmmoReference"
     ],
-    "cooldown": "(10/9)",
+    "cooldown": "(10/9/8)",
     "ammo": null,
     "text": [
       "Reload adjacent Potions.",
@@ -2353,7 +2354,7 @@ export const items = {
   },
   "Bottled Explosion": {
     "name": "Bottled Explosion",
-    "tier": 1,
+    "tier": 2,
     "tags": [
       "Mak",
       "Medium",
@@ -2365,7 +2366,7 @@ export const items = {
     "cooldown": 6,
     "ammo": 1,
     "text": [
-      "Deal (5/10/15) Damage.",
+      "Deal (10/15) Damage.",
       "Double this item's damage for the fight."
     ],
     "enchants": {
@@ -2534,7 +2535,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Shield 20.",
-      "When you use an adjacent Friend, this gains (10/15/20/25) Shield for the fight."
+      "When you use another friend, this gains (10/20/30/40) Shield for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -3904,11 +3905,11 @@ export const items = {
       "Weapon",
       "Damage"
     ],
-    "cooldown": 6,
+    "cooldown": 5,
     "ammo": null,
     "text": [
       "Deal 20 damage.",
-      "When you use a Friend, this gains (20/40/60) damage for the fight."
+      "When you use another Friend, this gains (20/30/40) damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 2 second(s).",
@@ -4233,8 +4234,8 @@ export const items = {
     "text": [
       "Deal 30 damage.",
       "Shield 30.",
-      "When you use any item to the left of this, this gains (15/30/45) Damage for the fight.",
-      "When you use any item to the right of this, this gains (15/30/45) Shield for the fight."
+      "When you use any item to the left of this, this gains (20/40/60) Damage for the fight.",
+      "When you use any item to the right of this, this gains (20/40/60) Shield for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 3 items for 1 second(s).",
@@ -5416,7 +5417,7 @@ export const items = {
       "Shield",
       "Haste"
     ],
-    "cooldown": 8,
+    "cooldown": 6,
     "ammo": null,
     "text": [
       "Haste adjacent items for (1/2/3) second(s).",
@@ -6903,15 +6904,15 @@ export const items = {
       "Heal",
       "Haste"
     ],
-    "cooldown": 5,
+    "cooldown": "(6/5/4/3)",
     "ammo": null,
     "text": [
-      "Heal (20/30/40/50).",
-      "Haste 1 item for (1/2/3/4) second(s)."
+      "Heal 30.",
+      "Haste 1 item for 1 second(s)."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 1 second(s).",
-      "Icy": "Freeze 1 small item for 1 second(s).",
+      "Icy": "Freeze 1 small item for 0.5 second(s).",
       "Turbo": "This has double Haste duration.",
       "Shielded": "Shield equal to this item's Heal.",
       "Restorative": "This has double Heal.",
@@ -10540,7 +10541,7 @@ export const items = {
     "text": [
       "Deal (5/10/15) damage.",
       "Slow (1/2/3) item(s) for 1 second(s).",
-      "When you Slow or Crit, this and adjacent Weapons gain (+5/+10/+15) damage for the fight."
+      "When you Slow or Crit, this and adjacent Weapons gain (+3/+6/+9) damage for the fight."
     ],
     "enchants": {
       "Heavy": "This has double Slow duration.",
@@ -11505,7 +11506,7 @@ export const items = {
   },
   "Magnus' Femur": {
     "name": "Magnus' Femur",
-    "tier": 1,
+    "tier": 2,
     "tags": [
       "Mak",
       "Large",
@@ -11514,11 +11515,11 @@ export const items = {
       "Damage",
       "SlowReference"
     ],
-    "cooldown": "(17/15/13)",
+    "cooldown": 16,
     "ammo": null,
     "text": [
       "Deal 300 damage.",
-      "When you Slow, Charge this 2 second(s) and this gains (+25/+50/+75) Damage for the fight."
+      "When you Slow, Charge this 2 second(s) and this gains (+50/+75) Damage for the fight."
     ],
     "enchants": {
       "Heavy": "Slow 1 item for 4 second(s).",
@@ -11796,21 +11797,23 @@ export const items = {
       "Friend",
       "Weapon",
       "Damage",
+      "Shield",
       "HasteReference",
       "ShieldReference"
     ],
-    "cooldown": 7,
+    "cooldown": 5,
     "ammo": null,
     "text": [
-      "Deal (50/75/100) damage.",
-      "When this gains Haste, your weapons gain (4/6/8) damage for the fight.",
-      "When this gains Haste, your Shield items gain (4/6/8) shield for the fight."
+      "Deal 10 damage.",
+      "Shield 10.",
+      "When this gains Haste, your weapons gain (10/15/20) damage for the fight.",
+      "When this gains Haste, your Shield items gain (10/15/20) shield for the fight."
     ],
     "enchants": {
-      "Heavy": "Slow 2 items for 2 second(s).",
+      "Heavy": "Slow 2 items for 1 second(s).",
       "Icy": "Freeze 1 medium or small item for 2 second(s).",
-      "Turbo": "Haste 2 items for 2 second(s).",
-      "Shielded": "This has double Shield bonus.",
+      "Turbo": "Haste 2 items for 1 second(s).",
+      "Shielded": "This has double Shield.",
       "Restorative": "When this gains Haste, your Heal items gain 5 Heal for the fight.",
       "Toxic": "When this gains Haste, your Poison items gain 1 Poison for the fight.",
       "Fiery": "When this gains Haste, your Burn items gain 1 Burn for the fight.",
@@ -12134,7 +12137,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Burn equal to this item's value.",
-      "At the start of each fight, if this is in play, spend (8/6/4) Gold to increase this items value by 4."
+      "At the start of each fight, if this is in play, spend (8/6/4) Gold to increase this item's value by 4."
     ],
     "enchants": {
       "Heavy": "Slow 2 items for 3 second(s).",
@@ -15399,19 +15402,20 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "When you use a Potion, transform it into a Potion for the fight and gain (3/6/9) Regen for the fight."
+      "When you use a Potion, transform it into another Potion for the fight.",
+      "Your Potions have their cooldowns reduced by (1/1.5/2) seconds."
     ],
     "enchants": {
       "Heavy": "When you use a Potion, Slow 1 item for 1 second(s).",
       "Icy": "When you use a Potion, Freeze 1 medium or small item for 0.5 second(s).",
       "Turbo": "When you use a Potion, Haste 1 item for 1 second(s).",
-      "Shielded": "When you use a Potion, Shield equal to 10 times this item's Regen.",
-      "Restorative": "When you use a Potion, Heal equal to 10 times this item's Regen.",
-      "Toxic": "When you use a Potion, Poison equal to this item's Regen.",
-      "Fiery": "When you use a Potion, Burn equal to this item's Regen.",
+      "Shielded": "When you use a Potion, Shield 25.",
+      "Restorative": "When you use a Potion, Heal 25",
+      "Toxic": "When you use a Potion, Poison 2.",
+      "Fiery": "When you use a Potion, Burn 2.",
       "Shiny": "This has double Regen.",
       "Deadly": "Your Potions have +25% Crit Chance.",
-      "Obsidian": "When you use a Potion, Deal Damage equal to 10 times this item's Regen."
+      "Obsidian": "When you use a Potion, Deal 25 Damage."
     },
     "priorities": [
       1
@@ -18584,7 +18588,7 @@ export const items = {
     "ammo": null,
     "text": [
       "At the start of each fight, if this is in play, spend (8/6/4) Gold to increase the Value of all your items by 1.",
-      "When you use an item, Shield equal to that items vaule."
+      "When you use an item, Shield equal to that items value."
     ],
     "enchants": {
       "Heavy": "When you use an Item, Slow 1 item for 1 second(s).",
