@@ -361,6 +361,7 @@ export class Item {
 
         this.startItemData.tags = this.startItemData.tags.filter(tag => tag!="Leftmost"&&tag!="Rightmost");
         Object.assign(this, this.startItemData);
+        this.ammo = getRarityValue(this.ammo, this.rarity);
         this.tags = [...this.startItemData.tags];
         this.element.classList.remove('frozen',...Item.rarityLevels, ...Item.possibleEnchants);
         this.resetEnchant();
@@ -2727,7 +2728,7 @@ export class Item {
 
             const triggerFunctionFromText = this.getTriggerFunctionFromText(textAfterComma);
 
-            const useAdjacentTagItem = conditionalMatch.match(/^use an adjacent ([^\s]+)?(?: item)?$/i);
+            const useAdjacentTagItem = conditionalMatch.match(/^use(?: an)? adjacent ([^\s]+)?(?: item)?$/i);
             if(useAdjacentTagItem) {
                 let tagToMatch2 = Item.getTagFromText(useAdjacentTagItem[1]);
                 if(tagToMatch2.toLowerCase()=='item') {
