@@ -83,6 +83,10 @@ export class BazaarPatcher {
                 "A Weapon is used 50 times":"At the start of each fight, Enchant a non-enchanted item with Obsidian for the fight."
             }
         }
+        if(items["Trebuchet"]) {
+            items["Trebuchet"].text[2] = "When you use another Weapon, charge this 2 second(s).";
+            items["Trebuchet"].text[3] = "When you Haste, charge this 2 second(s).";
+        }
         BazaarPatcher.customSetupFunctions.set("Orange Julian",(item)=>{
             if(item.Custom_0) {
                 item.text[0] = item.text[0].replace(/\+[\d]+ Damage/i, `+${item.Custom_0} Damage`);

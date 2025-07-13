@@ -1551,4 +1551,25 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
-//"This has +1 Multicast for each other item you have." from Dino Saddle
+
+// "This has Multicast equal to its current ammo." from Shuriken
+TextMatcher.matchers.push({
+    regex: /^This has Multicast equal to its current ammo\.$/i,
+    func: (item, match)=>{
+        item.gain(item.ammo-1,'multicast');
+        item.ammoChanged((newAmmo,oldAmmo)=>{
+            item.gain(newAmmo-oldAmmo,'multicast');
+        });
+        return ()=>{};
+    }
+});
+
+//"spend all its Ammo." from Shuriken
+TextMatcher.matchers.push({
+    regex: /^spend all its Ammo\.$/i,
+    func: (item, match)=>{
+        return ()=>{
+            item.ammo = 0;
+        };
+    }
+});
