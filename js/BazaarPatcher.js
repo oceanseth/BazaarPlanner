@@ -84,8 +84,8 @@ export class BazaarPatcher {
             }
         }
         if(items["Trebuchet"]) {
-            items["Trebuchet"].text[2] = "When you use another Weapon, charge this 2 second(s).";
-            items["Trebuchet"].text[3] = "When you Haste, charge this 2 second(s).";
+            items["Trebuchet"].text[2] = "When you use another Weapon, charge this 2 seconds.";
+            items["Trebuchet"].text[3] = "When you Haste, charge this 2 seconds.";
         }
         BazaarPatcher.customSetupFunctions.set("Orange Julian",(item)=>{
             if(item.Custom_0) {

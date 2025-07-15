@@ -76,6 +76,7 @@ export class Run {
         if(!run) {
             firebase.database().ref(`/users/${uid}/runs/${runId}`).once('value').then(runSnap => {
                 const runData = runSnap.val();
+                runData.id = runId;
                 run = new Run({t:runData.t, id:runData.id, uid:uid});
                 Object.assign(run, runData);
                 Run.cachedRuns[runId] = run;
