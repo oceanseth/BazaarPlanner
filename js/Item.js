@@ -1075,22 +1075,26 @@ export class Item {
         }
         //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
         //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
-        damageRegex = /^Your (other )?([^\s]+)\s*(?:items)? (?:gain|get) \+?(\([^)]+\)|\d+)\s+([^\s]+)(?: for the fight)?\./i;
+        damageRegex = /^Your (other )?([^.]*?) (?:gain|get) \+?(\([^)]+\)|\d+)( [^\s]+)?(?: for the fight)?\./i;
         match = text.match(damageRegex);
         if(match) {
             const other = match[1]=='other ';
             const gainAmount = getRarityValue(match[3], this.rarity);
-            const tagToMatch = Item.getTagFromText(match[2]);
-            const whatToGain = match[4].toLowerCase();
-            if(whatToGain=='damage') {
+            const tagsToMatch = match[2].split(/,\s*(?:and\s+)?/).filter(Boolean).map((tag)=>Item.getTagFromText(tag.replace(' items','')));
+            const whatToGain = match[4]?.toLowerCase();
+            if(whatToGain=='damage'||tagsToMatch.includes('Weapon')) {
                 this.damageBonus += gainAmount;
             }
             return () => {
-                this.board.items.forEach(item => {
-                    if(other && item.id == this.id) return;
-                    if(tagToMatch=='Item' || item.tags.includes(tagToMatch)) {
+                tagsToMatch.forEach(tagToMatch=>{
+                    if(!tagToMatch) return;
+                    const whatToGain = (tagToMatch=='Weapon')?'damage':tagToMatch.toLowerCase();
+                    this.board.items.forEach(item => {
+                        if(other && item.id == this.id) return;
+                        if(tagToMatch=='Item' || item.tags.includes(tagToMatch)) {
                         item.gain(whatToGain=='damage'?0:gainAmount,whatToGain,this);
-                    }
+                        }
+                    });
                 });
             };
         }
