@@ -108,7 +108,7 @@ class Board {
         return this._follow;
     }
     get backpackParent() {
-        let foundBoard = null;
+        let foundBoard = undefined;
         Board.boards.forEach(board => {
             if (board.backpack === this) {
                 foundBoard = board;
@@ -169,7 +169,7 @@ class Board {
             this.createBackpackElement();
             this.createBoardControls();
         }
-        if(this.isBackpack) {
+        if(!this.isBackpack) {
             this.createHealthElement();
             this.createSkillsElement();
             this.createGoldElement();
@@ -246,7 +246,7 @@ class Board {
                 this.winRateElement.style.display = "none";
             }
         }
-        if(this.boardId!='backpack' && this.boardId!='tb') {
+        if(!this.isBackpack) {
             this.updateGoldElement();
             this.updateIncomeElement();
             this.updatePrestigeElement();
