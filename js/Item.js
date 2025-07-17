@@ -2438,8 +2438,9 @@ export class Item {
         popup.innerHTML = popupHTML;
         document.body.appendChild(popup);
         popup.querySelector('#edit-rarity').addEventListener('change',()=>{
-            this.setRarity(popup.querySelector('#edit-rarity').value);            
-            this.board.player.battle.resetBattle();
+            this.setRarity(popup.querySelector('#edit-rarity').value);
+            this.board.reset();
+            (this.board.backpackParent || this.board).player.battle.resetBattle();
             updateUrlState();
             popup.remove();            
         });
@@ -2462,7 +2463,9 @@ export class Item {
         });
         
         popup.querySelector('.save-edit').addEventListener('click', () => {
-            this.board.player.battle.resetBattle();
+            
+            this.board.reset();
+            (this.board.backpackParent || this.board).player.battle.resetBattle();
             const enchant = popup.querySelector('#edit-enchant').value;
             this.setEnchant(enchant);
 

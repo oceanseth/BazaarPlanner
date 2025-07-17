@@ -107,6 +107,19 @@ class Board {
     get follow() {
         return this._follow;
     }
+    get backpackParent() {
+        let foundBoard = null;
+        Board.boards.forEach(board => {
+            if (board.backpack === this) {
+                foundBoard = board;
+            }
+        });
+        return foundBoard;
+    }
+    get isBackpack() {
+        return this.backpackParent !== undefined;
+    }
+    
     static getBoardFromId(boardId) {
         if(Board.boards.has(boardId)) return Board.boards.get(boardId);
         console.log("Board not found: " + boardId);
@@ -156,7 +169,7 @@ class Board {
             this.createBackpackElement();
             this.createBoardControls();
         }
-        if(this.boardId!='backpack' && this.boardId!='tb') {
+        if(this.isBackpack) {
             this.createHealthElement();
             this.createSkillsElement();
             this.createGoldElement();
