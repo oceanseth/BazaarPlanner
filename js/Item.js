@@ -35,7 +35,10 @@ export class Item {
     enchantChanged(f,s) {
         this.enchantChangedFunctions.set(s,f);
     }
-
+    typesChangedFunctions = new Map();
+    typesChanged(f,s) {
+        this.typesChangedFunctions.set(s,f);
+    }
     set enchant(value) {
         const oldValue = this.enchant;
         this._enchant = value;
