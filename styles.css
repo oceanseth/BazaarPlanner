@@ -2287,7 +2287,7 @@ select {
     filter: var(--enchant-overlay-filter, none);
     opacity: 0.5;
 }
-.backpack-element {
+.backpack-opener-element {
     background-image: url(/images/bclosed.jpg);
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -2301,7 +2301,7 @@ select {
     height: 40px;
     border-radius: 5px;
 }
-.backpack-element.backpack-open {
+.backpack-opener-element.backpack-open {
   background-image: url(/images/bopen.jpg);
 }
 .top-donors-section {

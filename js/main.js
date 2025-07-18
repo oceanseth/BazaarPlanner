@@ -28,7 +28,7 @@ window.search = search;
 window.populateSearchSuggestions = populateSearchSuggestions;
 window.topPlayer = new Player({name:"Vanessa", maxHealth:1000}, 't');
 window.bottomPlayer = new Player({name:"Dooley"}, 'b');
-if(window.backpackBoard==null) {
+if(window.backpackPlayer==null) {
 
     window.backpackPlayer = new Player({name:" ", maxHealth:1000}, 'backpack', {skills:false});
     window.backpackPlayer.hostileTarget = topPlayer;

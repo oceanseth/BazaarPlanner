@@ -166,7 +166,7 @@ class Board {
             this.importElement = document.createElement('div');
             this.importElement.className = 'import-element';
             this.element.appendChild(this.importElement);
-            this.createBackpackElement();
+            this.createBackpackOpenerElement();
             this.createBoardControls();
         }
         if(!this.isBackpack) {
@@ -246,7 +246,10 @@ class Board {
                 this.winRateElement.style.display = "none";
             }
         }
-        if(!this.isBackpack) {
+        const parentBoard = this.backpackParent;
+        if(parentBoard) {
+            parentBoard.reset();
+        } else {
             this.updateGoldElement();
             this.updateIncomeElement();
             this.updatePrestigeElement();
@@ -262,7 +265,7 @@ class Board {
         if(this.backpack) {
             const backpackContainer = this.backpack.element.parentElement;
             backpackContainer.classList.toggle('hidden');
-            this.backpackElement.classList.toggle('backpack-open');
+            this.backpackOpenerElement.classList.toggle('backpack-open');
         }
     }
     setupItems() {
@@ -541,11 +544,11 @@ class Board {
         this.winRateElement.innerHTML = "0%";
         this.element.appendChild(this.winRateElement);
     }
-    createBackpackElement() {
-        this.backpackElement = document.createElement('div');
-        this.backpackElement.className = 'backpack-element';
-        this.element.appendChild(this.backpackElement);
-        this.backpackElement.onclick = () => {
+    createBackpackOpenerElement() {
+        this.backpackOpenerElement = document.createElement('div');
+        this.backpackOpenerElement.className = 'backpack-opener-element';
+        this.element.appendChild(this.backpackOpenerElement);
+        this.backpackOpenerElement.onclick = () => {
             this.toggleBackpack();
         }
     }
@@ -894,7 +897,8 @@ class Board {
             }
             this.deleteZone.classList.remove('active');
             this.deleteZone.style.display = 'none';
-            if(this.player && this.player.battle) this.player.battle.resetBattle();
+            const targetBattle = this.player.battle || this.backpackParent?.player.battle;
+            if(targetBattle) targetBattle.resetBattle();
             if(this.options.editable) updateUrlState();
         }); 
         this.element.appendChild(this.deleteZone);
@@ -952,7 +956,8 @@ class Board {
                 newItem.setIndex(startIndex);
             }
             targetBoard.sortItems();
-            if(this.player.battle) this.player.battle.resetBattle();
+            const targetBattle = this.player.battle || this.backpackParent?.player.battle;
+            if(targetBattle) targetBattle.resetBattle();
             if(this.options.editable) updateUrlState();
         }
         document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {

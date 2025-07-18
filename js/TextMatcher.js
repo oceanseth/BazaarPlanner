@@ -518,6 +518,10 @@ TextMatcher.matchers.push({
         const typeCount = item.tags.filter(tag => Board.uniqueTypeTags.includes(tag)).length;
         const whatToDo = Item.getTagFromText(match[1]);
         item.gain(amount * typeCount, whatToDo);
+        item.typesChanged(()=> {
+            const newTypeCount = item.tags.filter(tag => Board.uniqueTypeTags.includes(tag)).length;
+            item.gain(amount * (newTypeCount - typeCount), whatToDo);
+        }, item.id+"_typesChanged_"+whatToDo);
         return ()=>{
             item["apply"+whatToDo]();
         };
@@ -683,7 +687,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //This has double damage bonus.
-    regex: /^This has double damage bonus\.?$/i,
+    regex: /^This has double damage (and shield )?bonus\.?$/i,
     func: (item, match)=>{
         const [strippedName] = Item.stripEnchantFromName(item.name);
         //remove the weapon tag given by obsidian assuming this text came from that enchant
@@ -691,6 +695,7 @@ TextMatcher.matchers.push({
             item.tags = item.tags.filter(tag => tag !== "Weapon");
         }
         item.hasDoubleDamageBonus = true;
+        item.hasDoubleShieldBonus = match[1]!=null;
         return ()=>{};
     },
 });
@@ -1571,5 +1576,21 @@ TextMatcher.matchers.push({
         return ()=>{
             item.ammo = 0;
         };
+    }
+});
+
+//"This has the Types of items you have in your Stash." from Cargo Shorts
+TextMatcher.matchers.push({
+    regex: /^This has the Types of items you have in your Stash\.$/i,
+    func: (item, match)=>{
+        item.board.backpack?.items.forEach(i=>{
+            i.tags.forEach(t=>{
+                if(Board.uniqueTypeTags.includes(t) && !item.tags.includes(t)) {
+                    item.tags.push(t);
+                }
+            });
+        });
+        item.typesChangedFunctions.forEach(f=>f(item));
+        return ()=>{};
     }
 });
