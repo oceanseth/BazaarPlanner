@@ -1478,7 +1478,70 @@ ItemFunction.items.set("Recycling Bin",(item)=>{
 //Transform into 2 small potions for the fight.
 ItemFunction.items.set("Potion Potion",(item)=>{
     item.triggerFunctions.push(()=>{
+        // Get random small potions from the potion cache
+        const potionCache = Item.getCacheByTag("Potion");
+        const smallPotions = potionCache.filter(p => p.tags.includes("Small") && p.tier<=item.tier);
         
+        if (smallPotions.length >= 2) {
+            // Create 2 random small potions
+            const potion1Data = structuredClone(item.pickRandom(smallPotions));
+            const potion2Data = structuredClone(item.pickRandom(smallPotions));
+            
+            // Set enchant if the original item has one
+            if (item.enchant) {
+                if (potion1Data.enchants && potion1Data.enchants[item.enchant]) {
+                    potion1Data.enchant = item.enchant;
+                }
+                if (potion2Data.enchants && potion2Data.enchants[item.enchant]) {
+                    potion2Data.enchant = item.enchant;
+                }
+            }
+            
+            // Set tier to match original item
+            potion1Data.tier = item.tier;
+            potion2Data.tier = item.tier;
+            
+            // Create the potions
+            const potion1 = new Item(potion1Data, item.board);
+            const potion2 = new Item(potion2Data, item.board);
+            
+            // Set positions
+            potion1.setIndex(item.startIndex);
+            potion2.setIndex(item.startIndex + 1);
+            
+            // Hide original item and remove from board
+            item.board.items.splice(item.board.items.indexOf(item), 1);
+            item.element.style.display = "none";
+            
+            // Add potions to board
+            item.board.addItem(potion1);
+            item.board.addItem(potion2);
+            
+            // Setup potions
+            item.board.sortItems();
+            potion1.reset();
+            potion2.reset();
+            potion1.setup();
+            potion2.setup();
+            
+            // Show progress bars
+            if (potion1.progressBar) potion1.progressBar.style.display = 'block';
+            if (potion2.progressBar) potion2.progressBar.style.display = 'block';
+            
+            // Add reset functions to restore original item
+            potion1.resetFunctions.push(() => {
+                item.element.style.display = "block";
+                potion1.element.remove();
+                potion2.element.remove();
+                item.board.items = item.board.items.filter(i => i !== potion1 && i !== potion2);
+                item.board.addItem(item);
+                item.reset();
+            });
+            
+            // Trigger transform events
+            item.board.transformTriggers.forEach(f => f(item, potion1));
+            item.board.transformTriggers.forEach(f => f(item, potion2));
+        }
     });
 });
 
