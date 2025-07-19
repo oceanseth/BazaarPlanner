@@ -102,7 +102,6 @@ import { ItemFunction } from '../js/ItemFunction.js';
 
 // Store original console.log
 const originalConsoleLog = console.log;
-let consoleLogCount = 0;
 global.items = items;
 global.Item = Item;
 global.skills = skills;
@@ -111,7 +110,6 @@ describe('Item Text Parser Tests', () => {
     beforeAll(() => {
         // Replace console.log with our capturing function
         console.log = (...args) => {
-            consoleLogCount++;
             originalConsoleLog(...args);
         };
     });
@@ -121,101 +119,194 @@ describe('Item Text Parser Tests', () => {
         console.log = originalConsoleLog;
     });
 
-    beforeEach(() => {
-        // Clear console output before each test
-        consoleLogCount = 0;
-    });
+    // Test each item individually
+    Object.entries(items).forEach(([itemName, itemData]) => {
+        if(ItemFunction.doNothingItemNames.includes(itemName)) return;
+        if(ItemFunction.items.get(itemName)) return;
+        
+        describe(`Item: ${itemName}`, () => {
+            test('should parse all text patterns without errors', () => {
+                const consoleOutput = [];
+                const originalLog = console.log;
+                
+                // Capture console output
+                console.log = (...args) => {
+                    consoleOutput.push(args.join(' '));
+                    originalLog(...args);
+                };
 
-    test('Parse all item text patterns', () => {
-        // Process each item
-        Object.entries(items).forEach(([itemName, itemData]) => {
-            if(ItemFunction.doNothingItemNames.includes(itemName)) return;
-            if(ItemFunction.items.get(itemName)) return;
-            let oldConsoleLogCount = consoleLogCount;
-            try {
-                const item = new Item(itemData, mockBoardInstance); // Use mockBoardInstance here                
+                try {
+                    const item = new Item(itemData, mockBoardInstance);
 
-                // If the item has text, process each text line
-                if (item.text && Array.isArray(item.text)) {
-                    item.text.forEach(textLine => {
-                        item.setupTextFunctions(textLine);
+                    // If the item has text, process each text line
+                    if (item.text && Array.isArray(item.text)) {
+                        item.text.forEach((textLine, index) => {
+                            try {
+                                item.setupTextFunctions(textLine);
+                            } catch (error) {
+                                throw new Error(`Failed to parse text line ${index + 1}: "${textLine}" - ${error.message}`);
+                            }
+                        });
+                    }
+
+                    // Check for any unhandled cases
+                    const unhandledCases = consoleOutput.filter(output => 
+                        output.includes("No code yet written for this case!") ||
+                        output.includes("Error processing item")
+                    );
+
+                    if (unhandledCases.length > 0) {
+                        throw new Error(`Unhandled cases found:\n${unhandledCases.join('\n')}`);
+                    }
+
+                } catch (error) {
+                    // Provide detailed context for AI debugging
+                    const context = {
+                        itemName,
+                        itemData: JSON.stringify(itemData, null, 2),
+                        error: error.message,
+                        consoleOutput
+                    };
+                    
+                    throw new Error(`Failed to process item "${itemName}":\n\nItem Data:\n${context.itemData}\n\nError:\n${context.error}\n\nConsole Output:\n${context.consoleOutput.join('\n')}`);
+                } finally {
+                    console.log = originalLog;
+                }
+            });
+
+            test('should parse all enchant text patterns without errors', () => {
+                if (!itemData.enchants) return;
+
+                const consoleOutput = [];
+                const originalLog = console.log;
+                
+                console.log = (...args) => {
+                    consoleOutput.push(args.join(' '));
+                    originalLog(...args);
+                };
+
+                try {
+                    const item = new Item(itemData, mockBoardInstance);
+                    
+                    Object.entries(item.enchants).forEach(([enchantName, enchantText]) => {
+                        if(enchantName === 'Radiant') return;
+                        
+                        try {
+                            item.setupTextFunctions(enchantText);
+                        } catch (error) {
+                            throw new Error(`Failed to parse enchant "${enchantName}": "${enchantText}" - ${error.message}`);
+                        }
                     });
 
+                    const unhandledCases = consoleOutput.filter(output => 
+                        output.includes("No code yet written for this case!") ||
+                        output.includes("Error processing item")
+                    );
+
+                    if (unhandledCases.length > 0) {
+                        throw new Error(`Unhandled enchant cases found:\n${unhandledCases.join('\n')}`);
+                    }
+
+                } catch (error) {
+                    const context = {
+                        itemName,
+                        enchants: JSON.stringify(itemData.enchants, null, 2),
+                        error: error.message,
+                        consoleOutput
+                    };
+                    
+                    throw new Error(`Failed to process enchants for "${itemName}":\n\nEnchants:\n${context.enchants}\n\nError:\n${context.error}\n\nConsole Output:\n${context.consoleOutput.join('\n')}`);
+                } finally {
+                    console.log = originalLog;
                 }
-            } catch (error) {
-                console.log(`Error processing item ${itemName}:`, error);
-            }
-            if(consoleLogCount>oldConsoleLogCount) {
-                console.log(`Error processing item ${itemName}:`);
-            }
+            });
+
+            test('should parse all quest text patterns without errors', () => {
+                if (!itemData.quests) return;
+
+                const consoleOutput = [];
+                const originalLog = console.log;
+                
+                console.log = (...args) => {
+                    consoleOutput.push(args.join(' '));
+                    originalLog(...args);
+                };
+
+                try {
+                    const item = new Item(itemData, mockBoardInstance);
+                    
+                    Object.entries(item.quests).forEach(([questKey, questText]) => {
+                        try {
+                            item.setupTextFunctions(questText);
+                        } catch (error) {
+                            throw new Error(`Failed to parse quest "${questKey}": "${questText}" - ${error.message}`);
+                        }
+                    });
+
+                    const unhandledCases = consoleOutput.filter(output => 
+                        output.includes("No code yet written for this case!") ||
+                        output.includes("Error processing item")
+                    );
+
+                    if (unhandledCases.length > 0) {
+                        throw new Error(`Unhandled quest cases found:\n${unhandledCases.join('\n')}`);
+                    }
+
+                } catch (error) {
+                    const context = {
+                        itemName,
+                        quests: JSON.stringify(itemData.quests, null, 2),
+                        error: error.message,
+                        consoleOutput
+                    };
+                    
+                    throw new Error(`Failed to process quests for "${itemName}":\n\nQuests:\n${context.quests}\n\nError:\n${context.error}\n\nConsole Output:\n${context.consoleOutput.join('\n')}`);
+                } finally {
+                    console.log = originalLog;
+                }
+            });
         });
-
-        // If there were any console.log messages about unhandled cases, the test will show them
-            expect(consoleLogCount).toBe(0);
-
-        // Optional: Make the test fail if there are any unhandled cases
-        // expect(consoleOutput.filter(output => output.includes("No code yet written for this case!"))).toHaveLength(0);
     });
-    /*
-    test('Parse all item enchant text patterns', () => {
-        // Process each item
-        Object.entries(items).forEach(([itemName, itemData]) => {
-            if(ItemFunction.doNothingItemNames.includes(itemName)) return;
-            try {
-                const item = new Item(itemData, mockBoardInstance); // Use mockBoardInstance here                
-                Object.entries(item.enchants).forEach(([enchantName, enchantData]) => {
-                    if(enchantName=='Radiant') return;
-                    item.setupTextFunctions(enchantData);
-                });
-            } catch (error) {
-                console.log(`Error processing item ${itemName}:`, error);
-            }
-        });
 
-        // If there were any console.log messages about unhandled cases, the test will show them
-            expect(consoleLogCount).toBe(0);
+    // Test each skill individually
+    Object.entries(skills).forEach(([skillName, skillData]) => {
+        if(ItemFunction.items.get(skillName)) return;
+        
+        test(`Skill: ${skillName} should parse all text patterns without errors`, () => {
+            const consoleOutput = [];
+            const originalLog = console.log;
+            
+            console.log = (...args) => {
+                consoleOutput.push(args.join(' '));
+                originalLog(...args);
+            };
 
-        // Optional: Make the test fail if there are any unhandled cases
-        // expect(consoleOutput.filter(output => output.includes("No code yet written for this case!"))).toHaveLength(0);
-    });
-    */
-    test('Parse all skill text patterns', () => {
-        // Process each skill
-        Object.entries(skills).forEach(([skillName, skillData]) => {
-            if(ItemFunction.items.get(skillName)) return;
             try {
                 const skill = Skill.fromName(skillName, mockBoardInstance);
                 skill.setup();
-            } catch (error) {
-                console.log(`Error processing skill ${skillName}:`, error);
-            }
 
-        });
-        
-        expect(consoleLogCount).toBe(0);
-    });
-    test('Parse all quest text patterns', () => {
-        // Process each quest
-        Object.entries(items).forEach(([itemName, itemData]) => {
-            if(ItemFunction.items.get(itemName)) return;
-            let oldConsoleLogCount = consoleLogCount;
-            try {
-                const item = new Item(itemData, mockBoardInstance); // Use mockBoardInstance here                
+                const unhandledCases = consoleOutput.filter(output => 
+                    output.includes("No code yet written for this case!") ||
+                    output.includes("Error processing skill")
+                );
 
-                // If the item has text, process each text line
-                if (item.quests) {
-                   for(const q in item.quests) {
-                    item.setupTextFunctions(item.quests[q]);
-                   }
+                if (unhandledCases.length > 0) {
+                    throw new Error(`Unhandled cases found:\n${unhandledCases.join('\n')}`);
                 }
+
             } catch (error) {
-                console.log(`Error processing item ${itemName}:`, error);
-            }
-            if(consoleLogCount>oldConsoleLogCount) {
-                console.log(`Error processing item ${itemName}:`);
+                const context = {
+                    skillName,
+                    skillData: JSON.stringify(skillData, null, 2),
+                    error: error.message,
+                    consoleOutput
+                };
+                
+                throw new Error(`Failed to process skill "${skillName}":\n\nSkill Data:\n${context.skillData}\n\nError:\n${context.error}\n\nConsole Output:\n${context.consoleOutput.join('\n')}`);
+            } finally {
+                console.log = originalLog;
             }
         });
-        expect(consoleLogCount).toBe(0);
     });
 });
 

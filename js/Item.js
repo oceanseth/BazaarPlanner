@@ -2718,7 +2718,8 @@ export class Item {
                 "win a fight against a hero",
                 "level up and at the start of each day",
                 "lose a fight with this in play",
-                "win a fight with this in play"
+                "win a fight with this in play",
+                'sell a food item',
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return ()=>{};
@@ -2860,6 +2861,20 @@ export class Item {
                             }
                         });
                         return ()=>{};
+                    case "use an item with more than 10 value":
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
+                            if(item.value > 10) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return ()=>{};
+                    case "use a busy bee":
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
+                            if(item.nameWithoutEnchant === "Busy Bee") {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return ()=>{};
                     
                     case "use another ammo item":
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
@@ -2973,6 +2988,12 @@ export class Item {
                             rightAmmoItem.triggerFunctions.push(triggerFunctionFromText);
                         }
                         return ()=>{};
+                    case "use the tech item to the right of this":
+                        const rightTechItem = this.getItemToTheRight();
+                        if(rightTechItem&&rightTechItem.tags.includes("Tech")) {
+                            rightTechItem.triggerFunctions.push(triggerFunctionFromText);
+                        }
+                        return ()=>{};
                     case "use the core or another ray":
                         this.whenItemTagTriggers(["Core", "Ray"], 
                             (item) => {
@@ -3000,6 +3021,13 @@ export class Item {
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.id !== this.id && this.adjacentItems.some(i=>i==item)) {
                                 triggerFunctionFromText(item);
+                            }
+                        });
+                        return ()=>{};
+                    case "an adjacent item gains freeze":
+                        this.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.text, (target, source) => {
+                            if(this.adjacentItems.some(i=>i.id==target.id)) {
+                                triggerFunctionFromText(target);
                             }
                         });
                         return ()=>{};
@@ -3040,6 +3068,12 @@ export class Item {
                         targetBoards.forEach(board => {
                             board.poisonTriggers.set(this.id+"_"+triggerFunctionFromText.text, triggerFunctionFromText);
                             board.slowTriggers.set(this.id+"_"+triggerFunctionFromText.text, triggerFunctionFromText);
+                        });
+                        return ()=>{};
+                    case "slow or crit":
+                        targetBoards.forEach(board => {
+                            board.slowTriggers.set(this.id+"_"+triggerFunctionFromText.text, triggerFunctionFromText);
+                            board.critTriggers.set(this.id+"_"+triggerFunctionFromText.text, triggerFunctionFromText);
                         });
                         return ()=>{};
                     case "slow with an item":
@@ -4986,7 +5020,7 @@ export class Item {
             return ()=>{};
         }
         //it also gains ( 5% » 10% » 15% » 20% ) Crit Chance for the fight. from Hakurvian Launche
-        regex = /^it also gains (\([^)]+\)|\d+) Crit Chance for the fight\.?$/i;
+        regex = /^it(?: also)? gains (\([^)]+\)|\d+\%?) Crit Chance(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const critGain = getRarityValue(match[1], this.rarity);
