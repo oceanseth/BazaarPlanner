@@ -2720,6 +2720,7 @@ export class Item {
                 "lose a fight with this in play",
                 "win a fight with this in play",
                 'sell a food item',
+                'buy an item',
             ];
             if(skipCases.includes(conditionalMatch.toLowerCase())) {
                 return ()=>{};
@@ -2861,6 +2862,7 @@ export class Item {
                             }
                         });
                         return ()=>{};
+                    case "use an item with value over 10":
                     case "use an item with more than 10 value":
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.value > 10) {

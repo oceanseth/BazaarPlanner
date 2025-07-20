@@ -152,7 +152,9 @@ describe('Item Text Parser Tests', () => {
                     // Check for any unhandled cases
                     const unhandledCases = consoleOutput.filter(output => 
                         output.includes("No code yet written for this case!") ||
-                        output.includes("Error processing item")
+                        output.includes("Error processing item") ||
+                        output.includes("Could not parse") ||
+                        output.includes("Not currently parsing")
                     );
 
                     if (unhandledCases.length > 0) {
