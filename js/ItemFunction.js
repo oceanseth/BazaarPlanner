@@ -1418,7 +1418,7 @@ ItemFunction.items.set("Recycling Bin",(item)=>{
 
     let potionTriggerFunction = (i)=>{
         //get a random potion that is not the same as i and is the same size as i
-        const randPotionData  = structuredClone(item.pickRandom(potionCache.filter(p=>p.name!=i.nameWithoutEnchant&&p.tags.includes(i.sizeTag))));
+        const randPotionData  = structuredClone(item.pickRandom(potionCache.filter(p=>p.name!=i.nameWithoutEnchant&&p.tags.includes(i.sizeTag)&&p.tier<=i.tier)));
         if(randPotionData) {
             //clone the board and reset and setup the new potion
             const clonedBoard = i.board.player.clone().board;
