@@ -1431,6 +1431,8 @@ ItemFunction.items.set("Recycling Bin",(item)=>{
             
             //set the startIndex of the new potion to the startIndex of the clonedPotion
             randPotionData.startIndex = i.startIndex;
+            randPotionData.enchant = i.enchant;
+            randPotionData.tier = i.tier;
             //create the new potion on the clonedBoard
             const newPotion = new Item(randPotionData,clonedBoard);
             clonedBoard.player.hostileTarget = item.board.player.hostileTarget;
@@ -1448,9 +1450,7 @@ ItemFunction.items.set("Recycling Bin",(item)=>{
             i.board.addItem(newPotion);                      
             //simulate starting the battle 
             if(newPotion.progressBar) newPotion.progressBar.style.display = 'block';
-            newPotion.triggerFunctions.push(()=>{
-                potionTriggerFunction(newPotion);
-            });
+
             newPotion.resetFunctions.push(()=>{                           
                 newPotion.element.remove();
                 item.board.items = item.board.items.filter(someItem=>someItem!=newPotion);
@@ -1459,19 +1459,25 @@ ItemFunction.items.set("Recycling Bin",(item)=>{
                     if(i.board.items.indexOf(i)==-1) {
                         i.board.addItem(i);
                         i.element.style.display = "block";
-                        i.board.reset();
                     }    
-                    return;
                 }
-                i.reset();
+                setTimeout(()=>{
+                    i.board.reset();
+                },100);
                 
             });
             item.board.transformTriggers.forEach(f=>f(i,item));
         }
     }
-    potions.forEach(i=>{
-        i.triggerFunctions.push(()=>{ potionTriggerFunction(i); });
-        item.applyRegen();
+    item.board.itemTriggers.set("Recycling_Bin_Trigger",(i)=> {
+        if(i.isPotion==undefined) {
+            i.isPotion = i.tags.includes("Potion");
+        }
+        if(i.isPotion) {
+            //if(!i.name.includes('Potion Potion'))
+            potionTriggerFunction(i);
+            item.applyRegen();
+        }
     });
 });
 
@@ -1530,12 +1536,19 @@ ItemFunction.items.set("Potion Potion",(item)=>{
             
             // Add reset functions to restore original item
             potion1.resetFunctions.push(() => {
+                potion1.resetFunctions = [];
                 item.element.style.display = "block";
                 potion1.element.remove();
-                potion2.element.remove();
+                potion2.reset();
                 item.board.items = item.board.items.filter(i => i !== potion1 && i !== potion2);
                 item.board.addItem(item);
+                item.reset();                
+            });
+            potion2.resetFunctions.push(()=>{
+                potion2.element.remove();
+                item.board.items = item.board.items.filter(i => i !== potion1 && i !== potion2);
                 item.reset();
+                
             });
             
             // Trigger transform events

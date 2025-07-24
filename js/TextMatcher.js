@@ -1438,7 +1438,7 @@ TextMatcher.matchers.push({
         const amount = getRarityValue(match[4], item.rarity);
         const whatToGain = match[5].toLowerCase();
         return ()=>{
-            item.board.activeItems.filter(i=>i.tags.includes(tag2) && (tags[0]=='other'?i!=item:tags.some(tag=>i.tags.includes(tag)))).forEach(i=>{
+            item.board.activeItems.filter(i=>(tag2=='Item'||i.tags.includes(tag2)) && (tags[0]=='other'?i!=item:tags.some(tag=>i.tags.includes(tag)))).forEach(i=>{
                 i.gain(amount,whatToGain);
             });
         };
