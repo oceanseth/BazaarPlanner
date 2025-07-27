@@ -5,6 +5,16 @@ import { skills } from '../skills.js';
 export class BazaarPatcher {
     static customSetupFunctions = new Map();
     static apply() {
+        if(monsters["Viper"]) {
+            //find gland
+            const gland = monsters["Viper"].items.find(i=>i.name=="Gland");
+            gland.regen=1;
+            //find poison fang
+            const poisonFang = monsters["Viper"].items.find(i=>i.name=="Fang"&&i.enchant=="Toxic");
+            poisonFang.poison=1;
+        }
+
+
         if(items["Pistol Sword"].text[1].match(/^When you use an Ammo item, deal .* damage\.$/i)) {
             items["Pistol Sword"].text[1] = "When you use an Ammo item, deal damage.";
         }
