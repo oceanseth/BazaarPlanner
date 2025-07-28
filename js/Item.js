@@ -3257,6 +3257,11 @@ export class Item {
                                 triggerFunctionFromText(item);
                             }
                         });
+                        this.board.transformTriggers.set(this.id+"_"+triggerFunctionFromText.text,(item,source)=>{
+                            if(item.tags.includes("Potion")) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
                         return ()=>{};
                     case "crit with the item to the left of this":
                         this.board.critTriggers.set(this.id+"_"+triggerFunctionFromText.text,(item)=>{
