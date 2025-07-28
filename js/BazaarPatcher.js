@@ -13,6 +13,14 @@ export class BazaarPatcher {
             const poisonFang = monsters["Viper"].items.find(i=>i.name=="Fang"&&i.enchant=="Toxic");
             poisonFang.poison=1;
         }
+        if(monsters["Trashtown Mayor"]) {
+            //find Dog
+            const dog = monsters["Trashtown Mayor"].items.find(i=>i.name=="Dog");
+            dog.damage=150;
+            //find Temporary Shelter
+            const shelter = monsters["Trashtown Mayor"].items.find(i=>i.name=="Temporary Shelter");
+            shelter.shield = 200;
+        }
 
 
         if(items["Pistol Sword"].text[1].match(/^When you use an Ammo item, deal .* damage\.$/i)) {
