@@ -365,6 +365,7 @@ export class Item {
         this.startItemData.tags = this.startItemData.tags.filter(tag => tag!="Leftmost"&&tag!="Rightmost");
         Object.assign(this, this.startItemData);
         this.ammo = getRarityValue(this.ammo, this.rarity);
+        this.multicast = getRarityValue(this.multicast,this.rarity);
         this.tags = [...this.startItemData.tags];
         this.element.classList.remove('frozen',...Item.rarityLevels, ...Item.possibleEnchants);
         this.resetEnchant();
