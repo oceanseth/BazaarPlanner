@@ -21,6 +21,10 @@ export class BazaarPatcher {
             const shelter = monsters["Trashtown Mayor"].items.find(i=>i.name=="Temporary Shelter");
             shelter.shield = 200;
         }
+        if(monsters["Qomatz"]) {
+            const stone = monsters["Qomatz"].items.find(i=>i.name=="Philosopher's Stone");
+            stone.regen=50;
+        }
 
 
         if(items["Pistol Sword"].text[1].match(/^When you use an Ammo item, deal .* damage\.$/i)) {
