@@ -27,6 +27,9 @@ export class BazaarPatcher {
         }
 
 
+        if(items["Piggles Launcher"]) {
+            items["Piggles Launcher"].text[0] = "Deal (10/20/30/40) Damage, Shield (10/20/30/40), Heal (10/20/30/40), and Burn (1/2/3/4)";
+        }
         if(items["Pistol Sword"].text[1].match(/^When you use an Ammo item, deal .* damage\.$/i)) {
             items["Pistol Sword"].text[1] = "When you use an Ammo item, deal damage.";
         }
