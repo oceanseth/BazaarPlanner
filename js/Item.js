@@ -8,7 +8,7 @@ export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny','Toxic', 'Turbo' ];
-    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze','income'];
+    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze','income', 'flying'];
     static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle'];
     static sizeTags = ['Small','Medium','Large'];
     static allowedGainMap = {
@@ -371,6 +371,14 @@ export class Item {
         this.resetEnchant();
         this.size = this.tags.includes('Small') ? 1 : this.tags.includes('Medium') ? 2 : 3;
         this.resetCooldown();
+        this.flyingChanged((newFlying)=>{
+            if(newFlying) {
+                this.element.classList.add('flying');
+            } else {
+                this.element.classList.remove('flying');
+            }
+        });
+        this.flying = this.tags.includes('Flying');
 
 
         this.battleStatsElement.querySelectorAll('div').forEach(div => div.style.display = 'none');

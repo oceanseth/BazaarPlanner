@@ -1594,3 +1594,78 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+
+//While this is flying, ...
+TextMatcher.matchers.push({
+    regex: /^While this is flying, (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getUndoableFunctionFromText(match[1],()=>item.flying,true,item);
+        item.flyingChanged(f);
+        return ()=>{};
+    }
+});
+
+//When one of your items starts or stops flying, ...
+TextMatcher.matchers.push({
+    regex: /^When one of your items (starts)?(?: or )?(stops)? flying, (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[3], item);
+        item.board.activeItems.forEach(i=>{
+            i.flyingChanged((newFlying,oldFlying)=>{
+                if(newFlying!=oldFlying) {
+                    if(match[1] && !newFlying) {
+                        return;
+                    }
+                    if(match[2] && newFlying) {
+                        return;
+                    }
+                    f(i);
+                }
+            });
+        });
+        return ()=>{};
+    }
+});
+
+//Adjacent items start/stop flying.
+TextMatcher.matchers.push({
+    regex: /^Adjacent items (start|stop) flying\.?$/i,
+    func: (item, match)=>{
+        const adjacentItems = item.adjacentItems;        
+        return ()=>{
+            adjacentItems.forEach(i=>{
+                i.flying = match[1]=='start';
+            });
+        };
+    }
+});
+
+//An adjacent item starts Flying.
+TextMatcher.matchers.push({
+    regex: /^An adjacent item starts Flying\.?$/i,
+    func: (item, match)=>{
+        const adjacentItems = item.adjacentItems;
+        return ()=>{
+            item.pickRandom(adjacentItems).flying = true;
+        };
+    }
+});
+
+// it gains () damage and () shield for the fight.
+TextMatcher.matchers.push({
+    regex: /^it gains (\([^)]+\)|\d+) damage and (\([^)]+\)|\d+) shield for the fight\.$/i,
+    func: (item, match)=>{
+        const damage = getRarityValue(match[1], item.rarity);
+        const shield = getRarityValue(match[2], item.rarity);
+        return (i)=>{
+            if(i.tags.includes('Weapon')) {
+                i.gain(damage,'damage');
+            }
+            if(i.tags.includes('Shield')) {
+                i.gain(shield,'shield');
+            }
+        };
+    }
+});
+
+// It gains (+10/+20/+30) damage for the fight.

@@ -2368,3 +2368,15 @@ select {
     border-bottom-color: rgba(255, 255, 255, 0.05);
 } 
 
+.flying {
+    animation: flying-motion 1s ease-in-out infinite alternate;
+}
+
+@keyframes flying-motion {
+    0% {
+        transform: rotate(-2deg) translateX(-2px);
+    }
+    100% {
+        transform: rotate(2deg) translateX(2px);
+    }
+}
