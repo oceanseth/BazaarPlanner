@@ -13800,7 +13800,7 @@ export const items = {
     "cooldown": 5,
     "ammo": null,
     "text": [
-      "{ability.0.targets} items stop Flying"
+      "(2/3/4) items stop Flying"
     ],
     "enchants": {
       "Heavy": "Slow an item for 3 second(s)",
@@ -20814,7 +20814,7 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "At the start of each fight, Enchant NaN other Non-Enchanted items for the fight.",
+      "At the start of each fight, Enchant (2/3) other Non-Enchanted items for the fight.",
       "When this is transformed, Enchant it."
     ],
     "enchants": {
@@ -22211,7 +22211,7 @@ export const items = {
     "cooldown": null,
     "ammo": null,
     "text": [
-      "Adjacent Non-Property items have +Crit Chance equal to (half/their) (their/Value). (Value)."
+      "Adjacent Non-Property items have +Crit Chance equal to (0.5x/1x) their Value."
     ],
     "enchants": {
       "Heavy": "When you use an adjacent item, Slow an item for 1 second(s).",
@@ -23030,7 +23030,7 @@ export const items = {
     "cooldown": 8,
     "ammo": null,
     "text": [
-      "{ability.0.targets} of your items stop Flying",
+      "1 of your items stop Flying",
       "When you use a Flying item, charge this 1 second.",
       "When your items stop Flying, Shield (40/80/120/160)."
     ],

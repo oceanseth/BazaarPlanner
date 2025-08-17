@@ -514,11 +514,11 @@ export const monsters = {
     "items": [
       {
         "name": "Red Piggles R",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Premium Red Piggles",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Piggles",
@@ -530,7 +530,7 @@ export const monsters = {
       },
       {
         "name": "Yellow Piggles L",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Temple Expedition Ticket",
@@ -643,7 +643,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Proboscis",
+        "name": "Stinger",
         "tier": 1
       },
       {
@@ -651,7 +651,7 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Proboscis",
+        "name": "Stinger",
         "tier": 1
       },
       {
@@ -1379,7 +1379,7 @@ export const monsters = {
     "id": "91c233ed-b88c-4ec9-b3ee-cec880a14213",
     "name": "Scovyle",
     "day": 5,
-    "health": 1400,
+    "health": 1550,
     "skills": [
       {
         "name": "Fiery",
@@ -2679,64 +2679,6 @@ export const monsters = {
       }
     ]
   },
-  "Yerdan": {
-    "id": "a44c3d18-8968-4956-b3a2-5cbf3b4c12c2",
-    "name": "Yerdan",
-    "day": 9,
-    "health": 1925,
-    "skills": [
-      {
-        "name": "Tools of the Trade",
-        "tier": 2
-      },
-      {
-        "name": "Relax Bro",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Tournament Arena",
-        "tier": 3
-      },
-      {
-        "name": "Piggles Board",
-        "tier": 2
-      },
-      {
-        "name": "Red Piggles R",
-        "tier": 3
-      },
-      {
-        "name": "Salt",
-        "tier": 2
-      },
-      {
-        "name": "Blue Piggles L",
-        "tier": 2
-      },
-      {
-        "name": "Piggles",
-        "tier": 3
-      },
-      {
-        "name": "Yo-Yo",
-        "tier": 2
-      },
-      {
-        "name": "Red Piggles A",
-        "tier": 3
-      },
-      {
-        "name": "Premium Red Piggles",
-        "tier": 3
-      },
-      {
-        "name": "Red Piggles L",
-        "tier": 3
-      }
-    ]
-  },
   "Elite Duelist": {
     "id": "338f3c4b-9238-41d2-a0e0-0d825cded307",
     "name": "Elite Duelist",
@@ -3114,6 +3056,52 @@ export const monsters = {
       {
         "name": "Energy Potion",
         "tier": 1
+      }
+    ]
+  },
+  "Yerdan": {
+    "id": "a44c3d18-8968-4956-b3a2-5cbf3b4c12c2",
+    "name": "Yerdan",
+    "day": 9,
+    "health": 2750,
+    "skills": [
+      {
+        "name": "Relax Bro",
+        "tier": 2
+      },
+      {
+        "name": "Right-Handed",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Tournament Arena",
+        "tier": 3
+      },
+      {
+        "name": "Piggles Board",
+        "tier": 2
+      },
+      {
+        "name": "Red Piggles R",
+        "tier": 2
+      },
+      {
+        "name": "Yo-Yo",
+        "tier": 2
+      },
+      {
+        "name": "Red Piggles A",
+        "tier": 2
+      },
+      {
+        "name": "Premium Red Piggles",
+        "tier": 2
+      },
+      {
+        "name": "Red Piggles L",
+        "tier": 2
       }
     ]
   },
@@ -3861,6 +3849,49 @@ export const monsters = {
       }
     ]
   },
+  "Rex Spex": {
+    "id": "27f9cc4c-3f9e-494a-a13d-99797114c53c",
+    "name": "Rex Spex",
+    "day": 10,
+    "health": 3600,
+    "skills": [
+      {
+        "name": "Healthy Friendship",
+        "tier": 2
+      },
+      {
+        "name": "Static Acceleration",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Dinosawer",
+        "tier": 2
+      },
+      {
+        "name": "Rex Spex",
+        "tier": 2
+      },
+      {
+        "name": "YLW-M4NT1S",
+        "tier": 2
+      },
+      {
+        "name": "Dino Disguise",
+        "tier": 2,
+        "enchant": "Fiery"
+      },
+      {
+        "name": "Zoarcid",
+        "tier": 2
+      },
+      {
+        "name": "Race Carl",
+        "tier": 2
+      }
+    ]
+  },
   "Dooltron": {
     "id": "25f54463-2cca-419a-b0e8-8f5297896992",
     "name": "Dooltron",
@@ -4244,6 +4275,44 @@ export const monsters = {
         "name": "Fang",
         "tier": 3,
         "enchant": "Heavy"
+      }
+    ]
+  },
+  "Aleppa Tantius": {
+    "id": "b988bbe5-35cf-445e-bea5-ec54b8daf54a",
+    "name": "Aleppa Tantius",
+    "day": "event",
+    "health": 3050,
+    "skills": [
+      {
+        "name": "Scramble Fighters",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Security Drone",
+        "tier": 1
+      },
+      {
+        "name": "Tantius Carrier",
+        "tier": 2
+      },
+      {
+        "name": "Rocket Drone",
+        "tier": 2
+      },
+      {
+        "name": "Caracara",
+        "tier": 2
+      },
+      {
+        "name": "Jetpack",
+        "tier": 2
+      },
+      {
+        "name": "Lightning Butterfly",
+        "tier": 2
       }
     ]
   }
