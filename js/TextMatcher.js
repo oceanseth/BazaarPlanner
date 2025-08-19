@@ -15,7 +15,7 @@ export class TextMatcher {
     }
     static matchers = [];
 }
-TextMatcher.comparitors["If you have exactly one weapon, "]= {
+TextMatcher.comparitors["if you have exactly one weapon, "]= {
     test: (item) => {
         return item.board.activeItems.filter(i=>i.tags.includes("Weapon")).length==1;
     },
@@ -24,7 +24,7 @@ TextMatcher.comparitors["If you have exactly one weapon, "]= {
         item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
     }
 };
-TextMatcher.comparitors["If you have exactly 1 Tech item, "]= {
+TextMatcher.comparitors["if you have exactly 1 tech item, "]= {
     test: (item) => {
         return item.board.activeItems.filter(i=>i.tags.includes("Tech")).length==1;
     },
@@ -33,7 +33,7 @@ TextMatcher.comparitors["If you have exactly 1 Tech item, "]= {
         item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
     }
 };
-TextMatcher.comparitors["If you have no other weapons, "]= {
+TextMatcher.comparitors["if you have no other weapons, "]= {
     test: (item) => {
         return item.board.activeItems.filter(i=>i!=item &&i.tags.includes("Weapon")).length==0;
     },
@@ -66,10 +66,10 @@ TextMatcher.matchers.push({
     regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})?(.*) while you(r enemy)? (?:has|have) a (Slowed|Hasted|Frozen) item\.$`, 'i'),
     func: (item, match)=>{        
         const targetBoard = match[3] ? item.board.player.hostileTarget.board : item.board;
-        const f = item.getUndoableFunctionFromText(match[2], ()=>(match[1]?TextMatcher.comparitors[match[1]].test(item):1) && targetBoard["has"+match[4]+"Item"]);
+        const f = item.getUndoableFunctionFromText(match[2], ()=>(match[1]?TextMatcher.comparitors[match[1].toLowerCase()].test(item):1) && targetBoard["has"+match[4].toLowerCase()+"Item"]);
         targetBoard["has"+match[4]+"ItemChanged"](() => {f(item.target);});   
         if(match[1]) {
-            TextMatcher.comparitors[match[1]].setup(item,f);
+            TextMatcher.comparitors[match[1].toLowerCase()].setup(item,f);
         }
         return ()=>{};
     },
@@ -78,8 +78,8 @@ TextMatcher.matchers.push({
     //If you have no other weapons, this has +1 multicast. from quill and ink
     regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})(.*)$`, 'i'),
     func: (item, match)=>{
-        const f = item.getUndoableFunctionFromText(match[2], ()=>(TextMatcher.comparitors[match[1]].test(item)), true, item.target);
-        TextMatcher.comparitors[match[1]].setup(item,f);
+        const f = item.getUndoableFunctionFromText(match[2], ()=>(TextMatcher.comparitors[match[1].toLowerCase()].test(item)), true, item.target);
+        TextMatcher.comparitors[match[1].toLowerCase()].setup(item,f);
         return ()=>{};
     },
 });
@@ -1668,4 +1668,47 @@ TextMatcher.matchers.push({
     }
 });
 
-// It gains (+10/+20/+30) damage for the fight.
+//"This starts or stops Flying" from Clockwork Disc
+TextMatcher.matchers.push({
+    regex: /^This starts or stops Flying\.?$/i,
+    func: (item, match)=>{
+        return ()=>{
+            item.flying = !item.flying;
+        };
+    }
+});
+
+//"If this is Flying, ..." from Jetpack
+TextMatcher.matchers.push({
+    regex: /^If this is Flying, (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1], item);
+        return ()=>{
+            if(item.flying) {
+                f(item);
+            }
+        };
+    }
+});
+
+//"Your () items' Cooldowns are reduced by (2%/3%) for each () item you have." from Nanobot Construction
+TextMatcher.matchers.push({
+    regex: /^Your (\w+) items' Cooldowns are reduced by (\([^)]+\)|\d+)% for each (\w+) item you have\.$/i,
+    func: (item, match)=>{
+        const itemsToReduce = item.board.items.filter(i=>i.tags.includes(Item.getTagFromText(match[1])));
+        const amount = getRarityValue(match[2], item.rarity);
+        const tag = Item.getTagFromText(match[3]);
+        const numThings = item.board.items.filter(i=>i.tags.includes(tag)).length;
+        itemsToReduce.forEach(i=>{
+            i.gain(-(amount/100)*i.cooldown*numThings,'cooldown');
+        });
+        item.board.itemDestroyedTriggers.set(item.id, (i)=>{
+            if(i.tags.includes(tag)) {
+                itemsToReduce.forEach(ii=>{
+                    ii.gain((ii.cooldown/(1-(amount/100)))*(amount/100),'cooldown');
+                });
+            }
+        });
+        return ()=>{};
+    }
+});
