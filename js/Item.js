@@ -8,7 +8,7 @@ export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny','Toxic', 'Turbo' ];
-    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze','income', 'flying'];
+    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze','income', 'flying','isFrozen'];
     static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle'];
     static sizeTags = ['Small','Medium','Large'];
     static allowedGainMap = {
@@ -1150,7 +1150,7 @@ export class Item {
 
         //Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage. from Epicurean Chocolate
         //Adjacent (Weapons|Tool items|Tools) gain ( 5 » 10 ) Damage for the fight.
-        damageRegex = /^(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gains? )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\./i;
+        damageRegex = /^(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gains? )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const itemType = match[2];
@@ -2525,7 +2525,7 @@ export class Item {
                 this.startItemData.shield = (this.startItemData.shield||0) + (newShield - this.shield)/this.shield_multiplier;
             }
             if(popup.querySelector('#edit-maxammo')) {
-                this.startItemData.ammo = parseInt(this.startItemData.ammo||0) + (parseInt(popup.querySelector('#edit-maxammo').value)-this.maxAmmo)/(this.ammo_multiplier||1);
+                this.startItemData.ammo = parseInt(getRarityValue(this.startItemData.ammo,this.rarity)||0) + (parseInt(popup.querySelector('#edit-maxammo').value)-this.maxAmmo)/(this.ammo_multiplier||1);
             }
             if(popup.querySelector('#edit-heal')) {
                 const newHeal = parseFloat(popup.querySelector('#edit-heal').value);
@@ -3005,7 +3005,7 @@ export class Item {
                             rightTechItem.triggerFunctions.push(triggerFunctionFromText);
                         }
                         return ()=>{};
-                    case "use the core or another ray":
+                    case "use a core or another ray":
                         this.whenItemTagTriggers(["Core", "Ray"], 
                             (item) => {
                                 if(item.id !== this.id) {
@@ -3021,7 +3021,7 @@ export class Item {
                             }
                         );
                         return ()=>{};
-                    case "use the core":
+                    case "use a core":
                         this.whenItemTagTriggers(["Core"],
                             (item) => {
                                 triggerFunctionFromText(item);  
@@ -3607,8 +3607,8 @@ export class Item {
                     if(tagCheck == undefined) tagCheck = "Leftmost";
                 case "you use your rightmost item":
                     if(tagCheck == undefined) tagCheck = "Rightmost";
-                case "you use the core":
-                case "use the core": // existing wording is scuffed for liquid core
+                case "you use a core":
+                case "use a core": // existing wording is scuffed for liquid core
                     if(tagCheck == undefined) tagCheck = "Core";
                 case "you use a tool":
                     if(tagCheck == undefined) tagCheck = "Tool";
@@ -4864,7 +4864,7 @@ export class Item {
             };
         }
         //an enemy item has its cooldown increased by ( 3 » 6 ) second(s). from Spyglass
-        regex = /^\s*an enemy item has its cooldown increased by (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        regex = /^\s*increase an enemy item's cooldown by (\([^)]+\)|\d+) second\(?s?\)?(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const cooldownIncrease = getRarityValue(match[1], this.rarity);
@@ -5064,7 +5064,7 @@ export class Item {
 
         //Adjacent Vehicles have their cooldowns reduced by ( 5% » 10% » 15% » 20% ). from Fuel Rod
         //Adjacent items have their cooldown reduced by ( 10% » 15% » 20% » 25% ).
-        regex = /^Adjacent (.+)?(?: item)?s have their cooldowns? reduced by (\([^)]+\)|\d+%)\.?$/i;
+        regex = /^Adjacent (.+)?(?: item)?s'? (?:have their cooldowns? reduced by|cooldowns are reduced by) (\([^)]+\)|\d+%)\.?$/i;
         match = text.match(regex);
         if(match) {
             const cooldownReduction = getRarityValue(match[2], this.rarity);
@@ -5353,7 +5353,7 @@ export class Item {
                 this.trigger();
             }
         }
-        //Use the Core.
+        //use a core.
         regex = /^\s*Use a Core\.?$/i;
         match = text.match(regex);
         if(match) {
