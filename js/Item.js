@@ -4850,7 +4850,7 @@ export class Item {
         }
 
         //Charge your other non-weapon items ( 1 » 2 ) second(s).
-        regex = /^\s*Charge your other non-weapon items (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
+        regex = /^\s*Charge your other non-weapon items (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
             this.charge =  getRarityValue(match[1], this.rarity);
@@ -4864,7 +4864,7 @@ export class Item {
             };
         }
         //an enemy item has its cooldown increased by ( 3 » 6 ) second(s). from Spyglass
-        regex = /^\s*increase an enemy item's cooldown by (\([^)]+\)|\d+) second\(?s?\)?(?: for the fight)?\.?/i;
+        regex = /^\s*increase an enemy item's cooldown by (\([^)]+\)|\d+) second\(?s?\)?(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
             const cooldownIncrease = getRarityValue(match[1], this.rarity);
@@ -5180,6 +5180,94 @@ export class Item {
             };
         }
         //This has double value in combat.
+        regex = /^This has double value in combat\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            this.gain(this.value,'value');
+            this.value_multiplier += 1;
+            return ()=>{};
+        }
+        // Deal damage equal to 3 times the value of your items.
+        regex = /^Deal damage equal to 3 times the value of your items\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const totalValue = this.board.items.reduce((sum, item) => sum + item.value, 0);
+            this.gain(totalValue*3,'damage');
+            return ()=>{
+                this.dealDamage(this.damage);
+            };
+        }
+        //Your items have double value in combat.
+        regex = /^Your items have double value (?:in|during) combat\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            this.board.items.forEach(item => {
+                const oldmultiplier = item.value_multiplier;
+                item.value_multiplier = 1;
+                item.gain(item.value,'value');
+                item.value_multiplier = oldmultiplier+1;
+            });
+            return ()=>{};
+        }
+
+
+
+
+        //Give Shield items to the right of this ( +5 » +10 » +20 » +40 ) Shield for the fight.
+        regex = /^Give ([^\s]+)? items to the right of this (?:\(([^)]+)\)|(\d+)) ([^\s]+) for the fight\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = match[1] ? Item.getTagFromText(match[1]) : null;
+            const gainAmount = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
+            const itemsToGive = this.board.items.filter(item => item.startIndex>this.startIndex && (tagToMatch ? item.tags.includes(tagToMatch) : true));
+            return () => {
+                itemsToGive.forEach(item => {
+                    item.gain(gainAmount,match[4].toLowerCase());
+                    this.log(this.name + " gave " + item.name + " " + gainAmount + " " + match[4]);
+                });
+            };
+        }
+
+        //For each adjacent Aquatic item, reduce this item's cooldown by 1 second.
+        regex = /^For each adjacent ([^\s]+)(?: item)?(?: or ([^\s]+))?, (.*)$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const tagToMatch2 = Item.getTagFromText(match[2]);
+            const functionToRun = this.getTriggerFunctionFromText(match[3]);
+            this.adjacentItems.forEach(item => {
+                if(item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2)) {
+                    functionToRun(this);
+                }
+            });
+            return ()=>{};
+        }
+
+
+        //a weapon gains (  +5  » +10  » +15  » +20   ) damage for the fight.
+        regex = /^a ([^\s]+)(?: item)? gains (?:\(([^)]+)\)|(\d+)) ([^\s]+) for the fight\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const gainAmount = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
+            const targetItems = this.board.items.filter(item => item.tags.includes(tagToMatch));
+            return () => {
+                let targetItem = this.pickRandom(targetItems);
+                if(targetItem) {
+                    targetItem.gain(gainAmount,match[4].toLowerCase());
+                }
+            }
+        }
+        //this gains Shield equal to the value of that item for the fight
+        regex = /^\s*this gains \+?Shield equal to the value of that item for the fight\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            return (item)=>{
+                this.shield += item.value;
+                this.log(this.name + " gained " + item.value + " Shield");
+            };
+        }
+        //This has double damage.
         regex = /^This (?:has|deals) double (damage|poison|burn|shield|heal|ammo|charge|regen)\.?$/i;
         match = text.match(regex);
         if(match) {
