@@ -1607,7 +1607,7 @@ TextMatcher.matchers.push({
 
 //When one of your items starts or stops flying, ...
 TextMatcher.matchers.push({
-    regex: /^When one of your items (starts)?(?: or )?(stops)? flying, (.*)$/i,
+    regex: /^When (?:one of )?your items (starts?)?(?: or )?(stops?)? flying, (.*)$/i,
     func: (item, match)=>{
         const f = item.getTriggerFunctionFromText(match[3], item);
         item.board.activeItems.forEach(i=>{
@@ -1708,6 +1708,38 @@ TextMatcher.matchers.push({
                     ii.gain((ii.cooldown/(1-(amount/100)))*(amount/100),'cooldown');
                 });
             }
+        });
+        return ()=>{};
+    }
+});
+
+//'When your items are Frozen, Burn (8/12/16).'  from Frozen Flames
+TextMatcher.matchers.push({
+    regex: /^When your items are Frozen, (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1], item);
+        item.board.items.forEach(i=>{
+            i.isFrozenChanged((newIsFrozen,oldIsFrozen)=>{
+                if(newIsFrozen&&!oldIsFrozen) {
+                    f();
+                }
+            });
+        });
+        return ()=>{};
+    }
+});
+            
+//'When your items run out of ammo, gain (10/20/30) Regen for the fight.' from Adaptive Ordinance
+TextMatcher.matchers.push({
+    regex: /^When your items run out of ammo, (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1], item);
+        item.board.items.forEach(i=>{
+            i.ammoChanged((newAmmo,oldAmmo)=>{
+                if(newAmmo==0&&oldAmmo>0) {
+                    f();
+                }
+            });
         });
         return ()=>{};
     }
