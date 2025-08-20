@@ -1087,6 +1087,21 @@ export class Item {
         }
         //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
         //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
+        
+        // Regex spécifique pour Lumboars et patterns similaires
+        let lumboarsRegex = /^Your Weapons gain \(([^)]+)\) Damage for the fight$/i;
+        let lumboarsMatch = text.match(lumboarsRegex);
+        if(lumboarsMatch) {
+            const gainAmount = getRarityValue("(" + lumboarsMatch[1] + ")", this.rarity);
+            return () => {
+                this.board.items.forEach(item => {
+                    if(item.id !== this.id && item.tags.includes("Weapon")) {
+                        item.gain(gainAmount, 'damage', this);
+                    }
+                });
+            };
+        }
+        
         damageRegex = /^Your (other )?([^.]*?) (?:gain|get) \+?(\([^)]+\)|\d+)( [^\s]+)?(?: for the fight)?\.?/i;
         match = text.match(damageRegex);
         if(match) {
@@ -1094,9 +1109,6 @@ export class Item {
             const gainAmount = getRarityValue(match[3], this.rarity);
             const tagsToMatch = match[2].split(/,\s*(?:and\s+)?/).filter(Boolean).map((tag)=>Item.getTagFromText(tag.replace(' items','')));
             const whatToGain = match[4]?.toLowerCase();
-            if(whatToGain=='damage'||tagsToMatch.includes('Weapon')) {
-                this.damageBonus += gainAmount;
-            }
             return () => {
                 tagsToMatch.forEach(tagToMatch=>{
                     if(!tagToMatch) return;
@@ -1104,7 +1116,7 @@ export class Item {
                     this.board.items.forEach(item => {
                         if(other && item.id == this.id) return;
                         if(tagToMatch=='Item' || item.tags.includes(tagToMatch)) {
-                        item.gain(whatToGain=='damage'?0:gainAmount,whatToGain,this);
+                            item.gain(gainAmount,whatToGain,this);
                         }
                     });
                 });
@@ -4942,6 +4954,20 @@ export class Item {
                 if(leftItem) {
                     leftItem.damage += dmgGain;
                     this.log(this.name+" gave " + leftItem.name + " " + dmgGain + " damage");
+                }
+            }
+        }
+        
+        //The weapon to the right of this gains ( +8 » +12 » +16 » +20 ) damage for the fight
+        regex = /^(?:Give )?[Tt]he [Ww]eapon to the right of this gains (\([^)]+\)|\+?\d+) [Dd]amage for the fight\.?/i;
+        match = text.match(regex);
+        if(match) {
+            const dmgGain = getRarityValue(match[1], this.rarity);
+            const rightItem = this.getItemToTheRight();
+            return () => {
+                if(rightItem && rightItem.tags.includes("Weapon")) {
+                    rightItem.damage += dmgGain;
+                    this.log(this.name+" gave " + rightItem.name + " " + dmgGain + " damage");
                 }
             }
         }
