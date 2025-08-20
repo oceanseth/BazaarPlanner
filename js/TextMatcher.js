@@ -44,7 +44,7 @@ TextMatcher.comparitors["if you have no other weapons, "]= {
 };
 TextMatcher.matchers.push({
     id: "Essence Overflow Matcher",
-    regex: /^your weapons have \+\s?damage equal to your Regen(?:eration)?\.$/i,
+            regex: /^your weapons have \+\s?damage equal to your Regen(?:eration)?\.?$/i,
     func: (item, match)=>{
         item.board.items.forEach(item => {
             if(item.tags.includes("Weapon")) {
@@ -63,7 +63,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     desc: "if something, do something while something",
-    regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})?(.*) while you(r enemy)? (?:has|have) a (Slowed|Hasted|Frozen) item\.$`, 'i'),
+    regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})?(.*) while you(r enemy)? (?:has|have) a (Slowed|Hasted|Frozen) item\.?$`, 'i'),
     func: (item, match)=>{        
         const targetBoard = match[3] ? item.board.player.hostileTarget.board : item.board;
         const f = item.getUndoableFunctionFromText(match[2], ()=>(match[1]?TextMatcher.comparitors[match[1].toLowerCase()].test(item):1) && targetBoard["has"+match[4].toLowerCase()+"Item"]);
@@ -85,7 +85,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //gain (1/2) time(s) your Regeneration for the fight. from Emergency Draught
-    regex: /^\s*gain (\([^)]+\)|\d+) time\(?s\)? your Regen(?:eration)? for the fight\.$/i,
+            regex: /^\s*gain (\([^)]+\)|\d+) time\(?s\)? your Regen(?:eration)? for the fight\.?$/i,
     func: (item, match)=>{
         const multiplier = getRarityValue(match[1], item.rarity);
         item.gain(item.board.player.regen*multiplier,'regen');
@@ -99,7 +99,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //This has +1 Multicast for each Weapon or friend your enemy has. from Thrown Net
-    regex: /^this has \+1 Multicast for each Weapon or friend your enemy has\.$/i,
+            regex: /^this has \+1 Multicast for each Weapon or friend your enemy has\.?$/i,
     func: (item, match)=>{
         let multicastAdded = item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes("Weapon")||i.tags.includes("Friend")).length;        
         item.gain(multicastAdded,'multicast');
@@ -113,7 +113,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     // Deal damage equal to the Regeneration plus the Burn on both players. from Sunlight Spear
-    regex: /^deal damage equal to the Regen(?:eration)? plus the Burn on both players\.$/i,
+            regex: /^deal damage equal to the Regen(?:eration)? plus the Burn on both players\.?$/i,
     func: (item, match)=>{
         item.gain(item.board.player.regen+item.board.player.hostileTarget.regen,'damage');
         item.board.player.regenChanged((newRegen,oldRegen)=>{
@@ -135,7 +135,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Your Burn items gain Burn equal to 15% of this item's value for the fight. from Fiery Pyg's Gym
-    regex: /^Your (\w+) items gain (\w+) equal to (\([^)]+\)|\d+)%? of this item's (\w+) for the fight\.$/i,
+            regex: /^Your (\w+) items gain (\w+) equal to (\([^)]+\)|\d+)%? of this item's (\w+) for the fight\.?$/i,
     func: (item, match)=>{
         const whatTag = Item.getTagFromText(match[1]);
         const whatToGain = match[2].toLowerCase();
@@ -151,7 +151,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //give your items (+1/+2) value for the fight. from Billboard
-    regex: /^give your items (\([^)]+\)|\d+) ([^\s]+) for the fight\.$/i,
+            regex: /^give your items (\([^)]+\)|\d+) ([^\s]+) for the fight\.?$/i,
     func: (item, match)=>{
         const amountToGain = getRarityValue(match[1], item.rarity);
         const whatToGain = match[2];
@@ -165,7 +165,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //This item's cooldown is reduced by 1% for every value it has. from Billboard
-    regex: /^this item's cooldown is reduced by 1% for every value it has\.$/i,
+            regex: /^this item's cooldown is reduced by 1% for every value it has\.?$/i,
     func: (item, match)=>{
         let cooldownReducedBy = item.value*item.cooldown/100;
         item.gain(-cooldownReducedBy,'cooldown');
@@ -179,7 +179,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Gain Regeneration for the fight equal to half your current Poison. from Noxious Potion
-    regex: /^gain Regen(?:eration)? for the fight equal to half your current Poison\.$/i,
+            regex: /^gain Regen(?:eration)? for the fight equal to half your current Poison\.?$/i,
     func: (item, match)=>{        
         return ()=>{
             item.board.player.regen += item.board.player.poison/2;
@@ -188,7 +188,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //This item's cooldown is reduced by 1 second for each adjacent Friend. from Nanobot
-    regex: /^this item's cooldown is reduced by 1 second for each adjacent Friend\.$/i,
+            regex: /^this item's cooldown is reduced by 1 second for each adjacent Friend\.?$/i,
     func: (item, match)=>{
         let cooldownReducedBy = item.adjacentItems.filter(i=>i.tags.includes("Friend")).length;
         item.gain(-cooldownReducedBy*1000,'cooldown');
@@ -229,7 +229,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Deal (500/1000) damage to the player with less health. from Gavel
-    regex: /^deal (\([^)]+\)|\d+) damage to the player with less health\.$/i,
+            regex: /^deal (\([^)]+\)|\d+) damage to the player with less health\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         item.gain(amount,'damage');
@@ -241,7 +241,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Deal (15/20/25) damage for each Friend you have. from Nanobot, Junkyard Lance
-    regex: /^deal (\([^)]+\)|\d+) damage for each ([^\s]+)(?: item)? you have( \(including Stash\))?\.$/i,
+            regex: /^deal (\([^)]+\)|\d+) damage for each ([^\s]+)(?: item)? you have( \(including Stash\))?\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         const tag = Item.getTagFromText(match[2]);
@@ -259,7 +259,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Double the damage of your Large weapons. from Big Guns
-    regex: /^double the damage of your ([^\s]+) weapons\.$/i,
+            regex: /^double the damage of your ([^\s]+) weapons\.?$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);
         item.board.items.forEach(i=>{
@@ -300,7 +300,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Haste your rightmost item 1 second(s).
-    regex: /^Haste your (leftmost|rightmost) item (\d+) second\(?s?\)?\.$/i,
+            regex: /^Haste your (leftmost|rightmost) item (\d+) second\(?s?\)?\.?$/i,
     func: (item, match)=>{
         item.haste += getRarityValue(match[2], item.rarity);
         const whichItem = match[1]=='leftmost'?item.board.items[0]:item.board.items[item.board.items.length-1];        
@@ -311,7 +311,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //This has double charge amount. from Shiny fiber optic cable
-    regex: /^this has double charge amount\.$/i,
+            regex: /^this has double charge amount\.?$/i,
     func: (item, match)=>{
         item.charge_pauseChanged = true;
         const oldChargeMultiplier = item.charge_multiplier;
@@ -325,7 +325,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //heal for 1 and take no damage for 1 second(s). from Memento Mori and Invulnerability Potion
-    regex: /^(?:you )?take no damage for (\([^)]+\)|\d+) second\(?s?\)?\.$/i,
+            regex: /^(?:you )?take no damage for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
     func: (item, match)=>{
        // const healAmount = getRarityValue(match[1], item.rarity);
         const duration = 1000*getRarityValue(match[1], item.rarity);
@@ -360,7 +360,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Enchant a non-enchanted item for the fight. From Laboratory
-    regex: /^Enchant a(?:nother)? non-enchanted item(?: with (.*))? for the fight\.$/i,
+            regex: /^Enchant a(?:nother)? non-enchanted item(?: with (.*))? for the fight\.?$/i,
     func: (item, match)=>{
         return ()=>{
             const specificEnchant = match[1];
@@ -374,7 +374,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Increase an enemy item's cooldown by ( 1 » 2 » 3 ) seconds for the fight.
-    regex: /^Increase (an enemy|this) item's cooldown by (\([^)]+\)|\d+) second\(?s?\)? for the fight\.$/i,
+            regex: /^Increase (an enemy|this) item's cooldown by (\([^)]+\)|\d+) second\(?s?\)? for the fight\.?$/i,
     func: (item, match)=>{
         const cooldownIncrease = parseInt(getRarityValue(match[2], item.rarity));
         
@@ -388,7 +388,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //if you have a Large item.
-    regex: /^(.*) if you have a ([^\s]+) item\.$/i,
+            regex: /^(.*) if you have a ([^\s]+) item\.?$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[2]);
         const f = item.getTriggerFunctionFromText(match[1]);
@@ -412,7 +412,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Your Weapons have + Damage equal to (1/2/3) times your Regeneration. from Staff of the Moose 
-    regex: /^Your Weapons have \+\s?Damage equal to (\([^)]+\)|\d+) times your (Regen|Income)(?:eration)?\.$/i,
+            regex: /^Your Weapons have \+\s?Damage equal to (\([^)]+\)|\d+) times your (Regen|Income)(?:eration)?\.?$/i,
     func: (item, match)=>{
         const damageMultiplier = getRarityValue(match[1], item.rarity);
         const sourceAmount = match[2]=='Regen(?:eration)'?item.board.player.regen:item.board.player.income;
@@ -461,7 +461,7 @@ TextMatcher.matchers.push({
     // "A Poison item gains + Poison equal to (10%/20%) of this item's damage for the fight.",
     //"A Regeneration item gains + Regeneration equal to (10%/20%) of this item's damage for the fight."
 
-    regex: /^A ([^\s]+) item gains \+\s?([^\s]+) equal to (\([^)]+\)|\d+)%? of this item's ([^\s]+) for the fight\.$/i,
+            regex: /^A ([^\s]+) item gains \+\s?([^\s]+) equal to (\([^)]+\)|\d+)%? of this item's ([^\s]+) for the fight\.?$/i,
     func: (item, match)=>{
         const whatToGain = match[2];
         const whatTag = Item.getTagFromText(match[1]);
@@ -478,7 +478,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({    
     //Your Heal items have +Heal equal to this item's value. from Vineyard
-    regex: /^Your (Regen|Poison|Heal)(?:eration)? items have \+\s?(Regen|Poison|Heal)(?:eration)? equal to (?:(\([^)]+\)|\d+%?) of )?this item's (\w+)\.$/i,
+    regex: /^Your (Regen|Poison|Heal)(?:eration)? items have \+\s?(Regen|Poison|Heal)(?:eration)? equal to (?:(\([^)]+\)|\d+%?) of )?this item's (\w+)\.?$/i,
     func: (item, match)=>{
         const whatToGain = match[2];
         const whatTag = Item.getTagFromText(match[1]);
@@ -499,7 +499,7 @@ TextMatcher.matchers.push({
     },
 });
 TextMatcher.matchers.push({    
-    regex: /^You have \+Regen(?:eration)? equal to this item's (\w+)\.$/i,
+            regex: /^You have \+Regen(?:eration)? equal to this item's (\w+)\.?$/i,
     func: (item, match)=>{
         const whatThing = Item.getTagFromText(match[1]).toLowerCase();
         item.board.player.regen += item[whatThing];
@@ -529,7 +529,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Reduce your enemy's Max Health by (10%/15%/20%) for the fight. from Shrinking Potion
-    regex: /^Reduce your enemy's Max Health by (\([^)]+\)|\d+)%? for the fight\.$/i,
+            regex: /^Reduce your enemy's Max Health by (\([^)]+\)|\d+)%? for the fight\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         return ()=>{
@@ -543,7 +543,7 @@ TextMatcher.matchers.push({
 TextMatcher.matchers.push({
     //The Burn item to the left of this gains + Burn equal to your Regeneration for the fight. from Secret Formula
     //The Poison item to the right of this gains + Poison equal to your Regeneration for the fight. from Secret Formula
-    regex: /^The ([^\s]+) item to the (left|right) of this gains \+\s?([^\s]+) equal to your (Burn|Poison|Regen)(?:eration)? for the fight\.$/i,
+    regex: /^The ([^\s]+) item to the (left|right) of this gains \+\s?([^\s]+) equal to your (Burn|Poison|Regen)(?:eration)? for the fight\.?$/i,
     func: (item, match)=>{
         const whatToGain = match[3].toLowerCase();
         const tag = Item.getTagFromText(match[1]);
@@ -558,7 +558,7 @@ TextMatcher.matchers.push({
 });
 //Your items gain +100% Crit Chance for (3/4/5) seconds. from Strength Potion
 TextMatcher.matchers.push({
-    regex: /^Your items gain \+100% Crit Chance for (\([^)]+\)|\d+) second\(?s?\)?\.$/i,
+            regex: /^Your items gain \+100% Crit Chance for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
     func: (item, match)=>{
         const duration = getRarityValue(match[1], item.rarity)*1000;
         return ()=>{
@@ -579,7 +579,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //enchant it with ... if able
-    regex: /^enchant it with (.*) if able\.$/i,
+            regex: /^enchant it with (.*) if able\.?$/i,
     func: (item, match)=>{
         const enchant = Item.getTagFromText(match[1]);
         return ()=>{
@@ -591,7 +591,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //For every (1/2/3) poison on the enemy, this has +1 multicast  from Plauge Glaive
-    regex: /^For every (\([^)]+\)|\d+) (burn|poison|regen)(?:eration)? on the enemy, this has \+1 multicast\.$/i,
+            regex: /^For every (\([^)]+\)|\d+) (burn|poison|regen)(?:eration)? on the enemy, this has \+1 multicast\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         const whatToDo = match[2].toLowerCase();
@@ -609,7 +609,7 @@ TextMatcher.matchers.push({
 TextMatcher.matchers.push({
     //When one of your Burn items gains Haste, if it already has Haste, it gains (1/2/3) Burn for the fight.
     //When one of your Weapons gains Haste, if it already has Haste, it gains (+5/+10/+15) damage.
-    regex: /^When one of your ([^\s]+)s?(?: items)? gains Haste, if it already has Haste, it gains (\([^)]+\)|\d+) (\w+)(?: for the fight)?\.$/i,
+    regex: /^When one of your ([^\s]+)s?(?: items)? gains Haste, if it already has Haste, it gains (\([^)]+\)|\d+) (\w+)(?: for the fight)?\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[2], item.rarity);
         const tag = Item.getTagFromText(match[1]);
@@ -649,7 +649,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //A Friend gains +1 Multicast for the fight. from Card Table
-    regex: /^A Friend gains \+1 Multicast for the fight\.$/i,
+            regex: /^A Friend gains \+1 Multicast for the fight\.?$/i,
     func: (item, match)=>{
         return ()=>{
             const friends = item.board.activeItems.filter(i=>i.tags.includes("Friend"));
@@ -676,7 +676,7 @@ TextMatcher.matchers.push({
 });
 //Your Dooltron has the Core type. from Dooltron Mainframe
 TextMatcher.matchers.push({
-    regex: /^Your Dooltron has the Core type\.$/i,
+            regex: /^Your Dooltron has the Core type\.?$/i,
     func: (item, match)=>{
         const dooltron = item.board.items.filter(i=>i.name.endsWith("Dooltron"));
         if(dooltron.length>0 && !dooltron[0].tags.includes("Core")) {
@@ -700,7 +700,7 @@ TextMatcher.matchers.push({
     },
 });
 TextMatcher.matchers.push({
-    regex: /^(Your \w+(?: items)? have )((?:(?! and ).)*) and (.*)\.$/i,
+            regex: /^(Your \w+(?: items)? have )((?:(?! and ).)*) and (.*)\.?$/i,
     func: (item, match)=>{
         const f1 = item.getTriggerFunctionFromText(match[1]+match[2]+".");
         const f2 = item.getTriggerFunctionFromText(match[1]+match[3]+".");
@@ -711,7 +711,7 @@ TextMatcher.matchers.push({
 })
 //Your friends gain +10% Crit Chance for the fight.
 TextMatcher.matchers.push({
-    regex: /^Your (\w+)s?(?: items?) gain (\([^)]+\)|\+?\d+)%? Crit Chance for the fight\.$/i,
+            regex: /^Your (\w+)s?(?: items?) gain (\([^)]+\)|\+?\d+)%? Crit Chance for the fight\.?$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);
         const amount = getRarityValue(match[2], item.rarity);        
@@ -724,7 +724,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //If this is adjacent to a Regeneration item
-    regex: /^If this is adjacent to a (\w+) item, (.*)\.$/i,
+            regex: /^If this is adjacent to a (\w+) item, (.*)\.?$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);
         const adjacentItems = item.adjacentItems;
@@ -736,7 +736,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //gain (25/50/75) Regeneration for the fight. from Staff of the Moose
-    regex: /^\s*gain (\([^)]+\)|\d+) Regen(?:eration)? for the fight\.$/i,
+            regex: /^\s*gain (\([^)]+\)|\d+) Regen(?:eration)? for the fight\.?$/i,
     func: (item, match)=>{
         item.gain(getRarityValue(match[1], item.rarity),'regen');
         return ()=>{
@@ -746,7 +746,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //this gains +Damage for the fight equal to the amount Poisoned. from Test Subject Alpha
-    regex: /^this gains \+Damage for the fight equal to the amount (?:Poisoned|Burned)\.$/i,
+            regex: /^this gains \+Damage for the fight equal to the amount (?:Poisoned|Burned)\.?$/i,
     func: (theItem, match)=>{
         return ({source,amount})=>{
                 theItem.gain(amount,'damage',source);
@@ -756,7 +756,7 @@ TextMatcher.matchers.push({
 /*
 TextMatcher.matchers.push({
     //When a player uses a Weapon, Poison that player (3/4/5). from Wild Quillback
-    regex: /^When a player uses a Weapon, Poison that player (\([^)]+\)|\d+)\.$/i,
+            regex: /^When a player uses a Weapon, Poison that player (\([^)]+\)|\d+)\.?$/i,
     func: (item, match)=>{        
         item.gain(getRarityValue(match[1], item.rarity),'poison');
         item.whenItemTagTriggers("Weapon", (i)=>{
@@ -774,7 +774,7 @@ TextMatcher.matchers.push({
 */
 //Poison that player (3/4/5)
 TextMatcher.matchers.push({
-    regex: /^Poison that player (\([^)]+\)|\d+)\.$/i,
+            regex: /^Poison that player (\([^)]+\)|\d+)\.?$/i,
     func: (item, match)=>{
         item.gain(getRarityValue(match[1], item.rarity),'poison');
         return (i,{source}={})=>{
@@ -802,7 +802,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Charge 1 non-Toy item(s) (1/2/3/4) second(s). from Speedrunner
-    regex: /^Charge 1 (non-)?([\w]+) item\(?s?\)? (\([^)]+\)|\d+) second\(?s\)?\.$/i,
+            regex: /^Charge 1 (non-)?([\w]+) item\(?s?\)? (\([^)]+\)|\d+) second\(?s\)?\.?$/i,
     func: (item, match)=>{
         const non = match[1]!=null;
         const tag = Item.getTagFromText(match[2]);
@@ -817,7 +817,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     // your items with Shield gain (+10/+20/+30) Shield for the fight. from 28 Hour Fitness
-    regex: /^your items with Shield gain (\([^)]+\)|\d+) Shield for the fight\.$/i,
+            regex: /^your items with Shield gain (\([^)]+\)|\d+) Shield for the fight\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         return ()=>{
@@ -830,7 +830,7 @@ TextMatcher.matchers.push({
 
 //your weapons gain + damage for the fight equal to (1/2) times the amount Poisoned. from Infused Bracers
 TextMatcher.matchers.push({
-    regex: /^your weapons gain \+\s?damage for the fight equal to (\([^)]+\)|\d+) times the amount (?:Poisoned|Burned)\.$/i,
+            regex: /^your weapons gain \+\s?damage for the fight equal to (\([^)]+\)|\d+) times the amount (?:Poisoned|Burned)\.?$/i,
     func: (item, match)=>{
         const multiplier = getRarityValue(match[1], item.rarity);
         return (source,{amount})=>{
@@ -842,7 +842,7 @@ TextMatcher.matchers.push({
 });
 //The Weapon to the left has Lifesteal. from Infused Bracers
 TextMatcher.matchers.push({
-    regex: /^The Weapon to the (right|left) has Lifesteal\.$/i,
+            regex: /^The Weapon to the (right|left) has Lifesteal\.?$/i,
     func: (item, match)=>{
         const left = match[1]=='left';
         const weapon = left?item.getItemToTheLeft():item.getItemToTheRight();
@@ -854,7 +854,7 @@ TextMatcher.matchers.push({
 });
 //This has +1 Multicast for each player with Poison. from Barbed Claws
 TextMatcher.matchers.push({
-    regex: /^This has \+1 Multicast for each player with (Poison|Burn)\.$/i,
+            regex: /^This has \+1 Multicast for each player with (Poison|Burn)\.?$/i,
     func: (item, match)=>{
         const f = (newAmount,oldAmount)=>{
                 if(newAmount>0 && oldAmount<=0) {
@@ -875,7 +875,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //If you have 3 or more Shield items they gain (+20/+30/+40/+50) Shield for the fight. from Showcase
-    regex: /^If you have 3 or more (\w+)(?: items)?, they gain (\([^)]+\)|\d+) (\w+) for the fight\.$/i,
+            regex: /^If you have 3 or more (\w+)(?: items)?, they gain (\([^)]+\)|\d+) (\w+) for the fight\.?$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);
         const amount = getRarityValue(match[2], item.rarity);
@@ -892,7 +892,7 @@ TextMatcher.matchers.push({
 });
 //The item to the left of this has + Crit Chance equal to your Poison. from Optical Augment
 TextMatcher.matchers.push({
-    regex: /^The item to the (right|left) of this has \+\s?Crit Chance equal to your (Poison|Burn)\.$/i,
+            regex: /^The item to the (right|left) of this has \+\s?Crit Chance equal to your (Poison|Burn)\.?$/i,
     func: (item, match)=>{
         const target = match[1]=='left'?item.getItemToTheLeft():item.getItemToTheRight();
         if(target) {
@@ -907,7 +907,7 @@ TextMatcher.matchers.push({
 });
 //Heal equal to the value of adjacent items. from Hypergreens
 TextMatcher.matchers.push({
-    regex: /^Heal equal to the value of adjacent items\.$/i,
+            regex: /^Heal equal to the value of adjacent items\.?$/i,
     func: (item, match)=>{
         item.gain(item.adjacentItems.reduce((sum,i)=>sum+i.value,0),'heal');
         item.adjacentItems.forEach(i=>{
@@ -922,7 +922,7 @@ TextMatcher.matchers.push({
 });
 //Gain Regen for the fight equal to (1/2/3) times this item's value.
 TextMatcher.matchers.push({
-    regex: /^Gain Regen for the fight equal to (\([^)]+\)|\d+) times this item's value\.$/i,
+            regex: /^Gain Regen for the fight equal to (\([^)]+\)|\d+) times this item's value\.?$/i,
     func: (item, match)=>{
         const multiplier = getRarityValue(match[1], item.rarity);
         item.gain(item.value*multiplier,'regen');
@@ -936,7 +936,7 @@ TextMatcher.matchers.push({
 });
 //Gain Regen equal to 10% of this item's Heal for the fight. from Bushel
 TextMatcher.matchers.push({
-    regex: /^Gain Regen equal to (\d+)% of this item's Heal for the fight\.$/i,
+            regex: /^Gain Regen equal to (\d+)% of this item's Heal for the fight\.?$/i,
     func: (item, match)=>{
         const multiplier = getRarityValue(match[1], item.rarity);
         item.gain(item.heal*multiplier/100,'regen');
@@ -950,7 +950,7 @@ TextMatcher.matchers.push({
 });
 //Haste adjacent Property items for (1/2/3) second(s). from vip pass
 TextMatcher.matchers.push({
-    regex: /^Haste adjacent (\w+) items for (\([^)]+\)|\d+) second\(?s\)?\.$/i,
+            regex: /^Haste adjacent (\w+) items for (\([^)]+\)|\d+) second\(?s\)?\.?$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);
         const amount = getRarityValue(match[2], item.rarity);
@@ -964,7 +964,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Increase it's value and this item's value by 1 from vip pass
-    regex: /^Increase it'?s value and this item's value by 1\.$/i,
+            regex: /^Increase it'?s value and this item's value by 1\.?$/i,
     func: (item, match)=>{
         return (it,options)=>{
             options.target.gain(1,'value');
@@ -974,7 +974,7 @@ TextMatcher.matchers.push({
 });
 // This has half Slow duration. from Heavy Shot Glasses
 TextMatcher.matchers.push({
-    regex: /^This has half (Slow|Haste|Freeze) duration\.$/i,
+            regex: /^This has half (Slow|Haste|Freeze) duration\.?$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);
         item[tag.toLowerCase()+"Duration_multiplier"] *= 0.5;
@@ -983,7 +983,7 @@ TextMatcher.matchers.push({
 });
 //destroy this from powder 
 TextMatcher.matchers.push({
-    regex: /^destroy this\.$/i,
+            regex: /^destroy this\.?$/i,
     func: (item, match)=>{
         return ()=>{
             item.destroy();
@@ -992,7 +992,7 @@ TextMatcher.matchers.push({
 });
 //While in play, you have (+1/+2/+3/+4) Income. from Ring King Gauntlets
 TextMatcher.matchers.push({
-    regex: /^While in play, you have (\([^)]+\)|\d+) Income\.$/i,
+            regex: /^While in play, you have (\([^)]+\)|\d+) Income\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         item.board.player.income += amount;
@@ -1002,7 +1002,7 @@ TextMatcher.matchers.push({
 });
 //transform into a (Gold/Diamond) copy of another small, non-legendary item you have for the fight. from Hologram Projector
 TextMatcher.matchers.push({
-    regex: /^\s*transform into a (\([^)]+\)|\w+) copy of another small, non-legendary item you have for the fight\.$/i,
+            regex: /^\s*transform into a (\([^)]+\)|\w+) copy of another small, non-legendary item you have for the fight\.?$/i,
     func: (item, match)=>{
         const tier = Item.rarityLevels.indexOf(getRarityValue(match[1], item.rarity));
         return ()=>{
@@ -1032,7 +1032,7 @@ TextMatcher.matchers.push({
 
 TextMatcher.matchers.push({
     //Charge the core 1 second. from Kinetic Cannon 
-    regex: /^Charge the core (\([^)]+\)|\d+) second\(?s?\)?\.$/i,
+            regex: /^Charge the core (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         item.gain(amount,'charge');
@@ -1046,7 +1046,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //This gains +1 Multicast. from Pesky Pete
-    regex: /^This gains \+1 Multicast\.$/i,
+            regex: /^This gains \+1 Multicast\.?$/i,
     func: (item, match)=>{        
         return ()=>{
             item.gain(1,'multicast',item);
@@ -1055,7 +1055,7 @@ TextMatcher.matchers.push({
 });
 //If you have another Tool, Apparel, Tech, Weapon, or Friend, this has (+50/+100/+150) Damage for each. from Forklift
 TextMatcher.matchers.push({
-    regex: /^If you have another (\w+(?:, (?:or )?\w+)*)(?: item)?,? this has (\([^)]+\)|\+?\d+) (\w+)(?: for each)?\.$/i,
+            regex: /^If you have another (\w+(?:, (?:or )?\w+)*)(?: item)?,? this has (\([^)]+\)|\+?\d+) (\w+)(?: for each)?\.?$/i,
     func: (item, match)=>{
         const tags = match[1].split(", ");
         const amount = getRarityValue(match[2], item.rarity);
@@ -1068,7 +1068,7 @@ TextMatcher.matchers.push({
 });
 //"Your items with no Cooldown have (+25%/+50%) Damage, Burn, Poison, Shield, Heal, and Regen." from Passive Power
 TextMatcher.matchers.push({
-    regex: /^Your items with no Cooldown have (\([^)]+\)|\d+%?) Damage, Burn, Poison, Shield, Heal, and Regen\.$/i,
+            regex: /^Your items with no Cooldown have (\([^)]+\)|\d+%?) Damage, Burn, Poison, Shield, Heal, and Regen\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         const multiplier = 1+amount/100;
@@ -1122,7 +1122,7 @@ TextMatcher.matchers.push({
 });
 //Your items Slow for 1 more second from Amber (text change from 'slow bonus')
 TextMatcher.matchers.push({
-    regex: /^Your items Slow for (\([^)]+\)|\d+) more second\(?s?\)?\.$/i,
+            regex: /^Your items Slow for (\([^)]+\)|\d+) more second\(?s?\)?\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         item.board.activeItems.forEach(i=>{
@@ -1134,7 +1134,7 @@ TextMatcher.matchers.push({
 
 //Charge 1 item from another hero 1 second(s). from Jack of All Trades
 TextMatcher.matchers.push({
-    regex: /^Charge (\(\d+\)|\d+) item\(?s?\)? from another hero (\([^)]+\)|\d+) second\(?s?\)?\.$/i,
+            regex: /^Charge (\(\d+\)|\d+) item\(?s?\)? from another hero (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
     func: (item, match)=>{
         const numItemsToCharge = getRarityValue(match[1], item.rarity);
         const amount = getRarityValue(match[2], item.rarity);
@@ -1161,7 +1161,7 @@ TextMatcher.matchers.push({
 });
 //Your Rightmost Item is a Vehicle. from Free Ride
 TextMatcher.matchers.push({
-    regex: /^Your (Rightmost|Leftmost) Item is a (\w+)\.$/i,
+            regex: /^Your (Rightmost|Leftmost) Item is a (\w+)\.?$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[2]);
         const target = match[1]=='Rightmost'?item.board.items[item.board.items.length-1]:item.board.items[0];
@@ -1175,7 +1175,7 @@ TextMatcher.matchers.push({
 });
 //Your Property items and Toys have (+10%/+15%/+20%) Crit chance. from Critical Investments
 TextMatcher.matchers.push({
-    regex: /^Your (\w+)(?: items)? and Toys have (\([^)]+\)|\d+%?) Crit chance\.$/i,
+            regex: /^Your (\w+)(?: items)? and Toys have (\([^)]+\)|\d+%?) Crit chance\.?$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);
         const amount = getRarityValue(match[2], item.rarity);
@@ -1218,7 +1218,7 @@ TextMatcher.matchers.push({
 });
 //When one of your Dinosaurs deals damage, gain that much shield. from Tanky Anky
 TextMatcher.matchers.push({
-    regex: /^When one of your (\w+)s? deals damage, gain that much shield\.$/i,
+            regex: /^When one of your (\w+)s? deals damage, gain that much shield\.?$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);
         item.board.items.filter(i=>i.tags.includes(tag)).forEach(i=>{
@@ -1233,7 +1233,7 @@ TextMatcher.matchers.push({
 });
 //Enemy Weapons have (-10/-25/-50/-75) Damage. from Tanky Anky
 TextMatcher.matchers.push({
-    regex: /^Enemy (\w+)s? have (\([^)]+\)|\d+) (\w+)\.$/i,
+            regex: /^Enemy (\w+)s? have (\([^)]+\)|\d+) (\w+)\.?$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);        
         const amount = getRarityValue(match[2], item.rarity);
@@ -1247,7 +1247,7 @@ TextMatcher.matchers.push({
 });
 //Enchant 1 non-enchanted item on each player's board for the fight. from Spirit Diffuser
 TextMatcher.matchers.push({
-    regex: /^Enchant (\d+) non-enchanted item\(?s?\)? on each player's board for the fight\.$/i,
+            regex: /^Enchant (\d+) non-enchanted item\(?s?\)? on each player's board for the fight\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         return ()=> {
@@ -1262,7 +1262,7 @@ TextMatcher.matchers.push({
 });
 //The item to the left is an Ammo item. from Biomerge Arm
 TextMatcher.matchers.push({
-    regex: /^The item to the (right|left)(?: of this)? is an? (\w+)(?: item)?\.$/i,
+            regex: /^The item to the (right|left)(?: of this)? is an? (\w+)(?: item)?\.?$/i,
     func: (item, match)=>{
         const target = match[1]=='left'?item.leftItem:item.rightItem;
         if(target) {
@@ -1288,7 +1288,7 @@ TextMatcher.matchers.push({
 });
 //The item to the left of this has +100% Crit Chance and +1 max ammo. from Biomerge Arm
 TextMatcher.matchers.push({
-    regex: /^The item to the (right|left)(?: of this)? has (.*) and (.*)\.$/i,
+            regex: /^The item to the (right|left)(?: of this)? has (.*) and (.*)\.?$/i,
     func: (item, match)=>{
         const target = match[1]=='left'?item.leftItem:item.rightItem;
         if(target) {
@@ -1318,7 +1318,7 @@ TextMatcher.matchers.push({
 });
 //This has +1 Multicast for each other item you have from a different Hero. from Sword of Swords
 TextMatcher.matchers.push({
-    regex: /^This has \+1 Multicast for each other item you have from a different Hero\.$/i,
+            regex: /^This has \+1 Multicast for each other item you have from a different Hero\.?$/i,
     func: (item, match)=>{
         item.board.items.filter(
             i=>i!=item && 
@@ -1332,7 +1332,7 @@ TextMatcher.matchers.push({
 });
 //Charge adjacent Large items for half their cooldown." from Red Button
 TextMatcher.matchers.push({
-    regex: /^Charge adjacent Large items for half their cooldown\.$/i,
+            regex: /^Charge adjacent Large items for half their cooldown\.?$/i,
     func: (item, match)=>{
         return ()=>{
          let targets = [item.leftItem,item.rightItem].filter(i=>i && i.tags.includes("Large"));
@@ -1347,7 +1347,7 @@ TextMatcher.matchers.push({
 });
 //"If your enemy has more items than you, destroy one of their items." from Rex Spex
 TextMatcher.matchers.push({
-    regex: /^If your enemy has more items than you, destroy one of their items\.$/i,
+            regex: /^If your enemy has more items than you, destroy one of their items\.?$/i,
     func: (item, match)=>{
         return ()=>{
             if(item.board.player.hostileTarget.board.activeItems.length>item.board.activeItems.length) {
@@ -1358,7 +1358,7 @@ TextMatcher.matchers.push({
 });
 //This has +damage equal to (100/200/300) times the number of Types it has. from hydraulic press
 TextMatcher.matchers.push({
-    regex: /^This has \+\s?(\w+) equal to (\([^)]+\)|\d+) times the number of Types it has\.$/i,
+            regex: /^This has \+\s?(\w+) equal to (\([^)]+\)|\d+) times the number of Types it has\.?$/i,
     func: (item, match)=>{
         const whatToGain = Item.getTagFromText(match[1]);
         const amount = getRarityValue(match[2], item.rarity);
@@ -1374,7 +1374,7 @@ TextMatcher.matchers.push({
 });
 //"Poison 5 for each Poison item you have." from Maitoan Altar
 TextMatcher.matchers.push({
-    regex: /^(Poison|Burn|Heal|Regen) (\d+) for each (\w+) item you have\.$/i,
+            regex: /^(Poison|Burn|Heal|Regen) (\d+) for each (\w+) item you have\.?$/i,
     func: (item, match)=>{
         const whatToDo = match[1];
         const amount = getRarityValue(match[2], item.rarity);
@@ -1395,7 +1395,7 @@ TextMatcher.matchers.push({
 });
 //"This item's cooldown is reduced by 1 second for each other Relic you have." from Maitoan Altar
 TextMatcher.matchers.push({
-    regex: /^This item's cooldown is reduced by (\d+) second\(?s?\)? for each other (\w+) you have\.$/i,
+            regex: /^This item's cooldown is reduced by (\d+) second\(?s?\)? for each other (\w+) you have\.?$/i,
     func: (item, match)=>{
         const amount = 1000*getRarityValue(match[1], item.rarity);
         const tag = Item.getTagFromText(match[2]);        
@@ -1411,7 +1411,7 @@ TextMatcher.matchers.push({
 });
 //"Freeze it 1 second(s)." from Nullfrost Altar
 TextMatcher.matchers.push({
-    regex: /^Freeze it (\([^)]+\)|\d+) second\(?s?\)?\.$/i,
+            regex: /^Freeze it (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         item.gain(amount,'freeze');
@@ -1422,7 +1422,7 @@ TextMatcher.matchers.push({
 });
 //Remote all freeze from it. from Nullfrost Altar
 TextMatcher.matchers.push({
-    regex: /^Remove all freeze from it\.$/i,
+            regex: /^Remove all freeze from it\.?$/i,
     func: (item, match)=>{
         return (it)=>{
             it.removeFreeze(item);
@@ -1431,7 +1431,7 @@ TextMatcher.matchers.push({
 });
 //"Relic Weapons gain (+10/+20/+30) Damage for the fight." from Primal Core
 TextMatcher.matchers.push({
-    regex: /^Your ((?:\w+)( and (?:\w+))*) (\w+)s? gain (\([^)]+\)|\d+) (\w+) for the fight\.$/i,
+            regex: /^Your ((?:\w+)( and (?:\w+))*) (\w+)s? gain (\([^)]+\)|\d+) (\w+) for the fight\.?$/i,
     func: (item, match)=>{
         const tags = match[1].split(" and ");
         const tag2 = match[3] ? Item.getTagFromText(match[3]) : null;
@@ -1445,14 +1445,14 @@ TextMatcher.matchers.push({
     }
 });
 TextMatcher.matchers.push({
-    regex: /^At the end of each fight, (.*)\.$/i,
+            regex: /^At the end of each fight, (.*)\.?$/i,
     func: ()=>{
         return ()=>{};
     }
 });
 //"This item's cooldown is increased by 1 second for each Tech item you have." from Flint Stones
 TextMatcher.matchers.push({
-    regex: /^This item's cooldown is increased by (\d+) second\(?s?\)? for each (\w+)(?: item)? you have\.$/i,
+            regex: /^This item's cooldown is increased by (\d+) second\(?s?\)? for each (\w+)(?: item)? you have\.?$/i,
     func: (item, match)=>{
         const amount = 1000*getRarityValue(match[1], item.rarity);
         const tag = Item.getTagFromText(match[2]);
@@ -1468,7 +1468,7 @@ TextMatcher.matchers.push({
 });
 //"Burn (2/4/6/8) for each Relic or Tool you have." from Flint Stones
 TextMatcher.matchers.push({
-    regex: /^Burn (\([^)]+\)|\d+) for each (\w+) or (\w+) you have\.$/i,
+            regex: /^Burn (\([^)]+\)|\d+) for each (\w+) or (\w+) you have\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         const tag = Item.getTagFromText(match[2]);
@@ -1485,7 +1485,7 @@ TextMatcher.matchers.push({
 });
 //"This item's cooldown is reduced by 50% if you have at least 4 other Dinosaurs." from Dinosawer
 TextMatcher.matchers.push({
-    regex: /^This item's cooldown is reduced by (\([^)]+\)|\d+)% if you have at least (\d+) other (\w+(?:,? (?:or )?(\w+))*)s?\.$/i,
+            regex: /^This item's cooldown is reduced by (\([^)]+\)|\d+)% if you have at least (\d+) other (\w+(?:,? (?:or )?(\w+))*)s?\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         const numThingsRequired = getRarityValue(match[2], item.rarity);
@@ -1506,7 +1506,7 @@ TextMatcher.matchers.push({
 });
 //"This has +1 Multicast for each other Relic or Dinosaur you have." from Dino Disguise
 TextMatcher.matchers.push({
-    regex: /^This has \+1 Multicast for each other (\w+) or (\w+) you have\.$/i,
+            regex: /^This has \+1 Multicast for each other (\w+) or (\w+) you have\.?$/i,
     func: (item, match)=>{
         const tag = Item.getTagFromText(match[1]);
         const tag2 = Item.getTagFromText(match[2]);
@@ -1532,7 +1532,7 @@ TextMatcher.matchers.push({
 });
 //"Deal damage equal to (1/2/3/4) times your Income." from Ring King Gauntlets
 TextMatcher.matchers.push({
-    regex: /^Deal damage equal to (\([^)]+\)|\d+) times your Income\.$/i,
+            regex: /^Deal damage equal to (\([^)]+\)|\d+) times your Income\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         item.gain(amount*item.board.player.income,'damage');
@@ -1559,7 +1559,7 @@ TextMatcher.matchers.push({
 
 // "This has Multicast equal to its current ammo." from Shuriken
 TextMatcher.matchers.push({
-    regex: /^This has Multicast equal to its current ammo\.$/i,
+            regex: /^This has Multicast equal to its current ammo\.?$/i,
     func: (item, match)=>{
         item.gain(item.ammo-1,'multicast');
         item.ammoChanged((newAmmo,oldAmmo)=>{
@@ -1571,7 +1571,7 @@ TextMatcher.matchers.push({
 
 //"spend all its Ammo." from Shuriken
 TextMatcher.matchers.push({
-    regex: /^spend all its Ammo\.$/i,
+            regex: /^spend all its Ammo\.?$/i,
     func: (item, match)=>{
         return ()=>{
             item.ammo = 0;
@@ -1581,7 +1581,7 @@ TextMatcher.matchers.push({
 
 //"This has the Types of items you have in your Stash." from Cargo Shorts
 TextMatcher.matchers.push({
-    regex: /^This has the Types of items you have in your Stash\.$/i,
+            regex: /^This has the Types of items you have in your Stash\.?$/i,
     func: (item, match)=>{
         item.board.backpack?.items.forEach(i=>{
             i.tags.forEach(t=>{
@@ -1653,7 +1653,7 @@ TextMatcher.matchers.push({
 
 // it gains () damage and () shield for the fight.
 TextMatcher.matchers.push({
-    regex: /^it gains (\([^)]+\)|\d+) damage and (\([^)]+\)|\d+) shield for the fight\.$/i,
+            regex: /^it gains (\([^)]+\)|\d+) damage and (\([^)]+\)|\d+) shield for the fight\.?$/i,
     func: (item, match)=>{
         const damage = getRarityValue(match[1], item.rarity);
         const shield = getRarityValue(match[2], item.rarity);
@@ -1693,7 +1693,7 @@ TextMatcher.matchers.push({
 
 //"Your () items' Cooldowns are reduced by (2%/3%) for each () item you have." from Nanobot Construction
 TextMatcher.matchers.push({
-    regex: /^Your (\w+) items' Cooldowns are reduced by (\([^)]+\)|\d+)% for each (\w+) item you have\.$/i,
+            regex: /^Your (\w+) items' Cooldowns are reduced by (\([^)]+\)|\d+)% for each (\w+) item you have\.?$/i,
     func: (item, match)=>{
         const itemsToReduce = item.board.items.filter(i=>i.tags.includes(Item.getTagFromText(match[1])));
         const amount = getRarityValue(match[2], item.rarity);
