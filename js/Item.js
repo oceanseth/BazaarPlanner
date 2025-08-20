@@ -1088,7 +1088,7 @@ export class Item {
         //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
         //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
         
-        // Regex spécifique pour Lumboars et patterns similaires
+        // Specific regex for Lumboars and similar patterns
         let lumboarsRegex = /^Your Weapons gain \(([^)]+)\) Damage for the fight$/i;
         let lumboarsMatch = text.match(lumboarsRegex);
         if(lumboarsMatch) {
@@ -1116,7 +1116,7 @@ export class Item {
                     this.board.items.forEach(item => {
                         if(other && item.id == this.id) return;
                         if(tagToMatch=='Item' || item.tags.includes(tagToMatch)) {
-                            item.gain(gainAmount,whatToGain,this);
+                            item.gain(gainAmount, whatToGain, this);
                         }
                     });
                 });
