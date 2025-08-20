@@ -1087,7 +1087,7 @@ export class Item {
         }
         //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
         //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
-        damageRegex = /^Your (other )?([^.]*?) (?:gain|get) \+?(\([^)]+\)|\d+)( [^\s]+)?(?: for the fight)?\./i;
+        damageRegex = /^Your (other )?([^.]*?) (?:gain|get) \+?(\([^)]+\)|\d+)( [^\s]+)?(?: for the fight)?\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const other = match[1]=='other ';
@@ -1221,7 +1221,7 @@ export class Item {
             };
         }
         //Damage ( 10 » 20 » 30 » 40 ).
-        damageRegex = /^Damage (\([^)]+\)|\d+)\./i;
+        damageRegex = /^Damage (\([^)]+\)|\d+)\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const damageValue =  getRarityValue(match[1], this.rarity);
@@ -1458,7 +1458,7 @@ export class Item {
         }
 
         //Haste this ( 1 / 2 / 3 / 4 ) second(s).
-        regex = /^Haste this (\([^)]+\)|\d+) second\(?s?\)?\.$/i;
+        regex = /^Haste this (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
             this.haste += getRarityValue(match[1], this.rarity);
@@ -2221,7 +2221,7 @@ export class Item {
         }
 
         //Shield ( 1 » 2 » 3 » 4 ).
-        regex = /^Shield (\([^)]+\)|\d+)(?: for each ([^\s]+) item you have)?\./i;
+        regex = /^Shield (\([^)]+\)|\d+)(?: for each ([^\s]+) item you have)?\.?$/i;
         match = text.match(regex);
         if (match) {
             const shieldAmount = getRarityValue(match[1], this.rarity);
@@ -2657,7 +2657,7 @@ export class Item {
         let ifFunction = null;
         if(match) {
             let [_, enemyMatch, conditionalMatch, textAfterComma] = match;
-            const ifregex = /(.*\.) if (.*), (.*)\./i;
+            const ifregex = /(.*\.) if (.*), (.*)\.?/i;
             const ifmatch = textAfterComma.match(ifregex);
             let targetBoards = [this.board];
             if(enemyMatch=="your enemy"||enemyMatch=="your opponent"||enemyMatch=="an enemy") {
@@ -4043,7 +4043,7 @@ export class Item {
         if(match) {
             return () => {
                 const targets = this.board.items.filter(item => item.tags.includes("Property") && item.isChargeTargetable());
-                if(targets.length>0) {
+                if(targets.length>0) {                    
                     const target = this.pickRandom(targets);                    
                     this.log(this.name + " used " + target.name);
                     target.trigger();                    
@@ -4172,7 +4172,7 @@ export class Item {
             }
         }
         //Your other Friends' cooldowns are reduced by (10%/20%/30%). from Bill Dozer
-        regex = /^\s*Your (other )?(\w+)s?'?(?: items)?(?: have their cooldowns| cooldowns are)? (reduced|increased) by (\([^)]+\)|\d+%)( second\(?s?\)?)?\./i;
+        regex = /^\s*Your (other )?(\w+)s?'?(?: items)?(?: have their cooldowns| cooldowns are)? (reduced|increased) by (\([^)]+\)|\d+%)( second\(?s?\)?)?\.?/i;
         match = text.match(regex);
         if(match) {
             const other = match[1] ? true : false;
@@ -4451,7 +4451,7 @@ export class Item {
         }
 
         //Reload adjacent Ammo items ( 1 » 2 » 3 ) Ammo. from Ramrod
-        regex = /^\s*Reload adjacent (?:Ammo )?items(?: (\([^)]+\)|\d+) Ammo)?\./i;
+        regex = /^\s*Reload adjacent (?:Ammo )?items(?: (\([^)]+\)|\d+) Ammo)?\.?/i;
         match = text.match(regex);
         if(match) {
             const ammo = match[1] ? getRarityValue(match[1], this.rarity) : null;
@@ -4663,7 +4663,7 @@ export class Item {
             return () => {};
         }
         //Your non-weapon items' cooldowns are decreased by (1/2) second(s). from Library
-        regex = /^\s*Your non-([^\s]+) items' cooldowns are decreased by (\([^)]+\)|\d+) second\(?s\)?\.?/i;
+        regex = /^\s*Your non-([^\s]+) items' cooldowns are decreased by (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
             const tag = Item.getTagFromText(match[1]);
@@ -4676,7 +4676,7 @@ export class Item {
             return () => {};
         }
         //ALL Weapon cooldowns are increased by (+1/+2) second(s). from Library 
-        regex = /^\s*ALL ([^\s]+) cooldowns are increased by (\([^)]+\)|\d+) second\(?s\)?\.?/i;
+        regex = /^\s*ALL ([^\s]+) cooldowns are increased by (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
             const tag = Item.getTagFromText(match[1]);
@@ -4850,7 +4850,7 @@ export class Item {
         }
 
         //Charge your other non-weapon items ( 1 » 2 ) second(s).
-        regex = /^\s*Charge your other non-weapon items (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        regex = /^\s*Charge your other non-weapon items (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
             this.charge =  getRarityValue(match[1], this.rarity);
@@ -4864,7 +4864,7 @@ export class Item {
             };
         }
         //an enemy item has its cooldown increased by ( 3 » 6 ) second(s). from Spyglass
-        regex = /^\s*increase an enemy item's cooldown by (\([^)]+\)|\d+) second\(?s?\)?(?: for the fight)?\.?$/i;
+        regex = /^\s*increase an enemy item's cooldown by (\([^)]+\)|\d+) second\(?s?\)?(?: for the fight)?\.?/i;
         match = text.match(regex);
         if(match) {
             const cooldownIncrease = getRarityValue(match[1], this.rarity);
@@ -5062,7 +5062,7 @@ export class Item {
             return ()=>{};
         }
 
-        //Adjacent Vehicles have their cooldowns reduced by ( 5% » 10% » 15% » 20% ). from Fuel Rod
+        //Adjacent items have their cooldowns reduced by ( 5% » 10% » 15% » 20% ). from Fuel Rod
         //Adjacent items have their cooldown reduced by ( 10% » 15% » 20% » 25% ).
         regex = /^Adjacent (.+)?(?: item)?s'? (?:have their cooldowns? reduced by|cooldowns are reduced by) (\([^)]+\)|\d+%)\.?$/i;
         match = text.match(regex);
@@ -5180,95 +5180,7 @@ export class Item {
             };
         }
         //This has double value in combat.
-        regex = /^This has double value in combat\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            this.gain(this.value,'value');
-            this.value_multiplier += 1;
-            return ()=>{};
-        }
-        // Deal damage equal to 3 times the value of your items.
-        regex = /^Deal damage equal to 3 times the value of your items\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            const totalValue = this.board.items.reduce((sum, item) => sum + item.value, 0);
-            this.gain(totalValue*3,'damage');
-            return ()=>{
-                this.dealDamage(this.damage);
-            };
-        }
-        //Your items have double value in combat.
-        regex = /^Your items have double value (?:in|during) combat\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            this.board.items.forEach(item => {
-                const oldmultiplier = item.value_multiplier;
-                item.value_multiplier = 1;
-                item.gain(item.value,'value');
-                item.value_multiplier = oldmultiplier+1;
-            });
-            return ()=>{};
-        }
-
-
-
-
-        //Give Shield items to the right of this ( +5 » +10 » +20 » +40 ) Shield for the fight.
-        regex = /^Give ([^\s]+)? items to the right of this (?:\(([^)]+)\)|(\d+)) ([^\s]+) for the fight\.?/i;
-        match = text.match(regex);
-        if(match) {
-            const tagToMatch = match[1] ? Item.getTagFromText(match[1]) : null;
-            const gainAmount = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
-            const itemsToGive = this.board.items.filter(item => item.startIndex>this.startIndex && (tagToMatch ? item.tags.includes(tagToMatch) : true));
-            return () => {
-                itemsToGive.forEach(item => {
-                    item.gain(gainAmount,match[4].toLowerCase());
-                    this.log(this.name + " gave " + item.name + " " + gainAmount + " " + match[4]);
-                });
-            };
-        }
-
-        //For each adjacent Aquatic item, reduce this item's cooldown by 1 second.
-        regex = /^For each adjacent ([^\s]+)(?: item)?(?: or ([^\s]+))?, (.*)$/i;
-        match = text.match(regex);
-        if(match) {
-            const tagToMatch = Item.getTagFromText(match[1]);
-            const tagToMatch2 = Item.getTagFromText(match[2]);
-            const functionToRun = this.getTriggerFunctionFromText(match[3]);
-            this.adjacentItems.forEach(item => {
-                if(item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2)) {
-                    functionToRun(this);
-                }
-            });
-            return ()=>{};
-        }
-       
-       
-        //a weapon gains (  +5  » +10  » +15  » +20   ) damage for the fight.
-        regex = /^a ([^\s]+)(?: item)? gains (?:\(([^)]+)\)|(\d+)) ([^\s]+) for the fight\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            const tagToMatch = Item.getTagFromText(match[1]);
-            const gainAmount = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
-            const targetItems = this.board.items.filter(item => item.tags.includes(tagToMatch));
-            return () => {
-                let targetItem = this.pickRandom(targetItems);
-                if(targetItem) {
-                    targetItem.gain(gainAmount,match[4].toLowerCase());
-                }
-            }
-        }
-        //this gains Shield equal to the value of that item for the fight
-        regex = /^\s*this gains \+?Shield equal to the value of that item for the fight\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            return (item)=>{
-                this.shield += item.value;
-                this.log(this.name + " gained " + item.value + " Shield");
-            };
-        }
-        //This has double damage.
-        regex = /^\s*This (?:has|deals) double (damage|poison|burn|shield|heal|ammo|charge|regen)\.?$/i;
+        regex = /^This (?:has|deals) double (damage|poison|burn|shield|heal|ammo|charge|regen)\.?$/i;
         match = text.match(regex);
         if(match) {
             let whatToGain = match[1].toLowerCase();
@@ -5338,7 +5250,7 @@ export class Item {
         }
        
         //reload 2 Ammo
-        regex = /^\s*reload (\d+) Ammo/i;
+        regex = /^\s*reload (\d+) Ammo\.?/i;
         match = text.match(regex);
         if(match) {
             return (item) => {
@@ -5346,7 +5258,7 @@ export class Item {
             }
         }
         //use this
-        regex = /^\s*use this/i;
+        regex = /^\s*use this\.?/i;
         match = text.match(regex);
         if(match) {
             return () => {
@@ -5434,7 +5346,7 @@ export class Item {
         //Your Shield items have +1 Shield 
         //your items have ( +1% » +2% » +3% » +4% ) crit chance
         //your items have ( +1% » +2% » +3% » +4% ) crit chance for each weapon you have
-        regex = /^your (non-)?([^\s]+)(?:s)?\s?(?:items)?(?: and ([^\s]+)(?:s)? (?:items)?)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.$/i;
+        regex = /^your (non-)?([^\s]+)(?:s)?\s?(?:items)?(?: and ([^\s]+)(?:s)? (?:items)?)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.?$/i;
         match = text.match(regex);
 
         if(match) {
@@ -5829,7 +5741,7 @@ export class Item {
     //your Heal and Regeneration items have their cooldowns reduced by (5%/10%/15%). from Rapid Relief
     //your Weapons have their cooldowns reduced by (  5%  » 10%  » 20%   ).
     //Your Potions have their cooldowns reduced by 1 second. from Alchemical Precision
-    regex = /^your ([^\s]+)s?(?: and ([^\s]+))?(?: items)? have their cooldowns reduced by (\([^)]+\)|(\d+)%?)( seconds?)?\.$/i;    
+    regex = /^your ([^\s]+)s?(?: and ([^\s]+))?(?: items)? have their cooldowns reduced by (\([^)]+\)|(\d+)%?)( seconds?)?\.?$/i;    
     match = text.match(regex);
     if(match) {
         const tagToMatch = Item.getTagFromText(match[1]);
