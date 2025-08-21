@@ -3,7 +3,35 @@ import { Item } from "./Item.js";
 import { Board } from "./Board.js";
 
 export class TextMatcher {
-    static comparitors = [];
+    static comparitors = {
+        "if you have exactly one weapon, ":{
+            test: (item) => {
+                return item.board.activeItems.filter(i=>i.tags.includes("Weapon")).length==1;
+            },
+            setup: (item,f) => {
+                item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
+                item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
+            }
+        },
+        "if you have exactly 1 tech item, ":{
+            test: (item) => {
+                return item.board.activeItems.filter(i=>i.tags.includes("Tech")).length==1;
+            },
+            setup: (item,f) => {
+                item.target = item.board.items.filter(i=>i.tags.includes("Tech"))[0];
+                item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
+            }
+        },
+        "if you have no other weapons, ":{
+            test: (item) => {
+                return item.board.activeItems.filter(i=>i!=item &&i.tags.includes("Weapon")).length==0;
+            },
+            setup: (item,f) => {
+                item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
+                item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
+            }
+        }
+    };
     static getTriggerFunctionFromText(text, item) {
         for(let matcher of TextMatcher.matchers) {
             if(matcher.regex.test(text)) {                
@@ -14,34 +42,174 @@ export class TextMatcher {
         return null;
     }
     static matchers = [];
+    static undoableFunctions = [
+    {
+        regex: /^(this item's|its) cooldown is reduced by (\([^)]+\)|[\d\.]+)%?( seconds?)?\.?$/i,
+        func: (item, match)=>{
+            const cooldownReduction = getRarityValue(match[2], this.rarity);
+            const isSeconds = match[3] ? true : false;
+            let cooldownReducedBy = 0;
+            const itemToReduce = match[1]!='its' ? this : null;
+            const doIt = (item) => {
+                if(itemToReduce) {
+                    item = itemToReduce;
+                }
+                const oldCooldown = item.cooldown;
+                cooldownReducedBy = isSeconds ? cooldownReduction*1000 : cooldownReduction*oldCooldown/100;
+                if(isSeconds) {
+                    item.gain(-cooldownReducedBy,'cooldown');
+                } else {
+                    item.gain(-cooldownReducedBy,'cooldown');
+                }
+                cooldownReducedBy = oldCooldown - item.cooldown;
+            };
+            const undoIt = (item) => {
+                item.gain(cooldownReducedBy,'cooldown');
+                cooldownReducedBy = 0;
+            };
+            return {doIt, undoIt};
+        }
+    },     
+    {
+        regex: /^reduce this item's cooldown by (\d+)%.*/i,
+        func: (item, match)=>{
+            const cooldownReduction = parseInt(match[1]);
+            const doIt = () => {
+                this.cooldown *= (1-cooldownReduction/100);
+            };
+            const undoIt = () => {
+                this.cooldown /= (1-cooldownReduction/100);
+            };
+            return {doIt, undoIt};
+        },
+    },
+    {
+        //this is a Vehicle. from Dino Saddle
+        regex: /^This is a (\w+)\.?$/i,
+        func: (item, match)=>{
+            const tag = Item.getTagFromText(match[1]);
+            const doIt = (item) => {
+                if(!item.tags.includes(tag)) {
+                    item.tags.push(tag);
+                }
+            }
+            const undoIt = (item) => {
+                if(item.tags.includes(tag)) {
+                    item.tags.splice(item.tags.indexOf(tag),1);
+                }
+            }
+            return {doIt, undoIt};
+        },
+    },
+    {
+        //this has (+50%/+100%) Crit Chance. from Basilisk Fang
+        regex: /^this has (\([^)]+\)|\d+)%? Crit Chance\.?$/i,
+        func: (item, match)=>{
+            const critChance = getRarityValue(match[1], this.rarity);
+            const doIt = () => {
+                this.gain(critChance,'crit');
+            }
+            const undoIt = () => {
+                this.gain(-critChance,'crit');
+            }
+            return {doIt, undoIt};
+        },
+    },
+    {
+        regex: /^\s*when you Crit with it charge a non-weapon item (\([^)]+\)|\d+) second\(s\)\.?$/i,
+        func: (item, match)=>{
+            this.charge = getRarityValue(match[1], this.rarity);
+            const doIt = (it) => {
+                this.board.critTriggers.set(this.id+"undoablefunction",(i)=>{
+                    if(i.id==it.target.id) {
+                        this.applyChargeTo(this.pickRandom(this.board.items.filter(item => !item.tags.includes("Weapon") && item.cooldown>0)));
+                    }
+                });
+            }
+            const undoIt = (it) => {
+                this.board.critTriggers.delete(this.id+"undoablefunction");
+            }
+            return {doIt, undoIt};
+        },
+    },
+    {
+        //your weapons have (  +5  » +10  » +20   ) damage.
+        //your items have (  +5%  » +10%  » +20%   ) Crit Chance.
+        regex: /^your ([^s]+)s?(?: items)?\s?(?:and ([^s]+)s?(?: items)?)? have (?:\(([^)]+)\)|\+?(\d+)%?) ([^\s^\.]+)\s*(?:Chance)?\.?$/i,
+        func: (item, match)=>{
+            const gainAmount = parseInt(match[3] ? getRarityValue(match[3], this.rarity) : match[4]);
+            const whatToGain = match[5].toLowerCase();
+            const whichItems = (match[1]&&match[1]!='item') ? this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[1]))) : this.board.items;
+            const whichItems2 = (match[2]&&match[2]!='item') ? this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[2]))) : this.board.items;
+            const doIt = () => {
+                whichItems.forEach(item => {
+                    item.gain(gainAmount, whatToGain);
+                });
+            };
+            const undoIt = () => {
+                whichItems.forEach(item => {
+                    item.gain(-gainAmount, whatToGain);
+                });
+            }
+            return {doIt, undoIt};
+        },
+    },
+    {
+        //this has +1 Multicast.
+        regex: /^this has \+1 Multicast\.?$/i,
+        func: (item, match)=>{
+            const doIt = () => {
+                this.multicast += 1;
+            };
+            const undoIt = () => {
+                this.multicast -= 1;
+            };
+            return {doIt, undoIt};
+        },
+    },
+    {
+
+        //your Heal and Regeneration items have their cooldowns reduced by (5%/10%/15%). from Rapid Relief
+        //Your Weapons' cooldowns are reduced by (5%/10%/15%) from Frozen Shot
+        //your Weapons have their cooldowns reduced by (  5%  » 10%  » 20%   ).
+        regex: /^your ([^\s]+?)s?'?(?: and ([^\s]+)s?)?(?: items)? (?:have their cooldowns|cooldowns are) (increased|reduced) by (\([^)]+\)|\d+%?)( second\(?s?\)?)?\.?$/i,
+        func: (item, match)=>{
+            const cooldownReduction = getRarityValue(match[4], this.rarity);
+            const tagToMatch = Item.getTagFromText(match[1]);
+            const tagToMatch2 = Item.getTagFromText(match[2]);
+            const isSeconds = match[5] ? true : false;
+            const isReduced = match[3] == "reduced" ? true : false;
+            let cooldownReducedBy = 0;
+            const doIt = () => {
+                this.board.items.forEach(item => {
+                    if(item.tags.includes(tagToMatch) || (tagToMatch2 && item.tags.includes(tagToMatch2))) {
+                        if(isSeconds) {
+                            item.gain((isReduced?-1:1)*cooldownReduction*1000,'cooldown');
+                        } else {
+                            cooldownReducedBy = item.cooldown * cooldownReduction/100;
+                            item.gain((isReduced?-1:1)*cooldownReducedBy, "cooldown");
+                        }
+                    }
+                });
+            };
+
+            const undoIt = () => {
+                this.board.items.forEach(item => {
+                    if(item.tags.includes(tagToMatch) || (tagToMatch2 && item.tags.includes(tagToMatch2))) {
+                        if(isSeconds) {
+                            item.gain((isReduced?1:-1)*cooldownReduction*1000,'cooldown');
+                        } else {
+                            item.gain((isReduced?1:-1)*cooldownReducedBy, "cooldown");
+                        }
+                    }
+                });
+            };
+            return {doIt, undoIt};
+        },
+    },
+    ]
 }
-TextMatcher.comparitors["if you have exactly one weapon, "]= {
-    test: (item) => {
-        return item.board.activeItems.filter(i=>i.tags.includes("Weapon")).length==1;
-    },
-    setup: (item,f) => {
-        item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
-        item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
-    }
-};
-TextMatcher.comparitors["if you have exactly 1 tech item, "]= {
-    test: (item) => {
-        return item.board.activeItems.filter(i=>i.tags.includes("Tech")).length==1;
-    },
-    setup: (item,f) => {
-        item.target = item.board.items.filter(i=>i.tags.includes("Tech"))[0];
-        item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
-    }
-};
-TextMatcher.comparitors["if you have no other weapons, "]= {
-    test: (item) => {
-        return item.board.activeItems.filter(i=>i!=item &&i.tags.includes("Weapon")).length==0;
-    },
-    setup: (item,f) => {
-        item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
-        item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
-    }
-};
+
 TextMatcher.matchers.push({
     id: "Essence Overflow Matcher",
             regex: /^your weapons have \+\s?damage equal to your Regen(?:eration)?\.?$/i,
@@ -66,8 +234,12 @@ TextMatcher.matchers.push({
     regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})?(.*) while you(r enemy)? (?:has|have) a (Slowed|Hasted|Frozen) item\.?$`, 'i'),
     func: (item, match)=>{        
         const targetBoard = match[3] ? item.board.player.hostileTarget.board : item.board;
-        const f = item.getUndoableFunctionFromText(match[2], ()=>(match[1]?TextMatcher.comparitors[match[1].toLowerCase()].test(item):1) && targetBoard["has"+match[4].toLowerCase()+"Item"]);
-        targetBoard["has"+match[4]+"ItemChanged"](() => {f(item.target);});   
+        const f = item.getUndoableFunctionFromText(match[2], ()=>{
+            return (match[1]?TextMatcher.comparitors[match[1].toLowerCase()].test(item):1) && targetBoard["has"+Item.getTagFromText(match[4])+"Item"];
+        });
+        targetBoard["has"+match[4]+"ItemChanged"](() => {
+            f(item.target);
+        });   
         if(match[1]) {
             TextMatcher.comparitors[match[1].toLowerCase()].setup(item,f);
         }
