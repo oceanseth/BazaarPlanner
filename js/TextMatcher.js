@@ -234,10 +234,11 @@ TextMatcher.matchers.push({
     regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})?(.*) while you(r enemy)? (?:has|have) a (Slowed|Hasted|Frozen) item\.?$`, 'i'),
     func: (item, match)=>{        
         const targetBoard = match[3] ? item.board.player.hostileTarget.board : item.board;
+        const typeOfItem = Item.getTagFromText(match[4]);
         const f = item.getUndoableFunctionFromText(match[2], ()=>{
-            return (match[1]?TextMatcher.comparitors[match[1].toLowerCase()].test(item):1) && targetBoard["has"+Item.getTagFromText(match[4])+"Item"];
+            return (match[1]?TextMatcher.comparitors[match[1].toLowerCase()].test(item):1) && targetBoard["has"+typeOfItem+"Item"];
         });
-        targetBoard["has"+match[4]+"ItemChanged"](() => {
+        targetBoard["has"+typeOfItem+"ItemChanged"](() => {
             f(item.target);
         });   
         if(match[1]) {
