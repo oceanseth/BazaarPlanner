@@ -6080,11 +6080,13 @@ export class Item {
 
     getUndoableFunctionFromText(text, comparisonFunction,checkComparison=true, item) {
         let undoableFunction = null;
-        TextMatcher.undoableFunctions.forEach(undoableF=>{
+        TextMatcher.undoableFunctions.find(undoableF=>{
             let match = text.match(undoableF.regex);
             if(match) {
                 undoableFunction = undoableF.func(this, match);
+                return true;
             }
+            return false;
         });
 
         if(!undoableFunction) {

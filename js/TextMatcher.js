@@ -46,10 +46,10 @@ export class TextMatcher {
     {
         regex: /^(this item's|its) cooldown is reduced by (\([^)]+\)|[\d\.]+)%?( seconds?)?\.?$/i,
         func: (item, match)=>{
-            const cooldownReduction = getRarityValue(match[2], this.rarity);
+            const cooldownReduction = getRarityValue(match[2], item.rarity);
             const isSeconds = match[3] ? true : false;
             let cooldownReducedBy = 0;
-            const itemToReduce = match[1]!='its' ? this : null;
+            const itemToReduce = match[1]!='its' ? item : null;
             const doIt = (item) => {
                 if(itemToReduce) {
                     item = itemToReduce;
@@ -75,10 +75,10 @@ export class TextMatcher {
         func: (item, match)=>{
             const cooldownReduction = parseInt(match[1]);
             const doIt = () => {
-                this.cooldown *= (1-cooldownReduction/100);
+                item.cooldown *= (1-cooldownReduction/100);
             };
             const undoIt = () => {
-                this.cooldown /= (1-cooldownReduction/100);
+                item.cooldown /= (1-cooldownReduction/100);
             };
             return {doIt, undoIt};
         },
@@ -105,12 +105,12 @@ export class TextMatcher {
         //this has (+50%/+100%) Crit Chance. from Basilisk Fang
         regex: /^this has (\([^)]+\)|\d+)%? Crit Chance\.?$/i,
         func: (item, match)=>{
-            const critChance = getRarityValue(match[1], this.rarity);
+            const critChance = getRarityValue(match[1], item.rarity);
             const doIt = () => {
-                this.gain(critChance,'crit');
+                item.gain(critChance,'crit');
             }
             const undoIt = () => {
-                this.gain(-critChance,'crit');
+                item.gain(-critChance,'crit');
             }
             return {doIt, undoIt};
         },
@@ -118,16 +118,16 @@ export class TextMatcher {
     {
         regex: /^\s*when you Crit with it charge a non-weapon item (\([^)]+\)|\d+) second\(s\)\.?$/i,
         func: (item, match)=>{
-            this.charge = getRarityValue(match[1], this.rarity);
+            item.charge = getRarityValue(match[1], item.rarity);
             const doIt = (it) => {
-                this.board.critTriggers.set(this.id+"undoablefunction",(i)=>{
+                item.board.critTriggers.set(item.id+"undoablefunction",(i)=>{
                     if(i.id==it.target.id) {
-                        this.applyChargeTo(this.pickRandom(this.board.items.filter(item => !item.tags.includes("Weapon") && item.cooldown>0)));
+                        item.applyChargeTo(item.pickRandom(item.board.items.filter(item => !item.tags.includes("Weapon") && item.cooldown>0)));
                     }
                 });
             }
             const undoIt = (it) => {
-                this.board.critTriggers.delete(this.id+"undoablefunction");
+                item.board.critTriggers.delete(item.id+"undoablefunction");
             }
             return {doIt, undoIt};
         },
