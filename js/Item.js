@@ -1256,7 +1256,7 @@ export class Item {
 
         
     getSlowTriggerFunctionFromText(text) {        
-        let regex = /Slow (?:\(([^)]+)\)|(\d+)|an) (?:(\w+) )?items?\(?s?\)?\s*(?:for)? (?:\(([^)]+)\)|(\d+)) second/i;
+        let regex = /Slow (?:\(([^)]+)\)|(\d+|an)) (?:(\w+) )?items?\(?s?\)?\s*(?:for)? (?:\(([^)]+)\)|(\d+)) second/i;
         let match;
         if (regex.test(text)) {            
             let [_, itemsRange, singleItemCount, requiredTag, durationRange, singleDuration] = text.match(regex);
@@ -5664,11 +5664,12 @@ export class Item {
         }
 
         //your other items gain Value equal to this item's Value for the fight.
-        regex = /^your other items (?:gain|get) Value equal to this item's Value for the fight\.?$/i;
+        regex = /^(adjacent|your other) items (?:gain|get) Value equal to this item's Value for the fight\.?$/i;
         match = text.match(regex);
         if(match) {
+            const items = match[1] == "adjacent" ? this.adjacentItems : this.board.items;
             return ()=>{
-                this.board.items.forEach(item => {
+                items.forEach(item => {
                     if(item.id!=this.id) { 
                         item.gain(this.value,'value');
                     }
@@ -6078,176 +6079,26 @@ export class Item {
     }
 
     getUndoableFunctionFromText(text, comparisonFunction,checkComparison=true, item) {
-        //reduce this item's cooldown by 50%
-        let regex = /^reduce this item's cooldown by (\d+)%.*/i;
-        let match = text.match(regex);
-        let doIt,undoIt;
-        let didIt = false;
-        if(match) {
-            const cooldownReduction = parseInt(match[1]);
-            doIt = () => {
-                this.cooldown *= (1-cooldownReduction/100);
-            };
-            undoIt = () => {
-                this.cooldown /= (1-cooldownReduction/100);
-            };
-        }
+        let undoableFunction = null;
+        TextMatcher.undoableFunctions.forEach(undoableF=>{
+            let match = text.match(undoableF.regex);
+            if(match) {
+                undoableFunction = undoableF.func(this, match);
+            }
+        });
 
-        //its cooldown is reduced by (5%/10%/15%) from Temporal Strike
-        regex = /^(this item's|its) cooldown is reduced by (\([^)]+\)|[\d\.]+)%?( seconds?)?\.?$/i; 
-        match = text.match(regex);
-        if(match) {
-            const cooldownReduction = getRarityValue(match[2], this.rarity);
-            const isSeconds = match[3] ? true : false;
-            let cooldownReducedBy = 0;
-            const itemToReduce = match[1]!='its' ? this : null;
-            doIt = (item) => {
-                if(itemToReduce) {
-                    item = itemToReduce;
-                }
-                const oldCooldown = item.cooldown;
-                cooldownReducedBy = isSeconds ? cooldownReduction*1000 : cooldownReduction*oldCooldown/100;
-                if(isSeconds) {
-                    item.gain(-cooldownReducedBy,'cooldown');
-                } else {
-                    item.gain(-cooldownReducedBy,'cooldown');
-                }
-                cooldownReducedBy = oldCooldown - item.cooldown;
-            };
-            undoIt = (item) => {
-                item.gain(cooldownReducedBy,'cooldown');
-                cooldownReducedBy = 0;
-            };
-        }
-        //this is a Vehicle. from Dino Saddle
-        regex = /^This is a (\w+)\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            const tag = Item.getTagFromText(match[1]);
-            doIt = (item) => {
-                if(!item.tags.includes(tag)) {
-                    item.tags.push(tag);
-                }
-            }
-            undoIt = (item) => {
-                if(item.tags.includes(tag)) {
-                    item.tags.splice(item.tags.indexOf(tag),1);
-                }
-            }
-        }
-        
-        //this has (+50%/+100%) Crit Chance. from Basilisk Fang
-        regex = /^this has (\([^)]+\)|\d+)%? Crit Chance\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            const critChance = getRarityValue(match[1], this.rarity);
-            doIt = () => {
-                this.gain(critChance,'crit');
-            }
-            undoIt = () => {
-                this.gain(-critChance,'crit');
-            }
-        }
-        regex = /^\s*when you Crit with it charge a non-weapon item (\([^)]+\)|\d+) second\(s\)\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            this.charge = getRarityValue(match[1], this.rarity);
-            doIt = (it) => {
-                this.board.critTriggers.set(this.id+"undoablefunction",(i)=>{
-                    if(i.id==it.target.id) {
-                        this.applyChargeTo(this.pickRandom(this.board.items.filter(item => !item.tags.includes("Weapon") && item.cooldown>0)));
-                    }
-                });
-            }
-            undoIt = (it) => {
-                this.board.critTriggers.delete(this.id+"undoablefunction");
-            }
-        }
-        
-        //your weapons have (  +5  » +10  » +20   ) damage.
-        //your items have (  +5%  » +10%  » +20%   ) Crit Chance.
-        regex = /^your ([^s]+)s?(?: items)?\s?(?:and ([^s]+)s?(?: items)?)? have (?:\(([^)]+)\)|\+?(\d+)%?) ([^\s^\.]+)\s*(?:Chance)?\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            const gainAmount = parseInt(match[3] ? getRarityValue(match[3], this.rarity) : match[4]);
-            const whatToGain = match[5].toLowerCase();
-            const whichItems = (match[1]&&match[1]!='item') ? this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[1]))) : this.board.items;
-            const whichItems2 = (match[2]&&match[2]!='item') ? this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[2]))) : this.board.items;
-            doIt = () => {
-                whichItems.forEach(item => {
-                    item.gain(gainAmount, whatToGain);
-                });
-            };
-            undoIt = () => {
-                whichItems.forEach(item => {
-                    item.gain(-gainAmount, whatToGain);
-                });
-            }
-
-        }   
-       
-        //this has +1 Multicast.
-        regex = /^this has \+1 Multicast\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            doIt = () => {
-                this.multicast += 1;
-            };
-            undoIt = () => {
-                this.multicast -= 1;
-            };
-        }
-
-        //your Heal and Regeneration items have their cooldowns reduced by (5%/10%/15%). from Rapid Relief
-        //Your Weapons' cooldowns are reduced by (5%/10%/15%) from Frozen Shot
-        //your Weapons have their cooldowns reduced by (  5%  » 10%  » 20%   ).
-        regex = /^your ([^\s]+?)s?'?(?: and ([^\s]+)s?)?(?: items)? (?:have their cooldowns|cooldowns are) (increased|reduced) by (\([^)]+\)|\d+%?)( second\(?s?\)?)?\.?$/i;    
-        match = text.match(regex);
-        if(match) {
-            const cooldownReduction = getRarityValue(match[4], this.rarity);
-            const tagToMatch = Item.getTagFromText(match[1]);
-            const tagToMatch2 = Item.getTagFromText(match[2]);
-            const isSeconds = match[5] ? true : false;
-            const isReduced = match[3] == "reduced" ? true : false;
-            let cooldownReducedBy = 0;
-            doIt = () => {
-                this.board.items.forEach(item => {
-                    if(item.tags.includes(tagToMatch) || (tagToMatch2 && item.tags.includes(tagToMatch2))) {
-                        if(isSeconds) {
-                            item.gain((isReduced?-1:1)*cooldownReduction*1000,'cooldown');
-                        } else {
-                            cooldownReducedBy = item.cooldown * cooldownReduction/100;
-                            item.gain((isReduced?-1:1)*cooldownReducedBy, "cooldown");
-                        }
-                    }
-                });
-            };
-
-            undoIt = () => {
-                this.board.items.forEach(item => {
-                    if(item.tags.includes(tagToMatch) || (tagToMatch2 && item.tags.includes(tagToMatch2))) {
-                        if(isSeconds) {
-                            item.gain((isReduced?1:-1)*cooldownReduction*1000,'cooldown');
-                        } else {
-                            item.gain((isReduced?1:-1)*cooldownReducedBy, "cooldown");
-                        }
-                    }
-                });
-            };
-        }
-
-
-        if(!doIt) {
+        if(!undoableFunction) {
             console.log("Could not parse "+ text+ " from "+this.name);
             return null;
         }
+        const {doIt, undoIt} = undoableFunction;
 
-
+        let didIt = false;
         if(checkComparison && comparisonFunction()) {
             didIt=true;
             doIt(item||this);
         } 
-        return (...args)=>{
+        const f = (...args)=>{
             if(didIt && !comparisonFunction(...args)) {
                 undoIt(...args);
                 didIt=false;
@@ -6256,6 +6107,8 @@ export class Item {
                 didIt=true;
             }
         };
+        f.text = text;
+        return f;
     }
     addTemporaryEnchant(enchant) {
         if(this.enchant) { return; } // maybe later remove enchant first, for now skip.
