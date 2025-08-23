@@ -1061,8 +1061,6 @@ export class Item {
                 this.board.player.maxHealthChanged((newMaxHealth,oldMaxHealth)=>{
                     this.gain(newMaxHealth*dmgMultiplier/100 - oldMaxHealth*dmgMultiplier/100,'damage');
                 });
-
-
             } else {
                 this.gain(this.board.player.hostileTarget.maxHealth*dmgMultiplier/100,'damage');
                 this.board.player.hostileTarget.maxHealthChanged((newMaxHealth,oldMaxHealth)=>{
@@ -1070,13 +1068,9 @@ export class Item {
                 });
             }            
 
-
             return () => {
                 this.dealDamage(this.damage);
             };
-
-
-
         }
         //Reduce its cooldown by 5% for the fight.
         damageRegex = /Reduce its cooldown by (\([^\)]+\)|\d+%) for the fight\.?/i;

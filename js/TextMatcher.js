@@ -1962,3 +1962,20 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+
+//"(1/2/3) Small item(s) start Flying." from Haunting Flight
+TextMatcher.matchers.push({
+    regex: /^(\([^)]+\)|\d+) (\w+) item\(?s?\)? (start|stop)s? Flying\.?$/i,
+    func: (item, match)=>{
+        const numItems = getRarityValue(match[1], item.rarity);
+        const tag = Item.getTagFromText(match[2]);
+        const isStart = match[3].startsWith('start');
+        
+        return ()=>{
+            const items = item.board.items.filter(i=>i.tags.includes(tag) && i.flying!=isStart);
+            item.pickRandom(items,numItems).forEach(i=>{
+                i.flying = isStart;
+            });
+        };
+    }
+});
