@@ -220,7 +220,7 @@ export class TextMatcher {
             const isReduced = match[3] == "reduced" ? true : false;
             let cooldownReducedBy = 0;
             const doIt = () => {
-                this.board.items.forEach(item => {
+                item.board.items.forEach(item => {
                     if(item.tags.includes(tagToMatch) || (tagToMatch2 && item.tags.includes(tagToMatch2))) {
                         if(isSeconds) {
                             item.gain((isReduced?-1:1)*cooldownReduction*1000,'cooldown');
@@ -233,7 +233,7 @@ export class TextMatcher {
             };
 
             const undoIt = () => {
-                this.board.items.forEach(item => {
+                item.board.items.forEach(item => {
                     if(item.tags.includes(tagToMatch) || (tagToMatch2 && item.tags.includes(tagToMatch2))) {
                         if(isSeconds) {
                             item.gain((isReduced?1:-1)*cooldownReduction*1000,'cooldown');
