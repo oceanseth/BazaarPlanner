@@ -1944,3 +1944,21 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+
+//When this starts Flying ... from Wrecking Ball
+TextMatcher.matchers.push({
+    regex: /^When this (starts|stops) Flying, (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[2], item);
+        const isStart = match[1]=='starts';
+        item.flyingChanged((newFlying,oldFlying)=>{
+            if(isStart&&newFlying&&!oldFlying) {
+                f(item);
+            }
+            if(!isStart&&!newFlying&&oldFlying) {
+                f(item);
+            }
+        });
+        return ()=>{};
+    }
+});

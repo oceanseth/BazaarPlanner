@@ -1046,9 +1046,12 @@ export class Item {
     getWeaponTriggerFunction(text) {
         let match;
 
+        
+
         //Deal damage equal to your enemy's max health
         //Deal damage equal to ( 20% » 30% ) of your enemy's Max Health.
-        let damageRegex = /Deal damage equal to \(?([^)]+)?\)?(?: of )?(your|your enemy's|the enemy's) Max Health\.?$/i;
+        //Deal Damage equal to (30%/40%) of an enemy's Max Health. from Wrecking Ball, Powder Keg
+        let damageRegex = /Deal damage equal to \(?([^)]+)?\)?(?: of )?(your|your enemy's|the enemy's|an enemy's) Max Health\.?$/i;
         match = text.match(damageRegex);
 
         if(match) {
