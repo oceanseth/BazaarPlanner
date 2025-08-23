@@ -1846,7 +1846,7 @@ TextMatcher.matchers.push({
     func: (item, match)=>{
         const adjacentItems = item.adjacentItems;
         return ()=>{
-            item.pickRandom(adjacentItems.filter(i=>i.flying!=match[1]=='starts')).flying = match[1]=='starts';
+            item.pickRandom(adjacentItems.filter(i=>i.flying!=match[1]=='starts'))?.flying = match[1]=='starts';
         };
     }
 });
