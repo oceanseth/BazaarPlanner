@@ -44,12 +44,39 @@ export class TextMatcher {
     static matchers = [];
     static undoableFunctions = [
     {
+        regex: /^This has double (damage|poison|burn|shield|heal|ammo|charge|regen)\.?$/i,
+        func: (item, match)=>{
+            let whatToGain = match[1].toLowerCase();
+            if(whatToGain=="ammo") {
+                whatToGain = "maxAmmo";
+            }
+          
+            const doIt = () => {
+                item[whatToGain+"pauseChanged"] = true;
+                const oldMultiplier = item[whatToGain+"_multiplier"];
+                item[whatToGain+"_multiplier"] =1;
+                item.gain(item[whatToGain],whatToGain);
+                item[whatToGain+"pauseChanged"] = false;
+                item[whatToGain+"_multiplier"] = oldMultiplier*2;
+            }
+            const undoIt = () => {
+                item[whatToGain+"pauseChanged"] = true;
+                const oldMultiplier = item[whatToGain+"_multiplier"];
+                item[whatToGain+"_multiplier"] = 1;
+                item.gain(-item[whatToGain],whatToGain);
+                item[whatToGain+"pauseChanged"] = false;
+                item[whatToGain+"_multiplier"] = oldMultiplier/2;
+            };
+            return {doIt, undoIt};
+        },
+    },
+    {
         regex: /^(this item's|its) cooldown is reduced by (\([^)]+\)|[\d\.]+)%?( seconds?)?\.?$/i,
         func: (item, match)=>{
-            const cooldownReduction = getRarityValue(match[2], this.rarity);
+            const cooldownReduction = getRarityValue(match[2], item.rarity);
             const isSeconds = match[3] ? true : false;
             let cooldownReducedBy = 0;
-            const itemToReduce = match[1]!='its' ? this : null;
+            const itemToReduce = match[1]!='its' ? item : null;
             const doIt = (item) => {
                 if(itemToReduce) {
                     item = itemToReduce;
@@ -75,10 +102,10 @@ export class TextMatcher {
         func: (item, match)=>{
             const cooldownReduction = parseInt(match[1]);
             const doIt = () => {
-                this.cooldown *= (1-cooldownReduction/100);
+                item.cooldown *= (1-cooldownReduction/100);
             };
             const undoIt = () => {
-                this.cooldown /= (1-cooldownReduction/100);
+                item.cooldown /= (1-cooldownReduction/100);
             };
             return {doIt, undoIt};
         },
@@ -105,12 +132,12 @@ export class TextMatcher {
         //this has (+50%/+100%) Crit Chance. from Basilisk Fang
         regex: /^this has (\([^)]+\)|\d+)%? Crit Chance\.?$/i,
         func: (item, match)=>{
-            const critChance = getRarityValue(match[1], this.rarity);
+            const critChance = getRarityValue(match[1], item.rarity);
             const doIt = () => {
-                this.gain(critChance,'crit');
+                item.gain(critChance,'crit');
             }
             const undoIt = () => {
-                this.gain(-critChance,'crit');
+                item.gain(-critChance,'crit');
             }
             return {doIt, undoIt};
         },
@@ -118,16 +145,16 @@ export class TextMatcher {
     {
         regex: /^\s*when you Crit with it charge a non-weapon item (\([^)]+\)|\d+) second\(s\)\.?$/i,
         func: (item, match)=>{
-            this.charge = getRarityValue(match[1], this.rarity);
+            item.charge = getRarityValue(match[1], item.rarity);
             const doIt = (it) => {
-                this.board.critTriggers.set(this.id+"undoablefunction",(i)=>{
+                item.board.critTriggers.set(item.id+"undoablefunction",(i)=>{
                     if(i.id==it.target.id) {
-                        this.applyChargeTo(this.pickRandom(this.board.items.filter(item => !item.tags.includes("Weapon") && item.cooldown>0)));
+                        item.applyChargeTo(item.pickRandom(item.board.items.filter(item => !item.tags.includes("Weapon") && item.cooldown>0)));
                     }
                 });
             }
             const undoIt = (it) => {
-                this.board.critTriggers.delete(this.id+"undoablefunction");
+                item.board.critTriggers.delete(item.id+"undoablefunction");
             }
             return {doIt, undoIt};
         },
@@ -234,10 +261,11 @@ TextMatcher.matchers.push({
     regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})?(.*) while you(r enemy)? (?:has|have) a (Slowed|Hasted|Frozen) item\.?$`, 'i'),
     func: (item, match)=>{        
         const targetBoard = match[3] ? item.board.player.hostileTarget.board : item.board;
+        const typeOfItem = Item.getTagFromText(match[4]);
         const f = item.getUndoableFunctionFromText(match[2], ()=>{
-            return (match[1]?TextMatcher.comparitors[match[1].toLowerCase()].test(item):1) && targetBoard["has"+Item.getTagFromText(match[4])+"Item"];
+            return (match[1]?TextMatcher.comparitors[match[1].toLowerCase()].test(item):1) && targetBoard["has"+typeOfItem+"Item"];
         });
-        targetBoard["has"+match[4]+"ItemChanged"](() => {
+        targetBoard["has"+typeOfItem+"ItemChanged"](() => {
             f(item.target);
         });   
         if(match[1]) {

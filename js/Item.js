@@ -5161,24 +5161,28 @@ export class Item {
         }
 
         //Burn items to the right of this gain ( 1 » 2 » 3 » 4 ) Burn for the fight
-
-        regex = /^(This and )?(?:the )?([^\s]+)(?: item)?s? to the right of this gains? (\([^)]+\)|\+?\d+) ([^\s]+).*/i;
+        regex = /^(This and )?(?:the )?([^\s]+)(?: item)?(s)? to the right of this gains? (\([^)]+\)|\+?\d+) ([^\s]+)(?: for the fight)?\.?/i;
         match = text.match(regex);
-
         if(match) {
-            const thisAnd = match[1] ? true : false;
+            const thisAnd = !!match[1];
             const tagToMatch = Item.getTagFromText(match[2]);
-            const gainAmount = getRarityValue(match[3], this.rarity);
-            const whatToGain = match[4].toLowerCase();
+            const plural = !!match[3] || match[2][match[2].length-1]=='s';
+            const gainAmount = getRarityValue(match[4], this.rarity);
+            const whatToGain = match[5].toLowerCase();
             return () => {
                 if(thisAnd) {
                     this.gain(gainAmount,whatToGain,this);
                 }
-                this.board.items.filter(item => item.startIndex>this.startIndex && item.tags.includes(tagToMatch)).forEach(item => {
-                    item.gain(gainAmount,whatToGain,this);
-                });
+                if(plural) {
+                    this.board.items.filter(item => item.startIndex>this.startIndex && item.tags.includes(tagToMatch)).forEach(item => {
+                        item.gain(gainAmount,whatToGain,this);
+                    });
+                } else {
+                    this.getItemToTheRight().gain(gainAmount,whatToGain,this);
+                }
             };
         }
+
         //This has double value in combat.
         regex = /^This has double value in combat\.?$/i;
         match = text.match(regex);
@@ -6080,11 +6084,13 @@ export class Item {
 
     getUndoableFunctionFromText(text, comparisonFunction,checkComparison=true, item) {
         let undoableFunction = null;
-        TextMatcher.undoableFunctions.forEach(undoableF=>{
+        TextMatcher.undoableFunctions.find(undoableF=>{
             let match = text.match(undoableF.regex);
             if(match) {
                 undoableFunction = undoableF.func(this, match);
+                return true;
             }
+            return false;
         });
 
         if(!undoableFunction) {
