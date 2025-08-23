@@ -4496,18 +4496,6 @@ export class Item {
                 this.board.items.forEach(i => i.removeFreeze(this));
             }
         }
-        
-
-        //This has + Multicast equal to its ammo. from Dive Weights 
-        regex = /^\s*This has \+\s?Multicast equal to its ammo\.?/i;
-        match = text.match(regex);
-        if(match) {
-            this.gain(this.ammo,'multicast');
-            this.ammoChanged((newAmount,oldAmount)=>{
-                this.gain(newAmount-oldAmount,'multicast');
-            });
-            return () => {};
-        }
 
         // Adjacent items are Aquatic. from Diving Helmet 
         regex = /^\s*Adjacent items are ([^\.]+)\.?/i;
@@ -5251,22 +5239,6 @@ export class Item {
                 });
             };
         }
-
-        //For each adjacent Aquatic item, reduce this item's cooldown by 1 second.
-        regex = /^For each adjacent ([^\s]+)(?: item)?(?: or ([^\s]+))?, (.*)$/i;
-        match = text.match(regex);
-        if(match) {
-            const tagToMatch = Item.getTagFromText(match[1]);
-            const tagToMatch2 = Item.getTagFromText(match[2]);
-            const functionToRun = this.getTriggerFunctionFromText(match[3]);
-            this.adjacentItems.forEach(item => {
-                if(item.tags.includes(tagToMatch) || item.tags.includes(tagToMatch2)) {
-                    functionToRun(this);
-                }
-            });
-            return ()=>{};
-        }
-
 
         //a weapon gains (  +5  » +10  » +15  » +20   ) damage for the fight.
         regex = /^a ([^\s]+)(?: item)? gains (?:\(([^)]+)\)|(\d+)) ([^\s]+) for the fight\.?$/i;

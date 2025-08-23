@@ -41,6 +41,18 @@ export class TextMatcher {
         }
         return null;
     }
+    /*
+    static getFunctionFromUndoableFunctions(text, item) {
+        for(let matcher of TextMatcher.undoableFunctions) {
+            let match = text.match(matcher.regex);
+            if(match) {
+                const undoableFunction = matcher.func(item,match);              
+                return undoableFunction.doIt;
+            }
+        }
+        return null;
+    }
+    */
     static matchers = [];
     static undoableFunctions = [
     {
@@ -388,12 +400,13 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //This item's cooldown is reduced by 1 second for each adjacent Friend. from Nanobot
-            regex: /^this item's cooldown is reduced by 1 second for each adjacent Friend\.?$/i,
+            regex: /^(?:this item's cooldown is reduced by 1 second for each adjacent (\w+)(?: item)?|for each adjacent (\w+)(?: item), this item's cooldown is reduced by 1 second)\.?$/i,
     func: (item, match)=>{
-        let cooldownReducedBy = item.adjacentItems.filter(i=>i.tags.includes("Friend")).length;
+        const tag = match[1]?Item.getTagFromText(match[1]):Item.getTagFromText(match[2]);
+        let cooldownReducedBy = item.adjacentItems.filter(i=>i.tags.includes(tag)).length;
         item.gain(-cooldownReducedBy*1000,'cooldown');
         item.board.itemDestroyedTriggers.set(item.id,(i,source)=>{            
-            if(i.tags.includes("Friend") && i.adjacentItems.includes(item)) {
+            if(i.tags.includes(tag) && i.adjacentItems.includes(item)) {
                 item.gain(1000,'cooldown', source);
             }
         });
@@ -1759,7 +1772,7 @@ TextMatcher.matchers.push({
 
 // "This has Multicast equal to its current ammo." from Shuriken
 TextMatcher.matchers.push({
-            regex: /^This has Multicast equal to its current ammo\.?$/i,
+            regex: /^This has \+?\s?Multicast equal to its (?:current )?ammo\.?$/i,
     func: (item, match)=>{
         item.gain(item.ammo-1,'multicast');
         item.ammoChanged((newAmmo,oldAmmo)=>{
