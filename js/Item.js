@@ -795,7 +795,7 @@ export class Item {
         {
             if (this.slowTimeRemaining > 0) {
                 if(!this.hasteTimeRemaining>0)effectiveTimeDiff *= 0.5; // slow multiplier                
-                this.slowTimeRemaining -= timeDiff;
+                this.slowTimeRemaining -= timeDiff * (this.flying?2:1);
                 if(this.slowTimeRemaining <= 0) {
                     this.slowTimeRemaining = 0;
                     this.isSlowed = 0;
@@ -812,7 +812,7 @@ export class Item {
     updateBattle(timeDiff) {
         
         if(this.freezeDurationRemaining > 0) {
-            this.freezeDurationRemaining -= timeDiff;
+            this.freezeDurationRemaining -= timeDiff * (this.flying?2:1);
             if(this.freezeDurationRemaining > 0) {
                 this.element.classList.add('frozen');       
                 this.freezeElement.classList.remove('hidden');
@@ -977,11 +977,7 @@ export class Item {
         if(this.battleStats.heal == undefined) this.battleStats.heal = 0;
         this.battleStats.heal += amount;
     }
-    applyFreezes(amount) {
-        for(let i=0;i<amount;i++) {
-            this.applyFreezeTo(this.pickRandom(this.board.player.hostileTarget.board.activeItems.filter(i=>i.isFreezeTargetable())));
-        }
-    }
+    
     applyFreeze(duration,source=null) {
         if(source!=null) { return source.applyFreezeTo(this,duration);}
         if(this.enchant=='Radiant') return;
@@ -1061,8 +1057,6 @@ export class Item {
                 this.board.player.maxHealthChanged((newMaxHealth,oldMaxHealth)=>{
                     this.gain(newMaxHealth*dmgMultiplier/100 - oldMaxHealth*dmgMultiplier/100,'damage');
                 });
-
-
             } else {
                 this.gain(this.board.player.hostileTarget.maxHealth*dmgMultiplier/100,'damage');
                 this.board.player.hostileTarget.maxHealthChanged((newMaxHealth,oldMaxHealth)=>{
@@ -1070,13 +1064,9 @@ export class Item {
                 });
             }            
 
-
             return () => {
                 this.dealDamage(this.damage);
             };
-
-
-
         }
         //Reduce its cooldown by 5% for the fight.
         damageRegex = /Reduce its cooldown by (\([^\)]+\)|\d+%) for the fight\.?/i;
@@ -1912,17 +1902,44 @@ export class Item {
                 console.log("Unknown gain type: " + type);
         }
     }
+    applySlows(numItems=undefined, targetPlayer=this.board.player.hostileTarget, filterFunction=undefined) {
+        if(!numItems) {
+            targetPlayer.board.activeItems.forEach(item => this.applySlowTo(item));
+            return;
+        }
+        for(let iterator=0; iterator<numItems; iterator++) {
+            const targets = targetPlayer.board.items.filter(i=>i.isSlowTargetable() && (!filterFunction || filterFunction(i)));
+            const itemToSlow = this.pickRandom(targets);
+            if(itemToSlow) this.applySlowTo(itemToSlow);
+            else {
+                this.log(this.name + " tried to slow " + numItems + " item(s) but there were no items to slow");
+            }
+        }    
+    }
 
-
+    applyFreezes(numItems=undefined, targetPlayer=this.board.player.hostileTarget, filterFunction=undefined) {
+        if(!numItems) {
+            targetPlayer.board.activeItems.forEach(item => this.applyFreezeTo(item));
+            return;
+        }
+        for(let iterator=0; iterator<numItems; iterator++) {
+            const targets = targetPlayer.board.items.filter(i=>i.isFreezeTargetable() && (!filterFunction || filterFunction(i)));
+            const itemToFreeze = this.pickRandom(targets);
+            if(itemToFreeze) this.applyFreezeTo(itemToFreeze);
+            else {
+                this.log(this.name + " tried to freeze " + numItems + " item(s) but there were no items to freeze");
+            }
+        }
+    }
 
     getFreezeTriggerFunctionFromText(text) {
         //Freeze all enemy items for (  1  » 2  » 3   ) second(s).
-        let regex = /Freeze all enemy items for (\([^)]+\)|\d+) second\(?s\)?\.?/i;
+        let regex = /Freeze all enemy items for (\([^)]+\)|[\d\.]+) second\(?s\)?\.?/i;
         let match = text.match(regex);
         if(match) {
             this.freeze += getRarityValue(match[1], this.rarity);
             return () => {
-                this.board.player.hostileTarget.board.items.forEach(item => this.applyFreezeTo(item));
+                this.applyFreezes();
             };
         }
         
@@ -1933,14 +1950,7 @@ export class Item {
             const numItems = getRarityValue(match[1], this.rarity);
             this.freeze += getRarityValue(match[2], this.rarity);
             return (item) => {
-                for(let i=0;i<numItems;i++) {
-                    const targets = this.board.player.hostileTarget.board.items.filter(i=>i.isFreezeTargetable());
-                    const itemToFreeze = this.pickRandom(targets);
-                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze);
-                    else {
-                        this.log(this.name + " tried to freeze " + numItems + " item(s) but there were no items to freeze");
-                    }
-                }
+                this.applyFreezes(numItems);
             };
         }
         //Freeze adjacent items for 1 second(s). from Ice Luge 
@@ -1966,20 +1976,13 @@ export class Item {
         }
         //Freeze 1 item(s) of equal or smaller size for 1 second(s). from Liquid Cooled
         //Freeze 1 item of equal or smaller size for 1 second(s).
-        regex = /^Freeze (\([^)]+\)|\d+) item\(?s?\)? of equal or smaller size for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        regex = /^Freeze (\([^)]+\)|\d+|an) item\(?s?\)? of equal or smaller size for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            const numItems = getRarityValue(match[1], this.rarity);
+            const numItems = match[1]=='an' ? 1 : getRarityValue(match[1], this.rarity);
             this.freeze += getRarityValue(match[2], this.rarity);
             return (item) => {
-                for(let i=0;i<numItems;i++) {
-                    const targets = this.board.player.hostileTarget.board.items.filter(i=> i.size<=(item||this).size && i.isFreezeTargetable());
-                    const itemToFreeze = this.pickRandom(targets);
-                    if(itemToFreeze) this.applyFreezeTo(itemToFreeze);
-                    else {
-                        this.log(this.name + " tried to freeze " + numItems + " item(s) of equal or smaller size but there were no items to freeze");
-                    }
-                }
+                this.applyFreezes(numItems, this.board.player.hostileTarget, (i)=> i.size<=(item||this).size);
             };
         }
 
@@ -5441,7 +5444,7 @@ export class Item {
         //Your Shield items have +1 Shield 
         //your items have ( +1% » +2% » +3% » +4% ) crit chance
         //your items have ( +1% » +2% » +3% » +4% ) crit chance for each weapon you have
-        regex = /^your (non-)?([^\s]+)(?:s)?\s?(?:items)?(?: and ([^\s]+)(?:s)? (?:items)?)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.?$/i;
+        regex = /^your (non-)?([^\s]+)(?:s)?\s?(?:items)?(?: and ([^\s]+)(?:s)? (?:items)?)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s\.]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.?$/i;
         match = text.match(regex);
 
         if(match) {

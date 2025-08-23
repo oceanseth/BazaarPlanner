@@ -166,8 +166,8 @@ export class TextMatcher {
         func: (item, match)=>{
             const gainAmount = parseInt(match[3] ? getRarityValue(match[3], this.rarity) : match[4]);
             const whatToGain = match[5].toLowerCase();
-            const whichItems = (match[1]&&match[1]!='item') ? this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[1]))) : this.board.items;
-            const whichItems2 = (match[2]&&match[2]!='item') ? this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[2]))) : this.board.items;
+            const whichItems = (match[1]&&match[1]!='item') ? item.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[1]))) : item.board.items;
+            const whichItems2 = (match[2]&&match[2]!='item') ? item.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[2]))) : item.board.items;
             const doIt = () => {
                 whichItems.forEach(item => {
                     item.gain(gainAmount, whatToGain);
@@ -1842,11 +1842,20 @@ TextMatcher.matchers.push({
 
 //An adjacent item starts Flying.
 TextMatcher.matchers.push({
-    regex: /^An adjacent item starts Flying\.?$/i,
+    regex: /^An adjacent item (starts|stops) Flying\.?$/i,
     func: (item, match)=>{
         const adjacentItems = item.adjacentItems;
         return ()=>{
-            item.pickRandom(adjacentItems).flying = true;
+            item.pickRandom(adjacentItems.filter(i=>i.flying!=match[1]=='starts'))?.flying = match[1]=='starts';
+        };
+    }
+});
+TextMatcher.matchers.push({
+    regex: /^this (starts|stops) Flying\.?$/i,
+    func: (item, match)=>{
+        const isStart = match[1]=='starts';
+        return ()=>{
+            item.flying = isStart;
         };
     }
 });
@@ -1960,5 +1969,50 @@ TextMatcher.matchers.push({
             }
         });
         return ()=>{};
+    }
+});
+
+//"(1/2/3) Small item(s) start Flying." from Haunting Flight
+TextMatcher.matchers.push({
+    regex: /^(\([^)]+\)|\d+) (\w+)?\s?item\(?s?\)? (start|stop)s? Flying\.?$/i,
+    func: (item, match)=>{
+        const numItems = getRarityValue(match[1], item.rarity);
+        const tag = Item.getTagFromText(match[2]);
+        const isStart = match[3].startsWith('start');
+        
+        return ()=>{
+            const items = item.board.items.filter(i=>(!tag||i.tags.includes(tag)) && i.flying!=isStart);
+            item.pickRandom(items,numItems).forEach(i=>{
+                i.flying = isStart;
+            });
+        };
+    }
+});
+
+//"Freeze an item on each Player's board for (1/2) second(s)" from Weather Machine
+TextMatcher.matchers.push({
+    regex: /^Freeze (\([^)]+\)|\d+|an) item\(?s?\)? on each Player's board for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[2], item.rarity);
+        const numItems = match[1]=='an' ? 1 : getRarityValue(match[1], item.rarity);
+        item.freeze += amount;
+        return ()=>{
+           item.applyFreezes(numItems);
+           item.applyFreezes(numItems,item.board.player);
+        };
+    }
+});
+
+//"Slow all items for (1/2) second(s)" from Weather Machine
+TextMatcher.matchers.push({
+    regex: /^Slow (\([^)]+\)|\d+|all) item\(?s?\)? for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[2], item.rarity);
+        const numItems = match[1]=='all' ? undefined : getRarityValue(match[1], item.rarity);
+        item.slow += amount;
+        return ()=>{
+            item.applySlows(numItems);
+            if(match[1]=='all') item.applySlows(undefined,item.board.player);
+        };
     }
 });

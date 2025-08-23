@@ -25,7 +25,9 @@ export class BazaarPatcher {
             const stone = monsters["Qomatz"].items.find(i=>i.name=="Philosopher's Stone");
             stone.regen=50;
         }
-
+        if(items['Korxena Crest']) {
+            items['Vanessa\'s Amulet'] = items['Korxena Crest'];
+        }
 
         if(items["Piggles Launcher"]) {
             items["Piggles Launcher"].text[0] = "Deal (10/20/30/40) Damage, Shield (10/20/30/40), Heal (10/20/30/40), and Burn (1/2/3/4)";
