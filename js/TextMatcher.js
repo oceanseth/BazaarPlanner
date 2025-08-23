@@ -44,6 +44,33 @@ export class TextMatcher {
     static matchers = [];
     static undoableFunctions = [
     {
+        regex: /^This has double (damage|poison|burn|shield|heal|ammo|charge|regen)\.?$/i,
+        func: (item, match)=>{
+            let whatToGain = match[1].toLowerCase();
+            if(whatToGain=="ammo") {
+                whatToGain = "maxAmmo";
+            }
+          
+            const doIt = () => {
+                item[whatToGain+"pauseChanged"] = true;
+                const oldMultiplier = item[whatToGain+"_multiplier"];
+                item[whatToGain+"_multiplier"] =1;
+                item.gain(item[whatToGain],whatToGain);
+                item[whatToGain+"pauseChanged"] = false;
+                item[whatToGain+"_multiplier"] = oldMultiplier*2;
+            }
+            const undoIt = () => {
+                item[whatToGain+"pauseChanged"] = true;
+                const oldMultiplier = item[whatToGain+"_multiplier"];
+                item[whatToGain+"_multiplier"] = 1;
+                item.gain(-item[whatToGain],whatToGain);
+                item[whatToGain+"pauseChanged"] = false;
+                item[whatToGain+"_multiplier"] = oldMultiplier/2;
+            };
+            return {doIt, undoIt};
+        },
+    },
+    {
         regex: /^(this item's|its) cooldown is reduced by (\([^)]+\)|[\d\.]+)%?( seconds?)?\.?$/i,
         func: (item, match)=>{
             const cooldownReduction = getRarityValue(match[2], item.rarity);
