@@ -3,7 +3,6 @@ import { getRarityValue, updateUrlState, colorTextArray, setupChangeListeners } 
 import { ItemFunction } from './ItemFunction.js';
 import { TextMatcher } from './TextMatcher.js';
 import { BazaarPatcher } from './BazaarPatcher.js';
-import { transformWithEsbuild } from 'vite';
 
 export class Item {
     static hiddenTags = ['Damage', 'Crit'];
@@ -5240,29 +5239,6 @@ export class Item {
                 });
             };
         }
-/*
-        //For each adjacent Aquatic item, reduce this item's cooldown by 1 second.
-        regex = /^For each adjacent ([^\s]+)(?: item)?(?: or ([^\s]+))?, (.*)$/i;
-        match = text.match(regex);
-        if(match) {
-            const tagToMatch = Item.getTagFromText(match[1]);
-            const tagToMatch2 = Item.getTagFromText(match[2]);
-            
-            const leftFunction = TextMatcher.getUndoableFunctionFromText(match[3],(item) => {
-                return this.getItemToTheLeft().isActive && (this.getItemToTheLeft.tags.includes(tagToMatch) || this.getItemToTheLeft.tags.includes(tagToMatch2))
-            });
-            const rightFunction = TextMatcher.getUndoableFunctionFromText(match[3],(item) => {
-                return this.getItemToTheRight().isActive && (this.getItemToTheRight.tags.includes(tagToMatch) || this.getItemToTheRight.tags.includes(tagToMatch2))
-            });
-            this.board.itemDestroyedTriggers.set(this.id,()=> {
-                leftFunction();
-                rightFunction();
-            });
-            
-            return ()=>{};
-        }
-            */
-
 
         //a weapon gains (  +5  » +10  » +15  » +20   ) damage for the fight.
         regex = /^a ([^\s]+)(?: item)? gains (?:\(([^)]+)\)|(\d+)) ([^\s]+) for the fight\.?$/i;
