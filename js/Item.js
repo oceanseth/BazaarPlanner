@@ -2825,6 +2825,13 @@ export class Item {
                     case "over-heal":
                         this.board.player.overhealTriggers.set(this.id, triggerFunctionFromText);
                         return ()=>{};
+                    case "heal with an item":
+                        this.board.player.healTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
+                            if(!item.isSkill) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return ()=>{};
                     case "heal":
                         this.board.player.healTriggers.set(this.id+"_"+triggerFunctionFromText.text, triggerFunctionFromText);
                         return ()=>{};
@@ -4706,11 +4713,18 @@ export class Item {
             };
         }
 
-        //This has +1 Multicast for each of its Types.
-        regex = /^\s*This has \+1 Multicast for each of its Types\.?/i;
+        //Cargo Shorts
+        regex = /^\s*This has \+1 Multicast for each (?:of it'?s types|type this has)\.?/i;
         match = text.match(regex);
         if(match) {
-            this.gain(this.tags.filter(t=>Board.uniqueTypeTags.includes(t)).length,'multicast');
+            let typeCount = this.tags.filter(t=>Board.uniqueTypeTags.includes(t)).length;
+            this.gain(typeCount,'multicast');
+
+            this.typesChanged(()=>{
+                const newTypeCount = this.tags.filter(t=>Board.uniqueTypeTags.includes(t)).length;
+                this.gain(newTypeCount-typeCount,'multicast');
+                typeCount = newTypeCount;
+            });
             return () => {};
         }
 
