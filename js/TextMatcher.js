@@ -41,6 +41,18 @@ export class TextMatcher {
         }
         return null;
     }
+    /*
+    static getFunctionFromUndoableFunctions(text, item) {
+        for(let matcher of TextMatcher.undoableFunctions) {
+            let match = text.match(matcher.regex);
+            if(match) {
+                const undoableFunction = matcher.func(item,match);              
+                return undoableFunction.doIt;
+            }
+        }
+        return null;
+    }
+    */
     static matchers = [];
     static undoableFunctions = [
     {
@@ -1759,7 +1771,7 @@ TextMatcher.matchers.push({
 
 // "This has Multicast equal to its current ammo." from Shuriken
 TextMatcher.matchers.push({
-            regex: /^This has Multicast equal to its current ammo\.?$/i,
+            regex: /^This has \+?\s?Multicast equal to its (?:current )?ammo\.?$/i,
     func: (item, match)=>{
         item.gain(item.ammo-1,'multicast');
         item.ammoChanged((newAmmo,oldAmmo)=>{
