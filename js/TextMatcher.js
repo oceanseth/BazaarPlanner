@@ -83,10 +83,10 @@ export class TextMatcher {
         },
     },
     {
-        regex: /^(this item's|its) cooldown is reduced by (\([^)]+\)|[\d\.]+)%?( seconds?)?\.?$/i,
+        regex: /^(this item's|its) cooldown is (?:(halved)|reduced by (\([^)]+\)|[\d\.]+)%?( seconds?)?)\.?$/i,
         func: (item, match)=>{
-            const cooldownReduction = getRarityValue(match[2], item.rarity);
-            const isSeconds = match[3] ? true : false;
+            const cooldownReduction = match[2] ? 50 : getRarityValue(match[3], item.rarity);
+            const isSeconds = match[4] ? true : false;
             let cooldownReducedBy = 0;
             const itemToReduce = match[1]!='its' ? item : null;
             const doIt = (item) => {
@@ -310,8 +310,8 @@ TextMatcher.matchers.push({
     },
 });
 TextMatcher.matchers.push({
-    //This has +1 Multicast for each Weapon or friend your enemy has. from Thrown Net
-            regex: /^this has \+1 Multicast for each Weapon or friend your enemy has\.?$/i,
+    //This has +1 Multicast for each Weapon or friend an enemy has. from Thrown Net
+            regex: /^this has \+1 Multicast for each Weapon or friend an enemy has\.?$/i,
     func: (item, match)=>{
         let multicastAdded = item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes("Weapon")||i.tags.includes("Friend")).length;        
         item.gain(multicastAdded,'multicast');
@@ -400,13 +400,13 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //This item's cooldown is reduced by 1 second for each adjacent Friend. from Nanobot
-            regex: /^(?:this item's cooldown is reduced by 1 second for each adjacent (\w+)(?: item)?|for each adjacent (\w+)(?: item), this item's cooldown is reduced by 1 second)\.?$/i,
+            regex: /^(?:this item's cooldown is reduced by 1 second for each adjacent (\w+)(?: item)?|for each adjacent (\w+)(?: or (\w+))?(?: item)?, this item's cooldown is reduced by 1 second)\.?$/i,
     func: (item, match)=>{
-        const tag = match[1]?Item.getTagFromText(match[1]):Item.getTagFromText(match[2]);
-        let cooldownReducedBy = item.adjacentItems.filter(i=>i.tags.includes(tag)).length;
+        const tags = [Item.getTagFromText(match[1]),Item.getTagFromText(match[2]),Item.getTagFromText(match[3])].filter(Boolean);
+        let cooldownReducedBy = item.adjacentItems.filter(i=>tags.some(tag=>i.tags.includes(tag))).length;
         item.gain(-cooldownReducedBy*1000,'cooldown');
         item.board.itemDestroyedTriggers.set(item.id,(i,source)=>{            
-            if(i.tags.includes(tag) && i.adjacentItems.includes(item)) {
+            if(tags.some(tag=>i.tags.includes(tag)) && i.adjacentItems.includes(item)) {
                 item.gain(1000,'cooldown', source);
             }
         });
@@ -613,7 +613,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //While your enemy has Poison, this has ( +50% » +100% ) Crit Chance. from Basilisk Fang
-    regex: /^While your enemy has Poison, (.*)$/i,
+    regex: /^While your enemy (?:has|is) Poison(?:ed)?, (.*)$/i,
     func: (item, match)=>{
         item.board.player.hostileTarget.poisonChanged(item.getUndoableFunctionFromText(match[1],
             (newValue)=>{
@@ -741,8 +741,8 @@ TextMatcher.matchers.push({
     },
 });
 TextMatcher.matchers.push({
-    //Reduce your enemy's Max Health by (10%/15%/20%) for the fight. from Shrinking Potion
-            regex: /^Reduce your enemy's Max Health by (\([^)]+\)|\d+)%? for the fight\.?$/i,
+    //Reduce an enemy's Max Health by (10%/15%/20%) for the fight. from Shrinking Potion
+            regex: /^Reduce an enemy's Max Health by (\([^)]+\)|\d+)%? for the fight\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         return ()=>{
@@ -1177,7 +1177,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Increase it's value and this item's value by 1 from vip pass
-            regex: /^Increase it'?s value and this item's value by 1\.?$/i,
+            regex: /^(?:permanently )?Increase it'?s value and this item's value by 1\.?$/i,
     func: (item, match)=>{
         return (it,options)=>{
             options.target.gain(1,'value');
@@ -1560,7 +1560,7 @@ TextMatcher.matchers.push({
 });
 //"If your enemy has more items than you, destroy one of their items." from Rex Spex
 TextMatcher.matchers.push({
-            regex: /^If your enemy has more items than you, destroy one of their items\.?$/i,
+            regex: /^If your opponent has more items than you, destroy an item\.?$/i,
     func: (item, match)=>{
         return ()=>{
             if(item.board.player.hostileTarget.board.activeItems.length>item.board.activeItems.length) {
@@ -1848,6 +1848,7 @@ TextMatcher.matchers.push({
         return ()=>{
             adjacentItems.forEach(i=>{
                 i.flying = match[1]=='start';
+                item.log("Because of "+item.name+", "+i.name+" "+match[1]+" flying.");
             });
         };
     }
@@ -1855,13 +1856,14 @@ TextMatcher.matchers.push({
 
 //An adjacent item starts Flying.
 TextMatcher.matchers.push({
-    regex: /^An adjacent item (starts|stops) Flying\.?$/i,
+    regex: /^An (adjacent )?item (starts|stops) Flying\.?$/i,
     func: (item, match)=>{
-        const adjacentItems = item.adjacentItems;
+        const itemTargets = match[1] ? item.adjacentItems : item.board.items;
         return ()=>{
-            const selectedItem = item.pickRandom(adjacentItems.filter(i=>i.flying!=match[1]=='starts'));
+            const selectedItem = item.pickRandom(itemTargets.filter(i=>!i.isDestroyed && i.flying!=(match[2]=='starts')));
             if (selectedItem) {
-                selectedItem.flying = match[1]=='starts';
+                selectedItem.flying = match[2]=='starts';
+                item.log("Because of "+item.name+", "+selectedItem.name+" "+match[2]+" flying.");
             }
         };
     }
@@ -1872,6 +1874,7 @@ TextMatcher.matchers.push({
         const isStart = match[1]=='starts';
         return ()=>{
             item.flying = isStart;
+            item.log(item.name+" "+match[1]+" flying.");
         };
     }
 });
@@ -1899,6 +1902,7 @@ TextMatcher.matchers.push({
     func: (item, match)=>{
         return ()=>{
             item.flying = !item.flying;
+            item.log(item.name+" "+item.flying?"starts":"stops"+" flying.");
         };
     }
 });
@@ -1990,16 +1994,25 @@ TextMatcher.matchers.push({
 
 //"(1/2/3) Small item(s) start Flying." from Haunting Flight
 TextMatcher.matchers.push({
-    regex: /^(\([^)]+\)|\d+) (\w+)?\s?item\(?s?\)? (start|stop)s? Flying\.?$/i,
+    regex: /^(\([^)]+\)|\d+|all)( of your)? (\w+)?\s?item\(?s?\)? (start|stop)s? Flying\.?$/i,
     func: (item, match)=>{
         const numItems = getRarityValue(match[1], item.rarity);
-        const tag = Item.getTagFromText(match[2]);
-        const isStart = match[3].startsWith('start');
+        const yourItems = !!match[2];
+        const tag = Item.getTagFromText(match[3]);
+        const isStart = match[4].startsWith('start');
         
         return ()=>{
-            const items = item.board.items.filter(i=>(!tag||i.tags.includes(tag)) && i.flying!=isStart);
+            if(isNaN(numItems)) {
+                [...item.board.items,...(yourItems?[]:item.board.player.hostileTarget.board.items)].forEach(i=>{
+                    i.flying = isStart;
+                });
+                item.log("Because of "+item.name+", all "+(yourItems?"your":"")+" items "+(isStart?"start":"stop")+" flying.");
+                return;
+            }
+            const items = item.board.activeItems.filter(i=>(!tag||i.tags.includes(tag)) && i.flying!=isStart);
             item.pickRandom(items,numItems).forEach(i=>{
                 i.flying = isStart;
+                item.log("Because of "+item.name+", "+i.name+" "+(isStart?"starts":"stops")+" flying.");
             });
         };
     }
@@ -2030,5 +2043,37 @@ TextMatcher.matchers.push({
             item.applySlows(numItems);
             if(match[1]=='all') item.applySlows(undefined,item.board.player);
         };
+    }
+});
+//"Destroy this and an enemy item with no Cooldown for the fight" from Unstable Grav Well
+TextMatcher.matchers.push({
+    regex: /^Destroy this and an enemy item with no Cooldown for the fight\.?$/i,
+    func: (item, match)=>{
+        return ()=>{
+            let itemsToDestroy=[];
+            item.board.player.hostileTarget.board.items.forEach(i=>{
+                if(i.cooldown==0) {
+                    itemsToDestroy.push(i);
+                }
+            });
+            if(itemsToDestroy.length>0) {
+                item.pickRandom(itemsToDestroy).destroy();
+            }
+            item.destroy();
+        };
+    }
+});
+
+//"When this is Hasted." from Thermal Lance
+TextMatcher.matchers.push({
+    regex: /^When this is Hasted, (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1], item);
+        item.board.hasteTriggers.set(item.id,(hastedItem)=> {
+            if(hastedItem==item) {
+                f(item);
+            }
+        });
+        return ()=>{};
     }
 });
