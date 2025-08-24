@@ -374,8 +374,15 @@ export class Item {
         this.flyingChanged((newFlying)=>{
             if(newFlying) {
                 this.element.classList.add('flying');
-            } else {
+                if(!this.tags.includes('Flying')) {
+                    this.tags.push('Flying');
+                }
+            } else if(!newFlying) {
                 this.element.classList.remove('flying');
+                const index = this.tags.indexOf('Flying');
+                if(index!=-1) {
+                    this.tags.splice(index,1);
+                }
             }
         });
         this.flying = this.tags.includes('Flying');
@@ -412,6 +419,7 @@ export class Item {
             this.slowIndicator.classList.add('hidden');             
         }            
     }
+
     resetEnchant() {
         if(this.enchant) {
             this.name = this.enchant + ' ' + this.name;
@@ -1080,20 +1088,19 @@ export class Item {
         }
         //Your weapons gain ( 2 » 4 » 6 » 8 ) damage for the fight.
         //your Shield items gain (  5  » 10  » 15   ) Shield for the fight
-        damageRegex = /^Your (other )?([^.]*?) (?:gain|get) \+?(\([^)]+\)|\d+)( [^\s]+)?(?: for the fight)?\.?/i;
+        damageRegex = /^Your (other )?([^.]*?) (?:gain|get) \+?(\([^)]+\)|\d+)\s?([^\s]+)?(?: for the fight)?\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const other = match[1]=='other ';
             const gainAmount = getRarityValue(match[3], this.rarity);
             const tagsToMatch = match[2].split(/,\s*(?:and\s+)?/).filter(Boolean).map((tag)=>Item.getTagFromText(tag.replace(' items','')));
-            const whatToGain = match[4]?.toLowerCase();
+            const whatToGain = Item.getTagFromText(match[4]).toLowerCase();
             if(whatToGain=='damage'||tagsToMatch.includes('Weapon')) {
                 this.damageBonus += gainAmount;
             }
             return () => {
                 tagsToMatch.forEach(tagToMatch=>{
                     if(!tagToMatch) return;
-                    const whatToGain = (tagToMatch=='Weapon')?'damage':tagToMatch.toLowerCase();
                     this.board.items.forEach(item => {
                         if(other && item.id == this.id) return;
                         if(tagToMatch=='Item' || item.tags.includes(tagToMatch)) {
@@ -1324,14 +1331,15 @@ export class Item {
         }
         // Haste your Friends for ( 1 » 2 » 3 ) second(s). from DJ Rob0t
         //Haste your tools for ( 1 » 2 » 3 » 4 ) second(s). from Dishwasher
-        regex = /^Haste your ([^\s]+)(?: items)? for (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
+        regex = /^Haste your ([^\s]+)(?: and (\w+))?(?: items)? for (\([^)]+\)|\d+) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
-            this.haste+= getRarityValue(match[2], this.rarity);
+            this.haste+= getRarityValue(match[3], this.rarity);
             const whatToHaste = Item.getTagFromText(match[1]);
+            const andWhatToHaste = match[2] ? Item.getTagFromText(match[2]) : null;
             return () => {  
                 this.board.items.forEach(i => {
-                    if(i.tags.includes(whatToHaste)) {
+                    if(i.tags.includes(whatToHaste) || i.tags.includes(andWhatToHaste)) {
                         this.applyHasteTo(i);
                     }
                 });
@@ -1843,6 +1851,9 @@ export class Item {
                 break;
                 
             case 'poison':
+                if(!this.tags.includes("Poison")) {                
+                    return;
+                }
                 this.poison += amount;
                 // this.board.poisonChangedTriggers.forEach(func => func(this));
                 break;
@@ -2047,8 +2058,8 @@ export class Item {
             };
 
         }
-        // Gain Shield equal to your enemy's burn.
-        regex = /Gain Shield equal to your enemy's burn/i;
+        // Gain Shield equal to an enemy's burn. from Void Shield
+        regex = /Gain Shield equal to an enemy's burn/i;
         match = text.match(regex);
         if(match) {
             this.board.player.hostileTarget.burnChanged((newBurn,oldBurn)=>{
@@ -2666,6 +2677,7 @@ export class Item {
             const ifregex = /(.*\.) if (.*), (.*)\.?/i;
             const ifmatch = textAfterComma.match(ifregex);
             let targetBoards = [this.board];
+            enemyMatch = enemyMatch?.toLowerCase();
             if(enemyMatch=="your enemy"||enemyMatch=="your opponent"||enemyMatch=="an enemy") {
                 targetBoards = [this.board.player.hostileTarget.board];
             } else if(enemyMatch=="any player"||enemyMatch=="either player"||enemyMatch=="a player") {
@@ -3526,6 +3538,19 @@ export class Item {
                                 this.board.slowTriggers.delete(this.id);
                             }
                         }
+                    });
+                    return ()=>{}   ;
+                case "any player falls below half health":
+                    let anyPlayerHealthBelowHalfCount = 0;
+                    [this.board.player,this.board.player.hostileTarget].forEach(player=>{
+                        player.healthBelowHalfTriggers.set(this.id,(item)=>{
+                            if(anyPlayerHealthBelowHalfCount++<=numTimes) {
+                                ntimesFunction(item);
+                                if(anyPlayerHealthBelowHalfCount>=numTimes) {
+                                    player.healthBelowHalfTriggers.delete(this.id);
+                                }
+                            }
+                        });
                     });
                     return ()=>{}   ;
                 case "your enemy falls below half health":
@@ -5784,7 +5809,7 @@ export class Item {
         }
         
     //Reload (2/4/6/8) items. from Panic
-    regex = /^Reload (\([^)]+\)|\d+|an?) (\w+)\(?s?\)?(?: (\([^\)]+\)|\d+) ammo)?\.?$/i;
+    regex = /^Reload (\([^)]+\)|\d+|an?|your ammo) (\w+)\(?s?\)?(?: (\([^\)]+\)|\d+) ammo)?\.?$/i;
     match = text.match(regex);
     if(match) {
         const itemCount = (match[1]=='a'||'an')?1:getRarityValue(match[1], this.rarity);
