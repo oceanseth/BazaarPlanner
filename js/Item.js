@@ -4215,7 +4215,7 @@ export class Item {
             }
         }
         //Your other Friends' cooldowns are reduced by (10%/20%/30%). from Bill Dozer
-        regex = /^\s*Your (other )?(\w+)s?'?(?: items)?(?: have their cooldowns| cooldowns are)? (reduced|increased) by (\([^)]+\)|\d+%)( second\(?s?\)?)?\.?/i;
+        regex = /^\s*Your (other )?(\w+)s?'?(?: items)?(?: have their cooldowns| cooldowns are)? (reduced|increased) by (\([^)]+\)|\d+%?)( second\(?s?\)?)?\.?/i;
         match = text.match(regex);
         if(match) {
             const other = match[1] ? true : false;

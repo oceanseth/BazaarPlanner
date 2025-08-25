@@ -2077,3 +2077,28 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+
+//"Haste that item for (1/2) second(s)." from Stellar Swallowtail
+TextMatcher.matchers.push({
+    regex: /^Haste that item for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        item.haste += amount;
+        return (i)=>{
+            item.applyHasteTo(i);
+        };
+    }
+});
+//"When another item is Hasted." from Stellar Swallowtail
+TextMatcher.matchers.push({
+    regex: /^When another item is Hasted, (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1], item);
+        item.board.hasteTriggers.set(item.id,(hastedItem)=> {
+            if(hastedItem!=item) {
+                f(hastedItem);
+            }
+        });
+        return ()=>{};
+    }
+});
