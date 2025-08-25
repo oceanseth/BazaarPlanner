@@ -3359,6 +3359,11 @@ export class Item {
                             }
                         });
                         return ()=>{};
+                    case "burn with another item or skill":
+                        this.board.burnTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                                triggerFunctionFromText(source);
+                        });
+                        return ()=>{};
 
                     case "an adjacent item slows or freezes":
                         const adjItems = this.adjacentItems;
