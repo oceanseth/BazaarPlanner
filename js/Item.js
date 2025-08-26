@@ -3359,6 +3359,11 @@ export class Item {
                             }
                         });
                         return ()=>{};
+                    case "burn with another item or skill":
+                        this.board.burnTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                                triggerFunctionFromText(source);
+                        });
+                        return ()=>{};
 
                     case "an adjacent item slows or freezes":
                         const adjItems = this.adjacentItems;
@@ -4210,7 +4215,7 @@ export class Item {
             }
         }
         //Your other Friends' cooldowns are reduced by (10%/20%/30%). from Bill Dozer
-        regex = /^\s*Your (other )?(\w+)s?'?(?: items)?(?: have their cooldowns| cooldowns are)? (reduced|increased) by (\([^)]+\)|\d+%)( second\(?s?\)?)?\.?/i;
+        regex = /^\s*Your (other )?(\w+)s?'?(?: items)?(?: have their cooldowns| cooldowns are)? (reduced|increased) by (\([^)]+\)|\d+%?)( second\(?s?\)?)?\.?/i;
         match = text.match(regex);
         if(match) {
             const other = match[1] ? true : false;

@@ -1015,7 +1015,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Charge 1 non-Toy item(s) (1/2/3/4) second(s). from Speedrunner
-            regex: /^Charge 1 (non-)?([\w]+) item\(?s?\)? (\([^)]+\)|\d+) second\(?s\)?\.?$/i,
+            regex: /^Charge (?:1|a) (non-)?([\w]+) item\(?s?\)? (\([^)]+\)|\d+) second\(?s\)?\.?$/i,
     func: (item, match)=>{
         const non = match[1]!=null;
         const tag = Item.getTagFromText(match[2]);
@@ -2072,6 +2072,31 @@ TextMatcher.matchers.push({
         item.board.hasteTriggers.set(item.id,(hastedItem)=> {
             if(hastedItem==item) {
                 f(item);
+            }
+        });
+        return ()=>{};
+    }
+});
+
+//"Haste that item for (1/2) second(s)." from Stellar Swallowtail
+TextMatcher.matchers.push({
+    regex: /^Haste that item for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        item.haste += amount;
+        return (i)=>{
+            item.applyHasteTo(i);
+        };
+    }
+});
+//"When another item is Hasted." from Stellar Swallowtail
+TextMatcher.matchers.push({
+    regex: /^When another item is Hasted, (.*)$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1], item);
+        item.board.hasteTriggers.set(item.id,(hastedItem)=> {
+            if(hastedItem!=item) {
+                f(hastedItem);
             }
         });
         return ()=>{};
