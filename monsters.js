@@ -573,6 +573,10 @@ export const monsters = {
       {
         "name": "Paper Airplane",
         "tier": 1
+      },
+      {
+        "name": "Gunpowder",
+        "tier": 1
       }
     ]
   },
@@ -2465,7 +2469,7 @@ export const monsters = {
     "items": [
       {
         "name": "Lightning Rod",
-        "tier": 3
+        "tier": 2
       },
       {
         "name": "Lightbulb",
@@ -2473,7 +2477,7 @@ export const monsters = {
       },
       {
         "name": "Tesla Coil",
-        "tier": 3
+        "tier": 2
       },
       {
         "name": "Cog",
@@ -2683,7 +2687,7 @@ export const monsters = {
     "id": "338f3c4b-9238-41d2-a0e0-0d825cded307",
     "name": "Elite Duelist",
     "day": 9,
-    "health": 2325,
+    "health": 1925,
     "skills": [
       {
         "name": "Big Ego",
