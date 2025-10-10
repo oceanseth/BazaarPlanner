@@ -55,7 +55,7 @@ export const monsters = {
       },
       {
         "name": "Eagle Talisman",
-        "tier": 0
+        "tier": 1
       }
     ]
   },
@@ -618,7 +618,7 @@ export const monsters = {
       },
       {
         "name": "Eagle Talisman",
-        "tier": 0
+        "tier": 1
       }
     ]
   },
@@ -714,7 +714,7 @@ export const monsters = {
       },
       {
         "name": "Eagle Talisman",
-        "tier": 0
+        "tier": 1
       }
     ]
   },
@@ -4143,7 +4143,7 @@ export const monsters = {
         "tier": 3
       },
       {
-        "name": "Tommoo Gun Gun",
+        "name": "Tommoo Gun",
         "tier": 3
       },
       {
@@ -4155,7 +4155,7 @@ export const monsters = {
         "tier": 3
       },
       {
-        "name": "Tommoo Gun Gun",
+        "name": "Tommoo Gun",
         "tier": 3
       },
       {
