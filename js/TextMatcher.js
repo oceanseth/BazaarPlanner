@@ -1177,13 +1177,13 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Increase it's value and this item's value by 1 from vip pass
-            regex: /^(?:permanently )?Increase it'?s value and this item's value by (\([^)]+\)|\d+)\.?$/i,            
+            regex: /^(?:permanently )?Increase it'?s value and this item's value by (\([^)]+\)|\d+) for the fight\.?$/i,            
     func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
         return (it,options)=>{
-            const amount = getRarityValue(match[1], item.rarity);
-            options.target.gain(amount,'value');
-            item.gain(amount,'value');
-        };
+                options.target.gain(amount,'value');
+                item.gain(amount,'value');
+        }
     }
 });
 // This has half Slow duration. from Heavy Shot Glasses

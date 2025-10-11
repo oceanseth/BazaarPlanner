@@ -725,6 +725,7 @@ export class Item {
     }
 
     applyHasteTo(item) {
+        if(!(item.cooldown>0)) return;
         let duration = this.haste;
         if(this.hasDoubleHasteDuration) {
             duration*=2;
