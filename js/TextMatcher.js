@@ -1177,11 +1177,12 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Increase it's value and this item's value by 1 from vip pass
-            regex: /^(?:permanently )?Increase it'?s value and this item's value by 1\.?$/i,
+            regex: /^(?:permanently )?Increase it'?s value and this item's value by (\([^)]+\)|\d+)\.?$/i,            
     func: (item, match)=>{
         return (it,options)=>{
-            options.target.gain(1,'value');
-            item.gain(1,'value');
+            const amount = getRarityValue(match[1], item.rarity);
+            options.target.gain(amount,'value');
+            item.gain(amount,'value');
         };
     }
 });
