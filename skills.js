@@ -27,8 +27,8 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Common",
-      "Regen",
-      "AmmoReference"
+      "AmmoReference",
+      "Regen"
     ]
   },
   "Advanced Synthetics": {
@@ -47,11 +47,11 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "DamageReference",
-      "Weapon",
       "Charge",
-      "Common",
-      "FlyingReference"
+      "DamageReference",
+      "FlyingReference",
+      "Weapon",
+      "Common"
     ]
   },
   "Aggressive": {
@@ -60,10 +60,10 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "DamageReference",
       "Common",
       "Weapon",
-      "Crit"
+      "Crit",
+      "DamageReference"
     ]
   },
   "Alacrity": {
@@ -72,10 +72,10 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
+      "Vanessa",
       "Charge",
-      "Mak",
       "CritReference",
-      "Vanessa"
+      "Mak"
     ]
   },
   "Alchemical Precision": {
@@ -84,10 +84,10 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "Potion",
       "Cooldown",
+      "PotionReference",
       "Mak",
-      "PotionReference"
+      "Potion"
     ]
   },
   "All Talk": {
@@ -96,9 +96,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Common",
       "HealthReference",
-      "DamageReference",
-      "Common"
+      "DamageReference"
     ]
   },
   "Ambush": {
@@ -127,8 +127,8 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "Charge",
       "Common",
+      "Charge",
       "Relic"
     ]
   },
@@ -138,8 +138,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Poison",
       "Common",
+      "Poison",
       "Burn"
     ]
   },
@@ -149,8 +149,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "EconomyReference",
-      "Common"
+      "Common",
+      "EconomyReference"
     ]
   },
   "Arms Dealer": {
@@ -159,10 +159,10 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "Health",
       "Pygmalien",
+      "Vanessa",
       "Weapon",
-      "Vanessa"
+      "Health"
     ]
   },
   "Arms Race": {
@@ -183,11 +183,11 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Jules",
-      "Crit",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
       "Stelle"
     ]
   },
@@ -219,9 +219,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "DamageReference",
       "Common",
-      "Weapon"
+      "Weapon",
+      "DamageReference"
     ]
   },
   "Backroom Dealings": {
@@ -230,8 +230,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Health",
       "Pygmalien",
+      "Health",
       "Mak"
     ]
   },
@@ -242,10 +242,10 @@ export const skills = {
     "tier": 2,
     "tags": [
       "Dooley",
-      "HealthReference",
-      "Stelle",
       "Pygmalien",
-      "Shield"
+      "HealthReference",
+      "Shield",
+      "Stelle"
     ]
   },
   "Balanced Friendship": {
@@ -255,9 +255,9 @@ export const skills = {
     "tier": 1,
     "tags": [
       "DamageReference",
+      "Dooley",
       "Vanessa",
       "Friend",
-      "Dooley",
       "ShieldReference"
     ]
   },
@@ -268,8 +268,8 @@ export const skills = {
     "tier": 2,
     "tags": [
       "Aquatic",
-      "Cooldown",
-      "Vanessa"
+      "Vanessa",
+      "Cooldown"
     ]
   },
   "Beautiful Friendship": {
@@ -278,8 +278,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
       "Weapon",
+      "DamageReference",
       "Friend",
       "Dooley"
     ]
@@ -290,9 +290,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Vanessa",
       "Weapon",
-      "Cooldown",
-      "Vanessa"
+      "Cooldown"
     ]
   },
   "Big Ego": {
@@ -312,9 +312,9 @@ export const skills = {
     "tier": 3,
     "tags": [
       "DamageReference",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
-      "Pygmalien",
       "Stelle"
     ]
   },
@@ -325,11 +325,11 @@ export const skills = {
     "tier": 2,
     "tags": [
       "Jules",
-      "Crit",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
       "Stelle"
     ]
   },
@@ -349,8 +349,8 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Freeze",
-      "Common"
+      "Common",
+      "Freeze"
     ]
   },
   "Bloodhound": {
@@ -359,9 +359,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Charge",
       "Jules",
-      "Vanessa"
+      "Vanessa",
+      "Charge"
     ]
   },
   "Boar Market": {
@@ -370,9 +370,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "DamageReference",
       "Pygmalien",
       "Weapon",
+      "DamageReference",
       "EconomyReference"
     ]
   },
@@ -383,10 +383,10 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Jules",
+      "Pygmalien",
       "Vanessa",
-      "Mak",
       "Haste",
-      "Pygmalien"
+      "Mak"
     ]
   },
   "Bombing Run": {
@@ -395,10 +395,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
+      "Flying",
       "Common",
       "Weapon",
-      "Flying"
+      "DamageReference"
     ]
   },
   "Bombs Away!": {
@@ -427,9 +427,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Health",
       "Pygmalien",
-      "Weapon"
+      "Weapon",
+      "Health"
     ]
   },
   "Brewmaster": {
@@ -438,9 +438,9 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "Potion",
+      "PotionReference",
       "Mak",
-      "PotionReference"
+      "Potion"
     ]
   },
   "Buddy System": {
@@ -449,11 +449,11 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Core",
-      "Friend",
+      "Tech",
       "Cooldown",
+      "Core",
       "Dooley",
-      "Tech"
+      "Friend"
     ]
   },
   "Building Crescendo": {
@@ -463,11 +463,11 @@ export const skills = {
     "tier": 2,
     "tags": [
       "Jules",
-      "Crit",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
       "Stelle"
     ]
   },
@@ -477,9 +477,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "AmmoReference",
+      "Vanessa",
       "Slow",
-      "Vanessa"
+      "AmmoReference"
     ]
   },
   "Burn Containment": {
@@ -488,10 +488,10 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "BurnReference",
       "Charge",
-      "Dooley",
-      "ShieldReference"
+      "ShieldReference",
+      "BurnReference",
+      "Dooley"
     ]
   },
   "Burning Rage": {
@@ -500,10 +500,10 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "DamageReference",
-      "BurnReference",
       "Common",
-      "Weapon"
+      "Weapon",
+      "DamageReference",
+      "BurnReference"
     ]
   },
   "Burning Shield": {
@@ -513,8 +513,8 @@ export const skills = {
     "tier": 1,
     "tags": [
       "BurnReference",
-      "Dooley",
-      "Shield"
+      "Shield",
+      "Dooley"
     ]
   },
   "Burst of Flame": {
@@ -533,12 +533,12 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
+      "SlowReference",
       "HealReference",
-      "Charge",
-      "Mak",
       "Pygmalien",
-      "RegenReference",
-      "SlowReference"
+      "Mak",
+      "Charge",
+      "RegenReference"
     ]
   },
   "Captain's Charge": {
@@ -548,8 +548,8 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Jules",
-      "Vanessa",
       "Dooley",
+      "Vanessa",
       "Haste",
       "Stelle"
     ]
@@ -560,10 +560,10 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "DamageReference",
       "Pygmalien",
       "Weapon",
-      "Gold"
+      "Gold",
+      "DamageReference"
     ]
   },
   "Chemical Fire": {
@@ -573,9 +573,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Dooley",
       "BurnReference",
       "Vanessa",
-      "Dooley",
       "Mak",
       "PoisonReference"
     ]
@@ -587,8 +587,8 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Common",
-      "FreezeReference",
-      "Slow"
+      "Slow",
+      "FreezeReference"
     ]
   },
   "Chocoholic": {
@@ -607,9 +607,9 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
+      "Vanessa",
       "Weapon",
-      "Mak",
-      "Vanessa"
+      "Mak"
     ]
   },
   "Clean Storefront": {
@@ -618,8 +618,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Value",
-      "Common"
+      "Common",
+      "Value"
     ]
   },
   "Combat Medic": {
@@ -628,10 +628,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Crit",
       "HealReference",
-      "Mak",
       "Pygmalien",
+      "Mak",
+      "Crit",
       "RegenReference"
     ]
   },
@@ -641,9 +641,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Vanessa",
       "Cooldown",
       "Dooley",
+      "Vanessa",
       "Vehicle",
       "Stelle"
     ]
@@ -654,10 +654,10 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Property",
       "Pygmalien",
-      "Damage",
-      "EconomyReference"
+      "EconomyReference",
+      "Property",
+      "Damage"
     ]
   },
   "Conflagration": {
@@ -666,12 +666,12 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "BurnReference",
       "Jules",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "BurnReference",
+      "Mak",
       "Stelle"
     ]
   },
@@ -682,11 +682,11 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Jules",
-      "Dooley",
-      "Charge",
-      "Mak",
       "FreezeReference",
+      "Dooley",
       "Pygmalien",
+      "Mak",
+      "Charge",
       "Stelle"
     ]
   },
@@ -696,9 +696,9 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "DamageReference",
       "Common",
       "Weapon",
+      "DamageReference",
       "HasteReference"
     ]
   },
@@ -708,8 +708,8 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Charge",
-      "Common"
+      "Common",
+      "Charge"
     ]
   },
   "CPU Throttling": {
@@ -718,9 +718,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
+      "Slow",
       "Core",
-      "Dooley",
-      "Slow"
+      "Dooley"
     ]
   },
   "Crashing Waves": {
@@ -729,8 +729,8 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "DamageReference",
       "Aquatic",
+      "DamageReference",
       "Vanessa",
       "Weapon",
       "Haste"
@@ -742,11 +742,11 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Freeze",
       "SlowReference",
+      "Freeze",
+      "Dooley",
+      "Vanessa",
+      "Mak",
       "Stelle"
     ]
   },
@@ -756,11 +756,11 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Vanessa",
-      "Dooley",
-      "Charge",
-      "Mak",
       "SlowReference",
+      "Dooley",
+      "Vanessa",
+      "Mak",
+      "Charge",
       "PoisonReference"
     ]
   },
@@ -782,8 +782,8 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Pygmalien",
-      "Crit",
-      "HealReference"
+      "HealReference",
+      "Crit"
     ]
   },
   "Critical Investments": {
@@ -792,9 +792,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Property",
       "Pygmalien",
       "Toy",
+      "Property",
       "Crit"
     ]
   },
@@ -805,9 +805,9 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Pygmalien",
+      "ShieldReference",
       "Crit",
-      "Dooley",
-      "ShieldReference"
+      "Dooley"
     ]
   },
   "Cryomastery": {
@@ -816,9 +816,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Freeze",
       "Common",
-      "ShieldReference"
+      "ShieldReference",
+      "Freeze"
     ]
   },
   "Cult Member": {
@@ -837,12 +837,12 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Jules",
-      "Crit",
+      "Dooley",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Mak",
-      "Pygmalien",
+      "Crit",
       "Stelle"
     ]
   },
@@ -853,10 +853,10 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Dooley",
-      "HealthReference",
-      "Stelle",
       "Pygmalien",
-      "Shield"
+      "HealthReference",
+      "Shield",
+      "Stelle"
     ]
   },
   "Defensive Stance": {
@@ -866,10 +866,10 @@ export const skills = {
     "tier": 1,
     "tags": [
       "DamageReference",
-      "Weapon",
       "Dooley",
-      "ShieldReference",
       "Pygmalien",
+      "Weapon",
+      "ShieldReference",
       "Stelle"
     ]
   },
@@ -880,11 +880,11 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "DamageReference",
       "Aquatic",
-      "Ammo",
+      "DamageReference",
       "Vanessa",
-      "Weapon"
+      "Weapon",
+      "Ammo"
     ]
   },
   "Desperate Cleanse": {
@@ -904,9 +904,9 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Jules",
-      "Crit",
       "Vanessa",
       "Mak",
+      "Crit",
       "Stelle"
     ]
   },
@@ -948,10 +948,10 @@ export const skills = {
     "tier": 3,
     "tags": [
       "DamageReference",
-      "Vanessa",
-      "Weapon",
       "Dooley",
-      "Pygmalien"
+      "Pygmalien",
+      "Vanessa",
+      "Weapon"
     ]
   },
   "Draconic Rage": {
@@ -960,8 +960,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "BurnReference",
-      "Common"
+      "Common",
+      "BurnReference"
     ]
   },
   "Dual Wield": {
@@ -980,9 +980,9 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "Potion",
+      "PotionReference",
       "Mak",
-      "PotionReference"
+      "Potion"
     ]
   },
   "Eject, Eject!": {
@@ -991,8 +991,8 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "HealthReference",
       "Heal",
+      "HealthReference",
       "Stelle"
     ]
   },
@@ -1004,8 +1004,8 @@ export const skills = {
     "tags": [
       "Pygmalien",
       "Charge",
-      "Dooley",
-      "ShieldReference"
+      "ShieldReference",
+      "Dooley"
     ]
   },
   "Emergency Burn": {
@@ -1014,10 +1014,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Burn",
       "Jules",
-      "Dooley",
-      "Stelle"
+      "Stelle",
+      "Burn",
+      "Dooley"
     ]
   },
   "Emergency Draught": {
@@ -1037,9 +1037,9 @@ export const skills = {
     "tier": 3,
     "tags": [
       "Pygmalien",
+      "Stelle",
       "Shield",
-      "Dooley",
-      "Stelle"
+      "Dooley"
     ]
   },
   "Endurance": {
@@ -1048,9 +1048,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
       "Pygmalien",
       "Weapon",
+      "DamageReference",
       "HealReference"
     ]
   },
@@ -1060,11 +1060,11 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "HealReference",
       "Charge",
+      "HealReference",
       "Common",
-      "RegenReference",
-      "PoisonReference"
+      "PoisonReference",
+      "RegenReference"
     ]
   },
   "Essence Overflow": {
@@ -1073,10 +1073,10 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "DamageReference",
       "Weapon",
-      "Mak",
-      "RegenReference"
+      "DamageReference",
+      "RegenReference",
+      "Mak"
     ]
   },
   "Everlasting Life": {
@@ -1086,9 +1086,9 @@ export const skills = {
     "tier": 2,
     "tags": [
       "HealReference",
-      "Mak",
-      "Pygmalien",
       "Health",
+      "Pygmalien",
+      "Mak",
       "RegenReference"
     ]
   },
@@ -1111,13 +1111,13 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "DamageReference",
-      "BurnReference",
       "Potion",
-      "PotionReference",
+      "DamageReference",
       "Weapon",
+      "BurnReference",
+      "Mak",
       "Charge",
-      "Mak"
+      "PotionReference"
     ]
   },
   "Exposing Toxins": {
@@ -1126,11 +1126,11 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Crit",
-      "Vanessa",
       "Dooley",
+      "Vanessa",
       "Mak",
-      "PoisonReference"
+      "PoisonReference",
+      "Crit"
     ]
   },
   "Extreme Comfort": {
@@ -1140,9 +1140,9 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Common",
+      "ShieldReference",
       "RegenReference",
-      "HealReference",
-      "ShieldReference"
+      "HealReference"
     ]
   },
   "Fiery": {
@@ -1151,12 +1151,12 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "BurnReference",
       "Jules",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "BurnReference",
+      "Mak",
       "Stelle"
     ]
   },
@@ -1166,8 +1166,8 @@ export const skills = {
     ],
     "tier": 4,
     "tags": [
-      "Common",
-      "Heal"
+      "Heal",
+      "Common"
     ]
   },
   "Final Dose": {
@@ -1176,10 +1176,10 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
+      "Vanessa",
       "PoisonReference",
       "Mak",
-      "Dooley",
-      "Vanessa"
+      "Dooley"
     ]
   },
   "Final Flame": {
@@ -1188,12 +1188,12 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "BurnReference",
       "Jules",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "BurnReference",
+      "Mak",
       "Stelle"
     ]
   },
@@ -1204,8 +1204,8 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Cooldown",
-      "Dooley",
-      "ShieldReference"
+      "ShieldReference",
+      "Dooley"
     ]
   },
   "Firepower": {
@@ -1235,10 +1235,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Burn",
       "Jules",
-      "Vanessa",
       "Dooley",
+      "Burn",
+      "Vanessa",
       "Mak",
       "Stelle"
     ]
@@ -1261,11 +1261,11 @@ export const skills = {
     "tier": 2,
     "tags": [
       "Jules",
-      "Crit",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
       "Stelle"
     ]
   },
@@ -1275,9 +1275,9 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "BurnReference",
       "Common",
-      "Crit"
+      "Crit",
+      "BurnReference"
     ]
   },
   "Flanking Criticals": {
@@ -1287,11 +1287,11 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Jules",
-      "Crit",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
       "Stelle"
     ]
   },
@@ -1302,10 +1302,10 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Jules",
-      "Crit",
-      "Vanessa",
       "Tool",
       "Dooley",
+      "Vanessa",
+      "Crit",
       "Stelle"
     ]
   },
@@ -1315,10 +1315,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Crit",
-      "Vanessa",
       "Dooley",
+      "Vanessa",
       "Vehicle",
+      "Crit",
       "Stelle"
     ]
   },
@@ -1328,9 +1328,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
+      "Vanessa",
       "Ammo",
-      "CritReference",
-      "Vanessa"
+      "CritReference"
     ]
   },
   "Flurry of Blows": {
@@ -1339,10 +1339,10 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "DamageReference",
-      "Charge",
+      "Vanessa",
       "Weapon",
-      "Vanessa"
+      "DamageReference",
+      "Charge"
     ]
   },
   "Focused Rage": {
@@ -1351,8 +1351,8 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "Crit",
-      "Vanessa"
+      "Vanessa",
+      "Crit"
     ]
   },
   "Follow-Up Care": {
@@ -1383,9 +1383,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Cooldown",
+      "Vehicle",
       "Common",
-      "Vehicle"
+      "Cooldown"
     ]
   },
   "Friendzone": {
@@ -1406,10 +1406,10 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Jules",
-      "Vanessa",
       "Dooley",
-      "ShieldReference",
       "Pygmalien",
+      "Vanessa",
+      "ShieldReference",
       "Stelle"
     ]
   },
@@ -1419,13 +1419,13 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "BurnReference",
       "Jules",
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Pygmalien",
       "Freeze",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "BurnReference",
+      "Mak",
       "Stelle"
     ]
   },
@@ -1435,14 +1435,14 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
       "Jules",
-      "Weapon",
-      "Dooley",
-      "Cooldown",
-      "Mak",
       "FreezeReference",
-      "Pygmalien"
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Weapon",
+      "Cooldown",
+      "Mak"
     ]
   },
   "Frozen Synapse": {
@@ -1452,8 +1452,8 @@ export const skills = {
     "tier": 2,
     "tags": [
       "FreezeReference",
-      "Core",
       "Haste",
+      "Core",
       "Dooley"
     ]
   },
@@ -1463,9 +1463,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Weapon",
-      "Cooldown",
       "Tool",
+      "Cooldown",
+      "Weapon",
       "Vehicle",
       "Common"
     ]
@@ -1477,9 +1477,9 @@ export const skills = {
     "tier": 3,
     "tags": [
       "DamageReference",
+      "Dooley",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Mak",
       "Stelle"
     ]
@@ -1490,10 +1490,10 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Burn",
       "Jules",
-      "Dooley",
       "Tool",
+      "Burn",
+      "Dooley",
       "Stelle"
     ]
   },
@@ -1504,10 +1504,10 @@ export const skills = {
     "tier": 1,
     "tags": [
       "DamageReference",
-      "Weapon",
       "Cooldown",
-      "ShieldReference",
-      "Common"
+      "Weapon",
+      "Common",
+      "ShieldReference"
     ]
   },
   "Gunner": {
@@ -1516,9 +1516,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Vanessa",
       "Ammo",
-      "Mak",
-      "Vanessa"
+      "Mak"
     ]
   },
   "Hard Shell": {
@@ -1527,8 +1527,8 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "HealthReference",
       "Common",
+      "HealthReference",
       "Shield"
     ]
   },
@@ -1539,9 +1539,9 @@ export const skills = {
     "tier": 2,
     "tags": [
       "Pygmalien",
-      "Dooley",
+      "ShieldReference",
       "Stelle",
-      "ShieldReference"
+      "Dooley"
     ]
   },
   "Hardly Workin'": {
@@ -1551,9 +1551,9 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Charge",
-      "Mak",
+      "RegenReference",
       "SlowReference",
-      "RegenReference"
+      "Mak"
     ]
   },
   "Haunting Flight": {
@@ -1562,8 +1562,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Common",
-      "Flying"
+      "Flying",
+      "Common"
     ]
   },
   "Heal Power": {
@@ -1595,19 +1595,19 @@ export const skills = {
     "tags": [
       "Jules",
       "Heal",
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Pygmalien",
       "Health",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
       "Stelle"
     ]
   },
   "Healthy Hoarder": {
     "text": [
-      "You have (+35/+100/+200/+300) Max Health for each Non-Weapon item you have."
+      "You have (+100/+200/+300) Max Health for each Non-Weapon item you have."
     ],
-    "tier": 0,
+    "tier": 1,
     "tags": [
       "Pygmalien"
     ]
@@ -1619,9 +1619,9 @@ export const skills = {
     "tier": 2,
     "tags": [
       "Pygmalien",
+      "Vanessa",
       "Haste",
-      "HealReference",
-      "Vanessa"
+      "HealReference"
     ]
   },
   "Healthy Lifestyle": {
@@ -1652,8 +1652,8 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "BurnReference",
       "Common",
+      "BurnReference",
       "Regen"
     ]
   },
@@ -1664,9 +1664,9 @@ export const skills = {
     "tier": 2,
     "tags": [
       "BurnReference",
+      "Stelle",
       "Shield",
-      "Dooley",
-      "Stelle"
+      "Dooley"
     ]
   },
   "Heated Shells": {
@@ -1675,10 +1675,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Vanessa",
       "Ammo",
-      "Burn",
       "Mak",
-      "Vanessa"
+      "Burn"
     ]
   },
   "Heavy Firepower": {
@@ -1687,13 +1687,13 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
       "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Mak",
-      "Pygmalien",
       "Stelle"
     ]
   },
@@ -1703,8 +1703,8 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Core",
       "Haste",
+      "Core",
       "Dooley"
     ]
   },
@@ -1714,10 +1714,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Dooley",
-      "ShieldReference",
       "Level",
+      "Dooley",
       "Pygmalien",
+      "ShieldReference",
       "Stelle"
     ]
   },
@@ -1727,8 +1727,8 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "Mak",
-      "RegenReference"
+      "RegenReference",
+      "Mak"
     ]
   },
   "Honed Arsenal": {
@@ -1738,12 +1738,12 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Jules",
-      "Crit",
+      "Dooley",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Mak",
-      "Pygmalien",
+      "Crit",
       "Stelle"
     ]
   },
@@ -1753,9 +1753,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Mak",
+      "Vanessa",
       "Crit",
-      "Vanessa"
+      "Mak"
     ]
   },
   "Hot Spot": {
@@ -1764,12 +1764,12 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Burn",
       "Jules",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "Burn",
+      "Mak",
       "Stelle"
     ]
   },
@@ -1779,8 +1779,8 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Property",
-      "Pygmalien"
+      "Pygmalien",
+      "Property"
     ]
   },
   "Hunker Down": {
@@ -1808,10 +1808,10 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "DamageReference",
-      "Freeze",
       "Common",
-      "Weapon"
+      "Weapon",
+      "DamageReference",
+      "Freeze"
     ]
   },
   "Ice Bullets": {
@@ -1820,11 +1820,11 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "FreezeReference",
       "DamageReference",
-      "Ammo",
       "Vanessa",
       "Weapon",
-      "FreezeReference"
+      "Ammo"
     ]
   },
   "Immolating Spark": {
@@ -1833,12 +1833,12 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "BurnReference",
       "Jules",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "BurnReference",
+      "Mak",
       "Stelle"
     ]
   },
@@ -1848,10 +1848,10 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
+      "Vanessa",
       "PoisonReference",
       "Mak",
-      "Dooley",
-      "Vanessa"
+      "Dooley"
     ]
   },
   "Improvised Burn": {
@@ -1860,10 +1860,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Vanessa",
       "BurnReference",
-      "Mak",
       "CritReference",
-      "Vanessa"
+      "Mak"
     ]
   },
   "Improvised Heal": {
@@ -1872,9 +1872,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Vanessa",
       "HealReference",
-      "CritReference",
-      "Vanessa"
+      "CritReference"
     ]
   },
   "Improvised Poison": {
@@ -1883,10 +1883,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Mak",
+      "Vanessa",
       "PoisonReference",
       "CritReference",
-      "Vanessa"
+      "Mak"
     ]
   },
   "Improvised Protection": {
@@ -1897,8 +1897,8 @@ export const skills = {
     "tags": [
       "Jules",
       "CritReference",
-      "Vanessa",
       "Dooley",
+      "Vanessa",
       "ShieldReference",
       "Stelle"
     ]
@@ -1911,9 +1911,9 @@ export const skills = {
     "tags": [
       "DamageReference",
       "CritReference",
+      "Dooley",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Mak"
     ]
   },
@@ -1923,8 +1923,8 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Property",
       "Pygmalien",
+      "Property",
       "Cooldown"
     ]
   },
@@ -1935,8 +1935,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Crit",
-      "Vanessa"
+      "Vanessa",
+      "Crit"
     ]
   },
   "Initial Chill": {
@@ -1946,10 +1946,10 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Jules",
+      "Freeze",
       "Dooley",
-      "Mak",
       "Pygmalien",
-      "Freeze"
+      "Mak"
     ]
   },
   "Initial Dose": {
@@ -1958,10 +1958,10 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
+      "Vanessa",
       "PoisonReference",
       "Mak",
-      "Dooley",
-      "Vanessa"
+      "Dooley"
     ]
   },
   "Insect Bite": {
@@ -1970,8 +1970,8 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "Poison",
-      "Common"
+      "Common",
+      "Poison"
     ]
   },
   "Into the Void": {
@@ -1999,11 +1999,11 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "DamageReference",
       "HealReference",
+      "DamageReference",
+      "Pygmalien",
       "Weapon",
-      "Charge",
-      "Pygmalien"
+      "Charge"
     ]
   },
   "Invigorating Cold": {
@@ -2013,12 +2013,12 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Jules",
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Haste",
       "FreezeReference",
+      "Dooley",
       "Pygmalien",
+      "Vanessa",
+      "Haste",
+      "Mak",
       "Stelle"
     ]
   },
@@ -2029,12 +2029,12 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
       "Jules",
+      "DamageReference",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
-      "Mak",
-      "Pygmalien"
+      "Mak"
     ]
   },
   "Jack of All Trades": {
@@ -2043,8 +2043,8 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Charge",
-      "Common"
+      "Common",
+      "Charge"
     ]
   },
   "Juggler": {
@@ -2053,8 +2053,8 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "Charge",
-      "Common"
+      "Common",
+      "Charge"
     ]
   },
   "Jury Rigger": {
@@ -2074,11 +2074,11 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Jules",
-      "Crit",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
       "Stelle"
     ]
   },
@@ -2088,14 +2088,14 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "DamageReference",
       "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Cooldown",
       "Mak",
-      "Pygmalien",
       "Stelle"
     ]
   },
@@ -2106,11 +2106,11 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Jules",
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Pygmalien",
       "Health",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
       "Stelle"
     ]
   },
@@ -2120,8 +2120,8 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "Poison",
-      "Common"
+      "Common",
+      "Poison"
     ]
   },
   "Left Eye": {
@@ -2131,11 +2131,11 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Jules",
-      "Crit",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
       "Stelle"
     ]
   },
@@ -2145,13 +2145,13 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "DamageReference",
       "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Mak",
-      "Pygmalien",
       "Stelle"
     ]
   },
@@ -2161,10 +2161,10 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Haste",
+      "Vanessa",
       "Jules",
-      "Dooley",
-      "Vanessa"
+      "Haste",
+      "Dooley"
     ]
   },
   "Lethargy": {
@@ -2185,8 +2185,8 @@ export const skills = {
     "tier": 2,
     "tags": [
       "BurnReference",
-      "Core",
       "Haste",
+      "Core",
       "Dooley"
     ]
   },
@@ -2197,11 +2197,11 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
       "Jules",
+      "DamageReference",
+      "Pygmalien",
       "Vanessa",
-      "Weapon",
-      "Pygmalien"
+      "Weapon"
     ]
   },
   "Like Clockwork": {
@@ -2212,8 +2212,8 @@ export const skills = {
     "tier": 0,
     "tags": [
       "DamageReference",
-      "Core",
       "Level",
+      "Core",
       "Dooley"
     ]
   },
@@ -2223,8 +2223,8 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Core",
       "Freeze",
+      "Core",
       "Dooley"
     ]
   },
@@ -2234,11 +2234,11 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "BurnReference",
       "Jules",
-      "Vanessa",
       "Dooley",
       "Cooldown",
+      "Vanessa",
+      "BurnReference",
       "Mak",
       "Stelle"
     ]
@@ -2249,9 +2249,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Vanessa",
       "DamageReference",
-      "Ammo",
-      "Vanessa"
+      "Ammo"
     ]
   },
   "Long Strides": {
@@ -2290,8 +2290,8 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "Value",
-      "Common"
+      "Common",
+      "Value"
     ]
   },
   "Mixed Message": {
@@ -2300,14 +2300,14 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "DamageReference",
       "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
-      "Dooley",
-      "Charge",
       "Mak",
-      "Pygmalien",
+      "Charge",
       "Stelle"
     ]
   },
@@ -2317,12 +2317,12 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "BurnReference",
       "Jules",
-      "Vanessa",
+      "Regen",
       "Dooley",
-      "Mak",
-      "Regen"
+      "Vanessa",
+      "BurnReference",
+      "Mak"
     ]
   },
   "Nanobot Construction": {
@@ -2341,13 +2341,13 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "BurnReference",
-      "HasteReference",
       "Charge",
-      "FreezeReference",
-      "Common",
       "SlowReference",
-      "PoisonReference"
+      "FreezeReference",
+      "BurnReference",
+      "Common",
+      "PoisonReference",
+      "HasteReference"
     ]
   },
   "Net Launcher": {
@@ -2356,10 +2356,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Slow",
-      "Vanessa",
       "Dooley",
+      "Vanessa",
       "Mak",
+      "Slow",
       "Stelle"
     ]
   },
@@ -2369,13 +2369,13 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
       "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Mak",
-      "Pygmalien",
       "Stelle"
     ]
   },
@@ -2386,8 +2386,8 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Aquatic",
-      "Haste",
-      "Vanessa"
+      "Vanessa",
+      "Haste"
     ]
   },
   "One Shot, One Kill": {
@@ -2396,9 +2396,9 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "DamageReference",
       "Common",
-      "Weapon"
+      "Weapon",
+      "DamageReference"
     ]
   },
   "Open for Business": {
@@ -2407,8 +2407,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Property",
       "Pygmalien",
+      "Property",
       "Income"
     ]
   },
@@ -2418,10 +2418,10 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
+      "SlowReference",
       "Vanessa",
       "Haste",
       "Vehicle",
-      "SlowReference",
       "Stelle"
     ]
   },
@@ -2454,8 +2454,8 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "Charge",
       "Common",
+      "Charge",
       "Ammo"
     ]
   },
@@ -2465,10 +2465,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
       "Freeze",
+      "Dooley",
+      "Vanessa",
+      "Mak",
       "PoisonReference"
     ]
   },
@@ -2478,11 +2478,11 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
+      "SlowReference",
       "DamageReference",
       "Weapon",
       "Haste",
-      "Common",
-      "SlowReference"
+      "Common"
     ]
   },
   "Parting Shot": {
@@ -2491,9 +2491,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "AmmoReference",
+      "Vanessa",
       "Crit",
-      "Vanessa"
+      "AmmoReference"
     ]
   },
   "Party Like it's 011111001111": {
@@ -2502,13 +2502,10 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "DamageReference",
-      "BurnReference",
-      "Core",
-      "Friend",
-      "Dooley",
       "Tech",
-      "ShieldReference"
+      "Friend",
+      "Core",
+      "Dooley"
     ]
   },
   "Passive Power": {
@@ -2517,14 +2514,14 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "DamageReference",
-      "BurnReference",
       "HealReference",
-      "Weapon",
+      "DamageReference",
       "ShieldReference",
+      "Weapon",
+      "BurnReference",
       "Common",
-      "RegenReference",
-      "PoisonReference"
+      "PoisonReference",
+      "RegenReference"
     ]
   },
   "Peaceful Eye": {
@@ -2534,11 +2531,11 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Jules",
-      "Crit",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
       "Stelle"
     ]
   },
@@ -2548,9 +2545,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Common",
       "HealthReference",
-      "Freeze",
-      "Common"
+      "Freeze"
     ]
   },
   "Pickpocket": {
@@ -2569,8 +2566,8 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "PoisonReference",
       "Common",
+      "PoisonReference",
       "Regen"
     ]
   },
@@ -2580,10 +2577,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Vanessa",
       "Poison",
       "Mak",
-      "Dooley",
-      "Vanessa"
+      "Dooley"
     ]
   },
   "Pop-Up Shop": {
@@ -2605,11 +2602,11 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "BurnReference",
       "Potion",
-      "PotionReference",
+      "BurnReference",
       "Mak",
-      "PoisonReference"
+      "PoisonReference",
+      "PotionReference"
     ]
   },
   "Power Broker": {
@@ -2618,10 +2615,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
-      "EconomyReference",
       "Common",
-      "Weapon"
+      "Weapon",
+      "DamageReference",
+      "EconomyReference"
     ]
   },
   "Precision Diver": {
@@ -2631,8 +2628,8 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Aquatic",
-      "Crit",
-      "Vanessa"
+      "Vanessa",
+      "Crit"
     ]
   },
   "Precision Tools": {
@@ -2641,8 +2638,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
       "Common",
+      "DamageReference",
       "Tool",
       "HasteReference"
     ]
@@ -2653,8 +2650,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Property",
       "Pygmalien",
+      "Property",
       "Crit"
     ]
   },
@@ -2664,8 +2661,8 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Charge",
       "Common",
+      "Charge",
       "Ammo"
     ]
   },
@@ -2675,8 +2672,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Property",
       "Pygmalien",
+      "Property",
       "Health"
     ]
   },
@@ -2686,9 +2683,9 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "EconomyReference",
       "Common",
-      "ShieldReference"
+      "ShieldReference",
+      "EconomyReference"
     ]
   },
   "Purifying Flame": {
@@ -2697,9 +2694,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "BurnReference",
       "Common",
-      "RegenReference"
+      "RegenReference",
+      "BurnReference"
     ]
   },
   "Pyromania": {
@@ -2718,11 +2715,11 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Crit",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
       "Mak",
-      "Pygmalien"
+      "Crit"
     ]
   },
   "Quick Defenses": {
@@ -2731,11 +2728,11 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Vanessa",
       "Dooley",
+      "Pygmalien",
+      "Vanessa",
       "Cooldown",
       "ShieldReference",
-      "Pygmalien",
       "Stelle"
     ]
   },
@@ -2746,10 +2743,10 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Jules",
-      "HasteReference",
-      "Vanessa",
-      "Dooley",
       "Freeze",
+      "Dooley",
+      "Vanessa",
+      "HasteReference",
       "Stelle"
     ]
   },
@@ -2759,12 +2756,12 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "BurnReference",
       "Jules",
-      "Vanessa",
       "Dooley",
-      "Mak",
+      "Vanessa",
+      "BurnReference",
       "Haste",
+      "Mak",
       "Stelle"
     ]
   },
@@ -2776,8 +2773,8 @@ export const skills = {
     "tags": [
       "HealReference",
       "Cooldown",
-      "Mak",
       "Pygmalien",
+      "Mak",
       "RegenReference"
     ]
   },
@@ -2797,11 +2794,11 @@ export const skills = {
     "tier": 3,
     "tags": [
       "Jules",
-      "Vanessa",
-      "Dooley",
       "Tool",
-      "Mak",
+      "Dooley",
       "Pygmalien",
+      "Vanessa",
+      "Mak",
       "Stelle"
     ]
   },
@@ -2812,12 +2809,12 @@ export const skills = {
     "tier": 2,
     "tags": [
       "Jules",
-      "Crit",
-      "Vanessa",
-      "Dooley",
-      "Mak",
       "FreezeReference",
+      "Dooley",
       "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
       "Stelle"
     ]
   },
@@ -2828,10 +2825,10 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Jules",
-      "Vanessa",
       "Dooley",
-      "ShieldReference",
       "Pygmalien",
+      "Vanessa",
+      "ShieldReference",
       "Stelle"
     ]
   },
@@ -2842,11 +2839,11 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Jules",
-      "Gold",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Gold",
       "Stelle"
     ]
   },
@@ -2856,8 +2853,8 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "Cooldown",
-      "Vanessa"
+      "Vanessa",
+      "Cooldown"
     ]
   },
   "Regenerative": {
@@ -2866,10 +2863,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Mak",
+      "Vanessa",
       "Regen",
-      "Stelle",
-      "Vanessa"
+      "Mak",
+      "Stelle"
     ]
   },
   "Regular Maintenance": {
@@ -2878,9 +2875,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
+      "ShieldReference",
       "FlyingReference",
-      "Stelle",
-      "ShieldReference"
+      "Stelle"
     ]
   },
   "Reinforced Steel": {
@@ -2889,10 +2886,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Property",
-      "DamageReference",
       "Pygmalien",
-      "ShieldReference"
+      "ShieldReference",
+      "Property",
+      "DamageReference"
     ]
   },
   "Relax Bro": {
@@ -2911,9 +2908,9 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
+      "Pygmalien",
       "Property",
-      "Level",
-      "Pygmalien"
+      "Level"
     ]
   },
   "Reserve Shield": {
@@ -2923,10 +2920,10 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Dooley",
-      "HealthReference",
-      "Stelle",
       "Pygmalien",
-      "Shield"
+      "HealthReference",
+      "Shield",
+      "Stelle"
     ]
   },
   "Retaliatory Toxins": {
@@ -2935,9 +2932,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
+      "Vanessa",
       "Poison",
-      "Mak",
-      "Vanessa"
+      "Mak"
     ]
   },
   "Retool": {
@@ -2947,8 +2944,8 @@ export const skills = {
     "tier": 3,
     "tags": [
       "Common",
-      "Tool",
-      "AmmoReference"
+      "AmmoReference",
+      "Tool"
     ]
   },
   "Rigged": {
@@ -2968,11 +2965,11 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Jules",
-      "Crit",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
       "Stelle"
     ]
   },
@@ -2982,13 +2979,13 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "DamageReference",
       "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Mak",
-      "Pygmalien",
       "Stelle"
     ]
   },
@@ -2998,11 +2995,11 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Vanessa",
+      "SlowReference",
       "Dooley",
-      "Charge",
+      "Vanessa",
       "Mak",
-      "SlowReference"
+      "Charge"
     ]
   },
   "Rush": {
@@ -3011,9 +3008,9 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "DamageReference",
       "Common",
       "Weapon",
+      "DamageReference",
       "Haste"
     ]
   },
@@ -3033,10 +3030,10 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Slow",
-      "Vanessa",
       "Tool",
       "Dooley",
+      "Vanessa",
+      "Slow",
       "Stelle"
     ]
   },
@@ -3047,10 +3044,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
+      "Flying",
       "Common",
       "Weapon",
-      "Flying"
+      "DamageReference"
     ]
   },
   "Searing Flames": {
@@ -3060,8 +3057,8 @@ export const skills = {
     "tier": 1,
     "tags": [
       "BurnReference",
-      "Dooley",
-      "HasteReference"
+      "HasteReference",
+      "Dooley"
     ]
   },
   "Second Wind": {
@@ -3070,11 +3067,11 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Heal",
       "Dooley",
-      "HealthReference",
-      "Mak",
       "Pygmalien",
-      "Heal"
+      "Mak",
+      "HealthReference"
     ]
   },
   "Sharp Corners": {
@@ -3084,10 +3081,10 @@ export const skills = {
     "tier": 1,
     "tags": [
       "DamageReference",
-      "Weapon",
       "Dooley",
-      "ShieldReference",
       "Pygmalien",
+      "Weapon",
+      "ShieldReference",
       "Stelle"
     ]
   },
@@ -3097,10 +3094,10 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "DamageReference",
       "Common",
       "Weapon",
-      "Crit"
+      "Crit",
+      "DamageReference"
     ]
   },
   "Sharpshooter": {
@@ -3109,10 +3106,10 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
+      "Vanessa",
       "AmmoReference",
       "Mak",
-      "Crit",
-      "Vanessa"
+      "Crit"
     ]
   },
   "Shatter": {
@@ -3121,14 +3118,14 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
       "Jules",
+      "FreezeReference",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Mak",
-      "FreezeReference",
-      "Pygmalien",
       "Stelle"
     ]
   },
@@ -3139,11 +3136,11 @@ export const skills = {
     "tier": 2,
     "tags": [
       "DamageReference",
+      "Dooley",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Charge",
-      "Pygmalien",
       "Stelle"
     ]
   },
@@ -3153,10 +3150,10 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "HealReference",
       "Charge",
-      "ShieldReference",
+      "HealReference",
       "Common",
+      "ShieldReference",
       "RegenReference"
     ]
   },
@@ -3168,8 +3165,8 @@ export const skills = {
     "tags": [
       "BurnReference",
       "Vanessa",
-      "Charge",
       "Mak",
+      "Charge",
       "PoisonReference"
     ]
   },
@@ -3180,8 +3177,8 @@ export const skills = {
     "tier": 2,
     "tags": [
       "Common",
-      "PoisonReference",
-      "ShieldReference"
+      "ShieldReference",
+      "PoisonReference"
     ]
   },
   "Slow and Steady": {
@@ -3190,12 +3187,12 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "SlowReference",
       "DamageReference",
+      "Dooley",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Mak",
-      "SlowReference",
       "Stelle"
     ]
   },
@@ -3205,11 +3202,11 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "BurnReference",
+      "SlowReference",
       "Vanessa",
-      "Charge",
+      "BurnReference",
       "Mak",
-      "SlowReference"
+      "Charge"
     ]
   },
   "Slowed Targets": {
@@ -3218,11 +3215,11 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Crit",
-      "Vanessa",
-      "Dooley",
-      "Mak",
       "SlowReference",
+      "Dooley",
+      "Vanessa",
+      "Mak",
+      "Crit",
       "Stelle"
     ]
   },
@@ -3232,8 +3229,8 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "Common",
-      "Heal"
+      "Heal",
+      "Common"
     ]
   },
   "Snowstorm": {
@@ -3242,9 +3239,9 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "DamageReference",
       "Common",
       "Weapon",
+      "DamageReference",
       "FreezeReference"
     ]
   },
@@ -3254,10 +3251,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Weapon",
       "Dooley",
-      "ShieldReference",
       "Pygmalien",
+      "Weapon",
+      "ShieldReference",
       "Stelle"
     ]
   },
@@ -3267,8 +3264,8 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "Flying",
       "Vehicle",
+      "Flying",
       "Stelle"
     ]
   },
@@ -3278,11 +3275,11 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Dooley",
+      "Vanessa",
+      "Mak",
       "Crit",
       "HasteReference",
-      "Vanessa",
-      "Dooley",
-      "Mak",
       "Stelle"
     ]
   },
@@ -3293,8 +3290,8 @@ export const skills = {
     "tier": 1,
     "tags": [
       "Pygmalien",
-      "Tool",
-      "Heal"
+      "Heal",
+      "Tool"
     ]
   },
   "Steelstorm": {
@@ -3303,9 +3300,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
+      "Vanessa",
       "Weapon",
-      "Vanessa"
+      "DamageReference"
     ]
   },
   "Stocked": {
@@ -3314,10 +3311,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Potion",
-      "Mak",
       "PotionReference",
-      "Ammo"
+      "Ammo",
+      "Mak",
+      "Potion"
     ]
   },
   "Stop That!": {
@@ -3326,10 +3323,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Mak",
-      "Dooley",
+      "Vanessa",
       "Slow",
-      "Vanessa"
+      "Mak",
+      "Dooley"
     ]
   },
   "Streamline Weapon": {
@@ -3338,10 +3335,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
+      "Vanessa",
       "Weapon",
-      "HasteReference",
-      "Vanessa"
+      "DamageReference",
+      "HasteReference"
     ]
   },
   "Strength": {
@@ -3350,13 +3347,13 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "DamageReference",
       "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Mak",
-      "Pygmalien",
       "Stelle"
     ]
   },
@@ -3366,9 +3363,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
       "Pygmalien",
       "Weapon",
+      "DamageReference",
       "EconomyReference"
     ]
   },
@@ -3378,9 +3375,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Vanessa",
       "Freeze",
-      "CritReference",
-      "Vanessa"
+      "CritReference"
     ]
   },
   "Submerged": {
@@ -3390,8 +3387,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
       "Aquatic",
+      "DamageReference",
       "Vanessa",
       "Weapon",
       "ShieldReference"
@@ -3404,10 +3401,10 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Jules",
-      "Vanessa",
       "Dooley",
-      "Mak",
       "Pygmalien",
+      "Vanessa",
+      "Mak",
       "Stelle"
     ]
   },
@@ -3417,8 +3414,8 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Property",
       "Pygmalien",
+      "Property",
       "Haste"
     ]
   },
@@ -3428,12 +3425,12 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
       "Jules",
-      "Vanessa",
-      "Weapon",
+      "DamageReference",
       "Dooley",
       "Pygmalien",
+      "Vanessa",
+      "Weapon",
       "Stelle"
     ]
   },
@@ -3444,11 +3441,11 @@ export const skills = {
     "tier": 2,
     "tags": [
       "Jules",
+      "SlowReference",
+      "Dooley",
       "Vanessa",
       "Weapon",
-      "Dooley",
       "Mak",
-      "SlowReference",
       "Stelle"
     ]
   },
@@ -3458,9 +3455,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
+      "Vanessa",
       "Weapon",
-      "Vanessa"
+      "DamageReference"
     ]
   },
   "The One Potion": {
@@ -3490,8 +3487,8 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "Charge",
       "Common",
+      "Charge",
       "SlowReference"
     ]
   },
@@ -3501,10 +3498,10 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Potion",
+      "PotionReference",
       "Regen",
       "Mak",
-      "PotionReference"
+      "Potion"
     ]
   },
   "Thrill of the Flight": {
@@ -3524,8 +3521,8 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "Common",
       "HasteReference",
+      "Common",
       "Shield"
     ]
   },
@@ -3535,9 +3532,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
+      "Vanessa",
       "Cooldown",
-      "Dooley",
-      "Vanessa"
+      "Dooley"
     ]
   },
   "Titanium Casing": {
@@ -3546,9 +3543,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
+      "ShieldReference",
       "Core",
-      "Dooley",
-      "ShieldReference"
+      "Dooley"
     ]
   },
   "Tools of the Trade": {
@@ -3558,8 +3555,8 @@ export const skills = {
     "tier": 2,
     "tags": [
       "Jules",
-      "Dooley",
       "Tool",
+      "Dooley",
       "Haste",
       "Stelle"
     ]
@@ -3571,9 +3568,9 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Pygmalien",
-      "Dooley",
+      "ShieldReference",
       "Stelle",
-      "ShieldReference"
+      "Dooley"
     ]
   },
   "Toxic Flame": {
@@ -3583,9 +3580,9 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
+      "Dooley",
       "BurnReference",
       "Vanessa",
-      "Dooley",
       "Mak",
       "PoisonReference"
     ]
@@ -3596,8 +3593,8 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Poison",
       "Common",
+      "Poison",
       "Friend"
     ]
   },
@@ -3608,9 +3605,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Cooldown",
       "Common",
-      "PoisonReference"
+      "PoisonReference",
+      "Cooldown"
     ]
   },
   "Toxic Shield": {
@@ -3620,9 +3617,9 @@ export const skills = {
     "tier": 1,
     "tags": [
       "PoisonReference",
+      "Shield",
       "Mak",
-      "Dooley",
-      "Shield"
+      "Dooley"
     ]
   },
   "Toxic Weapons": {
@@ -3631,10 +3628,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Weapon",
-      "Mak",
       "PoisonReference",
-      "Vanessa"
+      "Vanessa",
+      "Weapon",
+      "Mak"
     ]
   },
   "Toxicity": {
@@ -3643,10 +3640,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "DamageReference",
-      "Mak",
+      "Vanessa",
       "PoisonReference",
-      "Vanessa"
+      "DamageReference",
+      "Mak"
     ]
   },
   "Toxin Injector": {
@@ -3655,10 +3652,10 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "Haste",
-      "Mak",
+      "Vanessa",
       "PoisonReference",
-      "Vanessa"
+      "Haste",
+      "Mak"
     ]
   },
   "Tracer Fire": {
@@ -3667,12 +3664,12 @@ export const skills = {
     ],
     "tier": 1,
     "tags": [
-      "BurnReference",
       "Jules",
-      "Crit",
-      "Vanessa",
       "Dooley",
+      "Vanessa",
+      "BurnReference",
       "Mak",
+      "Crit",
       "Stelle"
     ]
   },
@@ -3682,8 +3679,8 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "Value",
-      "Pygmalien"
+      "Pygmalien",
+      "Value"
     ]
   },
   "Trained": {
@@ -3692,9 +3689,9 @@ export const skills = {
     ],
     "tier": 0,
     "tags": [
-      "DamageReference",
       "Common",
       "Weapon",
+      "DamageReference",
       "SlowReference"
     ]
   },
@@ -3747,8 +3744,8 @@ export const skills = {
       "DamageReference",
       "Vanessa",
       "Weapon",
-      "Charge",
       "Mak",
+      "Charge",
       "PoisonReference"
     ]
   },
@@ -3758,10 +3755,10 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
+      "Vanessa",
       "PoisonReference",
       "Mak",
-      "Regen",
-      "Vanessa"
+      "Regen"
     ]
   },
   "Vital Renewal": {
@@ -3770,12 +3767,12 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
+      "FreezeReference",
+      "SlowReference",
       "BurnReference",
       "Mak",
-      "FreezeReference",
-      "RegenReference",
-      "SlowReference",
-      "PoisonReference"
+      "PoisonReference",
+      "RegenReference"
     ]
   },
   "Vital Reserve": {
@@ -3785,8 +3782,8 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Pygmalien",
-      "Mak",
       "RegenReference",
+      "Mak",
       "Stelle"
     ]
   },
@@ -3796,10 +3793,10 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "Charge",
       "Common",
-      "BurnReference",
-      "ShieldReference"
+      "ShieldReference",
+      "Charge",
+      "BurnReference"
     ]
   },
   "Void Rage": {
@@ -3808,9 +3805,9 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "BurnReference",
       "Common",
-      "Haste"
+      "Haste",
+      "BurnReference"
     ]
   },
   "Void Render": {
@@ -3819,10 +3816,10 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
-      "DamageReference",
-      "BurnReference",
       "Common",
-      "Weapon"
+      "Weapon",
+      "DamageReference",
+      "BurnReference"
     ]
   },
   "Wake-Up Call": {
@@ -3831,8 +3828,8 @@ export const skills = {
     ],
     "tier": 3,
     "tags": [
-      "BurnReference",
       "FreezeReference",
+      "BurnReference",
       "Haste",
       "Common",
       "PoisonReference"
@@ -3845,8 +3842,8 @@ export const skills = {
     "tier": 0,
     "tags": [
       "Pygmalien",
-      "Mak",
       "RegenReference",
+      "Mak",
       "Stelle"
     ]
   },
@@ -3856,9 +3853,9 @@ export const skills = {
     ],
     "tier": 2,
     "tags": [
+      "Vanessa",
       "Burn",
-      "Dooley",
-      "Vanessa"
+      "Dooley"
     ]
   },
   "Waters of Infinity": {
@@ -3884,13 +3881,13 @@ export const skills = {
   },
   "Workin' Hard": {
     "text": [
-      "The first (4/8/12) times you Haste each fight, Charge 1 Tool 1 second."
+      "The first (4/8/12) times you Haste each fight, Charge a Tool 1 second."
     ],
     "tier": 1,
     "tags": [
       "Jules",
-      "Dooley",
       "Tool",
+      "Dooley",
       "Haste",
       "Stelle"
     ]
