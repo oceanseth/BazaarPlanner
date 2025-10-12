@@ -114,6 +114,13 @@ export class BazaarPatcher {
             items["Trebuchet"].text[2] = "When you use another Weapon, charge this 2 seconds.";
             items["Trebuchet"].text[3] = "When you Haste, charge this 2 seconds.";
         }
+        if(items["Miss Isles"]) {
+            items["Miss Isles"].text[1] = "When you use a Core, this gains (+5/+10/+15) Damage for the fight.";
+            items["Miss Isles"].text[2] = "When you use a Core, reload this.";
+        }
+        if(items["Monocle"]) {
+            items["Monocle"].text[0] = "Shield equal to (1/2/3) times your Gold";
+        }
         BazaarPatcher.customSetupFunctions.set("Orange Julian",(item)=>{
             if(item.Custom_0) {
                 item.text[0] = item.text[0].replace(/\+[\d]+ Damage/i, `+${item.Custom_0} Damage`);

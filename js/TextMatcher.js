@@ -2103,3 +2103,15 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+//"items adjacent to this gain (4%/8%/12%) Crit Chance for the fight." from Radar Module
+TextMatcher.matchers.push({
+    regex: /^items adjacent to this gain (\([^)]+\)|\d+%?) Crit Chance for the fight\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        return ()=> {
+            item.adjacentItems.forEach(i=>{
+                i.gain(amount,'crit');
+            });
+        };
+    }
+});
