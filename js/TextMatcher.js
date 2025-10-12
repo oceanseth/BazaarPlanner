@@ -613,7 +613,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //While your enemy has Poison, this has ( +50% » +100% ) Crit Chance. from Basilisk Fang
-    regex: /^While your enemy (?:has|is) Poison(?:ed)?, (.*)$/i,
+    regex: /^While (?:your|an) enemy (?:has|is) Poison(?:ed)?, (.*)$/i,
     func: (item, match)=>{
         item.board.player.hostileTarget.poisonChanged(item.getUndoableFunctionFromText(match[1],
             (newValue)=>{
@@ -1561,7 +1561,7 @@ TextMatcher.matchers.push({
 });
 //"If your enemy has more items than you, destroy one of their items." from Rex Spex
 TextMatcher.matchers.push({
-            regex: /^If your opponent has more items than you, destroy an item\.?$/i,
+            regex: /^If (?:your|an) opponent has more items than you, destroy an item\.?$/i,
     func: (item, match)=>{
         return ()=>{
             if(item.board.player.hostileTarget.board.activeItems.length>item.board.activeItems.length) {

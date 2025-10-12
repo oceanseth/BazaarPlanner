@@ -1122,7 +1122,7 @@ export class Item {
         }
         
         //If your enemy has at least ( 5 » 4 ) items, ...
-        damageRegex = /If your enemy has at least (\([^)]+\)|\d+) items, (.*)$/i;
+        damageRegex = /If (?:your|an) enemy has at least (\([^)]+\)|\d+) items, (.*)$/i;
         match = text.match(damageRegex);
         if(match) {
             const requireItemCount = getRarityValue(match[1], this.rarity);
@@ -2670,7 +2670,7 @@ export class Item {
         if(text.match(/^At the start of each hour/i)) {
             return ()=>{};
         }
-        let regex = /^\s*When (you|your enemy|an enemy|your opponent|a(?:ny)? player|either player|your items|your enemy's items|the core|an adjacent item)? ([^,]*), (.*)$/i;
+        let regex = /^\s*When (you|your enemy|an enemy|an enemy's items|your opponent|a(?:ny)? player|either player|your items|your enemy's items|the core|an adjacent item)? ([^,]*), (.*)$/i;
         let match = text.match(regex);
         let ifFunction = null;
         if(match) {
@@ -2683,7 +2683,7 @@ export class Item {
                 targetBoards = [this.board.player.hostileTarget.board];
             } else if(enemyMatch=="any player"||enemyMatch=="either player"||enemyMatch=="a player") {
                 targetBoards.push(this.board.player.hostileTarget.board);
-            } else if(enemyMatch=="your enemy's items") {
+            } else if(enemyMatch=="your enemy's items"||enemyMatch=="an enemy's items") {
                 targetBoards.push(this.board.player.hostileTarget.board);
             } else if(enemyMatch.toLowerCase()=="the core") {
                 conditionalMatch = "the core "+conditionalMatch;
@@ -3076,6 +3076,7 @@ export class Item {
                         });
                         return ()=>{};
                     case "or your enemy burns":
+                    case "or an enemy burns":
                         this.board.player.hostileTarget.board.burnTriggers.set(this.id,triggerFunctionFromText);
                     case "burn":
                         this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.toString(),triggerFunctionFromText);
@@ -3156,6 +3157,7 @@ export class Item {
                         return ()=>{};
                         
                     case "or your enemy poisons":
+                    case "or an enemy poisons":
                         this.board.player.hostileTarget.board.poisonTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
                     case "poison with an item":
                         this.board.itemTriggers.set(this.id+'-poison_with_an_item', (item) => {
@@ -3560,6 +3562,7 @@ export class Item {
                     });
                     return ()=>{}   ;
                 case "your enemy falls below half health":
+                case "an enemy falls below half health":
                     let enemyHealthBelowHalfCount = 0;
                     this.board.player.hostileTarget.healthBelowHalfTriggers.set(this.id,(item)=>{
                         if(enemyHealthBelowHalfCount++<=numTimes) {
@@ -3597,6 +3600,7 @@ export class Item {
                     });
                     return ()=>{};
                 case 'your enemy uses a weapon':
+                case 'an enemy uses a weapon':
                     let enemyWeaponCount = 0;
                     this.board.player.hostileTarget.board.itemTriggers.set(this.id,(item)=>{
                         if(item.tags.includes("Weapon") && enemyWeaponCount++<=numTimes) {
@@ -3609,6 +3613,7 @@ export class Item {
                     return ()=>{};               
                 case "you use a non-weapon item":
                 case "your enemy uses a non-weapon item":
+                case "an enemy uses a non-weapon item":
                     const target = thingDone.includes("enemy")?this.board.player.hostileTarget:this.board.player;
 
                     let nonWeaponCount = 0;
@@ -3742,7 +3747,7 @@ export class Item {
             return ()=>{};
          }
          //While your enemy has more health than you, your Weapons have their cooldowns reduced by (  5%  » 10%  » 20%   ).
-         regex = /^While your enemy has more health than you, (.*)/i;
+         regex = /^While (?:your|an) enemy has more health than you, (.*)/i;
          match = text.match(regex);
          if(match) {
             const f = this.getUndoableFunctionFromText(match[1],()=>{
@@ -3764,7 +3769,7 @@ export class Item {
             return ()=>{};
          }
          //This has +1 Multicast if you have more health than your enemy. from Jaballian Longbow 
-         regex = /^(.*) if you have more health than your enemy\.?$/i;
+         regex = /^(.*) if you have more health than (?:your|an) enemy\.?$/i;
          match = text.match(regex);
          if(match) {
             const f = this.getUndoableFunctionFromText(match[1],()=>{
@@ -4096,7 +4101,7 @@ export class Item {
             }
         }
         //Your enemy's Shield items lose ( 5 » 10 » 15 » 20 ) Shield for the fight
-        regex = /^\s*Your enemy's ([^\s]+) items lose (?:\(([^)]+)\)|(\d+)) ([^\s]+) for the fight/i;
+        regex = /^\s*(?:Your|An) enemy's ([^\s]+) items lose (?:\(([^)]+)\)|(\d+)) ([^\s]+) for the fight/i;
         match = text.match(regex);
         if(match) {
             const lossAmount = match[2] ? getRarityValue(match[2], this.rarity) : parseInt(match[3]);
@@ -4319,7 +4324,7 @@ export class Item {
             }
         }
         //your enemy loses (5/10) Max Health for the fight. from Toxic Exposure
-        regex = /^\s*your enemy loses (\([^)]+\)|\d+) Max Health for the fight\.?/i;
+        regex = /^\s*(?:your|an) enemy loses (\([^)]+\)|\d+) Max Health for the fight\.?/i;
         match = text.match(regex);
         if(match) {
             const maxHealth = getRarityValue(match[1], this.rarity);
@@ -4341,7 +4346,7 @@ export class Item {
             };
         }
         //You have Regeneration equal to half the (Poison|Burn) on your enemy. from Venomous Vitality
-        regex = /^\s*You have \+?Regen(?:eration)? equal to half the (Poison|Burn) on your enemy\.?/i;
+        regex = /^\s*You have \+?Regen(?:eration)? equal to half the (Poison|Burn) on (?:your|an) enemy\.?/i;
         match = text.match(regex);
         if(match) {
             const whichToTrack = match[1].toLowerCase();
@@ -4351,7 +4356,7 @@ export class Item {
             return () => {};
         }
         //Your weapons have + Damage equal to (50/75/100) of the Poison on your enemy. from Poppy Field
-        regex = /^\s*Your ([^\s]+)s?(?: items)? have \+\s?(\w+) equal to (\([^)]+\)|\d+%?) of the (\w+) on your (?:enemy|opponent)\.?/i;
+        regex = /^\s*Your ([^\s]+)s?(?: items)? have \+\s?(\w+) equal to (\([^)]+\)|\d+%?) of the (\w+) on (?:your|an) (?:enemy|opponent)\.?/i;
         match = text.match(regex);
         if(match) {            
             const tagToMatch = Item.getTagFromText(match[1]);
@@ -4876,7 +4881,7 @@ export class Item {
         }   
 
         //Heal equal to your opponent's Poison.
-        regex = /^\s*(Heal|Burn|Shield|Poison) equal to your enemy's (Poison|Burn|Shield|Regen(?:eration)?)\.?/i;
+        regex = /^\s*(Heal|Burn|Shield|Poison) equal to (?:your|an) enemy's (Poison|Burn|Shield|Regen(?:eration)?)\.?/i;
         match = text.match(regex);
         if(match) {
             const whatToGain = match[1];
@@ -5734,7 +5739,7 @@ export class Item {
 
 
         //double your enemy's Poison. from Biohazard
-        regex = /^double your enemy's Poison\.?$/i;
+        regex = /^double (?:your|an) enemy's Poison\.?$/i;
         match = text.match(regex);
         if(match) {            
             return ()=>{
