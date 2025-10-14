@@ -543,13 +543,13 @@ ItemFunction.items.set("Cryosleeve",(item)=>{
     item.board.freezeTriggers.set(item.id,(i,source)=>{
             item.applyShield();
             if(i.board==item.board) {
-                i.freezeDurationRemaining /= 2;
+                i.freezeTimeRemaining /= 2;
                 item.log(item.name + " reduced " + i.name + " freeze duration by half");
             }
     });
     item.board.player.hostileTarget.board.freezeTriggers.set(item.id,(i,source)=>{
         if(i.board==item.board) {
-            i.freezeDurationRemaining /= 2;
+            i.freezeTimeRemaining /= 2;
             item.log(item.name + " reduced " + i.name + " freeze duration by half");
         }
         item.applyShield();
