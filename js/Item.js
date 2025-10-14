@@ -390,7 +390,7 @@ export class Item {
 
         this.battleStatsElement.querySelectorAll('div').forEach(div => div.style.display = 'none');
 
-        this.freezeDurationRemaining = 0;
+        this.freezeTimeRemaining = 0;
         this.freezeElement.classList.add('hidden');
         this.element.classList.add(this.rarity || 'Bronze');
     
@@ -820,21 +820,21 @@ export class Item {
 
     updateBattle(timeDiff) {
         
-        if(this.freezeDurationRemaining > 0) {
-            this.freezeDurationRemaining -= timeDiff * (this.flying?2:1);
-            if(this.freezeDurationRemaining > 0) {
+        if(this.freezeTimeRemaining > 0) {
+            this.freezeTimeRemaining -= timeDiff * (this.flying?2:1);
+            if(this.freezeTimeRemaining > 0) {
                 this.element.classList.add('frozen');       
                 this.freezeElement.classList.remove('hidden');
-                this.freezeElement.textContent = (this.freezeDurationRemaining/1000).toFixed(1);
+                this.freezeElement.textContent = (this.freezeTimeRemaining/1000).toFixed(1);
 
                 this.progressHasteAndSlowAndReturnEffectiveTimeDiff(timeDiff);
 
                 return;
             }
             
-            this.freezeDurationRemaining = 0;
+            this.freezeTimeRemaining = 0;
             this.isFrozen = 0;
-            if(!this.board.items.some(i=>i.freezeDurationRemaining>0)) {
+            if(!this.board.items.some(i=>i.freezeTimeRemaining>0)) {
                 this.board.hasFrozenItem = 0;
             }
             this.element.classList.remove('frozen');
@@ -991,11 +991,11 @@ export class Item {
         if(source!=null) { return source.applyFreezeTo(this,duration);}
         if(this.enchant=='Radiant') return;
         if(this.isDestroyed) return;
-        this.freezeDurationRemaining += duration*1000;
+        this.freezeTimeRemaining += duration*1000;
         this.board.hasFrozenItem = 1;
         this.isFrozen = 1;
         this.element.classList.add('frozen');
-        this.freezeElement.textContent = (this.freezeDurationRemaining/1000).toFixed(1);
+        this.freezeElement.textContent = (this.freezeTimeRemaining/1000).toFixed(1);
         this.freezeElement.classList.remove('hidden');      
     }
     applyFreezeTo(item) {
@@ -1015,11 +1015,11 @@ export class Item {
         item.board.critPossible=oldCritPossible;
     }
     removeFreeze(source) {
-        if (this.freezeDurationRemaining <= 0) 
+        if (this.freezeTimeRemaining <= 0) 
             return;
-        this.freezeDurationRemaining = 0;
+        this.freezeTimeRemaining = 0;
         this.isFrozen = 0;
-        if(!this.board.items.some(i=>i.freezeDurationRemaining>0)) {
+        if(!this.board.items.some(i=>i.freezeTimeRemaining>0)) {
             this.board.hasFrozenItem = 0;
         }
         this.element.classList.remove('frozen');
@@ -1250,8 +1250,8 @@ export class Item {
     isFreezeTargetable() {
         return !this.isDestroyed && (this.cooldown > 0 || (this.size<3));
         /*
-        && (this.cooldown > 0  || !this.board.items.some(item => item.cooldown > 0 && item.freezeDurationRemaining<=0))
-        && (this.freezeDurationRemaining <= 0 || !this.board.items.some(item => item.freezeDurationRemaining <= 0 && item.isHasteTargetable()));
+        && (this.cooldown > 0  || !this.board.items.some(item => item.cooldown > 0 && item.freezeTimeRemaining<=0))
+        && (this.freezeTimeRemaining <= 0 || !this.board.items.some(item => item.freezeTimeRemaining <= 0 && item.isHasteTargetable()));
         */
     }
 
@@ -2667,6 +2667,10 @@ export class Item {
         return false; 
     }
     getConditionalTriggerFunctionFromText(text) {
+        if(!text) return ()=>{
+            console.log("No text to get conditional trigger function from for "+this.name);
+            return ()=>{};
+        };
         if(text.match(/^At the start of each hour/i)) {
             return ()=>{};
         }
@@ -3128,6 +3132,14 @@ export class Item {
                         return ()=>{};
                     case "gain freeze":
                         this.board.player.hostileTarget.board.freezeTriggers.set(this.id,triggerFunctionFromText);
+                        return ()=>{};
+                    case "freezes or slows":
+                        this.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
+                            triggerFunctionFromText(source);
+                        });
+                        this.board.slowTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
+                            triggerFunctionFromText(source);
+                        });
                         return ()=>{};
                     case "freeze":
                         this.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
@@ -6188,9 +6200,9 @@ export class Item {
             this.reset();
         });
         let hasteDurationRemaining = this.hasteDurationRemaining;
-        let freezeDurationRemaining = this.freezeDurationRemaining;
-        let slowDurationRemaining = this.slowDurationRemaining;
-        Object.assign(copy,{hasteDurationRemaining,freezeDurationRemaining,slowDurationRemaining});
+        let freezeTimeRemaining = this.freezeTimeRemaining;
+        let slowTimeRemaining = this.slowTimeRemaining;
+        Object.assign(copy,{hasteDurationRemaining,freezeTimeRemaining,slowDurationRemaining});
         copy.board.transformTriggers.forEach(f=>f(this,copy));
         this.log(this.board.player.name+"'s "+this.name+" transformed into "+copy.name+" by "+source.board.player.name+"'s "+source.name);
     }

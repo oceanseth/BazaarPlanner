@@ -2115,3 +2115,21 @@ TextMatcher.matchers.push({
         };
     }
 });
+//'When an enemy Freezes or Slows your items, this is targeted instead.'
+TextMatcher.matchers.push({
+    regex: /^When an enemy Freezes or Slows your items, this is targeted instead\.?$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1], item);
+        item.board.player.hostileTarget.board.freezeTriggers.set(item.id,(target,source)=>{
+            item.freezeTimeRemaining += target.freezeTimeRemaining;
+            target.removeFreeze(item);
+            item.log(item.name + " redirected the freeze from " + source.name + " on " + target.name + " to itself.");
+        });
+        item.board.player.hostileTarget.board.slowTriggers.set(item.id,(target,source)=>{
+            item.slowTimeRemaining += target.slowTimeRemaining;
+            target.removeSlow(item);
+            item.log(item.name + " redirected the slow from " + source.name + " on " + target.name + " to itself.");
+        });
+        return ()=>{};
+    }
+});
