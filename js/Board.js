@@ -46,26 +46,98 @@ class Board {
     }
     loadEncounter(encounter) {
         if(!encounter) return;
-        loadFromUrl(encounter.d);
-        window.history.pushState({state: encounter.d}, '', `#${encounter.d}`);
+        // If this is the bottom board and top board is not following anyone,
+        // load the entire state (both boards) for backward compatibility
+        if(this.boardId === 'b' && !Board.getBoardFromId('t')?.follow) {
+            loadFromUrl(encounter.d);
+            window.history.pushState({state: encounter.d}, '', `#${encounter.d}`);
+        } else {
+            // Otherwise, load only this board's data
+            this.loadBoardFromUrlState(encounter.d);
+        }
     }
     loadRun(run) {
         if(run && run.d && this.follow) {
-            loadFromUrl(run.d);
-            window.history.pushState({state: run.d}, '', `#${run.d}`);
+            // If this is the bottom board and top board is not following anyone,
+            // load the entire state (both boards) for backward compatibility
+            if(this.boardId === 'b' && !Board.getBoardFromId('t')?.follow) {
+                loadFromUrl(run.d);
+                window.history.pushState({state: run.d}, '', `#${run.d}`);
+            } else {
+                // Otherwise, load only this board's data
+                this.loadBoardFromUrlState(run.d);
+            }
         }        
+    }
+    loadBoardFromUrlState(stateString) {
+        // Load only this board's data from the state string
+        try {
+            const boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(stateString));
+            
+            // Find board-specific data in the state
+            const boardData = boardState.find(item => item.name === '_b_' + this.boardId);
+            const boardItems = boardState.filter(item => item.board === this.boardId);
+            
+            if (!boardData) return;
+            
+            // Clear only this board
+            this.clear();
+            
+            // Load player data
+            this.player.startPlayerData.maxHealth = boardData.health;
+            if(boardData.shield !== undefined) this.player.startPlayerData.shield = boardData.shield;
+            if(boardData.playerName) this.player.startPlayerData.name = boardData.playerName;
+            if(boardData.hero) this.player.startPlayerData.hero = boardData.hero;
+            if(boardData.regen !== undefined) this.player.startPlayerData.regen = boardData.regen;
+            else this.player.startPlayerData.regen = 0;
+            if(boardData.gold !== undefined) this.player.startPlayerData.gold = boardData.gold;
+            else this.player.startPlayerData.gold = 0;
+            if(boardData.income !== undefined) this.player.startPlayerData.income = boardData.income;
+            else this.player.startPlayerData.income = 0;
+            if(boardData.prestige !== undefined) this.player.startPlayerData.prestige = boardData.prestige;
+            else this.player.startPlayerData.prestige = 0;
+            
+            // Load skills
+            if(boardData.skills) {
+                boardData.skills.forEach(skill => {
+                    this.addSkill(skill.name, skill);
+                });
+            }
+            
+            // Load items
+            boardItems.forEach(itemData => {
+                if(itemData.name.startsWith('_b_')) return; // Skip board metadata
+                
+                let [name, enchant] = Item.stripEnchantFromName(itemData.name);
+                let baseItemData = Item.getDataFromName(name);
+                if(!baseItemData) return;
+                
+                baseItemData.tier = itemData.tier;
+                baseItemData.enchant = itemData.enchant || enchant;
+                
+                let newItem = new Item(baseItemData, this);
+                newItem.setIndex(itemData.startIndex);
+            });
+            
+            this.sortItems();
+            this.reset();
+            this.setup();
+            
+        } catch (error) {
+            console.error('Error loading board from URL state:', error);
+        }
     }
     loadFullRun(run) {
         //const currentEncounter = run.currentEncounter;
         this.fullRunData = run;
         if(run.encounters) {
-        let html = '<select id="sim-encounter-select"><option disabled>Encounters</option>';
+        let html = `<select id="sim-encounter-select-${this.boardId}"><option disabled>Encounters</option>`;
             run.encounters.forEach( (e,i)=> {
                 html += `<option ${e.id==run.lastEncounter?"selected":""} style="background-color: ${e.v=="0"?"#aa4444":"#44aa44"};" value="${i}">${e.v=="0"?"Loss":"Win"} - ${e.name}</option>`;
             });
             html += '</select>';
             this.importElement.innerHTML = html;
-            this.importElement.querySelector('#sim-encounter-select').onchange = (e) => {      
+            this.importElement.querySelector(`#sim-encounter-select-${this.boardId}`).onchange = (e) => {      
                 this.loadEncounter(run.encounters[e.target.value]);
             };
         }
@@ -512,6 +584,7 @@ class Board {
         this.element.appendChild(this.boardControls);
         this.boardControls.innerHTML = `
             ${this.boardId=='b'?'<div class="requireLogin"><button id="followBtn-b" class="editorOpener" onclick="window.showFollowModal(bottomPlayer.board);">Follow</button></div>':''}
+            ${this.boardId=='t'?'<div class="requireLogin"><button id="followBtn-t" class="editorOpener" onclick="window.showFollowModal(topPlayer.board);">Follow</button></div>':''}
             ${this.boardId=='t'?'<div class="requireLogin"><button onclick="topPlayer.board.loadFromClone(bottomPlayer.board)" title="Clone the Bottom Board">Clone</button></div>':''}
             <button onclick="Board.getBoardFromId('${this.boardId}').clear()">Clear</button>
             <button onclick="Board.getBoardFromId('${this.boardId}').save()">Save</button>

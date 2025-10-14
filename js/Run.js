@@ -71,7 +71,7 @@ export class Run {
         const f = () => {
             showSection('simulator');
             bottomPlayer.board.loadFullRun(run);
-            $("#sim-encounter-select").val(encounterIndex).trigger('change');
+            $("#sim-encounter-select-b").val(encounterIndex).trigger('change');
         };
         if(!run) {
             firebase.database().ref(`/users/${uid}/runs/${runId}`).once('value').then(runSnap => {
