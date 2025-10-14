@@ -2133,3 +2133,24 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+//"all items on your board gain (+1/+2/+3) value." from Display Case
+TextMatcher.matchers.push({
+    regex: /^all items on your board gain (\([^)]+\)|\d+) value\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        return ()=>{
+            item.board.items.forEach(i=>{
+                i.gain(amount,'value');
+            });
+        };
+    }
+});
+//"this gains +Damage equal to that item's value for the fight." from Laser Security System
+TextMatcher.matchers.push({
+    regex: /^this gains \+Damage equal to that item's value for the fight\.?$/i,
+    func: (item, match)=>{
+        return (source)=>{
+            item.gain(source.value,'damage',source);
+        };
+    }
+});
