@@ -46,39 +46,60 @@ class Board {
     }
     loadEncounter(encounter) {
         if(!encounter) return;
-        // If this is the bottom board and top board is not following anyone,
-        // load the entire state (both boards) for backward compatibility
+        // SCENARIO 1: Bottom board following AND top board is NOT following
+        // -> Load entire encounter state (both 'b' and 't' from followed user)
         if(this.boardId === 'b' && !Board.getBoardFromId('t')?.follow) {
+            console.log('Bottom board loading encounter, top not following -> Loading full encounter state');
             loadFromUrl(encounter.d);
             window.history.pushState({state: encounter.d}, '', `#${encounter.d}`);
-        } else {
-            // Otherwise, load only this board's data
+        } 
+        // SCENARIO 2: Top board following (loads their 'b' into our 't')
+        // SCENARIO 3: Bottom board following AND top board IS following (loads their 'b' into our 'b')
+        else {
+            console.log(`Board ${this.boardId} loading encounter -> Loading only their bottom board ('b')`);
             this.loadBoardFromUrlState(encounter.d);
         }
     }
     loadRun(run) {
         if(run && run.d && this.follow) {
-            // If this is the bottom board and top board is not following anyone,
-            // load the entire state (both boards) for backward compatibility
+            // SCENARIO 1: Bottom board following AND top board is NOT following
+            // -> Load entire state (both 'b' and 't' from followed user)
             if(this.boardId === 'b' && !Board.getBoardFromId('t')?.follow) {
+                console.log('Bottom board following, top not following -> Loading full state from user:', this.follow);
                 loadFromUrl(run.d);
                 window.history.pushState({state: run.d}, '', `#${run.d}`);
-            } else {
-                // Otherwise, load only this board's data
+            } 
+            // SCENARIO 2: Top board following (loads their 'b' into our 't')
+            // SCENARIO 3: Bottom board following AND top board IS following (loads their 'b' into our 'b')
+            else {
+                console.log(`Board ${this.boardId} following user ${this.follow} -> Loading only their bottom board ('b')`);
                 this.loadBoardFromUrlState(run.d);
             }
         }        
     }
     loadBoardFromUrlState(stateString) {
-        // Load only this board's data from the state string
+        // This method loads board-specific data from a followed user
+        // ALWAYS loads from the followed user's BOTTOM board ('b') because that's their actual board
+        // 
+        // If top board ('t') calls this: Loads followed user's 'b' -> into our 't' (opponent board)
+        // If bottom board ('b') calls this: Loads followed user's 'b' -> into our 'b' (our board)
         try {
             const boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(stateString));
             
-            // Find board-specific data in the state
-            const boardData = boardState.find(item => item.name === '_b_' + this.boardId);
-            const boardItems = boardState.filter(item => item.board === this.boardId);
+            // Always use 'b' as source because we want the followed user's actual board
+            // (users save their board state in 'b', 't' is for opponents)
+            const sourceBoardId = 'b';
             
-            if (!boardData) return;
+            console.log(`Loading board ${this.boardId} from followed user's board '${sourceBoardId}'`);
+            
+            // Find board-specific data in the state
+            const boardData = boardState.find(item => item.name === '_b_' + sourceBoardId);
+            const boardItems = boardState.filter(item => item.board === sourceBoardId);
+            
+            if (!boardData) {
+                console.warn(`No board data found for '${sourceBoardId}' in followed user's state`);
+                return;
+            }
             
             // Clear only this board
             this.clear();
