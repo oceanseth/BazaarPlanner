@@ -1699,19 +1699,19 @@ TextMatcher.matchers.push({
 });
 //"This item's cooldown is reduced by 50% if you have at least 4 other Dinosaurs." from Dinosawer
 TextMatcher.matchers.push({
-            regex: /^This item's cooldown is reduced by (\([^)]+\)|\d+)% if you have at least (\d+) other (\w+(?:,? (?:or )?(\w+))*)s?\.?$/i,
+            regex: /^This item's cooldown is reduced by (\d+) seconds if you have at least (\d+) other (\w+(?:,? (?:or )?(\w+))*)s?\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         const numThingsRequired = getRarityValue(match[2], item.rarity);
         const tags = match[3].split(",").map(t=>Item.getTagFromText(t.replace("or","").trim()));
         const numThings = item.board.items.filter(i=>i!=item && tags.some(t=>i.tags.includes(t))).length;
         if(numThings>=numThingsRequired) {
-            item.gain(item.cooldown*-amount/100,'cooldown');
+            item.gain(-amount*1000,'cooldown');
         }
         item.board.itemDestroyedTriggers.set(item.id+"_"+tags.join(","), (i)=>{
             const numThings = item.board.items.filter(i=>i!=item && tags.some(t=>i.tags.includes(t))).length;
             if(numThings<numThingsRequired) {
-                i.gain(item.cooldown*amount/100,'cooldown');
+                i.gain(amount*1000,'cooldown');
             }
             item.board.itemDestroyedTriggers.delete(item.id+"_"+tags.join(","));
         });
@@ -2151,6 +2151,19 @@ TextMatcher.matchers.push({
     func: (item, match)=>{
         return (source)=>{
             item.gain(source.value,'damage',source);
+        };
+    }
+});
+//"your Cores start Flying." from Propeller Hat
+TextMatcher.matchers.push({
+    regex: /^your (\w+)s? starts? Flying\.?$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        return ()=>{            
+            item.board.items.filter(i=>i.tags.includes(tag)).forEach(i=>{
+                i.flying = true;
+                item.log("Because of "+item.name+", "+i.name+" starts flying.");
+            });
         };
     }
 });
