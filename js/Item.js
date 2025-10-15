@@ -3831,7 +3831,18 @@ export class Item {
         match = text.match(regex);
         if(match) {
             this.charge = getRarityValue(match[3], this.rarity);
-            const itemsToCharge = this.board.items.filter(item => item.name.toLowerCase()==match[1].toLowerCase()||item.tags.includes(Item.getTagFromText(match[1])));
+            const itemsToCharge = [];
+            if(match[1]=='rightmost') {
+                if(this.board.itemsWithCooldown.length>0) {
+                    itemsToCharge.push(this.board.itemsWithCooldown[this.board.itemsWithCooldown.length-1]);
+                }
+            } else if(match[1]=='leftmost') {
+                if(this.board.itemsWithCooldown.length>0) {
+                    itemsToCharge.push(this.board.itemsWithCooldown[0]);
+                }
+            } else {                
+                itemsToCharge.push(...this.board.items.filter(item => item.name.toLowerCase()==match[1].toLowerCase()||item.tags.includes(Item.getTagFromText(match[1]))));
+            }
             if(match[2]) {
                 itemsToCharge.push(...this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[2]))));
             }
