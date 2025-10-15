@@ -845,8 +845,8 @@ export class Item {
 
         let effectiveTimeDiff = this.progressHasteAndSlowAndReturnEffectiveTimeDiff(timeDiff);
         
-        if(this.board.player.battle.numTicks%2==0) {
-            while(this.pendingCharges.length>0 && this.chargeBy(this.pendingCharges.pop())); 
+        if(this.board.player.battle.numTicks%2==0 && this.pendingCharges.length>0) {
+            this.chargeBy(this.pendingCharges.pop()); 
         }
 
         if(this.maxAmmo && this.ammo<=0 && this.numTriggers < Math.floor((effectiveTimeDiff+this.effectiveBattleTime) / this.cooldown)) {
