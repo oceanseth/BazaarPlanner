@@ -3827,7 +3827,7 @@ export class Item {
         }
    
         //charge your Busy Bees 2 second(s).
-        regex = /^\s*charge your ([^0-9|and]+?)s?\s*(?:and\s+(\w+)\s+)?(?:items?\s+)?(\([^)]+\)|\d+) second\(?s?\)?\.?/i;   
+        regex = /^\s*charge your ([^0-9|and]+?)s?\s*(?:and\s+(\w+)\s+)?(?:items?\s+)?(\([^)]+\)|\d+) second\(?s?\)?\.?$/i;   
         match = text.match(regex);
         if(match) {
             this.charge = getRarityValue(match[3], this.rarity);
