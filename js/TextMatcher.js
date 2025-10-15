@@ -1869,6 +1869,19 @@ TextMatcher.matchers.push({
         };
     }
 });
+//"The item to the left of this starts Flying" from Levitation Pad
+TextMatcher.matchers.push({
+    regex: /^The item to the (left|right) of this starts Flying\.?$/i,
+    func: (item, match)=>{
+        const target = match[1]=='left' ? item.getItemToTheLeft() : item.getItemToTheRight();
+        return ()=>{
+            if(target && !target.isDestroyed) {
+                target.flying = true;
+                item.log("Because of "+item.name+", "+target.name+" starts flying.");
+            }
+        };
+    }
+});
 TextMatcher.matchers.push({
     regex: /^this (starts|stops) Flying\.?$/i,
     func: (item, match)=>{
@@ -2164,6 +2177,19 @@ TextMatcher.matchers.push({
                 i.flying = true;
                 item.log("Because of "+item.name+", "+i.name+" starts flying.");
             });
+        };
+    }
+});
+//"If the item to the left of this is Flying." from Levitation Pad
+TextMatcher.matchers.push({
+    regex: /^If the item to the left of this is Flying, (.*)\.?$/i,
+    func: (item, match)=>{
+        const target = item.getItemToTheLeft();
+        const f = item.getTriggerFunctionFromText(match[1], item);
+        return ()=>{
+            if(target && !target.isDestroyed && target.flying) {
+                f(target);
+            }
         };
     }
 });

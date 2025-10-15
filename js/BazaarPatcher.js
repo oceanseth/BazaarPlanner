@@ -121,6 +121,9 @@ export class BazaarPatcher {
         if(items["Monocle"]) {
             items["Monocle"].text[0] = "Shield equal to (1/2/3) times your Gold";
         }
+        if(items["Levitation Pad"]) {
+            items["Levitation Pad"].text[0] = "Haste the item to the left of this for (1/2/3/4) second(s)";
+        }
         BazaarPatcher.customSetupFunctions.set("Orange Julian",(item)=>{
             if(item.Custom_0) {
                 item.text[0] = item.text[0].replace(/\+[\d]+ Damage/i, `+${item.Custom_0} Damage`);
