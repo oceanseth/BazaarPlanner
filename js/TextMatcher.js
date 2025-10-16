@@ -2193,3 +2193,16 @@ TextMatcher.matchers.push({
         };
     }
 });
+
+//The item to the left of this has its cooldown reduced by ( 25% » 50% ). from Gramophone   
+TextMatcher.matchers.push({
+    regex: /^The cooldown of the item to the left of this is reduced by (\([^)]+\)|\d+)%?\.?$/i,
+    func: (item, match)=>{
+        const cooldownReduction = getRarityValue(match[1], item.rarity);
+        const leftItem = item.getItemToTheLeft();
+        if(leftItem) {
+            leftItem.gain(leftItem.cooldown*(1-cooldownReduction/100)-leftItem.cooldown,'cooldown');
+        }
+        return ()=>{};
+    }
+});

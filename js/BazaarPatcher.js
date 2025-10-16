@@ -124,6 +124,10 @@ export class BazaarPatcher {
         if(items["Levitation Pad"]) {
             items["Levitation Pad"].text[0] = "Haste the item to the left of this for (1/2/3/4) second(s)";
         }
+        if(items["Thrusters"]) {
+            items["Thrusters"].text[1] = "The item to the left of this is a Vehicle";
+            items["Thrusters"].text[2] = "The Cooldown of the item to the left of this is reduced by (3%/6%/9%).";
+        }
         BazaarPatcher.customSetupFunctions.set("Orange Julian",(item)=>{
             if(item.Custom_0) {
                 item.text[0] = item.text[0].replace(/\+[\d]+ Damage/i, `+${item.Custom_0} Damage`);
