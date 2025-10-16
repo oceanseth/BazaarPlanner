@@ -385,7 +385,8 @@ export class Item {
                 }
             }
         });
-        this.flying = this.tags.includes('Flying');
+        //this.flying = this.tags.includes('Flying');
+        this.flying = false;
 
 
         this.battleStatsElement.querySelectorAll('div').forEach(div => div.style.display = 'none');
