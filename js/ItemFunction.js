@@ -492,13 +492,7 @@ ItemFunction.items.set("Nitro",(item)=>{
         item.applyBurn({selfTarget:true});
     });
 });
-//The Core gains ( +5% » +10% » +15% ) Crit Chance for the fight. from Cooling Fan
-ItemFunction.items.set("Cooling Fan",(item)=>{
-    const critChance = getRarityValue("5 >> 10 >> 15",item.rarity);
-    item.triggerFunctions.push(()=>{
-        item.board.items.forEach(i=>{if(i.tags.includes("Core")) i.gain(critChance,'critChance');});
-    });
-});
+
 // Your leftmost Weapon has lifesteal. from Circle of Life
 ItemFunction.items.set("Circle of Life",(item)=>{
     const leftmostWeapon = item.board.items.find(i=>i.tags.includes("Weapon"));

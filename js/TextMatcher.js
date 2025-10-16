@@ -30,6 +30,17 @@ export class TextMatcher {
                 item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
                 item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
             }
+        },
+        "if you have a (\\w+) item":{
+            test: (item, matches) => {
+                const tag = Item.getTagFromText(matches[1]);
+                return item.board.activeItems.filter(i=>i.tags.includes(tag)).length>0;
+            },
+            setup: (item, f, matches) => {
+                const tag = Item.getTagFromText(matches[1]);
+                item.target = item.board.items.filter(i=>i.tags.includes(tag))[0];
+                item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
+            }
         }
     };
     static getTriggerFunctionFromText(text, item) {
@@ -600,14 +611,15 @@ TextMatcher.matchers.push({
     },
 });
 TextMatcher.matchers.push({
-    //if you have a Large item.
-            regex: /^(.*) if you have a ([^\s]+) item\.?$/i,
+    //this has +1 Multicast if you have a Large item.
+    regex: new RegExp(`^(.*) (${Object.keys(TextMatcher.comparitors).join('|')})\.?$`, 'i'),
+
     func: (item, match)=>{
-        const tag = Item.getTagFromText(match[2]);
-        const f = item.getTriggerFunctionFromText(match[1]);
-        if(item.board.items.some(i=>i.tags.includes(tag))) {
-            f();
-        }
+        const matchingComparator = TextMatcher.comparitors[Object.keys(TextMatcher.comparitors).find(key=>new RegExp(key).test(match[2]))];
+        const f = item.getUndoableFunctionFromText(match[1], ()=>{
+            return matchingComparator.test(item, match.slice(2));
+        });
+        matchingComparator.setup(item,f,match.slice(2));
         return ()=>{};
     }
 });
@@ -1694,7 +1706,9 @@ TextMatcher.matchers.push({
                 i.gain(-amount,'burn');
             }
         });
-        return ()=>{};
+        return ()=>{
+            item.applyBurn();
+        };
     }
 });
 //"This item's cooldown is reduced by 50% if you have at least 4 other Dinosaurs." from Dinosawer
