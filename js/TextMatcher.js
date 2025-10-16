@@ -2022,7 +2022,7 @@ TextMatcher.matchers.push({
 
 //"(1/2/3) Small item(s) start Flying." from Haunting Flight
 TextMatcher.matchers.push({
-    regex: /^(\([^)]+\)|\d+|all)( of your)? (\w+)?\s?item\(?s?\)? (start|stop)s? Flying\.?$/i,
+    regex: /^(\([^)]+\)|\d+|all)(?: of)?( your)? (\w+)?\s?item\(?s?\)? (start|stop)s? Flying\.?$/i,
     func: (item, match)=>{
         const numItems = getRarityValue(match[1], item.rarity);
         const yourItems = !!match[2];
