@@ -612,7 +612,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //this has +1 Multicast if you have a Large item.
-            regex: new RegExp(`^(.*) (${Object.keys(TextMatcher.comparitors).join('|')})\.?$`, 'i'),
+    regex: new RegExp(`^(.*) (${Object.keys(TextMatcher.comparitors).join('|')})\.?$`, 'i'),
 
     func: (item, match)=>{
         const matchingComparator = TextMatcher.comparitors[Object.keys(TextMatcher.comparitors).find(key=>new RegExp(key).test(match[2]))];
@@ -1706,7 +1706,9 @@ TextMatcher.matchers.push({
                 i.gain(-amount,'burn');
             }
         });
-        return ()=>{};
+        return ()=>{
+            item.applyBurn();
+        };
     }
 });
 //"This item's cooldown is reduced by 50% if you have at least 4 other Dinosaurs." from Dinosawer
