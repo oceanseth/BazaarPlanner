@@ -344,15 +344,6 @@ ItemFunction.items.set("Hammock",(item)=>{
     item.gain(-largeItemCount*5*1000,'cooldown');
 });
 
-//The item to the left of this has its cooldown reduced by ( 25% » 50% ). from Phonograph
-ItemFunction.items.set("Phonograph",(item)=>{   
-    const cooldownReduction = getRarityValue("25 >> 50",item.rarity);
-    const leftItem = item.getItemToTheLeft();
-    if(leftItem) {
-        leftItem.gain(leftItem.cooldown*(1-cooldownReduction/100)-leftItem.cooldown,'cooldown');
-    }
-});
-
 //"When you Slow with an item, Freeze with an item, Poison with an item, or Burn with an item, a Regeneration item gains (1/2/3) Regeneration for the fight." from Vital Renewal
 ItemFunction.items.set("Vital Renewal",(item)=>{
     item.setupTextFunctions("When you Slow with an item, Freeze with an item, Poison with an item, or Burn with an item, a Regeneration item gains (1/2/3) Regeneration for the fight.");    
@@ -490,19 +481,6 @@ ItemFunction.items.set("Balcony",(item)=>{
         property.cooldown *= 1-(getRarityValue("5 >> 10 >> 15",item.rarity)/100);
     //    property.updateTriggerValuesElement();
 
-    }
-});
-//Burn both players ( 2 » 3 » 4 » 5 ).
-//Adjacent items have their cooldowns reduced by ( 6% » 9% » 12% » 15% ). from Thrusters
-ItemFunction.items.set("Thrusters",(item)=>{
-    const burnAmount = getRarityValue("2 >> 3 >> 4 >> 5",item.rarity);
-    const cooldownReduction = getRarityValue("6 >> 9 >> 12 >> 15",item.rarity);
-    item.gain(burnAmount,'burn');
-    item.adjacentItems.forEach(i=>{
-        i.gain(i.cooldown * (1-(cooldownReduction)/100)-i.cooldown,'cooldown');
-    });
-    return ()=>{
-        item.applyBurn();
     }
 });
 //Burn both players ( 4 » 6 » 8 ). from Nitro
