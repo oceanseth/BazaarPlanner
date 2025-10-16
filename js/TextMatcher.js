@@ -198,10 +198,10 @@ export class TextMatcher {
         regex: /^this has \+1 Multicast\.?$/i,
         func: (item, match)=>{
             const doIt = () => {
-                this.multicast += 1;
+                item.gain(1,'multicast',item);
             };
             const undoIt = () => {
-                this.multicast -= 1;
+                item.gain(-1,'multicast',item);
             };
             return {doIt, undoIt};
         },
