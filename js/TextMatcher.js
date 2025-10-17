@@ -2037,6 +2037,13 @@ TextMatcher.matchers.push({
                 item.log("Because of "+item.name+", all "+(yourItems?"your":"")+" items "+(isStart?"start":"stop")+" flying.");
                 return;
             }
+            if(tag=="Other") {
+                item.pickRandom(item.board.activeItems.filter(i=>i!=item && i.flying!=isStart),numItems).forEach(i=>{
+                    i.flying = isStart;
+                    item.log("Because of "+item.name+", "+i.name+" "+(isStart?"starts":"stops")+" flying.");
+                });
+                return;
+            }
             const items = item.board.activeItems.filter(i=>(!tag||i.tags.includes(tag)) && i.flying!=isStart);
             item.pickRandom(items,numItems).forEach(i=>{
                 i.flying = isStart;

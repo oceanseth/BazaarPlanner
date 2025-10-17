@@ -4919,14 +4919,16 @@ export class Item {
         }
 
         //Charge your other non-weapon items ( 1 » 2 ) second(s).
-        regex = /^\s*Charge your other non-weapon items (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        regex = /^\s*Charge your other (non-)?(\w+) items (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            this.charge =  getRarityValue(match[1], this.rarity);
+            const non = match[1]!=null;
+            const tag = Item.getTagFromText(match[2]);
+            this.charge =  getRarityValue(match[3], this.rarity);
            
             return () => {
                 this.board.items.forEach(item => {
-                    if(item.id != this.id && item.cooldown>0 && !item.tags.includes("Weapon")) {
+                    if(item.id != this.id && item.cooldown>0 && (non?!item.tags.includes(tag):item.tags.includes(tag))) {
                         this.applyChargeTo(item);
                     }
                 });
