@@ -6211,10 +6211,10 @@ export class Item {
             this.board.addItem(this);
             this.reset();
         });
-        let hasteDurationRemaining = this.hasteDurationRemaining;
+        let hasteTimeRemaining = this.hasteTimeRemaining;
         let freezeTimeRemaining = this.freezeTimeRemaining;
         let slowTimeRemaining = this.slowTimeRemaining;
-        Object.assign(copy,{hasteDurationRemaining,freezeTimeRemaining,slowDurationRemaining});
+        Object.assign(copy,{hasteTimeRemaining,freezeTimeRemaining,slowTimeRemaining});
         copy.board.transformTriggers.forEach(f=>f(this,copy));
         this.log(this.board.player.name+"'s "+this.name+" transformed into "+copy.name+" by "+source.board.player.name+"'s "+source.name);
     }
