@@ -5727,7 +5727,7 @@ export class Item {
         regex = /^(adjacent|your other) items (?:gain|get) Value equal to this item's Value for the fight\.?$/i;
         match = text.match(regex);
         if(match) {
-            const items = match[1] == "adjacent" ? this.adjacentItems : this.board.items;
+            const items = match[1]?.toLowerCase() == "adjacent" ? this.adjacentItems : this.board.activeItems;
             return ()=>{
                 items.forEach(item => {
                     if(item.id!=this.id) { 
