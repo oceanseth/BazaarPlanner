@@ -1,5 +1,72 @@
 {
   "rules": {
+    "usernames": {
+      "$displayName": {
+        ".read": "true",
+        ".write": "auth != null && data.parent().parent().child('users').child(auth.uid).child('displayName').val().toLowerCase() === data.val()",
+        ".validate": "newData.val().matches(/^[0-9a-z]*$/)"
+      }
+    },
+    "users": {
+      "$uid": {
+        ".read": "true",
+        ".write": "$uid === auth.uid",
+        "isDonor": {
+          ".validate": "!data.exists() || data.val() === true"
+        },
+        "runs": {
+          ".read": "$uid === auth.uid",
+          "$runId": {
+            ".read": true
+          }
+        }
+      }
+    },
+    "topDonors": {
+      ".read": true,
+      ".write": false,
+      ".indexOn": ["amount"]
+    },
+    "usersonline": {
+      ".read": "true",
+      ".indexOn": ".value",
+      "$uid": {
+        ".read": "true",
+        ".write": "(auth != null && auth.uid === $uid) || 
+                   (!newData.exists() && 
+                    data.exists() && 
+                    data.val() < (now - 1000*60*5))",
+        ".validate": "!newData.exists() || newData.isNumber()"
+      }
+    },
+    "puzzles": {
+      "current": {
+        ".read": true,
+        ".write": false
+      },
+      "submissions": {
+        "$submissionId": {
+          ".read": true,
+          ".write": "auth.uid === newData.child('byUID').val()"
+        }
+      },
+      "$puzzleId": {
+        "data": {
+          ".read": true,
+          ".write": false
+        },
+        "votes": {
+          "$userId": {
+            ".read": "$userId === auth.uid",
+            ".write": "!data.exists() && auth.uid === $userId"
+          }
+        },
+        "result":{
+          ".write":false,
+          ".read": "data.parent().child('votes').child(auth.uid).exists()"
+        }
+      }
+    },
     "tinyurls": {
         "count": {
             ".read": true,

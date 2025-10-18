@@ -1,44 +1,56 @@
 import { Board } from './Board.js';
 export class Battle {
     static id=0;
+    static sandstormStartTime = 35000;
     constructor(players,battleOverFunction,combatLogElement=null,battleIntervalSpeed=100,battleSeed=null,logging=true) { 
         this.id = Battle.id++;
-        this.battleButton = document.querySelector('.battle-button');
         this.players = players;
         this.players.forEach(player => player.battle = this);
         this.battleOverFunction = battleOverFunction;
         this.battleInterval = undefined;
         this.battleSeed = battleSeed;
+        this.lockedBattleSeed = battleSeed?true:false;
         this.logging = logging;
         this.sandstormValue = 1;
-        this.sandstormIncrement = .25;
-
+        this.sandstormIncrement = 2;
+        this.sandstormTriggers = new Map();
+        this.battleIntervalSpeedMultiplier = 1;
+        this.testBattleIntervals = [];
+        this.winRateBattleCount = 100;
+        this.battleTimeDiff = 0;
 
         this.startBattleTime = undefined;
         this.battleIntervalSpeed = battleIntervalSpeed;
 
-
-        this.combatLog = combatLogElement;
+        if(combatLogElement) {
+            this.combatLog = combatLogElement;
+            this.battleButton = document.querySelector('.battle-button');
+        }
         this.isPaused = 0;
         this.pauseTime = 0;
 
         this.combatLogEntries = [];
+        this.resetBattle();
     }
 
     updateCombatLogDisplay() {
-        this.combatLog.val(this.combatLogEntries.join("\n"));
-        this.combatLog[0].scrollTop = this.combatLog[0].scrollHeight;
+        if(this.combatLog) {
+            this.combatLog.val(this.combatLogEntries.join("\n"));
+            this.combatLog[0].scrollTop = this.combatLog[0].scrollHeight;
+        }
     }
 
 
     updateBattle(timeDiff) {
+        this.numTicks++;
         let allItems = [];
-        const allBoards = Board.boards;
+        const allBoards = this.players.map(player => player.board);
         allBoards.forEach(board => {
             allItems.push(...board.items);
         });
 
         allItems.sort(()=>this.battleRandom() - .5);
+        allItems.sort((a,b)=>b.priority-a.priority);
         allItems.forEach(item => item.updateBattle(timeDiff));
         allItems.forEach(item => item.updateTriggerValuesElement());
         allBoards.forEach(board => board.updateHealthElement());
@@ -56,10 +68,12 @@ export class Battle {
 
     unpauseBattle() {
         this.isPaused = 0;
-        this.battleInterval = setInterval(this.battleFunction, this.battleIntervalSpeed);
+        this.battleInterval = setInterval(this.battleFunction, this.battleIntervalSpeed/this.battleIntervalSpeedMultiplier);
         // Update button
-        this.battleButton.textContent = 'Pause Battle';
-        this.battleButton.classList.add('pause-battle');
+        if(this.battleButton) {
+            this.battleButton.textContent = 'Pause Battle';
+            this.battleButton.classList.add('pause-battle');
+        }
     }
 
     
@@ -69,15 +83,33 @@ export class Battle {
         }
         this.isPaused=0;
         this.sandstormValue=1;
+        this.sandstormStartedTime = 0;
+        this.sandstormTriggers.clear();
         this.battleInterval = null; // Clear the interval reference
-        Board.resetBoards();
+        this.numTicks = 0;
+        
+        
+        this.players.forEach(player => {
+            player.reset();
+        });
+
+        this.players.forEach(player => {
+            player.setup();
+        });
+        
         // Reset button
-        this.battleButton.textContent = 'Start Battle';
-        this.battleButton.classList.remove('pause-battle');
+        if(this.battleButton) {
+            this.battleButton.textContent = 'Start Battle';
+            this.battleButton.classList.remove('pause-battle');
+        }
+        if(this.combatLog) {
+            this.combatLog.css('display','none');
+        }
     }
         
 
     startBattle() {
+        //console.log("Starting battle "+this.id);
         if(this.isPaused) {
             this.unpauseBattle();
             return;
@@ -87,9 +119,12 @@ export class Battle {
         }
 
         this.resetBattle();
+        if(this.combatLog) {
+            this.combatLog.css('display','block');
+        }
         // Generate a random seed (32 characters)
         // Using ASCII printable characters (33-126)
-        if(!this.battleSeed) {
+        if(!this.lockedBattleSeed) {
             this.battleSeed = [...crypto.getRandomValues(new Uint8Array(32))]
             .reduce((acc, x) => acc + String.fromCharCode(33 + (x % 94)), '');
         }
@@ -97,16 +132,18 @@ export class Battle {
         // Initialize the RNG with the seed
         this.battleRNG = new Math.seedrandom(this.battleSeed);
         this.combatLogEntries = [];
-        this.log("Battle Started\nBattle Seed: " + this.battleSeed);
+        this.log("Battle started. Seed: " + this.battleSeed);
         
         this.players.forEach(player => player.board.startBattle());
         
         this.battleTimeDiff = 0;
-        this.battleInterval = setInterval(this.battleFunction, this.battleIntervalSpeed);
+        this.battleInterval = setInterval(this.battleFunction, this.battleIntervalSpeed/this.battleIntervalSpeedMultiplier);
 
         // Update button
-        this.battleButton.textContent = 'Pause Battle';
-        this.battleButton.classList.add('pause-battle');
+        if(this.battleButton) {
+            this.battleButton.textContent = 'Pause Battle';
+            this.battleButton.classList.add('pause-battle');
+        }
 
     }
 
@@ -115,36 +152,99 @@ export class Battle {
             this.combatLogEntries.push(this.battleTimeDiff + ": " + s);
         }
     }
+    stopCalculating() {
+        if(this.testBattleIntervals.length>0) {
+            this.testBattleIntervals.forEach(interval => clearInterval(interval));
+        }
+    }
+    calculateWinRate() {        
+        this.players.forEach(player => {
+            player.board.winRateElement.style.display = "none";
+        });
+        if(!window.user?.isDonor) return;
+        if(this.testBattleIntervals.length>0) {
+            this.stopCalculating();
+        }
+        let numTopPlayerWins =0;
+        let numBottomPlayerWins =0;
+        let numDraws = 0;
+        let numBattles = this.winRateBattleCount;
+        let numBattlesFinished = 0;
+        this.testBattleIntervals = [];
+        this.isCalculating = true;
+        for(let i=0;i<numBattles;i++) {
+            const testPlayers = this.players.map(player => player.clone());
+            testPlayers[0].hostileTarget = testPlayers[1];
+            testPlayers[1].hostileTarget = testPlayers[0];
+            const testBattle = new Battle(testPlayers,(winner)=>{
+                if(winner==testPlayers[0]) numTopPlayerWins++;            
+                else if(winner==testPlayers[1]) numBottomPlayerWins++;
+                else numDraws++;
+                numBattlesFinished++;
+                if(numBattlesFinished==numBattles) {
+                 //   console.log(testPlayers[0].name + " wins " + numTopPlayerWins + " times out of " + numBattles + " battles.");
+                 //   console.log(testPlayers[1].name + " wins " + numBottomPlayerWins + " times out of " + numBattles + " battles.");
+                 //   console.log("Draws: " + numDraws);
+                    this.players[0].board.winRateElement.innerHTML = ((numTopPlayerWins+numDraws)/numBattles*100).toFixed(0) + "%";
+                    this.players[1].board.winRateElement.innerHTML = ((numBottomPlayerWins+numDraws)/numBattles*100).toFixed(0) + "%";
+                    console.log("bottom player win rate: " + this.players[1].name + " " + ((numBottomPlayerWins+numDraws)/numBattles*100).toFixed(0) + "%");
+                    this.players[0].board.winRateElement.style.display = "block";
+                    this.players[1].board.winRateElement.style.display = "block";
+                    this.isCalculating = false;
+                }
+            },null,100,null,false);
+            testBattle.battleIntervalSpeedMultiplier = 100;            
+            testBattle.startBattle();
+            this.testBattleIntervals.push(testBattle.battleInterval);
+        }
+    }
     
 
     battleFunction = () => {
-        const playersWithPositiveHealth = this.players.filter(player => player.health > 0);
-        if(playersWithPositiveHealth.length <= 1) {
+        if(this.players.some(player => player.health <= 0)) {
             clearInterval(this.battleInterval);
+
+            const playersWithPositiveHealth = this.players.filter(player => player.health > 0);
+
+            this.players.forEach(player => {
+                player.board.updateHealthElement();
+            });
+
             if(playersWithPositiveHealth.length == 0) {
                 this.log("Battle ended in a draw.");
                 this.updateCombatLogDisplay();
                 this.battleOverFunction(null);
+                this.players.forEach(player => player.board.setAsWinner());
             } else {
                 this.log(playersWithPositiveHealth[0].name + " wins!");
                 this.updateCombatLogDisplay();
+                playersWithPositiveHealth.forEach(player => player.board.setAsWinner());
+                this.players.filter(player => player.health <= 0).forEach(player => player.board.setAsLoser());
                 this.battleOverFunction(playersWithPositiveHealth[0]);
             }
             return;
         }
         this.battleTimeDiff += this.battleIntervalSpeed;
         
-        this.updateBattle(this.battleIntervalSpeed);
-    
-      if(this.battleTimeDiff>30000) {
-        let sandstormDmg = Math.floor(this.sandstormValue);
-        this.log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
-        this.players.forEach(player => player.takeDamage(sandstormDmg));
-        this.sandstormValue+=this.sandstormIncrement;
-      }
+        if(this.sandstormStartedTime==0 && this.battleTimeDiff >= Battle.sandstormStartTime ) {
+            this.startSandstorm();
+        }
+        if(this.sandstormStartedTime>0) {
+            let sandstormDmg = Math.floor(this.sandstormValue);
+            this.log("Sandstorm deals "+ sandstormDmg + " damage to both players.");
+            this.players.forEach(player => player.takeDamage(sandstormDmg));
+            if(this.battleTimeDiff - this.sandstormStartedTime >= 1000) this.sandstormValue+=this.sandstormIncrement;
+        }
+        
 
-    
+        this.updateBattle(this.battleIntervalSpeed);      
+
       this.updateCombatLogDisplay();
+    }
+    startSandstorm() {
+        this.sandstormStartedTime = this.battleTimeDiff;
+        this.sandstormTriggers.forEach(f=>f());
+        this.log("The Sandstorm Begins!");
     }
     battleRandom = (evaluateMe=false) =>{
         if (!this.battleRNG) {
@@ -152,7 +252,7 @@ export class Battle {
             console.error('Battle RNG not initialized!');
             return Math.random(); // Fallback to regular random
         }
-        if(evaluateMe) {
+        if(evaluateMe!==false) {
             return this.battleRNG() < evaluateMe;
         }
         return this.battleRNG();

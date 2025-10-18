@@ -3,8 +3,11 @@ import { updateUrlState, setupChangeListeners } from './utils.js';
 
 export class Player {
     hostileTarget = null;
-    static possibleChangeAttributes = ['health','shield','gold','maxHealth','burn'];
-    constructor(startPlayerData) {
+    static playerId = 0;
+    static players = new Map();
+    static possibleChangeAttributes = ['health','shield','gold','maxHealth','burn','poison','regen','battleTime','income'];
+   
+    constructor(startPlayerData={}, boardId=null, boardOptions={editable:true, skills:true}) {
         setupChangeListeners(this, Player.possibleChangeAttributes );
         this.startPlayerData = startPlayerData;
         if(!startPlayerData.maxHealth) startPlayerData.maxHealth = 1000;
@@ -12,33 +15,60 @@ export class Player {
         if(!startPlayerData.level) startPlayerData.level = 1;
         if(!startPlayerData.gold) startPlayerData.gold = 0;
         if(!startPlayerData.regen) startPlayerData.regen = 0;
+        if(!startPlayerData.hero) startPlayerData.hero = "Vanessa";
         Object.assign(this, startPlayerData);
-    }
-
-    initialize(boardId, skillsContainer, maxHealth) {
-        this.maxHealth = maxHealth;
-        
-        const board = new Board(boardId, this);
-        this.board = board;
-        this.reset();
-    }
-
-    heal(healAmount) {
-        this.board.healingApplied += healAmount;
-        if(this.health+healAmount>this.maxHealth) {
-            healAmount = this.maxHealth-this.health;
-            this.overhealTriggers.forEach(func => func(healAmount));
+        if(boardId) {
+            if(boardOptions.editable==undefined) boardOptions.editable = true;
+            if(boardOptions.skills==undefined) boardOptions.skills = true;
+            const board = new Board(boardId, this, boardOptions);
+            this.board = board;
         }
-        this.healTriggers.forEach(func => func(healAmount));
-        this.health += healAmount;
-        if(this.poison > 0) this.poison--; //cleanse 1 poison when a heal occurs
-        if(this.burn > 0) this.burn--; //cleanse 1 burn when a heal occurs
+    }
+    log(s) {
+        if(this.battle) {
+            this.battle.log(s);
+        }
+    }
+
+    spend(amount) {
+        this.gold -= amount;
+        this.log(this.name + " spends " + amount + " gold.");
+        this.board.updateGoldElement();
+    }
+
+    heal({amount,source,isLifesteal=false}={}) {
+        const startingHealAmount = amount;
+        this.board.healingApplied += amount;
+        if(this.health+amount>this.maxHealth) {
+            const overheal = this.health+amount-this.maxHealth;
+            amount -= overheal;
+            this.log((source?source.name+" ":"")+"overhealed for "+overheal);
+            this.overhealTriggers.forEach(func => func(overheal));
+        }
+        this.health += amount;
+        if(!isLifesteal) {        
+            if(this.poison > 0 && !isLifesteal) {
+                const oldPoison = this.poison;
+                this.poison=this.poison - Math.ceil(startingHealAmount/5); //cleanse 5% of healing or 1 poison when a heal occurs
+                this.log(source.name + "'s healing cleansed " + (oldPoison-this.poison).toFixed(0) + " poison.");
+            }
+            if(this.burn > 0 && !isLifesteal) {
+                const oldBurn = this.burn;            
+                this.burn=this.burn - Math.ceil(startingHealAmount/5); //cleanse 5% of healing or 1 burn when a heal occurs
+                this.log(source.name + "'s healing cleansed " + (oldBurn-this.burn).toFixed(0) + " burn.");
+            }
+            this.healTriggers.forEach(func => func(amount));
+        }
+    }
+    clone() {
+        const clone = new Player(structuredClone(this.startPlayerData));
+        clone.board = this.board.clone(clone);
+        return clone;
     }
 
     openEditor() {
         if(this.editorElement) {
-            this.editorElement.style.display = "block";
-            return;
+            this.editorElement.remove();
         }
         this.editorElement = document.createElement("div");
         this.editorElement.className = "editor";
@@ -80,15 +110,23 @@ export class Player {
             this.startPlayerData.income = parseInt(this.editorElement.querySelector("#player-income").value);
             this.startPlayerData.level = parseInt(this.editorElement.querySelector("#player-level").value);
             this.startPlayerData.gold = parseInt(this.editorElement.querySelector("#player-gold").value);
-            this.startPlayerData.regen = parseInt(this.editorElement.querySelector("#player-regen").value);
+            this.startPlayerData.regen = parseInt(this.editorElement.querySelector("#player-regen").value)-this.regen+this.startPlayerData.regen;
 
             this.editorElement.style.display = "none";
-            Board.resetBoards();
+            this.battle.resetBattle();
             updateUrlState();
         });
     }
 
-    takeDamage(damage, shieldScalar = 1, ignoreShield = false) {        
+    takeDamage(damage, shieldScalar = 1, ignoreShield = false) { 
+        this.hostileTarget.board.damageApplied += damage;
+        let damageMultiplier = 1;
+        if(this.damageReduction>0) {
+            damageMultiplier = 1-this.damageReduction/100;
+            if(damageMultiplier<0) damageMultiplier = 0;
+            if(damageMultiplier>1) damageMultiplier = 1;
+        }
+        damage = damage*damageMultiplier;
         if(ignoreShield || this.shield <= 0) {
             this.health -= damage;
             return damage;
@@ -111,23 +149,24 @@ export class Player {
     }
 
     applyShield(shieldAmount) {
-        this.shield += shieldAmount;
+        this.shield += Math.round(shieldAmount);
     }
 
     applyBurn(burnAmount) {
-        this.burn += burnAmount;
+        this.burn += Math.round(burnAmount);
     }   
 
     applyPoison(poisonAmount) {
-        this.poison = this.poison + poisonAmount;
+        this.poison += Math.round(poisonAmount);
     }
 
     applyHeal(healAmount) {
-        this.heal(healAmount);
+        this.heal(Math.round(healAmount));
     }
 
-    gainRegen(regenAmount) {
-        this.regen += regenAmount;
+    gainRegen(regenAmount, source) {
+        this.regen += Math.round(regenAmount);
+        this.log((source?(source.name+" gave "):"") + this.name + " +" + regenAmount.toFixed(0) + " Regeneration");
     }
 
     updateBattle(timeDiff) {
@@ -135,13 +174,15 @@ export class Player {
         let dmg = 0;
         if(this.battleTime%500==0 && this.burn > 0) { // Burn damage every 500ms
 
-            dmg = this.takeDamage(this.burn, .5, true);
-            log( this.name + " has "+this.burn.toFixed(0)+" burn and burns for " + dmg.toFixed(0));
+            dmg = this.takeDamage(this.burn, .5);
+            this.burnDamageReceived += dmg;
+            this.log( this.name + " has "+this.burn.toFixed(0)+" burn and burns for " + dmg.toFixed(0));
             this.burn--;
         }
         if(this.battleTime%1000==0 && this.poison > 0) { // Poison damage every 1000ms  
             this.takeDamage(this.poison, 1, true);
-            log( this.name + " takes " + this.poison.toFixed(0) + " damage from poison.");
+            this.poisonDamageReceived += this.poison;
+            this.log( this.name + " takes " + this.poison.toFixed(0) + " damage from poison.");
         }
 
         if(this.battleTime%1000==0 && this.regen > 0 && this.health < this.maxHealth) { // Regen health every 1000ms
@@ -150,7 +191,7 @@ export class Player {
                 regenAmount = this.maxHealth - this.health;
             }
             this.health += regenAmount;
-            log( this.name + " regens " + regenAmount.toFixed(0) + " health.");
+            this.log( this.name + " regens " + regenAmount.toFixed(0) + " health.");
         }
 
         if(this.fellBelowHalfHealth && this.health >= this.maxHealth/2) {            
@@ -161,6 +202,7 @@ export class Player {
             this.healthBelowHalfTriggers.forEach(func => func());
         }
         if(this.health <= 0) {
+            this.health=0; // player 'died' here. but might be healed after death by dieTriggers
             this.dieTriggers.forEach(func => func());
         }
         this.board.updateHealthElement();
@@ -179,22 +221,28 @@ export class Player {
         this.poison = 0;
         this.burn = 0;
         this.poison = 0;
+        this.damageReduction = 0;
+        this.burnDamageReceived = 0;
+        this.poisonDamageReceived = 0;
 
         this.fellBelowHalfHealth = false;
         this.diedOnce = false;
 
-        // Trigger arrays for various effects
         this.lostShieldTriggers = new Map();
         this.healthBelowHalfTriggers = new Map();
         this.healthAboveHalfTriggers = new Map();
         this.dieTriggers = new Map();
         this.overhealTriggers = new Map();
         this.healTriggers = new Map();
-
-        this.board.reset();
+        this.destroyTriggers = new Map(); 
+        this.overhealTriggers = new Map();
+        if(this.board) { 
+            this.board.reset();
+            this.board.updateHealthElement();
+        }
     }
     setup() {
-        this.board.setup();
+        if(this.board) this.board.setup();
     }
     setIncome(income) {
         this.income = income;

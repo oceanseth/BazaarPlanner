@@ -1,3187 +1,3895 @@
 export const skills = {
+  "Above the Clouds": {
+    "text": [
+      "Your items have (+8%/+12%) Crit Chance for each Flying item you have."
+    ],
+    "tier": 2,
+    "tags": [
+      "Crit",
+      "FlyingReference",
+      "Stelle"
+    ]
+  },
+  "Acclimation": {
+    "text": [
+      "Your Weapons have (+10/+20) Damage for each Flying item you have."
+    ],
+    "tier": 2,
+    "tags": [
+      "DamageReference",
+      "Stelle"
+    ]
+  },
   "Adaptive Ordinance": {
-    "icon": "images/skills/AdaptiveOrdinance.avif",
-    "name": "Adaptive Ordinance",
+    "text": [
+      "When your items run out of ammo, gain (10/20/30) Regen for the fight."
+    ],
+    "tier": 1,
     "tags": [
       "Common",
-      "Ammoreference",
+      "AmmoReference",
       "Regen"
-    ],
-    "text": "You have (  2  » 4  » 6   ) Regeneration for each Ammo item you have."
+    ]
   },
   "Advanced Synthetics": {
-    "icon": "images/skills/AdvancedSynthetics.avif",
-    "name": "Advanced Synthetics",
-    "tags": [
-      "Dooley",
-      "Stelle"
+    "text": [
+      "When you Level Up, upgrade a lower tier item."
     ],
-    "text": "When you Level Up, upgrade a (  Bronze-tier  » Silver-tier   ) item."
+    "tier": 1,
+    "tags": [
+      "Level",
+      "Dooley"
+    ]
+  },
+  "Aerial Assault": {
+    "text": [
+      "When your items start Flying, Charge a Weapon 1 second."
+    ],
+    "tier": 3,
+    "tags": [
+      "Charge",
+      "DamageReference",
+      "FlyingReference",
+      "Weapon",
+      "Common"
+    ]
   },
   "Aggressive": {
-    "icon": "images/skills/Aggressive.avif",
-    "name": "Aggressive",
+    "text": [
+      "When you use a Weapon, it gains (+3%/+6%/+9%/+12%) Crit Chance for the fight."
+    ],
+    "tier": 0,
     "tags": [
       "Common",
+      "Weapon",
       "Crit",
-      "Weapon"
-    ],
-    "text": "When you use a Weapon, it gains (  +2%  » +4%  » +6%  » +8%   ) crit Chance for the fight."
+      "DamageReference"
+    ]
   },
   "Alacrity": {
-    "icon": "images/skills/Alacrity.avif",
-    "name": "Alacrity",
+    "text": [
+      "The first (5/10) times you Crit each fight, Charge an item 1 second(s)."
+    ],
+    "tier": 2,
     "tags": [
       "Vanessa",
-      "Mak",
       "Charge",
-      "Critreference"
+      "CritReference",
+      "Mak"
+    ]
+  },
+  "Alchemical Precision": {
+    "text": [
+      "Your Potions' Cooldowns are reduced by 1 second."
     ],
-    "text": "The first (  5  » 10   ) times you Crit each fight, Charge 1 item 1 second(s)."
+    "tier": 3,
+    "tags": [
+      "Cooldown",
+      "PotionReference",
+      "Mak",
+      "Potion"
+    ]
   },
   "All Talk": {
-    "icon": "images/skills/AllTalk.avif",
-    "name": "All Talk",
+    "text": [
+      "While you have more than half Health, your Weapons have (+30/+60/+90) Damage."
+    ],
+    "tier": 1,
     "tags": [
       "Common",
-      "Damagereference",
-      "Healthreference"
-    ],
-    "text": "While you have more than half Health, your weapons have (  +25  » +50   ) damage."
+      "HealthReference",
+      "DamageReference"
+    ]
   },
   "Ambush": {
-    "icon": "images/skills/Ambush.avif",
-    "name": "Ambush",
+    "text": [
+      "At the start of each fight, deal Damage equal to (10%/20%/30%) of an enemy's Max Health."
+    ],
+    "tier": 1,
     "tags": [
       "Common",
       "Damage"
-    ],
-    "text": "At the start of each fight, deal damage equal to (  15%  » 30%   ) of the enemy's Max Health."
+    ]
   },
   "Ammo Stash": {
-    "icon": "images/skills/AmmoStash.avif",
-    "name": "Ammo Stash",
+    "text": [
+      "Your leftmost Ammo item has (+1/+2/+3/+4) Max Ammo."
+    ],
+    "tier": 0,
     "tags": [
       "Common",
       "Ammo"
+    ]
+  },
+  "Ancient Vengeance": {
+    "text": [
+      "When an enemy uses a Weapon, Charge a Relic 1 second."
     ],
-    "text": "Your leftmost Ammo item has (  +1  » +2  » +3  » +4   ) Max Ammo."
+    "tier": 3,
+    "tags": [
+      "Common",
+      "Charge",
+      "Relic"
+    ]
   },
   "Anything to Win": {
-    "icon": "images/skills/AnythingtoWin.avif",
-    "name": "Anything to Win",
+    "text": [
+      "When you use a non-Weapon item, Burn (1/2/3) and Poison (1/2/3)."
+    ],
+    "tier": 1,
     "tags": [
       "Common",
-      "Burn",
-      "Nonweapon",
-      "Poison"
-    ],
-    "text": "When you use a non-weapon item, Burn (  1  » 2  » 3   ) and Poison (  1  » 2  » 3   )."
+      "Poison",
+      "Burn"
+    ]
   },
   "Arbitrage": {
-    "icon": "images/skills/Arbitrage.avif",
-    "name": "Arbitrage",
-    "tags": [
-      "Vanessa",
-      "Pygmalien",
-      "Stelle"
+    "text": [
+      "Your rerolls cost (1/2/3) less Gold."
     ],
-    "text": "When you win a fight against a player, gain (  2  » 3  » 4  » 5   ) gold."
+    "tier": 1,
+    "tags": [
+      "Common",
+      "EconomyReference"
+    ]
   },
   "Arms Dealer": {
-    "icon": "images/skills/ArmsDealer.avif",
-    "name": "Arms Dealer",
-    "tags": [
-      "Vanessa",
-      "Pygmalien",
-      "Health",
-      "Weapon"
+    "text": [
+      "When you buy a Weapon, gain (20/30/40/50) Max Health."
     ],
-    "text": "When you buy a Weapon, permanently gain (  20  » 30  » 40  » 50   ) Max Health."
+    "tier": 0,
+    "tags": [
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Health"
+    ]
   },
   "Arms Race": {
-    "icon": "images/skills/ArmsRace.avif",
-    "name": "Arms Race",
+    "text": [
+      "Your items have (+2%/+4%/+6%/+8%) Crit Chance for each Weapon you have."
+    ],
+    "tier": 0,
     "tags": [
       "Common",
-      "Crit",
-      "Weapon"
-    ],
-    "text": "Your items have (  +2%  » +3%   ) Crit Chance for each weapon you have."
+      "Weapon",
+      "Crit"
+    ]
   },
   "Artillery Spotter": {
-    "icon": "images/skills/ArtillerySpotter.avif",
-    "name": "Artillery Spotter",
+    "text": [
+      "If you have 5 or fewer items, your items have (+10%/+20%/+30%/+40%) Crit Chance."
+    ],
+    "tier": 0,
     "tags": [
+      "Jules",
+      "Dooley",
       "Pygmalien",
       "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
       "Mak",
-      "Crit"
-    ],
-    "text": "If you have 4 or fewer items, your items have (  +5%  » +10%  » +20%   ) Crit Chance."
+      "Crit",
+      "Stelle"
+    ]
   },
   "Assault Focus": {
-    "icon": "images/skills/AssaultFocus.avif",
-    "name": "Assault Focus",
+    "text": [
+      "When any non-Weapon item is used, Slow it for (1/2/3) second(s)."
+    ],
+    "tier": 1,
     "tags": [
       "Common",
-      "Nonweapon",
       "Slow"
-    ],
-    "text": "When any non-weapon item is used, slow it for (  2  » 4   ) second(s)."
+    ]
   },
   "Augmented Defenses": {
-    "icon": "images/skills/AugmentedDefenses.avif",
-    "name": "Augmented Defenses",
+    "text": [
+      "Your Shield items have +1 Shield.",
+      "When you sell a Small item, increase this bonus by (+1/+2) Shield."
+    ],
+    "tier": 2,
     "tags": [
       "Common",
-      "Shieldreference"
-    ],
-    "text": "Your Shield items have +1 Shield. When you sell a small item, increase this bonus by (  +1  » +2  » +3  » +4   ) Shield."
+      "ShieldReference"
+    ]
   },
   "Augmented Weaponry": {
-    "icon": "images/skills/AugmentedWeaponry.avif",
-    "name": "Augmented Weaponry",
+    "text": [
+      "Your Weapons have +1 Damage.",
+      "When you sell a Small item, increase this bonus by (+1/+2) Damage."
+    ],
+    "tier": 2,
     "tags": [
       "Common",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "Your weapons have +1 Damage. When you sell a small item, increase this bonus by (  +1  » +2  » +3  » +4   ) Damage."
+      "Weapon",
+      "DamageReference"
+    ]
   },
   "Backroom Dealings": {
-    "icon": "images/skills/BackroomDealings.avif",
-    "name": "Backroom Dealings",
-    "tags": [
-      "Pygmalien",
-      "Mak",
-      "Health"
+    "text": [
+      "When you visit a Merchant, gain (25/50/75) Max Health."
     ],
-    "text": "When you visit a Merchant, permanently gain (  25  » 50  » 75   ) Max Health."
-  },
-  "Backup Defenses": {
-    "icon": "images/skills/BackupDefenses.avif",
-    "name": "Backup Defenses",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Stelle",
-      "Healthreference",
-      "Shield"
-    ],
-    "text": "The first time you fall below half health each fight, Shield equal to (  20%  » 30%   ) of your Max Health. [0%]"
-  },
-  "Balanced Friendship": {
-    "icon": "images/skills/BalancedFriendship.avif",
-    "name": "Balanced Friendship",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Damagereference",
-      "Friend",
-      "Shieldreference"
-    ],
-    "text": "Your Weapons have (  +2  » +4  » +6   ) damage and Shield items have (  +2  » +4  » +6   ) shield for each friend you have. [0, 0]"
-  },
-  "Barnacle Crusted": {
-    "icon": "images/skills/BarnacleCrusted.avif",
-    "name": "Barnacle Crusted",
-    "tags": [
-      "Vanessa",
-      "Aquatic",
-      "Cooldown"
-    ],
-    "text": "Reduce the cooldown of your aquatic items by (  10%  » 20%   )."
-  },
-  "Beautiful Friendship": {
-    "icon": "images/skills/BeautifulFriendship.avif",
-    "name": "Beautiful Friendship",
-    "tags": [
-      "Dooley",
-      "Damagereference",
-      "Friend",
-      "Weapon"
-    ],
-    "text": "When you use a Friend, your weapons gain (  3  » 6   ) damage for the fight."
-  },
-  "Berserker": {
-    "icon": "images/skills/Berserker.avif",
-    "name": "Berserker",
-    "tags": [
-      "Vanessa",
-      "Cooldown",
-      "Weapon"
-    ],
-    "text": "While your enemy has more health than you, your Weapons have their cooldowns reduced by (  5%  » 10%  » 20%   )."
-  },
-  "Big Ego": {
-    "icon": "images/skills/BigEgo.avif",
-    "name": "Big Ego",
-    "tags": [
-      "Common",
-      "Lifesteal",
-      "Weapon"
-    ],
-    "text": "Your Weapons have Lifesteal."
-  },
-  "Big Guns": {
-    "icon": "images/skills/BigGuns.avif",
-    "name": "Big Guns",
-    "tags": [
-      "Vanessa",
-      "Pygmalien",
-      "Stelle",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "Double the damage of your Large weapons."
-  },
-  "Big Numbers": {
-    "icon": "images/skills/BigNumbers.avif",
-    "name": "Big Numbers",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Crit"
-    ],
-    "text": "Your large items have (  +25%  » +50%   ) crit chance"
-  },
-  "Blizzard": {
-    "icon": "images/skills/Blizzard.avif",
-    "name": "Blizzard",
-    "tags": [
-      "Common",
-      "Freeze",
-      "Nonweapon"
-    ],
-    "text": "At the start of each fight, Freeze all non-weapon items for (  2  » 3   ) second(s)."
-  },
-  "Bloodhound": {
-    "icon": "images/skills/Bloodhound.avif",
-    "name": "Bloodhound",
-    "tags": [
-      "Vanessa",
-      "Jules"
-    ],
-    "text": "The first time your enemy falls below half health each fight, Charge your items (  2  » 3  » 4   ) second(s)."
-  },
-  "Boar Market": {
-    "icon": "images/skills/BoarMarket.avif",
-    "name": "Boar Market",
-    "tags": [
-      "Pygmalien",
-      "Damagereference",
-      "Economy",
-      "Weapon"
-    ],
-    "text": "Your leftmost and rightmost Weapons have + Damage equal to (  1x  » 2x   ) their value."
-  },
-  "Bold Under Pressure": {
-    "icon": "images/skills/BoldUnderPressure.avif",
-    "name": "Bold Under Pressure",
-    "tags": [
-      "Vanessa",
-      "Pygmalien",
-      "Jules",
-      "Mak",
-      "Haste"
-    ],
-    "text": "The first time you fall below half health each fight, Haste (  2  » 4  » 6   ) items 2 second(s)."
-  },
-  "Bonk": {
-    "icon": "images/skills/Bonk.avif",
-    "name": "Bonk",
-    "tags": [
-      "Common"
-    ],
-    "text": "Enemy cooldowns are increased by 1 second(s)."
-  },
-  "Brawler": {
-    "icon": "images/skills/Brawler.avif",
-    "name": "Brawler",
+    "tier": 1,
     "tags": [
       "Pygmalien",
       "Health",
-      "Weapon"
-    ],
-    "text": "You have (  +100  » +200  » +300   ) Max Health for each Weapon you have."
+      "Mak"
+    ]
   },
-  "Buddy System": {
-    "icon": "images/skills/BuddySystem.avif",
-    "name": "Buddy System",
+  "Backup Defenses": {
+    "text": [
+      "The first time you fall below half Health each fight, Shield equal to (20%/30%) of your Max Health."
+    ],
+    "tier": 2,
     "tags": [
       "Dooley",
-      "Cooldown",
-      "Core",
-      "Friend",
-      "Tech"
-    ],
-    "text": "If you have exactly one friend, reduce its and the Core's cooldown by (  5%  » 10%  » 15%   )."
-  },
-  "Building Crescendo": {
-    "icon": "images/skills/BuildingCrescendo.avif",
-    "name": "Building Crescendo",
-    "tags": [
       "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Crit"
-    ],
-    "text": "When you use an item, your items gain (  3%  » 6%   ) crit chance for the fight. Your items have 100% less crit chance."
+      "HealthReference",
+      "Shield",
+      "Stelle"
+    ]
   },
-  "Bullet Time": {
-    "icon": "images/skills/BulletTime.avif",
-    "name": "Bullet Time",
+  "Balanced Friendship": {
+    "text": [
+      "When you use a Friend, your Weapons gain (+2/+4/+6) Damage and Shield items gain (+2/+4/+6) Shield for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "DamageReference",
+      "Dooley",
+      "Vanessa",
+      "Friend",
+      "ShieldReference"
+    ]
+  },
+  "Barnacle Crusted": {
+    "text": [
+      "The Cooldown of your Aquatic items is reduced by (5%/10%)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Aquatic",
+      "Vanessa",
+      "Cooldown"
+    ]
+  },
+  "Beautiful Friendship": {
+    "text": [
+      "When you use a Friend, your Weapons gain (3/6/9) Damage for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Weapon",
+      "DamageReference",
+      "Friend",
+      "Dooley"
+    ]
+  },
+  "Berserker": {
+    "text": [
+      "While your enemy has more Health than you, your Weapons' Cooldowns are reduced by (5%/10%/15%)."
+    ],
+    "tier": 1,
     "tags": [
       "Vanessa",
-      "Ammoreference",
-      "Slow"
-    ],
-    "text": "The first (  4  » 8   ) times you use an Ammo item each fight, Slow 1 item for 1 second(s)."
+      "Weapon",
+      "Cooldown"
+    ]
   },
-  "Burn Containment": {
-    "icon": "images/skills/BurnContainment.avif",
-    "name": "Burn Containment",
-    "tags": [
-      "Dooley",
-      "Burnreference",
-      "Charge",
-      "Shieldreference"
+  "Big Ego": {
+    "text": [
+      "Your Weapons have Lifesteal."
     ],
-    "text": "The first (  5  » 10   ) times you Burn each fight, Charge 1 Shield item 1 second(s)."
-  },
-  "Burning Rage": {
-    "icon": "images/skills/BurningRage.avif",
-    "name": "Burning Rage",
+    "tier": 3,
     "tags": [
       "Common",
-      "Burnreference",
-      "Damagereference",
       "Weapon"
+    ]
+  },
+  "Big Guns": {
+    "text": [
+      "Double the Damage of your Large Weapons."
     ],
-    "text": "When you Burn, your Weapons gain (  +2  » +4  » +6  » +8   ) damage for the fight."
+    "tier": 3,
+    "tags": [
+      "DamageReference",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Stelle"
+    ]
+  },
+  "Big Numbers": {
+    "text": [
+      "Your Large items have (+25%/+50%) Crit Chance."
+    ],
+    "tier": 2,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
+      "Stelle"
+    ]
+  },
+  "Biohazard": {
+    "text": [
+      "The first time you fall below half Health each fight, double an enemy's Poison."
+    ],
+    "tier": 3,
+    "tags": [
+      "Poison",
+      "Mak"
+    ]
+  },
+  "Blizzard": {
+    "text": [
+      "The first time you use an item each fight, Freeze all non-Weapon items for (1/2) second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Common",
+      "Freeze"
+    ]
+  },
+  "Bloodhound": {
+    "text": [
+      "The first time an enemy falls below half Health each fight, Charge your items (2/3/4) second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Vanessa",
+      "Charge"
+    ]
+  },
+  "Boar Market": {
+    "text": [
+      "Your leftmost and rightmost Weapons have +Damage equal to (1/2) times their value."
+    ],
+    "tier": 2,
+    "tags": [
+      "Pygmalien",
+      "Weapon",
+      "DamageReference",
+      "EconomyReference"
+    ]
+  },
+  "Bold Under Pressure": {
+    "text": [
+      "The first time you fall below half Health each fight, Haste (2/4/6) items for 2 second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Pygmalien",
+      "Vanessa",
+      "Haste",
+      "Mak"
+    ]
+  },
+  "Bombing Run": {
+    "text": [
+      "When your items start Flying, your Weapons gain (+5/+10/+15) Damage for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Flying",
+      "Common",
+      "Weapon",
+      "DamageReference"
+    ]
+  },
+  "Bombs Away!": {
+    "text": [
+      "When you use a Vehicle or Drone, Burn (2/3)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Burn",
+      "Stelle"
+    ]
+  },
+  "Bonk": {
+    "text": [
+      "Enemy Cooldowns are increased by 1 second(s)."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common",
+      "Cooldown"
+    ]
+  },
+  "Brawler": {
+    "text": [
+      "You have (+100/+200/+300) Max Health for each Weapon you have."
+    ],
+    "tier": 1,
+    "tags": [
+      "Pygmalien",
+      "Weapon",
+      "Health"
+    ]
+  },
+  "Brewmaster": {
+    "text": [
+      "At the start of each fight, a Potion gains +1 Multicast for the fight."
+    ],
+    "tier": 3,
+    "tags": [
+      "PotionReference",
+      "Mak",
+      "Potion"
+    ]
+  },
+  "Buddy System": {
+    "text": [
+      "If you have exactly one Friend, its Cooldown and Your Core's Cooldown are reduced by (5%/10%/15%)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Tech",
+      "Cooldown",
+      "Core",
+      "Dooley",
+      "Friend"
+    ]
+  },
+  "Building Crescendo": {
+    "text": [
+      "When you use an item, your items gain (1%/2%) Crit Chance for the fight."
+    ],
+    "tier": 2,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
+      "Stelle"
+    ]
+  },
+  "Bullet Time": {
+    "text": [
+      "The first (4/8) times you use an Ammo item each fight, Slow an item for 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Vanessa",
+      "Slow",
+      "AmmoReference"
+    ]
+  },
+  "Burn Containment": {
+    "text": [
+      "The first (5/10) times you Burn each fight, Charge a Shield item 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Charge",
+      "ShieldReference",
+      "BurnReference",
+      "Dooley"
+    ]
+  },
+  "Burning Rage": {
+    "text": [
+      "When you Burn, your Weapons gain (+5/+10/+15/+20) Damage for the fight."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "Weapon",
+      "DamageReference",
+      "BurnReference"
+    ]
   },
   "Burning Shield": {
-    "icon": "images/skills/BurningShield.avif",
-    "name": "Burning Shield",
-    "tags": [
-      "Dooley",
-      "Mak",
-      "Burnreference",
-      "Shield"
+    "text": [
+      "The first time you fall below half Health each fight, Shield equal to (2/3/4) times the Burn on your enemy."
     ],
-    "text": "The first time you fall below half health each fight, Shield equal to (  2  » 3  » 4   ) times the Burn on your opponent."
+    "tier": 1,
+    "tags": [
+      "BurnReference",
+      "Shield",
+      "Dooley"
+    ]
   },
   "Burst of Flame": {
-    "icon": "images/skills/BurstofFlame.avif",
-    "name": "Burst of Flame",
+    "text": [
+      "The first time an enemy falls below half Health each fight, Burn (10/15/20/25)."
+    ],
+    "tier": 0,
     "tags": [
       "Common",
       "Burn"
+    ]
+  },
+  "Calming Heals": {
+    "text": [
+      "The first (5/10) times you Slow each fight, Charge a Heal or Regen item 1 second(s)."
     ],
-    "text": "The first time your enemy falls below half health each fight, Burn (  10  » 15  » 20  » 25   )."
+    "tier": 2,
+    "tags": [
+      "SlowReference",
+      "HealReference",
+      "Pygmalien",
+      "Mak",
+      "Charge",
+      "RegenReference"
+    ]
   },
   "Captain's Charge": {
-    "icon": "images/skills/CaptainsCharge.avif",
-    "name": "Captain's Charge",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Haste"
+    "text": [
+      "The first time you use a Large item each fight, Haste (2/3/4) items for 3 second(s)."
     ],
-    "text": "The first time you use a Large item each fight, Haste (  2  » 3  » 4   ) items for 3 second(s)."
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Vanessa",
+      "Haste",
+      "Stelle"
+    ]
   },
   "Cash Deposits": {
-    "icon": "images/skills/CashDeposits.avif",
-    "name": "Cash Deposits",
+    "text": [
+      "Your Weapons have + Damage equal to your Gold."
+    ],
+    "tier": 3,
     "tags": [
       "Pygmalien",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "Your weapons have + damage equal to your gold."
+      "Weapon",
+      "Gold",
+      "DamageReference"
+    ]
   },
   "Chemical Fire": {
-    "icon": "images/skills/ChemicalFire.avif",
-    "name": "Chemical Fire",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Burnreference",
-      "Poisonreference"
+    "text": [
+      "Your Burn items have (+2/+4/+6) Burn.",
+      "Your Poison items have (+2/+4/+6) Poison."
     ],
-    "text": "Your Burn items have (  +2  » +4  » +6   ) Burn. Your Poison items have (  +2  » +4  » +6   ) Poison."
+    "tier": 1,
+    "tags": [
+      "Dooley",
+      "BurnReference",
+      "Vanessa",
+      "Mak",
+      "PoisonReference"
+    ]
   },
   "Chilling Touch": {
-    "icon": "images/skills/ChillingTouch.avif",
-    "name": "Chilling Touch",
+    "text": [
+      "The first time you Freeze each fight, Slow all enemy items for (1/2/3) second(s)."
+    ],
+    "tier": 1,
     "tags": [
       "Common",
-      "Freezereference",
-      "Slow"
-    ],
-    "text": "The first time you Freeze each fight, Slow all your opponent's items for (  3  » 5  » 7   ) second(s)."
+      "Slow",
+      "FreezeReference"
+    ]
   },
   "Chocoholic": {
-    "icon": "images/skills/Chocoholic.avif",
-    "name": "Chocoholic",
+    "text": [
+      "When you sell a Medium or Large item, get (1/2) Chocolate Bar(s)."
+    ],
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Health"
-    ],
-    "text": "When you sell a medium or large item, get (  1  » 2   ) Chocolate Bar(s)."
+    ]
   },
   "Circle of Life": {
-    "icon": "images/skills/CircleofLife.avif",
-    "name": "Circle of Life",
+    "text": [
+      "Your leftmost Weapon has lifesteal."
+    ],
+    "tier": 3,
     "tags": [
       "Vanessa",
-      "Mak",
-      "Lifesteal",
-      "Weapon"
-    ],
-    "text": "Your leftmost Weapon has lifesteal."
+      "Weapon",
+      "Mak"
+    ]
   },
   "Clean Storefront": {
-    "icon": "images/skills/CleanStorefront.avif",
-    "name": "Clean Storefront",
+    "text": [
+      "Your leftmost item has (+20/+40/+60) value during combat."
+    ],
+    "tier": 1,
     "tags": [
       "Common",
       "Value"
-    ],
-    "text": "Your leftmost item has (  +15  » +30  » +50   ) value during combat."
+    ]
   },
   "Combat Medic": {
-    "icon": "images/skills/CombatMedic.avif",
-    "name": "Combat Medic",
+    "text": [
+      "When you Heal or gain Regen, an item gains (3%/6%/9%) Crit Chance for the fight."
+    ],
+    "tier": 1,
     "tags": [
+      "HealReference",
       "Pygmalien",
       "Mak",
       "Crit",
-      "Healreference"
-    ],
-    "text": "When you Heal, an item gains (  3%  » 5%   ) Crit Chance for the fight."
+      "RegenReference"
+    ]
   },
   "Command Ship": {
-    "icon": "images/skills/CommandShip.avif",
-    "name": "Command Ship",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Stelle",
-      "Cooldown",
-      "Vehicle"
+    "text": [
+      "If you have a Vehicle, your non-Vehicle items' Cooldowns are reduced by (5%/10%)."
     ],
-    "text": "If you have a vehicle, reduce your non-vehicle items' cooldowns by (  10%  » 15%  » 20%   )."
+    "tier": 2,
+    "tags": [
+      "Cooldown",
+      "Dooley",
+      "Vanessa",
+      "Vehicle",
+      "Stelle"
+    ]
   },
   "Commercial Zoning": {
-    "icon": "images/skills/CommercialZoning.avif",
-    "name": "Commercial Zoning",
+    "text": [
+      "When you use a Property, deal Damage equal to (1/2) times your Gold."
+    ],
+    "tier": 2,
     "tags": [
       "Pygmalien",
-      "Damage",
-      "Economy",
-      "Property"
-    ],
-    "text": "When you use a Property, deal damage equal to (  1x  » 2x   ) your gold. [NaN]"
+      "EconomyReference",
+      "Property",
+      "Damage"
+    ]
   },
   "Conflagration": {
-    "icon": "images/skills/Conflagration.avif",
-    "name": "Conflagration",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Jules",
-      "Stelle",
-      "Burnreference"
+    "text": [
+      "When you use an item with Burn, that item gains (1/2/3) Burn for the fight."
     ],
-    "text": "When you use an item with Burn, that item gains (  1  » 2   ) Burn for the fight."
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "BurnReference",
+      "Mak",
+      "Stelle"
+    ]
   },
   "Coolant Leak": {
-    "icon": "images/skills/CoolantLeak.avif",
-    "name": "Coolant Leak",
+    "text": [
+      "The first (3/6/9) times you use your rightmost item each fight, Charge a Freeze item 1 second(s)."
+    ],
+    "tier": 1,
     "tags": [
-      "Pygmalien",
-      "Dooley",
       "Jules",
+      "FreezeReference",
+      "Dooley",
+      "Pygmalien",
       "Mak",
-      "Freeze"
-    ],
-    "text": "The first (  4  » 8   ) times you use your rightmost item each fight, Freeze 1 item for 1 second(s)."
-  },
-  "Corrosive Toxins": {
-    "icon": "images/skills/CorrosiveToxins.avif",
-    "name": "Corrosive Toxins",
-    "tags": [
-      "Mak",
-      "Poisonreference"
-    ],
-    "text": "When you Poison, enemy Weapons lose (  2  » 4   ) damage."
+      "Charge",
+      "Stelle"
+    ]
   },
   "Cosmic Wind": {
-    "icon": "images/skills/CosmicWind.avif",
-    "name": "Cosmic Wind",
+    "text": [
+      "When you Haste, a Weapon gains (+5/+10/+15/+20) Damage for the fight."
+    ],
+    "tier": 0,
     "tags": [
       "Common",
-      "Critreference",
-      "Haste"
-    ],
-    "text": "When you Crit, Haste 1 item for (  1  » 2  » 3   ) second(s)."
+      "Weapon",
+      "DamageReference",
+      "HasteReference"
+    ]
   },
   "Counterstrike": {
-    "icon": "images/skills/Counterstrike.avif",
-    "name": "Counterstrike",
+    "text": [
+      "The first time an enemy uses a Weapon, Charge your items (1/2) second(s)."
+    ],
+    "tier": 2,
     "tags": [
       "Common",
-      "Charge",
-      "Weapon"
-    ],
-    "text": "The first 5 times your enemy uses a weapon, Charge (  1  » 2  » 3   ) item(s) 1 second(s)."
+      "Charge"
+    ]
   },
   "CPU Throttling": {
-    "icon": "images/skills/CPUThrottling.avif",
-    "name": "CPU Throttling",
-    "tags": [
-      "Dooley",
-      "Core",
-      "Slow"
+    "text": [
+      "The first (5/10) times you use a Core each fight, Slow an item for 2 second(s)."
     ],
-    "text": "The first (  5  » 10   ) times you use The Core each fight, Slow 1 item for 2 second(s)."
+    "tier": 2,
+    "tags": [
+      "Slow",
+      "Core",
+      "Dooley"
+    ]
   },
   "Crashing Waves": {
-    "icon": "images/skills/CrashingWaves.avif",
-    "name": "Crashing Waves",
-    "tags": [
-      "Vanessa",
-      "Aquatic",
-      "Haste",
-      "Weapon"
+    "text": [
+      "The first (5/10) times you use an Aquatic item each fight, Haste a Weapon for 1 second(s)."
     ],
-    "text": "The first (  5  » 10   ) times you use an Aquatic item each fight, Haste 1 weapon for 1 second(s)."
+    "tier": 2,
+    "tags": [
+      "Aquatic",
+      "DamageReference",
+      "Vanessa",
+      "Weapon",
+      "Haste"
+    ]
   },
   "Creeping Chill": {
-    "icon": "images/skills/CreepingChill.avif",
-    "name": "Creeping Chill",
+    "text": [
+      "The first time you Slow each fight, Freeze an item for (2/3/4) second(s)."
+    ],
+    "tier": 1,
     "tags": [
+      "SlowReference",
+      "Freeze",
       "Dooley",
       "Vanessa",
       "Mak",
-      "Stelle",
-      "Freeze",
-      "Slowreference"
-    ],
-    "text": "The first time you Slow each fight, Freeze 1 item for (  3  » 4  » 5   ) second(s)."
+      "Stelle"
+    ]
   },
   "Creeping Toxins": {
-    "icon": "images/skills/CreepingToxins.avif",
-    "name": "Creeping Toxins",
+    "text": [
+      "The first (5/10) times you Slow each fight, Charge a Poison item 1 second(s)."
+    ],
+    "tier": 2,
     "tags": [
-      "Vanessa",
+      "SlowReference",
       "Dooley",
+      "Vanessa",
       "Mak",
       "Charge",
-      "Poisonreference",
-      "Slowreference"
+      "PoisonReference"
+    ]
+  },
+  "Crimson Dash": {
+    "text": [
+      "Your Lifesteal Weapons' Cooldowns are reduced by 1 second."
     ],
-    "text": "The first (  5  » 10   ) times you Slow each fight, Charge 1 Poison item 1 second(s)."
+    "tier": 3,
+    "tags": [
+      "Weapon",
+      "Mak",
+      "Cooldown"
+    ]
   },
   "Critical Aid": {
-    "icon": "images/skills/CriticalAid.avif",
-    "name": "Critical Aid",
+    "text": [
+      "Your Heal items have (+5%/+10%/+15%/+20%) Crit Chance."
+    ],
+    "tier": 0,
     "tags": [
       "Pygmalien",
-      "Mak",
-      "Healthreference"
-    ],
-    "text": "Your Heal items have (  +5%  » +10%  » +15%  » +20%   ) Crit chance."
-  },
-  "Critical Captain": {
-    "icon": "images/skills/CriticalCaptain.avif",
-    "name": "Critical Captain",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Stelle",
+      "HealReference",
       "Crit"
-    ],
-    "text": "The first time you use a Large item each fight, your items gain (  +4%  » +8%  » +12%  » +16%   ) Crit Chance for the fight."
+    ]
   },
   "Critical Investments": {
-    "icon": "images/skills/CriticalInvestments.avif",
-    "name": "Critical Investments",
+    "text": [
+      "Your Properties and Toys have (+10%/+15%/+20%) Crit Chance."
+    ],
+    "tier": 1,
     "tags": [
       "Pygmalien",
-      "Crit",
-      "Property"
-    ],
-    "text": "Your Properties have (  +10%  » +15%  » +20%   ) Crit chance."
+      "Toy",
+      "Property",
+      "Crit"
+    ]
   },
   "Critical Protector": {
-    "icon": "images/skills/CriticalProtector.avif",
-    "name": "Critical Protector",
+    "text": [
+      "Your Shield items have (+5%/+10%/+15%/+20%) Crit Chance."
+    ],
+    "tier": 0,
     "tags": [
       "Pygmalien",
-      "Dooley",
-      "Shieldreference"
-    ],
-    "text": "Your Shield items have (  +5%  » +10%  » +15%  » +20%   ) Crit chance."
+      "ShieldReference",
+      "Crit",
+      "Dooley"
+    ]
   },
   "Cryomastery": {
-    "icon": "images/skills/Cryomastery.avif",
-    "name": "Cryomastery",
+    "text": [
+      "The first (2/4/6) times you Shield each fight, Freeze an item for 1 second."
+    ],
+    "tier": 1,
     "tags": [
       "Common",
-      "Freeze",
-      "Shieldreference"
+      "ShieldReference",
+      "Freeze"
+    ]
+  },
+  "Cult Member": {
+    "text": [
+      "You have joined the Cult."
     ],
-    "text": "The first (  3  » 6   ) times you Shield each fight, Freeze 1 item for 2 second(s)."
+    "tier": 4,
+    "tags": [
+      "Common"
+    ]
   },
   "Deadly Eye": {
-    "icon": "images/skills/DeadlyEye.avif",
-    "name": "Deadly Eye",
+    "text": [
+      "Your Weapons have (+5%/+10%/+15%/+20%) Crit Chance."
+    ],
+    "tier": 0,
     "tags": [
+      "Jules",
+      "Dooley",
       "Pygmalien",
       "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
+      "Weapon",
       "Mak",
       "Crit",
-      "Weapon"
-    ],
-    "text": "Your Weapons have (  +5%  » +10%  » +15%  » +20%   ) Crit chance."
+      "Stelle"
+    ]
   },
   "Defense Grid": {
-    "icon": "images/skills/DefenseGrid.avif",
-    "name": "Defense Grid",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Stelle",
-      "Mak",
-      "Healthreference"
+    "text": [
+      "The first time you use an item each fight, Shield equal to (10%/15%/20%/25%) of your Max Health."
     ],
-    "text": "At the start of each fight, gain shield equal to (  10%  » 20%  » 35%  » 50%   ) of your max health."
+    "tier": 0,
+    "tags": [
+      "Dooley",
+      "Pygmalien",
+      "HealthReference",
+      "Shield",
+      "Stelle"
+    ]
   },
   "Defensive Stance": {
-    "icon": "images/skills/DefensiveStance.avif",
-    "name": "Defensive Stance",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Stelle",
-      "Shieldreference",
-      "Weapon"
+    "text": [
+      "When you use a Weapon, your Shield items gain (3/6/9) Shield for the fight."
     ],
-    "text": "When you use a weapon, your Shield items gain (  3  » 6  » 9   ) Shield for the fight."
+    "tier": 1,
+    "tags": [
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Weapon",
+      "ShieldReference",
+      "Stelle"
+    ]
   },
   "Depth Charge": {
-    "icon": "images/skills/DepthCharge.avif",
-    "name": "Depth Charge",
-    "tags": [
-      "Vanessa",
-      "Ammo",
-      "Aquatic",
-      "Damagereference",
-      "Weapon"
+    "text": [
+      "If you have exactly one Weapon, it has (+5/+10) Max Ammo.",
+      "if it is also Aquatic, it has (+25/+50) Damage."
     ],
-    "text": "If you have exactly one weapon, it has (  +5  » +10   ) Max Ammo. ...if it is also Aquatic, it has (  +25  » +50   ) Damage."
+    "tier": 2,
+    "tags": [
+      "Aquatic",
+      "DamageReference",
+      "Vanessa",
+      "Weapon",
+      "Ammo"
+    ]
   },
   "Desperate Cleanse": {
-    "icon": "images/skills/DesperateCleanse.avif",
-    "name": "Desperate Cleanse",
+    "text": [
+      "The first time you fall below half Health each fight, remove Freeze and Slow from your items and Cleanse half your Burn and Poison."
+    ],
+    "tier": 3,
     "tags": [
       "Pygmalien",
       "Dooley"
-    ],
-    "text": "The first time you fall below half health each fight, remove Freeze and Slow from your items and Cleanse half your Burn and Poison."
+    ]
   },
   "Desperate Strike": {
-    "icon": "images/skills/DesperateStrike.avif",
-    "name": "Desperate Strike",
-    "tags": [
-      "Vanessa",
-      "Jules",
-      "Stelle",
-      "Crit"
+    "text": [
+      "While you have less Health than your enemy, your items have (20%/40%/60%) Crit Chance."
     ],
-    "text": "While you have less health than your opponent, your items gain (  10%  » 15%  » 20%   ) Crit Chance."
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Vanessa",
+      "Mak",
+      "Crit",
+      "Stelle"
+    ]
   },
   "Diamond Fangs": {
-    "icon": "images/skills/DiamondFangs.avif",
-    "name": "Diamond Fangs",
+    "text": [
+      "Your Small Diamond-tier items' Cooldowns are reduced by (20%/30%/40%/50%)."
+    ],
+    "tier": 0,
     "tags": [
       "Common",
       "Cooldown"
-    ],
-    "text": "Your Small Diamond-tier items have their cooldowns reduced by (  30%  » 40%  » 50%  » 60%   )."
+    ]
   },
   "Diamond Heart": {
-    "icon": "images/skills/DiamondHeart.avif",
-    "name": "Diamond Heart",
-    "tags": [
-      "Pygmalien",
-      "Stelle",
-      "Health"
+    "text": [
+      "You have (+300/+500) Max Health for each Diamond-tier item you have."
     ],
-    "text": "You have (  +300  » +500   ) Max Health for each Diamond-tier item you have."
-  },
-  "Distributed Systems": {
-    "icon": "images/skills/DistributedSystems.avif",
-    "name": "Distributed Systems",
-    "tags": [
-      "Common",
-      "Haste"
-    ],
-    "text": "When you use a large item, haste (  2  » 3   ) small items for (  2  » 3   ) second(s)."
-  },
-  "Double Down": {
-    "icon": "images/skills/DoubleDown.avif",
-    "name": "Double Down",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Pygmalien",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "The first time you fall below half health each fight, double the damage of your leftmost Weapon for the fight."
-  },
-  "Draconic Rage": {
-    "icon": "images/skills/DraconicRage.avif",
-    "name": "Draconic Rage",
-    "tags": [
-      "Common",
-      "Burn"
-    ],
-    "text": "When you use a Medium item, a Burn item gains (  10  » 15   ) burn for the fight."
-  },
-  "Dual Wield": {
-    "icon": "images/skills/DualWield.avif",
-    "name": "Dual Wield",
-    "tags": [
-      "Common",
-      "Crit"
-    ],
-    "text": "If you have exactly 2 Weapons in play, your items have +50 Crit Chance."
-  },
-  "Electrified Hull": {
-    "icon": "images/skills/ElectrifiedHull.avif",
-    "name": "Electrified Hull",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Charge",
-      "Shieldreference"
-    ],
-    "text": "The first (  4  » 8   ) times you Shield each fight, Charge 1 item 1 second(s)."
-  },
-  "Emergency Burn": {
-    "icon": "images/skills/EmergencyBurn.avif",
-    "name": "Emergency Burn",
-    "tags": [
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Burn"
-    ],
-    "text": "The first time you fall below half health each fight, Burn (  20  » 30  » 40   )."
-  },
-  "Emergency Draught": {
-    "icon": "images/skills/EmergencyDraught.avif",
-    "name": "Emergency Draught",
-    "tags": [
-      "Mak",
-      "Regen"
-    ],
-    "text": "The first time you fall below half health each fight, gain (  20  » 30  » 40   ) Regeneration for the fight."
-  },
-  "Emergency Shield": {
-    "icon": "images/skills/EmergencyShield.avif",
-    "name": "Emergency Shield",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Stelle",
-      "Shield"
-    ],
-    "text": "The first time you fall below half health each fight, use your highest Shield item."
-  },
-  "Endurance": {
-    "icon": "images/skills/Endurance.avif",
-    "name": "Endurance",
-    "tags": [
-      "Pygmalien",
-      "Mak",
-      "Healreference"
-    ],
-    "text": "When you use a weapon, your Heal items gain (  +10  » +20  » +30   ) Heal for the fight."
-  },
-  "Equivalent Exchange": {
-    "icon": "images/skills/EquivalentExchange.avif",
-    "name": "Equivalent Exchange",
-    "tags": [
-      "Common",
-      "Healreference",
-      "Poison"
-    ],
-    "text": "When you Heal, charge 1 Poison item 1 second(s)."
-  },
-  "Expert Pilot": {
-    "icon": "images/skills/ExpertPilot.avif",
-    "name": "Expert Pilot",
-    "tags": [
-      "Stelle",
-      "Vehicle"
-    ],
-    "text": "Cooldown 10 seconds Your Shield Vehicles gain (  30%  » 60%   ) Shield. Your Weapon Vehicles gain (  30%  » 60%   ) Damage."
-  },
-  "Exposing Toxins": {
-    "icon": "images/skills/ExposingToxins.avif",
-    "name": "Exposing Toxins",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Crit",
-      "Poison"
-    ],
-    "text": "When you Poison, your items gain (  +1%  » +2%  » +3%   ) Crit Chance for the fight."
-  },
-  "Extreme Comfort": {
-    "icon": "images/skills/ExtremeComfort.avif",
-    "name": "Extreme Comfort",
-    "tags": [
-      "Common",
-      "Healreference",
-      "Shieldreference"
-    ],
-    "text": "When you heal, your Shield items gain (  1  » 2  » 3  » 4   ) shield for the fight."
-  },
-  "Fiery": {
-    "icon": "images/skills/Fiery.avif",
-    "name": "Fiery",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Mak",
-      "Stelle",
-      "Burnreference"
-    ],
-    "text": "Your Burn items have (  +2  » +4  » +6  » +8   ) Burn."
-  },
-  "Fiery Rebirth": {
-    "icon": "images/skills/FieryRebirth.avif",
-    "name": "Fiery Rebirth",
-    "tags": [
-      "Common"
-    ],
-    "text": "The first time you would die each fight, Heal to full."
-  },
-  "Final Dose": {
-    "icon": "images/skills/FinalDose.avif",
-    "name": "Final Dose",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Poisonreference"
-    ],
-    "text": "Your rightmost Poison item has (  +3  » +6  » +9  » +12   ) Poison."
-  },
-  "Final Flame": {
-    "icon": "images/skills/FinalFlame.avif",
-    "name": "Final Flame",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Burnreference"
-    ],
-    "text": "Your rightmost Burn item has (  +3  » +6  » +9  » +12   ) Burn."
-  },
-  "Finesse Shield": {
-    "icon": "images/skills/FinesseShield.avif",
-    "name": "Finesse Shield",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Stelle",
-      "Cooldown",
-      "Shieldreference"
-    ],
-    "text": "While your enemy has more health than you, your Shield items have their cooldowns reduced by (  5%  » 10%  » 20%   )."
-  },
-  "Firepower": {
-    "icon": "images/skills/Firepower.avif",
-    "name": "Firepower",
-    "tags": [
-      "Dooley",
-      "Core",
-      "Damagereference"
-    ],
-    "text": "When you use the Core, adjacent weapons gain (  10  » 20  » 30   ) damage for the fight."
-  },
-  "Firestarter": {
-    "icon": "images/skills/Firestarter.avif",
-    "name": "Firestarter",
-    "tags": [
-      "Common",
-      "Burn"
-    ],
-    "text": "At the start of each fight, burn (  17  » 25  » 35   )."
-  },
-  "First Flames": {
-    "icon": "images/skills/FirstFlames.avif",
-    "name": "First Flames",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Burn"
-    ],
-    "text": "The first time you use a Large item each fight, Burn (  10  » 15  » 20   )."
-  },
-  "First Responder": {
-    "icon": "images/skills/FirstResponder.avif",
-    "name": "First Responder",
-    "tags": [
-      "Pygmalien",
-      "Mak",
-      "Healreference"
-    ],
-    "text": "Your leftmost Heal item has (  +20  » +35  » +50  » +65   ) Heal."
-  },
-  "First Strike": {
-    "icon": "images/skills/FirstStrike.avif",
-    "name": "First Strike",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Crit"
-    ],
-    "text": "Your items have (  +30%  » +50%   ) Crit Chance. When you use an item, all your items lose 10% crit chance for the fight."
-  },
-  "Flamedancer": {
-    "icon": "images/skills/Flamedancer.avif",
-    "name": "Flamedancer",
-    "tags": [
-      "Common",
-      "Burnreference"
-    ],
-    "text": "Your Burn items have (  +2%  » +4%  » +6%  » +8%   ) Crit Chance."
-  },
-  "Flanking Aid": {
-    "icon": "images/skills/FlankingAid.avif",
-    "name": "Flanking Aid",
-    "tags": [
-      "Pygmalien",
-      "Mak",
-      "Healreference"
-    ],
-    "text": "The first time you use a Large item each fight, Adjacent items gain (  +15  » +20  » +25   ) Heal for the fight."
-  },
-  "Flanking Criticals": {
-    "icon": "images/skills/FlankingCriticals.avif",
-    "name": "Flanking Criticals",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Crit"
-    ],
-    "text": "The first time you use a Large item each fight, Adjacent items gain (  15%  » 20%  » 25%   ) Crit Chance for the fight."
-  },
-  "Flanking Fire": {
-    "icon": "images/skills/FlankingFire.avif",
-    "name": "Flanking Fire",
-    "tags": [
-      "Vanessa",
-      "Jules",
-      "Stelle",
-      "Burnreference"
-    ],
-    "text": "The first time you use a Large item each fight, Adjacent items gain (  7  » 10  » 13   ) Burn for the fight."
-  },
-  "Flanking Shield": {
-    "icon": "images/skills/FlankingShield.avif",
-    "name": "Flanking Shield",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Stelle",
-      "Shieldreference"
-    ],
-    "text": "The first time you use a Large item each fight, adjacent Shield items gain (  15  » 30  » 50   ) Shield for the fight."
-  },
-  "Flanking Shots": {
-    "icon": "images/skills/FlankingShots.avif",
-    "name": "Flanking Shots",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "The first time you use a Large item each fight, adjacent weapons gain (  15  » 30  » 50   ) Damage for the fight."
-  },
-  "Flanking Toxins": {
-    "icon": "images/skills/FlankingToxins.avif",
-    "name": "Flanking Toxins",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Poisonreference"
-    ],
-    "text": "The first time you use a Large item each fight, adjacent Poison items gain (  4  » 6  » 8   ) Poison for the fight."
-  },
-  "Flashy Mechanic": {
-    "icon": "images/skills/FlashyMechanic.avif",
-    "name": "Flashy Mechanic",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Tool"
-    ],
-    "text": "When you use a Tool, items adjacent to it gain (  3%  » 6%  » 9%   ) Crit chance."
-  },
-  "Flashy Pilot": {
-    "icon": "images/skills/FlashyPilot.avif",
-    "name": "Flashy Pilot",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Stelle",
-      "Vehicle"
-    ],
-    "text": "When you use a Vehicle, your items gain (  10%  » 20%  » 30%   ) Crit chance."
-  },
-  "Flashy Reload": {
-    "icon": "images/skills/FlashyReload.avif",
-    "name": "Flashy Reload",
-    "tags": [
-      "Vanessa",
-      "Ammo",
-      "Critreference"
-    ],
-    "text": "When you Crit with an item, reload another item +1 ammo."
-  },
-  "Flurry of Blows": {
-    "icon": "images/skills/FlurryofBlows.avif",
-    "name": "Flurry of Blows",
-    "tags": [
-      "Vanessa",
-      "Charge",
-      "Weapon"
-    ],
-    "text": "The first (  4  » 8   ) times you use a Weapon each fight, charge 1 item 1 second(s)."
-  },
-  "Focused Rage": {
-    "icon": "images/skills/FocusedRage.avif",
-    "name": "Focused Rage",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Crit"
-    ],
-    "text": "The first time you fall below half health each fight, double all your items' Crit Chance for the fight."
-  },
-  "Follow-Up Care": {
-    "icon": "images/skills/FollowUpCare.avif",
-    "name": "Follow-Up Care",
-    "tags": [
-      "Pygmalien",
-      "Mak",
-      "Healreference"
-    ],
-    "text": "Your rightmost Heal item has (  +20  » +35  » +50  » +65   ) Heal."
-  },
-  "Foreboding Winds": {
-    "icon": "images/skills/ForebodingWinds.avif",
-    "name": "Foreboding Winds",
-    "tags": [
-      "Common",
-      "Crit"
-    ],
-    "text": "When any player uses an item, all items gain (  2%  » 4%   ) Crit Chance for the fight."
-  },
-  "Frontal Shielding": {
-    "icon": "images/skills/FrontalShielding.avif",
-    "name": "Frontal Shielding",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Shieldreference"
-    ],
-    "text": "Your leftmost Shield item has (  +20  » +30  » +40  » +50   ) Shield."
-  },
-  "Frostfire": {
-    "icon": "images/skills/Frostfire.avif",
-    "name": "Frostfire",
-    "tags": [
-      "Dooley",
-      "Vanessa",
-      "Mak",
-      "Jules",
-      "Stelle",
-      "Burnreference",
-      "Freeze"
-    ],
-    "text": "The first time you Burn each fight, Freeze 1 item for (  3  » 4  » 5   ) second(s)."
-  },
-  "Frozen Flames": {
-    "icon": "images/skills/FrozenFlames.avif",
-    "name": "Frozen Flames",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Pygmalien",
-      "Freezereference"
-    ],
-    "text": "When your items gain Freeze, Burn (  8  » 12  » 16   )."
-  },
-  "Frozen Shot": {
-    "icon": "images/skills/FrozenShot.avif",
-    "name": "Frozen Shot",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Jules",
-      "Mak",
-      "Freeze",
-      "Weapon"
-    ],
-    "text": "The first (  4  » 8   ) times you use your Slowest weapon each fight, Freeze 1 item of equal or smaller size for 1 second(s)."
-  },
-  "Frozen Synapse": {
-    "icon": "images/skills/FrozenSynapse.avif",
-    "name": "Frozen Synapse",
-    "tags": [
-      "Dooley",
-      "Core",
-      "Freezereference",
-      "Haste"
-    ],
-    "text": "The first (  5  » 10   ) times you Freeze each fight, Haste the Core for 2 second(s)."
-  },
-  "Full Arsenal": {
-    "icon": "images/skills/FullArsenal.avif",
-    "name": "Full Arsenal",
-    "tags": [
-      "Common",
-      "Cooldown",
-      "Tool",
-      "Vehicle",
-      "Weapon"
-    ],
-    "text": "Your item's cooldowns are reduced by (  5%  » 10%   ) if you have a Vehicle, reduced by (  5%  » 10%   ) if you have a Weapon, and reduced by (  5%  » 10%   ) if you have a Tool."
-  },
-  "Glass Cannon": {
-    "icon": "images/skills/GlassCannon.avif",
-    "name": "Glass Cannon",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Stelle",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "Both players' weapons have double damage."
-  },
-  "Grease Fire": {
-    "icon": "images/skills/GreaseFire.avif",
-    "name": "Grease Fire",
-    "tags": [
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Burn",
-      "Tool"
-    ],
-    "text": "When you use a tool, Burn (  3  » 5   )."
-  },
-  "Gunner": {
-    "icon": "images/skills/Gunner.avif",
-    "name": "Gunner",
-    "tags": [
-      "Vanessa",
-      "Mak",
-      "Ammo"
-    ],
-    "text": "Your items have (  +1  » +2  » +3   ) Max Ammo."
-  },
-  "Hard Shell": {
-    "icon": "images/skills/HardShell.avif",
-    "name": "Hard Shell",
-    "tags": [
-      "Common",
-      "Healthreference",
-      "Shield"
-    ],
-    "text": "The first time you fall below half health each fight, Shield equal to (  20%  » 30%  » 40%  » 50%   ) of your Max Health."
-  },
-  "Hardened Shield": {
-    "icon": "images/skills/HardenedShield.avif",
-    "name": "Hardened Shield",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Stelle",
-      "Shieldreference"
-    ],
-    "text": "When your enemy uses a Weapon, your Shield items gain (  5  » 10   ) Shield for the fight."
-  },
-  "Hardly Workin'": {
-    "icon": "images/skills/HardlyWorkin.avif",
-    "name": "Hardly Workin'",
-    "tags": [
-      "Dooley",
-      "Vanessa",
-      "Stelle",
-      "Mak",
-      "Regen",
-      "Slowreference"
-    ],
-    "text": "When you Slow, gain (  2  » 4   ) Regeneration for the fight."
-  },
-  "Heal Power": {
-    "icon": "images/skills/HealPower.avif",
-    "name": "Heal Power",
-    "tags": [
-      "Pygmalien",
-      "Mak",
-      "Healreference"
-    ],
-    "text": "Your Heal items have (  +10  » +20  » +30  » +40   ) Heal."
-  },
-  "Healthy Hoarder": {
-    "icon": "images/skills/HealthyHoarder.avif",
-    "name": "Healthy Hoarder",
-    "tags": [
-      "Pygmalien",
-      "Nonweapon"
-    ],
-    "text": "You have (  +35  » +100  » +200  » +300   ) Max Health for each Non-Weapon item you have."
-  },
-  "Healthy Lifestyle": {
-    "icon": "images/skills/HealthyLifestyle.avif",
-    "name": "Healthy Lifestyle",
-    "tags": [
-      "Pygmalien",
-      "Mak",
-      "Nonweapon",
-      "Regen"
-    ],
-    "text": "You have (  1  » 2  » 3   ) Regeneration for each non-weapon item you have."
-  },
-  "Healthy Tip": {
-    "icon": "images/skills/HealthyTip.avif",
-    "name": "Healthy Tip",
-    "tags": [
-      "Pygmalien",
-      "Economy",
-      "Health"
-    ],
-    "text": "When you gain gold, permanently gain Max Health equal to (  1x  » 2x   ) the amount of gold gained."
-  },
-  "Heat Lover": {
-    "icon": "images/skills/HeatLover.avif",
-    "name": "Heat Lover",
-    "tags": [
-      "Common",
-      "Burnreference",
-      "Regen"
-    ],
-    "text": "When you or your enemy Burns, gain (  2  » 4  » 6  » 8   ) Regeneration for the fight."
-  },
-  "Heat Shield": {
-    "icon": "images/skills/HeatShield.avif",
-    "name": "Heat Shield",
-    "tags": [
-      "Dooley",
-      "Stelle",
-      "Burnreference",
-      "Shield"
-    ],
-    "text": "When you Burn with an item, gain Shield equal to (  1x  » 2x   ) that item's Burn."
-  },
-  "Heated Shells": {
-    "icon": "images/skills/HeatedShells.avif",
-    "name": "Heated Shells",
-    "tags": [
-      "Vanessa",
-      "Mak",
-      "Ammo",
-      "Burn"
-    ],
-    "text": "When you use an Ammo item, Burn (  2  » 3  » 4   )."
-  },
-  "Heavy Firepower": {
-    "icon": "images/skills/HeavyFirepower.avif",
-    "name": "Heavy Firepower",
-    "tags": [
-      "Dooley",
-      "Vanessa",
-      "Mak",
-      "Pygmalien",
-      "Stelle",
-      "Jules",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "If you have 4 or fewer items in play, your Weapons have (  +25  » +50  » +75   ) damage."
-  },
-  "Heavy Machinery": {
-    "icon": "images/skills/HeavyMachinery.avif",
-    "name": "Heavy Machinery",
-    "tags": [
-      "Dooley",
-      "Core",
-      "Haste"
-    ],
-    "text": "The first (  5  » 10   ) times you use The Core each fight, Haste 1 item for 2 second(s)."
-  },
-  "Heavy Mettle": {
-    "icon": "images/skills/HeavyMettle.avif",
-    "name": "Heavy Mettle",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Stelle",
-      "Shieldreference"
-    ],
-    "text": "Your Shield items have + Shield equal to (  2  » 3  » 4   ) times your level. [NaN]"
-  },
-  "Heavy Shielding": {
-    "icon": "images/skills/HeavyShielding.avif",
-    "name": "Heavy Shielding",
-    "tags": [
-      "Stelle",
-      "Dooley",
-      "Pygmalien",
-      "Shieldreference"
-    ],
-    "text": "Your Large Shield items have (  +12  » +36  » +72  » +120   ) shield."
-  },
-  "Honed Arsenal": {
-    "icon": "images/skills/HonedArsenal.avif",
-    "name": "Honed Arsenal",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Crit",
-      "Weapon"
-    ],
-    "text": "Your items have (  +1%  » +3%  » +5%   ) Crit Chance per Weapon you have. [0%]"
-  },
-  "Honed Strike": {
-    "icon": "images/skills/HonedStrike.avif",
-    "name": "Honed Strike",
-    "tags": [
-      "Vanessa",
-      "Mak",
-      "Critreference"
-    ],
-    "text": "When you Crit with an item, it gains (  +5%  » +10%   ) Crit Chance for the fight."
-  },
-  "Hot Spot": {
-    "icon": "images/skills/HotSpot.avif",
-    "name": "Hot Spot",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Burn"
-    ],
-    "text": "When you use your leftmost item, Burn (  2  » 3  » 4   )."
-  },
-  "Housewarming Gifts": {
-    "icon": "images/skills/HousewarmingGifts.avif",
-    "name": "Housewarming Gifts",
-    "tags": [
-      "Pygmalien",
-      "Property"
-    ],
-    "text": "When you buy a property, gain (  1  » 2   ) Chocolate Bar(s) and (  1  » 2   ) Spare Change."
-  },
-  "Hunker Down": {
-    "icon": "images/skills/HunkerDown.avif",
-    "name": "Hunker Down",
-    "tags": [
-      "Common",
-      "Healthreference",
-      "Shield"
-    ],
-    "text": "The first time you fall below half health each fight, Shield equal to (  30%  » 50%  » 80%   ) of your Max Health."
-  },
-  "Hyper Focus": {
-    "icon": "images/skills/HyperFocus.avif",
-    "name": "Hyper Focus",
-    "tags": [
-      "Common",
-      "Cooldown"
-    ],
-    "text": "If you have only one medium item, its cooldown is reduced by 30%."
-  },
-  "Hypnotic Drain": {
-    "icon": "images/skills/HypnoticDrain.avif",
-    "name": "Hypnotic Drain",
-    "tags": [
-      "Common",
-      "Freeze",
-      "Weapon"
-    ],
-    "text": "When you use a weapon with Lifesteal, Freeze a smaller item for 2 second(s)."
-  },
-  "Ice Bullets": {
-    "icon": "images/skills/IceBullets.avif",
-    "name": "Ice Bullets",
-    "tags": [
-      "Vanessa",
-      "Ammo",
-      "Freezereference"
-    ],
-    "text": "When you Freeze, reload an Weapon 1 ammo."
-  },
-  "Ignition": {
-    "icon": "images/skills/Ignition.avif",
-    "name": "Ignition",
-    "tags": [
-      "Stelle"
-    ],
-    "text": ""
-  },
-  "Immolating Spark": {
-    "icon": "images/skills/ImmolatingSpark.avif",
-    "name": "Immolating Spark",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Burnreference"
-    ],
-    "text": "Your leftmost Burn item has (  +3  » +6  » +9  » +12   ) Burn."
-  },
-  "Improved Toxins": {
-    "icon": "images/skills/ImprovedToxins.avif",
-    "name": "Improved Toxins",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Poisonreference"
-    ],
-    "text": "Your Poison items have (  +2  » +4  » +6  » +8   ) Poison."
-  },
-  "Improvised Burn": {
-    "icon": "images/skills/ImprovisedBurn.avif",
-    "name": "Improvised Burn",
-    "tags": [
-      "Vanessa",
-      "Mak",
-      "Burnreference",
-      "Critreference"
-    ],
-    "text": "When you Crit, your Burn items gain (  1  » 2   ) Burn for the fight."
-  },
-  "Improvised Heal": {
-    "icon": "images/skills/ImprovisedHeal.avif",
-    "name": "Improvised Heal",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Mak",
-      "Critreference",
-      "Healreference"
-    ],
-    "text": "When you Crit, your Heal items gain (  +10  » +20  » +30   ) Heal for the fight."
-  },
-  "Improvised Poison": {
-    "icon": "images/skills/ImprovisedPoison.avif",
-    "name": "Improvised Poison",
-    "tags": [
-      "Vanessa",
-      "Mak",
-      "Critreference",
-      "Poisonreference"
-    ],
-    "text": "When you Crit, your Poison items gain (  1  » 2   ) Poison for the fight."
-  },
-  "Improvised Protection": {
-    "icon": "images/skills/ImprovisedProtection.avif",
-    "name": "Improvised Protection",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Critreference",
-      "Shieldreference"
-    ],
-    "text": "When you Crit, your Shield items gain (  5  » 10  » 15   ) Shield for the fight."
-  },
-  "Improvised Weaponry": {
-    "icon": "images/skills/ImprovisedWeaponry.avif",
-    "name": "Improvised Weaponry",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Critreference",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "When you Crit, your weapons gain (  5  » 10  » 15   ) Damage for the fight."
-  },
-  "Industrialist": {
-    "icon": "images/skills/Industrialist.avif",
-    "name": "Industrialist",
-    "tags": [
-      "Pygmalien",
-      "Cooldown",
-      "Property"
-    ],
-    "text": "Reduce the cooldown of your Properties by (  10%  » 15%   )."
-  },
-  "Inexorable": {
-    "icon": "images/skills/Inexorable.avif",
-    "name": "Inexorable",
-    "tags": [
-      "Vanessa",
-      "Crit"
-    ],
-    "text": "Your items have +2% crit chance. When you start a fight, increase this bonus by (  +2%  » +4%  » +6%   )."
-  },
-  "Initial Chill": {
-    "icon": "images/skills/InitialChill.avif",
-    "name": "Initial Chill",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Jules",
-      "Mak",
-      "Freeze"
-    ],
-    "text": "The first time you use a Large item each fight, Freeze 1 item for (  3  » 4  » 5   ) second(s)."
-  },
-  "Initial Dose": {
-    "icon": "images/skills/InitialDose.avif",
-    "name": "Initial Dose",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Poisonreference"
-    ],
-    "text": "Your leftmost Poison item has (  +3  » +6  » +9  » +12   ) Poison."
-  },
-  "Into the Void": {
-    "icon": "images/skills/IntotheVoid.avif",
-    "name": "Into the Void",
-    "tags": [
-      "Common"
-    ],
-    "text": "At the start of each fight, destroy an item on each player's board for the fight."
-  },
-  "Intrusion Countermeasures": {
-    "icon": "images/skills/IntrusionCountermeasures.avif",
-    "name": "Intrusion Countermeasures",
-    "tags": [
-      "Dooley",
-      "Friend"
-    ],
-    "text": "The first time you fall below half health in a fight, use your Friends."
-  },
-  "Invigorating Blade": {
-    "icon": "images/skills/InvigoratingBlade.avif",
-    "name": "Invigorating Blade",
-    "tags": [
-      "Pygmalien",
-      "Charge",
-      "Healreference",
-      "Weapon"
-    ],
-    "text": "The first (  5  » 10   ) times you use a Weapon each fight, Charge 1 Heal item 1 second(s)."
-  },
-  "Invigorating Cold": {
-    "icon": "images/skills/InvigoratingCold.avif",
-    "name": "Invigorating Cold",
-    "tags": [
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Pygmalien",
-      "Vanessa",
-      "Mak",
-      "Freezereference",
-      "Haste"
-    ],
-    "text": "The first time you Freeze each fight, Haste (  1  » 2  » 3   ) items for 2 second(s)."
-  },
-  "Iron Sharpens Iron": {
-    "icon": "images/skills/IronSharpensIron.avif",
-    "name": "Iron Sharpens Iron",
-    "tags": [
-      "Vanessa",
-      "Jules",
-      "Mak",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "Your leftmost Weapon has +2 damage. When you buy a weapon, increase this bonus by (  2  » 3  » 4   )."
-  },
-  "Juggler": {
-    "icon": "images/skills/Juggler.avif",
-    "name": "Juggler",
-    "tags": [
-      "Common",
-      "Cooldown"
-    ],
-    "text": "When you use a small item, Charge a large item for 1 second(s)."
-  },
-  "Jury Rigger": {
-    "icon": "images/skills/JuryRigger.avif",
-    "name": "Jury Rigger",
-    "tags": [
-      "Common",
-      "Ammo"
-    ],
-    "text": "When you use an Ammo item, reload (  1  » 2  » 3   ) the item to the left of it."
-  },
-  "Keen Eye": {
-    "icon": "images/skills/KeenEye.avif",
-    "name": "Keen Eye",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Crit"
-    ],
-    "text": "Your items have (  +4%  » +8%  » +12%  » +16%   ) Crit chance."
-  },
-  "Knife Tricks": {
-    "icon": "images/skills/KnifeTricks.avif",
-    "name": "Knife Tricks",
-    "tags": [
-      "Vanessa",
-      "Pygmalien",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Cooldown",
-      "Weapon"
-    ],
-    "text": "When you use a weapon, reduce its cooldown by 5% for the fight."
-  },
-  "Large Appetites": {
-    "icon": "images/skills/LargeAppetites.avif",
-    "name": "Large Appetites",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Health"
-    ],
-    "text": "If you have 4 or fewer items, you have (  +500  » +1000  » +2000   ) Max Health."
-  },
-  "Large Poisons": {
-    "icon": "images/skills/LargePoisons.avif",
-    "name": "Large Poisons",
-    "tags": [
-      "Mak",
-      "Poisonreference"
-    ],
-    "text": "Your Large Poison items have (  +4  » +8  » +12  » +16   ) Poison."
-  },
-  "Lash Out": {
-    "icon": "images/skills/LashOut.avif",
-    "name": "Lash Out",
-    "tags": [
-      "Common",
-      "Poison"
-    ],
-    "text": "At the start of each fight, Poison (  3  » 6  » 9  » 12   )."
-  },
-  "Left Eye": {
-    "icon": "images/skills/LeftEye.avif",
-    "name": "Left Eye",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Crit"
-    ],
-    "text": "Your leftmost item has (  +8%  » +16%  » +24%  » +32%   ) Crit chance."
-  },
-  "Left-Handed": {
-    "icon": "images/skills/LeftHanded.avif",
-    "name": "Left-Handed",
-    "tags": [
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Dooley",
-      "Vanessa",
-      "Pygmalien",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "Your leftmost Weapon deals (  +20  » +30  » +40  » +50   ) Damage."
-  },
-  "Lefty Loosey": {
-    "icon": "images/skills/LeftyLoosey.avif",
-    "name": "Lefty Loosey",
-    "tags": [
-      "Dooley",
-      "Jules",
-      "Vanessa",
-      "Haste"
-    ],
-    "text": "The first (  5  » 10   ) times you use your leftmost item each fight, Haste 1 item for 1 second(s)."
-  },
-  "Lethargy": {
-    "icon": "images/skills/Lethargy.avif",
-    "name": "Lethargy",
-    "tags": [
-      "Pygmalien",
-      "Stelle",
-      "Mak"
-    ],
-    "text": "All items have a cooldown increase of (  30%  » 50%   )."
-  },
-  "Letting off Steam": {
-    "icon": "images/skills/LettingoffSteam.avif",
-    "name": "Letting off Steam",
-    "tags": [
-      "Dooley",
-      "Burnreference",
-      "Core",
-      "Haste"
-    ],
-    "text": "The first (  5  » 10   ) times you Burn each fight, Haste the Core for 2 second(s)."
-  },
-  "Lifting": {
-    "icon": "images/skills/Lifting.avif",
-    "name": "Lifting",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Jules",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "Your weapons have +1 Damage. When you buy a Weapon, increase this bonus by (  +1  » +2  » +3   ) Damage."
-  },
-  "Like Clockwork": {
-    "icon": "images/skills/LikeClockwork.avif",
-    "name": "Like Clockwork",
-    "tags": [
-      "Dooley",
-      "Core",
-      "Damagereference"
-    ],
-    "text": "When you level up, Your Weapons gain (  +5  » +10  » +15  » +20   ) damage. If you have a Weapon Core, double this."
-  },
-  "Liquid Cooled": {
-    "icon": "images/skills/LiquidCooled.avif",
-    "name": "Liquid Cooled",
-    "tags": [
-      "Dooley",
-      "Core",
-      "Freeze"
-    ],
-    "text": "The first (  5  » 10   ) times use the Core each fight, Freeze 1 item of equal or smaller size for 1 second(s)."
-  },
-  "Living Flame": {
-    "icon": "images/skills/LivingFlame.avif",
-    "name": "Living Flame",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Jules",
-      "Stelle",
-      "Burn",
-      "Cooldown"
-    ],
-    "text": "The first time you fall below half health each fight, your Burn items have their cooldowns reduced by 50% for the fight."
-  },
-  "Loaded Fury": {
-    "icon": "images/skills/LoadedFury.avif",
-    "name": "Loaded Fury",
-    "tags": [
-      "Vanessa",
-      "Ammo",
-      "Damagereference"
-    ],
-    "text": "Your Weapons have (  +1  » +2  » +3   ) damage for each ammo you have on your items in play."
-  },
-  "Long Strides": {
-    "icon": "images/skills/LongStrides.avif",
-    "name": "Long Strides",
-    "tags": [
-      "Pygmalien",
-      "Cooldown"
-    ],
-    "text": "If you have 4 or fewer items, your items have their cooldowns reduced by (  4%  » 8%  » 12%   )."
-  },
-  "Machine Learning": {
-    "icon": "images/skills/MachineLearning.avif",
-    "name": "Machine Learning",
-    "tags": [
-      "Dooley",
-      "Core"
-    ],
-    "text": "When you buy or upgrade this, upgrade the core."
-  },
-  "Makeshift Plate": {
-    "icon": "images/skills/MakeshiftPlate.avif",
-    "name": "Makeshift Plate",
-    "tags": [
-      "Pygmalien",
-      "Economy",
-      "Shield"
-    ],
-    "text": "Your Shield items have +1 Shield for every (  4  » 3  » 2   ) gold you have. [NaN]"
-  },
-  "Master Salesman": {
-    "icon": "images/skills/MasterSalesman.avif",
-    "name": "Master Salesman",
-    "tags": [
-      "Common",
-      "Value"
-    ],
-    "text": "Your items have double value during combat."
-  },
-  "Medical Ward": {
-    "icon": "images/skills/MedicalWard.avif",
-    "name": "Medical Ward",
-    "tags": [
-      "Pygmalien",
-      "Mak",
-      "Healreference"
-    ],
-    "text": "Your Large Heal items have (  +12  » +36  » +72  » +120   ) Heal."
-  },
-  "Microfiber": {
-    "icon": "images/skills/Microfiber.avif",
-    "name": "Microfiber",
-    "tags": [
-      "Stelle",
-      "Dooley",
-      "Pygmalien",
-      "Shieldreference"
-    ],
-    "text": "Your Small Shield items have (  +3  » +9  » +18  » +30   ) shield."
-  },
-  "Minimalist": {
-    "icon": "images/skills/Minimalist.avif",
-    "name": "Minimalist",
-    "tags": [
-      "Pygmalien",
-      "Cooldown"
-    ],
-    "text": "If you have no weapons, your items' cooldowns are reduced by (  10%  » 20%   )."
-  },
-  "Mixed Message": {
-    "icon": "images/skills/MixedMessage.avif",
-    "name": "Mixed Message",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Charge",
-      "Weapon"
-    ],
-    "text": "The first (  4  » 8   ) times you use a non-Weapon item each fight, Charge 1 Weapon 1 second(s)."
-  },
-  "Moth to a Flame": {
-    "icon": "images/skills/MothtoaFlame.avif",
-    "name": "Moth to a Flame",
-    "tags": [
-      "Dooley",
-      "Mak",
-      "Burnreference",
-      "Regen"
-    ],
-    "text": "You have Regeneration equal to half the Burn on your enemy."
-  },
-  "Nanite Healing": {
-    "icon": "images/skills/NaniteHealing.avif",
-    "name": "Nanite Healing",
-    "tags": [
-      "Pygmalien",
-      "Mak",
-      "Healreference"
-    ],
-    "text": "Your Small Heal items have (  +3  » +9  » +18  » +30   ) Heal."
-  },
-  "Neophiliac": {
-    "icon": "images/skills/Neophiliac.avif",
-    "name": "Neophiliac",
-    "tags": [
-      "Common",
-      "Burnreference",
-      "Cooldown",
-      "Freezereference",
-      "Hastereference",
-      "Poisonreference",
-      "Slowreference"
-    ],
-    "text": "The first time you freeze, burn, slow, poison, and haste each fight, charge 1 item (  2  » 4   ) second(s)."
-  },
-  "Net Launcher": {
-    "icon": "images/skills/NetLauncher.avif",
-    "name": "Net Launcher",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Stelle",
-      "Mak",
-      "Slow"
-    ],
-    "text": "The first time you use a Large item each fight, Slow (  2  » 3  » 4   ) item(s) for 3 second(s)."
-  },
-  "Noisy Cricket": {
-    "icon": "images/skills/NoisyCricket.avif",
-    "name": "Noisy Cricket",
-    "tags": [
-      "Dooley",
-      "Vanessa",
-      "Mak",
-      "Pygmalien",
-      "Stelle",
-      "Jules",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "If you have at least 7 items in play, your Weapons deal (  +20  » +25  » +30   ) damage."
-  },
-  "Oceanic Rush": {
-    "icon": "images/skills/OceanicRush.avif",
-    "name": "Oceanic Rush",
-    "tags": [
-      "Vanessa",
-      "Aquatic",
-      "Haste"
-    ],
-    "text": "At the start of each fight, Haste (  1  » 2  » 3   ) Aquatic items for 2 second(s)."
-  },
-  "One Shot, One Kill": {
-    "icon": "images/skills/OneShot,OneKill.avif",
-    "name": "One Shot, One Kill",
-    "tags": [
-      "Common",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "If you only have one weapon, it deals triple damage and has its cooldown increased by 50%."
-  },
-  "Open for Business": {
-    "icon": "images/skills/OpenforBusiness.avif",
-    "name": "Open for Business",
-    "tags": [
-      "Pygmalien",
-      "Income",
-      "Property"
-    ],
-    "text": "You have (  +1  » +2  » +3   ) income for each Property you have (including Stash)."
-  },
-  "Outmaneuver": {
-    "icon": "images/skills/Outmaneuver.avif",
-    "name": "Outmaneuver",
-    "tags": [
-      "Vanessa",
-      "Stelle",
-      "Haste",
-      "Slowreference",
-      "Vehicle"
-    ],
-    "text": "The first (  5  » 10   ) times you Slow each fight, Haste 1 vehicle for 2 second(s)."
-  },
-  "Overclocked": {
-    "icon": "images/skills/Overclocked.avif",
-    "name": "Overclocked",
-    "tags": [
-      "Dooley",
-      "Burnreference",
-      "Cooldown",
-      "Core"
-    ],
-    "text": "The Core has its cooldown reduced by (  10%  » 15%   ). While you have Burn, double this effect."
-  },
-  "Panic": {
-    "icon": "images/skills/Panic.avif",
-    "name": "Panic",
-    "tags": [
-      "Common",
-      "Ammo"
-    ],
-    "text": "The first time you fall below 50% health each fight, reload (  2  » 4  » 6  » 8   ) items."
-  },
-  "Paralytic Poison": {
-    "icon": "images/skills/ParalyticPoison.avif",
-    "name": "Paralytic Poison",
-    "tags": [
-      "Dooley",
-      "Vanessa",
-      "Mak",
-      "Freeze",
-      "Poisonreference"
-    ],
-    "text": "The first time you Poison each fight, Freeze 1 item for (  3  » 4  » 5   ) second(s)."
-  },
-  "Paralyzing Rush": {
-    "icon": "images/skills/ParalyzingRush.avif",
-    "name": "Paralyzing Rush",
-    "tags": [
-      "Common",
-      "Haste",
-      "Slowreference",
-      "Weapon"
-    ],
-    "text": "When you Slow, Haste a Weapon (  1  » 2   ) second(s)."
-  },
-  "Parting Shot": {
-    "icon": "images/skills/PartingShot.avif",
-    "name": "Parting Shot",
-    "tags": [
-      "Vanessa",
-      "Ammoreference",
-      "Crit"
-    ],
-    "text": "When you use an item with Ammo, it gains (  +5%  » +10%   ) Crit Chance for the fight."
-  },
-  "Party Like it's 011111001111": {
-    "icon": "images/skills/PartyLikeits011111001111.avif",
-    "name": "Party Like it's 011111001111",
-    "tags": [
-      "Dooley",
-      "Core",
-      "Damagereference",
-      "Friend",
-      "Tech"
-    ],
-    "text": "When you upgrade a Friend, your other items gain (  3  » 6  » 9   ) bonus Damage, (  3  » 6  » 9   ) bonus Shield and (  1  » 2  » 3   ) bonus Burn."
-  },
-  "Peaceful Eye": {
-    "icon": "images/skills/PeacefulEye.avif",
-    "name": "Peaceful Eye",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Crit",
-      "Nonweapon"
-    ],
-    "text": "Your Non-Weapon items have (  +5%  » +10%  » +15%  » +20%   ) Crit chance."
-  },
-  "Petrifying Gaze": {
-    "icon": "images/skills/PetrifyingGaze.avif",
-    "name": "Petrifying Gaze",
-    "tags": [
-      "Common",
-      "Freeze",
-      "Healthreference"
-    ],
-    "text": "The first time you fall below half health each fight, Freeze all enemy items for (  1  » 2  » 3   ) second(s)."
-  },
-  "Pickpocket": {
-    "icon": "images/skills/Pickpocket.avif",
-    "name": "Pickpocket",
-    "tags": [
-      "Common"
-    ],
-    "text": "At the start of each fight, gain (  1  » 2  » 3  » 4   ) gold."
-  },
-  "Poison Tyrant": {
-    "icon": "images/skills/PoisonTyrant.avif",
-    "name": "Poison Tyrant",
-    "tags": [
-      "Common",
-      "Poisonreference",
-      "Regen"
-    ],
-    "text": "When you or your enemy Poisons, gain (  2  » 4  » 6  » 8   ) Regeneration for the fight."
-  },
-  "Poisonous Opener": {
-    "icon": "images/skills/PoisonousOpener.avif",
-    "name": "Poisonous Opener",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Poison"
-    ],
-    "text": "The first time you use a Large item each fight, Poison (  10  » 15  » 20   )."
-  },
-  "Power Broker": {
-    "icon": "images/skills/PowerBroker.avif",
-    "name": "Power Broker",
-    "tags": [
-      "Common",
-      "Damagereference",
-      "Economy",
-      "Weapon"
-    ],
-    "text": "Your weapons have + damage equal to (  1x  » 2x   ) your income."
-  },
-  "Precision Diver": {
-    "icon": "images/skills/PrecisionDiver.avif",
-    "name": "Precision Diver",
-    "tags": [
-      "Vanessa",
-      "Aquatic",
-      "Crit"
-    ],
-    "text": "Your Aquatic items have (  +8%  » +10%  » +12%   ) Crit chance."
-  },
-  "Prime Real Estate": {
-    "icon": "images/skills/PrimeRealEstate.avif",
-    "name": "Prime Real Estate",
-    "tags": [
-      "Pygmalien",
-      "Crit",
-      "Property"
-    ],
-    "text": "When you use a Property, adjacent items gain (  5  » 10  » 15   ) Crit chance for the fight."
-  },
-  "Property Mogul": {
-    "icon": "images/skills/PropertyMogul.avif",
-    "name": "Property Mogul",
+    "tier": 2,
     "tags": [
       "Pygmalien",
       "Health",
-      "Property"
-    ],
-    "text": "When you buy a Property, permanently gain (  50  » 100  » 150   ) Max Health."
+      "Stelle"
+    ]
   },
-  "Prosperity": {
-    "icon": "images/skills/Prosperity.avif",
-    "name": "Prosperity",
+  "Distributed Systems": {
+    "text": [
+      "When you use a Large item, Haste your Small items for 1 second."
+    ],
+    "tier": 3,
     "tags": [
       "Common",
-      "Economy",
-      "Shield"
-    ],
-    "text": "Your Shield items have + Shield equal to the value of your Items."
+      "Haste"
+    ]
   },
-  "Purifying Flame": {
-    "icon": "images/skills/PurifyingFlame.avif",
-    "name": "Purifying Flame",
+  "Double Down": {
+    "text": [
+      "The first time you fall below half Health each fight, double the Damage of your leftmost Weapon for the fight."
+    ],
+    "tier": 3,
+    "tags": [
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon"
+    ]
+  },
+  "Draconic Rage": {
+    "text": [
+      "When you use a Medium item, a Burn item gains (+3/+6/+9) Burn for the fight."
+    ],
+    "tier": 1,
     "tags": [
       "Common",
-      "Burnreference",
-      "Regenreference"
-    ],
-    "text": "When you gain Regeneration, a Burn item gains (  1  » 2   ) Burn for the fight."
+      "BurnReference"
+    ]
   },
-  "Pyromania": {
-    "icon": "images/skills/Pyromania.avif",
-    "name": "Pyromania",
+  "Dual Wield": {
+    "text": [
+      "If you have exactly 2 Weapons, your items have +50% Crit Chance."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common",
+      "Crit"
+    ]
+  },
+  "Dumpster Diving": {
+    "text": [
+      "At the start of each day, get a Potion."
+    ],
+    "tier": 0,
+    "tags": [
+      "PotionReference",
+      "Mak",
+      "Potion"
+    ]
+  },
+  "Eject, Eject!": {
+    "text": [
+      "The first time you would be defeated each fight, destroy one of your Vehicles for the fight to Heal to half Health."
+    ],
+    "tier": 3,
+    "tags": [
+      "Heal",
+      "HealthReference",
+      "Stelle"
+    ]
+  },
+  "Electrified Hull": {
+    "text": [
+      "The first (4/8) times you Shield each fight, Charge an item 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Pygmalien",
+      "Charge",
+      "ShieldReference",
+      "Dooley"
+    ]
+  },
+  "Emergency Burn": {
+    "text": [
+      "The first time you fall below half Health each fight, Burn (20/30/40)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Stelle",
+      "Burn",
+      "Dooley"
+    ]
+  },
+  "Emergency Draught": {
+    "text": [
+      "The first time you fall below half Health each fight, gain (1/2) times your Regen for the fight."
+    ],
+    "tier": 2,
+    "tags": [
+      "Mak",
+      "Regen"
+    ]
+  },
+  "Emergency Shield": {
+    "text": [
+      "The first time you fall below half Health each fight, use your highest Shield item."
+    ],
+    "tier": 3,
+    "tags": [
+      "Pygmalien",
+      "Stelle",
+      "Shield",
+      "Dooley"
+    ]
+  },
+  "Endurance": {
+    "text": [
+      "When you use a Weapon, your Heal items gain (+10/+20/+30) Heal for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Pygmalien",
+      "Weapon",
+      "DamageReference",
+      "HealReference"
+    ]
+  },
+  "Equivalent Exchange": {
+    "text": [
+      "When you Heal or gain Regen, Charge a Poison item 1 second(s)."
+    ],
+    "tier": 3,
+    "tags": [
+      "Charge",
+      "HealReference",
+      "Common",
+      "PoisonReference",
+      "RegenReference"
+    ]
+  },
+  "Essence Overflow": {
+    "text": [
+      "Your Weapons have + Damage equal to your Regen."
+    ],
+    "tier": 3,
+    "tags": [
+      "Weapon",
+      "DamageReference",
+      "RegenReference",
+      "Mak"
+    ]
+  },
+  "Everlasting Life": {
+    "text": [
+      "When you use a Heal or Regen item, gain (5/10) Max Health for the fight."
+    ],
+    "tier": 2,
+    "tags": [
+      "HealReference",
+      "Health",
+      "Pygmalien",
+      "Mak",
+      "RegenReference"
+    ]
+  },
+  "Expert Pilot": {
+    "text": [
+      "Your Vehicles and Drones have (+30/+40/+50) Damage and Shield."
+    ],
+    "tier": 1,
+    "tags": [
+      "DamageReference",
+      "Weapon",
+      "Vehicle",
+      "ShieldReference",
+      "Stelle"
+    ]
+  },
+  "Explosive Potions": {
+    "text": [
+      "The first (4/8) times you use a Potion each fight, Charge a Weapon or Burn item 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Potion",
+      "DamageReference",
+      "Weapon",
+      "BurnReference",
+      "Mak",
+      "Charge",
+      "PotionReference"
+    ]
+  },
+  "Exposing Toxins": {
+    "text": [
+      "When you Poison, your items gain (+1%/+2%/+3%) Crit Chance for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Dooley",
+      "Vanessa",
+      "Mak",
+      "PoisonReference",
+      "Crit"
+    ]
+  },
+  "Extreme Comfort": {
+    "text": [
+      "When you Heal or gain Regen, your Shield items gain (3/6/9/12) Shield for the fight."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "ShieldReference",
+      "RegenReference",
+      "HealReference"
+    ]
+  },
+  "Fiery": {
+    "text": [
+      "Your Burn items have (+1/+2/+3/+4) Burn."
+    ],
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "BurnReference",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Fiery Rebirth": {
+    "text": [
+      "The first time you would be defeated each fight, Heal to full."
+    ],
+    "tier": 4,
+    "tags": [
+      "Heal",
+      "Common"
+    ]
+  },
+  "Final Dose": {
+    "text": [
+      "Your rightmost Poison item has (+2/+4/+6/+8) Poison."
+    ],
+    "tier": 0,
+    "tags": [
+      "Vanessa",
+      "PoisonReference",
+      "Mak",
+      "Dooley"
+    ]
+  },
+  "Final Flame": {
+    "text": [
+      "Your rightmost Burn item has (+2/+4/+6/+8) Burn."
+    ],
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "BurnReference",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Finesse Shield": {
+    "text": [
+      "While your enemy has more Health than you, your Shield items' Cooldowns are reduced by (5%/10%/15%)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Cooldown",
+      "ShieldReference",
+      "Dooley"
+    ]
+  },
+  "Firepower": {
+    "text": [
+      "When you use a Core, adjacent Weapons gain (10/20/30) Damage for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "DamageReference",
+      "Core",
+      "Dooley"
+    ]
+  },
+  "Firestarter": {
+    "text": [
+      "At the start of each fight, Burn (15/25/35)."
+    ],
+    "tier": 1,
     "tags": [
       "Common",
       "Burn"
-    ],
-    "text": "When you use a large item, Burn (  10  » 15   )."
+    ]
   },
-  "Quality over Quantity": {
-    "icon": "images/skills/QualityoverQuantity.avif",
-    "name": "Quality over Quantity",
-    "tags": [
-      "Vanessa",
-      "Pygmalien",
-      "Mak",
-      "Crit",
-      "Lifesteal",
-      "Weapon"
+  "First Flames": {
+    "text": [
+      "The first time you use a Large item each fight, Burn (20/40/60)."
     ],
-    "text": "If you have exactly one weapon, it has Lifesteal and (  5%  » 10%   ) Crit Chance."
-  },
-  "Quick Freeze": {
-    "icon": "images/skills/QuickFreeze.avif",
-    "name": "Quick Freeze",
-    "tags": [
-      "Dooley",
-      "Vanessa",
-      "Stelle",
-      "Jules",
-      "Freeze",
-      "Hastereference"
-    ],
-    "text": "The first time you Haste each fight, Freeze 1 item for (  3  » 4  » 5   ) second(s)."
-  },
-  "Quick Ignition": {
-    "icon": "images/skills/QuickIgnition.avif",
-    "name": "Quick Ignition",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Mak",
-      "Burnreference",
-      "Haste"
-    ],
-    "text": "At the start of each fight, Haste (  2  » 3   ) Burn items for 2 second(s)."
-  },
-  "Rapid Relief": {
-    "icon": "images/skills/RapidRelief.avif",
-    "name": "Rapid Relief",
-    "tags": [
-      "Pygmalien",
-      "Mak",
-      "Cooldown",
-      "Healreference"
-    ],
-    "text": "While your enemy has more health than you, your Heal items have their cooldowns reduced by (  5%  » 10%  » 15%   )."
-  },
-  "Ravenous": {
-    "icon": "images/skills/Ravenous.avif",
-    "name": "Ravenous",
-    "tags": [
-      "Common"
-    ],
-    "text": "The first time you fall below half health each fight, destroy an item for the fight."
-  },
-  "Re-Tooled": {
-    "icon": "images/skills/ReTooled.avif",
-    "name": "Re-Tooled",
-    "tags": [
-      "Pygmalien",
-      "Jules",
-      "Mak",
-      "Vanessa",
-      "Dooley",
-      "Stelle",
-      "Tool"
-    ],
-    "text": "Your leftmost Tool has +1 Multicast."
-  },
-  "Reaching the Summit": {
-    "icon": "images/skills/ReachingtheSummit.avif",
-    "name": "Reaching the Summit",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Pygmalien",
-      "Freezereference"
-    ],
-    "text": "When you Freeze, your items gain (  +2%  » +4%   ) Crit Chance for the fight."
-  },
-  "Rear Shielding": {
-    "icon": "images/skills/RearShielding.avif",
-    "name": "Rear Shielding",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Shieldreference"
-    ],
-    "text": "Your rightmost Shield item has (  +20  » +30  » +40  » +50   ) Shield."
-  },
-  "Red Envelope": {
-    "icon": "images/skills/RedEnvelope.avif",
-    "name": "Red Envelope",
-    "tags": [
-      "Vanessa",
-      "Pygmalien",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak"
-    ],
-    "text": "When you buy this, gain 10 gold."
-  },
-  "Reel 'Em In": {
-    "icon": "images/skills/ReelEmIn.avif",
-    "name": "Reel 'Em In",
-    "tags": [
-      "Vanessa",
-      "Stelle",
-      "Cooldown"
-    ],
-    "text": "The first time your enemy falls below half health each fight, your items have their cooldowns reduced by 50% for the fight."
-  },
-  "Regenerative": {
-    "icon": "images/skills/Regenerative.avif",
-    "name": "Regenerative",
-    "tags": [
-      "Vanessa",
-      "Stelle",
-      "Mak",
-      "Regen"
-    ],
-    "text": "You have (  10  » 20  » 30   ) Regeneration."
-  },
-  "Reinforced Steel": {
-    "icon": "images/skills/ReinforcedSteel.avif",
-    "name": "Reinforced Steel",
-    "tags": [
-      "Pygmalien",
-      "Damagereference",
-      "Property",
-      "Shieldreference"
-    ],
-    "text": "When you use a Property, your Weapons gain (  +5  » +10  » +15   ) damage and your Shield items gain (  +5  » +10  » +15   ) shield for the fight."
-  },
-  "Relax Bro": {
-    "icon": "images/skills/RelaxBro.avif",
-    "name": "Relax Bro",
-    "tags": [
-      "Common",
-      "Haste",
-      "Slowreference",
-      "Weapon"
-    ],
-    "text": "When you Slow, gain (  2  » 4   ) Regeneration for the fight."
-  },
-  "Renovation": {
-    "icon": "images/skills/Renovation.avif",
-    "name": "Renovation",
-    "tags": [
-      "Pygmalien",
-      "Property"
-    ],
-    "text": "When you level up, upgrade a Property."
-  },
-  "Reserve Shield": {
-    "icon": "images/skills/ReserveShield.avif",
-    "name": "Reserve Shield",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Stelle",
-      "Healthreference",
-      "Shield"
-    ],
-    "text": "The first time you use a Large item each fight, Shield equal to (  10%  » 20%  » 30%   ) of your max health."
-  },
-  "Retaliatory Toxins": {
-    "icon": "images/skills/RetaliatoryToxins.avif",
-    "name": "Retaliatory Toxins",
-    "tags": [
-      "Dooley",
-      "Stelle",
-      "Mak",
-      "Poison"
-    ],
-    "text": "The first time you fall below half health each fight, Poison (  20  » 30  » 40   )."
-  },
-  "Retool": {
-    "icon": "images/skills/Retool.avif",
-    "name": "Retool",
-    "tags": [
-      "Common",
-      "Ammoreference",
-      "Tool"
-    ],
-    "text": "When you use a Tool, reload 1 to adjacent items."
-  },
-  "Rigged": {
-    "icon": "images/skills/Rigged.avif",
-    "name": "Rigged",
-    "tags": [
-      "Common",
-      "Haste"
-    ],
-    "text": "At the start of each fight, Haste (  2  » 3  » 4  » 5   ) items for 3 second(s)."
-  },
-  "Right Eye": {
-    "icon": "images/skills/RightEye.avif",
-    "name": "Right Eye",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Crit"
-    ],
-    "text": "Your rightmost item has (  +8%  » +16%  » +24%  » +32%   ) Crit chance."
-  },
-  "Right-Handed": {
-    "icon": "images/skills/RightHanded.avif",
-    "name": "Right-Handed",
+    "tier": 1,
     "tags": [
       "Jules",
-      "Stelle",
-      "Mak",
       "Dooley",
-      "Vanessa",
-      "Pygmalien",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "Your rightmost Weapon has (  +20  » +30  » +40  » +50   ) Damage."
-  },
-  "Righty Tighty": {
-    "icon": "images/skills/RightyTighty.avif",
-    "name": "Righty Tighty",
-    "tags": [
-      "Dooley",
-      "Mak",
-      "Vanessa",
-      "Slow"
-    ],
-    "text": "The first (  5  » 10   ) times you use your rightmost item each fight, slow 1 item for 1 second(s)."
-  },
-  "Rush": {
-    "icon": "images/skills/Rush.avif",
-    "name": "Rush",
-    "tags": [
-      "Common",
-      "Haste",
-      "Weapon"
-    ],
-    "text": "At the start of each fight, Haste a weapon (  3  » 5  » 7  » 9   ) second(s)."
-  },
-  "Rust": {
-    "icon": "images/skills/Rust.avif",
-    "name": "Rust",
-    "tags": [
-      "Common",
-      "Slow"
-    ],
-    "text": "At the start of each fight, slow 1 item for (  3  » 5  » 7  » 9   ) second(s)."
-  },
-  "Sabotage": {
-    "icon": "images/skills/Sabotage.avif",
-    "name": "Sabotage",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Stelle",
-      "Slow",
-      "Tool"
-    ],
-    "text": "The first (  5  » 10   ) times you use a Tool each fight, Slow 1 item for 1 second(s)."
-  },
-  "Second Degree Burns": {
-    "icon": "images/skills/SecondDegreeBurns.avif",
-    "name": "Second Degree Burns",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Burnreference"
-    ],
-    "text": "Your Medium Burn items have (  +2  » +4  » +6  » +8   ) Burn."
-  },
-  "Second Wind": {
-    "icon": "images/skills/SecondWind.avif",
-    "name": "Second Wind",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Mak",
-      "Heal",
-      "Healthreference"
-    ],
-    "text": "The first time you use a Large item each fight, heal (  20%  » 40%  » 60%   ) of your max health."
-  },
-  "Sharp Corners": {
-    "icon": "images/skills/SharpCorners.avif",
-    "name": "Sharp Corners",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Stelle",
-      "Damagereference",
-      "Shieldreference",
-      "Weapon"
-    ],
-    "text": "When you Shield, your weapons gain (  3  » 6  » 9   ) damage for the fight."
-  },
-  "Sharpened Steel": {
-    "icon": "images/skills/SharpenedSteel.avif",
-    "name": "Sharpened Steel",
-    "tags": [
-      "Common",
-      "Crit",
-      "Weapon"
-    ],
-    "text": "When you use a Weapon, Adjacent items gain (  4%  » 8%  » 12%   ) Crit Chance for the fight."
-  },
-  "Sharpshooter": {
-    "icon": "images/skills/Sharpshooter.avif",
-    "name": "Sharpshooter",
-    "tags": [
-      "Vanessa",
-      "Mak",
-      "Ammoreference"
-    ],
-    "text": "Your Ammo items have (  +3%  » +6%  » +9%  » +12%   ) Crit chance."
-  },
-  "Shatter": {
-    "icon": "images/skills/Shatter.avif",
-    "name": "Shatter",
-    "tags": [
-      "Vanessa",
-      "Pygmalien",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Damagereference",
-      "Freezereference",
-      "Weapon"
-    ],
-    "text": "When you freeze, your Weapons gain (  +10  » +15  » +20   ) damage for the fight."
-  },
-  "Shield Bash": {
-    "icon": "images/skills/ShieldBash.avif",
-    "name": "Shield Bash",
-    "tags": [
-      "Pygmalien",
-      "Vanessa",
-      "Dooley",
-      "Stelle",
-      "Charge"
-    ],
-    "text": "The first (  4  » 8   ) times your enemy uses a non-weapon item each fight, Charge 1 Weapon 1 second(s)."
-  },
-  "Shored Up": {
-    "icon": "images/skills/ShoredUp.avif",
-    "name": "Shored Up",
-    "tags": [
-      "Common",
-      "Healreference",
-      "Shieldreference"
-    ],
-    "text": "When you Heal, charge a Shield item 1 second(s)."
-  },
-  "Sick Burn": {
-    "icon": "images/skills/SickBurn.avif",
-    "name": "Sick Burn",
-    "tags": [
-      "Vanessa",
-      "Mak",
-      "Charge",
-      "Poisonreference"
-    ],
-    "text": "The first (  5  » 10   ) times you Poison each fight, charge 1 Burn item 1 second(s)."
-  },
-  "Slow and Steady": {
-    "icon": "images/skills/SlowandSteady.avif",
-    "name": "Slow and Steady",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Stelle",
-      "Mak",
-      "Damagereference",
-      "Slowreference",
-      "Weapon"
-    ],
-    "text": "When you Slow, your weapons gain (  3  » 6   ) damage for the fight."
-  },
-  "Slow Burn": {
-    "icon": "images/skills/SlowBurn.avif",
-    "name": "Slow Burn",
-    "tags": [
-      "Vanessa",
-      "Mak",
-      "Burnreference",
-      "Charge",
-      "Slowreference"
-    ],
-    "text": "The first (  5  » 10   ) times you Slow each fight, Charge 1 Burn item 1 second(s)."
-  },
-  "Slowed Targets": {
-    "icon": "images/skills/SlowedTargets.avif",
-    "name": "Slowed Targets",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Stelle",
-      "Mak",
-      "Crit",
-      "Slowreference"
-    ],
-    "text": "When you Slow, your items gain (  +1%  » +2%  » +3%   ) Crit Chance for the fight."
-  },
-  "Small Refresh": {
-    "icon": "images/skills/SmallRefresh.avif",
-    "name": "Small Refresh",
-    "tags": [
-      "Common",
-      "Heal"
-    ],
-    "text": "When you use a small item, heal (  5  » 10  » 15  » 20   )."
-  },
-  "Snowstorm": {
-    "icon": "images/skills/Snowstorm.avif",
-    "name": "Snowstorm",
-    "tags": [
-      "Common",
-      "Damagereference",
-      "Freezereference"
-    ],
-    "text": "When you freeze, your weapons gain (  2  » 4  » 6  » 8   ) damage for the fight."
-  },
-  "Sparring Partner": {
-    "icon": "images/skills/SparringPartner.avif",
-    "name": "Sparring Partner",
-    "tags": [
-      "Common"
-    ],
-    "text": "When you would die, Cleanse all Burn and Poison, double your Max Health and Heal to full. In addition, your enemy gains 1 Gold."
-  },
-  "Specialist": {
-    "icon": "images/skills/Specialist.avif",
-    "name": "Specialist",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Stelle",
-      "Shieldreference",
-      "Weapon"
-    ],
-    "text": "If you have exactly 1 weapon, your Shield items have (  +10  » +20  » +30   ) shield."
-  },
-  "Standardized Care": {
-    "icon": "images/skills/StandardizedCare.avif",
-    "name": "Standardized Care",
-    "tags": [
-      "Pygmalien",
-      "Mak",
-      "Healreference"
-    ],
-    "text": "Your Medium Heal items have (  +6  » +18  » +36  » +60   ) Heal."
-  },
-  "Standardized Defenses": {
-    "icon": "images/skills/StandardizedDefenses.avif",
-    "name": "Standardized Defenses",
-    "tags": [
-      "Stelle",
-      "Dooley",
-      "Pygmalien",
-      "Shieldreference"
-    ],
-    "text": "Your Medium Shield items have (  +6  » +18  » +36  » +60   ) shield."
-  },
-  "Standardized Toxins": {
-    "icon": "images/skills/StandardizedToxins.avif",
-    "name": "Standardized Toxins",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Poisonreference"
-    ],
-    "text": "Your Medium Poison items have (  +2  » +4  » +6  » +8   ) Poison."
-  },
-  "Static Acceleration": {
-    "icon": "images/skills/StaticAcceleration.avif",
-    "name": "Static Acceleration",
-    "tags": [
-      "Dooley",
-      "Stelle",
-      "Mak",
-      "Crit",
-      "Hastereference"
-    ],
-    "text": "When you Haste, your items gain (  +1%  » +2%   ) crit chance for the fight."
-  },
-  "Staying Power": {
-    "icon": "images/skills/StayingPower.avif",
-    "name": "Staying Power",
-    "tags": [
-      "Pygmalien",
-      "Heal",
-      "Tool"
-    ],
-    "text": "When you use a Tool, Heal (  5  » 10  » 15  » 20   )."
-  },
-  "Stop That!": {
-    "icon": "images/skills/StopThat!.avif",
-    "name": "Stop That!",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Slow"
-    ],
-    "text": "The first time you fall below half health each fight, slow (  2  » 4  » 6   ) items for 2 second(s)."
-  },
-  "Strength": {
-    "icon": "images/skills/Strength.avif",
-    "name": "Strength",
-    "tags": [
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Dooley",
-      "Vanessa",
-      "Pygmalien",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "Your Weapons deal (  +10  » +15  » +20  » +25   ) Damage."
-  },
-  "Strong Arm": {
-    "icon": "images/skills/StrongArm.avif",
-    "name": "Strong Arm",
-    "tags": [
-      "Pygmalien",
-      "Damage",
-      "Economy",
-      "Weapon"
-    ],
-    "text": "Your Weapons have + Damage equal to (  1x  » 2x  » 3x   ) your income. [NaN]"
-  },
-  "Stunning Strike": {
-    "icon": "images/skills/StunningStrike.avif",
-    "name": "Stunning Strike",
-    "tags": [
-      "Vanessa",
-      "Critreference",
-      "Freeze"
-    ],
-    "text": "The first time you Crit each fight, Freeze 1 item for (  3  » 4  » 5   ) second(s)."
-  },
-  "Submerged": {
-    "icon": "images/skills/Submerged.avif",
-    "name": "Submerged",
-    "tags": [
-      "Vanessa",
-      "Aquatic",
-      "Damagereference",
-      "Shieldreference",
-      "Weapon"
-    ],
-    "text": "Your Weapons have (  +3  » +6  » +9   ) Damage for each Aquatic item you have. Your Shield items have (  +3  » +6  » +9   ) Shield for each Aquatic item you have."
-  },
-  "Tall Buildings": {
-    "icon": "images/skills/TallBuildings.avif",
-    "name": "Tall Buildings",
-    "tags": [
-      "Pygmalien",
-      "Haste",
-      "Property"
-    ],
-    "text": "When you use a Property, haste items adjacent to it (  1  » 2   ) second(s)."
-  },
-  "Tempering": {
-    "icon": "images/skills/Tempering.avif",
-    "name": "Tempering",
-    "tags": [
-      "Vanessa",
-      "Jules",
-      "Damage"
-    ],
-    "text": "When you use a weapon, it gains (  +3  » +6  » +9   ) damage for the fight."
-  },
-  "Temporal Strike": {
-    "icon": "images/skills/TemporalStrike.avif",
-    "name": "Temporal Strike",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Slow",
-      "Weapon"
-    ],
-    "text": "If you have exactly one weapon, the first (  5  » 10   ) times you use it each fight, Slow 1 item for 3 second(s)."
-  },
-  "The Best Defense": {
-    "icon": "images/skills/TheBestDefense.avif",
-    "name": "The Best Defense",
-    "tags": [
-      "Vanessa",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "When you use a weapon, Weapons adjacent to it gain (  +3  » +6  » +9   ) damage for the fight."
-  },
-  "The Right Tool": {
-    "icon": "images/skills/TheRightTool.avif",
-    "name": "The Right Tool",
-    "tags": [
-      "Common",
-      "Damagereference",
-      "Weapon"
-    ],
-    "text": "Your non-tool items have (  +5%  » +10%  » +15%   ) Crit Chance for each tool you have."
-  },
-  "Thick Hide": {
-    "icon": "images/skills/ThickHide.avif",
-    "name": "Thick Hide",
-    "tags": [
-      "Common",
-      "Charge",
-      "Slowreference"
-    ],
-    "text": "When you slow, charge 1 item 1 second(s)."
-  },
-  "Third Degree Burns": {
-    "icon": "images/skills/ThirdDegreeBurns.avif",
-    "name": "Third Degree Burns",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Mak",
-      "Burnreference"
-    ],
-    "text": "Your Large Burn items have (  +4  » +8  » +12  » +16   ) Burn."
-  },
-  "Time to Tinker": {
-    "icon": "images/skills/TimetoTinker.avif",
-    "name": "Time to Tinker",
-    "tags": [
-      "Common",
-      "Hastereference",
-      "Shield"
-    ],
-    "text": "When you Haste, Shield (  10  » 20  » 30  » 40   )."
-  },
-  "Tiny Dancer": {
-    "icon": "images/skills/TinyDancer.avif",
-    "name": "Tiny Dancer",
-    "tags": [
-      "Dooley",
-      "Vanessa",
-      "Cooldown"
-    ],
-    "text": "If you have at least 7 items in play, your items have their cooldowns reduced by (  5%  » 10%  » 15%   )."
-  },
-  "Titanium Casing": {
-    "icon": "images/skills/TitaniumCasing.avif",
-    "name": "Titanium Casing",
-    "tags": [
-      "Dooley",
-      "Core",
-      "Shieldreference"
-    ],
-    "text": "When you use The Core, your Shield items gain (  15  » 30   ) Shield for the fight."
-  },
-  "Tools of the Trade": {
-    "icon": "images/skills/ToolsoftheTrade.avif",
-    "name": "Tools of the Trade",
-    "tags": [
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Haste",
-      "Tool"
-    ],
-    "text": "The first (  5  » 10   ) times you use a Tool each fight, Haste 1 Tool for 1 second(s)."
-  },
-  "Toughness": {
-    "icon": "images/skills/Toughness.avif",
-    "name": "Toughness",
-    "tags": [
-      "Pygmalien",
-      "Dooley",
-      "Stelle",
-      "Shieldreference"
-    ],
-    "text": "Your Shield items have (  +10  » +15  » +20  » +25   ) Shield."
-  },
-  "Toxic": {
-    "icon": "images/skills/Toxic.avif",
-    "name": "Toxic",
-    "tags": [
-      "Vanessa",
-      "Mak",
-      "Damagereference",
-      "Poisonreference"
-    ],
-    "text": "When you poison, your weapons gain (  5  » 10  » 15   ) damage for the fight."
-  },
-  "Toxic Exposure": {
-    "icon": "images/skills/ToxicExposure.avif",
-    "name": "Toxic Exposure",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Poisonreference"
-    ],
-    "text": "When you Poison, your enemy loses (  5  » 10   ) Max Health for the fight."
-  },
-  "Toxic Flame": {
-    "icon": "images/skills/ToxicFlame.avif",
-    "name": "Toxic Flame",
-    "tags": [
-      "Vanessa",
-      "Dooley",
-      "Mak",
       "Burn",
-      "Poison"
-    ],
-    "text": "When you Burn with an item, Poison (  1  » 2   ). When you Poison with an item, Burn (  2  » 4   )."
+      "Vanessa",
+      "Mak",
+      "Stelle"
+    ]
   },
-  "Toxic Friendship": {
-    "icon": "images/skills/ToxicFriendship.avif",
-    "name": "Toxic Friendship",
+  "First Responder": {
+    "text": [
+      "Your leftmost Heal item has (+20/+35/+50/+65) Heal."
+    ],
+    "tier": 0,
+    "tags": [
+      "Pygmalien",
+      "HealReference"
+    ]
+  },
+  "First Strike": {
+    "text": [
+      "Your items have (+75%/+100%) Crit Chance.",
+      "When you use an item, all your items lose 10% Crit Chance for the fight."
+    ],
+    "tier": 2,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
+      "Stelle"
+    ]
+  },
+  "Flamedancer": {
+    "text": [
+      "Your Burn items have (+10%/+15%/+20%/+25%) Crit Chance."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "Crit",
+      "BurnReference"
+    ]
+  },
+  "Flanking Criticals": {
+    "text": [
+      "The first time you use a Large item each fight, Adjacent items gain (20%/40%/60%) Crit Chance for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
+      "Stelle"
+    ]
+  },
+  "Flashy Mechanic": {
+    "text": [
+      "When you use a Tool, items adjacent to it gain (3%/6%/9%) Crit Chance."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Tool",
+      "Dooley",
+      "Vanessa",
+      "Crit",
+      "Stelle"
+    ]
+  },
+  "Flashy Pilot": {
+    "text": [
+      "When you use a Vehicle, your items gain (3%/6%/9%) Crit Chance."
+    ],
+    "tier": 1,
+    "tags": [
+      "Dooley",
+      "Vanessa",
+      "Vehicle",
+      "Crit",
+      "Stelle"
+    ]
+  },
+  "Flashy Reload": {
+    "text": [
+      "The first (3/6) times you Crit each fight, Reload another item 1 ammo."
+    ],
+    "tier": 2,
+    "tags": [
+      "Vanessa",
+      "Ammo",
+      "CritReference"
+    ]
+  },
+  "Flurry of Blows": {
+    "text": [
+      "The first (4/8) times you use a Weapon each fight, Charge an item 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Vanessa",
+      "Weapon",
+      "DamageReference",
+      "Charge"
+    ]
+  },
+  "Focused Rage": {
+    "text": [
+      "The first time you fall below half Health each fight, your items gain +50% Crit Chance for the fight."
+    ],
+    "tier": 3,
+    "tags": [
+      "Vanessa",
+      "Crit"
+    ]
+  },
+  "Follow-Up Care": {
+    "text": [
+      "Your rightmost Heal item has (+20/+35/+50/+65) Heal."
+    ],
+    "tier": 0,
+    "tags": [
+      "Pygmalien",
+      "HealReference"
+    ]
+  },
+  "Foreboding Winds": {
+    "text": [
+      "Your Weapons deal double Crit Damage."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common",
+      "Weapon",
+      "CritReference"
+    ]
+  },
+  "Free Ride": {
+    "text": [
+      "Your rightmost item is a Vehicle.",
+      "Your Vehicles' Cooldowns are reduced by (5%/10%/15%)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vehicle",
+      "Common",
+      "Cooldown"
+    ]
+  },
+  "Friendzone": {
+    "text": [
+      "Your Friends' Cooldowns are reduced by (5%/10%)."
+    ],
+    "tier": 2,
     "tags": [
       "Common",
       "Friend",
-      "Poison"
-    ],
-    "text": "When you use a Friend, Poison (  1  » 2   )."
+      "Cooldown"
+    ]
   },
-  "Toxic Shield": {
-    "icon": "images/skills/ToxicShield.avif",
-    "name": "Toxic Shield",
-    "tags": [
-      "Mak",
-      "Dooley",
-      "Poisonreference",
-      "Shield"
+  "Frontal Shielding": {
+    "text": [
+      "Your leftmost Shield item has (+20/+30/+40/+50) Shield."
     ],
-    "text": "The first time you fall below half health each fight, Shield equal to (  2  » 3  » 4   ) times the Poison on your opponent."
-  },
-  "Toxic Weapons": {
-    "icon": "images/skills/ToxicWeapons.avif",
-    "name": "Toxic Weapons",
+    "tier": 0,
     "tags": [
-      "Vanessa",
-      "Mak",
-      "Poisonreference",
-      "Weapon"
-    ],
-    "text": "Your Poison items have (  +2  » +4  » +6   ) Poison for each Weapon you have."
-  },
-  "Toxin Injector": {
-    "icon": "images/skills/ToxinInjector.avif",
-    "name": "Toxin Injector",
-    "tags": [
-      "Vanessa",
-      "Mak",
-      "Haste",
-      "Poisonreference"
-    ],
-    "text": "At the start of each fight, Haste (  2  » 3   ) Poison items for 2 second(s)."
-  },
-  "Tracer Fire": {
-    "icon": "images/skills/TracerFire.avif",
-    "name": "Tracer Fire",
-    "tags": [
-      "Vanessa",
-      "Dooley",
       "Jules",
-      "Stelle",
-      "Mak",
-      "Burnreference",
-      "Crit"
-    ],
-    "text": "When you burn, your items gain (  +1%  » +2%  » +3%   ) Crit Chance for the fight."
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "ShieldReference",
+      "Stelle"
+    ]
   },
-  "Trader": {
-    "icon": "images/skills/Trader.avif",
-    "name": "Trader",
+  "Frostfire": {
+    "text": [
+      "The first time you Burn each fight, Freeze an item for (2/3/4) second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Freeze",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "BurnReference",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Frozen Shot": {
+    "text": [
+      "Your Weapons' Cooldowns are reduced by (5%/10%/15%) While your enemy has a Frozen item."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "FreezeReference",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Weapon",
+      "Cooldown",
+      "Mak"
+    ]
+  },
+  "Frozen Synapse": {
+    "text": [
+      "The first (5/10) times you Freeze each fight, Haste Your Core for 2 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "FreezeReference",
+      "Haste",
+      "Core",
+      "Dooley"
+    ]
+  },
+  "Full Arsenal": {
+    "text": [
+      "Your item's Cooldowns are reduced by (2%/4%) if you have a Vehicle, reduced by (2%/4%) if you have a Weapon, and reduced by (2%/4%) if you have a Tool."
+    ],
+    "tier": 2,
+    "tags": [
+      "Tool",
+      "Cooldown",
+      "Weapon",
+      "Vehicle",
+      "Common"
+    ]
+  },
+  "Glass Cannon": {
+    "text": [
+      "All Weapons have double Damage."
+    ],
+    "tier": 3,
+    "tags": [
+      "DamageReference",
+      "Dooley",
+      "Vanessa",
+      "Weapon",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Grease Fire": {
+    "text": [
+      "When you use a Tool, Burn (3/5)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Jules",
+      "Tool",
+      "Burn",
+      "Dooley",
+      "Stelle"
+    ]
+  },
+  "Guardian's Fury": {
+    "text": [
+      "While you are Shielded, your Weapons' Cooldowns are are reduced by (5%/10%/15%)."
+    ],
+    "tier": 1,
+    "tags": [
+      "DamageReference",
+      "Cooldown",
+      "Weapon",
+      "Common",
+      "ShieldReference"
+    ]
+  },
+  "Gunner": {
+    "text": [
+      "Your items have (+1/+2/+3) Max Ammo."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "Ammo",
+      "Mak"
+    ]
+  },
+  "Hard Shell": {
+    "text": [
+      "The first time you fall below half Health each fight, Shield equal to (20%/30%/40%/50%) of your Max Health."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "HealthReference",
+      "Shield"
+    ]
+  },
+  "Hardened Shield": {
+    "text": [
+      "When an enemy uses a Weapon, your Shield items gain (10/20) Shield for the fight."
+    ],
+    "tier": 2,
     "tags": [
       "Pygmalien",
-      "Value"
-    ],
-    "text": "At the start of each day, your items gain (  1  » 2   ) value."
+      "ShieldReference",
+      "Stelle",
+      "Dooley"
+    ]
   },
-  "Trained": {
-    "icon": "images/skills/Trained.avif",
-    "name": "Trained",
+  "Hardly Workin'": {
+    "text": [
+      "The first (4/8/12) times you Slow each fight, Charge a Regen item 1 second(s)."
+    ],
+    "tier": 1,
     "tags": [
-      "Damagereference",
-      "Slowreference",
-      "Weapon"
-    ],
-    "text": "When you slow, a weapon gains (  +5  » +10  » +15  » +20   ) damage for the fight."
+      "Charge",
+      "RegenReference",
+      "SlowReference",
+      "Mak"
+    ]
   },
-  "Trickle Down Economics": {
-    "icon": "images/skills/TrickleDownEconomics.avif",
-    "name": "Trickle Down Economics",
+  "Haunting Flight": {
+    "text": [
+      "The first time you use an item each fight, (1/2/3) Small item(s) start Flying."
+    ],
+    "tier": 1,
+    "tags": [
+      "Flying",
+      "Common"
+    ]
+  },
+  "Heal Power": {
+    "text": [
+      "Your Heal items have (+10/+20/+30/+40) Heal."
+    ],
+    "tier": 0,
+    "tags": [
+      "Pygmalien",
+      "HealReference"
+    ]
+  },
+  "Healthy Friendship": {
+    "text": [
+      "When you use a Friend, gain (1/2/3) Regen for the fight."
+    ],
+    "tier": 1,
     "tags": [
       "Common",
-      "Haste"
-    ],
-    "text": "When you use a large item, haste another item for (  3  » 4   ) second(s)."
+      "Friend",
+      "Regen"
+    ]
   },
-  "Unwavering": {
-    "icon": "images/skills/Unwavering.avif",
-    "name": "Unwavering",
+  "Healthy Heart": {
+    "text": [
+      "The first time you fall below half Health each fight, Heal equal to 30% of your Max Health and Cleanse half your Burn and Poison."
+    ],
+    "tier": 3,
+    "tags": [
+      "Jules",
+      "Heal",
+      "Health",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Healthy Hoarder": {
+    "text": [
+      "You have (+100/+200/+300) Max Health for each Non-Weapon item you have."
+    ],
+    "tier": 1,
+    "tags": [
+      "Pygmalien"
+    ]
+  },
+  "Healthy Jolt": {
+    "text": [
+      "The first time you Over-Heal each fight, Haste your items for (2/4) second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Pygmalien",
+      "Vanessa",
+      "Haste",
+      "HealReference"
+    ]
+  },
+  "Healthy Lifestyle": {
+    "text": [
+      "You have (3/6/9) Regen for each non-Weapon item you have."
+    ],
+    "tier": 1,
+    "tags": [
+      "Pygmalien",
+      "Mak",
+      "Regen"
+    ]
+  },
+  "Healthy Tip": {
+    "text": [
+      "When you gain Gold, permanently gain Max Health equal to (1/2) times the amount of Gold gained."
+    ],
+    "tier": 2,
+    "tags": [
+      "Pygmalien",
+      "Health",
+      "EconomyReference"
+    ]
+  },
+  "Heat Lover": {
+    "text": [
+      "When you Burn, gain (2/4/6/8) Regen for the fight."
+    ],
+    "tier": 0,
     "tags": [
       "Common",
-      "Shield"
-    ],
-    "text": "When you use an item, Shield (  20  » 40   )."
+      "BurnReference",
+      "Regen"
+    ]
   },
-  "Vengeance": {
-    "icon": "images/skills/Vengeance.avif",
-    "name": "Vengeance",
+  "Heat Shield": {
+    "text": [
+      "When you Burn with an item, Shield equal to (1/2) times that item's Burn."
+    ],
+    "tier": 2,
+    "tags": [
+      "BurnReference",
+      "Stelle",
+      "Shield",
+      "Dooley"
+    ]
+  },
+  "Heated Shells": {
+    "text": [
+      "When you use an Ammo item, Burn (2/3/4)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "Ammo",
+      "Mak",
+      "Burn"
+    ]
+  },
+  "Heavy Firepower": {
+    "text": [
+      "If you have 5 or fewer items, your Weapons have (+25/+50/+75) Damage."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Heavy Machinery": {
+    "text": [
+      "The first (5/10) times you use a Core each fight, Haste an item for 2 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Haste",
+      "Core",
+      "Dooley"
+    ]
+  },
+  "Heavy Mettle": {
+    "text": [
+      "Your Shield items have +Shield equal to (2/3/4) times your level."
+    ],
+    "tier": 1,
+    "tags": [
+      "Level",
+      "Dooley",
+      "Pygmalien",
+      "ShieldReference",
+      "Stelle"
+    ]
+  },
+  "Herbal Supplements": {
+    "text": [
+      "Your Regen items have (+1/+2/+3/+4) Regen."
+    ],
+    "tier": 0,
+    "tags": [
+      "RegenReference",
+      "Mak"
+    ]
+  },
+  "Honed Arsenal": {
+    "text": [
+      "Your items have (+2%/+4%/+6%) Crit Chance per Weapon you have."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Mak",
+      "Crit",
+      "Stelle"
+    ]
+  },
+  "Honed Strike": {
+    "text": [
+      "When you use an item, it gains (+5%/+10%) Crit Chance for the fight."
+    ],
+    "tier": 2,
+    "tags": [
+      "Vanessa",
+      "Crit",
+      "Mak"
+    ]
+  },
+  "Hot Spot": {
+    "text": [
+      "When you use your leftmost item, Burn (2/3/4)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Burn",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Housewarming Gifts": {
+    "text": [
+      "When you buy a Property, get (1/2) Chocolate Bar and (1/2) Spare Change."
+    ],
+    "tier": 2,
+    "tags": [
+      "Pygmalien",
+      "Property"
+    ]
+  },
+  "Hunker Down": {
+    "text": [
+      "When the Sandstorm starts you take (25%/50%/75%) less Damage for the rest of the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Common"
+    ]
+  },
+  "Hyper Focus": {
+    "text": [
+      "If you have only one Medium item, its Cooldown is reduced by 25%."
+    ],
+    "tier": 3,
     "tags": [
       "Common",
       "Cooldown"
-    ],
-    "text": "Your leftmost and rightmost items have their cooldowns reduced by (  5%  » 10%  » 15%   )."
+    ]
   },
-  "Venomous Blade": {
-    "icon": "images/skills/VenomousBlade.avif",
-    "name": "Venomous Blade",
+  "Hypnotic Drain": {
+    "text": [
+      "When you use a Weapon with Lifesteal, Freeze a Smaller item for 2 second(s)."
+    ],
+    "tier": 3,
     "tags": [
+      "Common",
+      "Weapon",
+      "DamageReference",
+      "Freeze"
+    ]
+  },
+  "Ice Bullets": {
+    "text": [
+      "When you Freeze, Reload a Weapon (1/2/3) ammo."
+    ],
+    "tier": 1,
+    "tags": [
+      "FreezeReference",
+      "DamageReference",
+      "Vanessa",
+      "Weapon",
+      "Ammo"
+    ]
+  },
+  "Immolating Spark": {
+    "text": [
+      "Your leftmost Burn item has (+2/+4/+6/+8) Burn."
+    ],
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "BurnReference",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Improved Toxins": {
+    "text": [
+      "Your Poison items have (+1/+2/+3/+4) Poison."
+    ],
+    "tier": 0,
+    "tags": [
+      "Vanessa",
+      "PoisonReference",
+      "Mak",
+      "Dooley"
+    ]
+  },
+  "Improvised Burn": {
+    "text": [
+      "When you Crit, your Burn items gain (1/2/3) Burn for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "BurnReference",
+      "CritReference",
+      "Mak"
+    ]
+  },
+  "Improvised Heal": {
+    "text": [
+      "When you Crit, your Heal items gain (+10/+20/+30) Heal for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "HealReference",
+      "CritReference"
+    ]
+  },
+  "Improvised Poison": {
+    "text": [
+      "When you Crit, your Poison items gain (1/2/3) Poison for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "PoisonReference",
+      "CritReference",
+      "Mak"
+    ]
+  },
+  "Improvised Protection": {
+    "text": [
+      "When you Crit, your Shield items gain (5/10/15) Shield for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "CritReference",
+      "Dooley",
+      "Vanessa",
+      "ShieldReference",
+      "Stelle"
+    ]
+  },
+  "Improvised Weaponry": {
+    "text": [
+      "When you Crit, your Weapons gain (5/10/15) Damage for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "DamageReference",
+      "CritReference",
+      "Dooley",
+      "Vanessa",
+      "Weapon",
+      "Mak"
+    ]
+  },
+  "Industrialist": {
+    "text": [
+      "The Cooldown of your Properties are reduced by (5%/10%)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Pygmalien",
+      "Property",
+      "Cooldown"
+    ]
+  },
+  "Inexorable": {
+    "text": [
+      "Your items have +2% Crit Chance.",
+      "When you start a fight, increase this bonus by (+2%/+4%/+6%)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "Crit"
+    ]
+  },
+  "Initial Chill": {
+    "text": [
+      "The first time you use a Large item each fight, Freeze an item for (3/4/5) second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Freeze",
+      "Dooley",
+      "Pygmalien",
+      "Mak"
+    ]
+  },
+  "Initial Dose": {
+    "text": [
+      "Your leftmost Poison item has (+2/+4/+6/+8) Poison."
+    ],
+    "tier": 0,
+    "tags": [
+      "Vanessa",
+      "PoisonReference",
+      "Mak",
+      "Dooley"
+    ]
+  },
+  "Insect Bite": {
+    "text": [
+      "At the start of each fight, Poison yourself 2."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common",
+      "Poison"
+    ]
+  },
+  "Into the Void": {
+    "text": [
+      "The first time you use an item, destroy an item on each Player's board for the fight."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common"
+    ]
+  },
+  "Intrusion Countermeasures": {
+    "text": [
+      "The first time you fall below half Health in a fight, use your Friends."
+    ],
+    "tier": 3,
+    "tags": [
+      "Friend",
+      "Dooley"
+    ]
+  },
+  "Invigorating Blade": {
+    "text": [
+      "The first (5/10) times you use a Weapon each fight, Charge a Heal item 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "HealReference",
+      "DamageReference",
+      "Pygmalien",
+      "Weapon",
+      "Charge"
+    ]
+  },
+  "Invigorating Cold": {
+    "text": [
+      "The first time you Freeze each fight, Haste (1/2/3) item(s) for 2 second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "FreezeReference",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Haste",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Iron Sharpens Iron": {
+    "text": [
+      "Your leftmost Weapon has +3 Damage.",
+      "When you buy a Weapon, increase this bonus by (3/4/5)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "DamageReference",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Mak"
+    ]
+  },
+  "Jack of All Trades": {
+    "text": [
+      "The first (5/10) times you use an item each fight, Charge an item from another hero 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Common",
+      "Charge"
+    ]
+  },
+  "Juggler": {
+    "text": [
+      "When you use a Small item, Charge a Large item for 1 second(s)."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common",
+      "Charge"
+    ]
+  },
+  "Jury Rigger": {
+    "text": [
+      "When you use an Ammo item, Reload the item to the left of it (1/2/3) Ammo."
+    ],
+    "tier": 1,
+    "tags": [
+      "Common",
+      "Ammo"
+    ]
+  },
+  "Keen Eye": {
+    "text": [
+      "Your items have (+4%/+8%/+12%/+16%) Crit Chance."
+    ],
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
+      "Stelle"
+    ]
+  },
+  "Knife Tricks": {
+    "text": [
+      "When you use a Weapon, reduce its Cooldown by 4% for the fight."
+    ],
+    "tier": 3,
+    "tags": [
+      "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Cooldown",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Large Appetites": {
+    "text": [
+      "If you have 5 or fewer items, you have (+500/+1000/+2000) Max Health."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Health",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Lash Out": {
+    "text": [
+      "At the start of each fight, Poison (3/6/9/12)."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "Poison"
+    ]
+  },
+  "Left Eye": {
+    "text": [
+      "Your leftmost item has (+8%/+16%/+24%/+32%) Crit Chance."
+    ],
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
+      "Stelle"
+    ]
+  },
+  "Left-Handed": {
+    "text": [
+      "Your leftmost Weapon deals (+20/+30/+40/+50) Damage."
+    ],
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Lefty Loosey": {
+    "text": [
+      "The first (5/10) times you use your leftmost item each fight, Haste an item for 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Vanessa",
+      "Jules",
+      "Haste",
+      "Dooley"
+    ]
+  },
+  "Lethargy": {
+    "text": [
+      "All item Cooldowns are increased by (1/2/3) second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Pygmalien",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Letting off Steam": {
+    "text": [
+      "The first (5/10) times you Burn each fight, Haste your Cores for 2 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "BurnReference",
+      "Haste",
+      "Core",
+      "Dooley"
+    ]
+  },
+  "Lifting": {
+    "text": [
+      "Your Weapons have +1 Damage.",
+      "When you buy a Weapon, increase this bonus by (+1/+2/+3) Damage."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "DamageReference",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon"
+    ]
+  },
+  "Like Clockwork": {
+    "text": [
+      "When you level up, Your Weapons gain (+5/+10/+15/+20) Damage.",
+      "If you have a Weapon Core, double this."
+    ],
+    "tier": 0,
+    "tags": [
+      "DamageReference",
+      "Level",
+      "Core",
+      "Dooley"
+    ]
+  },
+  "Liquid Cooled": {
+    "text": [
+      "The first (5/10) times use a Core each fight, Freeze an item of equal or Smaller size for 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Freeze",
+      "Core",
+      "Dooley"
+    ]
+  },
+  "Living Flame": {
+    "text": [
+      "The first time you fall below half Health each fight, your Burn items' Cooldowns are halved for the fight."
+    ],
+    "tier": 3,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Cooldown",
+      "Vanessa",
+      "BurnReference",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Loaded Fury": {
+    "text": [
+      "Your Weapons have (+1/+2/+3) Damage for each ammo on your items."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "DamageReference",
+      "Ammo"
+    ]
+  },
+  "Long Strides": {
+    "text": [
+      "If you have 5 or fewer items, your items' Cooldowns are reduced by (5%/10%)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Pygmalien",
+      "Cooldown"
+    ]
+  },
+  "Machine Learning": {
+    "text": [
+      "When you buy or upgrade this, upgrade Your Core."
+    ],
+    "tier": 1,
+    "tags": [
+      "Core",
+      "Dooley"
+    ]
+  },
+  "Makeshift Plate": {
+    "text": [
+      "When you use a non-Shield item, your Shield items gain (+3/+6/+9) Shield for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Pygmalien",
+      "ShieldReference"
+    ]
+  },
+  "Master Salesman": {
+    "text": [
+      "Your items have double value during combat."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common",
+      "Value"
+    ]
+  },
+  "Mixed Message": {
+    "text": [
+      "The first (3/6) times you use a non-Weapon item each fight, Charge a Weapon 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Mak",
+      "Charge",
+      "Stelle"
+    ]
+  },
+  "Moth to a Flame": {
+    "text": [
+      "You have Regen equal to half the Burn on an enemy."
+    ],
+    "tier": 3,
+    "tags": [
+      "Jules",
+      "Regen",
+      "Dooley",
+      "Vanessa",
+      "BurnReference",
+      "Mak"
+    ]
+  },
+  "Nanobot Construction": {
+    "text": [
+      "Your Large items' Cooldowns are reduced by (2%/3%) for each Small item you have."
+    ],
+    "tier": 2,
+    "tags": [
+      "Common",
+      "Cooldown"
+    ]
+  },
+  "Neophiliac": {
+    "text": [
+      "The first time you Freeze, Burn, Slow, Poison, and Haste each fight, Charge an item (1/2) second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Charge",
+      "SlowReference",
+      "FreezeReference",
+      "BurnReference",
+      "Common",
+      "PoisonReference",
+      "HasteReference"
+    ]
+  },
+  "Net Launcher": {
+    "text": [
+      "The first time you use a Large item each fight, Slow (2/3/4) item(s) for 3 second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Dooley",
+      "Vanessa",
+      "Mak",
+      "Slow",
+      "Stelle"
+    ]
+  },
+  "Noisy Cricket": {
+    "text": [
+      "If you have at least 7 items, your Weapons deal (+20/+30/+40) Damage."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Oceanic Rush": {
+    "text": [
+      "The first time you use an item each fight, Haste (1/2/3) Aquatic item(s) for 2 second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Aquatic",
+      "Vanessa",
+      "Haste"
+    ]
+  },
+  "One Shot, One Kill": {
+    "text": [
+      "If you only have one Weapon, it deals triple Damage and its Cooldown is increased by 50%."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common",
+      "Weapon",
+      "DamageReference"
+    ]
+  },
+  "Open for Business": {
+    "text": [
+      "You have (+1/+2/+3) income for each Property you have (including Stash)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Pygmalien",
+      "Property",
+      "Income"
+    ]
+  },
+  "Outmaneuver": {
+    "text": [
+      "The first (5/10) times you Slow each fight, Haste a Vehicle for 2 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "SlowReference",
+      "Vanessa",
+      "Haste",
+      "Vehicle",
+      "Stelle"
+    ]
+  },
+  "Overclocked": {
+    "text": [
+      "Your Cores' Cooldown is reduced by (10%/15%)."
+    ],
+    "tier": 2,
+    "tags": [
+      "BurnReference",
+      "Cooldown",
+      "Core",
+      "Dooley"
+    ]
+  },
+  "Pacifist": {
+    "text": [
+      "If you have no Weapons, your items' Cooldowns are reduced by (5%/10%)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Pygmalien",
+      "Mak",
+      "Cooldown"
+    ]
+  },
+  "Panic": {
+    "text": [
+      "The first time you fall below 50% Health each fight, Reload (1/2/3/4) item(s) and Charge (1/2/3/4) Ammo items 1 second."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "Charge",
+      "Ammo"
+    ]
+  },
+  "Paralytic Poison": {
+    "text": [
+      "The first time you Poison each fight, Freeze an item for (2/3/4) second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Freeze",
+      "Dooley",
+      "Vanessa",
+      "Mak",
+      "PoisonReference"
+    ]
+  },
+  "Paralyzing Rush": {
+    "text": [
+      "When you Slow, Haste a Weapon (1/2) second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "SlowReference",
+      "DamageReference",
+      "Weapon",
+      "Haste",
+      "Common"
+    ]
+  },
+  "Parting Shot": {
+    "text": [
+      "When you use an item with Ammo, it gains (+10%/+15%) Crit Chance for the fight."
+    ],
+    "tier": 2,
+    "tags": [
+      "Vanessa",
+      "Crit",
+      "AmmoReference"
+    ]
+  },
+  "Party Like it's 011111001111": {
+    "text": [
+      "Your leftmost item is a Friend."
+    ],
+    "tier": 3,
+    "tags": [
+      "Tech",
+      "Friend",
+      "Core",
+      "Dooley"
+    ]
+  },
+  "Passive Power": {
+    "text": [
+      "Your items with no Cooldown have (+25%/+50%) Damage, Burn, Poison, Shield, Heal, and Regen."
+    ],
+    "tier": 2,
+    "tags": [
+      "HealReference",
+      "DamageReference",
+      "ShieldReference",
+      "Weapon",
+      "BurnReference",
+      "Common",
+      "PoisonReference",
+      "RegenReference"
+    ]
+  },
+  "Peaceful Eye": {
+    "text": [
+      "Your Non-Weapon items have (+5%/+10%/+15%/+20%) Crit Chance."
+    ],
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
+      "Stelle"
+    ]
+  },
+  "Petrifying Gaze": {
+    "text": [
+      "The first time you fall below half Health each fight, Freeze all enemy items for (1/2/3) second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Common",
+      "HealthReference",
+      "Freeze"
+    ]
+  },
+  "Pickpocket": {
+    "text": [
+      "At the start of each fight, gain (1/2/3/4) Gold."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "Gold"
+    ]
+  },
+  "Poison Tyrant": {
+    "text": [
+      "When you Poison, gain (2/4/6/8) Regen for the fight."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "PoisonReference",
+      "Regen"
+    ]
+  },
+  "Poisonous Opener": {
+    "text": [
+      "The first time you use a Large item each fight, Poison (20/40/60)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "Poison",
+      "Mak",
+      "Dooley"
+    ]
+  },
+  "Pop-Up Shop": {
+    "text": [
+      "Your Toys' and Apparel Cooldowns are reduced by (5%/10%)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Pygmalien",
+      "Toy",
+      "Apparel",
+      "Cooldown"
+    ]
+  },
+  "Potent Potables": {
+    "text": [
+      "Your Poison items have (+1/+2/+3) Poison for each Potion you have.",
+      "Your Burn items have (+1/+2/+3) Burn for each Potion you have."
+    ],
+    "tier": 1,
+    "tags": [
+      "Potion",
+      "BurnReference",
+      "Mak",
+      "PoisonReference",
+      "PotionReference"
+    ]
+  },
+  "Power Broker": {
+    "text": [
+      "Your Weapons have +Damage equal (1/2/3) times to your income."
+    ],
+    "tier": 1,
+    "tags": [
+      "Common",
+      "Weapon",
+      "DamageReference",
+      "EconomyReference"
+    ]
+  },
+  "Precision Diver": {
+    "text": [
+      "Your Aquatic items have (+8%/+10%/+12%) Crit Chance."
+    ],
+    "tier": 1,
+    "tags": [
+      "Aquatic",
+      "Vanessa",
+      "Crit"
+    ]
+  },
+  "Precision Tools": {
+    "text": [
+      "When one of your Tools are Hasted, your Tools gain (+5/+10/+15) Damage for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Common",
+      "DamageReference",
+      "Tool",
+      "HasteReference"
+    ]
+  },
+  "Prime Real Estate": {
+    "text": [
+      "When you use a Property, adjacent items gain (5%/10%/15%) Crit Chance for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Pygmalien",
+      "Property",
+      "Crit"
+    ]
+  },
+  "Product Showcase": {
+    "text": [
+      "When one of your items runs out of ammo, Charge items adjacent to it (1/2) second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Common",
+      "Charge",
+      "Ammo"
+    ]
+  },
+  "Property Mogul": {
+    "text": [
+      "When you buy a Property, gain (50/100/150) Max Health."
+    ],
+    "tier": 1,
+    "tags": [
+      "Pygmalien",
+      "Property",
+      "Health"
+    ]
+  },
+  "Prosperity": {
+    "text": [
+      "Your Shield items have +Shield equal to the value of your items."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common",
+      "ShieldReference",
+      "EconomyReference"
+    ]
+  },
+  "Purifying Flame": {
+    "text": [
+      "When you gain Regen, a Burn item gains (+1/+2/+3) Burn for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Common",
+      "RegenReference",
+      "BurnReference"
+    ]
+  },
+  "Pyromania": {
+    "text": [
+      "When you use a Large item, Burn (10/20/30)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Common",
+      "Burn"
+    ]
+  },
+  "Quality over Quantity": {
+    "text": [
+      "If you have exactly one Weapon, it has Lifesteal and (5%/10%) Crit Chance."
+    ],
+    "tier": 2,
+    "tags": [
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Mak",
+      "Crit"
+    ]
+  },
+  "Quick Defenses": {
+    "text": [
+      "Your Shield items' Cooldowns are reduced by (5%/10%)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Cooldown",
+      "ShieldReference",
+      "Stelle"
+    ]
+  },
+  "Quick Freeze": {
+    "text": [
+      "The first time you Haste each fight, Freeze an item for (2/3/4) second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Freeze",
+      "Dooley",
+      "Vanessa",
+      "HasteReference",
+      "Stelle"
+    ]
+  },
+  "Quick Ignition": {
+    "text": [
+      "The first time you use an item each fight, Haste (1/2/3) Burn item(s) for 2 second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Vanessa",
+      "BurnReference",
+      "Haste",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Rapid Relief": {
+    "text": [
+      "While your enemy has more Health than you, your Heal and Regen items' Cooldowns are reduced by (5%/10%/15%)."
+    ],
+    "tier": 1,
+    "tags": [
+      "HealReference",
+      "Cooldown",
+      "Pygmalien",
+      "Mak",
+      "RegenReference"
+    ]
+  },
+  "Ravenous": {
+    "text": [
+      "The first time you fall below half Health each fight, destroy an item for the fight."
+    ],
+    "tier": 4,
+    "tags": [
+      "Common"
+    ]
+  },
+  "Re-Tooled": {
+    "text": [
+      "Your leftmost Tool has +1 Multicast."
+    ],
+    "tier": 3,
+    "tags": [
+      "Jules",
+      "Tool",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Reaching the Summit": {
+    "text": [
+      "When you Freeze, your items gain (+3%/+6%) Crit Chance for the fight."
+    ],
+    "tier": 2,
+    "tags": [
+      "Jules",
+      "FreezeReference",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
+      "Stelle"
+    ]
+  },
+  "Rear Shielding": {
+    "text": [
+      "Your rightmost Shield item has (+20/+30/+40/+50) Shield."
+    ],
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "ShieldReference",
+      "Stelle"
+    ]
+  },
+  "Red Envelope": {
+    "text": [
+      "When you buy this, gain 10 Gold."
+    ],
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Gold",
+      "Stelle"
+    ]
+  },
+  "Reel 'Em In": {
+    "text": [
+      "The first time an enemy falls below half Health each fight, your items' Cooldowns are halved for the fight."
+    ],
+    "tier": 3,
+    "tags": [
+      "Vanessa",
+      "Cooldown"
+    ]
+  },
+  "Regenerative": {
+    "text": [
+      "You have (10/20/30) Regen."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "Regen",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Regular Maintenance": {
+    "text": [
+      "Your Shield items have (+25/+50) Shield for each Flying item you have."
+    ],
+    "tier": 2,
+    "tags": [
+      "ShieldReference",
+      "FlyingReference",
+      "Stelle"
+    ]
+  },
+  "Reinforced Steel": {
+    "text": [
+      "When you use a Property, your Weapons gain (+5/+10/+15) Damage and your Shield items gain (+5/+10/+15) Shield for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Pygmalien",
+      "ShieldReference",
+      "Property",
+      "DamageReference"
+    ]
+  },
+  "Relax Bro": {
+    "text": [
+      "When you use a Small item, gain (1/2/3/4) Regen for the fight."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "Regen"
+    ]
+  },
+  "Renovation": {
+    "text": [
+      "When you level up, upgrade a Property."
+    ],
+    "tier": 3,
+    "tags": [
+      "Pygmalien",
+      "Property",
+      "Level"
+    ]
+  },
+  "Reserve Shield": {
+    "text": [
+      "The first time you use a Large item each fight, Shield equal to (10%/20%/30%) of your Max Health."
+    ],
+    "tier": 1,
+    "tags": [
+      "Dooley",
+      "Pygmalien",
+      "HealthReference",
+      "Shield",
+      "Stelle"
+    ]
+  },
+  "Retaliatory Toxins": {
+    "text": [
+      "When an enemy uses an item, Poison (1/2)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Vanessa",
+      "Poison",
+      "Mak"
+    ]
+  },
+  "Retool": {
+    "text": [
+      "When you use a Tool, Reload an adjacent item."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common",
+      "AmmoReference",
+      "Tool"
+    ]
+  },
+  "Rigged": {
+    "text": [
+      "The first time you use an item each fight, Haste your items for (1/2/3) second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Common",
+      "Haste"
+    ]
+  },
+  "Right Eye": {
+    "text": [
+      "Your rightmost item has (+8%/+16%/+24%/+32%) Crit Chance."
+    ],
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Crit",
+      "Stelle"
+    ]
+  },
+  "Right-Handed": {
+    "text": [
+      "Your rightmost Weapon has (+20/+30/+40/+50) Damage."
+    ],
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Righty Tighty": {
+    "text": [
+      "The first (3/6/9) times you use your rightmost item each fight, Charge a Slow item 1 second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "SlowReference",
+      "Dooley",
+      "Vanessa",
+      "Mak",
+      "Charge"
+    ]
+  },
+  "Rush": {
+    "text": [
+      "The first time you use an item, Haste a Weapon (3/4/5/6) seconds."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "Weapon",
+      "DamageReference",
+      "Haste"
+    ]
+  },
+  "Rust": {
+    "text": [
+      "The first time you use an item each fight, Slow an item for (3/4/5/6) second(s)."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "Slow"
+    ]
+  },
+  "Sabotage": {
+    "text": [
+      "The first (5/10) times you use a Tool each fight, Slow an item for 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Tool",
+      "Dooley",
+      "Vanessa",
+      "Slow",
+      "Stelle"
+    ]
+  },
+  "Scramble Fighters": {
+    "text": [
+      "The first time you use an item each fight, (1/2/3) item(s) start Flying.",
+      "Your Flying Weapons have (+20/+30/+40) Damage."
+    ],
+    "tier": 1,
+    "tags": [
+      "Flying",
+      "Common",
+      "Weapon",
+      "DamageReference"
+    ]
+  },
+  "Searing Flames": {
+    "text": [
+      "When one of your Burn items is Hasted, it gains (1/2/3) Burn for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "BurnReference",
+      "HasteReference",
+      "Dooley"
+    ]
+  },
+  "Second Wind": {
+    "text": [
+      "The first time you use a Large item each fight, Heal equal to (20%/40%/60%) of your Max Health."
+    ],
+    "tier": 1,
+    "tags": [
+      "Heal",
+      "Dooley",
+      "Pygmalien",
+      "Mak",
+      "HealthReference"
+    ]
+  },
+  "Sharp Corners": {
+    "text": [
+      "When you Shield, your Weapons gain (3/6/9) Damage for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Weapon",
+      "ShieldReference",
+      "Stelle"
+    ]
+  },
+  "Sharpened Steel": {
+    "text": [
+      "When you use a Weapon, Adjacent items gain (3%/6%/9%/12%) Crit Chance for the fight."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "Weapon",
+      "Crit",
+      "DamageReference"
+    ]
+  },
+  "Sharpshooter": {
+    "text": [
+      "Your Ammo items have (+3%/+6%/+9%/+12%) Crit Chance."
+    ],
+    "tier": 0,
+    "tags": [
+      "Vanessa",
+      "AmmoReference",
+      "Mak",
+      "Crit"
+    ]
+  },
+  "Shatter": {
+    "text": [
+      "When you Freeze, your Weapons gain (+10/+15/+20) Damage for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "FreezeReference",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Shield Bash": {
+    "text": [
+      "The first (4/8) times an enemy uses a non-Weapon item each fight, Charge a Weapon 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Charge",
+      "Stelle"
+    ]
+  },
+  "Shored Up": {
+    "text": [
+      "When you Heal or gain Regen, Charge a Shield item 1 second(s)."
+    ],
+    "tier": 3,
+    "tags": [
+      "Charge",
+      "HealReference",
+      "Common",
+      "ShieldReference",
+      "RegenReference"
+    ]
+  },
+  "Sick Burn": {
+    "text": [
+      "The first (5/10) times you Poison each fight, Charge a Burn item 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "BurnReference",
       "Vanessa",
       "Mak",
       "Charge",
-      "Poisonreference",
-      "Weapon"
-    ],
-    "text": "The first (  4  » 8   ) times you use a Weapon each fight, Charge 1 Poison item 1 second(s)."
+      "PoisonReference"
+    ]
   },
-  "Venomous Vitality": {
-    "icon": "images/skills/VenomousVitality.avif",
-    "name": "Venomous Vitality",
+  "Siphoned Shield": {
+    "text": [
+      "Your Shield items have +Shield equal to (100%/200%) of the Poison on your enemy."
+    ],
+    "tier": 2,
     "tags": [
+      "Common",
+      "ShieldReference",
+      "PoisonReference"
+    ]
+  },
+  "Slow and Steady": {
+    "text": [
+      "When you Slow, your Weapons gain (2/4/6) Damage for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "SlowReference",
+      "DamageReference",
+      "Dooley",
+      "Vanessa",
+      "Weapon",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Slow Burn": {
+    "text": [
+      "The first (5/10) times you Slow each fight, Charge a Burn item 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "SlowReference",
+      "Vanessa",
+      "BurnReference",
+      "Mak",
+      "Charge"
+    ]
+  },
+  "Slowed Targets": {
+    "text": [
+      "When you Slow, your items gain (+1%/+2%/+3%) Crit Chance for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "SlowReference",
+      "Dooley",
       "Vanessa",
       "Mak",
-      "Poisonreference",
-      "Regen"
-    ],
-    "text": "You have Regeneration equal to half the Poison on your enemy."
+      "Crit",
+      "Stelle"
+    ]
   },
-  "Void Energy": {
-    "icon": "images/skills/VoidEnergy.avif",
-    "name": "Void Energy",
-    "tags": [
-      "Common",
-      "Burnreference",
-      "Shieldreference"
+  "Small Refresh": {
+    "text": [
+      "When you use a Small item, Heal (5/10/15/20)."
     ],
-    "text": "When you Burn, charge a Shield item 1 second(s)."
-  },
-  "Void Rage": {
-    "icon": "images/skills/VoidRage.avif",
-    "name": "Void Rage",
+    "tier": 0,
     "tags": [
-      "Common",
-      "Burnreference",
-      "Haste"
-    ],
-    "text": "When you burn, Haste an item for (  1  » 2   ) second(s)."
-  },
-  "Void Render": {
-    "icon": "images/skills/VoidRender.avif",
-    "name": "Void Render",
-    "tags": [
+      "Heal",
       "Common"
-    ],
-    "text": "When you destroy an item during combat, your Weapons gain (  100  » 200   ) damage and your burn items gain (  10  » 20   ) Burn for the fight."
+    ]
   },
-  "Warm Hugs": {
-    "icon": "images/skills/WarmHugs.avif",
-    "name": "Warm Hugs",
+  "Snowstorm": {
+    "text": [
+      "When you Freeze, a Weapon gains (+20/+40/+60/+80) Damage for the fight."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "Weapon",
+      "DamageReference",
+      "FreezeReference"
+    ]
+  },
+  "Specialist": {
+    "text": [
+      "If you have exactly a Weapon, your Shield items have (+10/+20/+30) Shield."
+    ],
+    "tier": 1,
+    "tags": [
+      "Dooley",
+      "Pygmalien",
+      "Weapon",
+      "ShieldReference",
+      "Stelle"
+    ]
+  },
+  "Start-Up Sequence": {
+    "text": [
+      "At the start of each fight, a Vehicle starts Flying."
+    ],
+    "tier": 3,
+    "tags": [
+      "Vehicle",
+      "Flying",
+      "Stelle"
+    ]
+  },
+  "Static Acceleration": {
+    "text": [
+      "When you Haste, your items gain (+1%/+2%/+3%) Crit Chance for the fight."
+    ],
+    "tier": 1,
     "tags": [
       "Dooley",
       "Vanessa",
-      "Burn"
+      "Mak",
+      "Crit",
+      "HasteReference",
+      "Stelle"
+    ]
+  },
+  "Staying Power": {
+    "text": [
+      "When you use a Weapon or Tool, your Heal items gain (+4/+8/+12) Heal for the fight."
     ],
-    "text": "When you use a Friend, Burn (  2  » 3   )."
+    "tier": 1,
+    "tags": [
+      "Pygmalien",
+      "Heal",
+      "Tool"
+    ]
+  },
+  "Steelstorm": {
+    "text": [
+      "Your Weapons have (+4/+6/+8) Damage for each Weapon you have."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "Weapon",
+      "DamageReference"
+    ]
+  },
+  "Stocked": {
+    "text": [
+      "Your Potions have (+1/+2/+3) Ammo."
+    ],
+    "tier": 1,
+    "tags": [
+      "PotionReference",
+      "Ammo",
+      "Mak",
+      "Potion"
+    ]
+  },
+  "Stop That!": {
+    "text": [
+      "The first time you fall below half Health each fight, Slow (2/4/6) items for 2 second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "Slow",
+      "Mak",
+      "Dooley"
+    ]
+  },
+  "Streamline Weapon": {
+    "text": [
+      "When one of your Weapons is Hasted, it gains (+5/+10/+15) Damage."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "Weapon",
+      "DamageReference",
+      "HasteReference"
+    ]
+  },
+  "Strength": {
+    "text": [
+      "Your Weapons deal (+10/+15/+20/+25) Damage."
+    ],
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Strong Arm": {
+    "text": [
+      "Your Weapons have + Damage equal to (1/2/3) times your Income."
+    ],
+    "tier": 1,
+    "tags": [
+      "Pygmalien",
+      "Weapon",
+      "DamageReference",
+      "EconomyReference"
+    ]
+  },
+  "Stunning Strike": {
+    "text": [
+      "The first time you Crit each fight, Freeze an item for (3/4/5) second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "Freeze",
+      "CritReference"
+    ]
+  },
+  "Submerged": {
+    "text": [
+      "Your Weapons have (+3/+6/+9) Damage for each Aquatic item you have.",
+      "Your Shield items have (+3/+6/+9) Shield for each Aquatic item you have."
+    ],
+    "tier": 1,
+    "tags": [
+      "Aquatic",
+      "DamageReference",
+      "Vanessa",
+      "Weapon",
+      "ShieldReference"
+    ]
+  },
+  "Supply Cache": {
+    "text": [
+      "At the start of each day, get a Loot item."
+    ],
+    "tier": 0,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Tall Buildings": {
+    "text": [
+      "When you use a Property, Haste items adjacent to it (1/2) second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Pygmalien",
+      "Property",
+      "Haste"
+    ]
+  },
+  "Tempering": {
+    "text": [
+      "When you use a Weapon, it gains (+3/+6/+9) Damage for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "DamageReference",
+      "Dooley",
+      "Pygmalien",
+      "Vanessa",
+      "Weapon",
+      "Stelle"
+    ]
+  },
+  "Temporal Strike": {
+    "text": [
+      "The first (5/10) times you Slow each fight, Charge a Weapon 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Jules",
+      "SlowReference",
+      "Dooley",
+      "Vanessa",
+      "Weapon",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "The Best Defense": {
+    "text": [
+      "When you use a Weapon, Weapons adjacent to it gain (+3/+6/+9) Damage for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "Weapon",
+      "DamageReference"
+    ]
+  },
+  "The One Potion": {
+    "text": [
+      "If you have only one Potion, it has +1 Max Ammo and its Cooldown halved."
+    ],
+    "tier": 3,
+    "tags": [
+      "Mak",
+      "Cooldown"
+    ]
+  },
+  "The Right Tool": {
+    "text": [
+      "Your non-Tool items have (+5%/+10%/+15%) Crit Chance for each Tool you have."
+    ],
+    "tier": 1,
+    "tags": [
+      "Common",
+      "Crit",
+      "Tool"
+    ]
+  },
+  "Thick Hide": {
+    "text": [
+      "When you Slow, Charge an item 1 second."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common",
+      "Charge",
+      "SlowReference"
+    ]
+  },
+  "Thirsty": {
+    "text": [
+      "The first (4/8) times you use a Potion each fight, gain 20 Regen for the fight."
+    ],
+    "tier": 2,
+    "tags": [
+      "PotionReference",
+      "Regen",
+      "Mak",
+      "Potion"
+    ]
+  },
+  "Thrill of the Flight": {
+    "text": [
+      "Your Flying items' Cooldowns are reduced by (5%/10%)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Cooldown",
+      "FlyingReference",
+      "Stelle"
+    ]
+  },
+  "Time to Tinker": {
+    "text": [
+      "When you Haste, Shield (10/20/30/40)."
+    ],
+    "tier": 0,
+    "tags": [
+      "HasteReference",
+      "Common",
+      "Shield"
+    ]
+  },
+  "Tiny Dancer": {
+    "text": [
+      "If you have at least 7 items, your items' Cooldowns are reduced by (5%/10%)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Vanessa",
+      "Cooldown",
+      "Dooley"
+    ]
+  },
+  "Titanium Casing": {
+    "text": [
+      "When you use a Core, your Shield items gain (15/30) Shield for the fight."
+    ],
+    "tier": 2,
+    "tags": [
+      "ShieldReference",
+      "Core",
+      "Dooley"
+    ]
+  },
+  "Tools of the Trade": {
+    "text": [
+      "The first (5/10) times you use a Tool each fight, Haste a Tool for 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Jules",
+      "Tool",
+      "Dooley",
+      "Haste",
+      "Stelle"
+    ]
+  },
+  "Toughness": {
+    "text": [
+      "Your Shield items have (+10/+15/+20/+25) Shield."
+    ],
+    "tier": 0,
+    "tags": [
+      "Pygmalien",
+      "ShieldReference",
+      "Stelle",
+      "Dooley"
+    ]
+  },
+  "Toxic Flame": {
+    "text": [
+      "When you Burn, your Poison items gain (+1/+2/+3) Poison for the fight.",
+      "When you Poison, your Burn items gain (+1/+2/+3) Burn for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Dooley",
+      "BurnReference",
+      "Vanessa",
+      "Mak",
+      "PoisonReference"
+    ]
+  },
+  "Toxic Friendship": {
+    "text": [
+      "When you use a Friend, Poison (1/2/3)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Common",
+      "Poison",
+      "Friend"
+    ]
+  },
+  "Toxic Fuel": {
+    "text": [
+      "While you are Poisoned, your items' Cooldowns are reduced by (3%/6%).",
+      "While your enemy is Poisoned, their items' Cooldowns are increased by (3%/6%)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Common",
+      "PoisonReference",
+      "Cooldown"
+    ]
+  },
+  "Toxic Shield": {
+    "text": [
+      "The first time you fall below half Health each fight, Shield equal to (2/3/4) times the Poison on your enemy."
+    ],
+    "tier": 1,
+    "tags": [
+      "PoisonReference",
+      "Shield",
+      "Mak",
+      "Dooley"
+    ]
+  },
+  "Toxic Weapons": {
+    "text": [
+      "Your Poison items have (+2/+4/+6) Poison for each Weapon you have."
+    ],
+    "tier": 1,
+    "tags": [
+      "PoisonReference",
+      "Vanessa",
+      "Weapon",
+      "Mak"
+    ]
+  },
+  "Toxicity": {
+    "text": [
+      "When you Poison, your Weapons gain (3/6/9) Damage for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "PoisonReference",
+      "DamageReference",
+      "Mak"
+    ]
+  },
+  "Toxin Injector": {
+    "text": [
+      "The first time you use an item each fight, Haste (1/2/3) Poison item(s) for 2 second(s)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Vanessa",
+      "PoisonReference",
+      "Haste",
+      "Mak"
+    ]
+  },
+  "Tracer Fire": {
+    "text": [
+      "When you Burn, your items gain (+1%/+2%/+3%) Crit Chance for the fight."
+    ],
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Dooley",
+      "Vanessa",
+      "BurnReference",
+      "Mak",
+      "Crit",
+      "Stelle"
+    ]
+  },
+  "Trader": {
+    "text": [
+      "Your items have (+1/+2) value."
+    ],
+    "tier": 2,
+    "tags": [
+      "Pygmalien",
+      "Value"
+    ]
+  },
+  "Trained": {
+    "text": [
+      "When you Slow, a Weapon gains (+5/+10/+15/+20) Damage for the fight."
+    ],
+    "tier": 0,
+    "tags": [
+      "Common",
+      "Weapon",
+      "DamageReference",
+      "SlowReference"
+    ]
+  },
+  "Trickle Down Economics": {
+    "text": [
+      "When you use a Large item, Haste your other items for (1/2) second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Common",
+      "Haste"
+    ]
+  },
+  "Unwavering": {
+    "text": [
+      "When you use an item, Shield (20/40)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Common",
+      "Shield"
+    ]
+  },
+  "Valley Fever": {
+    "text": [
+      "At the start of each fight, Burn yourself 2."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common",
+      "Burn"
+    ]
+  },
+  "Vengeance": {
+    "text": [
+      "Your leftmost and rightmost items' Cooldowns are reduced by (5%/10%/15%)."
+    ],
+    "tier": 1,
+    "tags": [
+      "Common",
+      "Cooldown"
+    ]
+  },
+  "Venomous Blade": {
+    "text": [
+      "The first (4/8) times you use a Weapon each fight, Charge a Poison item 1 second(s)."
+    ],
+    "tier": 2,
+    "tags": [
+      "DamageReference",
+      "Vanessa",
+      "Weapon",
+      "Mak",
+      "Charge",
+      "PoisonReference"
+    ]
+  },
+  "Venomous Vitality": {
+    "text": [
+      "You have Regen equal to half the Poison on an enemy."
+    ],
+    "tier": 3,
+    "tags": [
+      "Vanessa",
+      "PoisonReference",
+      "Mak",
+      "Regen"
+    ]
+  },
+  "Vital Renewal": {
+    "text": [
+      "When you Slow, Freeze, Poison or Burn with an item, a Regen item gains (1/2) Regen for the fight."
+    ],
+    "tier": 2,
+    "tags": [
+      "FreezeReference",
+      "SlowReference",
+      "BurnReference",
+      "Mak",
+      "PoisonReference",
+      "RegenReference"
+    ]
+  },
+  "Vital Reserve": {
+    "text": [
+      "Your rightmost Regen item has (+2/+4/+6/+8) Regen."
+    ],
+    "tier": 0,
+    "tags": [
+      "Pygmalien",
+      "RegenReference",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Void Energy": {
+    "text": [
+      "When you Burn, Charge a Shield item 1 second(s)."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common",
+      "ShieldReference",
+      "Charge",
+      "BurnReference"
+    ]
+  },
+  "Void Rage": {
+    "text": [
+      "When you Burn, Haste an item for 1 second."
+    ],
+    "tier": 3,
+    "tags": [
+      "Common",
+      "Haste",
+      "BurnReference"
+    ]
+  },
+  "Void Render": {
+    "text": [
+      "When you destroy an item during combat, your items gain (+100/+200) Damage and (+10/+20) Burn for the fight."
+    ],
+    "tier": 2,
+    "tags": [
+      "Common",
+      "Weapon",
+      "DamageReference",
+      "BurnReference"
+    ]
+  },
+  "Wake-Up Call": {
+    "text": [
+      "When you use a Small item, Haste a Burn, Poison or Freeze item for 1 second."
+    ],
+    "tier": 3,
+    "tags": [
+      "FreezeReference",
+      "BurnReference",
+      "Haste",
+      "Common",
+      "PoisonReference"
+    ]
+  },
+  "Walk-in Clinic": {
+    "text": [
+      "Your leftmost Regen item has (+2/+4/+6/+8) Regen."
+    ],
+    "tier": 0,
+    "tags": [
+      "Pygmalien",
+      "RegenReference",
+      "Mak",
+      "Stelle"
+    ]
+  },
+  "Warm Hugs": {
+    "text": [
+      "When you use a Friend, Burn (2/3)."
+    ],
+    "tier": 2,
+    "tags": [
+      "Vanessa",
+      "Burn",
+      "Dooley"
+    ]
   },
   "Waters of Infinity": {
-    "icon": "images/skills/WatersofInfinity.avif",
-    "name": "Waters of Infinity",
+    "text": [
+      "You have (+20/+30/+40) Regen for each non-Weapon item you have."
+    ],
+    "tier": 1,
     "tags": [
       "Common",
       "Regen"
-    ],
-    "text": "You have (  +10  » +15  » +20   ) Regeneration for each non-weapon item you have in play."
+    ]
   },
   "Well-Oiled Machine": {
-    "icon": "images/skills/WellOiledMachine.avif",
-    "name": "Well-Oiled Machine",
-    "tags": [
-      "Dooley",
-      "Core",
-      "Damagereference"
+    "text": [
+      "When you use a Core, reduce an item's Cooldown by 5% for the fight."
     ],
-    "text": "When you use The Core, reduce an item's cooldown by 5% for the fight."
+    "tier": 3,
+    "tags": [
+      "DamageReference",
+      "Core",
+      "Dooley"
+    ]
   },
   "Workin' Hard": {
-    "icon": "images/skills/WorkinHard.avif",
-    "name": "Workin' Hard",
-    "tags": [
-      "Dooley",
-      "Jules",
-      "Stelle",
-      "Damagereference",
-      "Tool",
-      "Weapon"
+    "text": [
+      "The first (4/8/12) times you Haste each fight, Charge a Tool 1 second."
     ],
-    "text": "Your weapons have +7 Damage for each Tool you have."
+    "tier": 1,
+    "tags": [
+      "Jules",
+      "Tool",
+      "Dooley",
+      "Haste",
+      "Stelle"
+    ]
   }
 };

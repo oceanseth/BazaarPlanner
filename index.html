@@ -10,14 +10,15 @@
         <meta property="og:type" content="website">
         <meta property="og:url" content="https://www.bazaarplanner.com/">
         <meta property="og:title" content="BazaarPlanner - Create and Share Bazaar Builds">
-        <meta property="og:description" content="BazaarPlanner is a tool that helps you create, simulate, and share bazaar builds.">        <meta property="og:image" content="/images/preview.jpg">
+        <meta property="og:description" content="BazaarPlanner is a tool that helps you create, simulate, and share bazaar builds.">
+        <meta property="og:image" content="/images/logo.png">
     
         <!-- Twitter Meta Tags -->
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:url" content="https://www.bazaarplanner.com/">
         <meta name="twitter:title" content="BazaarPlanner - Create, Simulate, and Share Bazaar Builds">
         <meta name="twitter:description" content="BazaarPlanner is a tool that helps you create and share bazaar builds effortlessly. Plan and organize your ideal marketplace.">
-        <meta name="twitter:image" content="/images/preview.jpg">
+        <meta name="twitter:image" content="/images/logo.png">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -36,92 +37,259 @@
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@400;500&family=Montserrat:wght@600&display=swap" rel="stylesheet">
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5415281723709994"
      crossorigin="anonymous"></script>
     </head>
     <body>
-        <h2 style="color:white;">BazaarPlanner</h2>
-        <div id="Menu" style="display: flex; gap: 10px;">
-            <!--<button onclick="showSection('library')" class="selected">Library</button>-->
-            <button onclick="showSection('simulator')">Simulator</button>
-            <button onclick="showSection('about')">About</button>
-            <button onclick="showSection('faq')">FAQ</button>
-            
+        <div id="Menu">
+            <button id="simulator-header" class="section-header" onclick="showSection('simulator')">Simulator</button>
+            <button id="puzzle-header" class="section-header" onclick="showSection('puzzle')">Puzzles</button>
+            <button id="builds-header" class="section-header" onclick="showSection('builds')">Builds</button>
+            <button id="runs-header" class="section-header" onclick="showSection('runs')">Runs</button>
+            <button id="about-header" class="section-header" onclick="showSection('about')">About</button>
+            <button id="faq-header" class="section-header" onclick="showSection('faq')">FAQ</button>
+            <div id="top-banner-ad" style="display:block; width: calc(100% - 560px); height: 100px;">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5415281723709994"
+     crossorigin="anonymous"></script>
+<!-- TopBannerAd -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5415281723709994"
+     data-ad-slot="9793106834"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+            <div class="section-header-right">
+            <!--<a href="https://www.twitch.tv/bazaarplanner" class="section-header-right twitch-icon no-underline" target="_blank">&nbsp;</a>
+            -->
+            <a href="https://discord.gg/8CJwZVj823" class="section-header-right discord-icon nounderline" target="_blank">&nbsp;</a>
+            <a href="https://www.youtube.com/@BazaarPlanner" class="section-header-right youtube-icon nounderline" target="_blank">&nbsp;</a>
+            <a href="https://x.com/BazaarPlanner" class="section-header-right twitter-icon nounderline" target="_blank">&nbsp;</a>
+            <div class="section-header" style="font-size: 10px; cursor:initial;" title="Last Updated: Jul 9">Jul 9</div>            
+            <a href="javascript:showSection('settings',event)" class="section-header-right">⚙️</a>
+            </div>
+        </div>
+        <div id="builds" class="section" style="display: none;">
+            <h1>Builds</h1>
+            <div id="builds-content">
+                Rank means nothing other than how often you play.  
+                Whats the best build you've ever created? 
+                We will show which board you've created with the highest win rate vs the top builds seen.
+                <hr>
+                Currently collecting data, and will show the top builds and users seen on each day. The more people that run the tracker, the more data and accuracy this leaderboard will be.
+            </div>
+        </div>
+        <div id="runs" class="section" style="display: none;">
+            <div id="active-runs-content"></div>
+            <div class="requireLogout">
+                You are not currently logged in.<br/><br/>
+                If you are logged in, this section will show all your tracked runs.<br/><br/>
+                Download the tracker program <a href="https://github.com/oceanseth/BazaarPlannerMod/releases/download/1.1.0/BazaarPlannerModInstaller-1.1.0.zip">here</a> and start tracking your runs!
+            </div>
+            <div id="runs-content"></div>
+        </div>
+        <div id="settings" class="section" style="display: none;">
+            <h1>Mode</h1>
+            <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+            <h1>Account</h1>
+            <div id="account-login">
+                <button  class="editorOpener" onclick="window.showLogin()">Login</button>
+            </div>
+            <div id="account-content" style="display:none;">
+                We will never share your account details with anyone else, excepting your display name.<br/>
+                <div id="account-details" style='background-color: rgba(0,0,0,0.5); padding: 10px; border-radius: 5px;'></div>
+                <button onclick="exportBazaarPlannerConfig()">Export BazaarPlanner.config</button><br/><br/>
+
+                Soon we will show stats on puzzle solves, and more.<br/>
+                Set your display name to show on the site.<br/><br/>
+                What shall we call you?
+                <input type="text" id="update-user-display-name" placeholder="display name"
+                    oninput="this.value = this.value.replace(/[^0-9a-zA-Z]/g, '');"
+                    onkeyup="this.value = this.value.replace(/[^0-9a-zA-Z]/g, '');"
+                    onchange="this.value = this.value.replace(/[^0-9a-zA-Z]/g, '');">
+                <button onclick="User.updateDisplayName()">Save</button>
+                <br/><br/>
+                <!--
+                What icon should represent you?
+                <input type="text" id="update-account-icon" placeholder="icon url">
+                <button onclick="Account.updateIcon()">Save</button>
+                -->
+                <br/><br/>
+                <button onclick="logout()" style="margin-left: auto;">Logout</button>
+            </div>
+        </div>
+        <div id="puzzle" class="section">
+            <div id="puzzle-content">
+                <h1 id="puzzle-title">Puzzles</h1>
+                <p id="puzzle-description" align="center"></p>
+                <div id="puzzle-slider-container">
+                        <input type="range" id="puzzle-guess-slider" min="0" max="100" value="0" step="1" oninput="this.nextElementSibling.nextElementSibling.textContent = this.value">
+                        <div class="slider-labels">
+                            <span>0</span>
+                            <span>100</span>
+                        </div>
+                    <div style="text-align: center; margin-top: 5px;"><b id="slider-value">0</b></div>            
+                </div>
+                <div id="puzzle-select-container">
+                    <select id="puzzle-select"></select>
+                </div>
+                <div style="text-align: center; margin-top: 5px;">
+                    <button class="editorOpener" onclick="Puzzle.submitGuess()">Submit</button>
+                </div>
+            </div>   
+
     
-            <div id="sign-in-status" style="margin-left: auto;"></div>
-            <div id="account-details" style="margin-left: auto; display:none;"></div>
-            <button onclick="login()" style="margin-left: auto;">Login</button>
+            <div class="board-container">
+                <div id="puzzle-top" class="board"></div>
+            </div>
+            <div class="board-container">
+                <div id="puzzle-bottom" class="board"></div>
+            </div>
+            <textarea id="puzzle-combatlog" class="combat-log"></textarea>
         </div>
         <!-- FAQ Section -->
         <div id="faq" class="section" style="display: none;">
-            <h1>FAQ</h1><ul class="faq-list">
-                <li>
-                <b>How do I use BazaarPlanner?</b><br>
-                I used to enjoy importing a run from <a href="https://bazaartracker.gg/">BazaarTracker</a>, (before it was taken down)which will bring all items/skills from the most recent battle in your current run.
-                <br>You can use the simulator to test out different positioning of items and see how they perform.
-                <br>
-                One great use would be someone sharing their build on youtube, and you want to try it out for yourself or tweak positioning of items, and learn why it works best one way over another.
-                After moving items around, run a battle and see if the dps is higher or lower than the original build.<br>
-                Remember, you can always add 'sparring partner' to the top board to test against a monster that will never die! How long can you survive the sandstorm?!
-            </li>
-            <li>
-                <b>What is DPS/HPS/SPS?</b><br>
-
-                DPS is damage per second, HPS is healing per second, and SPS is shield per second.<br>
-                You can pause battle at any time to see the current DPS/HPS/SPS for each board.
-            </li>
-            <li>
-                <b>How do I save my build?</b><br>
-                You can save your build by clicking the "Save" button on the bottom board, which saves a json file you can load later. 
-            </li>
-            <li>
-                <b>Why is the url changing?</b><br>
-                The url changes whenever you change the boards, skills, or player data. It allows you to share the current state of the boards with others. I recommend creating a url from <a href="http://tinyurl.com">tinyurl.com</a> to make a nice short url that you can share on youtube video descriptions, blogs, etc.
-            </li>
-            <li>
-                <b>Where can I get support/report bugs/ask questions?</b><br>
-                Strong's discord is the best place to get support. <a href="https://discord.gg/8CJwZVj823">https://discord.gg/8CJwZVj823</a>
-            </li>
-            <li><b>Why isn't it working on my mobile device?</b><br>
-                I have no plans to support mobile devices. 
-            </li>
-            <li>
-                <b>Can I run the battle 100 times to see the avg number of wins? Or avg dps across all battles?</b><br>
-                No, the simulator is designed to simulate a single battle. We don't want to affect the game negatively by, for example, identifying the optimal positioning by running such tasks in the background. This is up to you to discover/learn!
-            </li>
-            <li><b>Can you speed up the battle please? Or just give me a button to see the result?</b><br/>
-                No, the simulator is designed to simulate a single battle. We don't want to affect the game negatively by, for example, identifying the optimal positioning by running such tasks in the background. This is up to you to discover/learn!
-            </li>
+            <div style="margin: 0 0 auto; text-align: center;">
+            <h1>BazaarPlanner FAQ</h1>
+            <h3>( or <a href="#game-mechanics-faq">jump to Game Mechanics FAQ</a>)</h3>
+        </div>
+            <ul class="faq-list">
+                <li class="faq-item">
+                    <div class="faq-question">How do I use BazaarPlanner?</div>
+                    <div class="faq-answer">  
+                    <ul>
+                        <li>You can use the simulator to test out different positioning of items and see how they perform. Press spacebar to open your backpack/stash, to save items for testing.</li>
+                        <li><a href="https://github.com/oceanseth/BazaarPlannerMod/releases/download/1.1.0/BazaarPlannerModInstaller-1.1.0.zip">Install BazaarPlannerMod tracker program</a>; when you press 'b' while in a game, your board will be loaded in BazaarPlanner.</li>
+                        <li>When you share build videos on youtube, or while talking about boards on discord or twitch, you can click 'get tiny url' to get a link to the current state of the boards to share with others.</li>
+                        <li style="display:flex; flex-direction:row; align-items:center;"><img src="images/faq-follow.png" style="width: 200px;padding-right: 10px;" alt="follow example" align="center">With BazaarPlannerMod installed, 
+                            you can click 'follow' in the board controls to have your boards automatically track changes in the game, and show a dropdown of all the encounters from your current run.</li>
+                    </ul>                                                            
+                    </div>
+                </li>                
+                <li class="faq-item">
+                    <div class="faq-question">Is this bannable? Has anyone been banned due to this?</div>
+                    <div class="faq-answer">
+                        Yes and no - first, they can ban you for any reason, so everything is bannable, many people complain about being banned for sneezing in the discord. (depending on your definition of sneezing).
+                        <Br/><br/>
+                        We have protection in place to prevent you from being banned by the game for using this site or tracker program. 
+                        <Br/><br/>
+                        According to Tempo Storm, simulating pve fights is a "red line" for them, and against their EULA. (They probably need to update their EULA; as it's written, since bazaarplanner.com does not 'modify the application' it is not in violation.)
+                        <br/><br/>
+                        The 'display name' can be set to anything you want, and will be used on this site, and if you are running the tracker program, it will even be seen within the game itself.
+                        If you are streaming the game even with this protection, and simulating pve fights before doing them in game, they may try to figure out your bazaar account and ban it.
+                        None of our users have yet been banned, although the creator has streamed and showcased that you can simulate pve fights before doing them in game, discussed whether this should be considered cheating (he thinks it should),
+                        and he did have his account banned. Since then, he has been using the obfuscated display name and you can see him streaming the game on another account which is not banned, though he does not 'cheat' by simulating fights before they happen in game.
+                    </div>
+                </li>                
+                <li class="faq-item">
+                    <div class="faq-question">What is the algorithm for winrate estimation? I tried it on the same board several times and it gives results ranging from 37%~55%. And the sum of two sides is not equal to 100%</div>
+                    <div class="faq-answer">
+                        The game counts ties as wins.
+                        100 battles are run in the background and the results are how many times each side won or tied. If a tie were garunteed (blank boards), both numbers would show 100% win (or tie) rate.
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">How does searching for items work?</div>
+                    <div class="faq-answer" style="display:flex; flex-direction:row; align-items:center;">
+                        <img src="images/faq-search.png" style="padding-right: 10px;" alt="search example" align="center"><p>You can type tag names to find items that have that tag. It will only show items that have every tag you've entered.</p>                        
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">What is DPS/HPS/SPS?</div>
+                    <div class="faq-answer">
+                        DPS is damage per second, HPS is healing per second, and SPS is shield per second.<br>
+                        You can pause battle at any time to see the current DPS/HPS/SPS for each board.
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">How do I save my build?</div>
+                    <div class="faq-answer">
+                        You can save your build by clicking the "Save" button on the bottom board, which saves a json file you can load later.
+                        If you're running <a href="https://github.com/oceanseth/BazaarPlannerMod/releases/download/1.1.0/BazaarPlannerModInstaller-1.1.0.zip">BazaarPlannerMod</a>, you will find your previous runs in the "Runs" tab and you can load one and then any encounter from it.
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">Can I see other people's builds?</div>
+                    <div class="faq-answer">
+                        We are collecting data; soon the "Builds" tab will show the top builds seen on each day. You can then load these into the simulator to test any of your own builds against them.
+                        You can 'follow' other users, to see changes to their boards live! Follow your favorite streamer or battle your own board against theirs!
+                        Try the Challenge feature where your current run will be battled against other users' run, live, and we can keep track of a leaderboard.
+                        You'll be able to see a list of users currently online, click follow or challenge. Make sure to update your own displayName in the user settings by clicking the gear icon in the top right.
+                        Any challenge must begin while both users are online with a current run in day 1.
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">Why is the url changing?</div>
+                    <div class="faq-answer">
+                        The url changes whenever you change the boards, skills, or player data. It allows you to share the current state of the boards with others. I recommend clicking "get tiny url" to make a nice short url that you can share on youtube video descriptions, blogs, etc.
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">Where can I get support/report bugs/ask questions?</div>
+                    <div class="faq-answer">
+                        Strong's discord is the best place to get support. <a href="https://discord.gg/8CJwZVj823">https://discord.gg/8CJwZVj823</a>
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">Why isn't it working on my mobile device?</div>
+                    <div class="faq-answer">
+                        I have no plans to support mobile devices.
+                    </div>
+                </li>
             </ul>
-
-
+            <a name="game-mechanics-faq"></a>
+            <h1>Game Mechanics FAQ</h1>
+            <ul>
+                <li class="faq-item">
+                    <div class="faq-question">I was expecting more uses on item X because it was charged 10 times, but it doesn't seem to have gotten all the charge seconds?</div>
+                    <div class="faq-answer">
+                        Charge is funny, lets say you have .5s remaining on your cooldown and you trgger to charge it for 1 seconds 2 times. What will happen is the first charge will give it only .5 seconds, the item will trigger on next server tick (or this server tick if it hasn't been evaluated in priority order yet), and then next server tick it will be charged for another second. 
+                        So depending a bit on RNG of hasting/other charging, you may get less charge on <i>average</i> than you expected. (most likely this is the case for complex boards). 
+                        A great example of this is a 4s gold yoyo which charges for 3s on adjacent item use. If adjacent items are on the same cooldown (4s), you're only getting
+                         1 yoyo trigger total when they both go off, as a 3s charge is thrown away as the item hadn't triggered yet but still had some small amount of cd remaining. But if you upgrade it to diamond and it charges for 4s, then EVERY adjacent item use will end up triggering a yoyo use. The difference between gold and diamond yoyo is sometimes VERY large. Or sometimes feathering the yoyo to reduce it to a point where it will trigger just before the adjacent item which will also trigger it immediately after is the best play. Understanding the breakpoints is a bit tricky at first, but you get the hang of it.
+                    </div>
+                </li>
+                <li class="faq-item">
+                    <div class="faq-question">Why don't you have more mechanics faqs yet?</div>
+                    <div class="faq-answer">Currently playing last epoch. Will get around to this soon!</div>
+                </li>
+            </ul>            
         </div>
         <!-- About Section -->
-
-
-
         <div id="about" class="section" style="display: none;">
-
             <h1>About</h1>
-            <p style="width:400px;">
+            <p>
                 BazaarPlanner is a simulator for <A href="http://www.playthebazaar.com">The Bazaar</A>.
                 It started as a way for "Strong" to teach "simply Noah" javascript (our discord names).
                 Any donations will support his ongoing education, and the continued development of this tool. 
                 If you've donated at least $1, (and logged in with google or the same email you used to donate) you will not be served google ads.
                 <br/><br/>
-                This project is currently in development. Many items and skills have yet to be coded. We'd like to enable some features to make it more useful.
+                This project is currently in development. We update about a day after every patch, and most things are currently matching in-game exactly at that time.
             </p>
+            <h1>Simulator Differences from the Actual Game Engine</h1>
+            If you don't see something mentioned below, please let us know!
+            <ul>
+                <li>1. If items should trigger at the same time, 'priority' from bazaardb.gg is used to determine order. 
+                    An example of an issue on a single item - Atlas Stone vs Bottled Explosion. One doubles its damage before dealing, and the other deals dmg before doubling.
+                    We will have issues with this in some cases, and while we have a priority system that gets it right in some cases, there are others that still need to be fixed.                    
+                </li>
+                <li>2. Some enchanted effects are not being parsed/triggering the same they do in game. We've fixed some of these, but still more needing to be fixed. 
+                </li>
+                <li>3. Items like "old saltclaw" with effects like " gain damage when you slow", have an internal cooldown in the game, but the sim gives the dmg immediately. This makes the winrate inaccurate if these items are present.
+                </li>
+            </ul>
             <h1>Coming Soon</h1>
             <p style="width:400px;">
-                <ul>
-                    <li>1. Create a desktop client you can run to give a button that will bring your current board in game into bazaarplanner (by generating a url with the board data).</li>
-                    <li>2. Awaiting game API (or ressurection of bazaar tracker), but some way to show a leaderboard of the top 100 builds seen on each day, by simulating battles against all other builds on that day submitted in the past month.</li>
-                    <li>3. Community items/skills - enable a creator tool for community items/skills which you can test out in the sim and thumbs up/down, and show a ranking of all the items.</li>
+                <ul>                    
+                    <li>1. A game mode where you can challenge another user live, and both play through the game getting points or win/lose based on how the boards you create perform against each other throughout your respective runs.</li>
+                    <li>2. Community items/skills - enable a creator tool for community items/skills which you can test out in the sim and thumbs up/down, and show a ranking of all the items.</li>
                 </ul>
                 <b>Send other ideas and things you might want to see to @Strong on <a href="https://discord.gg/AfYdzr2C">his discord</a>!</b>
             </p>
-            <div id="donate-button-container">
-                <div id="donate-button"></div>
+            <div id="donate-button-container" style="display: none;">
                 <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
                 <script>
                 PayPal.Donation.Button({
@@ -131,93 +299,131 @@
                 src:'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif',
                 alt:'Donate with PayPal button',
                 title:'PayPal - The safer, easier way to pay online!',
+                },
+                onComplete: function(params) {
+                    // params.amt contains the donation amount
+                    window.markUserAsPaid(params);
                 }
-                }).render('#donate-button');
+                }).render('#donate-button-container');
                 </script>
+            </div>
+            <button class="editorOpener donate-button" onclick="if(window.user) document.getElementById('donate-button').click(); else window.showLogin();">
+                Donate Any Amount
+            </button>
+            <div class="top-donors-section">
+                <h3>Top Donors</h3>
+                <div id="top-donors-list" class="top-donors-list">
+                    <div class="loading">Loading top donors...</div>
+                </div>
             </div>
         </div>
         <!-- Simulator Section -->
-        <div id="simulator" class="section polling">
-            <div id="poll">
-                <h1>Please Answer Poll Before Using</h1>
-                I received a message from Reynad, the developer of Bazaar.<br/><br/>
-                <i><b>"Hey, unfortunately we need you to take down bazaarplanner.com. Combat simulation is a red line for us with external tools because it will harm gameplay a lot in the long run."</b></i><br/><br/>
-                I think he's right that simulators can harm gameplay, but I'm not sure what we're doing here will do that. 
-                As long as the simulator is external, and mostly a tool to learn, perhaps it will increase engagement, enjoyment, and entertainment within the game when you play!
-                <br><br>
-                Also, even if they aren't online for YOU to use, people will be using them and passing them around. It's better to make it public than give the few players an advantage who privately use them.
-                <a href="https://www.twitch.tv/gaara/clip/ThoughtfulArtsyFiddleheadsPunchTrees-iOVtPoMxI5rSIU48">Also this reaction from a pro hearthstone gamer when he found out the bazaartracker dev was banned from the subreddit for letting people know Reynad served a DMCA takedown.</a>
-                <br/><br/>
-                <hr>
-                <br/><br/>
-                Will this <b>current</b> site harm gameplay/your enjoyment of the game?<br/>
-                (you must login to vote)
-                <br/><br/><br/>   
-                <div class="poll-login">
-                    <div id="firebaseui-auth-container"></div>
-                </div>             
-                <div class="poll-button-group">
-                    <button onclick="poll(true)">Yes</button>
-                    <button onclick="poll(false)">No</button>          
+        <div id="simulator" class="section polling" style="display: none;">
+            <div id="poll" style="max-width: 600px; margin: 0 auto;">
+                <h1 style="text-align: center;">Notice</h1>
+                
+                <div class="message-section">
+                    I received a message from Reynad, the developer of Bazaar:
+                    
+                    <blockquote style="margin: 20px 0; padding: 15px; border-left: 4px solid #ccc; color: var(--text-color); background-color: rgba(0,0,0,0.1);">
+                        "Hey, unfortunately we need you to take down bazaarplanner.com.<br/>
+                        Combat simulation is a red line for us with external tools because it will harm gameplay a lot in the long run."
+                    </blockquote>
+                </div>
+
+                <div class="response-section">
+                    <!--
+                    I think he's right that simulators can harm gameplay, but I'm not sure what we're doing here will do that.<br/><br/>
+                    Most people think the game of chess has been improved by engines, even though cheating is possible through their use.<br/><br/>
+                    As long as the simulator is external, and mostly a tool to learn, perhaps it will increase engagement, enjoyment, and entertainment within the game when you play!<br/><br/>
+                    Also, even if they aren't online for YOU to use, people will be using them and passing them around. It's better to make it public than give the few players an advantage who privately use them.
+                    -->
+                    Using a chess engine during a competitive game is cheating, yet they are readily available and used by many. Using this simulator mid-run could be considered cheating. Please use responsibly.
+                </div>
+
+                <hr style="margin: 30px 0;">
+<!--
+                <div class="poll-section" style="text-align: center;">
+                    <h1>What do you think?</h1>
+                    <div style="font-size: 1.2em; margin-bottom: 15px;">Will this site harm gameplay or your enjoyment of the game?</div>
+                    <i>(you must login to vote - if you login with twitch, the only information given is your twitch user id, which is already public information on twitch)</i>
+                    
+                    <div class="poll-login" style="margin: 20px 0;">
+                        <button class="editorOpener" onclick="showLogin()">Login</button>
+                    </div>             
+                    <div class="poll-button-group">
+                        <button onclick="poll(true)">Yes</button>
+                        <button onclick="poll(false)">No</button>          
+                    </div>
+                </div>
+                -->
+                <div class="poll-section" style="text-align: center;">
+                    <button onclick="closePoll()">I understand</button>
                 </div>
             </div>
-
-            <div id="simulator-controls">
-
-                <input type="text" id="simulator-search-input" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" autocomplete="off" placeholder="Search items...">
-                <div class="search-container">
-                    <input type="text" 
-                           autocomplete="off" 
-                           class="search-input" 
-                           id="monster-search"
-                           onkeyup="searchMonsters(this.value)"
-                           onfocus="searchMonsters('')"
-                           onchange="if(monsters[this.value]){
-                             loadMonsterBoard(monsters[this.value]); 
-                             this.defaultValue = this.value;
-                           }"
-                           placeholder="Search monsters...">
-                    <div id="monster-dropdown" class="search-dropdown"></div>
-                    <!--coming soon
-                    <div id="import" class="import"><input type="text" id="import-input" placeholder="Import from bazaar insights" onChange="importFromBazaarInsights(this.value)"/></div>
-                    -->
-                </div>
-                <datalist id="simulator-suggestions"></datalist>
-                <div id="copy-url-container"><button onclick="getTinyUrl()">Get Tiny URL</button></div>
+            <div id="monster-search-container">
+                                         
             </div>
             <div style="display: flex; gap: 20px;">
-                <div id="simulator-items">                    
+                <div id="simulator-items">           
+                    <input type="text" 
+                            autocomplete="off" 
+                            class="search-input" 
+                            id="monster-search"
+                            onkeyup="searchMonsters(this.value)"
+                            onfocus="searchMonsters('')"
+                            onchange="if(monsters[this.value]){
+                                loadMonsterBoard(monsters[this.value]); 
+                                this.defaultValue = this.value;
+                            }"
+                            placeholder="Search monsters...">
+                        <div id="simulator-monsterList"></div>
+                        <div style="height: 20px; width: 100%; background-color: var(--background-color);"></div>
+                    <input type="text" id="simulator-search-input" class="search-input" list="simulator-suggestions" onkeyup="search(this.value)" autocomplete="off" placeholder="Search items...">         
                     <div id="simulator-itemsList"></div>
                 </div>
-                <div style="flex-grow: 1;">                    
+                <div style="position: relative;">
+                    <div class="battle-controls">
+                        <div class="battle-buttons">
+                            <input type=text id="battleSeedText" style="display: none; position:absolute; top:-25px;" placeholder="Battle Seed" onChange="mainBattle.battleSeed=this.value; mainBattle.lockedBattleSeed=true;">
+                            <div style="cursor:pointer; width: 20px; height: 20px;" onClick="document.getElementById('battleSeedText').style.display=='none'?document.getElementById('battleSeedText').style.display='block':document.getElementById('battleSeedText').style.display='none';"></div>
+                            <button onclick="mainBattle.startBattle()" class="battle-button">Start Battle</button>
+                            <button onclick="mainBattle.resetBattle()" class="battle-button">Reset Battle</button>
+                            <select id="battle-speed-select" class="editorOpener" onchange="if(window.user?.isDonor) mainBattle.battleIntervalSpeedMultiplier=parseInt(this.value); else { window.showDonationRequiredAlert(); this.value='1';}">
+                                <option value="1">1x speed</option>
+                                <option value="2">2x speed</option>
+                                <option value="4">4x speed</option>
+                                <option value="8">8x speed</option>
+                            </select>
+                        </div>
+                        <div id="copy-url-container">
+                            <button onclick="getTinyUrl()" class="battle-button">Get Tiny URL</button>
+                        </div>
+                    </div>
+                    <div class="board-container hidden" id="top-backpack-container">
+                        <div id="tb" class="board">
+                            <!-- Slots will be generated here -->                            
+                        </div>
+                    </div>
                     <div class="board-container">
                        <div id="t" class="board">
                             <!-- Slots will be generated here -->
-                        </div>
-                        <div class="board-controls">
-                            <button onclick="Board.getBoardFromId('t').clear()">Clear</button>
-                            <button onclick="Board.getBoardFromId('t').save()">Save</button>
-                            <button onclick="Board.getBoardFromId('t').load()">Load</button>
-                            <button onclick="Board.getBoardFromId('t').importFromBazaarTracker()">Import</button>                            
                         </div>
                     </div>
                     <div class="board-container">
                         <div id="b" class="board">
                             <!-- Slots will be generated here -->
                         </div>
-                        <div class="board-controls">
-                            <button onclick="Board.getBoardFromId('b').clear()">Clear</button>
-                            <button onclick="Board.getBoardFromId('b').save()">Save</button>
-                            <button onclick="Board.getBoardFromId('b').load()">Load</button>
-                            <button onclick="Board.getBoardFromId('b').importFromBazaarTracker()">Import</button>
-                        </div>
+                    </div>
+                    <div class="board-container hidden" id="backpack-container">
+                        <div id="backpack" class="board">
+                            <!-- Slots will be generated here -->                            
+                        </div>                        
                     </div>
                 </div>
                 
             </div>
-            <button onclick="mainBattle.startBattle()" class="battle-button">Start Battle</button>
-            <button onclick="mainBattle.resetBattle()" class="battle-button">Reset Battle</button>
-            <div id="combat-log-div"><textarea id="combat-log"></textarea></div>
+            <div id="combat-log-div"><textarea id="combat-log" class="combat-log"></textarea></div>
         </div>
 
         <!-- Library Section 
@@ -239,5 +445,9 @@
             </div>
         </div>
         -->
+        <div id="auth-container">
+            <div id="firebaseui-auth-container"></div>
+            <div id="twitch-auth-container"><button id="twitch-login-button" class="firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-password firebaseui-id-idp-button firebaseui-idp-text firebaseui-idp-text-long">Sign in with Twitch</button></div>
+        </div>
     </body>
 </html> 

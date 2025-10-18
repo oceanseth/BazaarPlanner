@@ -3,15 +3,18 @@ import { Item } from './Item.js';
 
 
 export class Skill {
-    constructor(skillData) {
+    constructor(skillData,board=null,editable=true) {
         Object.assign(this, skillData);
-        this.text = this.text.split(".").map(t=>t.trim()).filter(t=>t.length>0&&t!='[0]'&&t!='[NaN]'&&t!='[0%]').map(t=>t+".");
-        this.itemProxy = new Item({
-            name: this.name,
-            rarity: this.rarity,
-            text: this.text,
-            tags: this.tags
-        });
+        if(this.tier) {
+            this.rarity = Item.rarityLevels[parseInt(this.tier)];
+        } else if(this.rarity) {
+            this.tier = Item.rarityLevels.indexOf(this.rarity);
+        }
+        this.editable = editable;
+        this.itemProxy = new Item(skillData);
+        this.itemProxy.isSkill = true;
+        this.itemProxy.board = board;
+        this.board = board;
 
 
         const skillElement = document.createElement('div');
@@ -23,10 +26,11 @@ export class Skill {
         
 
         const imgElement = document.createElement('img');
-        imgElement.src = skillData.icon;
+        imgElement.src = '/images/items/'+Item.cleanName(this.name)+'.avif';
         skillElement.appendChild(imgElement);
         
         this.element = skillElement;
+    
         // Add hover listeners
         skillElement.addEventListener('mouseenter', () => {
             this.tooltip = this.createTooltipElement();                        
@@ -38,10 +42,21 @@ export class Skill {
             this.tooltip.remove();
             this.tooltip = null;
         });
-        skillElement.addEventListener('click', () => {
-            this.showEditor();
-        });
+        if(this.editable) {
+            skillElement.addEventListener('click', () => {
+                this.showEditor();
+            });
+        }
         this.reset();
+    }
+    static fromName(name, board=null) {
+        if(!skills[name]) {
+            console.log("Skill not found: " + name);
+            return null;
+        }
+        const skillData = skills[name];
+        skillData.name = name;
+        return new Skill(skillData, board);
     }
     reset() {
         this.element.classList.remove(...Item.rarityLevels);
@@ -57,9 +72,24 @@ export class Skill {
         this.itemProxy.board=this.board;
         this.itemProxy.rarity = this.rarity;
         this.itemProxy.setup();
+        this.text = this.itemProxy.text;
     }
-    setBoard(board) {
+    _myBoard = null;
+    set board(board) {
+        this._myBoard = board;
         this.itemProxy.board = board;
+    }
+    get board() {
+        return this._myBoard;
+    }
+    clone(newBoard) {
+        const skillData = skills[this.name];
+        skillData.tier = this.tier;
+        skillData.name = this.name;
+        skillData.text = this.text;
+        const newSkill= new Skill(skillData);
+        newSkill.board = newBoard;
+        return newSkill;
     }
     static getDataFromName(name) {
         if(!skills[name]) {
@@ -79,20 +109,23 @@ export class Skill {
         this.editor.innerHTML = `
             <div class="editor-header">
                 <h3>${this.name}</h3>
-
-
             </div>
             <div class="editor-body">
                 <div class="form-group">
                     <label>Rarity:</label>
                     <select id="editor-rarity">
-                        ${Item.rarityLevels.map(r => 
-                            `<option value="${r}" ${r==this.rarity?'selected':''}>${r}</option>`
+                        ${Item.rarityLevels.map((r,i) => 
+                            `<option value="${i}" ${i==this.tier?'selected':''}>${r}</option>`
                         ).join('')}
                     </select>
                 </div>
+                <div class="form-group">
+                    <label>Text:</label>
+                    <textarea id="editor-text" style="width: 220px; height: 75px;">${this.text.join('\n')}</textarea>
+                </div>
             </div>
             <div class="editor-footer">
+                <button id="editor-apply-text">Apply</button>
                 <button class="editor-delete">Remove</button>
             </div>
 
@@ -101,15 +134,28 @@ export class Skill {
         document.body.appendChild(this.editor);
 
         this.editor.querySelector('#editor-rarity').addEventListener('change',()=>{
-            const oldRarity = this.rarity;
-            this.rarity = this.editor.querySelector('#editor-rarity').value;
-            if(oldRarity!=this.rarity) {
-                Board.resetBoards();
+            const oldTier = this.tier;
+            this.tier = this.editor.querySelector('#editor-rarity').value;
+            this.rarity = Item.rarityLevels[parseInt(this.tier)];
+            if(oldTier!=this.tier) {
+                this.board.player.battle.resetBattle();
                 updateUrlState();
             }
             this.editor.style.display = 'none';
-        });
+        }); 
+
+        this.editor.querySelector('#editor-apply-text').onclick = () => {
+            this.text = this.editor.querySelector('#editor-text').value
+                .split('.')
+                .filter(s => s.trim())
+                .map(s => s.trim() + '.');
+            this.itemProxy.startItemData.text = this.text;
+            this.editor.style.display = 'none';
+            this.board.player.battle.resetBattle();
+            updateUrlState();
+        };
        
+
         this.editor.querySelector('.editor-delete').onclick = () => {
             this.editor.style.display = 'none';
             this.board.removeSkill(this);

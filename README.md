@@ -1,5 +1,8 @@
 # BazaarPlanner
-A web application for planning and optimizing your Bazaar strategies. Built with Vite.
+A web application for planning and optimizing your Bazaar strategies.
+
+Builds and Releases upon push to production to https://www.bazaarplanner.com
+Or, runs locally at http://localhost:3000
 
 ## 🚀 Getting Started
 
@@ -10,7 +13,7 @@ A web application for planning and optimizing your Bazaar strategies. Built with
 ### Installation and Development
 
 1. Clone the repository:
-    git clone https://github.com/yourusername/BazaarPlanner.git
+    git clone https://github.com/oceanseth/BazaarPlanner.git
     cd BazaarPlanner
 
 2. Install dependencies:
@@ -19,28 +22,29 @@ A web application for planning and optimizing your Bazaar strategies. Built with
 3. Run the development server:
     npm run dev
     
-    This will start the local server at http://localhost:5173
+    This will start the local server at http://localhost:3000
 
-4. Build for production:
+4. Build for production: (runs automatically upon push to production)
     npm run build
     
-    The built files will be in the dist directory.
+    The built files will be in the build directory.
 
 ## 📁 Project Structure
-- `src/` - Source code
-- `public/` - Static assets (images, etc.)
-- `dist/` - Production build output (generated)
-- `import-lambda/` - Lambda function for the bazaartracker import functionality
+- `js/` - Main javascript Classes. Lowercase filesnames are utility/initial setup scripts.
+- `public/` - Static assets (images, etc.) these will be pushed to s3 
+- `build/` - Production build output (generated)
+- `lambdas/` - functions on aws (twitch login requires one), this directory functions as a separate serverless project and should have it's own readme
 
 ## 🔧 Tech Stack
 - Vite - Build tool and development server
 - AWS (S3 + CloudFront) - Hosting and CDN
+- Firebase - Database and Auth ( see firebase.json and database.rules.json / to deploy rules run `firebase deploy --only database` )
 
 ## 🤝 Contributing
 Contributions are welcome! Feel free to submit issues and pull requests.
 
 ## 🎥 Development Streams
-Development of this project is occasionally streamed on [Twitch](https://twitch.tv/simplystrong). Follow to catch future development sessions!
+Development of this project is occasionally streamed on [Twitch](https://twitch.tv/bazaarplanner). Follow to catch future development sessions!
 
 ## 📝 License
 This project is open source and available under the MIT License.
@@ -51,6 +55,11 @@ Created by Seth Caldwell
 - GitHub: [oceanseth](https://github.com/oceanseth)
 
 ## 🔮 Future Plans
-- See the Kickstarter and the About section for more information.
+- See the About section for more information.
+
+## Email Documentation
+Emails received by the support email address are saved in s3 bucket bazaarplanner.com/emails. We still need to write a lambda to forward these to our team email address.
+To send an email from the console as our team staff, use the following command:
+aws ses send-email --from "support@bazaarplanner.com" --destination "ToAddresses=someemail@somedomain.com" --message "{\"Subject\": {\"Data\": \"testing email from console\"},\"Body\":{\"Text\":{\"Data\":\"lets see if this works\"}}}"
 
 Feel free to star ⭐ the repo if you find it useful!

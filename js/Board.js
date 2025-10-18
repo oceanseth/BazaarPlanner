@@ -1,39 +1,147 @@
 import { Item } from './Item.js';
 import { Skill } from './Skill.js';
 import { updateUrlState } from './utils.js';
+import { setupChangeListeners } from './utils.js';
+import { loadFromUrl } from './utils.js';
+import LZString from 'lz-string';
 
 class Board {
     player = null; //Will be set when a player is initialized and they create a board
     static boards = new Map();
-    static resetBoards() {
-        const players = Array.from(Board.boards.values()).map(board=>board.player);
-        players.forEach(player=>player.reset());
-        players.forEach(player=>player.setup());
+    static uniqueTypeTags = ['Ammo','Apparel','Aquatic','Core','Dinosaur','Dragon','Food','Friend','Loot','Potion','Property','Ray','Tech','Tool','Toy','Vehicle','Weapon'];
+    static possibleChangeAttributes = ['hasSlowedItem','hasHastedItem','hasFrozenItem','inCombat'];
+
+    constructor(boardId, player, options={editable:true, skills: true}) {
+        setupChangeListeners(this, Board.possibleChangeAttributes);
+        this.boardId = boardId;
+        this.player = player;
+        this.player.board = this;
+        this.element = document.getElementById(boardId);
+        this.options = options;
+        this.initialize();
+        Board.boards.set(boardId,this);
+        this.reset();
+        this.player.reset();
+    }    
+    get itemsWithCooldown() {
+        return this.activeItems.filter(item => item.cooldown>0);
     }
-
-
-
-
+    static transformBoardIds(stateString,transformations) {
+        if(!stateString) return stateString;
+        let boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(stateString));
+        Object.entries(transformations).forEach(([oldBoardId, newBoardId]) => {
+            if(newBoardId) {
+                boardState.forEach(item => {  
+                    if(item.name=='_b_'+oldBoardId) {
+                        item.name = '_b_'+newBoardId;
+                        return;
+                    }                 
+                    if(item.board==oldBoardId) {
+                        item.board=newBoardId;
+                        return;
+                    }
+                });            
+            } else {
+                boardState = boardState.filter(item => item.board!=oldBoardId);
+            }
+        });
+        return LZString.compressToEncodedURIComponent(JSON.stringify(boardState));
+    }
+    loadEncounter(encounter) {
+        if(!encounter) return;
+        loadFromUrl(encounter.d);
+        window.history.pushState({state: encounter.d}, '', `#${encounter.d}`);
+    }
+    loadRun(run) {
+        if(run && run.d && this.follow) {
+            loadFromUrl(run.d);
+            window.history.pushState({state: run.d}, '', `#${run.d}`);
+        }        
+    }
+    loadFullRun(run) {
+        //const currentEncounter = run.currentEncounter;
+        this.fullRunData = run;
+        if(run.encounters) {
+        let html = '<select id="sim-encounter-select"><option disabled>Encounters</option>';
+            run.encounters.forEach( (e,i)=> {
+                html += `<option ${e.id==run.lastEncounter?"selected":""} style="background-color: ${e.v=="0"?"#aa4444":"#44aa44"};" value="${i}">${e.v=="0"?"Loss":"Win"} - ${e.name}</option>`;
+            });
+            html += '</select>';
+            this.importElement.innerHTML = html;
+            this.importElement.querySelector('#sim-encounter-select').onchange = (e) => {      
+                this.loadEncounter(run.encounters[e.target.value]);
+            };
+        }
+    }
+    _followingCurrentRunId = null;
+    unfollow() {
+        firebase.database().ref('users/'+this._follow+"/currentrun").off();
+        firebase.database().ref('users/'+this._follow+"/runs/"+this._followingCurrentRunId).off();
+        this.importElement.innerHTML = "";
+        this._followingCurrentRunId = null;
+    }
+    set follow(value) {
+        if(value==this._follow) return;
+        //only follow ourselves for now
+        if(value) {
+            this.unfollow();
+            firebase.database().ref('users/'+value+"/currentrun").on('value', snapshot => {
+                const runValue = snapshot.val();
+                this.loadRun(runValue);
+                if(this._followingCurrentRunId!==runValue.id) {
+                    if(this._followingCurrentRunId) {
+                        firebase.database().ref('users/'+value+"/runs/"+this._followingCurrentRunId).off();
+                    }
+                    this._followingCurrentRunId = runValue.id;
+                        
+                    firebase.database().ref('users/'+value+"/runs/"+runValue.id).on('value', snapshot => {
+                        const fullRun = snapshot.val();
+                        if(!fullRun) return;
+                        fullRun.id = runValue.id;
+                        this.loadFullRun(fullRun);
+                    });
+                }
+            });
+        } else {
+           this.unfollow();
+        }
+        this._follow = value;
+    }
+    get follow() {
+        return this._follow;
+    }
+    get backpackParent() {
+        let foundBoard = undefined;
+        Board.boards.forEach(board => {
+            if (board.backpack === this) {
+                foundBoard = board;
+            }
+        });
+        return foundBoard;
+    }
+    get isBackpack() {
+        return this.backpackParent !== undefined;
+    }
+    
     static getBoardFromId(boardId) {
         if(Board.boards.has(boardId)) return Board.boards.get(boardId);
-        //console.log("Board not found: " + boardId);
+        console.log("Board not found: " + boardId);
         return null;
     }
 
-
-    constructor(boardId, player) {
-        this.boardId = boardId;
-        this.player = player;
-        this.element = document.getElementById(boardId);
-        this.initialize();
-        Board.boards.set(boardId,this);
-    }
-
     initialize() {
-        this.element.innerHTML = '';
         this.slots = [];
         this.items = [];
         this.skills = [];
+        if(!this.element) {
+            this.updateHealthElement = ()=>{};
+            this.updateDPSElement = ()=>{};
+            this.updateGoldElement = ()=>{};
+            this.updateIncomeElement = ()=>{};
+            this.updatePrestigeElement = ()=>{};
+            return;
+        }
+        this.element.innerHTML = '';
         // Create slots
         for (let i = 0; i < 10; i++) {
             const slot = document.createElement('div');
@@ -49,36 +157,52 @@ class Board {
             this.element.appendChild(slot);
             this.slots.push(slot);
         }
-
-        const addSkillButton = document.createElement('div');
-        addSkillButton.className = 'add-skill-button';
-        addSkillButton.classList.add('editorOpener');
-        addSkillButton.innerHTML = "➕";
-        addSkillButton.onclick = () => {
-            this.showSkillSelector();
-        };
-        this.element.appendChild(addSkillButton);
-        this.importElement = document.createElement('div');
-        this.importElement.className = 'import-element';
-        this.element.appendChild(this.importElement);
-
-        this.createHealthElement();
-        this.createSkillsElement();
-        this.createGoldElement();
-        this.createDPSElement();
-        this.createIncomeElement();
+        if(this.options.editable && this.options.skills) {
+            const addSkillButton = document.createElement('div');
+            addSkillButton.className = 'add-skill-button';
+            addSkillButton.classList.add('editorOpener');
+            addSkillButton.innerHTML = "Add Skill➕";
+            addSkillButton.onclick = () => {
+                this.showSkillSelector();
+            };
+            this.element.appendChild(addSkillButton);
+            this.importElement = document.createElement('div');
+            this.importElement.className = 'import-element';
+            this.element.appendChild(this.importElement);
+            this.createBackpackOpenerElement();
+            this.createBoardControls();
+        }
+        if(!this.isBackpack) {
+            this.createHealthElement();
+            this.createSkillsElement();
+            this.createGoldElement();
+            this.createPrestigeElement();
+            this.createDPSElement();
+            this.createIncomeElement();
+            this.createWinRateElement();
+            this.createPlayerElement();
+        }
+        this.createDeleteZone();
+        
         this.reset();
 
 
     }
     clear() {
-        this.skillsElement.innerHTML = '';
-        this.items.forEach(item => item.element.remove());
+        if(this.skillsElement) {
+            this.skillsElement.innerHTML = '';
+        }
+        if(this.element) {                  
+            this.items.forEach(item => item.element.remove());
+        }
+        if(this.backpack) {
+            this.backpack.items.forEach(item => item.element.remove());
+            this.backpack.items = [];
+        }
         this.items = [];
         this.skills = [];
-        this.skillsElement.innerHTML = '';
         this.reset();
-        updateUrlState();
+        if(this.options.editable)updateUrlState();
     }
     get activeItems() {
         return this.items.filter(item => !item.isDestroyed);
@@ -88,41 +212,72 @@ class Board {
     }
 
     reset() {
+        setupChangeListeners(this, Board.possibleChangeAttributes );
+        this.inCombat = 0;
+        this.critPossible=true;
         this.damageDealt = 0;
         this.itemTriggers = new Map(); //functions to call when any item on this board is triggered
+        this.regenTriggers = new Map(); //functions to call when any item on this board is regened
+        this.damageTriggers = new Map(); //functions to call when attack damage is dealt to the other player from this board's items
         this.freezeTriggers = new Map(); //functions to call when any item on this board is frozen
-
         this.shieldValuesChangedTriggers = new Map(); //functions to call when shield values change
         this.itemValuesChangedTriggers = new Map(); //functions to call when item values change
         this.hasteTriggers = new Map(); //functions to call when haste is applied to any item on this board
         this.slowTriggers = new Map(); //functions to call when slow is applied to any item on this board
         this.burnTriggers = new Map();
         this.poisonTriggers = new Map();
-        this.critTriggers = new Map();
+        this.critTriggers = new Map();        
+        this.reloadTriggers = new Map(); //functions to call when any item on this board is reloaded
+        this.transformTriggers = new Map(); //functions to call when any item on this board is transformed
         this.startOfFightTriggers = new Map();
         this.itemDestroyedTriggers = new Map(); //functions to call when an item on this board is destroyed
-        this.healTriggers = [];
+        //managed on player this.healTriggers = [];
         this.shieldTriggers = new Map();
         this.ammoTriggers = [];
         this.largeItemTriggers = [];
         this.mediumItemTriggers = [];
         this.smallItemTriggers = [];
+        this.uniqueTypeTagCache = [];
         
         this.resetItems();
         if(this.player?.battle) {
             this.player.battle.battleTimeDiff = 0;
             this.updateHealthElement();
             this.updateDPSElement();
+            this.updatePlayerElement();
+            if(this.winRateElement) {
+                this.winRateElement.style.display = "none";
+            }
         }
-
-        this.updateGoldElement();
-        this.updateIncomeElement();
+        const parentBoard = this.backpackParent;
+        if(parentBoard) {
+            parentBoard.reset();
+        } else {
+            this.updateGoldElement();
+            this.updateIncomeElement();
+            this.updatePrestigeElement();
+        }
     }
-    
     setup() {
         this.setupItems();
+        this.updateIncomeElement();
+        this.player.health = this.player.maxHealth;
+        this.updateHealthElement();
+    }
+    toggleBackpack() {        
+        if(this.backpack) {
+            const backpackContainer = this.backpack.element.parentElement;
+            backpackContainer.classList.toggle('hidden');
+            this.backpackOpenerElement.classList.toggle('backpack-open');
+        }
     }
     setupItems() {
+        if(this.items.length>0 && !this.items[this.items.length-1].tags.includes("Rightmost")) {
+            this.items[this.items.length-1].tags.push("Rightmost");
+        }
+        if(this.items.length>0 && !this.items[0].tags.includes("Leftmost")) {
+            this.items[0].tags.push("Leftmost");
+        }
         this.items.forEach(item => item.setup());
         this.setupSkills();
         this.items.forEach(item => item.updateTriggerValuesElement());
@@ -135,7 +290,7 @@ class Board {
     }
 
     resetSkills() {
-        this.skills.forEach(skill => skill.setBoard(this));
+        this.skills.forEach(skill => skill.board=this);
         this.skills.forEach(skill => skill.reset());
     }
     setupSkills() {
@@ -144,6 +299,7 @@ class Board {
 
 
     showSkillSelector() {
+        if(!this.options.editable) return;
         if(this.skillSelector) {
             document.body.removeChild(this.skillSelector);
         }
@@ -153,15 +309,15 @@ class Board {
             <div class="skill-selector-header">
                 <div class="form-group">
                     <label>Skill Rarity:</label>
-                    <select id="skill-selector-rarity">
-                        ${Item.rarityLevels.map(r => 
-                            `<option value="${r}">${r}</option>`
+                    <select id="skill-selector-tier">
+                        ${Item.rarityLevels.map((r,i) => 
+                            `<option value="${i}">${r}</option>`
                         ).join('')}
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Filter:</label>
-                    <input type=text id='skill-selector-filter'>
+                    <input autocomplete="off" type=text id='skill-selector-filter'>
                 </div>
             </div>
             <div class="skill-selector-body">
@@ -170,34 +326,37 @@ class Board {
         this.skillSelector.style.display = 'block';
         
         for(let skillName in skills) {
-            if(this.skills.find(skill => skill.name == skillName)) continue;
+            const skill = skills[skillName];
+            if(!skill) continue;
+            if(this.skills.find(s => s.name == skillName)) continue;
             const skillItem = document.createElement('div');
             skillItem.className = 'skill-selector-item';
             skillItem.innerHTML = `
-                <img src="${skills[skillName].icon}" alt="${skills[skillName].name}">
-                <span>${skills[skillName].name}</span>
+                <img src="/images/items/${Item.cleanName(skillName)}.avif" alt="${skillName}">
+                <span>${skillName}</span>
             `;
             this.skillSelector.querySelector('.skill-selector-body').appendChild(skillItem);
             skillItem.onclick = () => {
-                const rarity = this.skillSelector.querySelector('#skill-selector-rarity').value;
-                this.addSkill(skillName,{rarity:rarity});
+                const tier = this.skillSelector.querySelector('#skill-selector-tier').value;
+                this.addSkill(skillName,{tier:tier});
                 this.skillSelector.style.display = 'none';
-                Board.resetBoards();
-                updateUrlState();
+                this.player.reset();
+                this.player.setup();
+                if(this.options.editable) updateUrlState();
             };
             skillItem.onmouseenter = (e) => {
                 const skillSelectorTooltip = document.createElement('div');
                 skillSelectorTooltip.className = 'skill-selector-tooltip';
                 const skillName = e.target.querySelector('span').textContent;
                 const skill = skills[skillName];
-                const selectedRarity = this.skillSelector.querySelector('#skill-selector-rarity').value;
+                const selectedRarity = this.skillSelector.querySelector('#skill-selector-tier').value;
                 if(skill) {
                     skillSelectorTooltip.innerHTML = `
                     <div class='skill-icon ${selectedRarity}' style='position:absolute; top:0px; left:-120px; width: 120px; height: 120px;'>
-                    <img src="${skill.icon}" style='box-shadow: 1px 1px 10px 1px rgba(14,14, 14, 1);'>
+                    <img src="/images/items/${Item.cleanName(skillName)}.avif" style='box-shadow: 1px 1px 10px 1px rgba(14,14, 14, 1);'>
                     </div>
-                    <h1>${skill.name}</h1>
-                    <p>${skill.text.split('\n').map(line => `<span>${line}</span>`).join('')}</p>
+                    <h1>${skillName}</h1>
+                    <p>${skill.text.map(line => `<span>${line}</span>`).join('')}</p>
                     `;
                 }
 
@@ -217,7 +376,7 @@ class Board {
             this.skillSelector.querySelector('.skill-selector-body').querySelectorAll('.skill-selector-item').forEach(item => {
                 if(item.querySelector('span').textContent.toLowerCase().includes(filter) ||
                     skills[item.querySelector('span').textContent].tags.some(tag => tag.toLowerCase()==filter.toLowerCase())||
-                    skills[item.querySelector('span').textContent].text.toLowerCase().includes(filter)) {
+                    skills[item.querySelector('span').textContent].text.map(line => line.toLowerCase()).join(' ').includes(filter)) {
                     item.style.display = 'flex';
                 } else {
                     item.style.display = 'none';
@@ -235,7 +394,9 @@ class Board {
 
 
     itemDidCrit(item) {
+        this.critPossible=false;
         this.critTriggers.forEach(func => func(item));
+        this.critPossible=true;
     }
     itemValuesChanged(item) {
         this.itemValuesChangedTriggers.forEach(func => func(item));
@@ -247,12 +408,20 @@ class Board {
             return;
         }
         this.dpsElement.innerHTML = ""+
+         (this.player.battle.battleTimeDiff/1000).toFixed(0)+"s"+
         "   DPS: " + (this.damageApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0)+
         " / HPS: "+(this.healingApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0)+
-
-        " / SPS: "+(this.shieldApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0);
+        " / SPS: "+(this.shieldApplied/(this.player.battle.battleTimeDiff/1000)).toFixed(0) +
+        (this.damageApplied>0?"<div class='totals'><font title='Total Damage Done' class='Damage'>"+(this.damageApplied).toFixed(0)+"</font>":"") +
+        (this.player.hostileTarget.poisonDamageReceived>0?" <font title='Total Poison Damage Done' class='Poison'>"+this.player.hostileTarget.poisonDamageReceived.toFixed(0)+"</font>":"") +
+        (this.player.hostileTarget.burnDamageReceived>0?" <font title='Total Burn Damage Done' class='Burn'>"+this.player.hostileTarget.burnDamageReceived.toFixed(0)+"</font>":"") +
+        (this.healingApplied>0?" <font title='Total Healing Done' class='Heal'>"+this.healingApplied.toFixed(0)+"</font>":"") +
+        (this.shieldApplied>0?" <font title='Total Shield Applied' class='Shield'>"+this.shieldApplied.toFixed(0)+"</font>":"") +
+        "</div>"
+        ;
     }
     updateHealthElement() {
+        if(!this.healthElement) return;
         const healthPercent = (this.player?.health || 0) / (this.player?.maxHealth || 1000) * 100;
         this.healthElement.style.background = `linear-gradient(to right, 
 
@@ -266,128 +435,55 @@ class Board {
         this.healthElementPoison.innerHTML = this.player?.poison>0?this.player?.poison.toFixed(0):"";
         this.healthElementRegen.innerHTML = this.player?.regen>0?this.player?.regen.toFixed(0):"";
     } 
+    updatePlayerElement() {
+        if(!this.playerElement) return;
+        if(monsters[this.player?.name]) {
+            this.playerElement.style.backgroundImage = `url(/images/monsters/${monsters[this.player?.name].id}.avif)`;
+        } else if(Item.characterTags.includes(this.player?.name)) {
+            this.player.hero = this.player?.name;
+            this.playerElement.style.backgroundImage = `url(images/fromBT/${this.player?.name}.png)`;
+        } else if(Item.characterTags.includes(this.player?.hero)) {
+            this.playerElement.style.backgroundImage = `url(images/fromBT/${this.player?.hero}.png)`;
+        }else {
+            this.playerElement.style.backgroundImage = "none";
+        }
+        if(this.options.editable) {
+            this.playerElement.classList.add('editorOpener');
+            this.playerElement.onclick = () => {
+                this.player.openEditor();
+            }
+        }
+        this.playerElement.innerHTML = `<span>${this.player?.name}</span>`;
+    }
+    setAsWinner() {
+        if(this.playerElement) {
+            this.playerElement.style.backgroundImage = "url(images/victory.webp)";
+        }
+    }
+    setAsLoser() {
+        if(this.playerElement) {
+            this.playerElement.style.backgroundImage = "url(images/defeat.webp)";
+        }
+    }
     updateGoldElement() {
         this.goldElement.textContent = this.player?.gold;
     }
     updateIncomeElement() {
-        this.incomeElement.textContent = "+" +this.player?.income;
+        if(this.incomeElement) {
+            this.incomeElement.textContent = "+" +this.player?.income;
+        }
     }
-    updateImportElement() {
-        if(!this.importedData) {return;}
-        let encounterIndex=-1;
-        this.importElement.innerHTML = `
-            <select id="import-select">
-                ${this.importedData.encounters.map( e=> {
-                    encounterIndex++;
-                    return `
-                    <option value="${encounterIndex}-player">Day ${e.day} Player Board</option>
-                    <option value="${encounterIndex}-opponent">Day ${e.day}-${e.opponent.name}</option>
-                    `;
-
-                }).join('')}
-
-            </select>
-        `;
-        this.importElement.querySelector('#import-select').onchange = (e) => {      
-            const encounterIndex = parseInt(e.target.value.split('-')[0]);
-            const isPlayerBoard = e.target.value.split('-')[1] == 'player';
-            const encounter = this.importedData.encounters[encounterIndex];
-            this.importFromDayData(isPlayerBoard?encounter.player:encounter.opponent);
-            return true;
-        }
-
+    updatePrestigeElement() {
+        this.prestigeElement.textContent = this.player?.prestige||'?';
     }
-    importFromDayData(data,isPlayerBoard) {
-        window.isLoadingFromUrl = true;
-        if(data.error) {
-            alert(data.error);
-        } else {
-            this.player.startData = {};
-            this.player.startData.gold = data.gold;
-            this.player.startData.level = data.level;
-            this.player.startData.name = data.heroName || data.name;
-            this.player.startData.maxHealth = data.maxHealth;
-            this.player.startData.health = data.maxHealth;
-            this.clear();
-            let currentIndex=0;
-
-
-            data.hand.forEach(item => {
-                let itemData = items[item.name];
-                if(!itemData) {
-                    console.log("Item not found: " + item.name);
-                    return;
-                }
-
-                itemData.rarity = ["Bronze","Silver","Gold","Diamond","Legendary"][parseInt(item.tier)];
-                itemData.enchant = Item.possibleEnchants[parseInt(item.enchantment)];
-                let newItem = new Item(items[item.name], this);
-                //this.addItem(newItem);
-                item.itemAdded = newItem;
-
-                newItem.setIndex(currentIndex);           
-                currentIndex += newItem.size;
-            });
-            data.skills.forEach(skill => {
-                this.addSkill(skill.name,{rarity:Item.rarityLevels[parseInt(skill.tier)]});
-            });
-            Board.resetBoards();
-            data.hand.forEach(item => {
-                if(item.attributes.DamageAmount) {
-                    item.itemAdded.startItemData.damage = parseInt(item.attributes.DamageAmount) - item.itemAdded.damage;
-                }
-                if(item.attributes.Cooldown) {
-                    item.itemAdded.startItemData.cooldown += item.attributes.Cooldown/1000 - item.itemAdded.cooldown/1000; 
-
-                }
-                if(item.attributes.CritChance) {
-                    item.itemAdded.startItemData.crit = parseInt(item.attributes.CritChance) - item.itemAdded.crit;
-                }               
-                if(item.attributes.HealAmount) {
-                    item.itemAdded.startItemData.heal = parseInt(item.attributes.HealAmount) - item.itemAdded.heal;
-                }
-                if(item.attributes.ShieldApplyAmount) {
-                    item.itemAdded.startItemData.shield = parseInt(item.attributes.ShieldApplyAmount) - item.itemAdded.shield;
-                }
-                delete item.itemAdded;           
-            });
-        }
-
-        
-        Board.resetBoards();
-        window.isLoadingFromUrl = false;
-        updateUrlState();
-    }
-    importFromBazaarTracker() {        
-        if(!window.isDoner) {
-            alert("This feature is only available for doners or kickstarter backers");
-            return;
-        }
-
-        const runId = prompt("Enter the bazaar tracker run ID:");
-        if(runId) {
-            if(runId.indexOf("=")!=-1) {
-                runId = runId.split("=")[1];
-            }
-            console.log("Importing from run ID: " + runId);
-            fetch(`https://www.bazaarplanner.com/import?runId=${runId}`)
-                .then(response => response.json())
-                .then(data => {
-                    this.importedData = data;
-                    this.updateImportElement();
-                    this.importFromDayData(data);                    
-                })
-                .finally(() => {
-                    window.isLoadingFromUrl = false;
-                })
-
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-
-        }
-        
-
+    
+    
+    clone(newPlayer) {
+        const clone = new Board("cloned-"+this.boardId,newPlayer);
+        clone.items = this.items.map(item => item.clone(clone));
+        clone.skills = this.skills.map(skill => skill.clone(clone));
+        //clone.reset();
+        return clone;
     }
 
     addSkill(skillName,skillData) {
@@ -396,26 +492,80 @@ class Board {
             return;
         }
         let newSkillData = structuredClone(skills[skillName]);
+        newSkillData.name = skillName;
         Object.assign(newSkillData,skillData);
-        let newSkill = new Skill(newSkillData);
+        if(skillData.tier < skills[skillName].tier) {
+            newSkillData.tier = skills[skillName].tier;
+        }
+        let newSkill = new Skill(newSkillData, this,this.options.editable);
         this.skills.push(newSkill);
-        newSkill.board = this;
         this.skillsElement.appendChild(newSkill.element);
         newSkill.setup();
     }
     removeSkill(skill) {
         this.skills = this.skills.filter(s => s !== skill);
         this.skillsElement.removeChild(skill.element);
-        Board.resetBoards();
-        updateUrlState();
+        this.player.reset();
+        this.player.setup();
+        if(this.options.editable) updateUrlState();
+    }
+    createBoardControls() {
+        this.boardControls = document.createElement('div');
+        this.boardControls.className = 'board-controls';
+        this.element.appendChild(this.boardControls);
+        this.boardControls.innerHTML = `
+            ${this.boardId=='b'?'<div class="requireLogin"><button id="followBtn-b" class="editorOpener" onclick="window.showFollowModal(bottomPlayer.board);">Follow</button></div>':''}
+            ${this.boardId=='t'?'<div class="requireLogin"><button onclick="topPlayer.board.loadFromClone(bottomPlayer.board)" title="Clone the Bottom Board">Clone</button></div>':''}
+            <button onclick="Board.getBoardFromId('${this.boardId}').clear()">Clear</button>
+            <button onclick="Board.getBoardFromId('${this.boardId}').save()">Save</button>
+            <button onclick="Board.getBoardFromId('${this.boardId}').load()">Load</button>
+        `;
+    }
+    loadFromClone(board) {
+        this.clear();
+        this.items = board.items.map(item => item.clone(this));
+        board.skills.forEach(skill => this.addSkill(skill.name,{tier:skill.tier}));
+        this.sortItems();
+        this.items.forEach(item => item.updateElementPosition());
+        this.reset();
+        this.setup();
     }
 
+    createPlayerElement() {
+        this.playerElement = document.createElement('div');
+        this.playerElement.className = 'player-element';
+        if(this.player.name) {
+            this.playerElement.innerHTML = `<span>${this.player.name}</span>`;
+        } else {
+            this.playerElement.innerHTML = "<span>Player</span>";
+        }
+        this.element.appendChild(this.playerElement);
+    }
+    createWinRateElement() {
+        this.winRateElement = document.createElement('div');
+        this.winRateElement.className = 'win-rate-element';
+        this.winRateElement.innerHTML = "0%";
+        this.element.appendChild(this.winRateElement);
+    }
+    createBackpackOpenerElement() {
+        this.backpackOpenerElement = document.createElement('div');
+        this.backpackOpenerElement.className = 'backpack-opener-element';
+        this.element.appendChild(this.backpackOpenerElement);
+        this.backpackOpenerElement.onclick = () => {
+            this.toggleBackpack();
+        }
+    }
     createHealthElement() {
         this.healthElement = document.createElement('div');
 
         this.healthElement.className = 'health-element';
-        this.healthElement.classList.add('editorOpener');
-
+        
+        if(this.options.editable) {
+            this.healthElement.classList.add('editorOpener');
+            this.healthElement.onclick = () => {
+                this.player.openEditor();
+            }
+        }
         this.healthElementHealth = document.createElement('div');
         this.healthElementHealth.className = 'health-element-health';
         this.healthElement.appendChild(this.healthElementHealth);
@@ -432,15 +582,20 @@ class Board {
         this.healthElementRegen.className = 'health-element-regen';
         this.healthElement.appendChild(this.healthElementRegen);
         this.element.appendChild(this.healthElement);
-        this.healthElement.onclick = () => {
-            this.player.openEditor();
-        }
+
         this.updateHealthElement();
     }
     createGoldElement() {
         this.goldElement = document.createElement('div');
         this.goldElement.className = 'gold-element';
         this.goldElement.title = "Gold";
+        if(this.options.editable) {
+            this.goldElement.classList.add('editorOpener');
+            this.goldElement.onclick = () => {
+                this.player.openEditor();
+                this.player.editorElement.querySelector('#player-gold').focus();
+            }
+        }
         this.element.appendChild(this.goldElement);
     }
     createDPSElement() {
@@ -453,7 +608,26 @@ class Board {
         this.incomeElement = document.createElement('div');
         this.incomeElement.className = 'income-element';
         this.incomeElement.title = "Income";
+        if(this.options.editable) {
+            this.incomeElement.classList.add('editorOpener');
+            this.incomeElement.onclick = () => {
+                this.player.openEditor();
+                this.player.editorElement.querySelector('#player-income').focus();
+            }
+        }
         this.element.appendChild(this.incomeElement);
+    }
+    createPrestigeElement() {
+        this.prestigeElement = document.createElement('div');
+        this.prestigeElement.className = 'prestige-element';
+        this.prestigeElement.title = "Prestige";
+        if(this.options.editable) {
+            this.prestigeElement.classList.add('editorOpener');
+            this.prestigeElement.onclick = () => {
+                this.player.openEditor();
+            }
+        }
+        this.element.appendChild(this.prestigeElement);
     }
 
 
@@ -466,21 +640,17 @@ class Board {
 
 
     startBattle() {
+        this.inCombat = 1;
         this.damageApplied = 0;
         this.healingApplied = 0;
         this.shieldApplied = 0;
         this.items.forEach(item => {if(item.progressBar) item.progressBar.style.display = 'block'});
-        this.startOfFightTriggers.forEach(func => func());
-        this.player.hostileTarget.healthChanged((newHealth,oldHealth) => {
-            if(newHealth<oldHealth) {
-                this.damageApplied += oldHealth-newHealth;
-            }
-        });
         this.player.shieldChanged((newShield,oldShield) => {
             if(newShield>oldShield) {
                 this.shieldApplied += newShield-oldShield;
             }
         });        
+        this.startOfFightTriggers.forEach(func => func());
     }
     getOpenSpacesToTheLeft(someItem,skipItem) {        
         let openSpaces = someItem.startIndex;
@@ -525,6 +695,13 @@ class Board {
         } while(shiftAmount>0);
     }
 
+    giveAll(tag,value,stat) {
+        this.items.forEach(item => {
+            if(item.tags.includes(tag)) {
+                item.gain(value,stat);
+            }
+        });
+    }
 
 
     shiftItemsToTheRight(item,shiftAmount,ignoreItem) {
@@ -576,13 +753,8 @@ class Board {
                     // Check if there's any overlap between the existing item and the slot we're checking
                     const itemEnd = slotStart + slotSize - 1;
                     if (i >= slotStart && i <= itemEnd) { //we found the item that overlaps with the new item
-                        //check if we can push the item to the left
                         const openSpacesToTheLeft = this.getOpenSpacesToTheLeft(someItem,foundItem);
-                        //check if we can push the item to the right
-                        const openSpacesToTheRight =this.getOpenSpacesToTheRight(someItem,foundItem);
-                    //    delayedLog("Open spaces to the right: " + openSpacesToTheRight,'openSpacesToTheRight');
-                    //    delayedLog("Open spaces to the left: " + openSpacesToTheLeft,'openSpacesToTheLeft');
-                        
+                        const openSpacesToTheRight =this.getOpenSpacesToTheRight(someItem,foundItem);                        
 
                         //how much is the left side of the dragging item over the right side of someItem
                         const rightOverlap = someItem.startIndex+someItem.size - startIndex;
@@ -592,22 +764,24 @@ class Board {
                         if(rightOverlap<leftOverlap && openSpacesToTheLeft>=rightOverlap) {
                             //we can push the item to the left) {
                                 this.shiftItemsToTheLeft(someItem,rightOverlap,foundItem);
+                               if(foundItem) foundItem.startIndex=startIndex-(rightOverlap-foundItem.size);
                                 return true;
                         } else {
                             //we can push the item to the right
                             if(openSpacesToTheRight>=draggingElementSize + (startIndex-someItem.startIndex)) {
                                 this.shiftItemsToTheRight(someItem, leftOverlap,foundItem);
+                                if(foundItem) foundItem.startIndex=startIndex-(leftOverlap-foundItem.size);
                                 return true;
                             }
                         }
-
                         if(openSpacesToTheLeft>=rightOverlap) {
                             this.shiftItemsToTheLeft(someItem, rightOverlap,foundItem);
+                            if(foundItem) foundItem.startIndex=startIndex;
                             return true;
-                        }
-  
+                        }  
                         if(openSpacesToTheRight>=leftOverlap) {
                             this.shiftItemsToTheRight(someItem,rightOverlap,foundItem);
+                            if(foundItem) foundItem.startIndex=startIndex;
                             return true;
                         }
 
@@ -688,6 +862,50 @@ class Board {
             slot.classList.add('invalid-drop');
         }
     }
+    createDeleteZone() {
+        // Initialize delete zone globally
+        this.deleteZone = document.createElement('div');
+        this.deleteZone.className = 'delete-zone';
+        this.deleteZone.textContent = ' Drop here to delete';
+        
+        // Add dragover and drop handlers for delete zone
+        this.deleteZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            this.deleteZone.classList.add('active');
+        });
+
+        this.deleteZone.addEventListener('dragleave', () => {
+            this.deleteZone.classList.remove('active');
+        });
+
+        this.deleteZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const draggingElement = document.querySelector('.dragging');
+            if (draggingElement) {
+                // Get the source board and remove the item from its tracking
+                const sourceBoard = Board.getBoardFromId(draggingElement.closest('.board')?.id);
+                if (sourceBoard) {
+                    // Remove the item from the board's tracking by matching the element
+                    sourceBoard.items = sourceBoard.items.filter(item => item.element !== draggingElement);
+                }
+                
+                draggingElement.classList.add('removing');
+                setTimeout(() => {
+                    draggingElement.remove();
+                    // Clean up any ghost elements
+                    const ghost = document.querySelector('.drag-ghost');
+                    if (ghost) ghost.remove();
+                }, 500);
+            }
+            this.deleteZone.classList.remove('active');
+            this.deleteZone.style.display = 'none';
+            const targetBattle = this.player.battle || this.backpackParent?.player.battle;
+            if(targetBattle) targetBattle.resetBattle();
+            if(this.options.editable) updateUrlState();
+        }); 
+        this.element.appendChild(this.deleteZone);
+    }
 
     clearDropPreview() {
         document.querySelectorAll('.board-slot').forEach(slot => {
@@ -717,13 +935,14 @@ class Board {
             foundItem = boardItems.find(item => item.element === draggingElement);
             size = foundItem.size;
         } else {
-            itemData = JSON.parse(draggingElement.getAttribute('data-item'));
+            itemData = items[draggingElement.getAttribute('data-name')];
             size = getSizeValue(itemData.tags.find(tag => ['Small', 'Medium', 'Large'].includes(tag)) || 'Small');
         }
 
         const boardElement = slot.closest('.board');
         const targetBoard = Board.getBoardFromId(boardElement.id);
-        const sourceBoard = Board.getBoardFromId(draggingElement.closest('.board')?.id);
+        const closestBoard = draggingElement.closest('.board')?.id;
+        const sourceBoard = closestBoard?Board.getBoardFromId(closestBoard):null;
 
         if (board.isValidPlacement(startIndex, draggingElement)) {
             if (alreadyOnBoard) {  
@@ -740,20 +959,26 @@ class Board {
                 newItem.setIndex(startIndex);
             }
             targetBoard.sortItems();
-            Board.resetBoards();
-            updateUrlState();
+            const targetBattle = this.player.battle || this.backpackParent?.player.battle;
+            if(targetBattle) targetBattle.resetBattle();
+            if(this.options.editable) updateUrlState();
         }
         document.querySelectorAll('.valid-drop, .invalid-drop, .dragging').forEach(element => {
             element.classList.remove('valid-drop', 'invalid-drop', 'dragging');
         });
 
-    
-        deleteZone.style.display = 'none';
+        Board.boards.forEach(board => {
+            if(board.deleteZone) {
+                board.deleteZone.style.display = 'none';
+            }
+        });
     }
 
     addItem(item) {
         this.items.push(item);
-        this.element.appendChild(item.element);
+        if(this.element) {
+            this.element.appendChild(item.element);
+        }
         this.sortItems();
 //        Board.resetBoards();
  //       updateUrlState();
@@ -763,17 +988,50 @@ class Board {
     }
     removeItem(item) {
         this.items = this.items.filter(i => i !== item);
-        updateUrlState();
+        if(this.options.editable) updateUrlState();
+    }
+    uniqueTypeTagCache = [];
+    get uniqueTypeTags() {
+        if(this.uniqueTypeTagCache.length>0) return this.uniqueTypeTagCache;
+        const types = new Set();
+        this.activeItems.forEach(item => {
+            item.tags.forEach(tag => {
+                if(Board.uniqueTypeTags.includes(tag)) {
+                    types.add(tag);
+                }
+            });
+        });
+        this.uniqueTypeTagCache = Array.from(types);
+        return this.uniqueTypeTagCache;
+    }
+    get uniqueTypes() {
+        if(this.uniqueTypeTagCache.length>0) return this.uniqueTypeTagCache.length;        
+        return this.uniqueTypeTags.length;
     }
 
     save() {        
         const name = prompt("What do you want to name this board?");
         const items = this.items.map(item => ({
             item: item.startItemData,
+            enchant: item.enchant,
             startIndex: item.startIndex,
-            size: item.size
         }));
-        const blob = new Blob([JSON.stringify(items, null, 2)], { type: 'application/json' });
+        const stash = this.backpack.items.map(item => ({
+            item: item.startItemData,
+            enchant: item.enchant,
+            startIndex: item.startIndex,
+        }));
+        const skills = this.skills.map(skill => ({
+            name: skill.name,
+            rarity: skill.rarity
+        }));
+        const player = {
+            name: this.player.name,
+            maxHealth: this.player.maxHealth,
+            gold: this.player.gold,
+            income: this.player.income
+        };
+        const blob = new Blob([JSON.stringify({items, skills, player, stash}, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -783,7 +1041,6 @@ class Board {
     }
 
     load() {
-        this.clear();
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = '.json';
@@ -793,11 +1050,32 @@ class Board {
             
             reader.onload = event => {
                 try {
-                    const items = JSON.parse(event.target.result);
-                    items.forEach(({item, startIndex, size}) => {
+                    this.clear();
+                    const data = JSON.parse(event.target.result);
+                    const items = data.items;
+                    const skills = data.skills;
+                    const stash = data.stash;
+                    items.forEach(({item, enchant, startIndex}) => {
                         let newItem = new Item(item, this);
                         newItem.setIndex(startIndex);
+                        newItem.enchant = enchant;
                     });
+                    skills.forEach(({name, rarity}) => {
+                        this.addSkill(name,{rarity:rarity});
+                    });
+                    stash.forEach(({item, enchant, startIndex}) => {
+                        let newItem = new Item(item, this.backpack);
+                        newItem.setIndex(startIndex);
+                        newItem.enchant = enchant;
+                    });
+                    this.player.startPlayerData = data.player;
+                    this.sortItems();
+                    this.reset();
+                    this.setup();
+                    this.backpack.sortItems();
+                    this.backpack.reset();    
+                    this.backpack.setup();
+                    if(this.options.editable) updateUrlState();
                 } catch (error) {
                     console.error('Error loading file:', error);
                     alert('Invalid file format');
@@ -829,8 +1107,11 @@ class Board {
         document.querySelectorAll('.tooltip').forEach(tooltip => {
             tooltip.style.display = 'none';
         });
-        
-        deleteZone.style.display = 'block';
+        Board.boards.forEach(board => {
+            if(board.items.some(item => item.element === draggedElement)) {              
+                board.deleteZone.style.display = 'block';
+            }
+        });    
     }
     static handleTouchStart(touchEvent) {
         touchEvent.preventDefault();
@@ -867,9 +1148,15 @@ class Board {
         });
     
 
-        
-        deleteZone.style.display = 'none';
-
+        Board.boards.forEach(board => {
+                if(board.deleteZone) board.deleteZone.style.display = 'none';
+        });    
+        Board.boards.forEach(board => {
+            board.items.forEach(item => {
+                item.updateElementPosition();
+            });
+            board.items.sort(Item.compareByIndex);
+        });
         /*
         // Get the board that originally contained this element
         const sourceBoard = Board.getBoardFromId(draggedElement.closest('.board')?.id);
@@ -886,14 +1173,19 @@ class Board {
     }
 
     loadMonsterData(monsterData) {            
-        this.initialize();
+        this.clear();
         this.reset();
         let startIndex = 0;
         // Load monster items to the board
-        monsterData.items.forEach(item => {              
-            let itemData = Item.getDataFromName(item.name);
+        monsterData.items.forEach(item => {      
+            let [name,enchant] = Item.stripEnchantFromName(item.name);        
+            let itemData = Item.getDataFromName(name);
             if(!itemData) return;
-            itemData.rarity = Item.rarityLevels[item.tier];
+            itemData.tier = item.tier;
+            itemData.enchant = item.enchant || enchant;
+            Item.possibleChangeAttributes.forEach(attr => {
+                if(item[attr]) itemData[attr] = item[attr];
+            });
             let newItem = new Item(itemData, this);
             newItem.setIndex(startIndex);
             startIndex += newItem.size;
@@ -903,8 +1195,10 @@ class Board {
         monsterData.skills.forEach(skill => {
             let skillData = Skill.getDataFromName(skill.name);
             if(!skillData) return;
-            skillData.rarity = Item.rarityLevels[skill.tier];
+            skillData.name = skill.name;
+            skillData.tier = skill.tier;
             let newSkill = new Skill(skillData);
+            newSkill.name = skill.name;
             this.skills.push(newSkill);
             newSkill.board = this;
             this.skillsElement.appendChild(newSkill.element);
@@ -912,12 +1206,15 @@ class Board {
 
         this.player.startPlayerData.maxHealth = monsterData.health;
         this.player.startPlayerData.name = monsterData.name;
+        this.player.startPlayerData.regen = monsterData.regen||0;
 
-        Board.resetBoards();
-        updateUrlState();
+        this.player.battle.resetBattle();
+        if(this.options.editable) updateUrlState();
     }
     itemTriggered(item) {    
+        this.critPossible=false;
         this.itemTriggers.forEach(func => func(item));
+        this.critPossible=true;
     }
 
    

@@ -1,0 +1,85 @@
+service: bazaarplanner-lambdas 
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - ssm:GetParameter
+          Resource:
+            - arn:aws:ssm:${aws:region}:${aws:accountId}:parameter/bazaarplanner/prod/firebase_service_account
+            - arn:aws:ssm:${aws:region}:${aws:accountId}:parameter/bazaarplanner/prod/twitch_client_secret
+
+package:
+  patterns:
+    - '!./**'
+    - 'package.json'
+    - 'package-lock.json'
+    - 'node_modules/**'
+    - 'utils/**/*.js'
+    - 'advancePuzzle/*.js'
+    - 'calcWinRates/*.js'
+    - 'twitchAuth/*.js'
+    - 'updateTopDonors/*.js'
+    - '../js/**/*.js'
+
+functions:
+  advancePuzzle:
+    handler: advancePuzzle/advancePuzzle.handler
+    timeout: 29
+    memorySize: 1024
+    events:
+      - schedule: cron(0 0 * * ? *) # Runs at midnight UTC every day
+  calcWinRates:
+    handler: calcWinRates/calcWinRates.handler
+    timeout: 29
+    memorySize: 1024
+    events:
+      - schedule: cron(0 0 * * ? *) # Runs at midnight UTC every day
+  updateTopDonors:
+    handler: updateTopDonors/updateTopDonors.handler
+    timeout: 29
+    memorySize: 1024
+    events:
+      - schedule: cron(0 0 * * ? *) # Runs at midnight UTC every day
+  twitchAuth:
+      handler: twitchAuth/twitchAuth.handler
+      timeout: 29
+      memorySize: 1024
+      events:
+        - http:
+            path: twitchAuth
+            method: get
+            cors:
+              origins: 
+                - 'http://localhost'
+                - 'http://localhost:3000'
+              headers:
+                - Content-Type
+                - X-Amz-Date
+                - Authorization
+                - X-Api-Key
+                - X-Amz-Security-Token
+                - X-Amz-User-Agent
+              methods: ['GET', 'OPTIONS']
+              allowCredentials: true
+        - http:
+            path: twitchAuth
+            method: options
+            cors:
+              origins: ['http://localhost']
+              headers:
+                - Content-Type
+                - X-Amz-Date
+                - Authorization
+                - X-Api-Key
+                - X-Amz-Security-Token
+                - X-Amz-User-Agent
+              methods: ['GET', 'OPTIONS']
+              allowCredentials: true

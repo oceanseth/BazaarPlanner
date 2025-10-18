@@ -1,7 +1,11 @@
 {
   "dependencies": {
+    "adm-zip": "^0.5.16",
     "firebase": "^11.0.1",
-    "lz-string": "^1.5.0"
+    "firebase-admin": "^13.3.0",
+    "lz-string": "^1.5.0",
+    "node-webpmux": "^3.2.1",
+    "sharp": "^0.33.5"
   },
   "name": "bazaarplanner",
   "version": "1.0.0",
@@ -9,14 +13,19 @@
   "description": "A website and planner for the bazaar game\r #\r #\r #\r #\r #\r #\r #\r #\r #\r #\r #\r #\r Noah was here",
   "main": "items.js",
   "devDependencies": {
+    "jest": "^29.0.0",
+    "jest-environment-jsdom": "^29.7.0",
     "terser": "^5.39.0",
     "vite": "^5.1.4"
   },
   "type": "module",
   "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "zipItemsWithTag": "node scripts/zipItemsWithTag.js",
+    "generateEnchantOverlays": "node scripts/generateEnchantOverlays.js"
   },
   "keywords": [],
   "author": "",

@@ -1,3 +1,0 @@
-todo:
-1. make import id persist in the url after having been imported to a board
-so the dropdown is recreated
