@@ -1095,7 +1095,7 @@ export class Item {
         if(match) {
             const other = match[1]=='other ';
             const gainAmount = getRarityValue(match[3], this.rarity);
-            const tagsToMatch = match[2].split(/,\s*(?:and\s+)?/).filter(Boolean).map((tag)=>Item.getTagFromText(tag.replace(' items','')));
+            const tagsToMatch = match[2].split(/( |,|and)/).filter(Boolean).map((tag)=>Item.getTagFromText(tag.replace(' items','')));
             const whatToGain = Item.getTagFromText(match[4]).toLowerCase();
             if(whatToGain=='damage'||tagsToMatch.includes('Weapon')) {
                 this.damageBonus += gainAmount;
@@ -1137,13 +1137,14 @@ export class Item {
         }
 
         //    your Dinosaurs permanently gain ( 30 » 40 ) damage. from Momma-Saur
-        damageRegex = /your Dinosaurs permanently gain (\([^)]+\)|\d+) damage\.?/i;
+        damageRegex = /your (\w+)s? permanently gain (\([^)]+\)|\d+) damage\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const gainAmount = getRarityValue(match[1], this.rarity);
+            const tag = Item.getTagFromText(match[2]);
             return () => {
                 this.board.activeItems.forEach(i=>{
-                    if(i.tags.includes("Dinosaur")) {
+                    if(i.tags.includes(tag)) {
                         i.gain(gainAmount,'damage');
                     }
                 });
@@ -4585,7 +4586,7 @@ export class Item {
 
 
         //Destroy a small enemy item for the fight.
-        regex = /^Destroy a small( or medium)? (?:enemy )?item for the fight\.?$/i;
+        regex = /^Destroy a small( or medium)? (?:enemy )?item(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
             return () => {
