@@ -3279,7 +3279,7 @@ export class Item {
                     case "use the leftmost item":
                     case "use your leftmost item":
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
-                            const leftmostItemWithCooldown = this.board.items.filter(i=>i.cooldown>0)[0];
+                            const leftmostItemWithCooldown = this.board.activeItems.filter(i=>i.cooldown>0)[0];
                             if(leftmostItemWithCooldown && item==leftmostItemWithCooldown) {
                                 triggerFunctionFromText(item);
                             }
