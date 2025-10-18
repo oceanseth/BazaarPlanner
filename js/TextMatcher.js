@@ -1228,9 +1228,9 @@ TextMatcher.matchers.push({
 });
 //transform into a (Gold/Diamond) copy of another small, non-legendary item you have for the fight. from Hologram Projector
 TextMatcher.matchers.push({
-            regex: /^\s*transform into a (\([^)]+\)|\w+) copy of another small, non-legendary item you have for the fight\.?$/i,
+            regex: /^\s*transform into a copy of another small, non-legendary item you have for the fight\.?$/i,
     func: (item, match)=>{
-        const tier = Item.rarityLevels.indexOf(getRarityValue(match[1], item.rarity));
+        const tier = item.tier;
         return ()=>{
             const targetItem = item.pickRandom(item.board.items.filter(i=>i!=item && i.tags.includes("Small") && i.tier!=4));
             if(targetItem) {
@@ -1281,7 +1281,7 @@ TextMatcher.matchers.push({
 });
 //If you have another Tool, Apparel, Tech, Weapon, or Friend, this has (+50/+100/+150) Damage for each. from Forklift
 TextMatcher.matchers.push({
-            regex: /^If you have another (\w+(?:, (?:or )?\w+)*)(?: item)?,? this has (\([^)]+\)|\+?\d+) (\w+)(?: for each)?\.?$/i,
+            regex: /^If you have another (\w+(?:,? (?:or )?\w+)*)(?: item)?,? this has (\([^)]+\)|\+?\d+) (\w+)(?: for each)?\.?$/i,
     func: (item, match)=>{
         const tags = match[1].split(", ");
         const amount = getRarityValue(match[2], item.rarity);
@@ -2035,6 +2035,13 @@ TextMatcher.matchers.push({
                     i.flying = isStart;
                 });
                 item.log("Because of "+item.name+", all "+(yourItems?"your":"")+" items "+(isStart?"start":"stop")+" flying.");
+                return;
+            }
+            if(tag=="Other") {
+                item.pickRandom(item.board.activeItems.filter(i=>i!=item && i.flying!=isStart),numItems).forEach(i=>{
+                    i.flying = isStart;
+                    item.log("Because of "+item.name+", "+i.name+" "+(isStart?"starts":"stops")+" flying.");
+                });
                 return;
             }
             const items = item.board.activeItems.filter(i=>(!tag||i.tags.includes(tag)) && i.flying!=isStart);

@@ -1095,7 +1095,7 @@ export class Item {
         if(match) {
             const other = match[1]=='other ';
             const gainAmount = getRarityValue(match[3], this.rarity);
-            const tagsToMatch = match[2].split(/,\s*(?:and\s+)?/).filter(Boolean).map((tag)=>Item.getTagFromText(tag.replace(' items','')));
+            const tagsToMatch = match[2].split(/( |,|and)/).filter(Boolean).map((tag)=>Item.getTagFromText(tag.replace(' items','')));
             const whatToGain = Item.getTagFromText(match[4]).toLowerCase();
             if(whatToGain=='damage'||tagsToMatch.includes('Weapon')) {
                 this.damageBonus += gainAmount;
@@ -1137,13 +1137,14 @@ export class Item {
         }
 
         //    your Dinosaurs permanently gain ( 30 » 40 ) damage. from Momma-Saur
-        damageRegex = /your Dinosaurs permanently gain (\([^)]+\)|\d+) damage\.?/i;
+        damageRegex = /your (\w+)s? permanently gain (\([^)]+\)|\d+) damage\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const gainAmount = getRarityValue(match[1], this.rarity);
+            const tag = Item.getTagFromText(match[2]);
             return () => {
                 this.board.activeItems.forEach(i=>{
-                    if(i.tags.includes("Dinosaur")) {
+                    if(i.tags.includes(tag)) {
                         i.gain(gainAmount,'damage');
                     }
                 });
@@ -3278,7 +3279,7 @@ export class Item {
                     case "use the leftmost item":
                     case "use your leftmost item":
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
-                            const leftmostItemWithCooldown = this.board.items.filter(i=>i.cooldown>0)[0];
+                            const leftmostItemWithCooldown = this.board.activeItems.filter(i=>i.cooldown>0)[0];
                             if(leftmostItemWithCooldown && item==leftmostItemWithCooldown) {
                                 triggerFunctionFromText(item);
                             }
@@ -4585,7 +4586,7 @@ export class Item {
 
 
         //Destroy a small enemy item for the fight.
-        regex = /^Destroy a small( or medium)? (?:enemy )?item for the fight\.?$/i;
+        regex = /^Destroy a small( or medium)? (?:enemy )?item(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
             return () => {
@@ -4919,14 +4920,16 @@ export class Item {
         }
 
         //Charge your other non-weapon items ( 1 » 2 ) second(s).
-        regex = /^\s*Charge your other non-weapon items (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        regex = /^\s*Charge your other (non-)?(\w+) items (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            this.charge =  getRarityValue(match[1], this.rarity);
+            const non = match[1]!=null;
+            const tag = Item.getTagFromText(match[2]);
+            this.charge =  getRarityValue(match[3], this.rarity);
            
             return () => {
                 this.board.items.forEach(item => {
-                    if(item.id != this.id && item.cooldown>0 && !item.tags.includes("Weapon")) {
+                    if(item.id != this.id && item.cooldown>0 && (non?!item.tags.includes(tag):item.tags.includes(tag))) {
                         this.applyChargeTo(item);
                     }
                 });
@@ -5724,7 +5727,7 @@ export class Item {
         regex = /^(adjacent|your other) items (?:gain|get) Value equal to this item's Value for the fight\.?$/i;
         match = text.match(regex);
         if(match) {
-            const items = match[1] == "adjacent" ? this.adjacentItems : this.board.items;
+            const items = match[1]?.toLowerCase() == "adjacent" ? this.adjacentItems : this.board.activeItems;
             return ()=>{
                 items.forEach(item => {
                     if(item.id!=this.id) { 
@@ -6211,10 +6214,10 @@ export class Item {
             this.board.addItem(this);
             this.reset();
         });
-        let hasteDurationRemaining = this.hasteDurationRemaining;
+        let hasteTimeRemaining = this.hasteTimeRemaining;
         let freezeTimeRemaining = this.freezeTimeRemaining;
         let slowTimeRemaining = this.slowTimeRemaining;
-        Object.assign(copy,{hasteDurationRemaining,freezeTimeRemaining,slowDurationRemaining});
+        Object.assign(copy,{hasteTimeRemaining,freezeTimeRemaining,slowTimeRemaining});
         copy.board.transformTriggers.forEach(f=>f(this,copy));
         this.log(this.board.player.name+"'s "+this.name+" transformed into "+copy.name+" by "+source.board.player.name+"'s "+source.name);
     }

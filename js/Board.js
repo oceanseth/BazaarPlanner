@@ -24,7 +24,7 @@ class Board {
         this.player.reset();
     }    
     get itemsWithCooldown() {
-        return this.items.filter(item => item.cooldown>0);
+        return this.activeItems.filter(item => item.cooldown>0);
     }
     static transformBoardIds(stateString,transformations) {
         if(!stateString) return stateString;
