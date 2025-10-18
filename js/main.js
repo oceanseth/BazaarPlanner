@@ -155,7 +155,7 @@ window.getTinyUrl = function() {
     }
     let url;
     if(bottomPlayer.board.fullRunData && window.user) {
-        url = 'run='+bottomPlayer.board.fullRunData.id+'&e='+$("#sim-encounter-select").val()+"&u="+window.user.uid;
+        url = 'run='+bottomPlayer.board.fullRunData.id+'&e='+$("#sim-encounter-select-b").val()+"&u="+window.user.uid;
     } else {
      url = window.location.href.split('#')[1];
     }
