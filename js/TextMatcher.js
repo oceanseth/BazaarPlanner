@@ -1286,8 +1286,20 @@ TextMatcher.matchers.push({
         const tags = match[1].split(", ");
         const amount = getRarityValue(match[2], item.rarity);
         const whatToGain = match[3].toLowerCase();
-        item.board.activeItems.filter(i=>i!=item && tags.some(tag=>i.tags.includes(tag))).forEach(i=>{
-            item.gain(amount,whatToGain,i);
+        let totalCount = item.board.activeItems
+            .filter(i=>i!=item)
+            .reduce((count, i) => count + tags.filter(tag=>i.tags.includes(tag)).length, 0);
+        if(totalCount > 0) {
+            item.gain(amount * totalCount, whatToGain, item);
+        }
+        item.board.itemDestroyedTriggers.set(item.id, (i)=>{
+            if(i!=item) {
+                const newTotalCount = item.board.activeItems
+                    .filter(i=>i!=item)
+                    .reduce((count, i) => count + tags.filter(tag=>i.tags.includes(tag)).length, 0);
+                item.gain(amount * (totalCount - newTotalCount), whatToGain, item);
+                totalCount = newTotalCount;
+            }
         });
         return ()=>{};
     }
