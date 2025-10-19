@@ -1286,19 +1286,37 @@ TextMatcher.matchers.push({
         const tags = match[1].split(", ");
         const amount = getRarityValue(match[2], item.rarity);
         const whatToGain = match[3].toLowerCase();
-        let totalCount = item.board.activeItems
+        const matchingTags = new Set();
+        item.board.activeItems
             .filter(i=>i!=item)
-            .reduce((count, i) => count + tags.filter(tag=>i.tags.includes(tag)).length, 0);
-        if(totalCount > 0) {
-            item.gain(amount * totalCount, whatToGain, item);
+            .forEach(i => {
+                tags.forEach(tag => {
+                    if(i.tags.includes(tag)) {
+                        matchingTags.add(tag);
+                    }
+                });
+            });
+        if(matchingTags.size > 0) {
+            item.gain(amount * matchingTags.size, whatToGain, item);
         }
         item.board.itemDestroyedTriggers.set(item.id, (i)=>{
             if(i!=item) {
-                const newTotalCount = item.board.activeItems
+                const newMatchingTags = new Set();
+                item.board.activeItems
                     .filter(i=>i!=item)
-                    .reduce((count, i) => count + tags.filter(tag=>i.tags.includes(tag)).length, 0);
-                item.gain(amount * (totalCount - newTotalCount), whatToGain, item);
-                totalCount = newTotalCount;
+                    .forEach(i => {
+                        tags.forEach(tag => {
+                            if(i.tags.includes(tag)) {
+                                newMatchingTags.add(tag);
+                            }
+                        });
+                    });
+                const diff = matchingTags.size - newMatchingTags.size;
+                if(diff > 0) {
+                    item.gain(amount * diff, whatToGain, item);
+                }
+                matchingTags.clear();
+                newMatchingTags.forEach(tag => matchingTags.add(tag));
             }
         });
         return ()=>{};
