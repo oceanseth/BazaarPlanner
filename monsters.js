@@ -330,7 +330,7 @@ export const monsters = {
       },
       {
         "name": "Honing Steel",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Friendly Doll",
@@ -338,7 +338,7 @@ export const monsters = {
       },
       {
         "name": "Switchblade",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Butterfly Swords",
