@@ -1283,7 +1283,7 @@ TextMatcher.matchers.push({
 TextMatcher.matchers.push({
             regex: /^If you have another (\w+(?:,? (?:or )?\w+)*)(?: item)?,? this has (\([^)]+\)|\+?\d+) (\w+)(?: for each)?\.?$/i,
     func: (item, match)=>{
-        const tags = match[1].split(", ");
+        const tags = match[1].replace(/,/g, '').split(' ').filter(tag => tag.toLowerCase() !== 'or');
         const amount = getRarityValue(match[2], item.rarity);
         const whatToGain = match[3].toLowerCase();
         const matchingTags = new Set();

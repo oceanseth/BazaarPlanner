@@ -398,9 +398,9 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "Slow 2 items for 2 second(s)",
-      "Icy": "Freeze an item for 1 second(s)",
-      "Turbo": "Haste 2 items for 2 second(s)",
+      "Heavy": "Slow an item for 1 second(s)",
+      "Icy": "Freeze an item for 0.5 second(s)",
+      "Turbo": "Haste an item for 1 second(s)",
       "Shielded": "+NaN Shield",
       "Restorative": "+NaN Heal",
       "Toxic": "This has double Poison.",
@@ -434,7 +434,7 @@ export const items = {
       "Golden": "This has double value.",
       "Heavy": "This Slows for twice as long.",
       "Icy": "Freeze an item for 0.5 second(s)",
-      "Turbo": "Haste an item for 1 second(s)",
+      "Turbo": "Haste an item for 3 second(s)",
       "Shielded": "Shield 60",
       "Restorative": "Heal 60",
       "Toxic": "Poison 6",
@@ -506,8 +506,8 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "Slow 2 items for 1 second(s)",
-      "Icy": "Freeze an item for 1 second(s)",
+      "Heavy": "Slow 2 items for 3 second(s)",
+      "Icy": "Freeze 2 items for 1 second(s)",
       "Turbo": "Haste 1 item for 2 second(s)",
       "Shielded": "Shield equal to this item's Damage",
       "Restorative": "Heal equal to this item's Damage",
@@ -1864,9 +1864,9 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "Slow an item for 1 second(s)",
-      "Icy": "Freeze an item for 0.5 second(s)",
-      "Turbo": "Haste an item for 1 second(s)",
+      "Heavy": "Slow 2 items for 1 second(s)",
+      "Icy": "Freeze an item for 1 second(s)",
+      "Turbo": "Haste 2 items for 1 second(s)",
       "Shielded": "Shield equal to this item's Damage",
       "Restorative": "Heal equal to this item's Damage",
       "Toxic": "Poison equal to 5% of this item's Damage",
@@ -2258,9 +2258,9 @@ export const items = {
     },
     "quests": {
       "Poison 30 times": "Poison (5/10/15/20)",
-      "Gain Regen 2{aura.e2.mod} times": "Gain (5/10/15/20) Regen for the fight",
+      "Gain Regen 25 times": "Gain (5/10/15/20) Regen for the fight",
       "Burn 20 times": "Burn (5/10/15/20)",
-      "Slow 1{aura.e2.mod} times": "Slow (1/2/3/4) items for 1 second(s)",
+      "Slow 15 times": "Slow (1/2/3/4) items for 1 second(s)",
       "Freeze 10 times": "Freeze 1 items for 0.5 second(s)"
     }
   },
@@ -2720,7 +2720,7 @@ export const items = {
       "Golden": "This has double value.",
       "Heavy": "This Slows for twice as long.",
       "Icy": "Freeze an item for 0.5 second(s)",
-      "Turbo": "Haste an item for 2 second(s)",
+      "Turbo": "Haste an item for 3 second(s)",
       "Shielded": "Shield equal to this item's Damage",
       "Restorative": "Heal equal to this item's Damage",
       "Toxic": "Poison equal to 5% of this item's Damage",
@@ -2753,7 +2753,7 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "Slow an item for 1 second(s)",
+      "Heavy": "Slow an item for 3 second(s)",
       "Icy": "Freeze an item for 0.5 second(s)",
       "Turbo": "This Hastes for twice as long.",
       "Shielded": "+NaN Shield",
@@ -3264,9 +3264,9 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "When this stops Flying, Slow an item for 2 second(s).",
-      "Icy": "When this stops Flying, Freeze an item for 0.5 second(s).",
-      "Turbo": "When this stops Flying, Haste an item for 2 second(s).",
+      "Heavy": "When this stops Flying, Slow 2 items for 4 second(s).",
+      "Icy": "When this stops Flying, Freeze an item for 4 second(s).",
+      "Turbo": "When this stops Flying, Haste 2 items for 4 second(s).",
       "Shielded": "When this stops Flying, Shield equal to this item's Damage.",
       "Restorative": "When this stops Flying, Heal equal to this item's Damage.",
       "Toxic": "When this stops Flying, Poison equal to 5% of this item's Damage.",
@@ -5967,7 +5967,7 @@ export const items = {
       "Damage",
       "CritReference"
     ],
-    "cooldown": 6,
+    "cooldown": 5,
     "ammo": null,
     "text": [
       "Deal (10/20/30/40) Damage",
@@ -6450,9 +6450,9 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "Slow 2 items for 3 second(s)",
-      "Icy": "Freeze 2 item(s) for 1 second(s)",
-      "Turbo": "Haste 2 items for 3 second(s)",
+      "Heavy": "Slow 2 items for 2 second(s)",
+      "Icy": "Freeze an item for 1 second(s)",
+      "Turbo": "Haste 2 items for 2 second(s)",
       "Shielded": "Shield equal to this item's Damage",
       "Restorative": "Heal equal to this item's Damage",
       "Toxic": "Poison equal to 5% of this item's Damage",
@@ -7112,9 +7112,9 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "Slow an item for 1 second(s)",
-      "Icy": "Freeze an item for 0.5 second(s)",
-      "Turbo": "Haste an item for 1 second(s)",
+      "Heavy": "Slow 2 items for 4 second(s)",
+      "Icy": "Freeze 2 items for 1 second(s)",
+      "Turbo": "Haste 2 items for 4 second(s)",
       "Shielded": "Shield 25",
       "Restorative": "Heal 25",
       "Toxic": "Poison 2",
@@ -7643,7 +7643,7 @@ export const items = {
     },
     "quests": {
       "Buy 6 Burn items": "When you Burn, this gains (2/4/6/8) Burn for the fight.",
-      "Have 75+ Burn on this item.": "This has +{aura.e1} Multicast."
+      "Have 75+ Burn on this item.": "This has +1 Multicast."
     }
   },
   "Ethergy Conduit": {
@@ -8073,7 +8073,7 @@ export const items = {
     "text": [
       "Deal (20/30/40) Damage",
       "When this runs out of ammo, destroy it for the fight.",
-      "When this is destroyed, deal {aura.e2.mod} times this item's Damage"
+      "When this is destroyed, deal 5 times this item's Damage"
     ],
     "enchants": {
       "Golden": "This has double value.",
@@ -8319,9 +8319,9 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "Slow 2 items for 1 second(s)",
-      "Icy": "Freeze an item for 1 second(s)",
-      "Turbo": "Haste 2 items for 1 second(s)",
+      "Heavy": "Slow an item for 1 second(s)",
+      "Icy": "Freeze an item for 0.5 second(s)",
+      "Turbo": "Haste an item for 1 second(s)",
       "Shielded": "Shield equal to this item's Damage",
       "Restorative": "Heal equal to this item's Damage",
       "Toxic": "Poison equal to 5% of this item's Damage",
@@ -8525,9 +8525,9 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "Slow 2 items for 2 second(s)",
+      "Heavy": "Slow an item for 2 second(s)",
       "Icy": "Freeze an item for 1 second(s)",
-      "Turbo": "Haste 2 items for 2 second(s)",
+      "Turbo": "Haste an item for 2 second(s)",
       "Shielded": "+NaN Shield",
       "Restorative": "+NaN Heal",
       "Toxic": "Poison equal to this item's Burn",
@@ -8622,7 +8622,7 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "Slow an item for 3 second(s)",
+      "Heavy": "Slow an item for 2 second(s)",
       "Icy": "Freeze an item for 0.5 second(s)",
       "Turbo": "This Hastes for twice as long.",
       "Shielded": "Shield 60",
@@ -8930,7 +8930,7 @@ export const items = {
       "Obsidian": "Deal 50 Damage"
     },
     "quests": {
-      "Buy 4 Freeze items": "This has +{aura.e1} Multicast.",
+      "Buy 4 Freeze items": "This has +1 Multicast.",
       "Buy 5 Relics": "When you use an adjacent Relic, Charge this 1 second(s)."
     }
   },
@@ -9952,9 +9952,9 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "When your Weapons start Flying, Slow an item for 2 second(s).",
-      "Icy": "When your Weapons start Flying, Freeze an item for 1 second(s).",
-      "Turbo": "When your Weapons start Flying, Haste an item for 2 second(s).",
+      "Heavy": "When your Weapons start Flying, Slow an item for 1 second(s).",
+      "Icy": "When your Weapons start Flying, Freeze an item for 0.5 second(s).",
+      "Turbo": "When your Weapons start Flying, Haste an item for 1 second(s).",
       "Shielded": "When your Weapons start Flying, Shield 20.",
       "Restorative": "When your Weapons start Flying, Heal 20.",
       "Toxic": "When your Weapons start Flying, Poison 2.",
@@ -10126,9 +10126,9 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "Slow 1 items for 1 second(s)",
-      "Icy": "Freeze an item for 0.5 second(s)",
-      "Turbo": "Haste 1 items for 1 second(s)",
+      "Heavy": "Slow 2 items for 1 second(s)",
+      "Icy": "Freeze an item for 1 second(s)",
+      "Turbo": "Haste 2 items for 1 second(s)",
       "Shielded": "Shield equal to this item's Heal",
       "Restorative": "This has double Heal.",
       "Toxic": "Poison equal to 5% of this item's Heal",
@@ -11370,7 +11370,7 @@ export const items = {
     },
     "quests": {
       "Buy 8 Poison items": "When you Poison, this gains (2/4/6/8) Poison for the fight.",
-      "Have 75+ Poison on this item.": "This has +{aura.e1} Multicast."
+      "Have 75+ Poison on this item.": "This has +1 Multicast."
     }
   },
   "Igloo": {
@@ -12564,7 +12564,7 @@ export const items = {
       "Icy": "Freeze an item for 0.5 second(s)",
       "Turbo": "Haste an item for 2 second(s)",
       "Shielded": "Shield equal to this item's Damage",
-      "Restorative": "Heal equal to this item's Damage",
+      "Restorative": "This has double Heal.",
       "Toxic": "Poison equal to 5% of this item's Damage",
       "Fiery": "Burn equal to 5% of this item's Damage",
       "Shiny": "+1 Multicast",
@@ -12598,7 +12598,7 @@ export const items = {
       "Golden": "This has double value.",
       "Heavy": "Slow an item for 1 second(s)",
       "Icy": "Freeze an item for 0.5 second(s)",
-      "Turbo": "Haste an item for 3 second(s)",
+      "Turbo": "Haste an item for 2 second(s)",
       "Shielded": "Shield equal to this item's Damage",
       "Restorative": "Heal equal to this item's Damage",
       "Toxic": "Poison equal to 5% of this item's Damage",
@@ -13186,7 +13186,7 @@ export const items = {
     },
     "quests": {
       "Buy 8 Regen items": "When you Regen, this gains (2/4/6/8) Regen for the fight.",
-      "Have 75+ Regen on this item.": "This has +{aura.e1} Multicast."
+      "Have 75+ Regen on this item.": "This has +1 Multicast."
     }
   },
   "Life Preserver": {
@@ -13490,7 +13490,7 @@ export const items = {
     "enchants": {
       "Golden": "This has double Value gain.",
       "Heavy": "The first time you fall below half Health each fight, Slow 4 items for 4 second(s).",
-      "Icy": "The first time you fall below half Health each fight, Freeze 2 Medium or Small items for 4 second(s).",
+      "Icy": "The first time you fall below half Health each fight, Freeze 2 items for 4 second(s).",
       "Turbo": "The first time you fall below half Health each fight, Haste 4 items for 4 second(s).",
       "Shielded": "Your Shield items have + Shield equal to this item's value.",
       "Restorative": "Your Heal items have + Heal equal to this item's value.",
@@ -15134,10 +15134,10 @@ export const items = {
       "Friend",
       "Damage"
     ],
-    "cooldown": 4,
+    "cooldown": 3,
     "ammo": null,
     "text": [
-      "Deal (10/20/30/40) Damage"
+      "Deal (5/10/15/20) Damage"
     ],
     "enchants": {
       "Golden": "This has double value.",
@@ -16814,9 +16814,9 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "Slow 2 items for 1 second(s)",
-      "Icy": "Freeze an item for 1 second(s)",
-      "Turbo": "Haste 2 items for 1 second(s)",
+      "Heavy": "Slow an item for 2 seconds",
+      "Icy": "Freeze an item for 0.5 second(s)",
+      "Turbo": "Haste an item for 2 seconds",
       "Shielded": "This has double Shield.",
       "Restorative": "Heal equal to this item's Shield",
       "Toxic": "Poison equal to 5% of this item's Shield",
@@ -17075,7 +17075,7 @@ export const items = {
       "Shielded": "When you use and Ammo item, Shield equal to this item's Damage",
       "Restorative": "When you use an Ammo item, Heal equal to this item's Damage",
       "Toxic": "When you use an Ammo item, Poison equal to 5% of this item's Damage",
-      "Fiery": "Burn equal to 5% of this item's Damage",
+      "Fiery": "When you use an Ammo item, Burn equal to 5% of this item's Damage",
       "Shiny": "+1 Multicast",
       "Deadly": "When you use an Ammo item, your items gain +5% Crit Chance for the fight.",
       "Radiant": "This item is immune to Freeze, Slow and Destroy.",
@@ -19886,7 +19886,7 @@ export const items = {
       "Obsidian": "Deal 50 Damage"
     },
     "quests": {
-      "Buy 6 Slow items": "This has +{aura.e1} Multicast.",
+      "Buy 6 Slow items": "This has +1 Multicast.",
       "Buy 5 Relics": "This item's Cooldown is reduced by 1 second."
     }
   },
@@ -22001,7 +22001,7 @@ export const items = {
     "ammo": null,
     "text": [
       "Charge a non-Toy item(s) (1/2/3) second(s)",
-      "When you use an adjacent Toy, Charge this (1/2/3) second."
+      "When you use an adjacent Toy, Charge this 1 second."
     ],
     "enchants": {
       "Golden": "This has double value.",
@@ -23109,17 +23109,17 @@ export const items = {
     ],
     "enchants": {
       "Golden": "This has double value.",
-      "Heavy": "Slow an item for 2 second(s)",
-      "Icy": "Freeze an item for 0.5 second(s)",
-      "Turbo": "Haste an item for 2 second(s)",
-      "Shielded": "Shield equal to this item's Damage",
-      "Restorative": "Heal equal to this item's Damage",
-      "Toxic": "Poison equal to 5% of this item's Damage",
-      "Fiery": "Burn equal to 5% of this item's Damage",
+      "Heavy": "When yo use an adjacent Weapon, Slow an item for 1 second(s)",
+      "Icy": "When you use an adjacent Weapon, Freeze an item for 0.5 second(s)",
+      "Turbo": "When you use an adjacent Weapon, Haste an item for 1 second(s)",
+      "Shielded": "When you use an adjacent Shield item, it gains +12 Shield for the fight.",
+      "Restorative": "When you use an adjacent Heal item, it gains +12 Heal for the fight.",
+      "Toxic": "When you use an adjacent Poison item, it gains +3 Poison for the fight.",
+      "Fiery": "When you use an adjacent Burn item, it gains +3 Burn for the fight.",
       "Shiny": "+1 Multicast",
       "Deadly": "+50% Crit Chance",
       "Radiant": "This item is immune to Freeze, Slow and Destroy.",
-      "Obsidian": "This has double Damage."
+      "Obsidian": "This has double Damage bonus."
     },
     "priorities": [
       1,

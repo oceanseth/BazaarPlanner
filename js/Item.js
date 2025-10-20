@@ -6220,5 +6220,6 @@ export class Item {
         Object.assign(copy,{hasteTimeRemaining,freezeTimeRemaining,slowTimeRemaining});
         copy.board.transformTriggers.forEach(f=>f(this,copy));
         this.log(this.board.player.name+"'s "+this.name+" transformed into "+copy.name+" by "+source.board.player.name+"'s "+source.name);
+        return copy;
     }
 }
