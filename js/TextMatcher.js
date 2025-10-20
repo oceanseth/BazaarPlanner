@@ -1286,8 +1286,38 @@ TextMatcher.matchers.push({
         const tags = match[1].split(", ");
         const amount = getRarityValue(match[2], item.rarity);
         const whatToGain = match[3].toLowerCase();
-        item.board.activeItems.filter(i=>i!=item && tags.some(tag=>i.tags.includes(tag))).forEach(i=>{
-            item.gain(amount,whatToGain,i);
+        const matchingTags = new Set();
+        item.board.activeItems
+            .filter(i=>i!=item)
+            .forEach(i => {
+                tags.forEach(tag => {
+                    if(i.tags.includes(tag)) {
+                        matchingTags.add(tag);
+                    }
+                });
+            });
+        if(matchingTags.size > 0) {
+            item.gain(amount * matchingTags.size, whatToGain, item);
+        }
+        item.board.itemDestroyedTriggers.set(item.id, (i)=>{
+            if(i!=item) {
+                const newMatchingTags = new Set();
+                item.board.activeItems
+                    .filter(i=>i!=item)
+                    .forEach(i => {
+                        tags.forEach(tag => {
+                            if(i.tags.includes(tag)) {
+                                newMatchingTags.add(tag);
+                            }
+                        });
+                    });
+                const diff = matchingTags.size - newMatchingTags.size;
+                if(diff > 0) {
+                    item.gain(amount * diff, whatToGain, item);
+                }
+                matchingTags.clear();
+                newMatchingTags.forEach(tag => matchingTags.add(tag));
+            }
         });
         return ()=>{};
     }
