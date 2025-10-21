@@ -2992,6 +2992,17 @@ export class Item {
                             }
                         });
                         return ()=>{};
+                    case "crit or use any item to the left of this":
+                        this.board.critTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item)=> {
+                            triggerFunctionFromText(item);
+                        });
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item)=> {
+                            if(item.startIndex < this.startIndex) {
+                                triggerFunctionFromText(item);
+                                if(ifFunction) ifFunction(item);
+                            }
+                        });
+                        return ()=>{};
                     case "use any item to the right of this":
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item)=> {
                             if(item.startIndex > this.startIndex) {
