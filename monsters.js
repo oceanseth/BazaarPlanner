@@ -330,7 +330,7 @@ export const monsters = {
       },
       {
         "name": "Honing Steel",
-        "tier": 0
+        "tier": 2
       },
       {
         "name": "Friendly Doll",
@@ -338,7 +338,7 @@ export const monsters = {
       },
       {
         "name": "Switchblade",
-        "tier": 0
+        "tier": 2
       },
       {
         "name": "Butterfly Swords",
@@ -1837,7 +1837,7 @@ export const monsters = {
     "skills": [
       {
         "name": "Poison Tyrant",
-        "tier": 1
+        "tier": 2
       }
     ],
     "items": [
@@ -2077,7 +2077,7 @@ export const monsters = {
     "skills": [
       {
         "name": "Heat Lover",
-        "tier": 0
+        "tier": 2
       },
       {
         "name": "Fiery",
@@ -3577,11 +3577,11 @@ export const monsters = {
       },
       {
         "name": "Caltrops",
-        "tier": 2
+        "tier": 3
       },
       {
         "name": "Caltrops",
-        "tier": 2
+        "tier": 3
       },
       {
         "name": "Spices",
