@@ -1529,7 +1529,38 @@ ItemFunction.items.set("Potion Potion",(item)=>{
         }
     });
 });
+//"Transform an enemy Medium item into 2 Small items for the fight" from Hacksaw
+ItemFunction.items.set("Hacksaw",(item)=>{
+    const dmg = 50;
+    item.gain(dmg,'damage');
+    item.triggerFunctions.push(()=>{
+        item.dealDamage(dmg);
+    });
+    item.triggerFunctions.push(()=>{
+        const enemyMediumItems = item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes("Medium"));
+        const smallItemCache = Item.getCacheByTag("Small");
+        const smallItems = smallItemCache.filter(i => i.tier<=item.tier);
+        
+        if(enemyMediumItems.length>0 && smallItems.length>0) {
+            const enemyMediumItem = item.pickRandom(enemyMediumItems);
+            const smallItem = item.pickRandom(smallItems);
+            let smallItem2 = item.pickRandom(smallItems);
 
+            const smallItemData = structuredClone(smallItem);
+            smallItemData.enchant = enemyMediumItem.enchant;
+            smallItemData.tier = enemyMediumItem.tier;
+            enemyMediumItem.transformInto(smallItemData, {source:item});
+
+            const smallItem2Data = structuredClone(smallItem2);
+            smallItem2Data.enchant = enemyMediumItem.enchant;
+            smallItem2Data.tier = enemyMediumItem.tier;
+            enemyMediumItem.startIndex++;
+            smallItem2 = enemyMediumItem.transformInto(smallItem2Data, {source:item});
+            enemyMediumItem.startIndex--;
+
+        }
+    });
+});
 //  "Poison yourself (1/2/3/4) for each Virus on your board.",
 //  "Transform another non-legendary small item on each player's board into Virus for the rest of the fight." from virus
 ItemFunction.items.set("Virus",(item)=>{

@@ -1462,7 +1462,7 @@ export class Item {
         }
 
         //Haste this ( 1 / 2 / 3 / 4 ) second(s).
-        regex = /^Haste this (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        regex = /^(?:Haste this|this is hasted)(?: for)? (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
             this.haste += getRarityValue(match[1], this.rarity);
@@ -6220,5 +6220,6 @@ export class Item {
         Object.assign(copy,{hasteTimeRemaining,freezeTimeRemaining,slowTimeRemaining});
         copy.board.transformTriggers.forEach(f=>f(this,copy));
         this.log(this.board.player.name+"'s "+this.name+" transformed into "+copy.name+" by "+source.board.player.name+"'s "+source.name);
+        return copy;
     }
 }

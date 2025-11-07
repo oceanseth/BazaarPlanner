@@ -1328,6 +1328,7 @@ font.Slow:before {
     flex-direction: column;  /* Stack children vertically */
     justify-content: center; /* Center vertically */
     align-items: center;     /* Center horizontally */
+    top:0px;
 }
 .multicast-element {
     background-color: rgba(0, 0, 0, 0.7);
