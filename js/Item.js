@@ -3392,7 +3392,18 @@ export class Item {
                                 triggerFunctionFromText(source);
                         });
                         return ()=>{};
-
+                    case "use the non-core item to the left of this":
+                        const leftNonCoreItem = this.getItemToTheLeft();
+                        if(leftNonCoreItem&&!leftNonCoreItem.tags.includes("Core")) {
+                            leftNonCoreItem.triggerFunctions.push(triggerFunctionFromText);
+                        }
+                        return ()=>{};
+                    case "use the non-core item to the right of this":
+                        const rightNonCoreItem = this.getItemToTheRight();
+                        if(rightNonCoreItem&&!rightNonCoreItem.tags.includes("Core")) {
+                            rightNonCoreItem.triggerFunctions.push(triggerFunctionFromText);
+                        }
+                        return ()=>{};
                     case "an adjacent item slows or freezes":
                         const adjItems = this.adjacentItems;
                         this.board.slowTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
@@ -3844,6 +3855,10 @@ export class Item {
         match = text.match(regex);
         if(match) {
             this.charge = getRarityValue(match[3], this.rarity);
+            //remove tailing " for" from match[1] if it exists
+            if(match[1].endsWith(" for")) {
+                match[1] = match[1].slice(0,-4);
+            }
             const itemsToCharge = [];
             if(match[1]=='rightmost') {
                 if(this.board.itemsWithCooldown.length>0) {
