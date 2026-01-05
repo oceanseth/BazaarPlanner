@@ -4,30 +4,21 @@ import { Board } from "./Board.js";
 
 export class TextMatcher {
     static comparitors = {
-        "if you have exactly one weapon, ":{
-            test: (item) => {
-                return item.board.activeItems.filter(i=>i.tags.includes("Weapon")).length==1;
+        "if you have exactly (?:one|1) (\\w+)(?: item)?, ":{
+            test: (item, matches) => {
+                return item.board.activeItems.filter(i=>i.tags.includes(Item.getTagFromText(matches[1]))).length==1;
             },
-            setup: (item,f) => {
-                item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
+            setup: (item,f, matches) => {
+                item.target = item.board.items.filter(i=>i.tags.includes(matches[1]))[0];
                 item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
             }
         },
-        "if you have exactly 1 tech item, ":{
-            test: (item) => {
-                return item.board.activeItems.filter(i=>i.tags.includes("Tech")).length==1;
+        "if you have no other (\\w+)(?: item)?s?, ":{
+            test: (item, matches) => {
+                return item.board.activeItems.filter(i=>i!=item &&i.tags.includes(Item.getTagFromText(matches[1]))).length==0;
             },
-            setup: (item,f) => {
-                item.target = item.board.items.filter(i=>i.tags.includes("Tech"))[0];
-                item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
-            }
-        },
-        "if you have no other weapons, ":{
-            test: (item) => {
-                return item.board.activeItems.filter(i=>i!=item &&i.tags.includes("Weapon")).length==0;
-            },
-            setup: (item,f) => {
-                item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
+            setup: (item,f, matches) => {
+                item.target = item.board.items.filter(i=>i.tags.includes(Item.getTagFromText(matches[1])))[0];
                 item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
             }
         },
@@ -283,10 +274,10 @@ TextMatcher.matchers.push({
     desc: "if something, do something while something",
     regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})?(.*) while you(r enemy)? (?:has|have) a (Slowed|Hasted|Frozen) item\.?$`, 'i'),
     func: (item, match)=>{        
-        const targetBoard = match[3] ? item.board.player.hostileTarget.board : item.board;
-        const typeOfItem = Item.getTagFromText(match[4]);
-        const f = item.getUndoableFunctionFromText(match[2], ()=>{
-            return (match[1]?TextMatcher.comparitors[match[1].toLowerCase()].test(item):1) && targetBoard["has"+typeOfItem+"Item"];
+        const targetBoard = match[4] ? item.board.player.hostileTarget.board : item.board;
+        const typeOfItem = Item.getTagFromText(match[5]);
+        const f = item.getUndoableFunctionFromText(match[3], ()=>{
+            return (match[2]?TextMatcher.comparitors[match[2].toLowerCase()].test(item, match.slice(2)):1) && targetBoard["has"+typeOfItem+"Item"];
         });
         targetBoard["has"+typeOfItem+"ItemChanged"](() => {
             f(item.target);
@@ -499,7 +490,7 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //When (?:this|this item) gains (.*), (.*) Mech Moles
-    regex: /^When (?:this|this item) gains (.*), (.*)/i,
+    regex: /^When (?:this|this item) (?:gains|is) (.*), (.*)/i,
     func: (item, match)=>{
         const f = item.getTriggerFunctionFromText(match[2]);
         const f2 = (i,source)=>{ if(i.id==item.id) f(i,source); };
@@ -513,7 +504,7 @@ TextMatcher.matchers.push({
             case "damage":
                 item.board.damageTriggers.set(item.id+"_"+f.text,f2);
                 break;
-            case "freeze":
+            case "freeze": case "frozen":
                 item.board.freezeTriggers.set(item.id+"_"+f.text,f2);
                 break;
             default:

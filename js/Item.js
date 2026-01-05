@@ -1012,7 +1012,7 @@ export class Item {
         this.log(this.name + " froze " + item.name + " for " + duration + " seconds");
         const oldCritPossible = item.board.critPossible;
         item.board.critPossible=false;
-        this.board.freezeTriggers.forEach(func => func(item,this));
+        item.board.freezeTriggers.forEach(func => func(item,this));
         item.board.critPossible=oldCritPossible;
     }
     removeFreeze(source) {
@@ -3741,7 +3741,7 @@ export class Item {
         }
        
         //When any item gains freeze, ...
-        regex = /^\s*When any item gains freeze, (.*)/i;
+        regex = /^\s*When any item (?:gains freeze|is Frozen), (.*)/i;
         match = text.match(regex);
         if(match) {
             const f = this.getTriggerFunctionFromText(match[1]);
