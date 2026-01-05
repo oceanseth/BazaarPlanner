@@ -861,16 +861,19 @@ export class Item {
 
         const newTriggers = Math.floor((this.effectiveBattleTime -(this.numTriggers))/ this.cooldown);
         if (newTriggers > this.numTriggers && (!this.maxAmmo || this.ammo>0)) {
-            if(this.maxAmmo) this.ammo--;
-            if(this.multicast>0) {
-                this.pendingMulticasts+=parseInt(this.multicast);    
-            }
-            this.numTriggers =this.numTriggers+1;
-            this.trigger();
+            this.use();
+            this.numTriggers++;
         } else if(this.pendingMulticasts>0) {
             this.pendingMulticasts--;
             this.trigger();
         }
+    }
+    use() {
+        if(this.maxAmmo) this.ammo--;
+        if(this.multicast>0) {
+            this.pendingMulticasts+=parseInt(this.multicast);    
+        }        
+        this.trigger();        
     }
 
     trigger() {
@@ -5440,15 +5443,18 @@ export class Item {
             }
         }
         //use a core.
-        regex = /^\s*Use a Core\.?$/i;
+        regex = /^\s*Use a(?:ll of your ([^\s]+) size)? Cores?\.?$/i;
         match = text.match(regex);
         if(match) {
+            const sizeToMatch = Item.getTagFromText(match[1]);
             return () => {
-                const coreItems = this.board.activeItems.filter(item=>item.tags.includes("Core"));
-                const coreItem = this.pickRandom(coreItems);
-                if(coreItem) {
-                    coreItem.trigger();
+                let coreItems = this.board.activeItems.filter(item=>item.tags.includes("Core"));
+                if(sizeToMatch) {
+                    coreItems = coreItems.filter(item=>item.tags.includes(sizeToMatch));
                 }
+                coreItems.forEach(item=>{
+                    item.use();
+                });
             }
         }
         //Haste the Core for 2 second(s). from Letting off Steam
