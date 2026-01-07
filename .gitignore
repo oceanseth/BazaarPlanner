@@ -36,3 +36,7 @@ lerna-debug.log*
 *.sw? 
 
 .serverless/
+
+# Test results
+test-results.txt
+test-failures-only.txt
