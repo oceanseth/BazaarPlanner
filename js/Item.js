@@ -2807,7 +2807,7 @@ export class Item {
                 });
                 return ()=>{};
             }
-            let regex = /^use a (\w+) or (\w+) item$/i;
+            let regex = /^use a (\w+) or (?:a )?(\w+) item$/i;
             const useOrMatch = conditionalMatch.match(regex);
             if(useOrMatch) {
                 let tagToMatch = Item.getTagFromText(useOrMatch[1]);
