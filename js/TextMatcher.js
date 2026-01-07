@@ -2101,6 +2101,28 @@ TextMatcher.matchers.push({
         };
     }
 });
+//"Slow an item on each Player's board for 1 second(s)." from Admiral's Badge
+TextMatcher.matchers.push({
+    regex: /^Slow (\([^)]+\)|\d+|an) item\(?s?\)? on each Player's board for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[2], item.rarity);
+        const numItems = match[1]=='an' ? 1 : getRarityValue(match[1], item.rarity);
+        item.slow += amount;
+        return ()=>{
+           item.applySlows(numItems);
+           item.applySlows(numItems,item.board.player);
+        };
+    }
+});
+//"Your Flying items are affected by Freeze and Slow for half as long." from Admiral's Badge
+TextMatcher.matchers.push({
+    regex: /^Your Flying items are affected by Freeze(?: and Slow)? for half as long\.?$/i,
+    func: (item, match)=>{
+        // Flying items already lose freeze and slow twice as fast (see Item.js lines 825 and 808)
+        // This pattern is informational - the behavior is already implemented
+        return ()=>{};
+    }
+});
 //"Destroy this and an enemy item with no Cooldown for the fight" from Unstable Grav Well
 TextMatcher.matchers.push({
     regex: /^Destroy this and an enemy item with no Cooldown for the fight\.?$/i,
