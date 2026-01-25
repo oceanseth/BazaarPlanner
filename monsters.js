@@ -929,7 +929,7 @@ export const monsters = {
       },
       {
         "name": "Textiles",
-        "tier": 1
+        "tier": 2
       },
       {
         "name": "Scrap",
