@@ -2807,7 +2807,7 @@ export class Item {
                 });
                 return ()=>{};
             }
-            let regex = /^use a (\w+) or (\w+) item$/i;
+            let regex = /^use a (\w+) or (?:a )?(\w+) item$/i;
             const useOrMatch = conditionalMatch.match(regex);
             if(useOrMatch) {
                 let tagToMatch = Item.getTagFromText(useOrMatch[1]);
@@ -5290,6 +5290,14 @@ export class Item {
         if(match) {
             this.gain(this.value,'value');
             this.value_multiplier += 1;
+            return ()=>{};
+        }
+        //This has (+20/+40) value in combat.
+        regex = /^This has (\([^)]+\)|\d+) value in combat\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const gainAmount = getRarityValue(match[1], this.rarity);
+            this.gain(gainAmount,'value');
             return ()=>{};
         }
         // Deal damage equal to 3 times the value of your items.
