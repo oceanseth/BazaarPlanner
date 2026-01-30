@@ -5534,23 +5534,34 @@ export class Item {
         //Your Shield items have +1 Shield 
         //your items have ( +1% » +2% » +3% » +4% ) crit chance
         //your items have ( +1% » +2% » +3% » +4% ) crit chance for each weapon you have
-        regex = /^your (non-)?([^\s]+)(?:s)?\s?(?:items)?(?: and ([^\s]+)(?:s)? (?:items)?)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s\.]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.?$/i;
+        //your aquatic weapons deal ( +10 » +20 » +30 ) Damage.
+        regex = /^your (non-)?([^\s]+)?\s*([^\s]+)(?:s)?\s?(?:items)?(?: and ([^\s]+)(?:s)? (?:items)?)?\s*(?:have|deal) (\([^\)]+\)|\+?\d+%?) ([^\s\.]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.?$/i;
         match = text.match(regex);
 
         if(match) {
             const non = match[1];
-            const tagToMatch = Item.getTagFromText(match[2]);
-            const tagToMatch2 = Item.getTagFromText(match[3]);
-            const gainAmount = parseInt(getRarityValue(match[4], this.rarity));
-            const whatToGain = match[5].toLowerCase();
+            const modifierTag = match[2] ? Item.getTagFromText(match[2]) : null;
+            const tagToMatch = Item.getTagFromText(match[3]);
+            const tagToMatch2 = Item.getTagFromText(match[4]);
+            const gainAmount = parseInt(getRarityValue(match[5], this.rarity));
+            const whatToGain = match[6].toLowerCase();
             let multiplier = 1;
-            if(match[4]=="unique type") {                
+            if(match[7]=="unique type") {                
                 multiplier = this.board.uniqueTypes;
-            } else if(match[6]) {
-                multiplier = this.board.items.filter(item=>item.tags.includes(Item.getTagFromText(match[6]))).length;
+            } else if(match[7]) {
+                multiplier = this.board.items.filter(item=>item.tags.includes(Item.getTagFromText(match[7]))).length;
             }
             this.board.items.forEach(item => {
-                if(tagToMatch=='Item' || non?(!item.tags.includes(tagToMatch)):item.tags.includes(tagToMatch) || (tagToMatch2&&item.tags.includes(tagToMatch2))) {
+                // Check if item matches the modifier tag (if present) - this is always AND
+                const matchesModifierTag = !modifierTag || item.tags.includes(modifierTag);
+                if(!matchesModifierTag) return;
+                
+                // Check if item matches the main tag (or is "Item" which matches all)
+                const matchesMainTag = tagToMatch=='Item' || (non?(!item.tags.includes(tagToMatch)):item.tags.includes(tagToMatch));
+                // Check if item matches the second tag (for "and" constructions) - this is OR
+                const matchesSecondTag = tagToMatch2 && item.tags.includes(tagToMatch2);
+                
+                if(matchesMainTag || matchesSecondTag) {
                     item.gain(gainAmount*multiplier,whatToGain);
                 }
             });
