@@ -42,7 +42,7 @@ def transform_skill(skill_data):
         if download_image(icon_path, local_path):
             print(f"Successfully downloaded: {local_path}")
         else:
-            print(f"Failed to download: {icon_path}")
+            print(f"Failed to download: {icon_path} (skill: {skill_data['name']})")
 
     if(len(skill_data['unifiedTooltips']) <= 0):
         print(f"No unified tooltips for {skill_data['name']}")
