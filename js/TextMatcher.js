@@ -34,6 +34,8 @@ export class TextMatcher {
             }
         }
     };
+    static totalComparitorMatchCount = 3;
+
     static getTriggerFunctionFromText(text, item) {
         for(let matcher of TextMatcher.matchers) {
             if(matcher.regex.test(text)) {                
@@ -292,8 +294,10 @@ TextMatcher.matchers.push({
     //If you have no other weapons, this has +1 multicast. from quill and ink
     regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})(.*)$`, 'i'),
     func: (item, match)=>{
-        const f = item.getUndoableFunctionFromText(match[2], ()=>(TextMatcher.comparitors[match[1].toLowerCase()].test(item)), true, item.target);
-        TextMatcher.comparitors[match[1].toLowerCase()].setup(item,f);
+        const matchingComparator = TextMatcher.comparitors[Object.keys(TextMatcher.comparitors).find(key=>new RegExp(key, 'i').test(match[1]))];
+
+        const f = item.getUndoableFunctionFromText(match[2+TextMatcher.totalComparitorMatchCount], ()=>(matchingComparator.test(item, match.slice(1))), true, item.target);
+        matchingComparator.setup(item,f,match.slice(1));
         return ()=>{};
     },
 });
@@ -606,7 +610,7 @@ TextMatcher.matchers.push({
     regex: new RegExp(`^(.*) (${Object.keys(TextMatcher.comparitors).join('|')})\.?$`, 'i'),
 
     func: (item, match)=>{
-        const matchingComparator = TextMatcher.comparitors[Object.keys(TextMatcher.comparitors).find(key=>new RegExp(key).test(match[2]))];
+        const matchingComparator = TextMatcher.comparitors[Object.keys(TextMatcher.comparitors).find(key=>new RegExp(key, 'i').test(match[2]))];
         const f = item.getUndoableFunctionFromText(match[1], ()=>{
             return matchingComparator.test(item, match.slice(2));
         });

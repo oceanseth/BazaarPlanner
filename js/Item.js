@@ -6190,6 +6190,10 @@ export class Item {
     }
 
     getUndoableFunctionFromText(text, comparisonFunction,checkComparison=true, item) {
+if(!text) {
+    console.log("No text to get undoable function from for "+this.name);
+    return null;
+}
         let undoableFunction = null;
         TextMatcher.undoableFunctions.find(undoableF=>{
             let match = text.match(undoableF.regex);
