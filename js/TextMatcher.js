@@ -500,9 +500,11 @@ TextMatcher.matchers.push({
         const f2 = (i,source)=>{ if(i.id==item.id) f(i,source); };
         switch(match[1].toLowerCase()) {
             case "haste":
+            case "hasted":
                 item.board.hasteTriggers.set(item.id+"_"+f.text,f2);
                 break;
             case "slow":
+            case "slowed":
                 item.board.slowTriggers.set(item.id+"_"+f.text,f2);
                 break;
             case "damage":
