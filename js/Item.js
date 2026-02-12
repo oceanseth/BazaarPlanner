@@ -1321,16 +1321,18 @@ export class Item {
 
     getHasteTriggerFunctionFromText(text) {      
        let regex,match;
-        regex = /^(Haste|Slow) your( other)? items (?:for )?(\([^)]+\)|\d+) second/i;
+        regex = /^(Haste|Slow) (?:all )?your( other)? (\w+)?\s?items (?:for )?(\([^)]+\)|\d+) second/i;
         match = text.match(regex);
         if(match) {
-            this.gain(getRarityValue(match[3], this.rarity),match[1].toLowerCase());
-            const other = match[2]==' other';
             const whatToDo = Item.getTagFromText(match[1]);
+            this.gain(getRarityValue(match[4], this.rarity),whatToDo.toLowerCase());
+            const other = match[2]==' other';
+            const tagToMatch = match[3] ? Item.getTagFromText(match[3]) : null;
             
             return () => {
                 this.board.items.forEach(i => {
                     if(other && i.id == this.id) return;
+                    if(tagToMatch && !i.tags.includes(tagToMatch)) return;
                     this["apply"+whatToDo+"To"](i);
                 });
             };
