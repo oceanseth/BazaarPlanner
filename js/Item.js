@@ -8,7 +8,7 @@ export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny','Toxic', 'Turbo' ];
-    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze','income', 'flying','isFrozen'];
+    static possibleChangeAttributes = ['cooldown','damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze','income', 'flying','isFrozen'];
     static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle'];
     static sizeTags = ['Small','Medium','Large'];
     static allowedGainMap = {
@@ -1324,15 +1324,13 @@ export class Item {
         regex = /^(Haste|Slow) (?:all )?your( other)? (\w+)?\s?items (?:for )?(\([^)]+\)|\d+) second/i;
         match = text.match(regex);
         if(match) {
-            const whatToDo = Item.getTagFromText(match[1]);
-            this.gain(getRarityValue(match[4], this.rarity),whatToDo.toLowerCase());
+            this.gain(getRarityValue(match[3], this.rarity),match[1].toLowerCase());
             const other = match[2]==' other';
-            const tagToMatch = match[3] ? Item.getTagFromText(match[3]) : null;
+            const whatToDo = Item.getTagFromText(match[1]);
             
             return () => {
                 this.board.items.forEach(i => {
                     if(other && i.id == this.id) return;
-                    if(tagToMatch && !i.tags.includes(tagToMatch)) return;
                     this["apply"+whatToDo+"To"](i);
                 });
             };

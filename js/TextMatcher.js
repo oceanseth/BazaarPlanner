@@ -2266,3 +2266,28 @@ TextMatcher.matchers.push({
         };
     }
 });
+
+//"Slow an item on each Player's board for 1 second(s)." from Admiral's Badge
+TextMatcher.matchers.push({
+    regex: /^Slow (\([^)]+\)|\d+|an) item\(?s?\)? on each Player's board for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[2], item.rarity);
+        const numItems = match[1]=='an' ? 1 : getRarityValue(match[1], item.rarity);
+        item.slow += amount;
+        return ()=>{
+           item.applySlows(numItems);
+           item.applySlows(numItems,item.board.player);
+        };
+    }
+});
+//If the item to the Left of this has a Cooldown over 5 seconds, ...
+TextMatcher.matchers.push({
+    regex: /^If the item to the Left of this has a Cooldown over (\([^)]+\)|\d+) seconds, (.*)$/i,
+    func: (item, match)=>{
+        const leftItem = item.getItemToTheLeft();
+        const amount = getRarityValue(match[1], item.rarity);
+        const f = item.getUndoableFunctionFromText(match[2], ()=>leftItem && leftItem.cooldown>amount*1000);
+        item.board.itemDestroyedTriggers.set(item.id, f);
+        return ()=>{};
+    }
+});
