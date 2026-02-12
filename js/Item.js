@@ -3668,6 +3668,7 @@ export class Item {
                     });
 
                     return ()=>{};
+                case "you would be defeated":
                 case "you would die":
                     let dieCount = 0;
                     this.board.player.dieTriggers.set(this.id,(item)=>{
