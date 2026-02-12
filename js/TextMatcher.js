@@ -2254,3 +2254,15 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+
+//"Reduce another Tool's Cooldown by 1 second for the fight" from Hands of Time
+TextMatcher.matchers.push({
+    regex: /^Reduce another (\w+)'s Cooldown by (\([^)]+\)|\d+) second\(?s?\)? for the fight\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[2], item.rarity);
+        const tag = Item.getTagFromText(match[1]);
+        return ()=>{
+            item.pickRandom(item.board.items.filter(i=>i!=item && i.tags.includes(tag))).gain(-amount*1000,'cooldown',item);
+        };
+    }
+});
