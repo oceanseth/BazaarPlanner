@@ -2291,3 +2291,21 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+
+//"If you have 2 or more Shield items, they gain (+10/+20/+30/+40) Damage for the fight" from Showcase
+TextMatcher.matchers.push({
+    regex: /^If you have 2 or more (\w+)(?: items)?, they gain (\([^)]+\)|\d+) (\w+) for the fight\.?$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const amount = getRarityValue(match[2], item.rarity);
+        const whatToGain = match[3].toLowerCase();
+        return ()=>{
+            const items = item.board.items.filter(i=>i.tags.includes(tag));
+            if(items.length>=2) {
+                items.forEach(i=>{
+                    i.gain(amount,whatToGain,item);
+                });
+            }
+        };
+    }
+});
