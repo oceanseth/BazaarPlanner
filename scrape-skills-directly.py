@@ -8,18 +8,36 @@ def fetch_skills():
     response = requests.get(url)
     return response.json()['data']
 
-def download_image(url, local_path):
+def download_image(url, local_path, name):
+    clean_name = re.sub(r'[ \'\"\(\)\-_\.\&]', '', name)
+    fallback_url = f"https://bazaarlogic.quest/images/items/{clean_name}.avif"
+
     try:
         response = requests.get(f"https://howbazaar-images.b-cdn.net/{url}")
         if response.status_code == 200:
             os.makedirs(os.path.dirname(local_path), exist_ok=True)
             with open(local_path, 'wb') as f:
                 f.write(response.content)
+            print(f"Downloaded {local_path}")
             return True
-        return False
     except Exception as e:
         print(f"Error downloading image {url}: {str(e)}")
-        return False
+
+    # Fallback to bazaarlogic.quest
+    print(f"Trying bazaarlogic fallback for {name}")
+    try:
+        response = requests.get(fallback_url)
+        if response.status_code == 200:
+            os.makedirs(os.path.dirname(local_path), exist_ok=True)
+            with open(local_path, 'wb') as f:
+                f.write(response.content)
+            print(f"Downloaded {local_path} (from bazaarlogic fallback)")
+            return True
+        print(f"Fallback returned {response.status_code} for {fallback_url}")
+    except Exception as e2:
+        print(f"Fallback failed for {name}: {str(e2)}")
+
+    return False
 
 def transform_skill(skill_data):
     # Combine all tags into one list
@@ -39,9 +57,7 @@ def transform_skill(skill_data):
     local_path = f"./public/images/items/{clean_name}.avif"
     if not os.path.exists(local_path):
         print(f"Downloading missing icon: {icon_path}")
-        if download_image(icon_path, local_path):
-            print(f"Successfully downloaded: {local_path}")
-        else:
+        if not download_image(icon_path, local_path, skill_data['name']):
             print(f"Failed to download: {icon_path} (skill: {skill_data['name']})")
 
     if(len(skill_data['unifiedTooltips']) <= 0):
