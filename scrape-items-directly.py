@@ -24,6 +24,7 @@ def download_image_if_missing(name, type_folder, id):
         
         # Construct URL using cardId if available, otherwise fall back to old format
         url = f"https://howbazaar-images.b-cdn.net/images/{type_folder}/{id}.avif"
+        fallback_url = f"https://bazaarlogic.quest/images/{type_folder}/{clean_name}.avif"
 
         try:
             response = requests.get(url)
@@ -34,7 +35,15 @@ def download_image_if_missing(name, type_folder, id):
                 f.write(response.content)
             print(f"Downloaded {local_path}")
         except Exception as e:
-            print(f"Failed to download image for {name}: {e}")
+            # Fallback to bazaarlogic.quest (spaces removed from name in clean_name)
+            try:
+                response = requests.get(fallback_url)
+                response.raise_for_status()
+                with open(local_path, 'wb') as f:
+                    f.write(response.content)
+                print(f"Downloaded {local_path} (from bazaarlogic fallback)")
+            except Exception as e2:
+                print(f"Failed to download image for {name}: {e}, fallback: {e2}")
 
 def fetch_items():
     url = "https://www.howbazaar.gg/api/items"

@@ -1586,5 +1586,18 @@ ItemFunction.items.set("Virus",(item)=>{
     });
     
 });
+//When one of your Tools are Hasted, your tools gain (5/10/15) damage for the fight. from Precision Tools
+ItemFunction.items.set("Precision Tools", (item)=>{
+    item.board.hasteTriggers.set(item.id, (i)=>{
+        if(!i.tags.includes("Tool")) return;
+        const amount = getRarityValue("5 >> 10 >> 15",item.rarity);
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Tool") && i.tags.includes("Weapon")) {
+                i.gain(amount,'damage');
+            }
+        });
+    });
+});
+
 BazaarPatcher.apply();
 ItemFunction.setupItems();

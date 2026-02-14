@@ -8,7 +8,7 @@ export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny','Toxic', 'Turbo' ];
-    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze','income', 'flying','isFrozen'];
+    static possibleChangeAttributes = ['cooldown','damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze','income', 'flying','isFrozen'];
     static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle'];
     static sizeTags = ['Small','Medium','Large'];
     static allowedGainMap = {
@@ -1321,7 +1321,7 @@ export class Item {
 
     getHasteTriggerFunctionFromText(text) {      
        let regex,match;
-        regex = /^(Haste|Slow) your( other)? items (?:for )?(\([^)]+\)|\d+) second/i;
+        regex = /^(Haste|Slow) (?:all )?your( other)? (\w+)?\s?items (?:for )?(\([^)]+\)|\d+) second/i;
         match = text.match(regex);
         if(match) {
             this.gain(getRarityValue(match[3], this.rarity),match[1].toLowerCase());
@@ -3668,6 +3668,7 @@ export class Item {
                     });
 
                     return ()=>{};
+                case "you would be defeated":
                 case "you would die":
                     let dieCount = 0;
                     this.board.player.dieTriggers.set(this.id,(item)=>{

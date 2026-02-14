@@ -43,7 +43,7 @@ export const monsters = {
     "items": [
       {
         "name": "Insect Wing",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Stinger",
