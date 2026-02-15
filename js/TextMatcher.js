@@ -4,34 +4,38 @@ import { Board } from "./Board.js";
 
 export class TextMatcher {
     static comparitors = {
-        "if you have exactly one weapon, ":{
-            test: (item) => {
-                return item.board.activeItems.filter(i=>i.tags.includes("Weapon")).length==1;
+        "if you have exactly (?:one|1) (\\w+)(?: item)?, ":{
+            test: (item, matches) => {
+                return item.board.activeItems.filter(i=>i.tags.includes(Item.getTagFromText(matches[1]))).length==1;
             },
-            setup: (item,f) => {
-                item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
+            setup: (item,f, matches) => {
+                item.target = item.board.items.filter(i=>i.tags.includes(matches[1]))[0];
                 item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
             }
         },
-        "if you have exactly 1 tech item, ":{
-            test: (item) => {
-                return item.board.activeItems.filter(i=>i.tags.includes("Tech")).length==1;
+        "if you have no other (\\w+)(?: item)?s?, ":{
+            test: (item, matches) => {
+                return item.board.activeItems.filter(i=>i!=item &&i.tags.includes(Item.getTagFromText(matches[1]))).length==0;
             },
-            setup: (item,f) => {
-                item.target = item.board.items.filter(i=>i.tags.includes("Tech"))[0];
+            setup: (item,f, matches) => {
+                item.target = item.board.items.filter(i=>i.tags.includes(Item.getTagFromText(matches[1])))[0];
                 item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
             }
         },
-        "if you have no other weapons, ":{
-            test: (item) => {
-                return item.board.activeItems.filter(i=>i!=item &&i.tags.includes("Weapon")).length==0;
+        "if you have a (\\w+) item":{
+            test: (item, matches) => {
+                const tag = Item.getTagFromText(matches[1]);
+                return item.board.activeItems.filter(i=>i.tags.includes(tag)).length>0;
             },
-            setup: (item,f) => {
-                item.target = item.board.items.filter(i=>i.tags.includes("Weapon"))[0];
+            setup: (item, f, matches) => {
+                const tag = Item.getTagFromText(matches[1]);
+                item.target = item.board.items.filter(i=>i.tags.includes(tag))[0];
                 item.board.itemDestroyedTriggers.set(item.id,()=> {f(item.target);});
             }
         }
     };
+    static totalComparitorMatchCount = 3;
+
     static getTriggerFunctionFromText(text, item) {
         for(let matcher of TextMatcher.matchers) {
             if(matcher.regex.test(text)) {                
@@ -198,10 +202,10 @@ export class TextMatcher {
         regex: /^this has \+1 Multicast\.?$/i,
         func: (item, match)=>{
             const doIt = () => {
-                this.multicast += 1;
+                item.gain(1,'multicast',item);
             };
             const undoIt = () => {
-                this.multicast -= 1;
+                item.gain(-1,'multicast',item);
             };
             return {doIt, undoIt};
         },
@@ -272,10 +276,10 @@ TextMatcher.matchers.push({
     desc: "if something, do something while something",
     regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})?(.*) while you(r enemy)? (?:has|have) a (Slowed|Hasted|Frozen) item\.?$`, 'i'),
     func: (item, match)=>{        
-        const targetBoard = match[3] ? item.board.player.hostileTarget.board : item.board;
-        const typeOfItem = Item.getTagFromText(match[4]);
-        const f = item.getUndoableFunctionFromText(match[2], ()=>{
-            return (match[1]?TextMatcher.comparitors[match[1].toLowerCase()].test(item):1) && targetBoard["has"+typeOfItem+"Item"];
+        const targetBoard = match[4] ? item.board.player.hostileTarget.board : item.board;
+        const typeOfItem = Item.getTagFromText(match[5]);
+        const f = item.getUndoableFunctionFromText(match[3], ()=>{
+            return (match[2]?TextMatcher.comparitors[match[2].toLowerCase()].test(item, match.slice(2)):1) && targetBoard["has"+typeOfItem+"Item"];
         });
         targetBoard["has"+typeOfItem+"ItemChanged"](() => {
             f(item.target);
@@ -290,8 +294,10 @@ TextMatcher.matchers.push({
     //If you have no other weapons, this has +1 multicast. from quill and ink
     regex: new RegExp(`^(${Object.keys(TextMatcher.comparitors).join('|')})(.*)$`, 'i'),
     func: (item, match)=>{
-        const f = item.getUndoableFunctionFromText(match[2], ()=>(TextMatcher.comparitors[match[1].toLowerCase()].test(item)), true, item.target);
-        TextMatcher.comparitors[match[1].toLowerCase()].setup(item,f);
+        const matchingComparator = TextMatcher.comparitors[Object.keys(TextMatcher.comparitors).find(key=>new RegExp(key, 'i').test(match[1]))];
+
+        const f = item.getUndoableFunctionFromText(match[2+TextMatcher.totalComparitorMatchCount], ()=>(matchingComparator.test(item, match.slice(1))), true, item.target);
+        matchingComparator.setup(item,f,match.slice(1));
         return ()=>{};
     },
 });
@@ -347,11 +353,12 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Your Burn items gain Burn equal to 15% of this item's value for the fight. from Fiery Pyg's Gym
-            regex: /^Your (\w+) items gain (\w+) equal to (\([^)]+\)|\d+)%? of this item's (\w+) for the fight\.?$/i,
+    //"Your Heal items gain Heal equal to this item's value for the fight." from Coincure
+    regex: /^Your (\w+)s?(?: items)? gain (\w+)(?: chance)? equal to (?:(\([^)]+\)|\d+)%? of )?this item's (\w+) for the fight\.?$/i,
     func: (item, match)=>{
         const whatTag = Item.getTagFromText(match[1]);
         const whatToGain = match[2].toLowerCase();
-        const multiplier = getRarityValue(match[3], item.rarity)/100;
+        const multiplier = match[3]?getRarityValue(match[3], item.rarity)/100:1;
         const whatThing = Item.getTagFromText(match[4]);
         item.board.items.forEach(i=>{
             if(i.tags.includes(whatTag)) {
@@ -488,21 +495,23 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //When (?:this|this item) gains (.*), (.*) Mech Moles
-    regex: /^When (?:this|this item) gains (.*), (.*)/i,
+    regex: /^When (?:this|this item) (?:gains|is) (.*), (.*)/i,
     func: (item, match)=>{
         const f = item.getTriggerFunctionFromText(match[2]);
         const f2 = (i,source)=>{ if(i.id==item.id) f(i,source); };
         switch(match[1].toLowerCase()) {
             case "haste":
+            case "hasted":
                 item.board.hasteTriggers.set(item.id+"_"+f.text,f2);
                 break;
             case "slow":
+            case "slowed":
                 item.board.slowTriggers.set(item.id+"_"+f.text,f2);
                 break;
             case "damage":
                 item.board.damageTriggers.set(item.id+"_"+f.text,f2);
                 break;
-            case "freeze":
+            case "freeze": case "frozen":
                 item.board.freezeTriggers.set(item.id+"_"+f.text,f2);
                 break;
             default:
@@ -600,14 +609,15 @@ TextMatcher.matchers.push({
     },
 });
 TextMatcher.matchers.push({
-    //if you have a Large item.
-            regex: /^(.*) if you have a ([^\s]+) item\.?$/i,
+    //this has +1 Multicast if you have a Large item.
+    regex: new RegExp(`^(.*) (${Object.keys(TextMatcher.comparitors).join('|')})\.?$`, 'i'),
+
     func: (item, match)=>{
-        const tag = Item.getTagFromText(match[2]);
-        const f = item.getTriggerFunctionFromText(match[1]);
-        if(item.board.items.some(i=>i.tags.includes(tag))) {
-            f();
-        }
+        const matchingComparator = TextMatcher.comparitors[Object.keys(TextMatcher.comparitors).find(key=>new RegExp(key, 'i').test(match[2]))];
+        const f = item.getUndoableFunctionFromText(match[1], ()=>{
+            return matchingComparator.test(item, match.slice(2));
+        });
+        matchingComparator.setup(item,f,match.slice(2));
         return ()=>{};
     }
 });
@@ -1216,9 +1226,9 @@ TextMatcher.matchers.push({
 });
 //transform into a (Gold/Diamond) copy of another small, non-legendary item you have for the fight. from Hologram Projector
 TextMatcher.matchers.push({
-            regex: /^\s*transform into a (\([^)]+\)|\w+) copy of another small, non-legendary item you have for the fight\.?$/i,
+            regex: /^\s*transform into a copy of another small, non-legendary item you have for the fight\.?$/i,
     func: (item, match)=>{
-        const tier = Item.rarityLevels.indexOf(getRarityValue(match[1], item.rarity));
+        const tier = item.tier;
         return ()=>{
             const targetItem = item.pickRandom(item.board.items.filter(i=>i!=item && i.tags.includes("Small") && i.tier!=4));
             if(targetItem) {
@@ -1269,13 +1279,43 @@ TextMatcher.matchers.push({
 });
 //If you have another Tool, Apparel, Tech, Weapon, or Friend, this has (+50/+100/+150) Damage for each. from Forklift
 TextMatcher.matchers.push({
-            regex: /^If you have another (\w+(?:, (?:or )?\w+)*)(?: item)?,? this has (\([^)]+\)|\+?\d+) (\w+)(?: for each)?\.?$/i,
+            regex: /^If you have another (\w+(?:,? (?:or )?\w+)*)(?: item)?,? this has (\([^)]+\)|\+?\d+) (\w+)(?: for each)?\.?$/i,
     func: (item, match)=>{
-        const tags = match[1].split(", ");
+        const tags = match[1].replace(/,/g, '').split(' ').filter(tag => tag.toLowerCase() !== 'or');
         const amount = getRarityValue(match[2], item.rarity);
         const whatToGain = match[3].toLowerCase();
-        item.board.activeItems.filter(i=>i!=item && tags.some(tag=>i.tags.includes(tag))).forEach(i=>{
-            item.gain(amount,whatToGain,i);
+        const matchingTags = new Set();
+        item.board.activeItems
+            .filter(i=>i!=item)
+            .forEach(i => {
+                tags.forEach(tag => {
+                    if(i.tags.includes(tag)) {
+                        matchingTags.add(tag);
+                    }
+                });
+            });
+        if(matchingTags.size > 0) {
+            item.gain(amount * matchingTags.size, whatToGain, item);
+        }
+        item.board.itemDestroyedTriggers.set(item.id, (i)=>{
+            if(i!=item) {
+                const newMatchingTags = new Set();
+                item.board.activeItems
+                    .filter(i=>i!=item)
+                    .forEach(i => {
+                        tags.forEach(tag => {
+                            if(i.tags.includes(tag)) {
+                                newMatchingTags.add(tag);
+                            }
+                        });
+                    });
+                const diff = matchingTags.size - newMatchingTags.size;
+                if(diff > 0) {
+                    item.gain(amount * diff, whatToGain, item);
+                }
+                matchingTags.clear();
+                newMatchingTags.forEach(tag => matchingTags.add(tag));
+            }
         });
         return ()=>{};
     }
@@ -1694,24 +1734,26 @@ TextMatcher.matchers.push({
                 i.gain(-amount,'burn');
             }
         });
-        return ()=>{};
+        return ()=>{
+            item.applyBurn();
+        };
     }
 });
 //"This item's cooldown is reduced by 50% if you have at least 4 other Dinosaurs." from Dinosawer
 TextMatcher.matchers.push({
-            regex: /^This item's cooldown is reduced by (\([^)]+\)|\d+)% if you have at least (\d+) other (\w+(?:,? (?:or )?(\w+))*)s?\.?$/i,
+            regex: /^This item's cooldown is reduced by (\d+) seconds if you have at least (\d+) other (\w+(?:,? (?:or )?(\w+))*)s?\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         const numThingsRequired = getRarityValue(match[2], item.rarity);
         const tags = match[3].split(",").map(t=>Item.getTagFromText(t.replace("or","").trim()));
         const numThings = item.board.items.filter(i=>i!=item && tags.some(t=>i.tags.includes(t))).length;
         if(numThings>=numThingsRequired) {
-            item.gain(item.cooldown*-amount/100,'cooldown');
+            item.gain(-amount*1000,'cooldown');
         }
         item.board.itemDestroyedTriggers.set(item.id+"_"+tags.join(","), (i)=>{
             const numThings = item.board.items.filter(i=>i!=item && tags.some(t=>i.tags.includes(t))).length;
             if(numThings<numThingsRequired) {
-                i.gain(item.cooldown*amount/100,'cooldown');
+                i.gain(amount*1000,'cooldown');
             }
             item.board.itemDestroyedTriggers.delete(item.id+"_"+tags.join(","));
         });
@@ -1869,6 +1911,19 @@ TextMatcher.matchers.push({
         };
     }
 });
+//"The item to the left of this starts Flying" from Levitation Pad
+TextMatcher.matchers.push({
+    regex: /^The item to the (left|right) of this starts Flying\.?$/i,
+    func: (item, match)=>{
+        const target = match[1]=='left' ? item.getItemToTheLeft() : item.getItemToTheRight();
+        return ()=>{
+            if(target && !target.isDestroyed) {
+                target.flying = true;
+                item.log("Because of "+item.name+", "+target.name+" starts flying.");
+            }
+        };
+    }
+});
 TextMatcher.matchers.push({
     regex: /^this (starts|stops) Flying\.?$/i,
     func: (item, match)=>{
@@ -1995,7 +2050,7 @@ TextMatcher.matchers.push({
 
 //"(1/2/3) Small item(s) start Flying." from Haunting Flight
 TextMatcher.matchers.push({
-    regex: /^(\([^)]+\)|\d+|all)( of your)? (\w+)?\s?item\(?s?\)? (start|stop)s? Flying\.?$/i,
+    regex: /^(\([^)]+\)|\d+|all)(?: of)?( your)? (\w+)?\s?item\(?s?\)? (start|stop)s? Flying\.?$/i,
     func: (item, match)=>{
         const numItems = getRarityValue(match[1], item.rarity);
         const yourItems = !!match[2];
@@ -2008,6 +2063,13 @@ TextMatcher.matchers.push({
                     i.flying = isStart;
                 });
                 item.log("Because of "+item.name+", all "+(yourItems?"your":"")+" items "+(isStart?"start":"stop")+" flying.");
+                return;
+            }
+            if(tag=="Other") {
+                item.pickRandom(item.board.activeItems.filter(i=>i!=item && i.flying!=isStart),numItems).forEach(i=>{
+                    i.flying = isStart;
+                    item.log("Because of "+item.name+", "+i.name+" "+(isStart?"starts":"stops")+" flying.");
+                });
                 return;
             }
             const items = item.board.activeItems.filter(i=>(!tag||i.tags.includes(tag)) && i.flying!=isStart);
@@ -2112,6 +2174,139 @@ TextMatcher.matchers.push({
             item.adjacentItems.forEach(i=>{
                 i.gain(amount,'crit');
             });
+        };
+    }
+});
+//'When an enemy Freezes or Slows your items, this is targeted instead.'
+TextMatcher.matchers.push({
+    regex: /^When an enemy Freezes or Slows your items, this is targeted instead\.?$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1], item);
+        item.board.player.hostileTarget.board.freezeTriggers.set(item.id,(target,source)=>{
+            item.freezeTimeRemaining += target.freezeTimeRemaining;
+            target.removeFreeze(item);
+            item.log(item.name + " redirected the freeze from " + source.name + " on " + target.name + " to itself.");
+        });
+        item.board.player.hostileTarget.board.slowTriggers.set(item.id,(target,source)=>{
+            item.slowTimeRemaining += target.slowTimeRemaining;
+            target.removeSlow(item);
+            item.log(item.name + " redirected the slow from " + source.name + " on " + target.name + " to itself.");
+        });
+        return ()=>{};
+    }
+});
+//"all items on your board gain (+1/+2/+3) value." from Display Case
+TextMatcher.matchers.push({
+    regex: /^all items on your board gain (\([^)]+\)|\d+) value\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        return ()=>{
+            item.board.items.forEach(i=>{
+                i.gain(amount,'value');
+            });
+        };
+    }
+});
+//"this gains +Damage equal to that item's value for the fight." from Laser Security System
+TextMatcher.matchers.push({
+    regex: /^this gains \+Damage equal to that item's value for the fight\.?$/i,
+    func: (item, match)=>{
+        return (source)=>{
+            item.gain(source.value,'damage',source);
+        };
+    }
+});
+//"your Cores start Flying." from Propeller Hat
+TextMatcher.matchers.push({
+    regex: /^your (\w+)s? starts? Flying\.?$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        return ()=>{            
+            item.board.items.filter(i=>i.tags.includes(tag)).forEach(i=>{
+                i.flying = true;
+                item.log("Because of "+item.name+", "+i.name+" starts flying.");
+            });
+        };
+    }
+});
+//"If the item to the left of this is Flying." from Levitation Pad
+TextMatcher.matchers.push({
+    regex: /^If the item to the left of this is Flying, (.*)\.?$/i,
+    func: (item, match)=>{
+        const target = item.getItemToTheLeft();
+        const f = item.getTriggerFunctionFromText(match[1], item);
+        return ()=>{
+            if(target && !target.isDestroyed && target.flying) {
+                f(target);
+            }
+        };
+    }
+});
+
+//The item to the left of this has its cooldown reduced by ( 25% » 50% ). from Gramophone   
+TextMatcher.matchers.push({
+    regex: /^The cooldown of the item to the left of this is reduced by (\([^)]+\)|\d+)%?\.?$/i,
+    func: (item, match)=>{
+        const cooldownReduction = getRarityValue(match[1], item.rarity);
+        const leftItem = item.getItemToTheLeft();
+        if(leftItem) {
+            leftItem.gain(leftItem.cooldown*(1-cooldownReduction/100)-leftItem.cooldown,'cooldown');
+        }
+        return ()=>{};
+    }
+});
+
+//"Reduce another Tool's Cooldown by 1 second for the fight" from Hands of Time
+TextMatcher.matchers.push({
+    regex: /^Reduce another (\w+)'s Cooldown by (\([^)]+\)|\d+) second\(?s?\)? for the fight\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[2], item.rarity);
+        const tag = Item.getTagFromText(match[1]);
+        return ()=>{
+            item.pickRandom(item.board.items.filter(i=>i!=item && i.tags.includes(tag))).gain(-amount*1000,'cooldown',item);
+        };
+    }
+});
+
+//"Slow an item on each Player's board for 1 second(s)." from Admiral's Badge
+TextMatcher.matchers.push({
+    regex: /^Slow (\([^)]+\)|\d+|an) item\(?s?\)? on each Player's board for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[2], item.rarity);
+        const numItems = match[1]=='an' ? 1 : getRarityValue(match[1], item.rarity);
+        item.slow += amount;
+        return ()=>{
+           item.applySlows(numItems);
+           item.applySlows(numItems,item.board.player);
+        };
+    }
+});
+//If the item to the Left of this has a Cooldown over 5 seconds, ...
+TextMatcher.matchers.push({
+    regex: /^If the item to the Left of this has a Cooldown over (\([^)]+\)|\d+) seconds, (.*)$/i,
+    func: (item, match)=>{
+        const leftItem = item.getItemToTheLeft();
+        const amount = getRarityValue(match[1], item.rarity);
+        const f = item.getUndoableFunctionFromText(match[2], ()=>leftItem && leftItem.cooldown>amount*1000);
+        item.board.itemDestroyedTriggers.set(item.id, f);
+        return ()=>{};
+    }
+});
+
+//"If you have 2 or more Shield items, they gain (+10/+20/+30/+40) Damage for the fight" from Showcase
+TextMatcher.matchers.push({
+    regex: /^If you have 2 or more (\w+)(?: items)?, they gain (\([^)]+\)|\d+) (\w+) for the fight\.?$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const amount = getRarityValue(match[2], item.rarity);
+        const whatToGain = match[3].toLowerCase();
+        return ()=>{
+            const items = item.board.items.filter(i=>i.tags.includes(tag));
+            if(items.length>=2) {
+                items.forEach(i=>{
+                    i.gain(amount,whatToGain,item);
+                });
+            }
         };
     }
 });

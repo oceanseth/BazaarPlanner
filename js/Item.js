@@ -8,7 +8,7 @@ export class Item {
     static hiddenTags = ['Damage', 'Crit'];
     static rarityLevels = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Legendary'];
     static possibleEnchants = ['Deadly', 'Ethereal', 'Fiery', 'Golden', 'Heavy', 'Icy', 'Mystical', 'Obsidian', 'Radiant', 'Restorative', 'Shielded', 'Shiny','Toxic', 'Turbo' ];
-    static possibleChangeAttributes = ['damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze','income', 'flying','isFrozen'];
+    static possibleChangeAttributes = ['cooldown','damage','shield','burn','poison','heal','ammo','value','crit','regen','charge','lifesteal','slow','haste','freeze','income', 'flying','isFrozen'];
     static characterTags = ['Dooley','Vanessa','Pygmalien','Mak','Stelle'];
     static sizeTags = ['Small','Medium','Large'];
     static allowedGainMap = {
@@ -385,12 +385,13 @@ export class Item {
                 }
             }
         });
-        this.flying = this.tags.includes('Flying');
+        //this.flying = this.tags.includes('Flying');
+        this.flying = false;
 
 
         this.battleStatsElement.querySelectorAll('div').forEach(div => div.style.display = 'none');
 
-        this.freezeDurationRemaining = 0;
+        this.freezeTimeRemaining = 0;
         this.freezeElement.classList.add('hidden');
         this.element.classList.add(this.rarity || 'Bronze');
     
@@ -820,21 +821,21 @@ export class Item {
 
     updateBattle(timeDiff) {
         
-        if(this.freezeDurationRemaining > 0) {
-            this.freezeDurationRemaining -= timeDiff * (this.flying?2:1);
-            if(this.freezeDurationRemaining > 0) {
+        if(this.freezeTimeRemaining > 0) {
+            this.freezeTimeRemaining -= timeDiff * (this.flying?2:1);
+            if(this.freezeTimeRemaining > 0) {
                 this.element.classList.add('frozen');       
                 this.freezeElement.classList.remove('hidden');
-                this.freezeElement.textContent = (this.freezeDurationRemaining/1000).toFixed(1);
+                this.freezeElement.textContent = (this.freezeTimeRemaining/1000).toFixed(1);
 
                 this.progressHasteAndSlowAndReturnEffectiveTimeDiff(timeDiff);
 
                 return;
             }
             
-            this.freezeDurationRemaining = 0;
+            this.freezeTimeRemaining = 0;
             this.isFrozen = 0;
-            if(!this.board.items.some(i=>i.freezeDurationRemaining>0)) {
+            if(!this.board.items.some(i=>i.freezeTimeRemaining>0)) {
                 this.board.hasFrozenItem = 0;
             }
             this.element.classList.remove('frozen');
@@ -845,8 +846,8 @@ export class Item {
 
         let effectiveTimeDiff = this.progressHasteAndSlowAndReturnEffectiveTimeDiff(timeDiff);
         
-        if(this.board.player.battle.numTicks%2==0) {
-            while(this.pendingCharges.length>0 && this.chargeBy(this.pendingCharges.pop())); 
+        if(this.board.player.battle.numTicks%2==0 && this.pendingCharges.length>0) {
+            this.chargeBy(this.pendingCharges.pop()); 
         }
 
         if(this.maxAmmo && this.ammo<=0 && this.numTriggers < Math.floor((effectiveTimeDiff+this.effectiveBattleTime) / this.cooldown)) {
@@ -860,16 +861,19 @@ export class Item {
 
         const newTriggers = Math.floor((this.effectiveBattleTime -(this.numTriggers))/ this.cooldown);
         if (newTriggers > this.numTriggers && (!this.maxAmmo || this.ammo>0)) {
-            if(this.maxAmmo) this.ammo--;
-            if(this.multicast>0) {
-                this.pendingMulticasts+=parseInt(this.multicast);    
-            }
-            this.numTriggers =this.numTriggers+1;
-            this.trigger();
+            this.use();
+            this.numTriggers++;
         } else if(this.pendingMulticasts>0) {
             this.pendingMulticasts--;
             this.trigger();
         }
+    }
+    use() {
+        if(this.maxAmmo) this.ammo--;
+        if(this.multicast>0) {
+            this.pendingMulticasts+=parseInt(this.multicast);    
+        }        
+        this.trigger();        
     }
 
     trigger() {
@@ -991,11 +995,11 @@ export class Item {
         if(source!=null) { return source.applyFreezeTo(this,duration);}
         if(this.enchant=='Radiant') return;
         if(this.isDestroyed) return;
-        this.freezeDurationRemaining += duration*1000;
+        this.freezeTimeRemaining += duration*1000;
         this.board.hasFrozenItem = 1;
         this.isFrozen = 1;
         this.element.classList.add('frozen');
-        this.freezeElement.textContent = (this.freezeDurationRemaining/1000).toFixed(1);
+        this.freezeElement.textContent = (this.freezeTimeRemaining/1000).toFixed(1);
         this.freezeElement.classList.remove('hidden');      
     }
     applyFreezeTo(item) {
@@ -1011,15 +1015,15 @@ export class Item {
         this.log(this.name + " froze " + item.name + " for " + duration + " seconds");
         const oldCritPossible = item.board.critPossible;
         item.board.critPossible=false;
-        this.board.freezeTriggers.forEach(func => func(item,this));
+        item.board.freezeTriggers.forEach(func => func(item,this));
         item.board.critPossible=oldCritPossible;
     }
     removeFreeze(source) {
-        if (this.freezeDurationRemaining <= 0) 
+        if (this.freezeTimeRemaining <= 0) 
             return;
-        this.freezeDurationRemaining = 0;
+        this.freezeTimeRemaining = 0;
         this.isFrozen = 0;
-        if(!this.board.items.some(i=>i.freezeDurationRemaining>0)) {
+        if(!this.board.items.some(i=>i.freezeTimeRemaining>0)) {
             this.board.hasFrozenItem = 0;
         }
         this.element.classList.remove('frozen');
@@ -1094,7 +1098,7 @@ export class Item {
         if(match) {
             const other = match[1]=='other ';
             const gainAmount = getRarityValue(match[3], this.rarity);
-            const tagsToMatch = match[2].split(/,\s*(?:and\s+)?/).filter(Boolean).map((tag)=>Item.getTagFromText(tag.replace(' items','')));
+            const tagsToMatch = match[2].split(/( |,|and)/).filter(Boolean).map((tag)=>Item.getTagFromText(tag.replace(' items','')));
             const whatToGain = Item.getTagFromText(match[4]).toLowerCase();
             if(whatToGain=='damage'||tagsToMatch.includes('Weapon')) {
                 this.damageBonus += gainAmount;
@@ -1136,13 +1140,14 @@ export class Item {
         }
 
         //    your Dinosaurs permanently gain ( 30 » 40 ) damage. from Momma-Saur
-        damageRegex = /your Dinosaurs permanently gain (\([^)]+\)|\d+) damage\.?/i;
+        damageRegex = /your (\w+)s? permanently gain (\([^)]+\)|\d+) damage\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const gainAmount = getRarityValue(match[1], this.rarity);
+            const tag = Item.getTagFromText(match[2]);
             return () => {
                 this.board.activeItems.forEach(i=>{
-                    if(i.tags.includes("Dinosaur")) {
+                    if(i.tags.includes(tag)) {
                         i.gain(gainAmount,'damage');
                     }
                 });
@@ -1151,7 +1156,7 @@ export class Item {
 
         //Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage. from Epicurean Chocolate
         //Adjacent (Weapons|Tool items|Tools) gain ( 5 » 10 ) Damage for the fight.
-        damageRegex = /^(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gains? )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
+        damageRegex = /^(this and|an)?\s*Adjacent ([^\s]+)s?\s*(?:items?)?\s*(?:permanently )?(gains? )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const itemType = match[2];
@@ -1161,8 +1166,11 @@ export class Item {
                 if(match[2]!="items") {
                     adjacentItems = adjacentItems.filter(item => item.tags.includes(Item.getTagFromText(itemType)));
                 }
-
-                if(match[1]) adjacentItems.push(this);
+                if(match[1].toLowerCase()=='an') {
+                    adjacentItems = this.pickRandom(adjacentItems,1);
+                } else if(match[1].toLowerCase()=='this and') {
+                    adjacentItems.push(this);
+                }
                 adjacentItems.forEach(item => {
                     item.gain(gainAmount,match[5].toLowerCase(), source||this);
                 });
@@ -1250,8 +1258,8 @@ export class Item {
     isFreezeTargetable() {
         return !this.isDestroyed && (this.cooldown > 0 || (this.size<3));
         /*
-        && (this.cooldown > 0  || !this.board.items.some(item => item.cooldown > 0 && item.freezeDurationRemaining<=0))
-        && (this.freezeDurationRemaining <= 0 || !this.board.items.some(item => item.freezeDurationRemaining <= 0 && item.isHasteTargetable()));
+        && (this.cooldown > 0  || !this.board.items.some(item => item.cooldown > 0 && item.freezeTimeRemaining<=0))
+        && (this.freezeTimeRemaining <= 0 || !this.board.items.some(item => item.freezeTimeRemaining <= 0 && item.isHasteTargetable()));
         */
     }
 
@@ -1316,7 +1324,7 @@ export class Item {
 
     getHasteTriggerFunctionFromText(text) {      
        let regex,match;
-        regex = /^(Haste|Slow) your( other)? items (?:for )?(\([^)]+\)|\d+) second/i;
+        regex = /^(Haste|Slow) (?:all )?your( other)? (\w+)?\s?items (?:for )?(\([^)]+\)|\d+) second/i;
         match = text.match(regex);
         if(match) {
             this.gain(getRarityValue(match[3], this.rarity),match[1].toLowerCase());
@@ -1460,7 +1468,7 @@ export class Item {
         }
 
         //Haste this ( 1 / 2 / 3 / 4 ) second(s).
-        regex = /^Haste this (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        regex = /^(?:Haste this|this is hasted)(?: for)? (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
             this.haste += getRarityValue(match[1], this.rarity);
@@ -2134,18 +2142,6 @@ export class Item {
             };
 
         }
-        //Your Shield items gain Shield equal to this item's value for the fight.
-        regex = /^Your Shield items gain Shield equal to this item's value for the fight\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            return ()=>{
-                this.board.items.forEach(item => {
-                    if(item.tags.includes("Shield") || item.enchant=='Shielded') {
-                        item.gain(this.value,'shield');
-                    }
-                });
-            };
-        }
        
         // While you have Shield, this item's cooldown is reduced by 50%. from Welding Torch
         regex = /While you have Shield, this item's cooldown is reduced by 50%\.?/i;
@@ -2667,6 +2663,10 @@ export class Item {
         return false; 
     }
     getConditionalTriggerFunctionFromText(text) {
+        if(!text) return ()=>{
+            console.log("No text to get conditional trigger function from for "+this.name);
+            return ()=>{};
+        };
         if(text.match(/^At the start of each hour/i)) {
             return ()=>{};
         }
@@ -2798,7 +2798,7 @@ export class Item {
                 });
                 return ()=>{};
             }
-            let regex = /^use a (\w+) or (\w+) item$/i;
+            let regex = /^use a (\w+) or (?:a )?(\w+) item$/i;
             const useOrMatch = conditionalMatch.match(regex);
             if(useOrMatch) {
                 let tagToMatch = Item.getTagFromText(useOrMatch[1]);
@@ -2986,6 +2986,17 @@ export class Item {
                             }
                         });
                         return ()=>{};
+                    case "crit or use any item to the left of this":
+                        this.board.critTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item)=> {
+                            triggerFunctionFromText(item);
+                        });
+                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item)=> {
+                            if(item.startIndex < this.startIndex) {
+                                triggerFunctionFromText(item);
+                                if(ifFunction) ifFunction(item);
+                            }
+                        });
+                        return ()=>{};
                     case "use any item to the right of this":
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item)=> {
                             if(item.startIndex > this.startIndex) {
@@ -3129,6 +3140,14 @@ export class Item {
                     case "gain freeze":
                         this.board.player.hostileTarget.board.freezeTriggers.set(this.id,triggerFunctionFromText);
                         return ()=>{};
+                    case "freezes or slows":
+                        this.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
+                            triggerFunctionFromText(source);
+                        });
+                        this.board.slowTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
+                            triggerFunctionFromText(source);
+                        });
+                        return ()=>{};
                     case "freeze":
                         this.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
                                 triggerFunctionFromText(source);
@@ -3265,7 +3284,7 @@ export class Item {
                     case "use the leftmost item":
                     case "use your leftmost item":
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
-                            const leftmostItemWithCooldown = this.board.items.filter(i=>i.cooldown>0)[0];
+                            const leftmostItemWithCooldown = this.board.activeItems.filter(i=>i.cooldown>0)[0];
                             if(leftmostItemWithCooldown && item==leftmostItemWithCooldown) {
                                 triggerFunctionFromText(item);
                             }
@@ -3367,7 +3386,18 @@ export class Item {
                                 triggerFunctionFromText(source);
                         });
                         return ()=>{};
-
+                    case "use the non-core item to the left of this":
+                        const leftNonCoreItem = this.getItemToTheLeft();
+                        if(leftNonCoreItem&&!leftNonCoreItem.tags.includes("Core")) {
+                            leftNonCoreItem.triggerFunctions.push(triggerFunctionFromText);
+                        }
+                        return ()=>{};
+                    case "use the non-core item to the right of this":
+                        const rightNonCoreItem = this.getItemToTheRight();
+                        if(rightNonCoreItem&&!rightNonCoreItem.tags.includes("Core")) {
+                            rightNonCoreItem.triggerFunctions.push(triggerFunctionFromText);
+                        }
+                        return ()=>{};
                     case "an adjacent item slows or freezes":
                         const adjItems = this.adjacentItems;
                         this.board.slowTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
@@ -3629,6 +3659,7 @@ export class Item {
                     });
 
                     return ()=>{};
+                case "you would be defeated":
                 case "you would die":
                     let dieCount = 0;
                     this.board.player.dieTriggers.set(this.id,(item)=>{
@@ -3705,7 +3736,7 @@ export class Item {
         }
        
         //When any item gains freeze, ...
-        regex = /^\s*When any item gains freeze, (.*)/i;
+        regex = /^\s*When any item (?:gains freeze|is Frozen), (.*)/i;
         match = text.match(regex);
         if(match) {
             const f = this.getTriggerFunctionFromText(match[1]);
@@ -3815,11 +3846,26 @@ export class Item {
         }
    
         //charge your Busy Bees 2 second(s).
-        regex = /^\s*charge your ([^0-9|and]+?)s?\s*(?:and\s+(\w+)\s+)?(?:items?\s+)?(\([^)]+\)|\d+) second\(?s?\)?\.?/i;   
+        regex = /^\s*charge your ([^0-9|and]+?)s?\s*(?:and\s+(\w+)\s+)?(?:items?\s+)?(\([^)]+\)|\d+) second\(?s?\)?\.?$/i;   
         match = text.match(regex);
         if(match) {
             this.charge = getRarityValue(match[3], this.rarity);
-            const itemsToCharge = this.board.items.filter(item => item.name.toLowerCase()==match[1].toLowerCase()||item.tags.includes(Item.getTagFromText(match[1])));
+            //remove tailing " for" from match[1] if it exists
+            if(match[1].endsWith(" for")) {
+                match[1] = match[1].slice(0,-4);
+            }
+            const itemsToCharge = [];
+            if(match[1]=='rightmost') {
+                if(this.board.itemsWithCooldown.length>0) {
+                    itemsToCharge.push(this.board.itemsWithCooldown[this.board.itemsWithCooldown.length-1]);
+                }
+            } else if(match[1]=='leftmost') {
+                if(this.board.itemsWithCooldown.length>0) {
+                    itemsToCharge.push(this.board.itemsWithCooldown[0]);
+                }
+            } else {                
+                itemsToCharge.push(...this.board.items.filter(item => item.name.toLowerCase()==match[1].toLowerCase()||item.tags.includes(Item.getTagFromText(match[1]))));
+            }
             if(match[2]) {
                 itemsToCharge.push(...this.board.items.filter(item => item.tags.includes(Item.getTagFromText(match[2]))));
             }
@@ -4086,12 +4132,13 @@ export class Item {
             }
         }
 
-        //Use a property. From Keychain
-        regex = /^\s*Use a property\.?/i;
+        //Use another property. From Keychain
+        regex = /^\s*Use a(?:nother)? ([^\s]+)\.?/i;
         match = text.match(regex);
         if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
             return () => {
-                const targets = this.board.items.filter(item => item.tags.includes("Property") && item.isChargeTargetable());
+                const targets = this.board.items.filter(item => item.tags.includes(tagToMatch) && item.isChargeTargetable());
                 if(targets.length>0) {                    
                     const target = this.pickRandom(targets);                    
                     this.log(this.name + " used " + target.name);
@@ -4561,7 +4608,7 @@ export class Item {
 
 
         //Destroy a small enemy item for the fight.
-        regex = /^Destroy a small( or medium)? (?:enemy )?item for the fight\.?$/i;
+        regex = /^Destroy a small( or medium)? (?:enemy )?item(?: for the fight)?\.?$/i;
         match = text.match(regex);
         if(match) {
             return () => {
@@ -4895,14 +4942,16 @@ export class Item {
         }
 
         //Charge your other non-weapon items ( 1 » 2 ) second(s).
-        regex = /^\s*Charge your other non-weapon items (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        regex = /^\s*Charge your other (non-)?(\w+) items (\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            this.charge =  getRarityValue(match[1], this.rarity);
+            const non = match[1]!=null;
+            const tag = Item.getTagFromText(match[2]);
+            this.charge =  getRarityValue(match[3], this.rarity);
            
             return () => {
                 this.board.items.forEach(item => {
-                    if(item.id != this.id && item.cooldown>0 && !item.tags.includes("Weapon")) {
+                    if(item.id != this.id && item.cooldown>0 && (non?!item.tags.includes(tag):item.tags.includes(tag))) {
                         this.applyChargeTo(item);
                     }
                 });
@@ -5236,6 +5285,14 @@ export class Item {
             this.value_multiplier += 1;
             return ()=>{};
         }
+        //This has (+20/+40) value in combat.
+        regex = /^This has (\([^)]+\)|\d+) value in combat\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const gainAmount = getRarityValue(match[1], this.rarity);
+            this.gain(gainAmount,'value');
+            return ()=>{};
+        }
         // Deal damage equal to 3 times the value of your items.
         regex = /^Deal damage equal to 3 times the value of your items\.?$/i;
         match = text.match(regex);
@@ -5387,15 +5444,18 @@ export class Item {
             }
         }
         //use a core.
-        regex = /^\s*Use a Core\.?$/i;
+        regex = /^\s*Use a(?:ll of your ([^\s]+) size)? Cores?\.?$/i;
         match = text.match(regex);
         if(match) {
+            const sizeToMatch = Item.getTagFromText(match[1]);
             return () => {
-                const coreItems = this.board.activeItems.filter(item=>item.tags.includes("Core"));
-                const coreItem = this.pickRandom(coreItems);
-                if(coreItem) {
-                    coreItem.trigger();
+                let coreItems = this.board.activeItems.filter(item=>item.tags.includes("Core"));
+                if(sizeToMatch) {
+                    coreItems = coreItems.filter(item=>item.tags.includes(sizeToMatch));
                 }
+                coreItems.forEach(item=>{
+                    item.use();
+                });
             }
         }
         //Haste the Core for 2 second(s). from Letting off Steam
@@ -5467,23 +5527,34 @@ export class Item {
         //Your Shield items have +1 Shield 
         //your items have ( +1% » +2% » +3% » +4% ) crit chance
         //your items have ( +1% » +2% » +3% » +4% ) crit chance for each weapon you have
-        regex = /^your (non-)?([^\s]+)(?:s)?\s?(?:items)?(?: and ([^\s]+)(?:s)? (?:items)?)?\s*have (\([^\)]+\)|\+?\d+%?) ([^\s\.]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.?$/i;
+        //your aquatic weapons deal ( +10 » +20 » +30 ) Damage.
+        regex = /^your (non-)?([^\s]+)?\s*([^\s]+)(?:s)?\s?(?:items)?(?: and ([^\s]+)(?:s)? (?:items)?)?\s*(?:have|deal) (\([^\)]+\)|\+?\d+%?) ([^\s\.]+)\s*(?:chance)?\s*(?:(?:for each|per) ([^\s]+|unique type) (?:item )?you have)?\.?$/i;
         match = text.match(regex);
 
         if(match) {
             const non = match[1];
-            const tagToMatch = Item.getTagFromText(match[2]);
-            const tagToMatch2 = Item.getTagFromText(match[3]);
-            const gainAmount = parseInt(getRarityValue(match[4], this.rarity));
-            const whatToGain = match[5].toLowerCase();
+            const modifierTag = match[2] ? Item.getTagFromText(match[2]) : null;
+            const tagToMatch = Item.getTagFromText(match[3]);
+            const tagToMatch2 = Item.getTagFromText(match[4]);
+            const gainAmount = parseInt(getRarityValue(match[5], this.rarity));
+            const whatToGain = match[6].toLowerCase();
             let multiplier = 1;
-            if(match[4]=="unique type") {                
+            if(match[7]=="unique type") {                
                 multiplier = this.board.uniqueTypes;
-            } else if(match[6]) {
-                multiplier = this.board.items.filter(item=>item.tags.includes(Item.getTagFromText(match[6]))).length;
+            } else if(match[7]) {
+                multiplier = this.board.items.filter(item=>item.tags.includes(Item.getTagFromText(match[7]))).length;
             }
             this.board.items.forEach(item => {
-                if(tagToMatch=='Item' || non?(!item.tags.includes(tagToMatch)):item.tags.includes(tagToMatch) || (tagToMatch2&&item.tags.includes(tagToMatch2))) {
+                // Check if item matches the modifier tag (if present) - this is always AND
+                const matchesModifierTag = !modifierTag || item.tags.includes(modifierTag);
+                if(!matchesModifierTag) return;
+                
+                // Check if item matches the main tag (or is "Item" which matches all)
+                const matchesMainTag = tagToMatch=='Item' || (non?(!item.tags.includes(tagToMatch)):item.tags.includes(tagToMatch));
+                // Check if item matches the second tag (for "and" constructions) - this is OR
+                const matchesSecondTag = tagToMatch2 && item.tags.includes(tagToMatch2);
+                
+                if(matchesMainTag || matchesSecondTag) {
                     item.gain(gainAmount*multiplier,whatToGain);
                 }
             });
@@ -5700,7 +5771,7 @@ export class Item {
         regex = /^(adjacent|your other) items (?:gain|get) Value equal to this item's Value for the fight\.?$/i;
         match = text.match(regex);
         if(match) {
-            const items = match[1] == "adjacent" ? this.adjacentItems : this.board.items;
+            const items = match[1]?.toLowerCase() == "adjacent" ? this.adjacentItems : this.board.activeItems;
             return ()=>{
                 items.forEach(item => {
                     if(item.id!=this.id) { 
@@ -5749,20 +5820,6 @@ export class Item {
             };
         }
         
-
-        //Your weapons gain Damage equal to this item's value for the fight.
-        regex = /^Your weapons gain Damage equal to this item's value for the fight\.?$/i;
-        match = text.match(regex);
-
-        if(match) {
-            return ()=>{
-                this.board.items.forEach(item => {
-                    if(item.tags.includes("Weapon")) {  
-                        item.gain(this.value,'damage',this);
-                    }
-                });
-            };
-        }
         //Freeze ALL other items for 4 seconds. from Private Hot Springs
         regex = /^Freeze ALL other items for (\d+) seconds\.?$/i;
         match = text.match(regex);
@@ -6022,16 +6079,6 @@ export class Item {
     }
     getCritTriggerFunctionFromText(text) {
         let regex,match;
-        //Your items gain Crit Chance equal to this item's value for the fight.
-        regex = /^\s*Your items gain Crit Chance equal to this item's value for the fight\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            return () => {
-                this.board.items.forEach(item => {
-                    item.gain(this.value,'crit');
-                });
-            }
-        }
 
         //the other adjacent item gains 25% Crit Chance.
         regex = /^the other adjacent item gains 25% Crit Chance\.?$/i;
@@ -6112,6 +6159,10 @@ export class Item {
     }
 
     getUndoableFunctionFromText(text, comparisonFunction,checkComparison=true, item) {
+if(!text) {
+    console.log("No text to get undoable function from for "+this.name);
+    return null;
+}
         let undoableFunction = null;
         TextMatcher.undoableFunctions.find(undoableF=>{
             let match = text.match(undoableF.regex);
@@ -6187,11 +6238,12 @@ export class Item {
             this.board.addItem(this);
             this.reset();
         });
-        let hasteDurationRemaining = this.hasteDurationRemaining;
-        let freezeDurationRemaining = this.freezeDurationRemaining;
-        let slowDurationRemaining = this.slowDurationRemaining;
-        Object.assign(copy,{hasteDurationRemaining,freezeDurationRemaining,slowDurationRemaining});
+        let hasteTimeRemaining = this.hasteTimeRemaining;
+        let freezeTimeRemaining = this.freezeTimeRemaining;
+        let slowTimeRemaining = this.slowTimeRemaining;
+        Object.assign(copy,{hasteTimeRemaining,freezeTimeRemaining,slowTimeRemaining});
         copy.board.transformTriggers.forEach(f=>f(this,copy));
         this.log(this.board.player.name+"'s "+this.name+" transformed into "+copy.name+" by "+source.board.player.name+"'s "+source.name);
+        return copy;
     }
 }

@@ -80,15 +80,9 @@ export class BazaarPatcher {
         if(items["Subscraper"].text[1]=="Your other items have +Value equal to this item's Value during combat.") {
             items["Subscraper"].text[1] = "At the start of each fight, your other items gain Value equal to this item's Value for the fight.";
         }
-        if(items["Temple Expedition Ticket"]) {
-            items["[Jungle Expedition] Temple Expedition Ticket"] = items["Temple Expedition Ticket"];
-            for(var m in monsters) {
-                monsters[m].items.forEach(i=>{
-                    if(i.name=="Temple Expedition Ticket") {
-                        i.name = "[Jungle Expedition] Temple Expedition Ticket";
-                    }
-                });
-            }
+        if(items["Coincure"].text[0]=="Your Weapons and Heal items gain +Damage and +Heal equal to this item's value for the fight.") {
+            items["Coincure"].text.splice(0,1, "Your Weapons gain Damage equal to this item's value for the fight.");
+            items["Coincure"].text.push("Your Heal items gain Heal equal to this item's value for the fight.");
         }
         if(items["Sands of Time"]) {
             items["Sands of Time"].quests = {"Buy 6 Slow items":"This has +1 Multicast","Buy 5 Relics":"When you use another relic, charge this 1 second."};
@@ -120,6 +114,13 @@ export class BazaarPatcher {
         }
         if(items["Monocle"]) {
             items["Monocle"].text[0] = "Shield equal to (1/2/3) times your Gold";
+        }
+        if(items["Levitation Pad"]) {
+            items["Levitation Pad"].text[0] = "Haste the item to the left of this for (1/2/3/4) second(s)";
+        }
+        if(items["Thrusters"]) {
+            items["Thrusters"].text[1] = "The item to the left of this is a Vehicle";
+            items["Thrusters"].text[2] = "The Cooldown of the item to the left of this is reduced by (3%/6%/9%).";
         }
         BazaarPatcher.customSetupFunctions.set("Orange Julian",(item)=>{
             if(item.Custom_0) {

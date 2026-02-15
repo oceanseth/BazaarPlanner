@@ -5,7 +5,7 @@ import { BazaarPatcher } from "./BazaarPatcher.js";
 
 export class ItemFunction {
     static items = new Map();
-    static doNothingItemNames = ["Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
+    static doNothingItemNames = ["Generosity","Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
         "Spare Change","Pelt","Candy Mail","Machine Learning","Chocoholic","Like Clockwork","Upgrade Hammer", "Sifting Pan", "Chimeric Egg",
     "Vending Machine","Piggy Bank","Cash Register","Alembic","The Tome of Yyahan","Catalyst","Chunk of Lead","Chunk of Gold", "Catalyst","Temple Expedition Ticket","[Jungle Expedition] Temple Expedition Ticket"];
     static setupItems() {
@@ -344,15 +344,6 @@ ItemFunction.items.set("Hammock",(item)=>{
     item.gain(-largeItemCount*5*1000,'cooldown');
 });
 
-//The item to the left of this has its cooldown reduced by ( 25% » 50% ). from Phonograph
-ItemFunction.items.set("Phonograph",(item)=>{   
-    const cooldownReduction = getRarityValue("25 >> 50",item.rarity);
-    const leftItem = item.getItemToTheLeft();
-    if(leftItem) {
-        leftItem.gain(leftItem.cooldown*(1-cooldownReduction/100)-leftItem.cooldown,'cooldown');
-    }
-});
-
 //"When you Slow with an item, Freeze with an item, Poison with an item, or Burn with an item, a Regeneration item gains (1/2/3) Regeneration for the fight." from Vital Renewal
 ItemFunction.items.set("Vital Renewal",(item)=>{
     item.setupTextFunctions("When you Slow with an item, Freeze with an item, Poison with an item, or Burn with an item, a Regeneration item gains (1/2/3) Regeneration for the fight.");    
@@ -492,19 +483,6 @@ ItemFunction.items.set("Balcony",(item)=>{
 
     }
 });
-//Burn both players ( 2 » 3 » 4 » 5 ).
-//Adjacent items have their cooldowns reduced by ( 6% » 9% » 12% » 15% ). from Thrusters
-ItemFunction.items.set("Thrusters",(item)=>{
-    const burnAmount = getRarityValue("2 >> 3 >> 4 >> 5",item.rarity);
-    const cooldownReduction = getRarityValue("6 >> 9 >> 12 >> 15",item.rarity);
-    item.gain(burnAmount,'burn');
-    item.adjacentItems.forEach(i=>{
-        i.gain(i.cooldown * (1-(cooldownReduction)/100)-i.cooldown,'cooldown');
-    });
-    return ()=>{
-        item.applyBurn();
-    }
-});
 //Burn both players ( 4 » 6 » 8 ). from Nitro
 ItemFunction.items.set("Nitro",(item)=>{
     const burnAmount = getRarityValue("4 >> 6 >> 8",item.rarity);
@@ -514,13 +492,7 @@ ItemFunction.items.set("Nitro",(item)=>{
         item.applyBurn({selfTarget:true});
     });
 });
-//The Core gains ( +5% » +10% » +15% ) Crit Chance for the fight. from Cooling Fan
-ItemFunction.items.set("Cooling Fan",(item)=>{
-    const critChance = getRarityValue("5 >> 10 >> 15",item.rarity);
-    item.triggerFunctions.push(()=>{
-        item.board.items.forEach(i=>{if(i.tags.includes("Core")) i.gain(critChance,'critChance');});
-    });
-});
+
 // Your leftmost Weapon has lifesteal. from Circle of Life
 ItemFunction.items.set("Circle of Life",(item)=>{
     const leftmostWeapon = item.board.items.find(i=>i.tags.includes("Weapon"));
@@ -543,13 +515,13 @@ ItemFunction.items.set("Cryosleeve",(item)=>{
     item.board.freezeTriggers.set(item.id,(i,source)=>{
             item.applyShield();
             if(i.board==item.board) {
-                i.freezeDurationRemaining /= 2;
+                i.freezeTimeRemaining /= 2;
                 item.log(item.name + " reduced " + i.name + " freeze duration by half");
             }
     });
     item.board.player.hostileTarget.board.freezeTriggers.set(item.id,(i,source)=>{
         if(i.board==item.board) {
-            i.freezeDurationRemaining /= 2;
+            i.freezeTimeRemaining /= 2;
             item.log(item.name + " reduced " + i.name + " freeze duration by half");
         }
         item.applyShield();
@@ -1557,7 +1529,38 @@ ItemFunction.items.set("Potion Potion",(item)=>{
         }
     });
 });
+//"Transform an enemy Medium item into 2 Small items for the fight" from Hacksaw
+ItemFunction.items.set("Hacksaw",(item)=>{
+    const dmg = 50;
+    item.gain(dmg,'damage');
+    item.triggerFunctions.push(()=>{
+        item.dealDamage(dmg);
+    });
+    item.triggerFunctions.push(()=>{
+        const enemyMediumItems = item.board.player.hostileTarget.board.items.filter(i=>i.tags.includes("Medium"));
+        const smallItemCache = Item.getCacheByTag("Small");
+        const smallItems = smallItemCache.filter(i => i.tier<=item.tier);
+        
+        if(enemyMediumItems.length>0 && smallItems.length>0) {
+            const enemyMediumItem = item.pickRandom(enemyMediumItems);
+            const smallItem = item.pickRandom(smallItems);
+            let smallItem2 = item.pickRandom(smallItems);
 
+            const smallItemData = structuredClone(smallItem);
+            smallItemData.enchant = enemyMediumItem.enchant;
+            smallItemData.tier = enemyMediumItem.tier;
+            enemyMediumItem.transformInto(smallItemData, {source:item});
+
+            const smallItem2Data = structuredClone(smallItem2);
+            smallItem2Data.enchant = enemyMediumItem.enchant;
+            smallItem2Data.tier = enemyMediumItem.tier;
+            enemyMediumItem.startIndex++;
+            smallItem2 = enemyMediumItem.transformInto(smallItem2Data, {source:item});
+            enemyMediumItem.startIndex--;
+
+        }
+    });
+});
 //  "Poison yourself (1/2/3/4) for each Virus on your board.",
 //  "Transform another non-legendary small item on each player's board into Virus for the rest of the fight." from virus
 ItemFunction.items.set("Virus",(item)=>{
@@ -1583,5 +1586,18 @@ ItemFunction.items.set("Virus",(item)=>{
     });
     
 });
+//When one of your Tools are Hasted, your tools gain (5/10/15) damage for the fight. from Precision Tools
+ItemFunction.items.set("Precision Tools", (item)=>{
+    item.board.hasteTriggers.set(item.id, (i)=>{
+        if(!i.tags.includes("Tool")) return;
+        const amount = getRarityValue("5 >> 10 >> 15",item.rarity);
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Tool") && i.tags.includes("Weapon")) {
+                i.gain(amount,'damage');
+            }
+        });
+    });
+});
+
 BazaarPatcher.apply();
 ItemFunction.setupItems();

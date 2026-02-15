@@ -23,6 +23,9 @@ class Board {
         this.reset();
         this.player.reset();
     }    
+    get itemsWithCooldown() {
+        return this.activeItems.filter(item => item.cooldown>0);
+    }
     static transformBoardIds(stateString,transformations) {
         if(!stateString) return stateString;
         let boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(stateString));

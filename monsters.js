@@ -43,7 +43,7 @@ export const monsters = {
     "items": [
       {
         "name": "Insect Wing",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Stinger",
@@ -98,7 +98,7 @@ export const monsters = {
     "skills": [
       {
         "name": "Healthy Jolt",
-        "tier": 2
+        "tier": 1
       }
     ],
     "items": [
@@ -764,7 +764,7 @@ export const monsters = {
     "skills": [
       {
         "name": "Extreme Comfort",
-        "tier": 0
+        "tier": 1
       }
     ],
     "items": [
@@ -929,7 +929,7 @@ export const monsters = {
       },
       {
         "name": "Textiles",
-        "tier": 1
+        "tier": 2
       },
       {
         "name": "Scrap",
@@ -1633,6 +1633,44 @@ export const monsters = {
       }
     ]
   },
+  "Sandwich Artist": {
+    "id": "e8782aea-3511-4a9d-98d4-e25c62120547",
+    "name": "Sandwich Artist",
+    "day": 6,
+    "health": 1350,
+    "skills": [
+      {
+        "name": "Regenerative",
+        "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Bread",
+        "tier": 1
+      },
+      {
+        "name": "Bread Knife",
+        "tier": 1
+      },
+      {
+        "name": "Butter",
+        "tier": 1
+      },
+      {
+        "name": "Giant Sub",
+        "tier": 2
+      },
+      {
+        "name": "Spice Rack",
+        "tier": 1
+      },
+      {
+        "name": "Baked Potato",
+        "tier": 1
+      }
+    ]
+  },
   "Loan Shark": {
     "id": "d50543f3-132c-4c43-9230-50a5e96087d9",
     "name": "Loan Shark",
@@ -1837,7 +1875,7 @@ export const monsters = {
     "skills": [
       {
         "name": "Poison Tyrant",
-        "tier": 1
+        "tier": 2
       }
     ],
     "items": [
@@ -2077,7 +2115,7 @@ export const monsters = {
     "skills": [
       {
         "name": "Heat Lover",
-        "tier": 0
+        "tier": 2
       },
       {
         "name": "Fiery",
@@ -2091,7 +2129,7 @@ export const monsters = {
       },
       {
         "name": "Nitro",
-        "tier": 1
+        "tier": 2
       },
       {
         "name": "Micro Dave",
@@ -2145,7 +2183,7 @@ export const monsters = {
       },
       {
         "name": "Nitro",
-        "tier": 1
+        "tier": 2
       },
       {
         "name": "Welding Torch",
@@ -2329,6 +2367,48 @@ export const monsters = {
       },
       {
         "name": "Flycycle",
+        "tier": 1
+      }
+    ]
+  },
+  "Stew": {
+    "id": "4b69c9fd-cf2d-4197-9b06-0327a5849041",
+    "name": "Stew",
+    "day": 8,
+    "health": 1700,
+    "skills": [
+      {
+        "name": "Anything to Win",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Curry",
+        "tier": 1
+      },
+      {
+        "name": "Black Pepper",
+        "tier": 2
+      },
+      {
+        "name": "Oven Mitts",
+        "tier": 1
+      },
+      {
+        "name": "Cauldron",
+        "tier": 1
+      },
+      {
+        "name": "Pickled Peppers",
+        "tier": 2
+      },
+      {
+        "name": "Hot Sauce",
+        "tier": 2
+      },
+      {
+        "name": "Scorchpepper",
         "tier": 1
       }
     ]
@@ -3577,11 +3657,11 @@ export const monsters = {
       },
       {
         "name": "Caltrops",
-        "tier": 2
+        "tier": 3
       },
       {
         "name": "Caltrops",
-        "tier": 2
+        "tier": 3
       },
       {
         "name": "Spices",
@@ -3985,6 +4065,39 @@ export const monsters = {
       }
     ]
   },
+  "Gibbus": {
+    "id": "96c9ede1-34f3-442c-89d3-befbef196729",
+    "name": "Gibbus",
+    "day": 10,
+    "health": 4000,
+    "skills": [],
+    "items": [
+      {
+        "name": "Shot Glasses",
+        "tier": 2
+      },
+      {
+        "name": "Earrings",
+        "tier": 2
+      },
+      {
+        "name": "Weather Machine",
+        "tier": 2
+      },
+      {
+        "name": "Solar Drone",
+        "tier": 2
+      },
+      {
+        "name": "Steam Hose",
+        "tier": 1
+      },
+      {
+        "name": "Thrusters",
+        "tier": 2
+      }
+    ]
+  },
   "Qomatz": {
     "id": "a5103989-fb08-4ac6-a5e8-6a610e0b1d46",
     "name": "Qomatz",
@@ -4300,7 +4413,7 @@ export const monsters = {
       },
       {
         "name": "Tantius Carrier",
-        "tier": 2
+        "tier": 4
       },
       {
         "name": "Rocket Drone",
