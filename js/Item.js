@@ -2142,18 +2142,6 @@ export class Item {
             };
 
         }
-        //Your Shield items gain Shield equal to this item's value for the fight.
-        regex = /^Your Shield items gain Shield equal to this item's value for the fight\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            return ()=>{
-                this.board.items.forEach(item => {
-                    if(item.tags.includes("Shield") || item.enchant=='Shielded') {
-                        item.gain(this.value,'shield');
-                    }
-                });
-            };
-        }
        
         // While you have Shield, this item's cooldown is reduced by 50%. from Welding Torch
         regex = /While you have Shield, this item's cooldown is reduced by 50%\.?/i;
@@ -5831,20 +5819,6 @@ export class Item {
             };
         }
         
-
-        //Your weapons gain Damage equal to this item's value for the fight.
-        regex = /^Your weapons gain Damage equal to this item's value for the fight\.?$/i;
-        match = text.match(regex);
-
-        if(match) {
-            return ()=>{
-                this.board.items.forEach(item => {
-                    if(item.tags.includes("Weapon")) {  
-                        item.gain(this.value,'damage',this);
-                    }
-                });
-            };
-        }
         //Freeze ALL other items for 4 seconds. from Private Hot Springs
         regex = /^Freeze ALL other items for (\d+) seconds\.?$/i;
         match = text.match(regex);
@@ -6104,16 +6078,6 @@ export class Item {
     }
     getCritTriggerFunctionFromText(text) {
         let regex,match;
-        //Your items gain Crit Chance equal to this item's value for the fight.
-        regex = /^\s*Your items gain Crit Chance equal to this item's value for the fight\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            return () => {
-                this.board.items.forEach(item => {
-                    item.gain(this.value,'crit');
-                });
-            }
-        }
 
         //the other adjacent item gains 25% Crit Chance.
         regex = /^the other adjacent item gains 25% Crit Chance\.?$/i;

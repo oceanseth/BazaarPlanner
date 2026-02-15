@@ -353,11 +353,12 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Your Burn items gain Burn equal to 15% of this item's value for the fight. from Fiery Pyg's Gym
-            regex: /^Your (\w+) items gain (\w+) equal to (\([^)]+\)|\d+)%? of this item's (\w+) for the fight\.?$/i,
+    //"Your Heal items gain Heal equal to this item's value for the fight." from Coincure
+    regex: /^Your (\w+)s?(?: items)? gain (\w+)(?: chance)? equal to (?:(\([^)]+\)|\d+)%? of )?this item's (\w+) for the fight\.?$/i,
     func: (item, match)=>{
         const whatTag = Item.getTagFromText(match[1]);
         const whatToGain = match[2].toLowerCase();
-        const multiplier = getRarityValue(match[3], item.rarity)/100;
+        const multiplier = match[3]?getRarityValue(match[3], item.rarity)/100:1;
         const whatThing = Item.getTagFromText(match[4]);
         item.board.items.forEach(i=>{
             if(i.tags.includes(whatTag)) {
