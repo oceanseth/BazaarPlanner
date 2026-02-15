@@ -4132,12 +4132,13 @@ export class Item {
             }
         }
 
-        //Use a property. From Keychain
-        regex = /^\s*Use a property\.?/i;
+        //Use another property. From Keychain
+        regex = /^\s*Use a(?:nother)? ([^\s]+)\.?/i;
         match = text.match(regex);
         if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
             return () => {
-                const targets = this.board.items.filter(item => item.tags.includes("Property") && item.isChargeTargetable());
+                const targets = this.board.items.filter(item => item.tags.includes(tagToMatch) && item.isChargeTargetable());
                 if(targets.length>0) {                    
                     const target = this.pickRandom(targets);                    
                     this.log(this.name + " used " + target.name);
