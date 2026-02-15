@@ -1098,7 +1098,7 @@ export class Item {
         if(match) {
             const other = match[1]=='other ';
             const gainAmount = getRarityValue(match[3], this.rarity);
-            const tagsToMatch = match[2].split(/( |,|and)/).filter(Boolean).map((tag)=>Item.getTagFromText(tag.replace(' items','')));
+            const tagsToMatch = match[2].split(/( |,|and)/).filter(Boolean).map((tag)=>Item.getTagFromText(tag.replace(/ ?items?/i,'')));
             const whatToGain = Item.getTagFromText(match[4]).toLowerCase();
             if(whatToGain=='damage'||tagsToMatch.includes('Weapon')) {
                 this.damageBonus += gainAmount;
@@ -3142,23 +3142,29 @@ export class Item {
                         return ()=>{};
                     case "freezes or slows":
                     case "freeze or slow":
-                        this.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
-                            triggerFunctionFromText(source);
-                        });
-                        this.board.slowTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
-                            triggerFunctionFromText(source);
+                        targetBoards.forEach(board => {
+                            board.player.hostileTarget.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
+                                triggerFunctionFromText(source);
+                            });
+                            board.slowTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
+                                triggerFunctionFromText(source);
+                            });
                         });
                         return ()=>{};
                     case "freeze":
-                        this.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
+                        targetBoards.forEach(board => {
+                            board.player.hostileTarget.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
                                 triggerFunctionFromText(source);
+                            });
                         });
                         return ()=>{};
                     case "freeze with an item":
-                        this.board.freezeTriggers.set(this.id+triggerFunctionFromText.text, (target, source) => {
-                            if(this.board.items.some(i=>i.id==source.id)) {
-                                triggerFunctionFromText(source);
-                            }
+                        targetBoards.forEach(board => {
+                            board.player.hostileTarget.board.freezeTriggers.set(this.id+triggerFunctionFromText.text, (target, source) => {
+                                if(board.items.some(i=>i.id==source.id)) {
+                                    triggerFunctionFromText(source);
+                                }
+                            });
                         });
                         return ()=>{};
                     case "crit":
