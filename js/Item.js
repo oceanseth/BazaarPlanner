@@ -1156,7 +1156,7 @@ export class Item {
 
         //Adjacent Weapons permanently gain ( +1 » +2 » +3 » +4 ) Damage. from Epicurean Chocolate
         //Adjacent (Weapons|Tool items|Tools) gain ( 5 » 10 ) Damage for the fight.
-        damageRegex = /^(this and)?\s*Adjacent ([^\s]+)s?\s*(?:items)?\s*(?:permanently )?(gains? )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
+        damageRegex = /^(this and|an)?\s*Adjacent ([^\s]+)s?\s*(?:items?)?\s*(?:permanently )?(gains? )?(\([^)]+\)|\d+) ([^\s]+)(?: chance)?(?: for the fight)?\.?/i;
         match = text.match(damageRegex);
         if(match) {
             const itemType = match[2];
@@ -1166,8 +1166,11 @@ export class Item {
                 if(match[2]!="items") {
                     adjacentItems = adjacentItems.filter(item => item.tags.includes(Item.getTagFromText(itemType)));
                 }
-
-                if(match[1]) adjacentItems.push(this);
+                if(match[1].toLowerCase()=='an') {
+                    adjacentItems = this.pickRandom(adjacentItems,1);
+                } else if(match[1].toLowerCase()=='this and') {
+                    adjacentItems.push(this);
+                }
                 adjacentItems.forEach(item => {
                     item.gain(gainAmount,match[5].toLowerCase(), source||this);
                 });
@@ -2138,18 +2141,6 @@ export class Item {
                 this.applyShield(this.shield);
             };
 
-        }
-        //Your Shield items gain Shield equal to this item's value for the fight.
-        regex = /^Your Shield items gain Shield equal to this item's value for the fight\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            return ()=>{
-                this.board.items.forEach(item => {
-                    if(item.tags.includes("Shield") || item.enchant=='Shielded') {
-                        item.gain(this.value,'shield');
-                    }
-                });
-            };
         }
        
         // While you have Shield, this item's cooldown is reduced by 50%. from Welding Torch
@@ -4141,12 +4132,13 @@ export class Item {
             }
         }
 
-        //Use a property. From Keychain
-        regex = /^\s*Use a property\.?/i;
+        //Use another property. From Keychain
+        regex = /^\s*Use a(?:nother)? ([^\s]+)\.?/i;
         match = text.match(regex);
         if(match) {
+            const tagToMatch = Item.getTagFromText(match[1]);
             return () => {
-                const targets = this.board.items.filter(item => item.tags.includes("Property") && item.isChargeTargetable());
+                const targets = this.board.items.filter(item => item.tags.includes(tagToMatch) && item.isChargeTargetable());
                 if(targets.length>0) {                    
                     const target = this.pickRandom(targets);                    
                     this.log(this.name + " used " + target.name);
@@ -5828,20 +5820,6 @@ export class Item {
             };
         }
         
-
-        //Your weapons gain Damage equal to this item's value for the fight.
-        regex = /^Your weapons gain Damage equal to this item's value for the fight\.?$/i;
-        match = text.match(regex);
-
-        if(match) {
-            return ()=>{
-                this.board.items.forEach(item => {
-                    if(item.tags.includes("Weapon")) {  
-                        item.gain(this.value,'damage',this);
-                    }
-                });
-            };
-        }
         //Freeze ALL other items for 4 seconds. from Private Hot Springs
         regex = /^Freeze ALL other items for (\d+) seconds\.?$/i;
         match = text.match(regex);
@@ -6101,16 +6079,6 @@ export class Item {
     }
     getCritTriggerFunctionFromText(text) {
         let regex,match;
-        //Your items gain Crit Chance equal to this item's value for the fight.
-        regex = /^\s*Your items gain Crit Chance equal to this item's value for the fight\.?$/i;
-        match = text.match(regex);
-        if(match) {
-            return () => {
-                this.board.items.forEach(item => {
-                    item.gain(this.value,'crit');
-                });
-            }
-        }
 
         //the other adjacent item gains 25% Crit Chance.
         regex = /^the other adjacent item gains 25% Crit Chance\.?$/i;

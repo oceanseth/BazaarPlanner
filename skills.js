@@ -1753,6 +1753,13 @@ export const skills = {
       "Tool"
     ]
   },
+  "Generosity": {
+    "text": [
+      "When you sell an item to a Merchant, reduce the cost of one of their items by (1/2/3/4) gold."
+    ],
+    "tier": 0,
+    "tags": ["EconomyReference"],
+  },
   "Glass Cannon": {
     "text": [
       "All Weapons have double Damage."

@@ -353,11 +353,12 @@ TextMatcher.matchers.push({
 });
 TextMatcher.matchers.push({
     //Your Burn items gain Burn equal to 15% of this item's value for the fight. from Fiery Pyg's Gym
-            regex: /^Your (\w+) items gain (\w+) equal to (\([^)]+\)|\d+)%? of this item's (\w+) for the fight\.?$/i,
+    //"Your Heal items gain Heal equal to this item's value for the fight." from Coincure
+    regex: /^Your (\w+)s?(?: items)? gain (\w+)(?: chance)? equal to (?:(\([^)]+\)|\d+)%? of )?this item's (\w+) for the fight\.?$/i,
     func: (item, match)=>{
         const whatTag = Item.getTagFromText(match[1]);
         const whatToGain = match[2].toLowerCase();
-        const multiplier = getRarityValue(match[3], item.rarity)/100;
+        const multiplier = match[3]?getRarityValue(match[3], item.rarity)/100:1;
         const whatThing = Item.getTagFromText(match[4]);
         item.board.items.forEach(i=>{
             if(i.tags.includes(whatTag)) {
@@ -2289,5 +2290,23 @@ TextMatcher.matchers.push({
         const f = item.getUndoableFunctionFromText(match[2], ()=>leftItem && leftItem.cooldown>amount*1000);
         item.board.itemDestroyedTriggers.set(item.id, f);
         return ()=>{};
+    }
+});
+
+//"If you have 2 or more Shield items, they gain (+10/+20/+30/+40) Damage for the fight" from Showcase
+TextMatcher.matchers.push({
+    regex: /^If you have 2 or more (\w+)(?: items)?, they gain (\([^)]+\)|\d+) (\w+) for the fight\.?$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const amount = getRarityValue(match[2], item.rarity);
+        const whatToGain = match[3].toLowerCase();
+        return ()=>{
+            const items = item.board.items.filter(i=>i.tags.includes(tag));
+            if(items.length>=2) {
+                items.forEach(i=>{
+                    i.gain(amount,whatToGain,item);
+                });
+            }
+        };
     }
 });
