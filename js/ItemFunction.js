@@ -5,7 +5,7 @@ import { BazaarPatcher } from "./BazaarPatcher.js";
 
 export class ItemFunction {
     static items = new Map();
-    static doNothingItemNames = ["Generosity","Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
+    static doNothingItemNames = ["Advanced Synthetics","Arbitrage","Generosity","Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
         "Spare Change","Pelt","Candy Mail","Machine Learning","Chocoholic","Like Clockwork","Upgrade Hammer", "Sifting Pan", "Chimeric Egg",
     "Vending Machine","Piggy Bank","Cash Register","Alembic","The Tome of Yyahan","Catalyst","Chunk of Lead","Chunk of Gold", "Catalyst","Temple Expedition Ticket","[Jungle Expedition] Temple Expedition Ticket"];
     static setupItems() {

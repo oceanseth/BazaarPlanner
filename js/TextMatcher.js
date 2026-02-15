@@ -215,7 +215,7 @@ export class TextMatcher {
         //your Heal and Regeneration items have their cooldowns reduced by (5%/10%/15%). from Rapid Relief
         //Your Weapons' cooldowns are reduced by (5%/10%/15%) from Frozen Shot
         //your Weapons have their cooldowns reduced by (  5%  » 10%  » 20%   ).
-        regex: /^your ([^\s]+?)s?'?(?: and ([^\s]+)s?)?(?: items)? (?:have their cooldowns|cooldowns are) (increased|reduced) by (\([^)]+\)|\d+%?)( second\(?s?\)?)?\.?$/i,
+        regex: /^your ([^\s]+?)s?'?(?: and ([^\s]+)s?)?(?: items\'?)? (?:have their cooldowns|cooldowns are) (increased|reduced) by (\([^)]+\)|\d+%?)( second\(?s?\)?)?\.?$/i,
         func: (item, match)=>{
             const cooldownReduction = getRarityValue(match[4], this.rarity);
             const tagToMatch = Item.getTagFromText(match[1]);
@@ -2308,5 +2308,13 @@ TextMatcher.matchers.push({
                 });
             }
         };
+    }
+});
+//This Slows for twice as long.
+TextMatcher.matchers.push({
+    regex: /^This Slows for twice as long\.?$/i,
+    func: (item, match)=>{
+        item.slow += item.slow;
+        return ()=>{};
     }
 });
