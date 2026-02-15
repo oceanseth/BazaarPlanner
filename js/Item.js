@@ -3141,6 +3141,7 @@ export class Item {
                         this.board.player.hostileTarget.board.freezeTriggers.set(this.id,triggerFunctionFromText);
                         return ()=>{};
                     case "freezes or slows":
+                    case "freeze or slow":
                         this.board.freezeTriggers.set(this.id+"_"+triggerFunctionFromText.text,(target,source)=>{
                             triggerFunctionFromText(source);
                         });
@@ -3962,7 +3963,9 @@ export class Item {
                 if(tagToCharge=='leftmost'&&validTargets.length>0) validTargets = [validTargets[0]];
                 else if(tagToCharge=='rightmost'&&validTargets.length>0) validTargets = [validTargets[validTargets.length-1]];
                 else if(tagToCharge=='Thi') validTargets = [this];
-                else if(tagToCharge!='item') validTargets = validTargets.filter(item => item.tags.includes(tagToCharge));
+                else if(tagToCharge=='Adjacent') { validTargets = this.adjacentItems; numItemsToCharge = validTargets.length; }
+                else if(tagToCharge!='Item') validTargets = validTargets.filter(item => item.tags.includes(tagToCharge));
+                
                 if(tagToCharge2) {
                     validTargets.push(...this.board.activeItems.filter(item => !validTargets.includes(item)&&item.tags.includes(tagToCharge2)));
                 }

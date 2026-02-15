@@ -49,26 +49,119 @@ class Board {
     }
     loadEncounter(encounter) {
         if(!encounter) return;
-        loadFromUrl(encounter.d);
-        window.history.pushState({state: encounter.d}, '', `#${encounter.d}`);
+        // SCENARIO 1: Bottom board following AND top board is NOT following
+        // -> Load entire encounter state (both 'b' and 't' from followed user)
+        if(this.boardId === 'b' && !Board.getBoardFromId('t')?.follow) {
+            console.log('Bottom board loading encounter, top not following -> Loading full encounter state');
+            loadFromUrl(encounter.d);
+            window.history.pushState({state: encounter.d}, '', `#${encounter.d}`);
+        } 
+        // SCENARIO 2: Top board following (loads their 'b' into our 't')
+        // SCENARIO 3: Bottom board following AND top board IS following (loads their 'b' into our 'b')
+        else {
+            console.log(`Board ${this.boardId} loading encounter -> Loading only their bottom board ('b')`);
+            this.loadBoardFromUrlState(encounter.d);
+        }
     }
     loadRun(run) {
         if(run && run.d && this.follow) {
-            loadFromUrl(run.d);
-            window.history.pushState({state: run.d}, '', `#${run.d}`);
+            // SCENARIO 1: Bottom board following AND top board is NOT following
+            // -> Load entire state (both 'b' and 't' from followed user)
+            if(this.boardId === 'b' && !Board.getBoardFromId('t')?.follow) {
+                console.log('Bottom board following, top not following -> Loading full state from user:', this.follow);
+                loadFromUrl(run.d);
+                window.history.pushState({state: run.d}, '', `#${run.d}`);
+            } 
+            // SCENARIO 2: Top board following (loads their 'b' into our 't')
+            // SCENARIO 3: Bottom board following AND top board IS following (loads their 'b' into our 'b')
+            else {
+                console.log(`Board ${this.boardId} following user ${this.follow} -> Loading only their bottom board ('b')`);
+                this.loadBoardFromUrlState(run.d);
+            }
         }        
+    }
+    loadBoardFromUrlState(stateString) {
+        // This method loads board-specific data from a followed user
+        // ALWAYS loads from the followed user's BOTTOM board ('b') because that's their actual board
+        // 
+        // If top board ('t') calls this: Loads followed user's 'b' -> into our 't' (opponent board)
+        // If bottom board ('b') calls this: Loads followed user's 'b' -> into our 'b' (our board)
+        try {
+            const boardState = JSON.parse(LZString.decompressFromEncodedURIComponent(stateString));
+            
+            // Always use 'b' as source because we want the followed user's actual board
+            // (users save their board state in 'b', 't' is for opponents)
+            const sourceBoardId = 'b';
+            
+            console.log(`Loading board ${this.boardId} from followed user's board '${sourceBoardId}'`);
+            
+            // Find board-specific data in the state
+            const boardData = boardState.find(item => item.name === '_b_' + sourceBoardId);
+            const boardItems = boardState.filter(item => item.board === sourceBoardId);
+            
+            if (!boardData) {
+                console.warn(`No board data found for '${sourceBoardId}' in followed user's state`);
+                return;
+            }
+            
+            // Clear only this board
+            this.clear();
+            
+            // Load player data
+            this.player.startPlayerData.maxHealth = boardData.health;
+            if(boardData.shield !== undefined) this.player.startPlayerData.shield = boardData.shield;
+            if(boardData.playerName) this.player.startPlayerData.name = boardData.playerName;
+            if(boardData.hero) this.player.startPlayerData.hero = boardData.hero;
+            if(boardData.regen !== undefined) this.player.startPlayerData.regen = boardData.regen;
+            else this.player.startPlayerData.regen = 0;
+            if(boardData.gold !== undefined) this.player.startPlayerData.gold = boardData.gold;
+            else this.player.startPlayerData.gold = 0;
+            if(boardData.income !== undefined) this.player.startPlayerData.income = boardData.income;
+            else this.player.startPlayerData.income = 0;
+            if(boardData.prestige !== undefined) this.player.startPlayerData.prestige = boardData.prestige;
+            else this.player.startPlayerData.prestige = 0;
+            
+            // Load skills
+            if(boardData.skills) {
+                boardData.skills.forEach(skill => {
+                    this.addSkill(skill.name, skill);
+                });
+            }
+            
+            // Load items
+            boardItems.forEach(itemData => {
+                if(itemData.name.startsWith('_b_')) return; // Skip board metadata
+                
+                let [name, enchant] = Item.stripEnchantFromName(itemData.name);
+                let baseItemData = Item.getDataFromName(name);
+                if(!baseItemData) return;
+                
+                baseItemData.tier = itemData.tier;
+                baseItemData.enchant = itemData.enchant || enchant;
+                
+                let newItem = new Item(baseItemData, this);
+                newItem.setIndex(itemData.startIndex);
+            });
+            
+            this.sortItems();
+            this.reset();
+            this.setup();
+            
+        } catch (error) {
+            console.error('Error loading board from URL state:', error);
+        }
     }
     loadFullRun(run) {
         //const currentEncounter = run.currentEncounter;
         this.fullRunData = run;
         if(run.encounters) {
-        let html = '<select id="sim-encounter-select"><option disabled>Encounters</option>';
+        let html = `<select id="sim-encounter-select-${this.boardId}"><option disabled>Encounters</option>`;
             run.encounters.forEach( (e,i)=> {
                 html += `<option ${e.id==run.lastEncounter?"selected":""} style="background-color: ${e.v=="0"?"#aa4444":"#44aa44"};" value="${i}">${e.v=="0"?"Loss":"Win"} - ${e.name}</option>`;
             });
             html += '</select>';
             this.importElement.innerHTML = html;
-            this.importElement.querySelector('#sim-encounter-select').onchange = (e) => {      
+            this.importElement.querySelector(`#sim-encounter-select-${this.boardId}`).onchange = (e) => {      
                 this.loadEncounter(run.encounters[e.target.value]);
             };
         }
@@ -515,6 +608,7 @@ class Board {
         this.element.appendChild(this.boardControls);
         this.boardControls.innerHTML = `
             ${this.boardId=='b'?'<div class="requireLogin"><button id="followBtn-b" class="editorOpener" onclick="window.showFollowModal(bottomPlayer.board);">Follow</button></div>':''}
+            ${this.boardId=='t'?'<div class="requireLogin"><button id="followBtn-t" class="editorOpener" onclick="window.showFollowModal(topPlayer.board);">Follow</button></div>':''}
             ${this.boardId=='t'?'<div class="requireLogin"><button onclick="topPlayer.board.loadFromClone(bottomPlayer.board)" title="Clone the Bottom Board">Clone</button></div>':''}
             <button onclick="Board.getBoardFromId('${this.boardId}').clear()">Clear</button>
             <button onclick="Board.getBoardFromId('${this.boardId}').save()">Save</button>
