@@ -1166,9 +1166,9 @@ export class Item {
                 if(match[2]!="items") {
                     adjacentItems = adjacentItems.filter(item => item.tags.includes(Item.getTagFromText(itemType)));
                 }
-                if(match[1].toLowerCase()=='an') {
+                if(match[1] && match[1].toLowerCase()=='an') {
                     adjacentItems = this.pickRandom(adjacentItems,1);
-                } else if(match[1].toLowerCase()=='this and') {
+                } else if(match[1] && match[1].toLowerCase()=='this and') {
                     adjacentItems.push(this);
                 }
                 adjacentItems.forEach(item => {
@@ -3079,6 +3079,15 @@ export class Item {
                             }
                         });
                         return ()=>{};
+                    case "an adjacent item gains value during combat":
+                        this.adjacentItems.forEach(item => {
+                            item.valueChanged((newValue,oldValue)=>{
+                                if(newValue>oldValue) {
+                                    triggerFunctionFromText(item);
+                                }
+                            });
+                        });
+                        return ()=>{};
                     case "burn with an item":
                         this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
                             if(item.tags.includes("Burn")) {
@@ -3223,6 +3232,15 @@ export class Item {
                         this.whenItemTagTriggers("Tool", (item) => {
                             if(item.id !== this.id) {
                                 triggerFunctionFromText(item);
+                            }
+                        });
+                        return ()=>{};
+                    case "poison or gain regen":
+                    case "poison or gain regeneration":
+                        this.board.poisonTriggers.set(this.id+"_"+triggerFunctionFromText.text,triggerFunctionFromText);
+                        this.board.player.regenChanged((newRegen,oldRegen)=>{
+                            if(newRegen>oldRegen) {
+                                triggerFunctionFromText(this);
                             }
                         });
                         return ()=>{};
@@ -4308,7 +4326,7 @@ export class Item {
             }
         }
         //Shield equal to (2/3/4) times the Burn on your opponent. from Burning Shield
-        regex = /^\s*Shield equal to (\([^)]+\)|\d+) times the Burn on your opponent\.?/i;
+        regex = /^\s*Shield equal to (\([^)]+\)|\d+) times the Burn on your (?:opponent|enemy)\.?/i;
         match = text.match(regex);
         if(match) {
             const multiplier = getRarityValue(match[1], this.rarity);
@@ -4430,7 +4448,7 @@ export class Item {
         
 
         //Shield equal to (2/3/4) times the Poison on your opponent. from Toxic Shield
-        regex = /^\s*(Shield|Heal) equal to (\([^)]+\)|\d+) times the Poison on your opponent\.?/i;
+        regex = /^\s*(Shield|Heal) equal to (\([^)]+\)|\d+) times the Poison on your (?:opponent|enemy)\.?/i;
         match = text.match(regex);
         if(match) {
             const whatToDo = match[1];
@@ -5245,14 +5263,15 @@ export class Item {
             };
         }
         //Charge adjacent Small items ( 1 » 2 » 3 » 4 ) second(s).
-        regex = /^Charge( an| a)? adjacent\s*([^\s]+)?(?: items)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
+        regex = /^Charge( an| a)? adjacent\s*(non-)?([^\s]+)?(?: items?)? (?:\(([^)]+)\)|(\d+)) second\(?s?\)?\.?/i;
         match = text.match(regex);
         if(match) {
             const numToCharge = match[1] ?1:2;
-            this.charge = match[3] ? getRarityValue(match[3], this.rarity) : parseInt(match[4]);
-            const tagToMatch = Item.getTagFromText(match[2]);            
+            const isNon = !!match[2];
+            this.charge = match[4] ? getRarityValue(match[4], this.rarity) : parseInt(match[5]);
+            const tagToMatch = Item.getTagFromText(match[3]);            
             return () => {
-                const itemsToCharge = tagToMatch ? this.adjacentItems.filter(item => item.tags.includes(tagToMatch)) : this.adjacentItems;
+                const itemsToCharge = tagToMatch ? this.adjacentItems.filter(item => isNon?(!item.tags.includes(tagToMatch)) : item.tags.includes(tagToMatch)) : this.adjacentItems;
                 this.pickRandom(itemsToCharge,numToCharge).forEach(item => {
                     if(item.cooldown>0) {
                         this.applyChargeTo(item);

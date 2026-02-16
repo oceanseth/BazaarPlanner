@@ -93,6 +93,9 @@ export class BazaarPatcher {
                 "Complete 2 quests on other items": "Freeze 1 item for 0.5 second(s)."
               };
         }
+        if(items["Temple Expedition Ticket"]) {
+            items["[Jungle Expedition] Temple Expedition Ticket"] = items["Temple Expedition Ticket"];
+        }
         if(items["Ethergy Conduit"]) {
             items["Ethergy Conduit"].text[0]=items["Ethergy Conduit"].text[0].replace("Poison or use","Poison, or use");
         }
