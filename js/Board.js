@@ -656,11 +656,9 @@ class Board {
         if(this.options?.isBackpack) return;
         const backpackBoardId = this.boardId === 't' ? 'tb' : this.boardId === 'b' ? 'backpack' : null;
         if(!backpackBoardId || !document.getElementById(backpackBoardId)) return;
-        const backpackPlayer = new Player({name: " ", maxHealth: 1000}, null, {skills: false});
-        const backpackBoard = new Board(backpackBoardId, backpackPlayer, {editable: true, skills: false, isBackpack: true});
-        this.backpack = backpackBoard;
-        this.stashItems = backpackBoard.items;
-        backpackPlayer.hostileTarget = this.boardId === 'b' ? Board.getBoardFromId('t')?.player : Board.getBoardFromId('b')?.player;
+        const backpackPlayer = new Player({name: " ", maxHealth: 1000}, backpackBoardId, {skills: false, isBackpack: true});
+        this.backpack = backpackPlayer.board;
+        this.stashItems = this.backpack.items;
     }
     createHealthElement() {
         this.healthElement = document.createElement('div');
