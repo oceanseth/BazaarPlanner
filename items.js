@@ -21728,6 +21728,29 @@ export const items = {
       2
     ]
   },
+  "Red Envelope": {
+    "name": "Red Envelope",
+    "text": [
+      "When you buy this, gain 10 Gold."
+    ],
+    enchants: {
+
+    },
+    "tier": 0,
+
+    priorites: [
+      0
+    ],
+    "tags": [
+      "Stelle",
+      "Pygmalien",
+      "Gold",
+      "Vanessa",
+      "Dooley",
+      "Mak",
+      "Jules"
+    ]
+  },
   "Red Gumball": {
     "name": "Red Gumball",
     "tier": 0,

@@ -1,5 +1,6 @@
 import { Item } from './Item.js';
 import { Skill } from './Skill.js';
+import { Player } from './Player.js';
 import { updateUrlState } from './utils.js';
 import { setupChangeListeners } from './utils.js';
 import { loadFromUrl } from './utils.js';
@@ -264,8 +265,9 @@ class Board {
             this.element.appendChild(this.importElement);
             this.createBackpackOpenerElement();
             this.createBoardControls();
+            this.createBackpackBoardIfNeeded();
         }
-        if(!this.isBackpack) {
+        if(!(this.options?.isBackpack || this.isBackpack)) {
             this.createHealthElement();
             this.createSkillsElement();
             this.createGoldElement();
@@ -559,14 +561,15 @@ class Board {
         }
     }
     updateGoldElement() {
+        if(!this.goldElement) return;
         this.goldElement.textContent = this.player?.gold;
     }
     updateIncomeElement() {
-        if(this.incomeElement) {
-            this.incomeElement.textContent = "+" +this.player?.income;
-        }
+        if(!this.incomeElement) return;
+        this.incomeElement.textContent = "+" +this.player?.income;
     }
     updatePrestigeElement() {
+        if(!this.prestigeElement) return;
         this.prestigeElement.textContent = this.player?.prestige||'?';
     }
     
@@ -648,6 +651,16 @@ class Board {
         this.backpackOpenerElement.onclick = () => {
             this.toggleBackpack();
         }
+    }
+    createBackpackBoardIfNeeded() {
+        if(this.options?.isBackpack) return;
+        const backpackBoardId = this.boardId === 't' ? 'tb' : this.boardId === 'b' ? 'backpack' : null;
+        if(!backpackBoardId || !document.getElementById(backpackBoardId)) return;
+        const backpackPlayer = new Player({name: " ", maxHealth: 1000}, null, {skills: false});
+        const backpackBoard = new Board(backpackBoardId, backpackPlayer, {editable: true, skills: false, isBackpack: true});
+        this.backpack = backpackBoard;
+        this.stashItems = backpackBoard.items;
+        backpackPlayer.hostileTarget = this.boardId === 'b' ? Board.getBoardFromId('t')?.player : Board.getBoardFromId('b')?.player;
     }
     createHealthElement() {
         this.healthElement = document.createElement('div');

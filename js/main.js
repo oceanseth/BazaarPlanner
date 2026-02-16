@@ -28,17 +28,8 @@ window.search = search;
 window.populateSearchSuggestions = populateSearchSuggestions;
 window.topPlayer = new Player({name:"Vanessa", maxHealth:1000}, 't');
 window.bottomPlayer = new Player({name:"Dooley"}, 'b');
-if(window.backpackPlayer==null) {
-
-    window.backpackPlayer = new Player({name:" ", maxHealth:1000}, 'backpack', {skills:false});
-    window.backpackPlayer.hostileTarget = topPlayer;
-    window.backpackTopPlayer = new Player({name:" ", maxHealth:1000}, 'tb', {skills:false});
-    window.backpackTopPlayer.hostileTarget = bottomPlayer;
-    topPlayer.board.stashItems = window.backpackTopPlayer.board.items;
-    bottomPlayer.board.stashItems = window.backpackPlayer.board.items;
-    topPlayer.board.backpack = window.backpackTopPlayer.board;
-    bottomPlayer.board.backpack = window.backpackPlayer.board;
-}
+if(topPlayer.board.backpack) topPlayer.board.backpack.player.hostileTarget = bottomPlayer;
+if(bottomPlayer.board.backpack) bottomPlayer.board.backpack.player.hostileTarget = topPlayer;
 window.Puzzle = Puzzle;
 window.User = User;
 topPlayer.hostileTarget = bottomPlayer;

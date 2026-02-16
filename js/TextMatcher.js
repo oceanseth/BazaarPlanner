@@ -354,17 +354,46 @@ TextMatcher.matchers.push({
 TextMatcher.matchers.push({
     //Your Burn items gain Burn equal to 15% of this item's value for the fight. from Fiery Pyg's Gym
     //"Your Heal items gain Heal equal to this item's value for the fight." from Coincure
-    regex: /^Your (\w+)s?(?: items)? gain (\w+)(?: chance)? equal to (?:(\([^)]+\)|\d+)%? of )?this item's (\w+) for the fight\.?$/i,
+    regex: /^Your (\w+)s?(?: items)? gain (\w+)(?: chance)? equal to (?:(\([^)]+\)|\d+)%? of |double )?this item's (\w+) for the fight\.?$/i,
     func: (item, match)=>{
         const whatTag = Item.getTagFromText(match[1]);
         const whatToGain = match[2].toLowerCase();
-        const multiplier = match[3]?getRarityValue(match[3], item.rarity)/100:1;
+        const multiplier = match[3]?.includes('double') ? 2 : match[3]?getRarityValue(match[3], item.rarity)/100:1;
         const whatThing = Item.getTagFromText(match[4]);
         item.board.items.forEach(i=>{
             if(i.tags.includes(whatTag)) {
                 i.gain(item[whatThing]*multiplier,whatToGain);
             }
         });
+        return ()=>{};
+    },
+});
+//This has +Damage equal to 10% of your Max Health
+TextMatcher.matchers.push({
+    regex: /^This has \+?(\w+) equal to (?:(\([^)]+\)|\d+)%? of |double )?your Max Health\.?$/i,
+    func: (item, match)=>{
+        const whatToGain = Item.getTagFromText(match[1]);
+        const multiplier = match[2]?.includes('double') ? 2 : match[2]?getRarityValue(match[2], item.rarity)/100:1;
+        item.gain(item.board.player.maxHealth*multiplier,whatToGain);
+        return ()=>{};
+    },
+});
+//This has +Damage equal to double the value of your items from Regal Blade
+TextMatcher.matchers.push({
+    regex: /^This has \+?(\w+) equal to double the value of your items\.?$/i,
+    func: (item, match)=>{
+        const whatToGain = Item.getTagFromText(match[1]);
+        const multiplier = match[2]?.includes('double') ? 2 : match[2]?getRarityValue(match[2], item.rarity)/100:1;
+        item.gain(item.board.player.maxHealth*multiplier,whatToGain);
+        return ()=>{};
+    },
+});
+//This has +250 Damage
+TextMatcher.matchers.push({
+    regex: /^This has \+(\w+) damage\.?$/i,
+    func: (item, match)=>{
+        const amountToGain = getRarityValue(match[2], item.rarity);
+        item.gain(amountToGain,'damage');
         return ()=>{};
     },
 });

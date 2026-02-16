@@ -222,8 +222,13 @@ export function loadFromUrl(hash) {
 
             const [baseName, enchant] = Item.stripEnchantFromName(name);
 
+            if(!items[baseName]) {
+                console.log("Item not found:", baseName);
+                return;
+            }
             const newItemData = structuredClone(items[baseName]);
-            const tags = newItemData.tags?[...newItemData.tags]:[];
+            if (!Array.isArray(newItemData.tags)) newItemData.tags = [];
+            const tags = [...newItemData.tags];
             Object.assign(newItemData, itemWithoutBoardAndStartIndex);
             tags.forEach(tag=>{
                if(!newItemData.tags.includes(tag)) {
@@ -272,7 +277,7 @@ export function loadFromUrl(hash) {
             if(item.cooldownFinal != undefined) {  
                 let numTries = 0;
                 while(parseInt(item.cooldown/10).toFixed(2) != parseInt(item.cooldownFinal/10).toFixed(2)) {
-                    if(numTries > 500) {
+                    if(numTries > 10) {
                         console.log("Failed to equalize item cooldown with those given from game: "+item.name+" base:"+item.startItemData.cooldown+" final: "+item.cooldown+" targetmissed: "+item.cooldownFinal);
                         break;
                     }
@@ -322,7 +327,7 @@ export function loadFromUrl(hash) {
                     }
                 });
                 numTries++;
-                if(numTries > 500) {
+                if(numTries > 10) {
                     console.log("Failed to equalize item attributes with those given from game",item.name);
                     break;
                 }
