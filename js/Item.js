@@ -3974,10 +3974,10 @@ export class Item {
         }
         //Charge 1 item 1 second(s). into a trigger function.
         //Charge 1 Weapon 1 second(s). into a trigger function.
-        regex = /^\s*Charge\s?(\([^\)]+\)|\d+|a|your)? ([^\s^(]+)\(?s?\)?(?: or ([^\s]+))? (?:items?)?\s*(?:for)?\s*(?:by)?\s*(\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        regex = /^\s*Charge\s?(\([^\)]+\)|\d+|a|an|your)? ([^\s^(]+)\(?s?\)?(?: or ([^\s]+))? (?:items?)?\s*(?:for)?\s*(?:by)?\s*(\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
-            let numItemsToCharge = match[1]=='a'?1:match[1]=='your'?Infinity:getRarityValue(match[1], this.rarity);
+            let numItemsToCharge = (match[1]=='a'||match[1]=='an')?1:match[1]=='your'?Infinity:getRarityValue(match[1], this.rarity);
             if(numItemsToCharge==0) numItemsToCharge = 1;
             const tagToCharge = match[2]=='leftmost'?'left':match[2]=='rightmost'?'right':Item.getTagFromText(match[2]);
             const tagToCharge2 = match[3]=='leftmost'?'left':match[3]=='rightmost'?'right':Item.getTagFromText(match[3]);
