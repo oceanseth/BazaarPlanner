@@ -1649,7 +1649,7 @@ export class Item {
 
         //Heal equal to this item's Damage.
         //Deal damage equal to this item's Heal.
-        regex = /^(?:Deal )?(Heal|Shield|Burn|Poison|Damage) equal to (\([^)]+\)|\d+|double|triple)?(?: time\(?s\)?)?\s*this item's (Heal|Shield|Burn|Poison|Damage|Value|Regen)(?:eration)?/i;
+        regex = /^(?:Deal )?(Heal|Shield|Burn|Poison|Damage) equal to (\([^)]+\)|\d+|double|triple)?(?: time\(?s\)?)?\s*this item's (Heal|Shield|Burn|Poison|Damage|Value|Regen|Crit)(?: Chance)?(?:eration)?/i;
         match = text.match(regex);
         if(match) {
             const whatToGain = match[1].toLowerCase();

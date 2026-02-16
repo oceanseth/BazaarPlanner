@@ -146,7 +146,7 @@ export class TextMatcher {
     },
     {
         //this has (+50%/+100%) Crit Chance. from Basilisk Fang
-        regex: /^this has (\([^)]+\)|\d+)%? Crit Chance\.?$/i,
+        regex: /^this has (\([^)]+\)|\+?\d+)\%? Crit Chance\.?$/i,
         func: (item, match)=>{
             const critChance = getRarityValue(match[1], item.rarity);
             const doIt = () => {
@@ -1444,10 +1444,12 @@ TextMatcher.matchers.push({
 });
 //Your Rightmost Item is a Vehicle. from Free Ride
 TextMatcher.matchers.push({
-            regex: /^Your (Rightmost|Leftmost) Item is a (\w+)\.?$/i,
+            regex: /^Your (Rightmost|Leftmost) (\w+) is a (\w+)\.?$/i,
     func: (item, match)=>{
-        const tag = Item.getTagFromText(match[2]);
-        const target = match[1]=='Rightmost'?item.board.items[item.board.items.length-1]:item.board.items[0];
+        const typeTarget=match[2];
+        const tag = Item.getTagFromText(match[3]);
+        const mostType = Item.getTagFromText(match[1]);
+        const target = item.board.items.filter(i=>i.tags.includes(mostType) && (typeTarget=='Item'?true:i.tags.includes(typeTarget)))[0];
         if(target) {
             if(!target.tags.includes(tag)) {
                 target.tags.push(tag);
@@ -1583,7 +1585,7 @@ TextMatcher.matchers.push({
 });
 // +100% Crit Chance 
 TextMatcher.matchers.push({
-    regex: /^\+\s?(\d+)%? Crit Chance\.?$/i,
+    regex: /^(?:this has )?\+\s?(\d+)%? Crit Chance\.?$/i,
     func: (item, match)=>{
         const amount = getRarityValue(match[1], item.rarity);
         item.gain(amount,'crit');
@@ -2345,5 +2347,32 @@ TextMatcher.matchers.push({
     func: (item, match)=>{
         item.slow += item.slow;
         return ()=>{};
+    }
+});
+
+//Your Dinosaur and Relic Weapons deal (10/20/30) Damage.
+TextMatcher.matchers.push({
+    regex: /^Your (\w+) and (\w+) (\w+)(?: Item)?s? deal (\([^)]+\)|\d+) Damage\.?$/i,
+    func: (item, match)=>{
+        const type1 = Item.getTagFromText(match[1]);
+        const type2 = Item.getTagFromText(match[2]);
+        const tag1 = Item.getTagFromText(match[3]);
+        const amount = getRarityValue(match[4], item.rarity);
+        return ()=>{
+            item.board.items.filter(i=>i.tags.includes(type1) && i.tags.includes(tag1) || i.tags.includes(type2) && i.tags.includes(tag2)).forEach(i=>{
+                i.gain(amount,'damage');
+            });
+        };
+    }
+});
+//When you Crit with a Flying item, it stops Flying. from Hover Tech
+TextMatcher.matchers.push({
+    regex: /^When you Crit with a (\w+) item, it stops Flying\.?$/i,
+    func: (item, match)=>{
+        return ()=>{
+            item.board.critTriggers.set(item.id,(i)=>{
+                i.flying = false;
+            });
+        };
     }
 });
