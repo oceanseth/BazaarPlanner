@@ -3286,6 +3286,11 @@ export class Item {
                         this.board.hasteTriggers.set(this.id,triggerFunctionFromText);
                         this.board.slowTriggers.set(this.id,triggerFunctionFromText);
                         return ()=>{};
+                    case "use a small item or core":
+                        this.whenItemTagTriggers("Core", (item) => {
+                            triggerFunctionFromText(item);
+                        });
+                        //intentional passthrough to small item
                     case "use a small item":
                         this.whenItemTagTriggers("Small", (item) => {
                             triggerFunctionFromText(item);
