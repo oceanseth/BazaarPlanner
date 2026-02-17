@@ -3087,9 +3087,9 @@ export class Item {
                         );
                         return ()=>{};
                     case "an adjacent item burns":
-                        this.board.itemTriggers.set(this.id+"_"+triggerFunctionFromText.text, (item) => {
-                            if(item.id !== this.id && this.adjacentItems.some(i=>i==item)) {
-                                triggerFunctionFromText(item);
+                        this.board.burnTriggers.set(this.id+"_"+triggerFunctionFromText.text, (target, source) => {
+                            if(source.id !== this.id && this.adjacentItems.some(i=>i==source)) {
+                                triggerFunctionFromText(source);
                             }
                         });
                         return ()=>{};
