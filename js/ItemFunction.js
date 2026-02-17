@@ -1630,7 +1630,17 @@ ItemFunction.items.set("Oblivion Cannon",(item)=>{
         item.gain(amount*i.cooldown/1000,'damage',i);
     });
 });
-
+//Repair and haste the item to the right of this for 2 seconds from Toolbox
+ItemFunction.items.set("Toolbox",(item)=>{
+    item.triggerFunctions.push(()=>{
+        const rightItem = item.getItemToTheRight();
+        item.gain(2,'haste');
+        if(rightItem) {
+            rightItem.repair();
+            item.applyHasteTo(rightItem);
+        }
+    });
+});
 
 BazaarPatcher.apply();
 ItemFunction.setupItems();
