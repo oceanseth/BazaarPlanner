@@ -543,6 +543,9 @@ TextMatcher.matchers.push({
             case "freeze": case "frozen":
                 item.board.freezeTriggers.set(item.id+"_"+f.text,f2);
                 break;
+            case "destroyed":
+                item.board.itemDestroyedTriggers.set(item.id+"_"+f.text,(i)=>i==item?f2(i):null);
+                break;
             default:
                 console.log("Unknown when gain trigger: "+match[1]);
         }
@@ -1438,7 +1441,7 @@ TextMatcher.matchers.push({
     regex: /^When the Sandstorm starts,? (.*)$/i,
     func: (item, match)=>{
         const f = item.getTriggerFunctionFromText(match[1]);
-        item.board.player.battle.sandstormTriggers.set(item.id, f);
+        if(item.board.player.battle) item.board.player.battle.sandstormTriggers.set(item.id, f);
         return ()=>{};
     }
 });
@@ -2373,6 +2376,30 @@ TextMatcher.matchers.push({
             item.board.critTriggers.set(item.id,(i)=>{
                 i.flying = false;
             });
+        };
+    }
+});
+
+//"this is destroyed instead." from Flares
+TextMatcher.matchers.push({
+    regex: /^this is destroyed instead\.?$/i,
+    func: (item, match)=>{
+        return ({source,target})=>{
+            if(item.isDestroyed || item==target) return;
+            item.destroy(source);
+            target.isDestroyed = false;
+            target.element.classList.remove('destroyed');
+            item.log(item.name + " is destroyed instead of " + target.name + ".");
+        };
+    }
+});
+
+//repair an item
+TextMatcher.matchers.push({
+    regex: /^repair an item\.?$/i,
+    func: (item, match)=>{
+        return ()=>{
+            item.repair();
         };
     }
 });

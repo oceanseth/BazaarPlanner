@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use - BazaarPlanner</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@400;500&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <style>
+        .terms-container {
+            max-width: 720px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: var(--background-color);
+            color: var(--text-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .terms-container h1 { font-size: 1.75rem; margin-top: 0; }
+        .terms-container h2 { font-size: 1.2rem; margin-top: 1.5rem; }
+        .terms-container p, .terms-container ul { line-height: 1.6; }
+        .terms-container ul { padding-left: 1.5rem; }
+        .terms-nav { margin-bottom: 1.5rem; }
+        .terms-nav a { color: var(--link-color); }
+    </style>
+</head>
+<body>
+    <div class="terms-container">
+        <nav class="terms-nav">
+            <a href="/">← Back to BazaarPlanner</a>
+            <button type="button" onclick="toggleDarkMode()" style="margin-left: 1rem;">Toggle dark mode</button>
+        </nav>
+
+        <h1>Terms of Use</h1>
+        <p><strong>Last updated:</strong> February 2025</p>
+        <p>Welcome to BazaarPlanner. By using this site, you agree to these terms. If you do not agree, please do not use the service.</p>
+
+        <h2>1. Use at Will</h2>
+        <p>Use of BazaarPlanner is provided on an “as is” and “at will” basis. We do not guarantee availability, accuracy, or suitability for any particular purpose. You may stop using the site at any time, and we may change or discontinue the service at any time without notice.</p>
+
+        <h2>2. User Data</h2>
+        <p>We collect and store user data necessary to operate the service (for example, account information, display names, and run or build data you choose to save). By using the site, you consent to this collection and storage as described in our practices.</p>
+
+        <h2>3. Sharing of Data</h2>
+        <p>We do not sell or share your personal data with third parties for their marketing or other commercial use. The only user information we may make visible or share in the normal operation of the service is your <strong>username (display name)</strong>, for example on leaderboards, shared builds, or other public or community features. We will not share your email, login credentials, or other private account details with third parties except as required by law or to protect our rights and safety.</p>
+
+        <h2>4. Third-Party Mods and Tools</h2>
+        <p>BazaarPlanner is not affiliated with or responsible for any third-party software, mods, or tools (including but not limited to “BazaarPlannerMod” or similar mods) that you use with the game or in connection with this site. Use of such mods is at your own risk. <strong>To the fullest extent permitted by law, BazaarPlanner and its operators shall not be liable for any damage, loss, or harm (including to your game, account, device, or data) arising from your use of third-party mods or tools in conjunction with this site.</strong> You are solely responsible for complying with the terms of service of the game and any third-party software you use.</p>
+
+        <h2>5. Disclaimers</h2>
+        <p>The site and all content are provided “as is” without warranties of any kind. We disclaim all implied warranties, including merchantability and fitness for a particular purpose. We do not warrant that the site will be uninterrupted, error-free, or free of harmful components.</p>
+
+        <h2>6. Limitation of Liability</h2>
+        <p>To the maximum extent permitted by applicable law, BazaarPlanner and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of data, revenue, or profits, arising from your use or inability to use the site or from any third-party software or mods used in connection with the site.</p>
+
+        <h2>7. Changes</h2>
+        <p>We may update these terms from time to time. The “Last updated” date at the top will be revised when we do. Continued use of the site after changes constitutes acceptance of the updated terms.</p>
+
+        <h2>8. Contact</h2>
+        <p>For questions about these terms, you may contact us through the channels listed on the main site (e.g. Discord, social links).</p>
+
+        <nav class="terms-nav" style="margin-top: 2rem;">
+            <a href="/">← Back to BazaarPlanner</a>
+        </nav>
+    </div>
+
+    <script>
+        (function() {
+            var darkModeOff = localStorage.getItem('darkModeOff') === 'true';
+            if (!darkModeOff) document.documentElement.classList.add('dark-mode');
+            else document.documentElement.classList.remove('dark-mode');
+        })();
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark-mode');
+            var darkModeOff = !document.documentElement.classList.contains('dark-mode');
+            if (darkModeOff) localStorage.setItem('darkModeOff', true);
+            else localStorage.removeItem('darkModeOff');
+        }
+    </script>
+</body>
+</html>

@@ -11,6 +11,7 @@ export class Run {
         this.t = t;
         this.id = id;
         this.uid = uid;
+        this.challengers = [];
     }
     async loadData() { // Add a method to load encounters on demand
         await firebase.database()

@@ -11,6 +11,11 @@ import { User } from './User.js';
 import { Runs } from './Runs.js';
 // Make necessary functions/classes available globally
 window.trackerUrl = "https://github.com/oceanseth/BazaarPlannerMod/releases/download/1.1.2/BazaarPlannerModInstaller-1.1.2.zip";
+window.challengeState = {
+    autoAccept: false,
+    currentRunMeta: null,
+    currentRun: null,
+};
 if(window.location.hostname == "bazaarplanner.com") {
     window.location.href = "https://www.bazaarplanner.com/"+window.location.hash;
 }
@@ -199,8 +204,9 @@ function updateUserInfo(user) {
                 
                 // Prevent future automatic ad insertion
                 window.adsbygoogle = [];
-                closePoll();
+                
             }
+            closePoll();
         });
 }
 window.updateUserInfo = updateUserInfo;
@@ -238,9 +244,11 @@ function setLoggedInUser (user) {
                 window.user = user;
                 // Update status elements
                 updateUserInfo(user);
+                setupChallengeTracking(user);
             });
             // Hide the auth UI when signed in
-            document.getElementById('auth-container').style.display = 'none';
+           // document.getElementById('auth-container').style.display = 'none';
+           closePoll();
         } else {
             $(".requireLogin").hide();
             $(".requireLogout").show();
@@ -248,14 +256,15 @@ function setLoggedInUser (user) {
             const signInStatus = document.getElementById('sign-in-status');
             if(signInStatus) signInStatus.textContent = '';
             const accountDetails = document.getElementById('account-details');
-            if(accountDetails) accountDetails.textContent = '';              
+            if(accountDetails) accountDetails.textContent = '';  
+            $("#poll").show();            
         }
         if(window.location.hash.length>0) {
             setupHash();
             showSection('simulator');
             loadFromUrl();            
         } else {
-            showSection('puzzle');
+            showSection('simulator');
         }
 }
 
@@ -332,7 +341,7 @@ window.onload = () => {
             signInSuccessUrl: window.location.href
         };
         window.showLogin = function() {
-            document.getElementById('auth-container').style.display = 'block';
+            $("#poll").show();
             window.scrollTo(0,0);
         }
 
@@ -353,8 +362,7 @@ window.onload = () => {
         }
         window.login = function() {
             // Show the auth UI when signed out
-            document.getElementById('firebaseui-auth-container').style.display = 'block';
-            document.getElementById('twitch-auth-container').style.display = 'block';
+            $("#poll").show();
         }
         document
         .getElementById('twitch-login-button')
@@ -411,6 +419,27 @@ window.toggleDarkMode = () => {
     setInterval(backgroundFader,10000);
     backgroundFader();
     createCalculateBattleButton();
+    // Load challenge settings from localStorage and wire checkbox
+    try {
+        const stored = localStorage.getItem('bp_autoAcceptChallenges');
+        if (stored === 'true') {
+            window.challengeState.autoAccept = true;
+        }
+        const checkbox = document.getElementById('auto-accept-challenges');
+        if (checkbox) {
+            checkbox.checked = window.challengeState.autoAccept;
+            checkbox.onchange = () => {
+                window.challengeState.autoAccept = checkbox.checked;
+                if (checkbox.checked) {
+                    localStorage.setItem('bp_autoAcceptChallenges', 'true');
+                } else {
+                    localStorage.removeItem('bp_autoAcceptChallenges');
+                }
+            };
+        }
+    } catch (e) {
+        console.error('Error loading challenge settings:', e);
+    }
   });
   window.backgroundFader = function() {
     // Create container if it doesn't exist
@@ -725,7 +754,6 @@ document.addEventListener('click', (e) => {
         document.querySelectorAll('.editor').forEach(editor => {
             editor.style.display = 'none';
         });
-        document.getElementById('auth-container').style.display = 'none';
     }
 
 });
@@ -870,4 +898,147 @@ window.showFollowModal = (board) => {
     };
 }
 
+// Challenge tracking: keep track of our current run and listen for incoming challengers.
+function setupChallengeTracking(user) {
+    try {
+        if (!firebase?.database) return;
+        const uid = user.uid;
+        // Track current run meta
+        const currentRunRef = firebase.database().ref(`users/${uid}/currentrun`);
+        currentRunRef.on('value', snapshot => {
+            const val = snapshot.val();
+            window.challengeState.currentRunMeta = val || null;
+            if (!val || !val.id) {
+                window.challengeState.currentRun = null;
+                return;
+            }
+            // Load the full run details so we know the current day
+            firebase.database()
+                .ref(`users/${uid}/runs/${val.id}`)
+                .on('value', runSnap => {
+                    const run = runSnap.val();
+                    if (!run) {
+                        window.challengeState.currentRun = null;
+                        return;
+                    }
+                    run.id = val.id;
+                    window.challengeState.currentRun = run;
+                    // When a new run starts on day 1, process any queued challengers
+                    if (run.day === 1) {
+                        processPendingChallenges(uid, run);
+                    }
+                });
+        });
+        // Listen for incoming challengers
+        const challengersRef = firebase.database().ref(`challengers/${uid}`);
+        challengersRef.on('child_added', snapshot => {
+            const challengerUid = snapshot.val();
+            const key = snapshot.key;
+            handleIncomingChallenge(uid, challengerUid, key);
+        });
+    } catch (e) {
+        console.error('Error setting up challenge tracking:', e);
+    }
+}
+
+function processPendingChallenges(uid, run) {
+    const challengersRef = firebase.database().ref(`challengers/${uid}`);
+    challengersRef.once('value').then(snap => {
+        const all = snap.val();
+        if (!all) return;
+        Object.entries(all).forEach(([key, challengerUid]) => {
+            handleIncomingChallenge(uid, challengerUid, key, run);
+        });
+    });
+}
+
+function handleIncomingChallenge(targetUid, challengerUid, challengeKey, runOverride) {
+    try {
+        const run = runOverride || window.challengeState.currentRun;
+        if (!run || run.day !== 1) {
+            // If we're not on day 1 yet, just leave the challenge in the queue
+            return;
+        }
+        const auto = !!window.challengeState.autoAccept;
+        if (auto) {
+            acceptChallenge(targetUid, challengerUid, challengeKey, run);
+        } else {
+            showChallengePopup(targetUid, challengerUid, challengeKey, run);
+        }
+    } catch (e) {
+        console.error('Error handling incoming challenge:', e);
+    }
+}
+
+function acceptChallenge(targetUid, challengerUid, challengeKey, run) {
+    try {
+        const runId = run.id;
+        const challengersRef = firebase.database().ref(`users/${targetUid}/runs/${runId}/challengers`);
+        challengersRef
+            .transaction(current => {
+                const arr = Array.isArray(current) ? current.slice() : [];
+                if (!arr.includes(challengerUid)) {
+                    arr.push(challengerUid);
+                }
+                return arr;
+            })
+            .then(() => {
+                // Remove from queue
+                return firebase.database().ref(`challengers/${targetUid}/${challengeKey}`).remove();
+            })
+            .catch(err => {
+                console.error('Error accepting challenge:', err);
+            });
+    } catch (e) {
+        console.error('Unexpected error accepting challenge:', e);
+    }
+}
+
+function declineChallenge(targetUid, challengeKey) {
+    try {
+        firebase.database()
+            .ref(`challengers/${targetUid}/${challengeKey}`)
+            .remove()
+            .catch(err => console.error('Error declining challenge:', err));
+    } catch (e) {
+        console.error('Unexpected error declining challenge:', e);
+    }
+}
+
+function showChallengePopup(targetUid, challengerUid, challengeKey, run) {
+    try {
+        // Avoid stacking multiple dialogs – one at a time is fine
+        if (document.getElementById('challenge-dialog')) return;
+        // Load challenger display name
+        firebase.database()
+            .ref(`users/${challengerUid}`)
+            .once('value')
+            .then(snap => {
+                const challengerData = snap.val() || {};
+                const name = challengerData.displayName || challengerUid;
+                const dialog = document.createElement('div');
+                dialog.id = 'challenge-dialog';
+                dialog.className = 'editor challenge-dialog';
+                dialog.innerHTML = `
+                    <h1>Incoming Challenge</h1>
+                    <p><b>${name}</b> wants to challenge your current run (Day ${run.day}).</p>
+                    <div class="editor-footer">
+                        <button id="challenge-accept">Accept</button>
+                        <button id="challenge-decline" class="editor-delete">Decline</button>
+                    </div>
+                `;
+                document.body.appendChild(dialog);
+                dialog.querySelector('#challenge-accept').onclick = () => {
+                    acceptChallenge(targetUid, challengerUid, challengeKey, run);
+                    dialog.remove();
+                };
+                dialog.querySelector('#challenge-decline').onclick = () => {
+                    declineChallenge(targetUid, challengeKey);
+                    dialog.remove();
+                };
+            });
+    } catch (e) {
+        console.error('Error showing challenge popup:', e);
+    }
+}
 

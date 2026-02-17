@@ -200,6 +200,9 @@ class Board {
            this.unfollow();
         }
         this._follow = value;
+        if (this.boardId === 't') {
+            this.updateChallengeButtonVisibility();
+        }
     }
     get follow() {
         return this._follow;
@@ -326,6 +329,7 @@ class Board {
         this.transformTriggers = new Map(); //functions to call when any item on this board is transformed
         this.startOfFightTriggers = new Map();
         this.itemDestroyedTriggers = new Map(); //functions to call when an item on this board is destroyed
+        this.itemRepairedTriggers = new Map(); //functions to call when an item on this board is repaired
         //managed on player this.healTriggers = [];
         this.shieldTriggers = new Map();
         this.ammoTriggers = [];
@@ -637,6 +641,67 @@ class Board {
             this.playerElement.innerHTML = "<span>Player</span>";
         }
         this.element.appendChild(this.playerElement);
+        // Add a challenge button just above the portrait for the top board when editable
+        if (this.boardId === 't' && this.options.editable) {
+            this.createChallengeButton();
+        }
+    }
+    createChallengeButton() {
+        if (this.challengeButtonElement) return;
+        const btn = document.createElement('button');
+        btn.className = 'challenge-button';
+        btn.type = 'button';
+        btn.textContent = 'Challenge';
+        btn.onclick = () => {
+            this.sendChallenge();
+        };
+        this.challengeButtonElement = btn;
+        this.element.appendChild(btn);
+        this.updateChallengeButtonVisibility();
+    }
+    updateChallengeButtonVisibility() {
+        if (!this.challengeButtonElement) return;
+        this.challengeButtonElement.style.display = this.follow ? '' : 'none';
+    }
+    sendChallenge() {
+        try {
+            if (!window.user) {
+                alert('You must be logged in to send a challenge.');
+                return;
+            }
+            if (!this.follow) {
+                alert('You must be following a user on the top board to challenge them.');
+                return;
+            }
+            const targetUserId = this.follow;
+            const myUserId = window.user.uid;
+            if (targetUserId === myUserId) {
+                alert('You cannot challenge yourself.');
+                return;
+            }
+            const myRun = window.challengeState?.currentRun;
+            if (!myRun || myRun.day !== 1) {
+                alert('You can only send challenges while your own current run is on Day 1.');
+                return;
+            }
+            const theirRunDay = this.fullRunData?.day;
+            if (theirRunDay !== 1) {
+                alert('You can only challenge users whose current run is on Day 1.');
+                return;
+            }
+            firebase.database()
+                .ref(`/challengers/${targetUserId}`)
+                .push(myUserId)
+                .then(() => {
+                    alert('Challenge sent!');
+                })
+                .catch(err => {
+                    console.error('Error sending challenge:', err);
+                    alert('Unable to send challenge right now.');
+                });
+        } catch (e) {
+            console.error('Unexpected error sending challenge:', e);
+        }
     }
     createWinRateElement() {
         this.winRateElement = document.createElement('div');

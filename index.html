@@ -42,8 +42,51 @@
      crossorigin="anonymous"></script>
     </head>
     <body>
+        <div id="poll" style="display:none; max-width: 600px; margin: 0 auto; color: var(--text-color);">
+            <h1 style="text-align: center;">Accept Terms</h1>
+                            <div class="response-section">
+                <!--
+                As long as the simulator is external, and mostly a tool to learn, perhaps it will increase engagement, enjoyment, and entertainment within the game when you play!<br/><br/>
+                Also, even if they aren't online for YOU to use, people will be using them and passing them around. It's better to make it public than give the few players an advantage who privately use them.
+                -->
+                Using a chess engine during a competitive game is cheating, yet they are readily available and used by many. <br><br>
+                The developers of this site believe that engines/simulators improve the enjoyment and engagement of the game, and are not harmful to gameplay in the long run (chess engines made high level chess MORE exciting).
+                <br><br>
+                However, using this simulator mid-run could be considered cheating. 
+                Using this site, you agree not to cheat or simulate fights before they happen in game.
+               
+            </div>
+
+            <hr style="margin: 30px 0;">
+            <br><br>
+            <input type="checkbox" id="accept-terms" onchange="$('#auth-container').css('display',this.checked?'block':'none');"/>
+            I accept <a target="_blank" href="https://bazaarplanner.com/terms-of-use.html">full terms of use</a>
+            <br><br>
+            <div id="auth-container">
+                <div id="firebaseui-auth-container"></div>
+                <div id="twitch-auth-container"><button id="twitch-login-button" class="firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-password firebaseui-id-idp-button firebaseui-idp-text firebaseui-idp-text-long">Sign in with Twitch</button></div>
+            </div>
+<!--
+            <div class="poll-section" style="text-align: center;">
+                <h1>What do you think?</h1>
+                <div style="font-size: 1.2em; margin-bottom: 15px;">Will this site harm gameplay or your enjoyment of the game?</div>
+                <i>(you must login to vote - if you login with twitch, the only information given is your twitch user id, which is already public information on twitch)</i>
+                
+                <div class="poll-login" style="margin: 20px 0;">
+                    <button class="editorOpener" onclick="showLogin()">Login</button>
+                </div>             
+                <div class="poll-button-group">
+                    <button onclick="poll(true)">Yes</button>
+                    <button onclick="poll(false)">No</button>          
+                </div>
+            </div>
+            
+            <div class="poll-section" style="text-align: center;">                    
+            </div>
+        -->
+        </div>
         <div id="Menu">
-            <button id="simulator-header" class="section-header" onclick="showSection('simulator')">Simulator</button>
+            <button id="simulator-header" class="section-header section-header-selected" onclick="showSection('simulator')">Simulator</button>
             <button id="puzzle-header" class="section-header" onclick="showSection('puzzle')">Puzzles</button>
             <button id="builds-header" class="section-header" onclick="showSection('builds')">Builds</button>
             <button id="runs-header" class="section-header" onclick="showSection('runs')">Runs</button>
@@ -112,6 +155,13 @@
                     onchange="this.value = this.value.replace(/[^0-9a-zA-Z]/g, '');">
                 <button onclick="User.updateDisplayName()">Save</button>
                 <br/><br/>
+                <h1>Challenges</h1>
+                <label style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                    <input type="checkbox" id="auto-accept-challenges" />
+                    <span>Always accept incoming challenges on Day 1</span>
+                </label>
+                <small>(When enabled, incoming challenges will automatically be added to your current run on Day 1 without showing a popup.)</small>
+                <br/><br/>
                 <!--
                 What icon should represent you?
                 <input type="text" id="update-account-icon" placeholder="icon url">
@@ -121,7 +171,7 @@
                 <button onclick="logout()" style="margin-left: auto;">Logout</button>
             </div>
         </div>
-        <div id="puzzle" class="section">
+        <div id="puzzle" class="section" style="display: none;">
             <div id="puzzle-content">
                 <h1 id="puzzle-title">Puzzles</h1>
                 <p id="puzzle-description" align="center"></p>
@@ -318,49 +368,8 @@
             </div>
         </div>
         <!-- Simulator Section -->
-        <div id="simulator" class="section polling" style="display: none;">
-            <div id="poll" style="max-width: 600px; margin: 0 auto;">
-                <h1 style="text-align: center;">Notice</h1>
-                
-                <div class="message-section">
-                    I received a message from Reynad, the developer of Bazaar:
-                    
-                    <blockquote style="margin: 20px 0; padding: 15px; border-left: 4px solid #ccc; color: var(--text-color); background-color: rgba(0,0,0,0.1);">
-                        "Hey, unfortunately we need you to take down bazaarplanner.com.<br/>
-                        Combat simulation is a red line for us with external tools because it will harm gameplay a lot in the long run."
-                    </blockquote>
-                </div>
-
-                <div class="response-section">
-                    <!--
-                    I think he's right that simulators can harm gameplay, but I'm not sure what we're doing here will do that.<br/><br/>
-                    Most people think the game of chess has been improved by engines, even though cheating is possible through their use.<br/><br/>
-                    As long as the simulator is external, and mostly a tool to learn, perhaps it will increase engagement, enjoyment, and entertainment within the game when you play!<br/><br/>
-                    Also, even if they aren't online for YOU to use, people will be using them and passing them around. It's better to make it public than give the few players an advantage who privately use them.
-                    -->
-                    Using a chess engine during a competitive game is cheating, yet they are readily available and used by many. Using this simulator mid-run could be considered cheating. Please use responsibly.
-                </div>
-
-                <hr style="margin: 30px 0;">
-<!--
-                <div class="poll-section" style="text-align: center;">
-                    <h1>What do you think?</h1>
-                    <div style="font-size: 1.2em; margin-bottom: 15px;">Will this site harm gameplay or your enjoyment of the game?</div>
-                    <i>(you must login to vote - if you login with twitch, the only information given is your twitch user id, which is already public information on twitch)</i>
-                    
-                    <div class="poll-login" style="margin: 20px 0;">
-                        <button class="editorOpener" onclick="showLogin()">Login</button>
-                    </div>             
-                    <div class="poll-button-group">
-                        <button onclick="poll(true)">Yes</button>
-                        <button onclick="poll(false)">No</button>          
-                    </div>
-                </div>
-                -->
-                <div class="poll-section" style="text-align: center;">
-                    <button onclick="closePoll()">I understand</button>
-                </div>
-            </div>
+        <div id="simulator" class="section polling">
+            
             <div id="monster-search-container">
                                          
             </div>
@@ -444,10 +453,6 @@
                 <div id="skillsList"></div>
             </div>
         </div>
-        -->
-        <div id="auth-container">
-            <div id="firebaseui-auth-container"></div>
-            <div id="twitch-auth-container"><button id="twitch-login-button" class="firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-password firebaseui-id-idp-button firebaseui-idp-text firebaseui-idp-text-long">Sign in with Twitch</button></div>
-        </div>
+        -->        
     </body>
 </html> 

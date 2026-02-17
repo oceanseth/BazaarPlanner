@@ -204,6 +204,15 @@ export class Item {
         this.board.itemValuesChangedTriggers.forEach(func => func(this,source));
         source.board.player.destroyTriggers.forEach(func => func(this,source));
     }
+    repair(source) {
+        if(this.isDestroyed) {
+            this.isDestroyed = false;
+            this.element.classList.remove('destroyed');
+            this.log((source?source.name:"") + " repaired " + this.name);
+        }
+        this.board.itemRepairedTriggers.forEach(func => func(this,source));
+        this.board.itemValuesChangedTriggers.forEach(func => func(this,source));
+    }
 
     updateTriggerValuesElement() {
         const formatNumber = num => Number.isInteger(num) ? num.toString() : num.toFixed(0);
@@ -2160,6 +2169,18 @@ export class Item {
             }, this.id);
             return () => {};
         }
+        //This has +Burn equal to 20% of your Shield. from Welding Torch
+        regex = /^This has \+(Poison|Burn) equal to (\([^)]+\)|\d+%?) of your Shield\.?$/i;
+        match = text.match(regex);
+        if(match) {
+            const multiplier = getRarityValue(match[2], this.rarity)/100;
+            const whatToGain = Item.getTagFromText(match[1]);
+            //this.gain(this.board.player.shield * multiplier/100,whatToGain.toLowerCase());
+            this.board.player.shieldChanged((newShield,oldShield)=>{              
+                this.gain((newShield-oldShield) * multiplier,whatToGain.toLowerCase());
+            }, this.id);
+            return () => {};
+        }
         
         //this gains damage equal to ( 10% » 20% » 40% ) of the Shield lost.
         regex = /this gains damage equal to (\([^)]+\)|\d+%?)\s* of the Shield lost/i;            
@@ -3440,6 +3461,11 @@ export class Item {
                     case "regen":
                         this.board.regenTriggers.set(this.id+triggerFunctionFromText.text,triggerFunctionFromText);
                         return ()=>{};
+                    case "would destroy your items":
+                        this.board.itemDestroyedTriggers.set(this.id+triggerFunctionFromText.text,(i,source) => {
+                            triggerFunctionFromText({source,target:i});
+                        });
+                        return ()=>{};
                 }
                 console.log("No code yet written for this case! '" + text + "' matched 'When you' but not '" + conditionalMatch+"' from "+this.name);
 
@@ -3723,6 +3749,8 @@ export class Item {
                     if(tagCheck == undefined) tagCheck = "Ammo";
                 case "you use a small item":
                     if(tagCheck == undefined) tagCheck = "Small";
+                case "you use a friend":
+                    if(tagCheck == undefined) tagCheck = "Friend";
                 case "you use a large item":
                     if(tagCheck == undefined) tagCheck = "Large";
                     let tagUsedCount = 0;
@@ -4121,9 +4149,13 @@ export class Item {
                 let targets = this.board.player.hostileTarget.board.activeItems;
                 if(tagToMatch && tagToMatch!='Enemy') targets = targets.filter(item => item.tags.includes(tagToMatch));
                 if(targets.length>0) {
-                    this.pickRandom(targets,numItemsToDestroy).forEach(item=>{
-                        item.destroy(this);
-                    });
+                    for(let i=0; i<numItemsToDestroy; i++) {
+                        const target = this.pickRandom(targets);
+                        if(target) {
+                            target.destroy(this);
+                            targets = this.board.player.hostileTarget.board.activeItems;
+                        }
+                    }
                 }
             }
         }
@@ -5729,6 +5761,14 @@ export class Item {
             this["hasDouble"+whatToGain+"Duration"] = true;
             return ()=>{};
         }       
+         //This has double Haste duration.
+         regex = /^This (Haste|Slow|Freeze)s for twice as long\.?$/i;
+         match = text.match(regex);
+         if(match) {
+             const whatToGain = Item.getTagFromText(match[1]);
+             this["hasDouble"+whatToGain+"Duration"] = true;
+             return ()=>{};
+         }       
 
 
         //Reload an adjacent item. from Retool
