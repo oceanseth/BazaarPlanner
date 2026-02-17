@@ -16,6 +16,7 @@
         },
         "runs": {
           ".read": "$uid === auth.uid",
+          ".indexOn": ["t"],
           "$runId": {
             ".read": true
           }

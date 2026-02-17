@@ -3243,6 +3243,10 @@ export class Item {
                             }
                         });
                         return ()=>{};
+                    case "burn or destroy an item":
+                        this.board.burnTriggers.set(this.id,triggerFunctionFromText);
+                        this.board.player.hostileTarget.board.itemDestroyedTriggers.set(this.id,triggerFunctionFromText);
+                        return ()=>{};
                     case "burn or use a dragon item":
                         this.board.burnTriggers.set(this.id,triggerFunctionFromText);
                         this.whenItemTagTriggers("Dragon", (item) => {

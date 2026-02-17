@@ -2403,3 +2403,13 @@ TextMatcher.matchers.push({
         };
     }
 });
+
+//"this item's Cooldown is halved for the fight." from Gatling Gun
+TextMatcher.matchers.push({
+    regex: /^this item's Cooldown is halved for the fight\.?$/i,
+    func: (item, match)=>{
+        return ()=>{
+            item.gain(-item.cooldown*0.5,'cooldown');
+        };
+    }
+});

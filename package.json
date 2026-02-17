@@ -25,7 +25,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "zipItemsWithTag": "node scripts/zipItemsWithTag.js",
-    "generateEnchantOverlays": "node scripts/generateEnchantOverlays.js"
+    "generateEnchantOverlays": "node scripts/generateEnchantOverlays.js",
+    "testRunsLoad": "node scripts/testRunsLoad.js"
   },
   "keywords": [],
   "author": "",

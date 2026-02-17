@@ -12,16 +12,24 @@ export class Runs {
             return;
         }
         
-        // Create a query that excludes the encounters field by specifying the path
+        // Query by timestamp so we get the 50 most recent runs by when they happened,
+        // not by key order (keys may not match creation time / server timestamp).
         const runsRef = firebase.database().ref("/users/"+user.uid+"/runs");
-        
-        // Get a list of run IDs first
-        runsRef.orderByKey()
+        runsRef.orderByChild("t")
             .limitToLast(50)
             .once("value")
             .then((snapshot) => {
-                let runIds = snapshot.val() ? Object.keys(snapshot.val()) : null;
-                if(!runIds) {
+                const runDataArray = [];
+                snapshot.forEach((childSnap) => {
+                    const t = childSnap.child("t").val();
+                    if (t == null) return;
+                    runDataArray.push({
+                        id: childSnap.key,
+                        t: parseInt(t),
+                        uid: user.uid
+                    });
+                });
+                if (runDataArray.length === 0) {
                     $("#runs-content").html(`<h1>Your Runs</h1>
                         Your User has not tracked any runs yet.<br/><br/>
                         Download the tracker program <a href="${window.trackerUrl}">here</a> and start tracking your runs!<br/><br/>
@@ -30,21 +38,9 @@ export class Runs {
                         `);
                     return;
                 }
-
-                // Now fetch each run's metadata without encounters
-                const runPromises = runIds.map(runId => 
-                    firebase.database()
-                        .ref(`/users/${user.uid}/runs/${runId}`)
-                        .child('t')  // Only fetch the timestamp initially
-                        .once('value')
-                        .then(snap => ({
-                            id: runId,
-                            t: snap.val()?parseInt(snap.val()):null,
-                            uid: user.uid
-                        }))
-                );
-
-                return Promise.all(runPromises);
+                // limitToLast(50) returns ascending by t; we want newest first
+                runDataArray.sort((a, b) => b.t - a.t);
+                return runDataArray;
             })
             .then(runDataArray => {
                 if (!runDataArray) return;
