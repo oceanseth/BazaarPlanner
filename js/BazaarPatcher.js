@@ -96,6 +96,9 @@ export class BazaarPatcher {
         if(items["Temple Expedition Ticket"]) {
             items["[Jungle Expedition] Temple Expedition Ticket"] = items["Temple Expedition Ticket"];
         }
+        if(items["Crash Site Ticket"]) {
+            items["[Crash Site Expedition] Crash Site Expedition Ticket"] = items["Crash Site Ticket"];
+        }
         if(items["Ethergy Conduit"]) {
             items["Ethergy Conduit"].text[0]=items["Ethergy Conduit"].text[0].replace("Poison or use","Poison, or use");
         }
