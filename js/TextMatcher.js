@@ -2413,3 +2413,99 @@ TextMatcher.matchers.push({
         };
     }
 });
+
+//"Haste a Burn, Poison or Freeze item for 1 second." from Wake-Up Call
+TextMatcher.matchers.push({
+    regex: /^\s*Haste a (\w+),? (\w+),? or (\w+) item for (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
+    func: (item, match)=>{
+        const type1 = Item.getTagFromText(match[1]);
+        const type2 = Item.getTagFromText(match[2]);
+        const type3 = Item.getTagFromText(match[3]);
+        const amount = getRarityValue(match[4], item.rarity);
+        item.gain(amount,'haste');
+        return ()=>{
+            item.board.items.filter(i=>i.tags.includes(type1) || i.tags.includes(type2) || i.tags.includes(type3)).forEach(i=>{
+                item.applyHasteTo(i);
+            });
+        };
+    }
+});
+
+//"Your items with value over 10 have (+10%/+15%/+20%) Crit Chance." from High-Yield Investments
+TextMatcher.matchers.push({
+    regex: /^Your (\w+)s?(?: items)? with value over (\([^)]+\)|\d+) have (\([^)]+\)|\d+)%? Crit Chance\.?$/i,
+    func: (item, match)=>{
+        const tag = Item.getTagFromText(match[1]);
+        const value = getRarityValue(match[2], item.rarity);
+        const amount = getRarityValue(match[3], item.rarity);
+        item.board.items.filter(i=>i.tags.includes(tag) && i.value>value).forEach(i=>{
+            let thisItemGainedValue=false;
+            if(i.value>value) {
+                i.gain(amount,'crit');    
+                thisItemGainedValue=true;
+            }
+            i.valueChanged((newValue,oldValue)=>{
+                if(!thisItemGainedValue && newValue>value) {
+                    i.gain(amount,'crit');
+                    thisItemGainedValue=true;
+                } else if(thisItemGainedValue && newValue<=value) {
+                    i.gain(-amount,'crit');
+                    thisItemGainedValue=false;
+                }
+            });            
+        });
+        return ()=>{};
+    },
+});
+
+//"this item's value is doubled for the fight." from High-Yield Investments
+TextMatcher.matchers.push({
+    regex: /^this item's value is doubled for the fight\.?$/i,
+    func: (item, match)=>{
+        return ()=>{
+            item.gain(item.value,'value');
+        };
+    }
+});
+
+//"Charge an item from another hero 1 second(s)." from Jack of All Trades
+TextMatcher.matchers.push({
+    regex: /^Charge an item from another hero (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        item.gain(amount,'charge');
+        return ()=>{
+            item.applyChargeTo(item.pickRandom(item.board.items.filter(i=>i.cooldown>0 && !i.tags.includes(item.board.player.hero))));
+        };
+    }
+});
+
+//"Charge another (1/2) Enchanted or Flying item(s) 1 second." from Atmospheric Sampler
+TextMatcher.matchers.push({
+    regex: /^Charge another (\([^)]+\)|\d+) (\w+) or (\w+) item\(?s?\)? (\([^)]+\)|\d+) second\(?s?\)?\.?$/i,
+    func: (item, match)=>{
+        const type = Item.getTagFromText(match[2]);
+        const type2 = Item.getTagFromText(match[3]);
+        const amount = getRarityValue(match[4], item.rarity);
+        item.gain(amount,'charge');
+        return ()=>{
+            item.applyChargeTo(item.pickRandom(item.board.items.filter(i=>i!=item && i.cooldown>0 && (i.tags.includes(type)||i.tags.includes(type2)))));
+        };
+    }
+});
+//"When one of your Weapons is Hasted, it gains (+5/+10/+15) Damage." from Streamline Weapon
+
+TextMatcher.matchers.push({
+    regex: /^When one of your (\w+)s is Hasted, it gains (\([^)]+\)|\d+) (\w+)\.?$/i,
+    func: (item, match)=>{
+        const type = Item.getTagFromText(match[1]);
+        const amount = getRarityValue(match[2], item.rarity);
+        const whatToGain = match[3].toLowerCase();
+        item.board.hasteTriggers.set(item.id+"_whenoneofyourweaponsishasted", (i)=>{
+            if(i.tags.includes(type)) {
+                i.gain(amount,whatToGain, item);
+            }
+        });
+        return ()=>{};
+    }
+});

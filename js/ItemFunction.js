@@ -1598,6 +1598,39 @@ ItemFunction.items.set("Precision Tools", (item)=>{
         });
     });
 });
+//  Destroy the smallest enemy item
+//  Deal 200 Damage
+//  When an item is destroyed, this gains damage equal to (50/75) times the destroyed item's cooldown for the fight
+//Oblivion Cannon 
+ItemFunction.items.set("Oblivion Cannon",(item)=>{
+    
+    //  Deal 200 Damage
+    item.gain(200,'damage');
+    const amount = getRarityValue("50/75",item.rarity)
+    item.triggerFunctions.push(()=>{
+        item.applyDamage();
+    });
+
+    //  Destroy the smallest enemy item
+    item.triggerFunctions.push(()=>{
+        const smallestItem = item.board.player.hostileTarget.board.activeItems.reduce((min,i)=>{
+            if(i.size<min.size) return i;
+            return min;
+        },item.board.player.hostileTarget.board.activeItems[0]);
+        if(smallestItem) {
+            smallestItem.destroy(item);
+        }
+    });
+
+    //  When an item is destroyed, this gains damage equal to (50/75) times the destroyed item's cooldown for the fight
+    item.board.player.hostileTarget.board.itemDestroyedTriggers.set(item.id, (i)=>{
+        item.gain(amount*i.cooldown/1000,'damage',i);
+    });
+    item.board.itemDestroyedTriggers.set(item.id, (i)=>{
+        item.gain(amount*i.cooldown/1000,'damage',i);
+    });
+});
+
 
 BazaarPatcher.apply();
 ItemFunction.setupItems();
