@@ -3467,6 +3467,13 @@ export class Item {
                         });
                        
                         return ()=>{};
+                    case "destroy an item adjacent to this":
+                        this.board.itemDestroyedTriggers.set(this.id+triggerFunctionFromText.text,(item,source)=>{
+                            if(item.adjacentItems.some(i=>i.id==this.id)) {
+                                triggerFunctionFromText(item);
+                            }
+                        });
+                        return ()=>{};
                     case "regen":
                         this.board.regenTriggers.set(this.id+triggerFunctionFromText.text,triggerFunctionFromText);
                         return ()=>{};
@@ -5443,12 +5450,13 @@ export class Item {
 
             return ()=>{};
         }
-        //Double this item's damage for the fight. from Atlas Stone
-        regex = /^\s*Double this item's damage for the fight\.?$/i;
+        //Double this item's damage for the fight. from Atlas Stone , Lava Roller
+        regex = /^\s*Double this item's (\w+) for the fight\.?$/i;
         match = text.match(regex);
         if(match) {
+            const whatToGain = match[1].toLowerCase();
             return () => {
-               this.gain(this.damage,'damage');
+               this.gain(this[whatToGain],whatToGain);
             }
         }
         //Your items have 100% less crit chance. from Building Crescendo

@@ -2509,3 +2509,27 @@ TextMatcher.matchers.push({
         return ()=>{};
     }
 });
+//"Repair (1/2/3/4) Small items" from Recycler Bot
+TextMatcher.matchers.push({
+    regex: /^Repair (\([^)]+\)|\d+) (\w+)(?: item)?\(?s\)?\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        const tag = Item.getTagFromText(match[2]);
+        return ()=>{
+            const targetItems = item.pickRandom(item.board.items.filter(i=>i.tags.includes(tag)),amount)
+            targetItems.forEach(i=>{
+                i.repair();
+            });
+        };
+    }
+});
+
+//"Destroy this for the fight" from Ice Bomb
+TextMatcher.matchers.push({
+    regex: /^Destroy this for the fight\.?$/i,
+    func: (item, match)=>{
+        return ()=>{
+            item.destroy();
+        };
+    }
+});

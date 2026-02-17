@@ -123,6 +123,7 @@ export class BazaarPatcher {
         }
         if(items["Levitation Pad"]) {
             items["Levitation Pad"].text[0] = "Haste the item to the left of this for (1/2/3/4) second(s)";
+            items["Levitation Pad"].text[1] = "The item to the left of this starts flying.";
         }
         if(items["Thrusters"]) {
             items["Thrusters"].text[1] = "The item to the left of this is a Vehicle";
