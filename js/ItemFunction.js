@@ -5,7 +5,7 @@ import { BazaarPatcher } from "./BazaarPatcher.js";
 
 export class ItemFunction {
     static items = new Map();
-    static doNothingItemNames = ["Crash Site Ticket","Advanced Synthetics","Arbitrage","Generosity","Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
+    static doNothingItemNames = ["Protein Powder","Crash Site Ticket","Advanced Synthetics","Arbitrage","Generosity","Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
         "Spare Change","Pelt","Candy Mail","Machine Learning","Chocoholic","Like Clockwork","Upgrade Hammer", "Sifting Pan", "Chimeric Egg",
     "Vending Machine","Piggy Bank","Cash Register","Alembic","The Tome of Yyahan","Catalyst","Chunk of Lead","Chunk of Gold", "Catalyst","Temple Expedition Ticket","[Jungle Expedition] Temple Expedition Ticket"];
     static setupItems() {
@@ -1638,6 +1638,21 @@ ItemFunction.items.set("Toolbox",(item)=>{
         if(rightItem) {
             rightItem.repair();
             item.applyHasteTo(rightItem);
+        }
+    });
+});
+//Your items have their cooldown reduced by (2%/3%) for each of the following types you have: Tech, Friend, Apparel, Tool, Weapon.
+ItemFunction.items.set("It's All Connected",(item)=>{
+    const cooldownReduction = getRarityValue("2 >> 3",item.rarity);
+    let count = ["Tech","Friend","Apparel","Tool","Weapon"].filter(t=>item.board.items.some(i=>i.tags.includes(t))).length;
+    item.board.items.forEach(i=>{
+        i.gain(-i.cooldown*cooldownReduction/100*count,'cooldown');
+    });
+    item.board.itemDestroyedTriggers.set(item.id, (i)=>{
+        let newCount = ["Tech","Friend","Apparel","Tool","Weapon"].filter(t=>item.board.items.some(i=>i.tags.includes(t))).length;
+        if(newCount!=count) {
+            i.gain(-i.cooldown*cooldownReduction/100*(newCount-count),'cooldown');
+            count = newCount;
         }
     });
 });

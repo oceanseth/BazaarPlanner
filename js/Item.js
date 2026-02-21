@@ -3493,38 +3493,51 @@ export class Item {
         //The first (  4  » 8   ) times you Shield each fight, Charge 1 item 1 second(s).
         //The first (  4  » 8   ) times your enemy uses a non-weapon item each fight, Charge 1 Weapon 1 second(s).
         //"The first (5/10/15) times you slow each fight, Charge 1 Regeneration item 1 second(s)." Hardly Workin'
-        regex = /^The first (\([^)]+\)|\d+)?\s?times? ([^,]+?)(?: each fight| in a fight)?, (.*)/i;
+        regex = /^The first (\([^)]+\)|\d+)?\s?times? (you|(?:your enemy|an enemy)|a(?:ny)? player) ([^,]+?)(?: each fight| in a fight)?, (.*)/i;
         match = text.match(regex);
         if(match) {
             const numTimes = match[1]?getRarityValue(match[1], this.rarity):1;
-            const ntimesFunction = this.getTriggerFunctionFromText(match[3]);
-            const thingDone = match[2].toLowerCase();
+            const ntimesFunction = this.getTriggerFunctionFromText(match[4]);
+            const thingDone = match[3].toLowerCase();
+            const targetBoards = [];
+            if(match[2] == "you") {
+                targetBoards.push(this.board);
+            } else if(match[2] == "your enemy") {
+                targetBoards.push(this.board.player.hostileTarget.board);
+            } else if(match[2] == "an enemy" || match[2] == "a player" || match[2] == "any player") {
+                targetBoards.push(this.board);
+                targetBoards.push(this.board.player.hostileTarget.board);
+            }
             let tagCheck = undefined;
-            switch(thingDone) {
-                case "you shield":
+            switch(thingDone) {                
+                case "shield":
                     let shieldCount = 0;
-                    this.board.shieldTriggers.set(this.id,()=>{
-                        shieldCount++;
-                        if(shieldCount <= numTimes) {
-                            ntimesFunction(this);
-                            if(shieldCount==numTimes) {
-                                this.board.shieldTriggers.delete(this.id);
+                    targetBoards.forEach(board=>{
+                        board.shieldTriggers.set(this.id,()=>{
+                            shieldCount++;
+                            if(shieldCount <= numTimes) {
+                                ntimesFunction(this);
+                                if(shieldCount==numTimes) {
+                                    board.shieldTriggers.delete(this.id);
+                                }
                             }
-                        }
+                        });
                     });
                     return ()=>{};
-                case "you over-heal":
+                case "over-heal":
                     let overhealCount = 0;
-                    this.board.player.overhealTriggers.set(this.id+"_"+ntimesFunction.text,()=> {
+                    targetBoards.forEach(board=>{
+                        board.player.overhealTriggers.set(this.id+"_"+ntimesFunction.text,()=> {
                         overhealCount++;
                         if(overhealCount<=numTimes) {
                             ntimesFunction(this);
                         } else {
-                            this.board.player.overhealTriggers.delete(this.id+"_"+ntimesFunction.text);
+                            board.player.overhealTriggers.delete(this.id+"_"+ntimesFunction.text);
                         }
+                        });
                     });
                     return ()=>{};
-                case "you use your slowest weapon":
+                case "use your slowest weapon":
                     let slowestWeaponCount = 0;
                     let slowestWeapon;
                     let slowestWeaponCooldown;
@@ -3539,255 +3552,293 @@ export class Item {
                         }
                     }
                     updateSlowestWeapon();
-                    this.board.itemTriggers.set(this.id,(item)=>{
+                    targetBoards.forEach(board=>{
+                        board.itemTriggers.set(this.id,(item)=>{
                         if(item.tags.includes("Weapon")) {
                             updateSlowestWeapon();
                             if(item.cooldown >= slowestWeaponCooldown) { 
                                     ntimesFunction(item);                                                           
                                     if(slowestWeaponCount++==numTimes) {
-                                        this.board.itemTriggers.delete(this.id);
+                                        board.itemTriggers.delete(this.id);
                                     }
                             }
                         }
+                        });
                     });
-                    this.board.itemDestroyedTriggers.set(this.id,(item)=>{
+                    targetBoards.forEach(board=>{
+                        board.itemDestroyedTriggers.set(this.id,(item)=>{
                         if(item.tags.includes("Weapon")) {
                             updateSlowestWeapon();
                         }
+                        });
                     });
                     return ()=>{};
-                case "you use an item":
+                case "use an item":
                     let itemCount = 0;
-                    this.board.itemTriggers.set(this.id,(item)=>{
-                        if(itemCount<numTimes) {
-                            itemCount++;
-                            ntimesFunction(item);
-                        }
-                    });
-                    return ()=>{};
-                case "you use a potion":
-                    let potionCount = 0;
-                    this.whenItemTagTriggers("Potion",(item)=>{
-                        if(potionCount<numTimes) {
-                            ntimesFunction(item);
-                            potionCount++;
-                            if(potionCount==numTimes) {
-                                this.board.itemTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return ()=>{};
-                case "you use an aquatic item":
-                    let aquaticItemCount = 0;
-                    this.board.itemTriggers.set(this.id,(item)=>{
-                        if(item.tags.includes("Aquatic")) {
-                            ntimesFunction(item);
-                            aquaticItemCount++;
-                            if(aquaticItemCount==numTimes) {
-                                this.board.itemTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return ()=>{};              
-                case "you freeze":
-                    let freezeCount = 0;
-                    this.board.freezeTriggers.set(this.id,(item)=>{
-                        if(freezeCount++<=numTimes) {
-                            ntimesFunction(item);
-                            if(freezeCount==numTimes) {
-                                this.board.player.hostileTarget.board.freezeTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return ()=>{};
-                case "you burn":
-                    let burnCount = 0;
-                    this.board.burnTriggers.set(this.id,(item)=>{
-                        if(burnCount++<=numTimes) {
-                            ntimesFunction(item);
-                            if(burnCount==numTimes) {
-                                this.board.burnTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return ()=>{};
-                case "you haste":
-                    let hasteCount = 0;
-                    this.board.hasteTriggers.set(this.id,(item)=>{
-                        if(hasteCount++<=numTimes) {
-                            ntimesFunction(item);
-                            if(hasteCount==numTimes) {
-                                this.board.hasteTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return ()=>{}   ;
-                case "you crit":
-                    let critCount = 0;
-
-                    this.board.critTriggers.set(this.id,(item)=>{
-                        if(critCount++<=numTimes) {
-                            ntimesFunction(item);
-                            if(critCount==numTimes) {
-                                this.board.critTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return ()=>{}   ;
-                case "you slow":
-                    let slowCount = 0;
-                    this.board.slowTriggers.set(this.id,(item)=>{
-                        if(slowCount++<=numTimes) {
-                            ntimesFunction(item);
-                            if(slowCount==numTimes) {
-                                this.board.slowTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return ()=>{}   ;
-                case "any player falls below half health":
-                    let anyPlayerHealthBelowHalfCount = 0;
-                    [this.board.player,this.board.player.hostileTarget].forEach(player=>{
-                        player.healthBelowHalfTriggers.set(this.id,(item)=>{
-                            if(anyPlayerHealthBelowHalfCount++<=numTimes) {
+                    targetBoards.forEach(board=>{
+                            board.itemTriggers.set(this.id,(item)=>{
+                            if(itemCount<numTimes) {
+                                itemCount++;
                                 ntimesFunction(item);
-                                if(anyPlayerHealthBelowHalfCount>=numTimes) {
-                                    player.healthBelowHalfTriggers.delete(this.id);
+                            }
+                        });
+                    });
+                    return ()=>{};
+                case "use a potion":
+                    let potionCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.itemTriggers.set(this.id,(item)=>{
+                            if(item.tags.includes("Potion")) {
+                                if(potionCount<numTimes) {
+                                    ntimesFunction(item);
+                                    potionCount++;
+                                    if(potionCount==numTimes) {
+                                        board.itemTriggers.delete(this.id);
+                                    }
+                                    if(potionCount<numTimes) {
+                                        ntimesFunction(item);
+                                        potionCount++;
+                                        if(potionCount==numTimes) {
+                                            board.itemTriggers.delete(this.id);
+                                        }
+                                    }
                                 }
                             }
                         });
                     });
+                    return ()=>{};
+                case "use an aquatic item":
+                    let aquaticItemCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.itemTriggers.set(this.id,(item)=>{
+                            if(item.tags.includes("Aquatic")) {
+                                ntimesFunction(item);
+                                aquaticItemCount++;
+                                    if(aquaticItemCount==numTimes) {
+                                            board.itemTriggers.delete(this.id);
+                                    }
+                            }
+                        });
+                    });
+                    return ()=>{};              
+                case "freeze":
+                    let freezeCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.freezeTriggers.set(this.id,(item)=>{
+                        if(freezeCount++<=numTimes) {
+                            ntimesFunction(item);
+                            if(freezeCount==numTimes) {
+                                    board.freezeTriggers.delete(this.id);
+                                }
+                            }
+                            });
+                        });
+                    return ()=>{};
+                case "burn":
+                    let burnCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.burnTriggers.set(this.id,(item)=>{
+                            if(burnCount++<=numTimes) {
+                                ntimesFunction(item);
+                                if(burnCount==numTimes) {
+                                    this.board.burnTriggers.delete(this.id);
+                                }
+                            }
+                        });
+                    });
+                    return ()=>{};
+                case "haste":
+                    let hasteCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.hasteTriggers.set(this.id,(item)=>{
+                            if(hasteCount++<=numTimes) {
+                                ntimesFunction(item);
+                                if(hasteCount==numTimes) {
+                                    this.board.hasteTriggers.delete(this.id);
+                                }
+                            }
+                        });
+                    });
+                    return ()=>{}   ;
+                case "crit":
+                    let critCount = 0;
+
+                    targetBoards.forEach(board=>{
+                        board.critTriggers.set(this.id,(item)=>{
+                            if(critCount++<=numTimes) {
+                                ntimesFunction(item);
+                                if(critCount==numTimes) {
+                                    board.critTriggers.delete(this.id);
+                                }
+                            }
+                        });
+                    });
+                    return ()=>{}   ;
+                case "slow":
+                    let slowCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.slowTriggers.set(this.id,(item)=>{
+                            if(slowCount++<=numTimes) {
+                                ntimesFunction(item);
+                                if(slowCount==numTimes) {
+                                    board.slowTriggers.delete(this.id);
+                                }
+                            }
+                        });
+                    });
+                    return ()=>{}   ;
+                case "falls below half health":
+                    let anyPlayerHealthBelowHalfCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.player.healthBelowHalfTriggers.set(this.id,(item)=>{
+                            if(anyPlayerHealthBelowHalfCount++<=numTimes) {
+                                ntimesFunction(item);
+                                if(anyPlayerHealthBelowHalfCount==numTimes) {
+                                    board.player.healthBelowHalfTriggers.delete(this.id);
+                                }
+                            }
+                        });
+                    });   
                     return ()=>{}   ;
                 case "your enemy falls below half health":
                 case "an enemy falls below half health":
                     let enemyHealthBelowHalfCount = 0;
-                    this.board.player.hostileTarget.healthBelowHalfTriggers.set(this.id,(item)=>{
-                        if(enemyHealthBelowHalfCount++<=numTimes) {
-                            ntimesFunction(item);
-                            if(enemyHealthBelowHalfCount>=numTimes) {
-                                this.board.player.hostileTarget.healthBelowHalfTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return ()=>{}   ;
-                case "you fall below 50% health":
-                case "you fall below half health":
-                    let healthBelowHalfCount = 0;
-                    this.board.player.healthBelowHalfTriggers.set(this.id,(item)=>{
-                        if(healthBelowHalfCount++<=numTimes) {
-                            ntimesFunction(item);
-                            if(healthBelowHalfCount>=numTimes) {
-                                this.board.player.healthBelowHalfTriggers.delete(this.id);
-                            }
-                        } 
-
-                    });
-
-
-                    return ()=>{};
-                case "you poison":
-                    let poisonCount = 0;
-                    this.board.poisonTriggers.set(this.id+"_"+ntimesFunction.text,(item)=>{
-                        if(poisonCount++<=numTimes) {
-                            ntimesFunction(item);
-                            if(poisonCount>=numTimes) {
-                                this.board.poisonTriggers.delete(this.id);
-                            }
-                        } 
-                    });
-                    return ()=>{};
-                case 'your enemy uses a weapon':
-                case 'an enemy uses a weapon':
-                    let enemyWeaponCount = 0;
-                    this.board.player.hostileTarget.board.itemTriggers.set(this.id,(item)=>{
-                        if(item.tags.includes("Weapon") && enemyWeaponCount++<=numTimes) {
-                            ntimesFunction(item);
-                            if(enemyWeaponCount==numTimes) {
-                                this.board.player.hostileTarget.board.itemTriggers.delete(this.id);
-                            }
-                        }
-                    });
-                    return ()=>{};               
-                case "you use a non-weapon item":
-                case "your enemy uses a non-weapon item":
-                case "an enemy uses a non-weapon item":
-                    const target = thingDone.includes("enemy")?this.board.player.hostileTarget:this.board.player;
-
-                    let nonWeaponCount = 0;
-                    target.board.itemTriggers.set(this.id,(item)=>{
-                        if(!item.tags.includes("Weapon")) {
-                            if(nonWeaponCount++ <= numTimes) {
+                    targetBoards.forEach(board=>{
+                        board.player.hostileTarget.healthBelowHalfTriggers.set(this.id,(item)=>{
+                            if(enemyHealthBelowHalfCount++<=numTimes) {
                                 ntimesFunction(item);
-                                if(nonWeaponCount==numTimes) {
-                                    target.board.itemTriggers.delete(this.id);
+                                if(enemyHealthBelowHalfCount>=numTimes) {
+                                    board.player.hostileTarget.healthBelowHalfTriggers.delete(this.id);
                                 }
                             }
-                        }
-                    });
-
-                    return ()=>{};
-                case "you would be defeated":
-                case "you would die":
-                    let dieCount = 0;
-                    this.board.player.dieTriggers.set(this.id,(item)=>{
-                        if(dieCount++<=numTimes) {
-                            ntimesFunction(item);
-                            if(dieCount>=numTimes) {
-                                this.board.player.dieTriggers.delete(this.id);
-                            }
-                        } 
-
+                        });
                     });
                     return ()=>{}   ;
-                case "you freeze, burn, slow, poison, and haste":
-                    ["freeze","burn","slow","poison","haste"].forEach(attribute=>{
-                        let attributeCount = 0;
-                        this.board[attribute+'Triggers'].set(this.id,(item)=>{                                
+                case "fall below 50% health":
+                case "fall below half health":
+                    let healthBelowHalfCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.player.healthBelowHalfTriggers.set(this.id,(item)=>{
+                            if(healthBelowHalfCount++<=numTimes) {
+                                ntimesFunction(item);
+                                if(healthBelowHalfCount>=numTimes) {
+                                    this.board.player.healthBelowHalfTriggers.delete(this.id);
+                                }
+                            } 
+                        });
+                    });
+                    return ()=>{};
+                case "poison":
+                    let poisonCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.poisonTriggers.set(this.id+"_"+ntimesFunction.text,(item)=>{
+                            if(poisonCount++<=numTimes) {
+                                ntimesFunction(item);
+                                if(poisonCount>=numTimes) {
+                                    this.board.poisonTriggers.delete(this.id);
+                                }
+                            } 
+                        });
+                    });
+                    return ()=>{};
+                case 'uses a weapon':
+                    let enemyWeaponCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.player.hostileTarget.board.itemTriggers.set(this.id,(item)=>{
+                        if(item.tags.includes("Weapon") && enemyWeaponCount++<=numTimes) {
                             ntimesFunction(item);
-                            if(attributeCount++==numTimes) {
-                                this.board[attribute+'Triggers'].delete(this.id);
+                                if(enemyWeaponCount==numTimes) {
+                                    board.player.hostileTarget.board.itemTriggers.delete(this.id);
+                                }
+                            }
+                        });
+                    });
+                    return ()=>{};               
+                case "use a non-weapon item":
+                case "uses a non-weapon item":
+                    let nonWeaponCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.itemTriggers.set(this.id,(item)=>{
+                            if(!item.tags.includes("Weapon")) {
+                                if(nonWeaponCount++ <= numTimes) {
+                                    ntimesFunction(item);
+                                    if(nonWeaponCount==numTimes) {
+                                        target.board.itemTriggers.delete(this.id);
+                                    }
+                                }
                             }
                         });
                     });
                     return ()=>{};
-                case "you use your leftmost item":
-                    if(tagCheck == undefined) tagCheck = "Leftmost";
-                case "you use your rightmost item":
-                    if(tagCheck == undefined) tagCheck = "Rightmost";
-                case "you use a core":
-                case "use a core": // existing wording is scuffed for liquid core
-                    if(tagCheck == undefined) tagCheck = "Core";
-                case "you use a tool":
-                    if(tagCheck == undefined) tagCheck = "Tool";
-                case "you use a weapon":
-                    if(tagCheck == undefined) tagCheck = "Weapon";
-                case "you use an ammo item":
-                    if(tagCheck == undefined) tagCheck = "Ammo";
-                case "you use a small item":
-                    if(tagCheck == undefined) tagCheck = "Small";
-                case "you use a friend":
-                    if(tagCheck == undefined) tagCheck = "Friend";
-                case "you use a large item":
-                    if(tagCheck == undefined) tagCheck = "Large";
-                    let tagUsedCount = 0;
-                    this.board.itemTriggers.set(this.id,(item)=>{
-                        if(item.tags.includes(tagCheck) && tagUsedCount++<=numTimes) {
+                case "would be defeated":
+                case "would die":
+                    let dieCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.player.dieTriggers.set(this.id,(item)=>{
+                        if(dieCount++<=numTimes) {
                             ntimesFunction(item);
-                            if(tagUsedCount>=numTimes) {
-                                this.board.itemTriggers.delete(this.id);
+                            if(dieCount>=numTimes) {
+                                    this.board.player.dieTriggers.delete(this.id);
+                                    }
+                                }
+                            });
+                        });
+                    return ()=>{}   ;
+                case "freeze, burn, slow, poison, and haste":
+                    ["freeze","burn","slow","poison","haste"].forEach(attribute=>{
+                        targetBoards.forEach(board=>{
+                        let attributeCount = 0;
+                        board[attribute+'Triggers'].set(this.id,(item)=>{                                
+                            ntimesFunction(item);
+                            if(attributeCount++==numTimes) {
+                                board[attribute+'Triggers'].delete(this.id);
                             }
-                        } 
+                        });
+                        });
                     });
                     return ()=>{};
-                case "you use this":
-                    let thisItemCount = 0;
-                    this.board.itemTriggers.set(this.id,(item)=>{
-                        if(item.id==this.id && thisItemCount++<=numTimes) {
-                            ntimesFunction(item);
-                            if(thisItemCount>=numTimes) {
-                                this.board.itemTriggers.delete(this.id);
+                case "use your leftmost item":
+                    if(tagCheck == undefined) tagCheck = "Leftmost";
+                case "use your rightmost item":
+                    if(tagCheck == undefined) tagCheck = "Rightmost";
+                case "use a core":
+                case "use a core": // existing wording is scuffed for liquid core
+                    if(tagCheck == undefined) tagCheck = "Core";
+                case "use a tool":
+                    if(tagCheck == undefined) tagCheck = "Tool";
+                case "use a weapon":
+                    if(tagCheck == undefined) tagCheck = "Weapon";
+                case "use an ammo item":
+                    if(tagCheck == undefined) tagCheck = "Ammo";
+                case "use a small item":
+                    if(tagCheck == undefined) tagCheck = "Small";
+                case "use a friend":
+                    if(tagCheck == undefined) tagCheck = "Friend";
+                case "use a large item":
+                    if(tagCheck == undefined) tagCheck = "Large";
+                    let tagUsedCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.itemTriggers.set(this.id,(item)=>{
+                            if(item.tags.includes(tagCheck) && tagUsedCount++<=numTimes) {
+                                ntimesFunction(item);
+                                if(tagUsedCount>=numTimes) {
+                                    this.board.itemTriggers.delete(this.id);
+                                }
                             }
-                        }
+                        });
+                    });
+                    return ()=>{};
+                case "use this":
+                    let thisItemCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.itemTriggers.set(this.id,(item)=>{
+                            if(item.id==this.id && thisItemCount++<=numTimes) {
+                                ntimesFunction(item);
+                                if(thisItemCount>=numTimes) {
+                                    board.itemTriggers.delete(this.id);
+                                }
+                            }
+                        });
                     });
                     return ()=>{};
             }
@@ -4018,21 +4069,22 @@ export class Item {
         }
         //Charge 1 item 1 second(s). into a trigger function.
         //Charge 1 Weapon 1 second(s). into a trigger function.
-        regex = /^\s*Charge\s?(\([^\)]+\)|\d+|a|an|your)? ([^\s^(]+)\(?s?\)?(?: or ([^\s]+))? (?:items?)?\s*(?:for)?\s*(?:by)?\s*(\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
+        regex = /^\s*Charge\s?(\([^\)]+\)|\d+|a|an|your)? (non-)?([^\s^(]+)\(?s?\)?(?: or ([^\s]+))? (?:items?)?\s*(?:for)?\s*(?:by)?\s*(\([^)]+\)|\d+) second\(?s?\)?\.?$/i;
         match = text.match(regex);
         if(match) {
             let numItemsToCharge = (match[1]=='a'||match[1]=='an')?1:match[1]=='your'?Infinity:getRarityValue(match[1], this.rarity);
             if(numItemsToCharge==0) numItemsToCharge = 1;
-            const tagToCharge = match[2]=='leftmost'?'left':match[2]=='rightmost'?'right':Item.getTagFromText(match[2]);
-            const tagToCharge2 = match[3]=='leftmost'?'left':match[3]=='rightmost'?'right':Item.getTagFromText(match[3]);
-            this.charge = getRarityValue(match[4], this.rarity);
+            const non = match[2]!=null;
+            const tagToCharge = match[3]=='leftmost'?'left':match[3]=='rightmost'?'right':Item.getTagFromText(match[3]);
+            const tagToCharge2 = match[4]=='leftmost'?'left':match[4]=='rightmost'?'right':Item.getTagFromText(match[4]);
+            this.charge = getRarityValue(match[5], this.rarity);
             return () => {
                 let validTargets = this.board.items.filter(item => item.isChargeTargetable());
                 if(tagToCharge=='leftmost'&&validTargets.length>0) validTargets = [validTargets[0]];
                 else if(tagToCharge=='rightmost'&&validTargets.length>0) validTargets = [validTargets[validTargets.length-1]];
                 else if(tagToCharge=='Thi') validTargets = [this];
                 else if(tagToCharge=='Adjacent') { validTargets = this.adjacentItems; numItemsToCharge = validTargets.length; }
-                else if(tagToCharge!='Item') validTargets = validTargets.filter(item => item.tags.includes(tagToCharge));
+                else if(tagToCharge!='Item') validTargets = validTargets.filter(item => (non?!item.tags.includes(tagToCharge):item.tags.includes(tagToCharge)));
                 
                 if(tagToCharge2) {
                     validTargets.push(...this.board.activeItems.filter(item => !validTargets.includes(item)&&item.tags.includes(tagToCharge2)));
@@ -5664,20 +5716,21 @@ export class Item {
             };
         }
         //Your weapons have + damage equal to this item's value. from Lockbox
-        regex = /^Your ([^\s]+)s?(?: items)? have \+?\s?(damage|shield) equal to this item's value\.?$/i;
+        regex = /^Your ([^\s]+)s?(?: items)? have \+?\s?(damage|shield) equal to (half|double|triple|[\d]+%)?\s?(?:of )?this item's value\.?$/i;
         match = text.match(regex);
         if(match) {
+            const multiplier = match[3] ? match[3] == "double" ? 2 : match[3] == "triple" ? 3 : parseInt(match[3])/100 : 1;
             const tag = Item.getTagFromText(match[1]);
             const whatToGain = match[2].toLowerCase();
             this.board.items.forEach(item => {
                 if(item.tags.includes(tag)) {
-                    item.gain(this.value,whatToGain);
+                    item.gain(this.value*multiplier,whatToGain);
                 }
             });
             this.valueChanged((newvalue,oldvalue) => {
                 this.board.items.forEach(item => {
                     if(item.tags.includes(tag)) {
-                        item.gain(newvalue-oldvalue,whatToGain);
+                        item.gain((newvalue-oldvalue)*multiplier,whatToGain);
                     }
                 });
             });

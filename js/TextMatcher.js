@@ -214,6 +214,7 @@ export class TextMatcher {
 
         //your Heal and Regeneration items have their cooldowns reduced by (5%/10%/15%). from Rapid Relief
         //Your Weapons' cooldowns are reduced by (5%/10%/15%) from Frozen Shot
+        //Your Weapons' Cooldowns are reduced by (5%/10%/15%) While your enemy has a Frozen item.
         //your Weapons have their cooldowns reduced by (  5%  » 10%  » 20%   ).
         regex: /^your ([^\s]+?)s?'?(?: and ([^\s]+)s?)?(?: items\'?)? (?:have their cooldowns|cooldowns are) (increased|reduced) by (\([^)]+\)|\d+%?)( second\(?s?\)?)?\.?$/i,
         func: (item, match)=>{
