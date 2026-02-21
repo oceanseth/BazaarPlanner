@@ -1011,6 +1011,10 @@ export class Item {
         this.freezeElement.textContent = (this.freezeTimeRemaining/1000).toFixed(1);
         this.freezeElement.classList.remove('hidden');      
     }
+    applyFlyingTo(item, source=this) {
+        item.flying = true;
+        this.log(source.name + " applies flying to " + item.name + ".");
+    }
     applyFreezeTo(item) {
         if(item.enchant=='Radiant') {
             this.log(this.name + "'s freeze was prevented by " + item.name + ".");
@@ -3509,7 +3513,20 @@ export class Item {
                 targetBoards.push(this.board.player.hostileTarget.board);
             }
             let tagCheck = undefined;
-            switch(thingDone) {                
+            switch(thingDone) {    
+                case "use a heal or regen item":
+                    let healOrRegenCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.itemTriggers.set(this.id,(item)=>{
+                            if(item.tags.includes("Heal") || item.tags.includes("Regen")) {
+                                ntimesFunction(item);
+                                if(healOrRegenCount==numTimes) {
+                                    board.itemTriggers.delete(this.id);
+                                }
+                            }
+                        });
+                    });
+                    return ()=>{};
                 case "shield":
                     let shieldCount = 0;
                     targetBoards.forEach(board=>{
@@ -3574,6 +3591,7 @@ export class Item {
                     });
                     return ()=>{};
                 case "use an item":
+                case "uses an item":
                     let itemCount = 0;
                     targetBoards.forEach(board=>{
                             board.itemTriggers.set(this.id,(item)=>{
@@ -3584,7 +3602,25 @@ export class Item {
                         });
                     });
                     return ()=>{};
+                case "use a relic":
+                case "uses a relic":
+                    let relicCount = 0;
+                    targetBoards.forEach(board=>{
+                        board.itemTriggers.set(this.id,(item)=>{
+                            if(item.tags.includes("Relic")) {
+                                if(relicCount<numTimes) {
+                                    relicCount++;
+                                    ntimesFunction(item);
+                                }
+                                if(relicCount==numTimes) {
+                                    board.itemTriggers.delete(this.id);
+                                }
+                            }
+                        });
+                    });
+                    return ()=>{};
                 case "use a potion":
+                case "uses a potion":
                     let potionCount = 0;
                     targetBoards.forEach(board=>{
                         board.itemTriggers.set(this.id,(item)=>{
@@ -5842,14 +5878,16 @@ export class Item {
 
 
         //Reload an adjacent item. from Retool
-        regex = /^Reload an( adjacent)? item\.?$/i;
+        regex = /^Reload an( adjacent|other)? item\.?$/i;
         match = text.match(regex);
         if(match) {
             return (item)=>{
                 let matchingItems = [];
-                if(match[1]) {
+                if(match[1]=="adjacent") {
                     matchingItems = (item||this).adjacentItems;
-                } else {
+                } else if(match[1]=='other') {
+                    matchingItems = this.board.activeItems.filter(i=>i.id!=this.id);
+                }else {
                     matchingItems = this.board.items;
                 }
                 matchingItems = matchingItems.filter(i=>i.tags.includes("Ammo"));

@@ -5,7 +5,7 @@ import { BazaarPatcher } from "./BazaarPatcher.js";
 
 export class ItemFunction {
     static items = new Map();
-    static doNothingItemNames = ["Protein Powder","Crash Site Ticket","Advanced Synthetics","Arbitrage","Generosity","Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
+    static doNothingItemNames = ["Truffleholic","Protein Powder","Crash Site Ticket","Advanced Synthetics","Arbitrage","Generosity","Bar of Gold","Super Syrup","Signet Ring", "Bag of Jewels","Disguise","Bulky Package","Bootstraps","Business Card",
         "Spare Change","Pelt","Candy Mail","Machine Learning","Chocoholic","Like Clockwork","Upgrade Hammer", "Sifting Pan", "Chimeric Egg",
     "Vending Machine","Piggy Bank","Cash Register","Alembic","The Tome of Yyahan","Catalyst","Chunk of Lead","Chunk of Gold", "Catalyst","Temple Expedition Ticket","[Jungle Expedition] Temple Expedition Ticket"];
     static setupItems() {
@@ -1654,6 +1654,47 @@ ItemFunction.items.set("It's All Connected",(item)=>{
             i.gain(-i.cooldown*cooldownReduction/100*(newCount-count),'cooldown');
             count = newCount;
         }
+    });
+});
+//When you use a Small item, Haste a Burn, Poison or Freeze item for 1 second. from Wake-Up Call
+ItemFunction.items.set("Wake-Up Call",(item)=>{
+    item.gain(1,'haste');
+    item.board.itemTriggers.set(item.id, (i)=>{
+        if(i.tags.includes("Small")) {
+            const burnPoisonFreezeItems = i.board.activeItems.filter(i=>i.tags.some(t=>t=="Burn"||t=="Poison"||t=="Freeze"));
+            if(burnPoisonFreezeItems.length>0) {
+                const burnPoisonFreezeItem = i.pickRandom(burnPoisonFreezeItems);
+                if(burnPoisonFreezeItem) {
+                    item.applyHasteTo(burnPoisonFreezeItem);
+                }
+            }
+        }
+    });
+});
+
+// "Haste your Flying Drones and Vehicles for 2 second(s)",
+// "Your Flying Drones and Vehicles have (+10%/+20%/+30%) Crit Chance." Pilot's Wings
+ItemFunction.items.set("Pilot's Wings",(item)=>{
+    item.gain(2,'haste');
+    const amount = getRarityValue("10 >> 20 >> 30",item.rarity);
+    item.board.items.forEach(i=>{
+        let flyingGained=false;
+       i.flyingChanged((newFlying)=>{
+            if(newFlying && !flyingGained) {
+                flyingGained = true;
+                i.gain(amount,'crit');
+            } else if(!newFlying && flyingGained) {
+                flyingGained = false;
+                i.gain(-amount,'crit');
+            }
+        });
+    });
+    item.triggerFunctions.push(()=>{
+        item.board.items.forEach(i=>{
+            if(i.tags.includes("Flying") && (i.tags.includes("Vehicle") || i.tags.includes("Drone"))) {
+                item.applyHasteTo(i);
+            }
+        });
     });
 });
 

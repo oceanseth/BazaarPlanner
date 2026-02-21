@@ -86,6 +86,21 @@ export class TextMatcher {
             return {doIt, undoIt};
         },
     },
+    { //use this at the start of each fight.        
+        regex: /^use this at the start of each fight\.?$/i,
+        func: (item, match)=>{                    
+            const doIt = () => {
+                item.board.startOfFightTriggers.set(item.id, ()=>{
+                    item.trigger();
+                    item.log(item.name+" is used at the start of each fight.");
+                });
+            }
+            const undoIt = () => {
+                item.board.startOfFightTriggers.delete(item.id);
+            }
+            return {doIt, undoIt};
+        }
+    },
     {
         regex: /^(this item's|its) cooldown is (?:(halved)|reduced by (\([^)]+\)|[\d\.]+)%?( seconds?)?)\.?$/i,
         func: (item, match)=>{
@@ -1385,17 +1400,6 @@ TextMatcher.matchers.push({
         };
     }
 });
-//If you have a Quest item ... from Excavaction Tools
-TextMatcher.matchers.push({
-    regex: /^If you have a (\w+) item, (.*)$/i,
-    func: (item, match)=>{
-        const tag = Item.getTagFromText(match[1]);
-        const comparisonFunction = ()=>(item.board.items.filter(i=>i.tags.includes(tag)).length>0);
-        const f = item.getUndoableFunctionFromText(match[2],comparisonFunction);
-        item.board.itemDestroyedTriggers.set(item.id, f);
-        return ()=>{};
-    }
-});
 //If you have no weapons, ... from Pacifist
 TextMatcher.matchers.push({
     regex: /^If you have no (\w+)(?: item)?s?, (.*)$/i,
@@ -2531,6 +2535,20 @@ TextMatcher.matchers.push({
     func: (item, match)=>{
         return ()=>{
             item.destroy();
+        };
+    }
+});
+
+//"(1/2/3) of your Tools starts Flying." from Tool Fight
+TextMatcher.matchers.push({
+    regex: /^(\([^)]+\)|\d+) of your (\w+)(?: item)?s starts? Flying\.?$/i,
+    func: (item, match)=>{
+        const amount = getRarityValue(match[1], item.rarity);
+        const tag = Item.getTagFromText(match[2]);
+        return ()=>{
+            item.pickRandom(item.board.items.filter(i=>i.tags.includes(tag)),amount).forEach(i=>{
+                item.applyFlyingTo(i);
+            });
         };
     }
 });
