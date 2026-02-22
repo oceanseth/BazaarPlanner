@@ -1436,7 +1436,7 @@ export class Item {
             const orTagToMatch = Item.getTagFromText(match[5]);
             const numToHaste = parseInt(match[1] ? getRarityValue(match[1], this.rarity) : match[2]?match[2]:1);
             this.haste+= getRarityValue(match[6], this.rarity);
-            const itemsToHaste = tagToMatch&&tagToMatch!='Item' ? this.board.items.filter((item) => 
+            const itemsToHaste = tagToMatch&&tagToMatch!='Item' ? tagToMatch=='Adjacent'?this.adjacentItems:this.board.items.filter((item) => 
                 item.isHasteTargetable() &&(
                 item.tags.includes(tagToMatch)!==isNon ||
                 (orTagToMatch?item.tags.includes(orTagToMatch):false)
@@ -5251,6 +5251,8 @@ export class Item {
                 let itemsToFreeze = this.board.player.hostileTarget.board.activeItems;
                 if(cdrRequirement) {
                     itemsToFreeze = itemsToFreeze.filter(item => item.cooldown>0 && item.cooldown<=cdrRequirement*1000);
+                } else {
+                    itemsToFreeze = itemsToFreeze.filter(item => item.cooldown>0);
                 }
                 if(tagToMatch) {
                     itemsToFreeze = itemsToFreeze.filter(item => 
