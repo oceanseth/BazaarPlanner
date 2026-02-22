@@ -651,9 +651,9 @@ ItemFunction.items.set("Cybersecurity",(item)=>{
 
 ItemFunction.items.set("Pulse Rifle",(item)=>{
 
-    //Deal ( 10 » 20 » 40 » 80 ) damage. 
+    //Deal ( 15 » 30 » 45 » 60 ) damage. 
    //This has +1 Multicast if it is adjacent to a Friend. Double this if it is your only Friend.
-   item.damage = getRarityValue("10 >> 20 >> 40 >> 80",item.rarity);
+   item.damage = getRarityValue("15 >> 30 >> 45 >> 60",item.rarity);
    let friendCount = item.board.items.filter(i=>i.tags.includes("Friend")).length;
    let adjacentFriendCount = item.adjacentItems.filter(i=>i.tags.includes("Friend")).length;
 
