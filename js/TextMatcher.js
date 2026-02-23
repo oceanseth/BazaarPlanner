@@ -2552,3 +2552,18 @@ TextMatcher.matchers.push({
         };
     }
 });
+//"When this runs out of Ammo ...
+TextMatcher.matchers.push({
+    regex: /^When this runs out of Ammo, (.*)\.?$/i,
+    func: (item, match)=>{
+        const f = item.getTriggerFunctionFromText(match[1]);
+        item.ammoChanged((newAmount, oldAmount)=>{
+            if(newAmount==0 && oldAmount>0) {
+                item.log(item.name+" runs out of Ammo.");
+                f();
+            }
+        });
+        return ()=>{            
+        };
+    }
+});
