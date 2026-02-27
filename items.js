@@ -1089,8 +1089,8 @@ export const items = {
       "Obsidian": "This has double Damage."
     },
     "priorities": [
-      1,
-      2
+      2,
+      1
     ]
   },
   "Atlatl": {
