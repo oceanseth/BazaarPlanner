@@ -10,7 +10,7 @@ import { User } from './User.js';
 import { Runs } from './Runs.js';
 import { ensureItemsLoaded } from './itemsLoader.js';
 import { applyBazaarPatches } from './ItemFunction.js';
-import { imageUrl, getImageBaseUrl, DEFAULT_ITEM_REPOSITORY, DEFAULT_IMAGE_REPOSITORY, ITEM_REPOSITORY_STORAGE_KEY, IMAGE_REPOSITORY_STORAGE_KEY } from './assetConfig.js';
+import { imageUrl, DEFAULT_ITEM_REPOSITORY, DEFAULT_IMAGE_REPOSITORY, ITEM_REPOSITORY_STORAGE_KEY, IMAGE_REPOSITORY_STORAGE_KEY } from './assetConfig.js';
 // Make necessary functions/classes available globally
 let items = {};
 window.items = items;
@@ -422,6 +422,42 @@ window.toggleDarkMode = () => {
     if(darkModeOff) localStorage.setItem('darkModeOff', true);
     else localStorage.removeItem('darkModeOff');
 }
+
+function rewriteCssImageUrls() {
+    const urlRegex = /url\((['"]?)(\/images\/[^'")]+)\1\)/g;
+    // Matches the default raw.githubusercontent.com base we hardcode into `styles.css`.
+    const defaultRawRegex =
+        /url\((['"]?)(https:\/\/raw\.githubusercontent\.com\/oceanseth\/BazaarPlanner\/main\/public\/images\/([^'")]+))\1\)/g;
+
+    for (const sheet of Array.from(document.styleSheets)) {
+        let rules;
+        try {
+            rules = sheet.cssRules;
+        } catch {
+            continue; // cross-origin stylesheet
+        }
+        if (!rules) continue;
+
+        for (const rule of Array.from(rules)) {
+            if (!rule.style) continue;
+
+            // background-image and background shorthand are used by CSS pseudo-elements.
+            const bgImage = rule.style.backgroundImage;
+            if (typeof bgImage === 'string' && bgImage.includes('/images/')) {
+                rule.style.backgroundImage = bgImage
+                    .replace(urlRegex, (_m, _q, p) => `url("${imageUrl(p)}")`)
+                    .replace(defaultRawRegex, (_m, _q, _fullUrl, pathAfterBase) => `url("${imageUrl('/images/' + pathAfterBase)}")`);
+            }
+
+            const bg = rule.style.background;
+            if (typeof bg === 'string' && bg.includes('/images/')) {
+                rule.style.background = bg
+                    .replace(urlRegex, (_m, _q, p) => `url("${imageUrl(p)}")`)
+                    .replace(defaultRawRegex, (_m, _q, _fullUrl, pathAfterBase) => `url("${imageUrl('/images/' + pathAfterBase)}")`);
+            }
+        }
+    }
+}
   
   // On page load, check for saved preference
   document.addEventListener('DOMContentLoaded', async () => {
@@ -432,9 +468,6 @@ window.toggleDarkMode = () => {
     } else {
         document.documentElement.classList.add('dark-mode');
     }
-
-    // Keep CSS background-image assets aligned with the user-configured image repository.
-    document.documentElement.style.setProperty('--bp-image-base', getImageBaseUrl());
 
     // Asset repository settings (controls how items.js and /images/... are loaded).
     const wireRepoInput = (inputId, storageKey, defaultValue) => {
@@ -452,6 +485,13 @@ window.toggleDarkMode = () => {
     };
     wireRepoInput('bp-item-repository', ITEM_REPOSITORY_STORAGE_KEY, DEFAULT_ITEM_REPOSITORY);
     wireRepoInput('bp-image-repository', IMAGE_REPOSITORY_STORAGE_KEY, DEFAULT_IMAGE_REPOSITORY);
+
+    // Now that localStorage is initialized, rewrite any remaining CSS `/images/...` references.
+    try {
+        rewriteCssImageUrls();
+    } catch (e) {
+        console.warn('Failed to rewrite CSS image URLs:', e);
+    }
 
     setInterval(backgroundFader,10000);
     backgroundFader();
