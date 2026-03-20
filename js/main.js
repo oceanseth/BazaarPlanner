@@ -1,6 +1,5 @@
 import { monsters } from '../monsters.js';
 import { skills } from '../skills.js';
-import { items } from '../items.js';
 import { Board, getSizeValue } from './Board.js';
 import { Player } from './Player.js';
 import { Item } from './Item.js';
@@ -9,7 +8,22 @@ import { Battle } from './Battle.js';
 import { Puzzle } from './Puzzle.js';
 import { User } from './User.js';
 import { Runs } from './Runs.js';
+import { ensureItemsLoaded } from './itemsLoader.js';
+import { applyBazaarPatches } from './ItemFunction.js';
+import { imageUrl, getImageBaseUrl, DEFAULT_ITEM_REPOSITORY, DEFAULT_IMAGE_REPOSITORY, ITEM_REPOSITORY_STORAGE_KEY, IMAGE_REPOSITORY_STORAGE_KEY } from './assetConfig.js';
 // Make necessary functions/classes available globally
+let items = {};
+window.items = items;
+const itemsLoadedPromise = (async () => {
+    try {
+        items = await ensureItemsLoaded();
+        window.items = items;
+        applyBazaarPatches();
+    } catch (e) {
+        console.error('Failed to load items.js', e);
+        throw e;
+    }
+})();
 window.trackerUrl = "https://github.com/oceanseth/BazaarPlannerMod/releases/download/1.1.2/BazaarPlannerModInstaller-1.1.2.zip";
 window.challengeState = {
     autoAccept: false,
@@ -26,7 +40,6 @@ window.searchMonsters = searchMonsters;
 window.search = search;
 window.monsters = monsters;
 window.skills = skills;
-window.items = items;
 window.Board = Board;
 window.createListItem = createListItem;
 window.search = search;
@@ -213,7 +226,7 @@ window.updateUserInfo = updateUserInfo;
 function createCalculateBattleButton() {
     const calculateBattleButton = document.createElement('img');
     calculateBattleButton.className = 'calculate-battle-button editorOpener';
-    calculateBattleButton.src = 'images/gem.png';
+    calculateBattleButton.src = imageUrl('images/gem.png');
     calculateBattleButton.onclick = () => {
         if(window.user?.isDonor) {
             mainBattle.calculateWinRate();
@@ -269,7 +282,8 @@ function setLoggedInUser (user) {
 }
 
 
-window.onload = () => {
+window.onload = async () => {
+    await itemsLoadedPromise;
     const simulatorItemsList = document.getElementById('simulator-itemsList');
          // Populate monster selector dropdown
     for (const key in monsters) {
@@ -396,7 +410,8 @@ window.onload = () => {
 
     document.querySelectorAll('.faq-item').forEach(item => {
         const randomItem = items[Object.keys(items)[Math.floor(Math.random() * Object.keys(items).length)]];
-        item.style.backgroundImage = "url(/images/items/"+Item.cleanName(randomItem.name)+".avif)";
+        item.style.backgroundImage =
+            "url(" + imageUrl('/images/items/' + Item.cleanName(randomItem.name) + '.avif') + ")";
     });
 }
 
@@ -409,13 +424,35 @@ window.toggleDarkMode = () => {
 }
   
   // On page load, check for saved preference
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', async () => {
+    await itemsLoadedPromise;
     const darkModeOff = localStorage.getItem('darkModeOff') === 'true';
     if (darkModeOff) {
       document.documentElement.classList.remove('dark-mode');
     } else {
         document.documentElement.classList.add('dark-mode');
     }
+
+    // Keep CSS background-image assets aligned with the user-configured image repository.
+    document.documentElement.style.setProperty('--bp-image-base', getImageBaseUrl());
+
+    // Asset repository settings (controls how items.js and /images/... are loaded).
+    const wireRepoInput = (inputId, storageKey, defaultValue) => {
+        const el = document.getElementById(inputId);
+        if (!el) return;
+        const stored = localStorage.getItem(storageKey);
+        const value = stored ?? defaultValue;
+        if (stored == null) localStorage.setItem(storageKey, value);
+        el.value = value;
+        el.addEventListener('change', () => {
+            const next = el.value.trim();
+            localStorage.setItem(storageKey, next);
+            window.location.reload();
+        });
+    };
+    wireRepoInput('bp-item-repository', ITEM_REPOSITORY_STORAGE_KEY, DEFAULT_ITEM_REPOSITORY);
+    wireRepoInput('bp-image-repository', IMAGE_REPOSITORY_STORAGE_KEY, DEFAULT_IMAGE_REPOSITORY);
+
     setInterval(backgroundFader,10000);
     backgroundFader();
     createCalculateBattleButton();
@@ -470,7 +507,8 @@ window.toggleDarkMode = () => {
             const inactiveBackground = Array.from(backgrounds).find(bg => !bg.classList.contains('active'));
             if (inactiveBackground) {
                 // Set new background
-                inactiveBackground.style.backgroundImage = `url(/images/items/${Item.cleanName(randomItem.name)}.avif)`;
+                inactiveBackground.style.backgroundImage =
+                    "url(" + imageUrl(`/images/items/${Item.cleanName(randomItem.name)}.avif`) + ")";
                 // Trigger reflow
                 inactiveBackground.offsetHeight;
                 // Add active class to fade in
@@ -575,7 +613,7 @@ function createListItem(data) {
         item.setAttribute('data-size', getSizeValue(sizeString));
     }
     const icon = document.createElement('img');
-    icon.src = '/images/items/'+Item.cleanName(data.name)+'.avif';
+    icon.src = imageUrl('/images/items/'+Item.cleanName(data.name)+'.avif');
     icon.classList.add(sizeString);
     icon.style.pointerEvents = 'none';
     item.appendChild(icon);
@@ -714,7 +752,7 @@ function searchMonsters(query) {
                 if(document.getElementById('monster-preview-img')==null) {
                     const img = document.createElement('img');
                     img.id = 'monster-preview-img';
-                    img.src = '/images/monsters/'+monster.id+'.avif';
+                    img.src = imageUrl('/images/monsters/'+monster.id+'.avif');
                     img.classList.add('monster-preview-icon');
                     document.getElementById('monster-search-container').appendChild(img);
                 }
@@ -731,7 +769,7 @@ function searchMonsters(query) {
             div.appendChild(day);
             
             const img = document.createElement('img');
-            img.src = '/images/monsters/'+monster.id+'.avif';
+            img.src = imageUrl('/images/monsters/'+monster.id+'.avif');
             img.classList.add('monster-dropdown-icon');
             div.appendChild(img);
 
@@ -775,7 +813,7 @@ window.showDonationRequiredAlert = () => {
     dialog.id = 'donation-dialog';
     dialog.innerHTML = `
         <div class="donation-content">
-            <img src="images/gem.png" class="donation-icon" alt="Donation Icon">
+            <img src="${imageUrl('images/gem.png')}" class="donation-icon" alt="Donation Icon">
             <h2>Premium Feature</h2>
             <p>This feature is available to donors as a thank you for supporting BazaarPlanner.</p>
             <p>Benefits include:</p>

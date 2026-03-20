@@ -3,6 +3,7 @@ import { getRarityValue, updateUrlState, colorTextArray, setupChangeListeners } 
 import { ItemFunction } from './ItemFunction.js';
 import { TextMatcher } from './TextMatcher.js';
 import { BazaarPatcher } from './BazaarPatcher.js';
+import { imageUrl } from './assetConfig.js';
 
 export class Item {
     static hiddenTags = ['Damage', 'Crit'];
@@ -439,25 +440,40 @@ export class Item {
             
         // Generate and apply enchant overlay
             if (this.enchant=='Golden') {
-                this.element.style.setProperty('--enchant-overlay', `url(/images/enchants/EdgeOverlay-${Item.cleanName(this.nameWithoutEnchant)}.webp)`);
+                this.element.style.setProperty(
+                    '--enchant-overlay',
+                    `url(${imageUrl('/images/enchants/EdgeOverlay-' + Item.cleanName(this.nameWithoutEnchant) + '.webp')})`
+                );
                 this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'overlay');
                 this.element.classList.add('has-enchant-overlay');
             } else if(this.enchant=='Shiny') {
-                this.element.style.setProperty('--enchant-overlay', `url(/images/enchants/EdgeOverlay-${Item.cleanName(this.nameWithoutEnchant)}.webp)`);
+                this.element.style.setProperty(
+                    '--enchant-overlay',
+                    `url(${imageUrl('/images/enchants/EdgeOverlay-' + Item.cleanName(this.nameWithoutEnchant) + '.webp')})`
+                );
                 this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'luminosity');
                 this.element.classList.add('has-enchant-overlay');
             } else if(this.enchant=='Radiant') {
-                this.element.style.setProperty('--enchant-overlay', `url(/images/enchants/EdgeOverlay-${Item.cleanName(this.nameWithoutEnchant)}.webp)`);
+                this.element.style.setProperty(
+                    '--enchant-overlay',
+                    `url(${imageUrl('/images/enchants/EdgeOverlay-' + Item.cleanName(this.nameWithoutEnchant) + '.webp')})`
+                );
                 this.element.style.setProperty('--enchant-overlay-filter', 'hue-rotate(250deg) saturate(150%)');
                 this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'color-burn');
                 this.element.classList.add('has-enchant-overlay');
             } else if(this.enchant=='Deadly') {
-                this.element.style.setProperty('--enchant-overlay', `url(/images/enchants/EdgeOverlay-${Item.cleanName(this.nameWithoutEnchant)}.webp)`);
+                this.element.style.setProperty(
+                    '--enchant-overlay',
+                    `url(${imageUrl('/images/enchants/EdgeOverlay-' + Item.cleanName(this.nameWithoutEnchant) + '.webp')})`
+                );
                 this.element.style.setProperty('--enchant-overlay-filter', 'hue-rotate(-45deg) saturate(200%)');
                 this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'color-burn');
                 this.element.classList.add('has-enchant-overlay');
             } else if(this.enchant=='Toxic') {
-                this.element.style.setProperty('--enchant-overlay', `url(/images/enchants/EdgeOverlay-${Item.cleanName(this.nameWithoutEnchant)}.webp)`);
+                this.element.style.setProperty(
+                    '--enchant-overlay',
+                    `url(${imageUrl('/images/enchants/EdgeOverlay-' + Item.cleanName(this.nameWithoutEnchant) + '.webp')})`
+                );
                 this.element.style.setProperty('--enchant-overlay-filter', 'hue-rotate(25deg) saturate(200%)');
                 this.element.style.setProperty('--enchant-overlay-mix-blend-mode', 'color-burn');
                 this.element.classList.add('has-enchant-overlay');
@@ -579,7 +595,7 @@ export class Item {
         mergedSlot.style.width = `${this.size * 80 + this.startIndex*2}px`;
         mergedSlot.setAttribute('data-size', this.size);
         const icon = document.createElement('img');
-        icon.src = '/images/items/'+Item.cleanName(this.name)+'.avif';
+        icon.src = imageUrl('/images/items/'+Item.cleanName(this.name)+'.avif');
         icon.draggable = false;
         mergedSlot.appendChild(icon);
 
@@ -650,7 +666,7 @@ export class Item {
         }
         //let rarityIndex = Item.rarityLevels.indexOf(this.rarity || 'Bronze');
         // Create HTML content with structured layout
-        let tooltipContent = `<div class="background-image" style="opacity:0.2;background-image:url('/images/items/${Item.cleanName(this.nameWithoutEnchant)}.avif'); background-size: cover; background-position: center;"></div>
+        let tooltipContent = `<div class="background-image" style="opacity:0.2;background-image:url('${imageUrl('/images/items/' + Item.cleanName(this.nameWithoutEnchant) + '.avif')}'); background-size: cover; background-position: center;"></div>
             <div class="tooltip-content">
                 <div class="tooltip-tags">
                     ${tagsArray.map(tag => `<span class="tag tooltip-tag-${tag.toLowerCase()}">${tag}</span>`).join('')}

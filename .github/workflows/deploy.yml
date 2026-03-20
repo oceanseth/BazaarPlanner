@@ -31,7 +31,11 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          aws s3 sync dist/ s3://www.bazaarplanner.com --delete
+          aws s3 sync dist/ s3://www.bazaarplanner.com --delete \
+            --exclude "images/*" \
+            --exclude "images/*/*" \
+            --exclude "images/*/*/*" \
+            --exclude "items.js"
           
       - name: Invalidate CloudFront Cache
         env:

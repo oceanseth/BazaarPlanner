@@ -1,6 +1,5 @@
 import { getRarityValue } from "./utils.js";
 import { Item } from "./Item.js";
-import { items } from '../items.js';
 import { BazaarPatcher } from "./BazaarPatcher.js";
 
 export class ItemFunction {
@@ -1698,5 +1697,10 @@ ItemFunction.items.set("Pilot's Wings",(item)=>{
     });
 });
 
-BazaarPatcher.apply();
 ItemFunction.setupItems();
+
+// Some BazaarPatcher changes depend on the full `items.js` dataset.
+// main.js will call this after items are fetched from the configured repository.
+export function applyBazaarPatches() {
+    BazaarPatcher.apply();
+}

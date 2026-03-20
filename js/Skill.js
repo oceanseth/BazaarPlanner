@@ -1,5 +1,6 @@
 import { colorTextArray, updateUrlState } from './utils.js';
 import { Item } from './Item.js';
+import { imageUrl } from './assetConfig.js';
 
 
 export class Skill {
@@ -26,7 +27,7 @@ export class Skill {
         
 
         const imgElement = document.createElement('img');
-        imgElement.src = '/images/items/'+Item.cleanName(this.name)+'.avif';
+        imgElement.src = imageUrl('/images/items/'+Item.cleanName(this.name)+'.avif');
         skillElement.appendChild(imgElement);
         
         this.element = skillElement;

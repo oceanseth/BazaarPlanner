@@ -4,6 +4,7 @@
   --text-color: #333;
   --input-background: #fff;
   --input-border: #ccc;
+  --bp-image-base: /images/;
   --list-background: #f5f5f5;
   --list-item-background: #f8f8f8;
   --list-item-hover: #e0e0e0;
@@ -90,7 +91,7 @@ body {
 .section::before {
     content: "";
     display: block;
-    background-image: url('/images/logo.png');
+    background-image: url("var(--bp-image-base)logo.png");
     background-size: 100% 100%;
     width: 100px;
     height: 100px;
@@ -251,7 +252,7 @@ body {
     content: "";
 
     display: block;
-    background-image: url('/images/fromBT/skill_tier_bronze.png');
+    background-image: url("var(--bp-image-base)fromBT/skill_tier_bronze.png");
     background-size: 100% 100%;
     width: calc(110%);
     height: calc(110%);
@@ -266,19 +267,19 @@ body {
     z-index: 2;
 }
 .skill-icon.Bronze:after {
-    background-image: url('/images/fromBT/skill_tier_bronze.png');
+    background-image: url("var(--bp-image-base)fromBT/skill_tier_bronze.png");
 }
 .skill-icon.Silver:after {
-    background-image: url('/images/fromBT/skill_tier_silver.png');
+    background-image: url("var(--bp-image-base)fromBT/skill_tier_silver.png");
 }
 .skill-icon.Gold:after {
-    background-image: url('/images/fromBT/skill_tier_gold.png');
+    background-image: url("var(--bp-image-base)fromBT/skill_tier_gold.png");
 }
 .skill-icon.Diamond:after {
-    background-image: url('/images/fromBT/skill_tier_diamond.png');
+    background-image: url("var(--bp-image-base)fromBT/skill_tier_diamond.png");
 }
 .skill-icon.Legendary:after {
-    background-image: url('/images/fromBT/skill_tier_legendary.png');
+    background-image: url("var(--bp-image-base)fromBT/skill_tier_legendary.png");
 }
 
 
@@ -1125,51 +1126,51 @@ font.Slow:before {
     border: 1px solid #ff4500;
 }
 .merged-slot.Bronze.tag-small:after {
-    background-image: url('/images/fromBT/CardFrame_Bronze_S_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Bronze_S_TUI.png");
 }
 .merged-slot.Silver.tag-small:after {
-    background-image: url('/images/fromBT/CardFrame_Silver_S_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Silver_S_TUI.png");
 }
 
 .merged-slot.Gold.tag-small:after {
-    background-image: url('/images/fromBT/CardFrame_Gold_S_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Gold_S_TUI.png");
 }
 
 .merged-slot.Diamond.tag-small:after {
-    background-image: url('/images/fromBT/CardFrame_Diamond_S_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Diamond_S_TUI.png");
 }
 .merged-slot.Legendary.tag-small:after {
-    background-image: url('/images/fromBT/CardFrame_Legendary_S_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Legendary_S_TUI.png");
 }
 .merged-slot.Bronze.tag-medium:after {
-    background-image: url('/images/fromBT/CardFrame_Bronze_M_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Bronze_M_TUI.png");
 }
 .merged-slot.Silver.tag-medium:after {
-    background-image: url('/images/fromBT/CardFrame_Silver_M_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Silver_M_TUI.png");
 }   
 .merged-slot.Gold.tag-medium:after {
-    background-image: url('/images/fromBT/CardFrame_Gold_M_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Gold_M_TUI.png");
 }
 .merged-slot.Diamond.tag-medium:after {
-    background-image: url('/images/fromBT/CardFrame_Diamond_M_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Diamond_M_TUI.png");
 }
 .merged-slot.Legendary.tag-medium:after {
-    background-image: url('/images/fromBT/CardFrame_Legendary_M_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Legendary_M_TUI.png");
 }
 .merged-slot.Bronze.tag-large:after {
-    background-image: url('/images/fromBT/CardFrame_Bronze_L_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Bronze_L_TUI.png");
 }
 .merged-slot.Silver.tag-large:after {
-    background-image: url('/images/fromBT/CardFrame_Silver_L_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Silver_L_TUI.png");
 }   
 .merged-slot.Gold.tag-large:after {
-    background-image: url('/images/fromBT/CardFrame_Gold_L_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Gold_L_TUI.png");
 }
 .merged-slot.Diamond.tag-large:after {
-    background-image: url('/images/fromBT/CardFrame_Diamond_L_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Diamond_L_TUI.png");
 }
 .merged-slot.Legendary.tag-large:after {
-    background-image: url('/images/fromBT/CardFrame_Legendary_L_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/CardFrame_Legendary_L_TUI.png");
 }
 
 .health-element {
@@ -1199,7 +1200,7 @@ font.Slow:before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/images/healthbar.png');
+    background-image: url("var(--bp-image-base)healthbar.png");
     background-size: 100% 100%;
     opacity: 0.5;
     z-index: 1;  /* Add z-index to position above background */
@@ -1376,16 +1377,16 @@ font.Slow:before {
     left: -20px;
 }
 .battle-stats .damage-element::before {
-    background-image: url('/images/17px-Damage.webp');
+    background-image: url("var(--bp-image-base)17px-Damage.webp");
 }
 .battle-stats .burn-element::before {
-    background-image: url('/images/17px-Burn.webp');
+    background-image: url("var(--bp-image-base)17px-Burn.webp");
 }
 .battle-stats .heal-element::before,.battle-stats .regen-element::before {
-    background-image: url('/images/17px-Heal.webp');
+    background-image: url("var(--bp-image-base)17px-Heal.webp");
 }
 .battle-stats .shield-element::before {
-    background-image: url('/images/17px-Shield.webp');
+    background-image: url("var(--bp-image-base)17px-Shield.webp");
 }
 
 .ammo-element {
@@ -1403,7 +1404,7 @@ font.Slow:before {
     display: inline-block;
     width: 10px;
     height: 10px;
-    background-image: url('/images/fromBT/skill_tier_bronze.png');
+    background-image: url("var(--bp-image-base)fromBT/skill_tier_bronze.png");
     background-size: 100% 100%;
     vertical-align: top;
 }
@@ -1480,7 +1481,7 @@ font.Slow:before {
 background-color: rgba(91, 238, 157, 0.2);
 }
 .merged-slot.Heavy:before {
-    background: url('/images/enchants/Heavy.png') no-repeat;
+    background: url("var(--bp-image-base)enchants/Heavy.png") no-repeat;
     background-size: 100% 100%;
     opacity: 0.3;  
 }
@@ -1488,24 +1489,24 @@ background-color: rgba(91, 238, 157, 0.2);
 background-color: rgba(255, 215, 0, 0.2);
 }
 .merged-slot.Icy:before {
-    background: url('/images/enchants/Icy.webp') no-repeat;
+    background: url("var(--bp-image-base)enchants/Icy.webp") no-repeat;
     background-size: 100% 100%;
 }
 .merged-slot.Turbo:before {
-background: url('/images/enchants/Turbo.webp') no-repeat;
+background: url("var(--bp-image-base)enchants/Turbo.webp") no-repeat;
 background-size: 100% 100%;
 }
 .merged-slot.Shielded:before {
-    background: url('/images/enchants/Shielded.webp') no-repeat;
+    background: url("var(--bp-image-base)enchants/Shielded.webp") no-repeat;
     background-size: 100% 100%;
 }
 .merged-slot.Restorative:before {
-    background: url('/images/enchants/Restorative.webp') no-repeat;
+    background: url("var(--bp-image-base)enchants/Restorative.webp") no-repeat;
     background-size: 100% 100%;
     opacity: 1.0;  
 }
 .merged-slot.Fiery:before {
-    background: url('/images/enchants/Fiery.webp') no-repeat;
+    background: url("var(--bp-image-base)enchants/Fiery.webp") no-repeat;
     background-size: 100% 100%;
 
 }
@@ -1516,7 +1517,7 @@ background-color: rgba(255, 255, 255, 0.2);
 background-color: rgba(255, 0, 0, 0.2);
 }
 .merged-slot.Obsidian:before {
-background: url('/images/enchants/Obsidian.gif') no-repeat;
+background: url("var(--bp-image-base)enchants/Obsidian.gif") no-repeat;
 background-size: 100% 100%;
 opacity: 0.3;  
 }
@@ -1547,7 +1548,7 @@ opacity: 0.3;
 .gold-element:before, .income-element:before {
     content: "";
     display: block;
-    background-image: url('/images/fromBT/UI_PurseIcon.png');
+    background-image: url("var(--bp-image-base)fromBT/UI_PurseIcon.png");
     background-size: 100% 100%;
     width: 20px;
     height: 20px;
@@ -1557,7 +1558,7 @@ opacity: 0.3;
 .prestige-element:before {
     content: "";
     display: block;
-    background-image: url('/images/fromBT/Icon_Stat_Prestige_TUI.png');
+    background-image: url("var(--bp-image-base)fromBT/Icon_Stat_Prestige_TUI.png");
     background-size: 100% 100%;
     width: 20px;
     height: 20px;
@@ -2295,7 +2296,7 @@ select {
     opacity: 0.5;
 }
 .backpack-opener-element {
-    background-image: url(/images/bclosed.jpg);
+    background-image: url("var(--bp-image-base)bclosed.jpg");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -2309,7 +2310,7 @@ select {
     border-radius: 5px;
 }
 .backpack-opener-element.backpack-open {
-  background-image: url(/images/bopen.jpg);
+  background-image: url("var(--bp-image-base)bopen.jpg");
 }
 .top-donors-section {
     margin-top: 20px;

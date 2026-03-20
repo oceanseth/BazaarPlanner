@@ -1,10 +1,10 @@
-import { items } from '../items.js';
 import { monsters } from '../monsters.js';
 import { ItemFunction } from './ItemFunction.js';
 import { skills } from '../skills.js';
 export class BazaarPatcher {
     static customSetupFunctions = new Map();
     static apply() {
+        const items = window.items || {};
         if(monsters["Viper"]) {
             //find gland
             const gland = monsters["Viper"].items.find(i=>i.name=="Gland");

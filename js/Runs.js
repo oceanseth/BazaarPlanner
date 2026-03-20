@@ -1,4 +1,5 @@
 import { Run } from './Run.js';
+import { imageUrl } from './assetConfig.js';
 export class Runs {
     static runs = {};
     static loadRuns() {
@@ -34,7 +35,7 @@ export class Runs {
                         Your User has not tracked any runs yet.<br/><br/>
                         Download the tracker program <a href="${window.trackerUrl}">here</a> and start tracking your runs!<br/><br/>
                         This page will then look something like this:<br/><br/>
-                        <img src="/images/faq-runs.png" style="width:50%;"/>
+                        <img src="${imageUrl('/images/faq-runs.png')}" style="width:50%;"/>
                         `);
                     return;
                 }

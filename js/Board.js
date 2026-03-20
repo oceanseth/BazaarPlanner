@@ -4,6 +4,7 @@ import { Player } from './Player.js';
 import { updateUrlState } from './utils.js';
 import { setupChangeListeners } from './utils.js';
 import { loadFromUrl } from './utils.js';
+import { imageUrl } from './assetConfig.js';
 import LZString from 'lz-string';
 
 class Board {
@@ -431,7 +432,7 @@ class Board {
             const skillItem = document.createElement('div');
             skillItem.className = 'skill-selector-item';
             skillItem.innerHTML = `
-                <img src="/images/items/${Item.cleanName(skillName)}.avif" alt="${skillName}">
+                <img src="${imageUrl('/images/items/' + Item.cleanName(skillName) + '.avif')}" alt="${skillName}">
                 <span>${skillName}</span>
             `;
             this.skillSelector.querySelector('.skill-selector-body').appendChild(skillItem);
@@ -452,7 +453,7 @@ class Board {
                 if(skill) {
                     skillSelectorTooltip.innerHTML = `
                     <div class='skill-icon ${selectedRarity}' style='position:absolute; top:0px; left:-120px; width: 120px; height: 120px;'>
-                    <img src="/images/items/${Item.cleanName(skillName)}.avif" style='box-shadow: 1px 1px 10px 1px rgba(14,14, 14, 1);'>
+                    <img src="${imageUrl('/images/items/' + Item.cleanName(skillName) + '.avif')}" style='box-shadow: 1px 1px 10px 1px rgba(14,14, 14, 1);'>
                     </div>
                     <h1>${skillName}</h1>
                     <p>${skill.text.map(line => `<span>${line}</span>`).join('')}</p>
@@ -537,12 +538,12 @@ class Board {
     updatePlayerElement() {
         if(!this.playerElement) return;
         if(monsters[this.player?.name]) {
-            this.playerElement.style.backgroundImage = `url(/images/monsters/${monsters[this.player?.name].id}.avif)`;
+            this.playerElement.style.backgroundImage = `url(${imageUrl('/images/monsters/' + monsters[this.player?.name].id + '.avif')})`;
         } else if(Item.characterTags.includes(this.player?.name)) {
             this.player.hero = this.player?.name;
-            this.playerElement.style.backgroundImage = `url(images/fromBT/${this.player?.name}.png)`;
+            this.playerElement.style.backgroundImage = `url(${imageUrl('images/fromBT/' + this.player?.name + '.png')})`;
         } else if(Item.characterTags.includes(this.player?.hero)) {
-            this.playerElement.style.backgroundImage = `url(images/fromBT/${this.player?.hero}.png)`;
+            this.playerElement.style.backgroundImage = `url(${imageUrl('images/fromBT/' + this.player?.hero + '.png')})`;
         }else {
             this.playerElement.style.backgroundImage = "none";
         }
@@ -556,12 +557,12 @@ class Board {
     }
     setAsWinner() {
         if(this.playerElement) {
-            this.playerElement.style.backgroundImage = "url(images/victory.webp)";
+            this.playerElement.style.backgroundImage = "url(" + imageUrl('images/victory.webp') + ")";
         }
     }
     setAsLoser() {
         if(this.playerElement) {
-            this.playerElement.style.backgroundImage = "url(images/defeat.webp)";
+            this.playerElement.style.backgroundImage = "url(" + imageUrl('images/defeat.webp') + ")";
         }
     }
     updateGoldElement() {

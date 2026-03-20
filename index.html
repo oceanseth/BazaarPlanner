@@ -11,14 +11,14 @@
         <meta property="og:url" content="https://www.bazaarplanner.com/">
         <meta property="og:title" content="BazaarPlanner - Create and Share Bazaar Builds">
         <meta property="og:description" content="BazaarPlanner is a tool that helps you create, simulate, and share bazaar builds.">
-        <meta property="og:image" content="/images/logo.png">
+        <meta property="og:image" content="https://raw.githubusercontent.com/oceanseth/BazaarPlanner/main/public/images/logo.png">
     
         <!-- Twitter Meta Tags -->
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:url" content="https://www.bazaarplanner.com/">
         <meta name="twitter:title" content="BazaarPlanner - Create, Simulate, and Share Bazaar Builds">
         <meta name="twitter:description" content="BazaarPlanner is a tool that helps you create and share bazaar builds effortlessly. Plan and organize your ideal marketplace.">
-        <meta name="twitter:image" content="/images/logo.png">
+        <meta name="twitter:image" content="https://raw.githubusercontent.com/oceanseth/BazaarPlanner/main/public/images/logo.png">
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -135,6 +135,24 @@
             <div id="runs-content"></div>
         </div>
         <div id="settings" class="section" style="display: none;">
+            <label style="display:block; margin: 10px 0;">
+                ITEM REPOSITORY
+                <input
+                    type="text"
+                    id="bp-item-repository"
+                    style="width:100%;"
+                    placeholder="https://github.com/oceanseth/BazaarPlanner/"
+                />
+            </label>
+            <label style="display:block; margin: 10px 0;">
+                IMAGE REPOSITORY
+                <input
+                    type="text"
+                    id="bp-image-repository"
+                    style="width:100%;"
+                    placeholder="https://github.com/oceanseth/BazaarPlanner/blob/main/public/images"
+                />
+            </label>
             <h1>Mode</h1>
             <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
             <h1>Account</h1>
@@ -214,7 +232,7 @@
                         <li>You can use the simulator to test out different positioning of items and see how they perform. Press spacebar to open your backpack/stash, to save items for testing.</li>
                         <li><a href="https://github.com/oceanseth/BazaarPlannerMod/releases/download/1.1.2/BazaarPlannerModInstaller-1.1.2.zip">Install BazaarPlannerMod tracker program</a>; can look back at your boards/runs and easily scroll through per day changes to look back on what worked and what didn't.</li>
                         <li>When you share build videos on youtube, or while talking about boards on discord or twitch, you can click 'get tiny url' to get a link to the current state of the boards to share with others.</li>
-                        <li style="display:flex; flex-direction:row; align-items:center;"><img src="images/faq-follow.png" style="width: 200px;padding-right: 10px;" alt="follow example" align="center">With BazaarPlannerMod installed, 
+                        <li style="display:flex; flex-direction:row; align-items:center;"><img src="https://raw.githubusercontent.com/oceanseth/BazaarPlanner/main/public/images/faq-follow.png" style="width: 200px;padding-right: 10px;" alt="follow example" align="center">With BazaarPlannerMod installed, 
                             you can click 'follow' in the board controls to have your boards automatically track changes in the game, and show a dropdown of all the encounters from your current run.</li>
                     </ul>                                                            
                     </div>
@@ -244,7 +262,7 @@
                 <li class="faq-item">
                     <div class="faq-question">How does searching for items work?</div>
                     <div class="faq-answer" style="display:flex; flex-direction:row; align-items:center;">
-                        <img src="images/faq-search.png" style="padding-right: 10px;" alt="search example" align="center"><p>You can type tag names to find items that have that tag. It will only show items that have every tag you've entered.</p>                        
+                        <img src="https://raw.githubusercontent.com/oceanseth/BazaarPlanner/main/public/images/faq-search.png" style="padding-right: 10px;" alt="search example" align="center"><p>You can type tag names to find items that have that tag. It will only show items that have every tag you've entered.</p>                        
                     </div>
                 </li>
                 <li class="faq-item">
