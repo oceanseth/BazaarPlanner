@@ -8981,29 +8981,6 @@ export const items = {
       0
     ]
   },
-  "Epsilon Ray": {
-    "name": "Epsilon Ray",
-    "tier": 1,
-    "tags": ["Small", "Ray", "Shield", "Dooley"],
-    "cooldown": 6,
-    "ammo": null,
-    "text": ["Shield (15/20/25)", "When you use a Core or another Ray, your Shield items gain (6/9/12) Shield for the fight."],
-    "enchants": {
-      "Golden": "This has double value.",
-      "Heavy": "Slow an item for 3 second(s)",
-      "Icy": "Freeze an item for 0.5 second(s)",
-      "Turbo": "Haste an item for 3 second(s)",
-      "Shielded": "This has double Shield.",
-      "Restorative": "Heal equal to this item's Shield",
-      "Toxic": "Poison equal to 10% of this item's Shield",
-      "Fiery": "Burn equal to 10% of this item's Shield",
-      "Shiny": "This has +1 Multicast.",
-      "Deadly": "Your Rays have +50% Crit Chance.",
-      "Radiant": "This item is immune to Freeze, Slow and Destroy.",
-      "Obsidian": "Deal Damage equal to this item's Shield"
-    },
-    "priorities": [0, 0]
-  },
   "Eternal Torch": {
     "name": "Eternal Torch",
     "tier": 0,
@@ -21749,29 +21726,6 @@ export const items = {
     },
     "priorities": [
       2
-    ]
-  },
-  "Red Envelope": {
-    "name": "Red Envelope",
-    "text": [
-      "When you buy this, gain 10 Gold."
-    ],
-    enchants: {
-
-    },
-    "tier": 0,
-
-    priorites: [
-      0
-    ],
-    "tags": [
-      "Stelle",
-      "Pygmalien",
-      "Gold",
-      "Vanessa",
-      "Dooley",
-      "Mak",
-      "Jules"
     ]
   },
   "Red Gumball": {
