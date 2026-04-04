@@ -1,4 +1,4 @@
-import { getItemsJsUrl } from './assetConfig.js';
+import { getItemsJsUrl, isLocalDevHost } from './assetConfig.js';
 
 let _loadedUrl = null;
 let _items = null;
@@ -20,6 +20,24 @@ async function importItemsJsFromText(itemsJsUrl, code) {
 export async function ensureItemsLoaded() {
   const itemsJsUrl = getItemsJsUrl();
   if (_items && _loadedUrl === itemsJsUrl) return _items;
+
+  // Local dev: load root items.js via Vite (same file as in the repo).
+  if (typeof window !== 'undefined' && isLocalDevHost()) {
+    try {
+      const pathname = new URL(itemsJsUrl).pathname || '/items.js';
+      // @vite-ignore: explicit absolute path to project-root items.js in dev.
+      const mod = await import(/* @vite-ignore */ pathname);
+      const loadedItems = mod.items ?? mod.default?.items;
+      if (loadedItems) {
+        _loadedUrl = itemsJsUrl;
+        _items = loadedItems;
+        window.items = _items;
+        return _items;
+      }
+    } catch (e) {
+      console.warn('Local import of items.js failed, falling back to fetch:', e);
+    }
+  }
 
   const res = await fetch(itemsJsUrl, { cache: 'no-store' });
   if (!res.ok) {
