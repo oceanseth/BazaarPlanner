@@ -11,6 +11,13 @@ const DEFAULT_IMAGE_REPOSITORY =
 
 const DEFAULT_ITEM_REPO_BRANCH = 'main';
 
+/** True when the app is served from this machine (Vite dev or preview on localhost). */
+export function isLocalDevHost() {
+  if (typeof window === 'undefined' || !window.location) return false;
+  const h = window.location.hostname;
+  return h === 'localhost' || h === '127.0.0.1' || h === '[::1]';
+}
+
 function stripQueryAndFragment(url) {
   return url.replace(/[?#].*$/, '');
 }
@@ -103,6 +110,9 @@ function normalizeImageRepositoryToImageBaseUrl(imageRepositoryUrl) {
 let _cachedImageBaseUrl = null;
 let _cachedImageRepoValue = null;
 export function getImageBaseUrl() {
+  if (isLocalDevHost()) {
+    return new URL('/images/', window.location.origin).href;
+  }
   const repoValue = localStorage.getItem(IMAGE_REPOSITORY_STORAGE_KEY) || DEFAULT_IMAGE_REPOSITORY;
   if (_cachedImageBaseUrl && _cachedImageRepoValue === repoValue) return _cachedImageBaseUrl;
   _cachedImageRepoValue = repoValue;
@@ -132,6 +142,9 @@ export function imageUrl(pathOrRelative) {
 }
 
 export function getItemsJsUrl() {
+  if (isLocalDevHost()) {
+    return new URL('/items.js', window.location.origin).href;
+  }
   const repoValue = localStorage.getItem(ITEM_REPOSITORY_STORAGE_KEY) || DEFAULT_ITEM_REPOSITORY;
   return normalizeItemRepositoryToItemsJsUrl(repoValue);
 }

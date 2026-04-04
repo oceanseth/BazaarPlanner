@@ -1,3 +1,4 @@
+// Bundled from repo root (local files in dev; same in production builds).
 import { monsters } from '../monsters.js';
 import { skills } from '../skills.js';
 import { Board, getSizeValue } from './Board.js';

@@ -1,4 +1,30 @@
 export const monsters = {
+  "Banannibal": {
+    "id": "1d24717f-7bfb-48e9-9320-6a69d72e233e",
+    "name": "Banannibal",
+    "day": 1,
+    "health": 100,
+    "skills": [
+      {
+        "name": "Healthy Jolt",
+        "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Med Kit",
+        "tier": 0
+      },
+      {
+        "name": "Bluenanas",
+        "tier": 0
+      },
+      {
+        "name": "Duct Tape",
+        "tier": 0
+      }
+    ]
+  },
   "Fanged Inglet": {
     "id": "bb1e3506-3735-4669-be90-915a55a7ee05",
     "name": "Fanged Inglet",
@@ -33,7 +59,7 @@ export const monsters = {
     "id": "bd0711a6-d9d9-4a47-8a18-8f991057f7dd",
     "name": "Kyver Drone",
     "day": 1,
-    "health": 100,
+    "health": 75,
     "skills": [
       {
         "name": "Trained",
@@ -54,64 +80,11 @@ export const monsters = {
         "tier": 0
       },
       {
-        "name": "Eagle Talisman",
-        "tier": 1
-      }
-    ]
-  },
-  "Viper": {
-    "id": "b79845a7-f806-4e7a-9011-d98ebd22a323",
-    "name": "Viper",
-    "day": 1,
-    "health": 75,
-    "skills": [
-      {
-        "name": "Lash Out",
-        "tier": 0
-      }
-    ],
-    "items": [
-      {
-        "name": "Gland",
+        "name": "Honeycomb",
         "tier": 0
       },
       {
-        "name": "Fang",
-        "tier": 0,
-        "enchant": "Toxic"
-      },
-      {
-        "name": "Fang",
-        "tier": 0
-      },
-      {
-        "name": "Extract",
-        "tier": 0
-      }
-    ]
-  },
-  "Banannibal": {
-    "id": "1d24717f-7bfb-48e9-9320-6a69d72e233e",
-    "name": "Banannibal",
-    "day": 1,
-    "health": 100,
-    "skills": [
-      {
-        "name": "Healthy Jolt",
-        "tier": 1
-      }
-    ],
-    "items": [
-      {
-        "name": "Med Kit",
-        "tier": 0
-      },
-      {
-        "name": "Bluenanas",
-        "tier": 0
-      },
-      {
-        "name": "Duct Tape",
+        "name": "Insect Wing",
         "tier": 0
       }
     ]
@@ -134,6 +107,10 @@ export const monsters = {
       },
       {
         "name": "Lighter",
+        "tier": 0
+      },
+      {
+        "name": "Fire Bomb",
         "tier": 0
       },
       {
@@ -168,6 +145,37 @@ export const monsters = {
       }
     ]
   },
+  "Viper": {
+    "id": "b79845a7-f806-4e7a-9011-d98ebd22a323",
+    "name": "Viper",
+    "day": 1,
+    "health": 75,
+    "skills": [
+      {
+        "name": "Lash Out",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Gland",
+        "tier": 0
+      },
+      {
+        "name": "Fang",
+        "tier": 0,
+        "enchant": "Toxic"
+      },
+      {
+        "name": "Fang",
+        "tier": 0
+      },
+      {
+        "name": "Extract",
+        "tier": 0
+      }
+    ]
+  },
   "Coconut Crab": {
     "id": "289ff978-dd65-4484-b905-8ee16d28033c",
     "name": "Coconut Crab",
@@ -181,8 +189,12 @@ export const monsters = {
     ],
     "items": [
       {
+        "name": "Citrus",
+        "tier": 0
+      },
+      {
         "name": "Coconut",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Crusher Claw",
@@ -190,7 +202,91 @@ export const monsters = {
       },
       {
         "name": "Sea Shell",
-        "tier": 1
+        "tier": 0
+      },
+      {
+        "name": "Coconut",
+        "tier": 0
+      }
+    ]
+  },
+  "Rogue Scrapper": {
+    "id": "1eabe08b-2949-407d-b22d-c6e579e0cd14",
+    "name": "Rogue Scrapper",
+    "day": 2,
+    "health": 300,
+    "skills": [
+      {
+        "name": "Rust",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Scrap",
+        "tier": 0
+      },
+      {
+        "name": "Gearnola Bar",
+        "tier": 0
+      },
+      {
+        "name": "Junkyard Club",
+        "tier": 0
+      },
+      {
+        "name": "Junkyard Repairbot",
+        "tier": 0
+      },
+      {
+        "name": "Barbed Wire",
+        "tier": 0
+      },
+      {
+        "name": "Med Kit",
+        "tier": 0
+      }
+    ]
+  },
+  "Boarrior": {
+    "id": "b93f5b44-ba9f-4196-a94e-c5de17ab5c5d",
+    "name": "Boarrior",
+    "day": 2,
+    "health": 350,
+    "skills": [
+      {
+        "name": "Frontal Shielding",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Scrap",
+        "tier": 0
+      },
+      {
+        "name": "Tusked Helm",
+        "tier": 0
+      },
+      {
+        "name": "Old Sword",
+        "tier": 0
+      },
+      {
+        "name": "Hatchet",
+        "tier": 0
+      },
+      {
+        "name": "Lumboars",
+        "tier": 0
+      },
+      {
+        "name": "Crash Site Ticket",
+        "tier": 0
+      },
+      {
+        "name": "Sharpening Stone",
+        "tier": 0
       }
     ]
   },
@@ -198,7 +294,7 @@ export const monsters = {
     "id": "66245d12-d5eb-4c08-9185-6ddaf626bbd3",
     "name": "Covetous Thief",
     "day": 2,
-    "health": 400,
+    "health": 300,
     "skills": [
       {
         "name": "Pickpocket",
@@ -220,95 +316,53 @@ export const monsters = {
       },
       {
         "name": "Concealed Dagger",
-        "tier": 1
+        "tier": 0
       },
       {
-        "name": "Grindstone",
-        "tier": 1
+        "name": "Covetous Raven",
+        "tier": 0
       },
       {
         "name": "Sharpening Stone",
-        "tier": 1
+        "tier": 0
       }
     ]
   },
-  "Rogue Scrapper": {
-    "id": "1eabe08b-2949-407d-b22d-c6e579e0cd14",
-    "name": "Rogue Scrapper",
+  "Eccentric Etherwright": {
+    "id": "325c88c3-9496-44bf-b900-4adf1f84bf2f",
+    "name": "Eccentric Etherwright",
     "day": 2,
-    "health": 300,
+    "health": 600,
     "skills": [
       {
-        "name": "Rust",
-        "tier": 0
+        "name": "Rigged",
+        "tier": 1
       }
     ],
     "items": [
       {
-        "name": "Scrap",
-        "tier": 2
-      },
-      {
-        "name": "Gearnola Bar",
+        "name": "Temple Expedition Ticket",
         "tier": 0
       },
       {
-        "name": "Junkyard Club",
+        "name": "Scrap",
+        "tier": 0
+      },
+      {
+        "name": "Force Field",
         "tier": 1
       },
       {
-        "name": "Junkyard Repairbot",
-        "tier": 1
+        "name": "Laser Pistol",
+        "tier": 0
+      },
+      {
+        "name": "Goggles",
+        "tier": 0
       },
       {
         "name": "Barbed Wire",
         "tier": 0
-      },
-      {
-        "name": "Med Kit",
-        "tier": 2
-      }
-    ]
-  },
-  "Boarrior": {
-    "id": "b93f5b44-ba9f-4196-a94e-c5de17ab5c5d",
-    "name": "Boarrior",
-    "day": 2,
-    "health": 350,
-    "skills": [
-      {
-        "name": "Frontal Shielding",
-        "tier": 0
-      }
-    ],
-    "items": [
-      {
-        "name": "Scrap",
-        "tier": 1
-      },
-      {
-        "name": "Tusked Helm",
-        "tier": 0
-      },
-      {
-        "name": "Old Sword",
-        "tier": 1
-      },
-      {
-        "name": "Hatchet",
-        "tier": 1
-      },
-      {
-        "name": "Lumboars",
-        "tier": 0
-      },
-      {
-        "name": "Temple Expedition Ticket",
-        "tier": 4
-      },
-      {
-        "name": "Sharpening Stone",
-        "tier": 1
       }
     ]
   },
@@ -330,7 +384,7 @@ export const monsters = {
       },
       {
         "name": "Honing Steel",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Friendly Doll",
@@ -338,7 +392,7 @@ export const monsters = {
       },
       {
         "name": "Switchblade",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Butterfly Swords",
@@ -346,11 +400,11 @@ export const monsters = {
       },
       {
         "name": "Old Sword",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Sharpening Stone",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Broken Shackles",
@@ -358,36 +412,36 @@ export const monsters = {
       }
     ]
   },
-  "Eccentric Etherwright": {
-    "id": "325c88c3-9496-44bf-b900-4adf1f84bf2f",
-    "name": "Eccentric Etherwright",
-    "day": 2,
-    "health": 600,
+  "Dabbling Apprentice": {
+    "id": "8e389a21-9e14-49c4-bdf3-24183f9f9295",
+    "name": "Dabbling Apprentice",
+    "day": 3,
+    "health": 300,
     "skills": [
       {
-        "name": "Rigged",
-        "tier": 1
+        "name": "Panic",
+        "tier": 0
       }
     ],
     "items": [
       {
-        "name": "Temple Expedition Ticket",
-        "tier": 4
-      },
-      {
-        "name": "Scrap",
-        "tier": 2
-      },
-      {
-        "name": "Force Field",
-        "tier": 1
-      },
-      {
-        "name": "Goggles",
+        "name": "Crash Site Ticket",
         "tier": 0
       },
       {
-        "name": "Barbed Wire",
+        "name": "Bottled Lightning",
+        "tier": 0
+      },
+      {
+        "name": "Tazidian Dagger",
+        "tier": 0
+      },
+      {
+        "name": "Fire Potion",
+        "tier": 0
+      },
+      {
+        "name": "Catalyst",
         "tier": 0
       }
     ]
@@ -428,41 +482,7 @@ export const monsters = {
       },
       {
         "name": "Sharpening Stone",
-        "tier": 1
-      }
-    ]
-  },
-  "Dabbling Apprentice": {
-    "id": "8e389a21-9e14-49c4-bdf3-24183f9f9295",
-    "name": "Dabbling Apprentice",
-    "day": 3,
-    "health": 300,
-    "skills": [
-      {
-        "name": "Panic",
         "tier": 0
-      }
-    ],
-    "items": [
-      {
-        "name": "Temple Expedition Ticket",
-        "tier": 4
-      },
-      {
-        "name": "Bottled Lightning",
-        "tier": 1
-      },
-      {
-        "name": "Tazidian Dagger",
-        "tier": 0
-      },
-      {
-        "name": "Fire Potion",
-        "tier": 1
-      },
-      {
-        "name": "Catalyst",
-        "tier": 1
       }
     ]
   },
@@ -488,14 +508,60 @@ export const monsters = {
       },
       {
         "name": "Handaxe",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Frozen Bludgeon",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Snow Globe",
+        "tier": 1
+      }
+    ]
+  },
+  "Product Demonstrator": {
+    "id": "35d68424-87ba-4d8a-8776-8d8302a425f9",
+    "name": "Product Demonstrator",
+    "day": 3,
+    "health": 600,
+    "skills": [
+      {
+        "name": "Product Showcase",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Cinders",
+        "tier": 0
+      },
+      {
+        "name": "Eject Button",
+        "tier": 1
+      },
+      {
+        "name": "Ice Bomb",
+        "tier": 2
+      },
+      {
+        "name": "Ornithopter",
+        "tier": 0
+      },
+      {
+        "name": "Rocket Drone",
+        "tier": 0
+      },
+      {
+        "name": "Fire Bomb",
+        "tier": 0
+      },
+      {
+        "name": "Recycler Bot",
+        "tier": 0
+      },
+      {
+        "name": "Gunpowder",
         "tier": 1
       }
     ]
@@ -514,69 +580,81 @@ export const monsters = {
     "items": [
       {
         "name": "Red Piggles R",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Premium Red Piggles",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Piggles",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Piggles Protectors",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Yellow Piggles L",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Temple Expedition Ticket",
-        "tier": 4
+        "tier": 0
       }
     ]
   },
-  "Product Demonstrator": {
-    "id": "35d68424-87ba-4d8a-8776-8d8302a425f9",
-    "name": "Product Demonstrator",
+  "Giant Mosquito": {
+    "id": "c69bf8e8-944c-4b42-b59e-8ad568e0d3f7",
+    "name": "Giant Mosquito",
     "day": 3,
-    "health": 600,
+    "health": 700,
     "skills": [
       {
-        "name": "Product Showcase",
-        "tier": 2
+        "name": "Rush",
+        "tier": 0
+      },
+      {
+        "name": "Keen Eye",
+        "tier": 0
+      },
+      {
+        "name": "Trained",
+        "tier": 0
       }
     ],
     "items": [
       {
-        "name": "Cinders",
+        "name": "Insect Wing",
+        "tier": 0
+      },
+      {
+        "name": "Stinger",
+        "tier": 0
+      },
+      {
+        "name": "Venom",
+        "tier": 0
+      },
+      {
+        "name": "Proboscis",
         "tier": 1
       },
       {
-        "name": "Eject Button",
+        "name": "Amber",
         "tier": 1
       },
       {
-        "name": "Ice Bomb",
-        "tier": 2
+        "name": "Mothmeal",
+        "tier": 0
       },
       {
-        "name": "Ornithopter",
+        "name": "Flying Potion",
         "tier": 1
       },
       {
-        "name": "Fire Bomb",
-        "tier": 1
-      },
-      {
-        "name": "Paper Airplane",
-        "tier": 1
-      },
-      {
-        "name": "Gunpowder",
-        "tier": 1
+        "name": "Insect Wing",
+        "tier": 0
       }
     ]
   },
@@ -598,11 +676,11 @@ export const monsters = {
       },
       {
         "name": "Laser Pistol",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "SMG",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Bolas",
@@ -610,11 +688,11 @@ export const monsters = {
       },
       {
         "name": "Weakpoint Detector",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Grappling Hook",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Eagle Talisman",
@@ -622,53 +700,42 @@ export const monsters = {
       }
     ]
   },
-  "Giant Mosquito": {
-    "id": "c69bf8e8-944c-4b42-b59e-8ad568e0d3f7",
-    "name": "Giant Mosquito",
+  "Mutant Baker": {
+    "id": "be111234-2b9f-4e30-b0d6-368c49780faa",
+    "name": "Mutant Baker",
     "day": 3,
     "health": 700,
     "skills": [
       {
-        "name": "Trained",
+        "name": "The Right Tool",
         "tier": 1
-      },
-      {
-        "name": "Rush",
-        "tier": 0
-      },
-      {
-        "name": "Keen Eye",
-        "tier": 0
       }
     ],
     "items": [
       {
-        "name": "Insect Wing",
+        "name": "Venomous Dose",
+        "tier": 0
+      },
+      {
+        "name": "Butter",
+        "tier": 0
+      },
+      {
+        "name": "Bread Knife",
         "tier": 1
       },
       {
-        "name": "Stinger",
-        "tier": 1
+        "name": "Bread",
+        "tier": 1,
+        "enchant": "Toxic"
       },
       {
-        "name": "Proboscis",
-        "tier": 1
+        "name": "Knife Sharpener",
+        "tier": 0
       },
       {
-        "name": "Stinger",
-        "tier": 1
-      },
-      {
-        "name": "Amber",
-        "tier": 1
-      },
-      {
-        "name": "Incense",
-        "tier": 1
-      },
-      {
-        "name": "Insect Wing",
-        "tier": 1
+        "name": "Rolling Pin",
+        "tier": 0
       }
     ]
   },
@@ -690,15 +757,15 @@ export const monsters = {
     "items": [
       {
         "name": "Sharpening Stone",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Orbital Polisher",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Goggles",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Toolbox",
@@ -713,20 +780,20 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Eagle Talisman",
-        "tier": 1
+        "name": "Crash Site Ticket",
+        "tier": 0
       }
     ]
   },
   "Outlands Dervish": {
-    "id": "91e59b0c-968c-4c45-9391-5104571fee28",
+    "id": "66245d12-d5eb-4c08-9185-6ddaf626bbd3",
     "name": "Outlands Dervish",
     "day": 4,
     "health": 450,
     "skills": [
       {
         "name": "Keen Eye",
-        "tier": 1
+        "tier": 0
       }
     ],
     "items": [
@@ -736,23 +803,61 @@ export const monsters = {
       },
       {
         "name": "Shoe Blade",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Clockwork Blades",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Clockwork Blades",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Shoe Blade",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Bar of Gold",
         "tier": 0
+      }
+    ]
+  },
+  "Bloodreef Raider": {
+    "id": "85902df4-6926-40a3-affc-537c55e89b86",
+    "name": "Bloodreef Raider",
+    "day": 4,
+    "health": 450,
+    "skills": [
+      {
+        "name": "Ammo Stash",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Bar of Gold",
+        "tier": 0
+      },
+      {
+        "name": "Crow's Nest",
+        "tier": 1
+      },
+      {
+        "name": "Powder Horn",
+        "tier": 0
+      },
+      {
+        "name": "Revolver",
+        "tier": 0
+      },
+      {
+        "name": "Cannonball",
+        "tier": 1
+      },
+      {
+        "name": "Invulnerability Potion",
+        "tier": 1
       }
     ]
   },
@@ -770,15 +875,15 @@ export const monsters = {
     "items": [
       {
         "name": "Piggy Bank",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Succulents",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Golf Clubs",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Bushel",
@@ -786,87 +891,83 @@ export const monsters = {
       },
       {
         "name": "Bandages",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Med Kit",
-        "tier": 2
+        "tier": 0
       }
     ]
   },
-  "Bloodreef Raider": {
-    "id": "85902df4-6926-40a3-affc-537c55e89b86",
-    "name": "Bloodreef Raider",
+  "Wild Boar": {
+    "id": "850d92a9-d1c5-4334-b046-4f2a1025b28d",
+    "name": "Wild Boar",
     "day": 4,
     "health": 650,
     "skills": [
       {
-        "name": "Ammo Stash",
+        "name": "Feeding Frenzy",
         "tier": 1
       }
     ],
     "items": [
       {
-        "name": "Bar of Gold",
+        "name": "Wildroot Amulet",
         "tier": 0
       },
       {
-        "name": "Crow's Nest",
+        "name": "Blueberry Pie",
+        "tier": 0
+      },
+      {
+        "name": "Wild Boar",
         "tier": 1
       },
       {
-        "name": "Powder Horn",
-        "tier": 1
+        "name": "Basket",
+        "tier": 0
       },
       {
-        "name": "Revolver",
-        "tier": 1
-      },
-      {
-        "name": "Cannonball",
-        "tier": 1
-      },
-      {
-        "name": "Invulnerability Potion",
-        "tier": 2
+        "name": "Truffles",
+        "tier": 0
       }
     ]
   },
-  "Flame Juggler": {
-    "id": "cead2300-dce5-4c9c-82c4-e4c05d1923bf",
-    "name": "Flame Juggler",
+  "Worry Wart": {
+    "id": "51d0f501-2276-4b88-882b-6535ca6df1a8",
+    "name": "Worry Wart",
     "day": 4,
-    "health": 1200,
+    "health": 650,
     "skills": [
       {
-        "name": "Burst of Flame",
+        "name": "Slippery Fella",
         "tier": 1
       }
     ],
     "items": [
       {
-        "name": "Lighter",
-        "tier": 2
+        "name": "Extract",
+        "tier": 0
       },
       {
-        "name": "Magma Core",
-        "tier": 2
+        "name": "Drowsdrop",
+        "tier": 0
       },
       {
-        "name": "Magma Core",
-        "tier": 2
+        "name": "Worry Wart",
+        "tier": 0
       },
       {
-        "name": "Magma Core",
+        "name": "Warpaint",
         "tier": 1
       },
       {
-        "name": "Magma Core",
+        "name": "Frog Hollow",
         "tier": 1
       },
       {
-        "name": "Cinders",
-        "tier": 2
+        "name": "Extract",
+        "tier": 0
       }
     ]
   },
@@ -879,14 +980,10 @@ export const monsters = {
     "items": [
       {
         "name": "Crypto",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Rapid Injection System",
-        "tier": 1
-      },
-      {
-        "name": "Virus",
         "tier": 1
       },
       {
@@ -894,8 +991,12 @@ export const monsters = {
         "tier": 2
       },
       {
-        "name": "Crypto",
+        "name": "Virus",
         "tier": 1
+      },
+      {
+        "name": "Crypto",
+        "tier": 0
       }
     ]
   },
@@ -907,33 +1008,33 @@ export const monsters = {
     "skills": [
       {
         "name": "Left-Handed",
-        "tier": 1
+        "tier": 0
       }
     ],
     "items": [
       {
-        "name": "Temple Expedition Ticket",
-        "tier": 4
-      },
-      {
         "name": "Med Kit",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Haladie",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Ganjo",
-        "tier": 1
+        "tier": 0
       },
       {
-        "name": "Textiles",
-        "tier": 2
+        "name": "Double Barrel",
+        "tier": 0
       },
       {
         "name": "Scrap",
-        "tier": 3
+        "tier": 0
+      },
+      {
+        "name": "Crash Site Ticket",
+        "tier": 0
       }
     ]
   },
@@ -945,29 +1046,25 @@ export const monsters = {
     "skills": [
       {
         "name": "Slowed Targets",
-        "tier": 2
-      },
-      {
-        "name": "Slow and Steady",
         "tier": 1
       }
     ],
     "items": [
       {
         "name": "Temple Expedition Ticket",
-        "tier": 4
+        "tier": 0
       },
       {
         "name": "Coconut",
-        "tier": 3
+        "tier": 0
       },
       {
         "name": "Chum",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Piranha",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "IllusoRay",
@@ -975,7 +1072,7 @@ export const monsters = {
       },
       {
         "name": "Narwhal",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Electric Eels",
@@ -983,7 +1080,99 @@ export const monsters = {
       },
       {
         "name": "Citrus",
-        "tier": 3
+        "tier": 0
+      }
+    ]
+  },
+  "Flame Juggler": {
+    "id": "cead2300-dce5-4c9c-82c4-e4c05d1923bf",
+    "name": "Flame Juggler",
+    "day": 4,
+    "health": 1200,
+    "skills": [
+      {
+        "name": "Burst of Flame",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Cinders",
+        "tier": 0
+      },
+      {
+        "name": "Lighter",
+        "tier": 0
+      },
+      {
+        "name": "Magma Core",
+        "tier": 0
+      },
+      {
+        "name": "Magma Core",
+        "tier": 0
+      },
+      {
+        "name": "Magma Core",
+        "tier": 0
+      },
+      {
+        "name": "Magma Core",
+        "tier": 0
+      },
+      {
+        "name": "Cinders",
+        "tier": 0
+      }
+    ]
+  },
+  "Grandfather Klok": {
+    "id": "de126a7a-a0bc-4a6f-96f0-442920104fcf",
+    "name": "Grandfather Klok",
+    "day": 5,
+    "health": 800,
+    "skills": [
+      {
+        "name": "Precision Tools",
+        "tier": 1
+      },
+      {
+        "name": "Time to Tinker",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Scrap",
+        "tier": 0
+      },
+      {
+        "name": "Multitool",
+        "tier": 1
+      },
+      {
+        "name": "Hands of Time",
+        "tier": 1
+      },
+      {
+        "name": "Rivet Gun",
+        "tier": 1
+      },
+      {
+        "name": "Cog",
+        "tier": 0
+      },
+      {
+        "name": "Atomic Clock",
+        "tier": 1
+      },
+      {
+        "name": "Precision Calipers",
+        "tier": 0
+      },
+      {
+        "name": "Crash Site Ticket",
+        "tier": 0
       }
     ]
   },
@@ -1005,11 +1194,11 @@ export const monsters = {
       },
       {
         "name": "Powder Horn",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Revolver",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Cannonball",
@@ -1047,37 +1236,37 @@ export const monsters = {
       },
       {
         "name": "Pelt",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Pelt",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Pelt",
-        "tier": 3
+        "tier": 0
       },
       {
         "name": "Fang",
-        "tier": 3,
+        "tier": 0,
         "enchant": "Shiny"
       },
       {
         "name": "Fang",
-        "tier": 3,
+        "tier": 0,
         "enchant": "Shiny"
       },
       {
         "name": "Pelt",
-        "tier": 3
+        "tier": 0
       },
       {
         "name": "Pelt",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Pelt",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Pelt",
@@ -1085,44 +1274,48 @@ export const monsters = {
       }
     ]
   },
-  "Grandfather Klok": {
-    "id": "de126a7a-a0bc-4a6f-96f0-442920104fcf",
-    "name": "Grandfather Klok",
+  "Harkuvian Rocket Trooper": {
+    "id": "59917a2d-3253-44f4-aaa4-ca30b512eb59",
+    "name": "Harkuvian Rocket Trooper",
     "day": 5,
-    "health": 800,
+    "health": 900,
     "skills": [
       {
-        "name": "Precision Tools",
-        "tier": 1
+        "name": "Flashy Reload",
+        "tier": 2
       },
       {
-        "name": "Time to Tinker",
+        "name": "Keen Eye",
+        "tier": 0
+      },
+      {
+        "name": "Gunner",
         "tier": 1
       }
     ],
     "items": [
       {
-        "name": "Multitool",
+        "name": "Eagle Talisman",
         "tier": 1
       },
       {
-        "name": "Hands of Time",
-        "tier": 1
+        "name": "Shadowed Cloak",
+        "tier": 0
       },
       {
-        "name": "Rivet Gun",
-        "tier": 2
+        "name": "Harkuvian Launcher",
+        "tier": 0
       },
       {
-        "name": "Cog",
-        "tier": 1
+        "name": "Rocket Boots",
+        "tier": 0
       },
       {
-        "name": "Atomic Clock",
-        "tier": 2
+        "name": "Goggles",
+        "tier": 0
       },
       {
-        "name": "Precision Calipers",
+        "name": "Gunpowder",
         "tier": 1
       }
     ]
@@ -1146,7 +1339,7 @@ export const monsters = {
       },
       {
         "name": "Cinders",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Sunlight Spear",
@@ -1154,54 +1347,12 @@ export const monsters = {
       },
       {
         "name": "Cinders",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Fire Claw",
         "tier": 2,
         "enchant": "Restorative"
-      }
-    ]
-  },
-  "Harkuvian Rocket Trooper": {
-    "id": "59917a2d-3253-44f4-aaa4-ca30b512eb59",
-    "name": "Harkuvian Rocket Trooper",
-    "day": 5,
-    "health": 900,
-    "skills": [
-      {
-        "name": "Flashy Reload",
-        "tier": 2
-      },
-      {
-        "name": "Keen Eye",
-        "tier": 1
-      }
-    ],
-    "items": [
-      {
-        "name": "Eagle Talisman",
-        "tier": 1
-      },
-      {
-        "name": "Shadowed Cloak",
-        "tier": 2
-      },
-      {
-        "name": "Harkuvian Launcher",
-        "tier": 1
-      },
-      {
-        "name": "Rocket Boots",
-        "tier": 1
-      },
-      {
-        "name": "Goggles",
-        "tier": 2
-      },
-      {
-        "name": "Gunpowder",
-        "tier": 1
       }
     ]
   },
@@ -1218,74 +1369,30 @@ export const monsters = {
     ],
     "items": [
       {
-        "name": "Temple Expedition Ticket",
-        "tier": 4
-      },
-      {
         "name": "Insect Wing",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Junkyard Lance",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Busy Bee",
-        "tier": 1
+        "tier": 1,
+        "enchant": "Obsidian"
       },
       {
         "name": "Busy Bee",
-        "tier": 1
+        "tier": 1,
+        "enchant": "Deadly"
       },
       {
-        "name": "Busy Bee",
-        "tier": 1
+        "name": "Honeycomb",
+        "tier": 0
       },
       {
         "name": "Insect Wing",
-        "tier": 2
-      }
-    ]
-  },
-  "Mod Squad": {
-    "id": "c472b821-e68b-4567-b7e1-3e63f67936b3",
-    "name": "Mod Squad",
-    "day": 5,
-    "health": 1200,
-    "skills": [
-      {
-        "name": "Beautiful Friendship",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Crypto",
-        "tier": 2
-      },
-      {
-        "name": "First Aiden",
-        "tier": 1
-      },
-      {
-        "name": "Chris Army Knife",
-        "tier": 1
-      },
-      {
-        "name": "Bill Dozer",
-        "tier": 2
-      },
-      {
-        "name": "Bomb Squad",
-        "tier": 1
-      },
-      {
-        "name": "Char Cole",
-        "tier": 1
-      },
-      {
-        "name": "Crypto",
-        "tier": 2
+        "tier": 0
       }
     ]
   },
@@ -1305,34 +1412,76 @@ export const monsters = {
       },
       {
         "name": "Initial Dose",
-        "tier": 1
+        "tier": 0
       }
     ],
     "items": [
       {
         "name": "Temple Expedition Ticket",
-        "tier": 4
+        "tier": 0
       },
       {
         "name": "Black Rose",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Clockwork Blades",
-        "tier": 2,
+        "tier": 0,
         "enchant": "Toxic"
       },
       {
         "name": "Nightshade",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Trained Spider",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Basilisk Fang",
+        "tier": 0
+      }
+    ]
+  },
+  "Mod Squad": {
+    "id": "c472b821-e68b-4567-b7e1-3e63f67936b3",
+    "name": "Mod Squad",
+    "day": 5,
+    "health": 1200,
+    "skills": [
+      {
+        "name": "Beautiful Friendship",
+        "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Crypto",
+        "tier": 0
+      },
+      {
+        "name": "First Aiden",
+        "tier": 0
+      },
+      {
+        "name": "Chris Army Knife",
+        "tier": 0
+      },
+      {
+        "name": "Bill Dozer",
         "tier": 2
+      },
+      {
+        "name": "Bomb Squad",
+        "tier": 0
+      },
+      {
+        "name": "Char Cole",
+        "tier": 0
+      },
+      {
+        "name": "Crypto",
+        "tier": 0
       }
     ]
   },
@@ -1353,8 +1502,8 @@ export const monsters = {
     ],
     "items": [
       {
-        "name": "Temple Expedition Ticket",
-        "tier": 4
+        "name": "Crash Site Ticket",
+        "tier": 0
       },
       {
         "name": "Sharpening Stone",
@@ -1362,25 +1511,25 @@ export const monsters = {
       },
       {
         "name": "Brass Knuckles",
-        "tier": 1,
+        "tier": 0,
         "enchant": "Shielded"
       },
       {
         "name": "Dog",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Temporary Shelter",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Pepper Spray",
-        "tier": 2
+        "tier": 0
       }
     ]
   },
   "Scovyle": {
-    "id": "91c233ed-b88c-4ec9-b3ee-cec880a14213",
+    "id": "45c473f5-25bd-4c1c-8357-cfe460c58f69",
     "name": "Scovyle",
     "day": 5,
     "health": 1550,
@@ -1393,27 +1542,27 @@ export const monsters = {
     "items": [
       {
         "name": "Cinders",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Curry",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Skillet",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Black Pepper",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Hot Sauce",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Pickled Peppers",
-        "tier": 2
+        "tier": 1
       }
     ]
   },
@@ -1425,13 +1574,13 @@ export const monsters = {
     "skills": [
       {
         "name": "Aggressive",
-        "tier": 1
+        "tier": 0
       }
     ],
     "items": [
       {
         "name": "Pelt",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Broken Shackles",
@@ -1439,21 +1588,21 @@ export const monsters = {
       },
       {
         "name": "Claws",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Fang",
-        "tier": 1,
+        "tier": 0,
         "enchant": "Obsidian"
       },
       {
         "name": "Fang",
-        "tier": 1,
+        "tier": 0,
         "enchant": "Obsidian"
       },
       {
         "name": "Claws",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Eagle Talisman",
@@ -1461,7 +1610,7 @@ export const monsters = {
       },
       {
         "name": "Pelt",
-        "tier": 2
+        "tier": 0
       }
     ]
   },
@@ -1479,7 +1628,7 @@ export const monsters = {
     "items": [
       {
         "name": "Pelt",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Dragon Whelp",
@@ -1487,103 +1636,23 @@ export const monsters = {
       },
       {
         "name": "Crook",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Leeches",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Salamander Pup",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Trained Spider",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Pelt",
-        "tier": 2
-      }
-    ]
-  },
-  "Trash Golem": {
-    "id": "a9b27854-6f5c-4414-b458-90c54c444171",
-    "name": "Trash Golem",
-    "day": 6,
-    "health": 1200,
-    "skills": [
-      {
-        "name": "Jury Rigger",
-        "tier": 1
-      }
-    ],
-    "items": [
-      {
-        "name": "Junkyard Catapult",
-        "tier": 2
-      },
-      {
-        "name": "Plasma Grenade",
-        "tier": 1
-      },
-      {
-        "name": "Grenade",
         "tier": 0
-      },
-      {
-        "name": "Noxious Potion",
-        "tier": 0
-      },
-      {
-        "name": "Rainbow Potion",
-        "tier": 2
-      },
-      {
-        "name": "Grapeshot",
-        "tier": 1
-      },
-      {
-        "name": "Powder Keg",
-        "tier": 2
-      }
-    ]
-  },
-  "Foreman": {
-    "id": "a2baf3bc-6164-4a16-ab41-48b450f694d1",
-    "name": "Foreman",
-    "day": 6,
-    "health": 1200,
-    "skills": [
-      {
-        "name": "Flashy Mechanic",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Scrap",
-        "tier": 2
-      },
-      {
-        "name": "Chris Army Knife",
-        "tier": 1
-      },
-      {
-        "name": "Power Sander",
-        "tier": 1
-      },
-      {
-        "name": "Crane",
-        "tier": 2
-      },
-      {
-        "name": "Forklift",
-        "tier": 2
-      },
-      {
-        "name": "Cog",
-        "tier": 2
       }
     ]
   },
@@ -1595,17 +1664,17 @@ export const monsters = {
     "skills": [
       {
         "name": "Exposing Toxins",
-        "tier": 2
+        "tier": 1
       }
     ],
     "items": [
       {
         "name": "Extract",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Bandages",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Ouroboros Statue",
@@ -1617,7 +1686,7 @@ export const monsters = {
       },
       {
         "name": "Thurible",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Ectoplasm",
@@ -1625,11 +1694,11 @@ export const monsters = {
       },
       {
         "name": "Bandages",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Temple Expedition Ticket",
-        "tier": 4
+        "tier": 0
       }
     ]
   },
@@ -1650,12 +1719,12 @@ export const monsters = {
         "tier": 1
       },
       {
-        "name": "Bread Knife",
+        "name": "Salt",
         "tier": 1
       },
       {
         "name": "Butter",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Giant Sub",
@@ -1667,7 +1736,108 @@ export const monsters = {
       },
       {
         "name": "Baked Potato",
+        "tier": 0
+      }
+    ]
+  },
+  "Trash Golem": {
+    "id": "a9b27854-6f5c-4414-b458-90c54c444171",
+    "name": "Trash Golem",
+    "day": 6,
+    "health": 1200,
+    "skills": [
+      {
+        "name": "Jury Rigger",
         "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Junkyard Catapult",
+        "tier": 1
+      },
+      {
+        "name": "Plasma Grenade",
+        "tier": 0
+      },
+      {
+        "name": "Grenade",
+        "tier": 0,
+        "enchant": "Mossy"
+      },
+      {
+        "name": "Noxious Potion",
+        "tier": 0
+      },
+      {
+        "name": "Rainbow Potion",
+        "tier": 0
+      },
+      {
+        "name": "Grapeshot",
+        "tier": 0
+      },
+      {
+        "name": "Powder Keg",
+        "tier": 2
+      }
+    ]
+  },
+  "Dire Mosquito": {
+    "id": "bc5fa0a4-8ca9-4384-a283-9c7c84b27169",
+    "name": "Dire Mosquito",
+    "day": 6,
+    "health": 1500,
+    "skills": [
+      {
+        "name": "Paralyzing Rush",
+        "tier": 2
+      },
+      {
+        "name": "Trained",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Insect Wing",
+        "tier": 0
+      },
+      {
+        "name": "Ectoplasm",
+        "tier": 1
+      },
+      {
+        "name": "Proboscis",
+        "tier": 1
+      },
+      {
+        "name": "Amber",
+        "tier": 1
+      },
+      {
+        "name": "Stinger",
+        "tier": 0
+      },
+      {
+        "name": "Neural Toxin",
+        "tier": 1
+      },
+      {
+        "name": "Stinger",
+        "tier": 0
+      },
+      {
+        "name": "Venom",
+        "tier": 0
+      },
+      {
+        "name": "Incense",
+        "tier": 0
+      },
+      {
+        "name": "Insect Wing",
+        "tier": 0
       }
     ]
   },
@@ -1689,23 +1859,61 @@ export const monsters = {
     "items": [
       {
         "name": "Sharkray",
-        "tier": 2
-      },
-      {
-        "name": "Sharkclaws",
         "tier": 1
       },
       {
         "name": "Sharkclaws",
-        "tier": 1
+        "tier": 0
+      },
+      {
+        "name": "Sharkclaws",
+        "tier": 0
       },
       {
         "name": "ATM",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Cash Cannon",
+        "tier": 1
+      }
+    ]
+  },
+  "Foreman": {
+    "id": "a2baf3bc-6164-4a16-ab41-48b450f694d1",
+    "name": "Foreman",
+    "day": 6,
+    "health": 1200,
+    "skills": [
+      {
+        "name": "Sabotage",
         "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Scrap",
+        "tier": 0
+      },
+      {
+        "name": "Chris Army Knife",
+        "tier": 0
+      },
+      {
+        "name": "Power Sander",
+        "tier": 0
+      },
+      {
+        "name": "Crane",
+        "tier": 2
+      },
+      {
+        "name": "Forklift",
+        "tier": 2
+      },
+      {
+        "name": "Cog",
+        "tier": 0
       }
     ]
   },
@@ -1725,13 +1933,13 @@ export const monsters = {
       },
       {
         "name": "Strength",
-        "tier": 1
+        "tier": 0
       }
     ],
     "items": [
       {
         "name": "Cinders",
-        "tier": 3
+        "tier": 0
       },
       {
         "name": "Fire Claw",
@@ -1739,23 +1947,23 @@ export const monsters = {
       },
       {
         "name": "Magma Core",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Infernal Greatsword",
-        "tier": 4
+        "tier": 0
       },
       {
         "name": "Magma Core",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Ruby",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Cinders",
-        "tier": 3
+        "tier": 0
       }
     ]
   },
@@ -1763,14 +1971,14 @@ export const monsters = {
     "id": "69af3106-78fd-4a74-b150-ec41442cdbba",
     "name": "Lich",
     "day": 6,
-    "health": 1900,
+    "health": 1800,
     "skills": [
       {
-        "name": "Petrifying Gaze",
-        "tier": 2
+        "name": "Chilling Touch",
+        "tier": 1
       },
       {
-        "name": "Chilling Touch",
+        "name": "Petrifying Gaze",
         "tier": 1
       }
     ],
@@ -1785,15 +1993,15 @@ export const monsters = {
       },
       {
         "name": "Icicle",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Necronomicon",
-        "tier": 4
+        "tier": 1
       },
       {
         "name": "Icicle",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Wand",
@@ -1801,7 +2009,7 @@ export const monsters = {
       },
       {
         "name": "Emerald",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Soul Ring",
@@ -1809,60 +2017,40 @@ export const monsters = {
       }
     ]
   },
-  "Dire Mosquito": {
-    "id": "bc5fa0a4-8ca9-4384-a283-9c7c84b27169",
-    "name": "Dire Mosquito",
-    "day": 6,
-    "health": 1700,
+  "Unibou": {
+    "id": "946eb8b4-7712-4377-b2b8-50d826b37d2f",
+    "name": "Unibou",
+    "day": 7,
+    "health": 1200,
     "skills": [
       {
-        "name": "Paralyzing Rush",
-        "tier": 2
-      },
-      {
-        "name": "Trained",
+        "name": "Lone Charge",
         "tier": 2
       }
     ],
     "items": [
       {
-        "name": "Insect Wing",
+        "name": "Unibou",
+        "tier": 0
+      },
+      {
+        "name": "Karst",
         "tier": 1
       },
       {
-        "name": "Ectoplasm",
-        "tier": 1
+        "name": "Succulents",
+        "tier": 0
       },
       {
-        "name": "Proboscis",
-        "tier": 1
+        "name": "Bushel",
+        "tier": 0
       },
       {
-        "name": "Amber",
-        "tier": 1
+        "name": "Honey Jar",
+        "tier": 0
       },
       {
-        "name": "Stinger",
-        "tier": 2
-      },
-      {
-        "name": "Neural Toxin",
-        "tier": 1
-      },
-      {
-        "name": "Stinger",
-        "tier": 2
-      },
-      {
-        "name": "Venom",
-        "tier": 2
-      },
-      {
-        "name": "Incense",
-        "tier": 1
-      },
-      {
-        "name": "Insect Wing",
+        "name": "Snow Wisp",
         "tier": 1
       }
     ]
@@ -1881,7 +2069,7 @@ export const monsters = {
     "items": [
       {
         "name": "Gland",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Extract",
@@ -1889,24 +2077,24 @@ export const monsters = {
       },
       {
         "name": "Venom",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Fang",
-        "tier": 1,
+        "tier": 0,
         "enchant": "Toxic"
       },
       {
         "name": "Basilisk Fang",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Venom",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Copper Ed",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Noxious Potion",
@@ -1918,192 +2106,7 @@ export const monsters = {
       },
       {
         "name": "Gland",
-        "tier": 1
-      }
-    ]
-  },
-  "Sergeant Suds": {
-    "id": "f9e17ce4-c82d-44c2-8406-ad33277a3b1c",
-    "name": "Sergeant Suds",
-    "day": 7,
-    "health": 1200,
-    "skills": [
-      {
-        "name": "Clean Storefront",
-        "tier": 1
-      }
-    ],
-    "items": [
-      {
-        "name": "Dishwasher",
-        "tier": 2
-      },
-      {
-        "name": "Hogwash",
-        "tier": 2
-      },
-      {
-        "name": "Rivet Gun",
-        "tier": 2
-      },
-      {
-        "name": "Hammer",
-        "tier": 2
-      },
-      {
-        "name": "Propeller",
-        "tier": 1
-      }
-    ]
-  },
-  "Cosmic Roc": {
-    "id": "a48cb3e2-1ae2-4d37-aaee-e6f7af7e2404",
-    "name": "Cosmic Roc",
-    "day": 7,
-    "health": 1550,
-    "skills": [
-      {
-        "name": "Cosmic Wind",
-        "tier": 1
-      },
-      {
-        "name": "Keen Eye",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Feather",
-        "tier": 2
-      },
-      {
-        "name": "Cosmic Amulet",
-        "tier": 2
-      },
-      {
-        "name": "Cosmic Plumage",
-        "tier": 1
-      },
-      {
-        "name": "Claws",
         "tier": 0
-      },
-      {
-        "name": "Claws",
-        "tier": 0
-      },
-      {
-        "name": "Cosmic Plumage",
-        "tier": 1
-      },
-      {
-        "name": "Cosmic Amulet",
-        "tier": 1
-      },
-      {
-        "name": "Feather",
-        "tier": 2
-      }
-    ]
-  },
-  "Joyful Jack": {
-    "id": "105b820e-34ee-484e-a7a1-011032ec7eec",
-    "name": "Joyful Jack",
-    "day": 7,
-    "health": 1550,
-    "skills": [
-      {
-        "name": "Equivalent Exchange",
-        "tier": 3
-      },
-      {
-        "name": "Critical Aid",
-        "tier": 1
-      }
-    ],
-    "items": [
-      {
-        "name": "Extract",
-        "tier": 2
-      },
-      {
-        "name": "Black Rose",
-        "tier": 2
-      },
-      {
-        "name": "Poppy Field",
-        "tier": 2
-      },
-      {
-        "name": "Floor Spike",
-        "tier": 1
-      },
-      {
-        "name": "Bushel",
-        "tier": 1
-      },
-      {
-        "name": "Succulents",
-        "tier": 1,
-        "enchant": "Toxic"
-      },
-      {
-        "name": "Extract",
-        "tier": 2
-      }
-    ]
-  },
-  "Treasure Turtle": {
-    "id": "7b768d49-b2cc-40f8-ab0f-2d0ed36a0c56",
-    "name": "Treasure Turtle",
-    "day": 7,
-    "health": 1700,
-    "skills": [
-      {
-        "name": "Hunker Down",
-        "tier": 1
-      },
-      {
-        "name": "Toughness",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Temple Expedition Ticket",
-        "tier": 4
-      },
-      {
-        "name": "Bag of Jewels",
-        "tier": 2
-      },
-      {
-        "name": "Seaweed",
-        "tier": 1
-      },
-      {
-        "name": "Sea Shell",
-        "tier": 1
-      },
-      {
-        "name": "Turtle Shell",
-        "tier": 2
-      },
-      {
-        "name": "Catfish",
-        "tier": 2
-      },
-      {
-        "name": "Pearl",
-        "tier": 2
-      },
-      {
-        "name": "Clamera",
-        "tier": 1
-      },
-      {
-        "name": "Bag of Jewels",
-        "tier": 2
       }
     ]
   },
@@ -2125,7 +2128,7 @@ export const monsters = {
     "items": [
       {
         "name": "Cinders",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Nitro",
@@ -2137,49 +2140,192 @@ export const monsters = {
       },
       {
         "name": "Bomb Squad",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Char Cole",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Curry",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Hot Sauce",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Black Pepper",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Lighter",
+        "tier": 0
+      }
+    ]
+  },
+  "Joyful Jack": {
+    "id": "105b820e-34ee-484e-a7a1-011032ec7eec",
+    "name": "Joyful Jack",
+    "day": 8,
+    "health": 1550,
+    "skills": [
+      {
+        "name": "Equivalent Exchange",
+        "tier": 0
+      },
+      {
+        "name": "Critical Aid",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Extract",
+        "tier": 0
+      },
+      {
+        "name": "Black Rose",
+        "tier": 0
+      },
+      {
+        "name": "Poppy Field",
+        "tier": 2
+      },
+      {
+        "name": "Floor Spike",
+        "tier": 0
+      },
+      {
+        "name": "Bushel",
+        "tier": 0
+      },
+      {
+        "name": "Succulents",
+        "tier": 0,
+        "enchant": "Toxic"
+      },
+      {
+        "name": "Temple Expedition Ticket",
+        "tier": 0
+      }
+    ]
+  },
+  "Treasure Turtle": {
+    "id": "7b768d49-b2cc-40f8-ab0f-2d0ed36a0c56",
+    "name": "Treasure Turtle",
+    "day": 7,
+    "health": 1700,
+    "skills": [
+      {
+        "name": "Hunker Down",
+        "tier": 1
+      },
+      {
+        "name": "Toughness",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Bag of Jewels",
+        "tier": 0
+      },
+      {
+        "name": "Seaweed",
+        "tier": 0
+      },
+      {
+        "name": "Sea Shell",
+        "tier": 0
+      },
+      {
+        "name": "Turtle Shell",
+        "tier": 2
+      },
+      {
+        "name": "Catfish",
+        "tier": 0
+      },
+      {
+        "name": "Pearl",
+        "tier": 0
+      },
+      {
+        "name": "Clamera",
+        "tier": 1
+      },
+      {
+        "name": "Temple Expedition Ticket",
+        "tier": 0
+      },
+      {
+        "name": "Lucky Clover",
+        "tier": 0
+      }
+    ]
+  },
+  "Wildman": {
+    "id": "90aa768f-4a8d-4087-ad5a-5f44efe28e3a",
+    "name": "Wildman",
+    "day": 7,
+    "health": 1700,
+    "skills": [
+      {
+        "name": "Frontier Living",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Pelt",
+        "tier": 0
+      },
+      {
+        "name": "Battle Axe",
+        "tier": 0
+      },
+      {
+        "name": "Bear Mask",
+        "tier": 1
+      },
+      {
+        "name": "Hunting Knife",
+        "tier": 0
+      },
+      {
+        "name": "Bagpipes",
+        "tier": 0
+      },
+      {
+        "name": "Warpaint",
+        "tier": 1
+      },
+      {
+        "name": "Resistance Bands",
         "tier": 1
       }
     ]
   },
   "Annex Trooper": {
-    "id": "d9e56b4c-8ad2-465d-b44c-45a7f2562bde",
+    "id": "e3a8efa1-1dfc-4dd5-a1fe-7daaa8315e18",
     "name": "Annex Trooper",
     "day": 7,
     "health": 1925,
     "skills": [
       {
         "name": "Tracer Fire",
-        "tier": 2
+        "tier": 1
       }
     ],
     "items": [
       {
         "name": "Welding Helmet",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Plasma Grenade",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Nitro",
@@ -2199,7 +2345,7 @@ export const monsters = {
       },
       {
         "name": "Induction Aegis",
-        "tier": 2
+        "tier": 0
       }
     ]
   },
@@ -2216,25 +2362,124 @@ export const monsters = {
     ],
     "items": [
       {
-        "name": "Icicle",
-        "tier": 2
+        "name": "Slushee",
+        "tier": 1
       },
       {
         "name": "Ice Cubes",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Ice Cream Truck",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Hammock",
-        "tier": 2,
+        "tier": 1,
         "enchant": "Icy"
       },
       {
         "name": "Igloo",
+        "tier": 1
+      }
+    ]
+  },
+  "Sergeant Suds": {
+    "id": "f9e17ce4-c82d-44c2-8406-ad33277a3b1c",
+    "name": "Sergeant Suds",
+    "day": 7,
+    "health": 1200,
+    "skills": [
+      {
+        "name": "Clean Storefront",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Bar of Soap",
+        "tier": 0
+      },
+      {
+        "name": "Hogwash",
+        "tier": 1
+      },
+      {
+        "name": "Bar of Soap",
+        "tier": 0,
+        "enchant": "Obsidian"
+      },
+      {
+        "name": "Bar of Soap",
+        "tier": 0,
+        "enchant": "Fiery"
+      },
+      {
+        "name": "Bar of Soap",
+        "tier": 0,
+        "enchant": "Shielded"
+      },
+      {
+        "name": "Bar of Soap",
+        "tier": 0,
+        "enchant": "Mossy"
+      },
+      {
+        "name": "Bar of Soap",
+        "tier": 0,
+        "enchant": "Toxic"
+      },
+      {
+        "name": "Bar of Soap",
+        "tier": 0,
+        "enchant": "Turbo"
+      }
+    ]
+  },
+  "Thug": {
+    "id": "2b0437f4-6977-4f84-aeb6-6545cbf5632d",
+    "name": "Thug",
+    "day": 7,
+    "health": 2550,
+    "skills": [
+      {
+        "name": "Bonk",
         "tier": 2
+      },
+      {
+        "name": "Long Strides",
+        "tier": 2
+      },
+      {
+        "name": "Brawler",
+        "tier": 1
+      },
+      {
+        "name": "Strength",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Bar of Gold",
+        "tier": 0
+      },
+      {
+        "name": "Double Whammy",
+        "tier": 2
+      },
+      {
+        "name": "Improvised Bludgeon",
+        "tier": 0
+      },
+      {
+        "name": "Pawn Shop",
+        "tier": 0
+      },
+      {
+        "name": "Brass Knuckles",
+        "tier": 0,
+        "enchant": "Toxic"
       }
     ]
   },
@@ -2246,15 +2491,11 @@ export const monsters = {
     "skills": [
       {
         "name": "Fiery Rebirth",
-        "tier": 4
-      },
-      {
-        "name": "Flamedancer",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Right-Handed",
-        "tier": 3
+        "tier": 0
       },
       {
         "name": "Final Flame",
@@ -2264,7 +2505,7 @@ export const monsters = {
     "items": [
       {
         "name": "Grappling Hook",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Anchor",
@@ -2272,64 +2513,16 @@ export const monsters = {
       },
       {
         "name": "Dock Lines",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Katana",
-        "tier": 2,
+        "tier": 0,
         "enchant": "Fiery"
       },
       {
         "name": "Lighthouse",
-        "tier": 3
-      }
-    ]
-  },
-  "Thug": {
-    "id": "2b0437f4-6977-4f84-aeb6-6545cbf5632d",
-    "name": "Thug",
-    "day": 7,
-    "health": 5700,
-    "skills": [
-      {
-        "name": "Bonk",
-        "tier": 3
-      },
-      {
-        "name": "Long Strides",
-        "tier": 3
-      },
-      {
-        "name": "Brawler",
-        "tier": 3
-      },
-      {
-        "name": "Strength",
-        "tier": 3
-      }
-    ],
-    "items": [
-      {
-        "name": "Bar of Gold",
-        "tier": 3
-      },
-      {
-        "name": "Double Whammy",
-        "tier": 2,
-        "enchant": "Toxic"
-      },
-      {
-        "name": "Improvised Bludgeon",
         "tier": 2
-      },
-      {
-        "name": "Pawn Shop",
-        "tier": 2
-      },
-      {
-        "name": "Brass Knuckles",
-        "tier": 2,
-        "enchant": "Toxic"
       }
     ]
   },
@@ -2347,7 +2540,7 @@ export const monsters = {
     "items": [
       {
         "name": "Air-Pressure Rifle",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Altimeter",
@@ -2363,11 +2556,61 @@ export const monsters = {
       },
       {
         "name": "Tethers",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Flycycle",
+        "tier": 0
+      }
+    ]
+  },
+  "Cosmic Roc": {
+    "id": "723f8e17-6885-45b4-b38f-186abb3277c8",
+    "name": "Cosmic Roc",
+    "day": 8,
+    "health": 1500,
+    "skills": [
+      {
+        "name": "Cosmic Wind",
+        "tier": 0
+      },
+      {
+        "name": "Keen Eye",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Feather",
+        "tier": 2
+      },
+      {
+        "name": "Cosmic Amulet",
         "tier": 1
+      },
+      {
+        "name": "Cosmic Plumage",
+        "tier": 1
+      },
+      {
+        "name": "Claws",
+        "tier": 0
+      },
+      {
+        "name": "Claws",
+        "tier": 0
+      },
+      {
+        "name": "Cosmic Plumage",
+        "tier": 1
+      },
+      {
+        "name": "Cosmic Amulet",
+        "tier": 1
+      },
+      {
+        "name": "Feather",
+        "tier": 2
       }
     ]
   },
@@ -2385,11 +2628,11 @@ export const monsters = {
     "items": [
       {
         "name": "Curry",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Black Pepper",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Oven Mitts",
@@ -2401,15 +2644,95 @@ export const monsters = {
       },
       {
         "name": "Pickled Peppers",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Hot Sauce",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Scorchpepper",
+        "tier": 0
+      }
+    ]
+  },
+  "Bouncertron": {
+    "id": "a1c3df15-1058-44ff-bee9-0991cfba2068",
+    "name": "Bouncertron",
+    "day": 8,
+    "health": 1925,
+    "skills": [
+      {
+        "name": "Sharpened Steel",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Cybersecurity",
+        "tier": 2
+      },
+      {
+        "name": "Pulse Rifle",
+        "tier": 0
+      },
+      {
+        "name": "Katana",
+        "tier": 0
+      },
+      {
+        "name": "Laser Pistol",
+        "tier": 0
+      },
+      {
+        "name": "Sunderer",
+        "tier": 0
+      },
+      {
+        "name": "Gatling Gun",
         "tier": 1
+      }
+    ]
+  },
+  "Car Conductor": {
+    "id": "76c8dc41-96c9-4c05-acb1-5eaab4ea8e17",
+    "name": "Car Conductor",
+    "day": 8,
+    "health": 1925,
+    "skills": [
+      {
+        "name": "Expert Pilot",
+        "tier": 0
+      },
+      {
+        "name": "Command Ship",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Goggles",
+        "tier": 0
+      },
+      {
+        "name": "Sirens",
+        "tier": 1
+      },
+      {
+        "name": "Race Carl",
+        "tier": 1
+      },
+      {
+        "name": "Captain's Wheel",
+        "tier": 1
+      },
+      {
+        "name": "Hydrogen Tank",
+        "tier": 1
+      },
+      {
+        "name": "Cog",
+        "tier": 0
       }
     ]
   },
@@ -2427,110 +2750,112 @@ export const monsters = {
     "items": [
       {
         "name": "Trebuchet",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Rocket Launcher",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Pop Snappers",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Incendiary Rounds",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Pop Snappers",
+        "tier": 0
+      },
+      {
+        "name": "Thrusters",
         "tier": 1
       },
       {
-        "name": "Thrusters",
-        "tier": 2
-      },
-      {
-        "name": "Thrusters",
-        "tier": 2
+        "name": "Temple Expedition Ticket",
+        "tier": 1
       }
     ]
   },
-  "Car Conductor": {
-    "id": "76c8dc41-96c9-4c05-acb1-5eaab4ea8e17",
-    "name": "Car Conductor",
+  "Wolverine": {
+    "id": "e82f2b78-f445-4782-b35b-7d6d4058f3be",
+    "name": "Wolverine",
     "day": 8,
     "health": 1925,
     "skills": [
       {
-        "name": "Expert Pilot",
-        "tier": 2
+        "name": "Ferocious Bite",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Pelt",
+        "tier": 0
       },
       {
-        "name": "Command Ship",
+        "name": "Eagle Sigil",
+        "tier": 1
+      },
+      {
+        "name": "Wolverine",
+        "tier": 1
+      },
+      {
+        "name": "Beast Call",
+        "tier": 1
+      },
+      {
+        "name": "Wolf",
+        "tier": 1
+      },
+      {
+        "name": "Fang",
+        "tier": 0,
+        "enchant": "Turbo"
+      },
+      {
+        "name": "Warpaint",
+        "tier": 1
+      },
+      {
+        "name": "Claws",
+        "tier": 0,
+        "enchant": "Turbo"
+      }
+    ]
+  },
+  "Burninator Bot": {
+    "id": "3836d71e-c6ea-4ef7-a9c7-ce698001e991",
+    "name": "Burninator Bot",
+    "day": 8,
+    "health": 2325,
+    "skills": [
+      {
+        "name": "Slow Burn",
         "tier": 2
       }
     ],
     "items": [
       {
-        "name": "Goggles",
+        "name": "Induction Aegis",
+        "tier": 0
+      },
+      {
+        "name": "Weakpoint Detector",
+        "tier": 0
+      },
+      {
+        "name": "Pylon",
         "tier": 1
       },
       {
-        "name": "Sirens",
+        "name": "Thermal Lance",
         "tier": 1
       },
       {
-        "name": "Race Carl",
-        "tier": 2
-      },
-      {
-        "name": "Captain's Wheel",
-        "tier": 2
-      },
-      {
-        "name": "Hydrogen Tank",
-        "tier": 1
-      },
-      {
-        "name": "Cog",
-        "tier": 1
-      }
-    ]
-  },
-  "Bouncertron": {
-    "id": "a1c3df15-1058-44ff-bee9-0991cfba2068",
-    "name": "Bouncertron",
-    "day": 8,
-    "health": 1925,
-    "skills": [
-      {
-        "name": "Sharpened Steel",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Cybersecurity",
-        "tier": 2
-      },
-      {
-        "name": "Pulse Rifle",
-        "tier": 2
-      },
-      {
-        "name": "Katana",
-        "tier": 2
-      },
-      {
-        "name": "Laser Pistol",
-        "tier": 2
-      },
-      {
-        "name": "Sunderer",
-        "tier": 2
-      },
-      {
-        "name": "Gatling Gun",
+        "name": "Flamethrower",
         "tier": 2
       }
     ]
@@ -2553,19 +2878,58 @@ export const monsters = {
       },
       {
         "name": "Lightbulb",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Tesla Coil",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Cog",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Weather Machine",
+        "tier": 1
+      }
+    ]
+  },
+  "Oasis Guardian": {
+    "id": "87ab01e1-55a7-4934-8201-b005b540616f",
+    "name": "Oasis Guardian",
+    "day": 9,
+    "health": 2325,
+    "skills": [
+      {
+        "name": "Waters of Infinity",
+        "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Ouroboros Statue",
+        "tier": 1
+      },
+      {
+        "name": "Venomander",
+        "tier": 0
+      },
+      {
+        "name": "Sleeping Potion",
+        "tier": 0,
+        "enchant": "Mossy"
+      },
+      {
+        "name": "Incense",
+        "tier": 0
+      },
+      {
+        "name": "Magnus' Femur",
         "tier": 2
+      },
+      {
+        "name": "Nightshade",
+        "tier": 0
       }
     ]
   },
@@ -2577,11 +2941,11 @@ export const monsters = {
     "skills": [
       {
         "name": "Thick Hide",
-        "tier": 3
+        "tier": 0
       },
       {
         "name": "Improved Toxins",
-        "tier": 2
+        "tier": 0
       }
     ],
     "items": [
@@ -2591,61 +2955,27 @@ export const monsters = {
       },
       {
         "name": "Catfish",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Jellyfish",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Piranha",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Amber",
-        "tier": 2
-      },
-      {
-        "name": "Seaweed",
         "tier": 1
       },
       {
+        "name": "Seaweed",
+        "tier": 0
+      },
+      {
         "name": "Pufferfish",
-        "tier": 2
-      }
-    ]
-  },
-  "Burninator Bot": {
-    "id": "3836d71e-c6ea-4ef7-a9c7-ce698001e991",
-    "name": "Burninator Bot",
-    "day": 8,
-    "health": 2325,
-    "skills": [
-      {
-        "name": "Slow Burn",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Induction Aegis",
-        "tier": 2
-      },
-      {
-        "name": "Weakpoint Detector",
-        "tier": 3
-      },
-      {
-        "name": "Pylon",
-        "tier": 2
-      },
-      {
-        "name": "Thermal Lance",
-        "tier": 3
-      },
-      {
-        "name": "Flamethrower",
-        "tier": 2
+        "tier": 1
       }
     ]
   },
@@ -2657,71 +2987,33 @@ export const monsters = {
     "skills": [
       {
         "name": "Draconic Rage",
-        "tier": 3
+        "tier": 1
       },
       {
         "name": "Regenerative",
-        "tier": 2
+        "tier": 1
       }
     ],
     "items": [
       {
         "name": "Dragon Wing",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Fire Claw",
-        "tier": 3
+        "tier": 2
       },
       {
         "name": "Dragon Heart",
-        "tier": 4
+        "tier": 1
       },
       {
         "name": "Fire Claw",
-        "tier": 3
+        "tier": 2
       },
       {
         "name": "Dragon Wing",
-        "tier": 2
-      }
-    ]
-  },
-  "Oasis Guardian": {
-    "id": "87ab01e1-55a7-4934-8201-b005b540616f",
-    "name": "Oasis Guardian",
-    "day": 8,
-    "health": 2325,
-    "skills": [
-      {
-        "name": "Waters of Infinity",
         "tier": 1
-      }
-    ],
-    "items": [
-      {
-        "name": "Ouroboros Statue",
-        "tier": 2
-      },
-      {
-        "name": "Venomander",
-        "tier": 2
-      },
-      {
-        "name": "Sleeping Potion",
-        "tier": 1
-      },
-      {
-        "name": "Incense",
-        "tier": 1
-      },
-      {
-        "name": "Magnus' Femur",
-        "tier": 2
-      },
-      {
-        "name": "Nightshade",
-        "tier": 2
       }
     ]
   },
@@ -2743,77 +3035,23 @@ export const monsters = {
     "items": [
       {
         "name": "Crow's Nest",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Pesky Pete",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Captain's Wheel",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Pop Snappers",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Flagship",
-        "tier": 2
-      }
-    ]
-  },
-  "Elite Duelist": {
-    "id": "338f3c4b-9238-41d2-a0e0-0d825cded307",
-    "name": "Elite Duelist",
-    "day": 9,
-    "health": 1925,
-    "skills": [
-      {
-        "name": "Big Ego",
-        "tier": 3
-      },
-      {
-        "name": "Strength",
         "tier": 1
-      }
-    ],
-    "items": [
-      {
-        "name": "Revolver",
-        "tier": 2
-      },
-      {
-        "name": "Powder Horn",
-        "tier": 1
-      },
-      {
-        "name": "Revolver",
-        "tier": 2
-      },
-      {
-        "name": "Shoe Blade",
-        "tier": 1
-      },
-      {
-        "name": "Butterfly Swords",
-        "tier": 1
-      },
-      {
-        "name": "Butterfly Swords",
-        "tier": 1
-      },
-      {
-        "name": "Spices",
-        "tier": 3
-      },
-      {
-        "name": "Holsters",
-        "tier": 2
-      },
-      {
-        "name": "Knife Set",
-        "tier": 2
       }
     ]
   },
@@ -2825,11 +3063,11 @@ export const monsters = {
     "skills": [
       {
         "name": "Aerial Assault",
-        "tier": 3
+        "tier": 0
       },
       {
         "name": "Strength",
-        "tier": 3
+        "tier": 0
       }
     ],
     "items": [
@@ -2839,7 +3077,7 @@ export const monsters = {
       },
       {
         "name": "Captain's Wheel",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Battle Balloon",
@@ -2847,15 +3085,105 @@ export const monsters = {
       },
       {
         "name": "Marshalling Lights",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Admiral's Badge",
-        "tier": 4
+        "tier": 2
       },
       {
         "name": "Flare Gun",
+        "tier": 1
+      }
+    ]
+  },
+  "Elite Duelist": {
+    "id": "338f3c4b-9238-41d2-a0e0-0d825cded307",
+    "name": "Elite Duelist",
+    "day": 9,
+    "health": 1925,
+    "skills": [
+      {
+        "name": "Big Ego",
+        "tier": 0
+      },
+      {
+        "name": "Strength",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Revolver",
+        "tier": 0
+      },
+      {
+        "name": "Powder Horn",
+        "tier": 0
+      },
+      {
+        "name": "Revolver",
+        "tier": 0
+      },
+      {
+        "name": "Shoe Blade",
+        "tier": 0
+      },
+      {
+        "name": "Butterfly Swords",
+        "tier": 1
+      },
+      {
+        "name": "Butterfly Swords",
+        "tier": 1
+      },
+      {
+        "name": "Spices",
         "tier": 2
+      },
+      {
+        "name": "Holsters",
+        "tier": 1
+      },
+      {
+        "name": "Cutlass",
+        "tier": 0
+      }
+    ]
+  },
+  "Anaconda": {
+    "id": "852c1d17-e82f-49b6-ade5-59328d5b2e99",
+    "name": "Anaconda",
+    "day": 9,
+    "health": 2325,
+    "skills": [
+      {
+        "name": "Honed In",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Anaconda",
+        "tier": 2
+      },
+      {
+        "name": "Hidden Lake",
+        "tier": 1
+      },
+      {
+        "name": "Fang",
+        "tier": 0,
+        "enchant": "Shiny"
+      },
+      {
+        "name": "Fang",
+        "tier": 0,
+        "enchant": "Shiny"
+      },
+      {
+        "name": "Assault Sigil",
+        "tier": 1
       }
     ]
   },
@@ -2867,7 +3195,7 @@ export const monsters = {
     "skills": [
       {
         "name": "Shored Up",
-        "tier": 3
+        "tier": 0
       },
       {
         "name": "First Responder",
@@ -2885,27 +3213,28 @@ export const monsters = {
       },
       {
         "name": "Sea Shell",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Pet Rock",
-        "tier": 2
+        "tier": 0,
+        "enchant": "Mossy"
       },
       {
         "name": "Catfish",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Jellyfish",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Seaweed",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Seaweed",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Clamera",
@@ -2920,22 +3249,22 @@ export const monsters = {
     "health": 2325,
     "skills": [
       {
-        "name": "Flashy Reload",
-        "tier": 3
+        "name": "Passive Power",
+        "tier": 2
       },
       {
-        "name": "Passive Power",
+        "name": "Flashy Reload",
         "tier": 2
       }
     ],
     "items": [
       {
         "name": "Torpedo",
-        "tier": 2
+        "tier": 1
       },
       {
-        "name": "Mantis Shrimp",
-        "tier": 1
+        "name": "Piranha",
+        "tier": 0
       },
       {
         "name": "Shot Glasses",
@@ -2943,157 +3272,19 @@ export const monsters = {
       },
       {
         "name": "Elemental Depth Charge",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Bottled Lightning",
-        "tier": 2
+        "tier": 0
       },
       {
-        "name": "Piranha",
-        "tier": 3
+        "name": "Mantis Shrimp",
+        "tier": 0
       },
       {
         "name": "Biomerge Arm",
         "tier": 2
-      }
-    ]
-  },
-  "Weapons Platform": {
-    "id": "d63f985a-2960-408e-97ea-f023d4afd440",
-    "name": "Weapons Platform",
-    "day": 9,
-    "health": 2750,
-    "skills": [
-      {
-        "name": "Distributed Systems",
-        "tier": 3
-      },
-      {
-        "name": "Keen Eye",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Cog",
-        "tier": 2
-      },
-      {
-        "name": "Kinetic Cannon",
-        "tier": 2
-      },
-      {
-        "name": "Battery",
-        "tier": 2
-      },
-      {
-        "name": "Coolant",
-        "tier": 2
-      },
-      {
-        "name": "First Aiden",
-        "tier": 2
-      },
-      {
-        "name": "Laser Pistol",
-        "tier": 2
-      },
-      {
-        "name": "Power Sander",
-        "tier": 2
-      },
-      {
-        "name": "SMG",
-        "tier": 2
-      }
-    ]
-  },
-  "Foundation Revenant": {
-    "id": "fc3dee8e-aef5-41c9-95a8-d91ad54adede",
-    "name": "Foundation Revenant",
-    "day": 9,
-    "health": 3200,
-    "skills": [
-      {
-        "name": "Exposing Toxins",
-        "tier": 3
-      },
-      {
-        "name": "Purifying Flame",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Soul Ring",
-        "tier": 2
-      },
-      {
-        "name": "Emerald",
-        "tier": 2
-      },
-      {
-        "name": "Ouroboros Statue",
-        "tier": 3
-      },
-      {
-        "name": "Shadowed Cloak",
-        "tier": 2
-      },
-      {
-        "name": "Basilisk Fang",
-        "tier": 2
-      },
-      {
-        "name": "Ectoplasm",
-        "tier": 3
-      },
-      {
-        "name": "Thurible",
-        "tier": 2
-      },
-      {
-        "name": "Bandages",
-        "tier": 2
-      }
-    ]
-  },
-  "Void Knight": {
-    "id": "be75b034-f986-4cdd-b871-5e8258865c29",
-    "name": "Void Knight",
-    "day": 9,
-    "health": 3675,
-    "skills": [
-      {
-        "name": "Hypnotic Drain",
-        "tier": 3
-      },
-      {
-        "name": "Desperate Cleanse",
-        "tier": 3
-      }
-    ],
-    "items": [
-      {
-        "name": "Sapphire",
-        "tier": 2
-      },
-      {
-        "name": "Shadowed Cloak",
-        "tier": 2
-      },
-      {
-        "name": "Scythe",
-        "tier": 4
-      },
-      {
-        "name": "Mortal Coil",
-        "tier": 2
-      },
-      {
-        "name": "Runic Great Axe",
-        "tier": 3
       }
     ]
   },
@@ -3105,41 +3296,91 @@ export const monsters = {
     "skills": [
       {
         "name": "One Shot, One Kill",
-        "tier": 3
+        "tier": 0
       },
       {
         "name": "Left-Handed",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Right-Handed",
-        "tier": 2
+        "tier": 0
       }
     ],
     "items": [
       {
         "name": "Shadowed Cloak",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Sniper Rifle",
         "tier": 2
       },
       {
-        "name": "Silencer",
-        "tier": 2
-      },
-      {
-        "name": "Barrel",
+        "name": "Suppressor",
         "tier": 1
       },
       {
+        "name": "Barrel",
+        "tier": 0
+      },
+      {
         "name": "Dock Lines",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Energy Potion",
         "tier": 1
+      }
+    ]
+  },
+  "Weapons Platform": {
+    "id": "d63f985a-2960-408e-97ea-f023d4afd440",
+    "name": "Weapons Platform",
+    "day": 9,
+    "health": 2750,
+    "skills": [
+      {
+        "name": "Distributed Systems",
+        "tier": 0
+      },
+      {
+        "name": "Keen Eye",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Cog",
+        "tier": 0
+      },
+      {
+        "name": "Kinetic Cannon",
+        "tier": 2
+      },
+      {
+        "name": "Battery",
+        "tier": 0
+      },
+      {
+        "name": "Coolant",
+        "tier": 1
+      },
+      {
+        "name": "First Aiden",
+        "tier": 0
+      },
+      {
+        "name": "Laser Pistol",
+        "tier": 0
+      },
+      {
+        "name": "Power Sander",
+        "tier": 0
+      },
+      {
+        "name": "SMG",
+        "tier": 0
       }
     ]
   },
@@ -3155,13 +3396,13 @@ export const monsters = {
       },
       {
         "name": "Right-Handed",
-        "tier": 2
+        "tier": 0
       }
     ],
     "items": [
       {
         "name": "Tournament Arena",
-        "tier": 3
+        "tier": 2
       },
       {
         "name": "Piggles Board",
@@ -3169,23 +3410,161 @@ export const monsters = {
       },
       {
         "name": "Red Piggles R",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Yo-Yo",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Red Piggles A",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Premium Red Piggles",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Red Piggles L",
+        "tier": 0
+      }
+    ]
+  },
+  "Foundation Revenant": {
+    "id": "962bf2b2-fc1b-4ad3-9526-15d76d3bb0de",
+    "name": "Foundation Revenant",
+    "day": 9,
+    "health": 3200,
+    "skills": [
+      {
+        "name": "Exposing Toxins",
+        "tier": 1
+      },
+      {
+        "name": "Purifying Flame",
+        "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Soul Ring",
         "tier": 2
+      },
+      {
+        "name": "Emerald",
+        "tier": 0
+      },
+      {
+        "name": "Ouroboros Statue",
+        "tier": 1
+      },
+      {
+        "name": "Shadowed Cloak",
+        "tier": 0
+      },
+      {
+        "name": "Basilisk Fang",
+        "tier": 0
+      },
+      {
+        "name": "Ectoplasm",
+        "tier": 1
+      },
+      {
+        "name": "Thurible",
+        "tier": 0
+      },
+      {
+        "name": "Bandages",
+        "tier": 0
+      }
+    ]
+  },
+  "Void Knight": {
+    "id": "be75b034-f986-4cdd-b871-5e8258865c29",
+    "name": "Void Knight",
+    "day": 9,
+    "health": 3675,
+    "skills": [
+      {
+        "name": "Hypnotic Drain",
+        "tier": 1
+      },
+      {
+        "name": "Desperate Cleanse",
+        "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Sapphire",
+        "tier": 1
+      },
+      {
+        "name": "Shadowed Cloak",
+        "tier": 0
+      },
+      {
+        "name": "Scythe",
+        "tier": 1
+      },
+      {
+        "name": "Mortal Coil",
+        "tier": 2
+      },
+      {
+        "name": "Runic Great Axe",
+        "tier": 1
+      }
+    ]
+  },
+  "Boss Harrow": {
+    "id": "4ccdd72f-cfce-4ea6-9bda-caabd5b0fbf8",
+    "name": "Boss Harrow",
+    "day": 10,
+    "health": 2325,
+    "skills": [
+      {
+        "name": "Assault Focus",
+        "tier": 1
+      },
+      {
+        "name": "Strength",
+        "tier": 0
+      },
+      {
+        "name": "Keen Eye",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Weakpoint Detector",
+        "tier": 0
+      },
+      {
+        "name": "Runic Double Bow",
+        "tier": 1
+      },
+      {
+        "name": "Bayonet",
+        "tier": 0
+      },
+      {
+        "name": "Grappling Hook",
+        "tier": 0
+      },
+      {
+        "name": "Jitte",
+        "tier": 1
+      },
+      {
+        "name": "Katana",
+        "tier": 0
+      },
+      {
+        "name": "Bayonet",
+        "tier": 0
       }
     ]
   },
@@ -3207,85 +3586,35 @@ export const monsters = {
     "items": [
       {
         "name": "Athanor",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Bottled Lightning",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Energy Potion",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Fire Potion",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Rainbow Potion",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Noxious Potion",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Noxious Potion",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Rainbow Potion",
-        "tier": 2
-      }
-    ]
-  },
-  "Boss Harrow": {
-    "id": "4ccdd72f-cfce-4ea6-9bda-caabd5b0fbf8",
-    "name": "Boss Harrow",
-    "day": 10,
-    "health": 2325,
-    "skills": [
-      {
-        "name": "Assault Focus",
-        "tier": 2
-      },
-      {
-        "name": "Strength",
-        "tier": 2
-      },
-      {
-        "name": "Keen Eye",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Weakpoint Detector",
-        "tier": 2
-      },
-      {
-        "name": "Runic Double Bow",
-        "tier": 2
-      },
-      {
-        "name": "Bayonet",
-        "tier": 1
-      },
-      {
-        "name": "Grappling Hook",
-        "tier": 1
-      },
-      {
-        "name": "Jitte",
-        "tier": 2
-      },
-      {
-        "name": "Katana",
-        "tier": 1
-      },
-      {
-        "name": "Bayonet",
-        "tier": 1
+        "tier": 0
       }
     ]
   },
@@ -3297,21 +3626,21 @@ export const monsters = {
     "skills": [
       {
         "name": "Retool",
-        "tier": 3
+        "tier": 0
       }
     ],
     "items": [
       {
         "name": "Mortar & Pestle",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Refractor",
-        "tier": 1
+        "tier": 0
       },
       {
         "name": "Rainbow Potion",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Cauldron",
@@ -3319,147 +3648,11 @@ export const monsters = {
       },
       {
         "name": "Rainbow Potion",
-        "tier": 2
-      },
-      {
-        "name": "Weather Glass",
-        "tier": 2
-      }
-    ]
-  },
-  "Trash Titan": {
-    "id": "1e1f7b6d-746b-44d5-9906-fff137c75ef1",
-    "name": "Trash Titan",
-    "day": 10,
-    "health": 2750,
-    "skills": [
-      {
-        "name": "Juggler",
-        "tier": 3
-      }
-    ],
-    "items": [
-      {
-        "name": "Venom",
-        "tier": 1
-      },
-      {
-        "name": "Emerald",
-        "tier": 1
-      },
-      {
-        "name": "Catalyst",
-        "tier": 2
-      },
-      {
-        "name": "Junkyard Lance",
-        "tier": 3
-      },
-      {
-        "name": "Hemlock",
         "tier": 0
       },
       {
-        "name": "Ectoplasm",
-        "tier": 3
-      },
-      {
-        "name": "Ectoplasm",
-        "tier": 3
-      },
-      {
-        "name": "Venomander",
-        "tier": 2
-      }
-    ]
-  },
-  "Lord of the Wastes": {
-    "id": "fc59e9b3-88be-450c-b2dc-65d58a33d1d0",
-    "name": "Lord of the Wastes",
-    "day": 10,
-    "health": 2750,
-    "skills": [
-      {
-        "name": "Foreboding Winds",
-        "tier": 3
-      }
-    ],
-    "items": [
-      {
-        "name": "Letter Opener",
-        "tier": 2,
-        "enchant": "Obsidian"
-      },
-      {
-        "name": "Basilisk Fang",
-        "tier": 2
-      },
-      {
-        "name": "Sextant",
-        "tier": 3
-      },
-      {
-        "name": "Letter Opener",
-        "tier": 2,
-        "enchant": "Toxic"
-      },
-      {
-        "name": "Magic Carpet",
-        "tier": 2
-      },
-      {
-        "name": "Clockwork Blades",
-        "tier": 3
-      },
-      {
-        "name": "Energy Potion",
-        "tier": 3
-      }
-    ]
-  },
-  "Tortuga": {
-    "id": "2b68a81d-ea7e-401b-a374-77529470383f",
-    "name": "Tortuga",
-    "day": 10,
-    "health": 3050,
-    "skills": [
-      {
-        "name": "Friendzone",
-        "tier": 2
-      },
-      {
-        "name": "Warm Hugs",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Tortuga",
-        "tier": 2
-      },
-      {
-        "name": "Pesky Pete",
-        "tier": 2
-      },
-      {
-        "name": "Zoarcid",
-        "tier": 2
-      },
-      {
-        "name": "Catfish",
-        "tier": 2
-      },
-      {
-        "name": "Pufferfish",
-        "tier": 2
-      },
-      {
-        "name": "Jellyfish",
-        "tier": 2
-      },
-      {
-        "name": "Old Saltclaw",
-        "tier": 2
+        "name": "Weather Glass",
+        "tier": 1
       }
     ]
   },
@@ -3471,7 +3664,7 @@ export const monsters = {
     "skills": [
       {
         "name": "Pyromania",
-        "tier": 2
+        "tier": 1
       }
     ],
     "items": [
@@ -3481,19 +3674,63 @@ export const monsters = {
       },
       {
         "name": "Jetpack",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Solar Drone",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Balloon Engine",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Launch Tower",
-        "tier": 2
+        "tier": 1
+      }
+    ]
+  },
+  "Lord of the Wastes": {
+    "id": "fc59e9b3-88be-450c-b2dc-65d58a33d1d0",
+    "name": "Lord of the Wastes",
+    "day": 10,
+    "health": 2750,
+    "skills": [
+      {
+        "name": "Foreboding Winds",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Letter Opener",
+        "tier": 0,
+        "enchant": "Obsidian"
+      },
+      {
+        "name": "Basilisk Fang",
+        "tier": 0
+      },
+      {
+        "name": "Sextant",
+        "tier": 1
+      },
+      {
+        "name": "Magic Carpet",
+        "tier": 0
+      },
+      {
+        "name": "Letter Opener",
+        "tier": 0,
+        "enchant": "Toxic"
+      },
+      {
+        "name": "Clockwork Blades",
+        "tier": 0
+      },
+      {
+        "name": "Energy Potion",
+        "tier": 1
       }
     ]
   },
@@ -3509,25 +3746,25 @@ export const monsters = {
       },
       {
         "name": "Vital Reserve",
-        "tier": 2
+        "tier": 0
       }
     ],
     "items": [
       {
         "name": "Venomous Dose",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Fungal Spores",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Rapid Injection System",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Barbed Claws",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Test Subject Alpha",
@@ -3535,7 +3772,270 @@ export const monsters = {
       },
       {
         "name": "Infused Bracers",
+        "tier": 1
+      }
+    ]
+  },
+  "Tortuga": {
+    "id": "2b68a81d-ea7e-401b-a374-77529470383f",
+    "name": "Tortuga",
+    "day": 10,
+    "health": 3050,
+    "skills": [
+      {
+        "name": "Friendzone",
         "tier": 2
+      },
+      {
+        "name": "Warm Hugs",
+        "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Tortuga",
+        "tier": 2
+      },
+      {
+        "name": "Pesky Pete",
+        "tier": 0
+      },
+      {
+        "name": "Zoarcid",
+        "tier": 0
+      },
+      {
+        "name": "Catfish",
+        "tier": 0
+      },
+      {
+        "name": "Pufferfish",
+        "tier": 1
+      },
+      {
+        "name": "Jellyfish",
+        "tier": 0
+      },
+      {
+        "name": "Old Saltclaw",
+        "tier": 1
+      }
+    ]
+  },
+  "Trash Titan": {
+    "id": "1e1f7b6d-746b-44d5-9906-fff137c75ef1",
+    "name": "Trash Titan",
+    "day": 10,
+    "health": 2750,
+    "skills": [
+      {
+        "name": "Juggler",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Venom",
+        "tier": 0
+      },
+      {
+        "name": "Emerald",
+        "tier": 0
+      },
+      {
+        "name": "Catalyst",
+        "tier": 0
+      },
+      {
+        "name": "Junkyard Lance",
+        "tier": 0
+      },
+      {
+        "name": "Hemlock",
+        "tier": 0
+      },
+      {
+        "name": "Ectoplasm",
+        "tier": 1
+      },
+      {
+        "name": "Ectoplasm",
+        "tier": 1
+      },
+      {
+        "name": "Venomander",
+        "tier": 0
+      }
+    ]
+  },
+  "Awakened Primordial": {
+    "id": "e51634b6-ce99-4038-97e4-b9d86bdddae0",
+    "name": "Awakened Primordial",
+    "day": 10,
+    "health": 3600,
+    "skills": [
+      {
+        "name": "Wake-Up Call",
+        "tier": 1
+      },
+      {
+        "name": "Heated Shells",
+        "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Elemental Depth Charge",
+        "tier": 1
+      },
+      {
+        "name": "Pufferfish",
+        "tier": 1
+      },
+      {
+        "name": "Dive Weights",
+        "tier": 1
+      },
+      {
+        "name": "Incendiary Rounds",
+        "tier": 1
+      },
+      {
+        "name": "Pearl",
+        "tier": 0,
+        "enchant": "Toxic"
+      },
+      {
+        "name": "Slumbering Primordial",
+        "tier": 2
+      }
+    ]
+  },
+  "Dooltron": {
+    "id": "25f54463-2cca-419a-b0e8-8f5297896992",
+    "name": "Dooltron",
+    "day": 10,
+    "health": 3600,
+    "skills": [
+      {
+        "name": "Nanobot Construction",
+        "tier": 2
+      },
+      {
+        "name": "Electrified Hull",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "BLU-B33TL3",
+        "tier": 1
+      },
+      {
+        "name": "GRN-W4SP",
+        "tier": 0
+      },
+      {
+        "name": "BLK-SP1D3R",
+        "tier": 1
+      },
+      {
+        "name": "RED-F1R3FLY",
+        "tier": 0
+      },
+      {
+        "name": "YLW-M4NT1S",
+        "tier": 1
+      },
+      {
+        "name": "Z-Sword",
+        "tier": 1
+      },
+      {
+        "name": "Dooltron",
+        "tier": 2
+      }
+    ]
+  },
+  "Outlands Terror": {
+    "id": "6727fa2f-f378-49c7-a839-86bac0fec9a6",
+    "name": "Outlands Terror",
+    "day": 10,
+    "health": 3600,
+    "skills": [
+      {
+        "name": "Beast Unleashed",
+        "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Eagle Sigil",
+        "tier": 1
+      },
+      {
+        "name": "Claws",
+        "tier": 0
+      },
+      {
+        "name": "Wolf Mask",
+        "tier": 1
+      },
+      {
+        "name": "Outlands Terror",
+        "tier": 2
+      },
+      {
+        "name": "Assault Sigil",
+        "tier": 1
+      },
+      {
+        "name": "Fang",
+        "tier": 0,
+        "enchant": "Shiny"
+      }
+    ]
+  },
+  "Rex Spex": {
+    "id": "27f9cc4c-3f9e-494a-a13d-99797114c53c",
+    "name": "Rex Spex",
+    "day": 10,
+    "health": 3600,
+    "skills": [
+      {
+        "name": "Healthy Friendship",
+        "tier": 2
+      },
+      {
+        "name": "Static Acceleration",
+        "tier": 1
+      }
+    ],
+    "items": [
+      {
+        "name": "Dinosawer",
+        "tier": 0
+      },
+      {
+        "name": "Rex Spex",
+        "tier": 2
+      },
+      {
+        "name": "YLW-M4NT1S",
+        "tier": 1
+      },
+      {
+        "name": "Dino Disguise",
+        "tier": 1,
+        "enchant": "Fiery"
+      },
+      {
+        "name": "Zoarcid",
+        "tier": 0
+      },
+      {
+        "name": "Race Carl",
+        "tier": 1
       }
     ]
   },
@@ -3547,7 +4047,7 @@ export const monsters = {
     "skills": [
       {
         "name": "Cryomastery",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Reaching the Summit",
@@ -3573,7 +4073,7 @@ export const monsters = {
       },
       {
         "name": "Ice Pick",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Frost Potion",
@@ -3581,7 +4081,7 @@ export const monsters = {
       },
       {
         "name": "Icicle",
-        "tier": 3
+        "tier": 0
       }
     ]
   },
@@ -3597,7 +4097,7 @@ export const monsters = {
       },
       {
         "name": "Invigorating Cold",
-        "tier": 2
+        "tier": 1
       }
     ],
     "items": [
@@ -3615,237 +4115,57 @@ export const monsters = {
       },
       {
         "name": "Frozen Bludgeon",
-        "tier": 2
+        "tier": 0
       },
       {
         "name": "Frost Potion",
-        "tier": 2
+        "tier": 1
       },
       {
         "name": "Snowflake",
-        "tier": 3
-      }
-    ]
-  },
-  "Void Golem": {
-    "id": "568d3090-6703-4c42-bd65-ba50f883e869",
-    "name": "Void Golem",
-    "day": 10,
-    "health": 4700,
-    "skills": [
-      {
-        "name": "Into the Void",
-        "tier": 3
-      },
-      {
-        "name": "Void Render",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Singularity",
-        "tier": 4
-      },
-      {
-        "name": "Void Ray",
-        "tier": 2
-      },
-      {
-        "name": "Void Ray",
-        "tier": 2
-      },
-      {
-        "name": "Caltrops",
-        "tier": 3
-      },
-      {
-        "name": "Caltrops",
-        "tier": 3
-      },
-      {
-        "name": "Spices",
-        "tier": 3
-      }
-    ]
-  },
-  "Eight Arm Davvy": {
-    "id": "96349563-bfb5-46ef-8dff-dbf1ff0d4196",
-    "name": "Eight Arm Davvy",
-    "day": 10,
-    "health": 8888,
-    "skills": [
-      {
-        "name": "Arms Race",
-        "tier": 3
-      },
-      {
-        "name": "Hyper Focus",
-        "tier": 3
-      },
-      {
-        "name": "Strength",
-        "tier": 3
-      }
-    ],
-    "items": [
-      {
-        "name": "Tiny Cutlass",
-        "tier": 2
-      },
-      {
-        "name": "Tiny Cutlass",
-        "tier": 2
-      },
-      {
-        "name": "Tiny Cutlass",
-        "tier": 2
-      },
-      {
-        "name": "Tiny Cutlass",
-        "tier": 2
-      },
-      {
-        "name": "Octopus",
-        "tier": 4
-      },
-      {
-        "name": "Tiny Cutlass",
-        "tier": 2
-      },
-      {
-        "name": "Tiny Cutlass",
-        "tier": 2
-      },
-      {
-        "name": "Tiny Cutlass",
-        "tier": 2
-      },
-      {
-        "name": "Tiny Cutlass",
         "tier": 2
       }
     ]
   },
-  "Awakened District": {
-    "id": "fb2e242e-daf3-4771-bede-21b3adf03739",
-    "name": "Awakened District",
-    "day": 10,
-    "health": 4700,
-    "skills": [
-      {
-        "name": "Prosperity",
-        "tier": 3
-      },
-      {
-        "name": "Trickle Down Economics",
-        "tier": 3
-      },
-      {
-        "name": "Toughness",
-        "tier": 3
-      }
-    ],
-    "items": [
-      {
-        "name": "Landscraper",
-        "tier": 2
-      },
-      {
-        "name": "Soul of the District",
-        "tier": 4
-      },
-      {
-        "name": "Spacescraper",
-        "tier": 2
-      },
-      {
-        "name": "Balcony",
-        "tier": 2
-      }
-    ]
-  },
-  "Lord Arken": {
-    "id": "8f73d2d6-6071-4464-bb19-8e0783de4df0",
-    "name": "Lord Arken",
-    "day": 10,
-    "health": 4700,
-    "skills": [
-      {
-        "name": "Unwavering",
-        "tier": 3
-      },
-      {
-        "name": "Strength",
-        "tier": 3
-      },
-      {
-        "name": "Flurry of Blows",
-        "tier": 3
-      }
-    ],
-    "items": [
-      {
-        "name": "Vitality Potion",
-        "tier": 2
-      },
-      {
-        "name": "Gatling Gun",
-        "tier": 3
-      },
-      {
-        "name": "The Eclipse",
-        "tier": 4
-      },
-      {
-        "name": "Thrusters",
-        "tier": 3
-      },
-      {
-        "name": "Gatling Gun",
-        "tier": 3
-      },
-      {
-        "name": "Arken's Ring",
-        "tier": 3
-      }
-    ]
-  },
-  "Void Colossus": {
-    "id": "776c224d-1e4e-4a20-8516-550b94c05ff1",
-    "name": "Void Colossus",
+  "Gibbus": {
+    "id": "96c9ede1-34f3-442c-89d3-befbef196729",
+    "name": "Gibbus",
     "day": 10,
     "health": 4000,
     "skills": [
       {
-        "name": "Void Energy",
-        "tier": 3
-      },
-      {
-        "name": "Void Rage",
-        "tier": 3
+        "name": "Wax and Wane",
+        "tier": 1
       }
     ],
     "items": [
       {
-        "name": "Ruby",
-        "tier": 2
+        "name": "Moon Orb",
+        "tier": 1
       },
       {
-        "name": "Void Ray",
-        "tier": 2
+        "name": "Shot Glasses",
+        "tier": 1
       },
       {
-        "name": "Eye of the Colossus",
-        "tier": 4
+        "name": "Earrings",
+        "tier": 1
       },
       {
-        "name": "Void Ray",
-        "tier": 2
+        "name": "Weather Machine",
+        "tier": 1
       },
       {
-        "name": "Void Shield",
-        "tier": 3
+        "name": "Solar Drone",
+        "tier": 0
+      },
+      {
+        "name": "Steam Hose",
+        "tier": 1
+      },
+      {
+        "name": "Thrusters",
+        "tier": 1
       }
     ]
   },
@@ -3857,11 +4177,11 @@ export const monsters = {
     "skills": [
       {
         "name": "Master Salesman",
-        "tier": 3
+        "tier": 2
       },
       {
         "name": "Trader",
-        "tier": 3
+        "tier": 2
       }
     ],
     "items": [
@@ -3883,459 +4203,95 @@ export const monsters = {
       }
     ]
   },
-  "Morguloth": {
-    "id": "20863550-960f-4713-99eb-2ff2e4cfb3ef",
-    "name": "Morguloth",
+  "Void Colossus": {
+    "id": "776c224d-1e4e-4a20-8516-550b94c05ff1",
+    "name": "Void Colossus",
+    "day": 10,
+    "health": 4000,
+    "skills": [
+      {
+        "name": "Void Energy",
+        "tier": 0
+      },
+      {
+        "name": "Void Rage",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Ruby",
+        "tier": 0
+      },
+      {
+        "name": "Void Ray",
+        "tier": 2
+      },
+      {
+        "name": "Eye of the Colossus",
+        "tier": 0
+      },
+      {
+        "name": "Void Ray",
+        "tier": 2
+      },
+      {
+        "name": "Void Shield",
+        "tier": 0
+      }
+    ]
+  },
+  "Awakened District": {
+    "id": "fb2e242e-daf3-4771-bede-21b3adf03739",
+    "name": "Awakened District",
     "day": 10,
     "health": 4700,
     "skills": [
       {
-        "name": "Strength",
-        "tier": 3
+        "name": "Prosperity",
+        "tier": 2
       },
       {
-        "name": "Jack of All Trades",
+        "name": "Trickle Down Economics",
         "tier": 2
+      },
+      {
+        "name": "Toughness",
+        "tier": 0
       }
     ],
     "items": [
       {
-        "name": "Cleaver",
+        "name": "Landscraper",
+        "tier": 1
+      },
+      {
+        "name": "Soul of the District",
+        "tier": 1
+      },
+      {
+        "name": "Spacescraper",
         "tier": 2
       },
       {
-        "name": "Box Cutter",
-        "tier": 3
-      },
-      {
-        "name": "Handaxe",
-        "tier": 3
-      },
-      {
-        "name": "Haladie",
+        "name": "Balcony",
         "tier": 2
-      },
-      {
-        "name": "Chris Army Knife",
-        "tier": 2
-      },
-      {
-        "name": "Ritual Dagger",
-        "tier": 2
-      },
-      {
-        "name": "Sword of Swords",
-        "tier": 4
-      },
-      {
-        "name": "Lockbox",
-        "tier": 3
       }
     ]
   },
-  "Rex Spex": {
-    "id": "27f9cc4c-3f9e-494a-a13d-99797114c53c",
-    "name": "Rex Spex",
+  "Eight Arm Davvy": {
+    "id": "96349563-bfb5-46ef-8dff-dbf1ff0d4196",
+    "name": "Eight Arm Davvy",
     "day": 10,
-    "health": 3600,
+    "health": 8888,
     "skills": [
       {
-        "name": "Healthy Friendship",
-        "tier": 2
+        "name": "Arms Race",
+        "tier": 0
       },
       {
-        "name": "Static Acceleration",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Dinosawer",
-        "tier": 2
-      },
-      {
-        "name": "Rex Spex",
-        "tier": 2
-      },
-      {
-        "name": "YLW-M4NT1S",
-        "tier": 2
-      },
-      {
-        "name": "Dino Disguise",
-        "tier": 2,
-        "enchant": "Fiery"
-      },
-      {
-        "name": "Zoarcid",
-        "tier": 2
-      },
-      {
-        "name": "Race Carl",
-        "tier": 2
-      }
-    ]
-  },
-  "Dooltron": {
-    "id": "25f54463-2cca-419a-b0e8-8f5297896992",
-    "name": "Dooltron",
-    "day": 10,
-    "health": 3600,
-    "skills": [
-      {
-        "name": "Nanobot Construction",
-        "tier": 2
-      },
-      {
-        "name": "Electrified Hull",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "BLU-B33TL3",
-        "tier": 2
-      },
-      {
-        "name": "GRN-W4SP",
-        "tier": 2
-      },
-      {
-        "name": "BLK-SP1D3R",
-        "tier": 2
-      },
-      {
-        "name": "RED-F1R3FLY",
-        "tier": 2
-      },
-      {
-        "name": "YLW-M4NT1S",
-        "tier": 2
-      },
-      {
-        "name": "Z-Sword",
-        "tier": 2
-      },
-      {
-        "name": "Dooltron",
-        "tier": 2
-      }
-    ]
-  },
-  "Awakened Primordial": {
-    "id": "e51634b6-ce99-4038-97e4-b9d86bdddae0",
-    "name": "Awakened Primordial",
-    "day": 10,
-    "health": 3600,
-    "skills": [
-      {
-        "name": "Wake-Up Call",
-        "tier": 3
-      },
-      {
-        "name": "Heated Shells",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Elemental Depth Charge",
-        "tier": 2
-      },
-      {
-        "name": "Pufferfish",
-        "tier": 2
-      },
-      {
-        "name": "Dive Weights",
-        "tier": 2
-      },
-      {
-        "name": "Incendiary Rounds",
-        "tier": 2
-      },
-      {
-        "name": "Pearl",
-        "tier": 2,
-        "enchant": "Toxic"
-      },
-      {
-        "name": "Slumbering Primordial",
-        "tier": 2
-      }
-    ]
-  },
-  "Gibbus": {
-    "id": "96c9ede1-34f3-442c-89d3-befbef196729",
-    "name": "Gibbus",
-    "day": 10,
-    "health": 4000,
-    "skills": [],
-    "items": [
-      {
-        "name": "Shot Glasses",
-        "tier": 2
-      },
-      {
-        "name": "Earrings",
-        "tier": 2
-      },
-      {
-        "name": "Weather Machine",
-        "tier": 2
-      },
-      {
-        "name": "Solar Drone",
-        "tier": 2
-      },
-      {
-        "name": "Steam Hose",
-        "tier": 1
-      },
-      {
-        "name": "Thrusters",
-        "tier": 2
-      }
-    ]
-  },
-  "Qomatz": {
-    "id": "a5103989-fb08-4ac6-a5e8-6a610e0b1d46",
-    "name": "Qomatz",
-    "day": "event",
-    "health": 2750,
-    "skills": [
-      {
-        "name": "Ancient Vengeance",
-        "tier": 3
-      }
-    ],
-    "items": [
-      {
-        "name": "Cosmic Plumage",
-        "tier": 3
-      },
-      {
-        "name": "Barbed Claws",
-        "tier": 3,
-        "enchant": "Toxic"
-      },
-      {
-        "name": "Viper Cane",
-        "tier": 3,
-        "enchant": "Shielded"
-      },
-      {
-        "name": "Basilisk Fang",
-        "tier": 2,
-        "enchant": "Shielded"
-      },
-      {
-        "name": "Philosopher's Stone",
-        "tier": 2,
-        "enchant": "Toxic"
-      },
-      {
-        "name": "Ethergy Conduit",
-        "tier": 3
-      }
-    ]
-  },
-  "Greenheart Guardian": {
-    "id": "d1dc075f-f5d4-4bb7-9655-55591e123941",
-    "name": "Greenheart Guardian",
-    "day": "event",
-    "health": 2325,
-    "skills": [
-      {
-        "name": "Guardian's Fury",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Fang",
-        "tier": 2,
-        "enchant": "Toxic"
-      },
-      {
-        "name": "Venom",
-        "tier": 2
-      },
-      {
-        "name": "Fang",
-        "tier": 2,
-        "enchant": "Toxic"
-      },
-      {
-        "name": "Venom",
-        "tier": 2
-      },
-      {
-        "name": "Poppy Field",
-        "tier": 2
-      },
-      {
-        "name": "Emerald",
-        "tier": 2
-      },
-      {
-        "name": "Guardian Shell",
-        "tier": 2
-      }
-    ]
-  },
-  "Mythkeeper": {
-    "id": "4ce6d441-4aed-455b-b83f-0b057b462515",
-    "name": "Mythkeeper",
-    "day": "event",
-    "health": 1925,
-    "skills": [
-      {
-        "name": "Siphoned Shield",
-        "tier": 2
-      }
-    ],
-    "items": [
-      {
-        "name": "Wand",
-        "tier": 2
-      },
-      {
-        "name": "Robe",
-        "tier": 1
-      },
-      {
-        "name": "Zoot Flute",
-        "tier": 2
-      },
-      {
-        "name": "Forgotten God",
-        "tier": 2
-      },
-      {
-        "name": "Incense",
-        "tier": 2
-      },
-      {
-        "name": "Ectoplasm",
-        "tier": 2,
-        "enchant": "Shielded"
-      },
-      {
-        "name": "Fungal Spores",
-        "tier": 2
-      },
-      {
-        "name": "Venomous Dose",
-        "tier": 2
-      }
-    ]
-  },
-  "Mr. Moo": {
-    "id": "72411b58-e99a-44a9-a43f-9767896c7508",
-    "name": "Mr. Moo",
-    "day": "event",
-    "health": 2325,
-    "skills": [
-      {
-        "name": "Dual Wield",
-        "tier": 3
-      }
-    ],
-    "items": [
-      {
-        "name": "Incendiary Rounds",
-        "tier": 2
-      },
-      {
-        "name": "Incendiary Rounds",
-        "tier": 2
-      },
-      {
-        "name": "Incendiary Rounds",
-        "tier": 3
-      },
-      {
-        "name": "Tommoo Gun",
-        "tier": 3
-      },
-      {
-        "name": "Incendiary Rounds",
-        "tier": 3
-      },
-      {
-        "name": "Incendiary Rounds",
-        "tier": 3
-      },
-      {
-        "name": "Tommoo Gun",
-        "tier": 3
-      },
-      {
-        "name": "Incendiary Rounds",
-        "tier": 3
-      },
-      {
-        "name": "Incendiary Rounds",
-        "tier": 2
-      },
-      {
-        "name": "Incendiary Rounds",
-        "tier": 2
-      }
-    ]
-  },
-  "Bounty Hunter": {
-    "id": "0f0b2074-06d7-4aea-a5aa-9e603602215a",
-    "name": "Bounty Hunter",
-    "day": "event",
-    "health": 1550,
-    "skills": [
-      {
-        "name": "Ambush",
-        "tier": 1
-      }
-    ],
-    "items": [
-      {
-        "name": "Revolver",
-        "tier": 2
-      },
-      {
-        "name": "Thrown Net",
-        "tier": 2
-      },
-      {
-        "name": "Revolver",
-        "tier": 2
-      },
-      {
-        "name": "Cutlass",
-        "tier": 1
-      },
-      {
-        "name": "Wanted Poster",
-        "tier": 1
-      },
-      {
-        "name": "Flashbang",
-        "tier": 1
-      },
-      {
-        "name": "Broken Shackles",
-        "tier": 2
-      }
-    ]
-  },
-  "Mimic": {
-    "id": "85420ae1-363b-4e84-8405-cc1a306b00fb",
-    "name": "Mimic",
-    "day": "event",
-    "health": 2750,
-    "skills": [
-      {
-        "name": "Ravenous",
-        "tier": 4
+        "name": "Hyper Focus",
+        "tier": 0
       },
       {
         "name": "Strength",
@@ -4344,91 +4300,177 @@ export const monsters = {
     ],
     "items": [
       {
-        "name": "Fang",
-        "tier": 3,
-        "enchant": "Heavy"
+        "name": "Tiny Cutlass",
+        "tier": 0
       },
       {
-        "name": "Fang",
-        "tier": 3,
-        "enchant": "Icy"
+        "name": "Tiny Cutlass",
+        "tier": 0
       },
       {
-        "name": "Fang",
-        "tier": 3,
-        "enchant": "Fiery"
+        "name": "Tiny Cutlass",
+        "tier": 0
       },
       {
-        "name": "Fang",
-        "tier": 3,
-        "enchant": "Obsidian"
+        "name": "Tiny Cutlass",
+        "tier": 0
       },
       {
-        "name": "Fang",
-        "tier": 3,
-        "enchant": "Shiny"
+        "name": "Octopus",
+        "tier": 0
       },
       {
-        "name": "Fang",
-        "tier": 3,
-        "enchant": "Shiny"
+        "name": "Tiny Cutlass",
+        "tier": 0
       },
       {
-        "name": "Fang",
-        "tier": 3,
-        "enchant": "Obsidian"
+        "name": "Tiny Cutlass",
+        "tier": 0
       },
       {
-        "name": "Fang",
-        "tier": 3,
-        "enchant": "Fiery"
+        "name": "Tiny Cutlass",
+        "tier": 0
       },
       {
-        "name": "Fang",
-        "tier": 3,
-        "enchant": "Icy"
-      },
-      {
-        "name": "Fang",
-        "tier": 3,
-        "enchant": "Heavy"
+        "name": "Tiny Cutlass",
+        "tier": 0
       }
     ]
   },
-  "Aleppa Tantius": {
-    "id": "b988bbe5-35cf-445e-bea5-ec54b8daf54a",
-    "name": "Aleppa Tantius",
-    "day": "event",
-    "health": 3050,
+  "Lord Arken": {
+    "id": "8f73d2d6-6071-4464-bb19-8e0783de4df0",
+    "name": "Lord Arken",
+    "day": 10,
+    "health": 4700,
     "skills": [
       {
-        "name": "Scramble Fighters",
+        "name": "Unwavering",
+        "tier": 2
+      },
+      {
+        "name": "Strength",
+        "tier": 0
+      },
+      {
+        "name": "Flurry of Blows",
         "tier": 2
       }
     ],
     "items": [
       {
-        "name": "Security Drone",
+        "name": "Vitality Potion",
+        "tier": 2
+      },
+      {
+        "name": "Gatling Gun",
         "tier": 1
       },
       {
-        "name": "Tantius Carrier",
-        "tier": 4
-      },
-      {
-        "name": "Rocket Drone",
+        "name": "The Eclipse",
         "tier": 2
       },
       {
-        "name": "Caracara",
+        "name": "Thrusters",
+        "tier": 1
+      },
+      {
+        "name": "Gatling Gun",
+        "tier": 1
+      },
+      {
+        "name": "Arken's Ring",
+        "tier": 2
+      }
+    ]
+  },
+  "Morguloth": {
+    "id": "20863550-960f-4713-99eb-2ff2e4cfb3ef",
+    "name": "Morguloth",
+    "day": 10,
+    "health": 4700,
+    "skills": [
+      {
+        "name": "Jack of All Trades",
         "tier": 2
       },
       {
-        "name": "Jetpack",
+        "name": "Strength",
+        "tier": 0
+      }
+    ],
+    "items": [
+      {
+        "name": "Cleaver",
+        "tier": 0
+      },
+      {
+        "name": "Box Cutter",
+        "tier": 0
+      },
+      {
+        "name": "Handaxe",
+        "tier": 0
+      },
+      {
+        "name": "Haladie",
+        "tier": 0
+      },
+      {
+        "name": "Chris Army Knife",
+        "tier": 0
+      },
+      {
+        "name": "Ritual Dagger",
         "tier": 2
       },
       {
-        "name": "Lightning Butterfly",
+        "name": "Sword of Swords",
+        "tier": 0
+      },
+      {
+        "name": "Lockbox",
+        "tier": 1
+      }
+    ]
+  },
+  "Void Golem": {
+    "id": "568d3090-6703-4c42-bd65-ba50f883e869",
+    "name": "Void Golem",
+    "day": 10,
+    "health": 4700,
+    "skills": [
+      {
+        "name": "Into the Void",
+        "tier": 2
+      },
+      {
+        "name": "Void Render",
+        "tier": 2
+      }
+    ],
+    "items": [
+      {
+        "name": "Singularity",
+        "tier": 2
+      },
+      {
+        "name": "Void Ray",
+        "tier": 2
+      },
+      {
+        "name": "Void Ray",
+        "tier": 2
+      },
+      {
+        "name": "Caltrops",
+        "tier": 2
+      },
+      {
+        "name": "Caltrops",
+        "tier": 2
+      },
+      {
+        "name": "Spices",
         "tier": 2
       }
     ]
