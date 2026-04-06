@@ -768,6 +768,10 @@ export class Item {
     }
 
     applySlow(duration) {
+        // Flying items are affected by Slow for half as long
+        if(this.flying) {
+            duration = duration / 2;
+        }
         this.slowTimeRemaining += duration * 1000;    
         this.isSlowed = 1;
         this.board.hasSlowedItem = 1;
@@ -830,7 +834,7 @@ export class Item {
         {
             if (this.slowTimeRemaining > 0) {
                 if(!this.hasteTimeRemaining>0)effectiveTimeDiff *= 0.5; // slow multiplier                
-                this.slowTimeRemaining -= timeDiff * (this.flying?2:1);
+                this.slowTimeRemaining -= timeDiff;
                 if(this.slowTimeRemaining <= 0) {
                     this.slowTimeRemaining = 0;
                     this.isSlowed = 0;
@@ -847,7 +851,7 @@ export class Item {
     updateBattle(timeDiff) {
         
         if(this.freezeTimeRemaining > 0) {
-            this.freezeTimeRemaining -= timeDiff * (this.flying?2:1);
+            this.freezeTimeRemaining -= timeDiff;
             if(this.freezeTimeRemaining > 0) {
                 this.element.classList.add('frozen');       
                 this.freezeElement.classList.remove('hidden');
@@ -1020,6 +1024,10 @@ export class Item {
         if(source!=null) { return source.applyFreezeTo(this,duration);}
         if(this.enchant=='Radiant') return;
         if(this.isDestroyed) return;
+        // Flying items are affected by Freeze for half as long
+        if(this.flying) {
+            duration = duration / 2;
+        }
         this.freezeTimeRemaining += duration*1000;
         this.board.hasFrozenItem = 1;
         this.isFrozen = 1;
